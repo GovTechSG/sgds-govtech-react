@@ -1,6 +1,6 @@
 {
-  "short_name": "Theme Customizer",
-  "name": "Design System Customizer",
+  "short_name": "sgds-govtech-react",
+  "name": "Singapore Government Design System Theme Customizer & React",
   "icons": [
     {
       "src": "favicon.ico",

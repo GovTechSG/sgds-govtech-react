@@ -1,31 +1,13 @@
 {
-  "name": "sgds-theme-customizer",
+  "name": "sgds-govtech-react",
   "version": "0.1.0",
-  "private": true,
-  "dependencies": {
-    "axios": "^0.19.0",
-    "jquery": "^3.4.1",
-    "json-to-css": "^0.1.0",
-    "node-sass": "^4.12.0",
-    "react": "^16.8.6",
-    "react-color": "^2.17.3",
-    "react-compound-slider": "^2.0.0",
-    "react-dom": "^16.8.6",
-    "react-redux": "^7.1.0",
-    "react-scripts": "3.0.0",
-    "redux": "^4.0.1",
-    "redux-thunk": "^2.3.0",
-    "throttle-debounce": "^2.1.0"
-  },
+  "main": "dist/index.js",
   "scripts": {
-    "start": "react-scripts start",
     "build": "react-scripts build",
-    "test": "react-scripts test",
+    "compile": "rm -rf ./dist && NODE_ENV=production babel src/components/common --out-dir ./dist --source-maps",
     "eject": "react-scripts eject",
-    "compile": "NODE_ENV=production babel src/components/common --out-dir ./dist --source-maps"
-  },
-  "eslintConfig": {
-    "extends": "react-app"
+    "start": "react-scripts start",
+    "test": "react-scripts test"
   },
   "browserslist": {
     "production": [
@@ -39,9 +21,21 @@
       "last 1 safari version"
     ]
   },
+  "eslintConfig": {
+    "extends": "react-app"
+  },
   "devDependencies": {
     "@babel/cli": "^7.5.5",
     "@babel/preset-react": "^7.0.0",
-    "typescript": "^3.5.1"
+    "node-sass": "^4.12.0",
+    "react": "^16.8.6",
+    "react-color": "^2.17.3",
+    "react-compound-slider": "^2.0.0",
+    "react-dom": "^16.8.6",
+    "react-redux": "^7.1.0",
+    "react-scripts": "3.0.0",
+    "redux": "^4.0.1",
+    "redux-thunk": "^2.3.0",
+    "throttle-debounce": "^2.1.0"
   }
 }
