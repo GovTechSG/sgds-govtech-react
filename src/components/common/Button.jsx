@@ -85,7 +85,7 @@ class Button extends Component {
         onMouseEnter={() => this.mouseHoverOn()}
         onMouseLeave={() => this.mouseHoverOff()}
       >
-        button
+        {this.props.children}
       </a>
     );
   }

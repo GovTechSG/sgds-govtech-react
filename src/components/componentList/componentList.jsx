@@ -277,7 +277,9 @@ class ComponentList extends Component {
             paddingVertical={smBtnPaddingVertical}
             themePrimaryColor={themePrimaryColor}
             buttonSize="small"
-          />
+          >
+            button
+          </Button>
           <Button
             isPrimary={true}
             isOutlined={true}
@@ -285,7 +287,9 @@ class ComponentList extends Component {
             paddingVertical={smBtnPaddingVertical}
             themePrimaryColor={themePrimaryColor}
             buttonSize="small"
-          />
+          >
+            button
+          </Button>
           <Button
             isPrimary={true}
             isRounded={true}
@@ -293,7 +297,9 @@ class ComponentList extends Component {
             paddingVertical={smBtnPaddingVertical}
             themePrimaryColor={themePrimaryColor}
             buttonSize="small"
-          />
+          >
+            button
+          </Button>
           <Button
             isPrimary={true}
             isDisabled={true}
@@ -301,7 +307,9 @@ class ComponentList extends Component {
             paddingVertical={smBtnPaddingVertical}
             themePrimaryColor={themePrimaryColor}
             buttonSize="small"
-          />
+          >
+            button
+          </Button>
         </div>
         <div className="button-row">
           <Button
@@ -310,7 +318,9 @@ class ComponentList extends Component {
             paddingVertical={meBtnPaddingVertical}
             themePrimaryColor={themePrimaryColor}
             buttonSize="medium"
-          />
+          >
+            button
+          </Button>
           <Button
             isPrimary={true}
             isOutlined={true}
@@ -318,7 +328,9 @@ class ComponentList extends Component {
             paddingVertical={meBtnPaddingVertical}
             themePrimaryColor={themePrimaryColor}
             buttonSize="medium"
-          />
+          >
+            button
+          </Button>
           <Button
             isPrimary={true}
             isRounded={true}
@@ -326,7 +338,9 @@ class ComponentList extends Component {
             paddingVertical={meBtnPaddingVertical}
             themePrimaryColor={themePrimaryColor}
             buttonSize="medium"
-          />
+          >
+            button
+          </Button>
           <Button
             isPrimary={true}
             isDisabled={true}
@@ -334,7 +348,9 @@ class ComponentList extends Component {
             paddingVertical={meBtnPaddingVertical}
             themePrimaryColor={themePrimaryColor}
             buttonSize="medium"
-          />
+          >
+            button
+          </Button>
         </div>
         <div className="button-row">
           <Button
@@ -343,7 +359,9 @@ class ComponentList extends Component {
             paddingVertical={laBtnPaddingVertical}
             themePrimaryColor={themePrimaryColor}
             buttonSize="large"
-          />
+          >
+            button
+          </Button>
           <Button
             isPrimary={true}
             isOutlined={true}
@@ -351,7 +369,9 @@ class ComponentList extends Component {
             paddingVertical={laBtnPaddingVertical}
             themePrimaryColor={themePrimaryColor}
             buttonSize="large"
-          />
+          >
+            button
+          </Button>
           <Button
             isPrimary={true}
             isRounded={true}
@@ -359,7 +379,9 @@ class ComponentList extends Component {
             paddingVertical={laBtnPaddingVertical}
             themePrimaryColor={themePrimaryColor}
             buttonSize="large"
-          />
+          >
+            button
+          </Button>
           <Button
             isPrimary={true}
             isDisabled={true}
@@ -367,7 +389,9 @@ class ComponentList extends Component {
             paddingVertical={laBtnPaddingVertical}
             themePrimaryColor={themePrimaryColor}
             buttonSize="large"
-          />
+          >
+            button
+          </Button>
         </div>
         <div className="elementTitle">Navigation Bar</div>
         <MainNav brand={this.mainNavItems.brand} links={this.mainNavItems.links} />
