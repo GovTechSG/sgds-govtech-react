@@ -37,6 +37,10 @@ class ColorPicker extends Component {
             onClick={() => this.toggleColorPicker()}
             readOnly
           />
+          <div
+            className="color-preview"
+            style={{ backgroundColor: this.props.inputColor }}
+          />
           {this.state.showColorPicker ? (
             <div style={popover}>
               <div style={cover} onClick={() => this.hideColorPicker()} />
