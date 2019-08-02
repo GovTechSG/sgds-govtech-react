@@ -35,9 +35,32 @@ class ComponentList extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      hover: false
+      defaultButtonText: "Default Button",
+      primaryButtonText: "Primary Button"
     };
   }
+  defaultButtonClicked = () => {
+    this.setState({
+      defaultButtonText: "Clicked!"
+    });
+    setTimeout(() => {
+      this.setState({
+        defaultButtonText: "Default Button"
+      });
+    }, 1500);
+  };
+
+  primaryButtonClicked = () => {
+    this.setState({
+      primaryButtonText: "Clicked!"
+    });
+    setTimeout(() => {
+      this.setState({
+        primaryButtonText: "Default Button"
+      });
+    }, 1500);
+  };
+
   // Export style
   exportStyle = exportcss => {
     var buttonLarge =
@@ -237,19 +260,6 @@ class ComponentList extends Component {
     excerpt: ["Excerpt 1", "Excerpt 2", "Excerpt 3", "Excerpt 4", "Excerpt 5"]
   };
 
-  // Handle button hovered
-  hoverOn() {
-    this.setState({
-      hover: true
-    });
-  }
-
-  hoverOff() {
-    this.setState({
-      hover: false
-    });
-  }
-
   render() {
     const smBtnPaddingHorizontal = this.props.buttonSmallHorizontalPadding;
     const smBtnPaddingVertical = this.props.buttonSmallVerticalPadding;
@@ -270,6 +280,12 @@ class ComponentList extends Component {
     return (
       <div className="componentList content">
         <div className="elementTitle">Buttons</div>
+        <div className="button-row">
+          <Button onClick={this.defaultButtonClicked}>{this.state.defaultButtonText}</Button>
+          <Button isPrimary={true} onClick={this.primaryButtonClicked}>
+            {this.state.primaryButtonText}
+          </Button>
+        </div>
         <div className="button-row">
           <Button
             isPrimary={true}

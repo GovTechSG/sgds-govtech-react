@@ -1,5 +1,6 @@
 /* eslint-disable jsx-a11y/anchor-is-valid */
 import React, { Component } from "react";
+import PropTypes from "prop-types";
 
 class Button extends Component {
   constructor(props) {
@@ -60,9 +61,7 @@ class Button extends Component {
         paddingTop: this.props.paddingVertical,
         paddingBottom: this.props.paddingVertical,
         borderColor: this.props.themePrimaryColor,
-        backgroundColor: this.state.hovered
-          ? this.props.themePrimaryColor
-          : "transparent",
+        backgroundColor: this.state.hovered ? this.props.themePrimaryColor : "transparent",
         color: this.state.hovered ? "#fff" : this.props.themePrimaryColor
       };
     } else {
@@ -84,11 +83,23 @@ class Button extends Component {
         disabled={this.isDisabled()}
         onMouseEnter={() => this.mouseHoverOn()}
         onMouseLeave={() => this.mouseHoverOff()}
+        onClick={this.props.onClick}
       >
         {this.props.children}
       </a>
     );
   }
 }
+
+Button.propTypes = {
+  isPrimary: PropTypes.bool,
+  isOutlined: PropTypes.bool,
+  isRounded: PropTypes.bool,
+  buttonSize: PropTypes.string,
+  isDisabled: PropTypes.bool,
+  paddingHorizontal: PropTypes.number,
+  paddingVertical: PropTypes.number,
+  themePrimaryColor: PropTypes.string
+};
 
 export default Button;

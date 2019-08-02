@@ -31,6 +31,7 @@
     "@babel/cli": "^7.5.5",
     "@babel/preset-react": "^7.0.0",
     "node-sass": "^4.12.0",
+    "prop-types": "^15.7.2",
     "react": "^16.8.6",
     "react-color": "^2.17.3",
     "react-compound-slider": "^2.0.0",
