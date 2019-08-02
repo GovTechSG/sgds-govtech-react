@@ -7,12 +7,14 @@ import TypographyComponent from "../typographyComponent/typographyComponent";
 import TableComponent from "../tableComponent/tableComponent";
 import cssPresets from "../../cssPresets/cssPresets";
 
-import MainNav from "../common/MainNav";
-import Button from "../common/Button";
-import Breadcrumb from "../common/Breadcrumb";
-import AccordionBar from "../common/AccordionBar";
-import Card from "../common/Card";
-import Callout from "../common/Callout";
+import {
+  MainNav,
+  Button,
+  Breadcrumb,
+  AccordionBar,
+  Card,
+  Callout
+} from "../common";
 
 // Import Redux Store
 import {
@@ -26,9 +28,32 @@ class ComponentList extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      hover: false
+      defaultButtonText: "Default Button",
+      primaryButtonText: "Primary Button"
     };
   }
+  defaultButtonClicked = () => {
+    this.setState({
+      defaultButtonText: "Clicked!"
+    });
+    setTimeout(() => {
+      this.setState({
+        defaultButtonText: "Default Button"
+      });
+    }, 1500);
+  };
+
+  primaryButtonClicked = () => {
+    this.setState({
+      primaryButtonText: "Clicked!"
+    });
+    setTimeout(() => {
+      this.setState({
+        primaryButtonText: "Default Button"
+      });
+    }, 1500);
+  };
+
   // Export style
   exportStyle = exportcss => {
     var buttonLarge =
@@ -254,19 +279,6 @@ class ComponentList extends Component {
     excerpt: ["Excerpt 1", "Excerpt 2", "Excerpt 3", "Excerpt 4", "Excerpt 5"]
   };
 
-  // Handle button hovered
-  hoverOn() {
-    this.setState({
-      hover: true
-    });
-  }
-
-  hoverOff() {
-    this.setState({
-      hover: false
-    });
-  }
-
   render() {
     const tableHeadColor = this.props.tableHeadColor;
     const themePrimaryColor = this.props.themePrimaryColor;
@@ -274,79 +286,111 @@ class ComponentList extends Component {
       <div className="componentList content">
         <div className="elementTitle">Buttons</div>
         <div className="button-row">
+          <Button onClick={this.defaultButtonClicked}>
+            {this.state.defaultButtonText}
+          </Button>
+          <Button isPrimary={true} onClick={this.primaryButtonClicked}>
+            {this.state.primaryButtonText}
+          </Button>
+        </div>
+        <div className="button-row">
           <Button
             isPrimary={true}
             themePrimaryColor={themePrimaryColor}
             buttonSize="small"
-          />
+          >
+            button
+          </Button>
           <Button
             isPrimary={true}
             isOutlined={true}
             themePrimaryColor={themePrimaryColor}
             buttonSize="small"
-          />
+          >
+            button
+          </Button>
           <Button
             isPrimary={true}
             isRounded={true}
             themePrimaryColor={themePrimaryColor}
             buttonSize="small"
-          />
+          >
+            button
+          </Button>
           <Button
             isPrimary={true}
             isDisabled={true}
             themePrimaryColor={themePrimaryColor}
             buttonSize="small"
-          />
+          >
+            button
+          </Button>
         </div>
         <div className="button-row">
           <Button
             isPrimary={true}
             themePrimaryColor={themePrimaryColor}
             buttonSize="medium"
-          />
+          >
+            button
+          </Button>
           <Button
             isPrimary={true}
             isOutlined={true}
             themePrimaryColor={themePrimaryColor}
             buttonSize="medium"
-          />
+          >
+            button
+          </Button>
           <Button
             isPrimary={true}
             isRounded={true}
             themePrimaryColor={themePrimaryColor}
             buttonSize="medium"
-          />
+          >
+            button
+          </Button>
           <Button
             isPrimary={true}
             isDisabled={true}
             themePrimaryColor={themePrimaryColor}
             buttonSize="medium"
-          />
+          >
+            button
+          </Button>
         </div>
         <div className="button-row">
           <Button
             isPrimary={true}
             themePrimaryColor={themePrimaryColor}
             buttonSize="large"
-          />
+          >
+            button
+          </Button>
           <Button
             isPrimary={true}
             isOutlined={true}
             themePrimaryColor={themePrimaryColor}
             buttonSize="large"
-          />
+          >
+            button
+          </Button>
           <Button
             isPrimary={true}
             isRounded={true}
             themePrimaryColor={themePrimaryColor}
             buttonSize="large"
-          />
+          >
+            button
+          </Button>
           <Button
             isPrimary={true}
             isDisabled={true}
             themePrimaryColor={themePrimaryColor}
             buttonSize="large"
-          />
+          >
+            button
+          </Button>
         </div>
         <div className="elementTitle">Navigation Bar</div>
         <MainNav
@@ -391,11 +435,16 @@ class ComponentList extends Component {
 
 const mapStateToProps = state => {
   return {
+    themePrimaryColor: state.cssProperties.themePrimaryColor,
+    themeSecondaryColor: state.cssProperties.themeSecondaryColor,
+    infoColor: state.cssProperties.infoColor,
+    successColor: state.cssProperties.successColor,
+    dangerColor: state.cssProperties.dangerColor,
+    warningColor: state.cssProperties.warningColor,
     tableHeadColor: state.cssProperties.tableHeadColor,
     tableIsNarrow: state.cssProperties.tableIsNarrow,
     tableIsHoverable: state.cssProperties.tableIsHoverable,
-    tableIsFullwidth: state.cssProperties.tableIsFullwidth,
-    themePrimaryColor: state.cssProperties.themePrimaryColor
+    tableIsFullwidth: state.cssProperties.tableIsFullwidth
   };
 };
 

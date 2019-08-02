@@ -1,68 +1,53 @@
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+# sgds-govtech-react
 
-## Available Scripts
+React components powered by [Singapore Government Design System](https://www.designsystem.gov.sg).
 
-In the project directory, you can run:
+We are in early development! If you are trying out sgds-govtech-react, feel free to leave us feedback in the issues page, or even submit a [PR](https://github.com/govtechsg/sgds-govtech-react/pulls)!
 
-### `npm start`
+## Installation
+```
+npm install sgds-govtech-react
+```
+## Usage
 
-Runs the app in the development mode.<br>
-Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
+### You will need to first import the [sgds](https://www.designsystem.gov.sg) css styles, either in your website's `<head>` element or through your frontend build.
 
-The page will reload if you make edits.<br>
-You will also see any lint errors in the console.
+#### HTML
+```html
+<head>
+    <link
+        rel="stylesheet"
+        href="https://unpkg.com/sgds-govtech/css/sgds.css"
+    />
+</head>
+```
 
-### `npm test`
+#### Webpack
 
-Launches the test runner in the interactive watch mode.<br>
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+```javascript
+// In your entry point
 
-### `npm run build`
+import 'sgds-govtech/sass/sgds.css'
+```
 
-Builds the app for production to the `build` folder.<br>
-It correctly bundles React in production mode and optimizes the build for the best performance.
+### Getting started
 
-The build is minified and the filenames include the hashes.<br>
-Your app is ready to be deployed!
+```jsx
+import React from 'react';
+import ReactDOM from 'react-dom';
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+import { Button } from "sgds-govtech-react";
 
-### `npm run eject`
+const app = () => {
+    return (
+        <div className="App">
+            <Button>Submit</Button>
+        </div>
+    )
+}
 
-**Note: this is a one-way operation. Once you `eject`, you can’t go back!**
-
-If you aren’t satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
-
-Instead, it will copy all the configuration files and the transitive dependencies (Webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you’re on your own.
-
-You don’t have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn’t feel obligated to use this feature. However we understand that this tool wouldn’t be useful if you couldn’t customize it when you are ready for it.
-
-## Learn More
-
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
-
-To learn React, check out the [React documentation](https://reactjs.org/).
-
-### Code Splitting
-
-This section has moved here: https://facebook.github.io/create-react-app/docs/code-splitting
-
-### Analyzing the Bundle Size
-
-This section has moved here: https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size
-
-### Making a Progressive Web App
-
-This section has moved here: https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app
-
-### Advanced Configuration
-
-This section has moved here: https://facebook.github.io/create-react-app/docs/advanced-configuration
-
-### Deployment
-
-This section has moved here: https://facebook.github.io/create-react-app/docs/deployment
-
-### `npm run build` fails to minify
-
-This section has moved here: https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify
+ReactDOM.render(
+  app,
+  document.getElementById('root')
+);
+```
