@@ -13,6 +13,9 @@ body {
   & div {
     padding: 2rem;
   }
+  .content:not(:last-child) {
+    margin-bottom: 0px !important;
+  }
   .componentList {
     flex: 1;
     height: 100%;
@@ -95,15 +98,18 @@ body {
       overflow-y: auto;
       .buttonGroup {
         padding: 5px 10px;
+        .colorPicker:first-child {
+          padding-top: 0px;
+        }
         .colorPicker {
-          padding: 0px;
+          padding: 10px 0 0 0;
           .color-preview {
             position: absolute;
-            top: 64px;
-            right: 36px;
             width: 20px;
             height: 20px;
             border-radius: 5px;
+            z-index: 1;
+            transform: translate(960%, -128%);
           }
         }
         .inputTitle:first-child {
@@ -129,16 +135,6 @@ body {
           border-radius: 0.5rem;
         }
       }
-      // .colorPicker {
-      //   padding: 5px 10px;
-      //   & div {
-      //     padding: initial;
-      //   }
-      //   .rowTitle {
-      //     padding: 5px 10px;
-      //   }
-
-      // }
     }
     & div {
       padding: 0px;

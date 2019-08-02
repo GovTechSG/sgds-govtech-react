@@ -1,6 +1,11 @@
 const cssPresets = {
   themePresets: {
-    primaryColor: "#6037b3"
+    primaryColor: "#6037b3",
+    secondaryColor: "#4675d3",
+    infoColor: "#4372D6",
+    successColor: "#1ca161",
+    dangerColor: "#D0021B",
+    warningColor: "#F5A623"
   },
   buttonPresets: {
     smPaddingHorizontalDefault: 9,

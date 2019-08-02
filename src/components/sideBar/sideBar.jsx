@@ -11,12 +11,18 @@ import ColorPicker from "./colorPicker";
 
 // Import Redux Store
 import {
+  updateThemePrimaryColor,
+  updateThemeSecondaryColor,
+  updateThemeInfoColor,
+  updateThemeSuccessColor,
+  updateThemeDangerColor,
+  updateThemeWarningColor,
   updateTableHeadColor,
   updateTableHoverable,
   updateTableFullwidth,
-  updateTableNarrow,
-  updateThemePrimaryColor
+  updateTableNarrow
 } from "../../store/actions/index";
+// import { statement } from "@babel/template";
 
 class Sidebar extends Component {
   constructor(props) {
@@ -79,27 +85,6 @@ class Sidebar extends Component {
     );
   };
 
-  handlePrimaryColorUpdate = color => {
-    try {
-      this.props.updateThemePrimaryColor(color.hex);
-    } catch (error) {
-      console.log("Error: ", error);
-    }
-  };
-
-  renderSetPrimaryColorDefault = () => {
-    if (this.props.themePrimaryColor !== cssPresets.themePresets.primaryColor) {
-      return (
-        <div
-          className="col is-12 resetBtn"
-          onClick={() => this.resetPrimaryColorDefault()}
-        >
-          <a>Reset to default</a>
-        </div>
-      );
-    }
-  };
-
   renderSetTableHeadColorDefault = () => {
     if (
       this.props.tableHeadColor !==
@@ -116,19 +101,97 @@ class Sidebar extends Component {
     }
   };
 
+  handleColorChange = (color, colorCat) => {
+    if (colorCat === "prcolor") {
+      try {
+        this.props.updateThemePrimaryColor(color.hex);
+      } catch (error) {
+        console.log("Error: ", error);
+      }
+    } else if (colorCat === "secolor") {
+      try {
+        this.props.updateThemeSecondaryColor(color.hex);
+      } catch (error) {
+        console.log("Error: ", error);
+      }
+    } else if (colorCat === "incolor") {
+      try {
+        this.props.updateThemeInfoColor(color.hex);
+      } catch (error) {
+        console.log("Error: ", error);
+      }
+    } else if (colorCat === "sucolor") {
+      try {
+        this.props.updateThemeSuccessColor(color.hex);
+      } catch (error) {
+        console.log("Error: ", error);
+      }
+    } else if (colorCat === "dacolor") {
+      try {
+        this.props.updateThemeDangerColor(color.hex);
+      } catch (error) {
+        console.log("Error: ", error);
+      }
+    } else if (colorCat === "wacolor") {
+      try {
+        this.props.updateThemeWarningColor(color.hex);
+      } catch (error) {
+        console.log("Error: ", error);
+      }
+    }
+  };
+
+  resetColors = colorCat => {
+    if (colorCat === "prcolor") {
+      try {
+        this.props.updateThemePrimaryColor(
+          cssPresets.themePresets.primaryColor
+        );
+      } catch (error) {
+        console.log("Error: ", error);
+      }
+    } else if (colorCat === "secolor") {
+      try {
+        this.props.updateThemeSecondaryColor(
+          cssPresets.themePresets.secondaryColor
+        );
+      } catch (error) {
+        console.log("Error: ", error);
+      }
+    } else if (colorCat === "incolor") {
+      try {
+        this.props.updateThemeInfoColor(cssPresets.themePresets.infoColor);
+      } catch (error) {
+        console.log("Error: ", error);
+      }
+    } else if (colorCat === "sucolor") {
+      try {
+        this.props.updateThemeSuccessColor(
+          cssPresets.themePresets.successColor
+        );
+      } catch (error) {
+        console.log("Error: ", error);
+      }
+    } else if (colorCat === "dacolor") {
+      try {
+        this.props.updateThemeDangerColor(cssPresets.themePresets.dangerColor);
+      } catch (error) {
+        console.log("Error: ", error);
+      }
+    } else if (colorCat === "wacolor") {
+      try {
+        this.props.updateThemeDangerColor(cssPresets.themePresets.warningColor);
+      } catch (error) {
+        console.log("Error: ", error);
+      }
+    }
+  };
+
   resetTableHeadColerDefault = () => {
     try {
       this.props.updateTableHeadColor(
         cssPresets.tablePresets.tableHeadColorDefault
       );
-    } catch (error) {
-      console.log("Error: ", error);
-    }
-  };
-
-  resetPrimaryColorDefault = () => {
-    try {
-      this.props.updateThemePrimaryColor(cssPresets.themePresets.primaryColor);
     } catch (error) {
       console.log("Error: ", error);
     }
@@ -142,9 +205,92 @@ class Sidebar extends Component {
           <ColorPicker
             colorName="Primary Color"
             inputColor={this.props.themePrimaryColor}
-            changeColor={this.handlePrimaryColorUpdate}
+            changeColor={event => this.handleColorChange(event, "prcolor")}
           />
-          {this.renderSetPrimaryColorDefault()}
+          {this.props.themePrimaryColor ===
+          cssPresets.themePresets.primaryColor ? null : (
+            <div
+              className="col is-12 resetBtn"
+              onClick={() => this.resetColors("prcolor")}
+            >
+              <a>Reset to default</a>
+            </div>
+          )}
+          <ColorPicker
+            colorName="Secondary Color"
+            inputColor={this.props.themeSecondaryColor}
+            changeColor={event => this.handleColorChange(event, "secolor")}
+          />
+          {this.props.themeSecondaryColor ===
+          cssPresets.themePresets.secondaryColor ? null : (
+            <div
+              className="col is-12 resetBtn"
+              onClick={() => this.resetColors("secolor")}
+            >
+              <a>Reset to default</a>
+            </div>
+          )}
+          <ColorPicker
+            colorName="Info Color"
+            inputColor={this.props.infoColor}
+            changeColor={event => this.handleColorChange(event, "incolor")}
+          />
+          {this.props.infoColor === cssPresets.themePresets.infoColor ? null : (
+            <div
+              className="col is-12 resetBtn"
+              onClick={() => this.resetColors("incolor")}
+            >
+              <a>Reset to default</a>
+            </div>
+          )}
+          <ColorPicker
+            colorName="Success Color"
+            inputColor={this.props.successColor}
+            changeColor={event => this.handleColorChange(event, "sucolor")}
+          />
+          {this.props.successColor ===
+          cssPresets.themePresets.successColor ? null : (
+            <div
+              className="col is-12 resetBtn"
+              onClick={() => this.resetColors("sucolor")}
+            >
+              <a>Reset to default</a>
+            </div>
+          )}
+          <ColorPicker
+            colorName="Danger Color"
+            inputColor={this.props.dangerColor}
+            changeColor={event => this.handleColorChange(event, "dacolor")}
+          />
+          {this.props.dangerColor ===
+          cssPresets.themePresets.dangerColor ? null : (
+            <div
+              className="col is-12 resetBtn"
+              onClick={() => this.resetColors("dacolor")}
+            >
+              <a>Reset to default</a>
+            </div>
+          )}
+          <ColorPicker
+            colorName="Warning Color"
+            inputColor={this.props.warningColor}
+            changeColor={event => this.handleColorChange(event, "wacolor")}
+          />
+          {this.props.warningColor ===
+          cssPresets.themePresets.warningColor ? null : (
+            <div
+              className="col is-12 resetBtn"
+              onClick={() => this.resetColors("wacolor")}
+            >
+              <a>Reset to default</a>
+            </div>
+          )}
+          <ColorPicker
+            colorName="Table Head Color"
+            inputColor={this.props.tableHeadColor}
+            changeColor={this.handleTableHeadColorUpdate}
+          />
+          {this.renderSetTableHeadColorDefault()}
         </div>
       );
     }
@@ -460,18 +606,33 @@ class Sidebar extends Component {
 
 const mapStateToProps = state => {
   return {
+    themePrimaryColor: state.cssProperties.themePrimaryColor,
+    themeSecondaryColor: state.cssProperties.themeSecondaryColor,
+    infoColor: state.cssProperties.infoColor,
+    successColor: state.cssProperties.successColor,
+    dangerColor: state.cssProperties.dangerColor,
+    warningColor: state.cssProperties.warningColor,
     tableHeadColor: state.cssProperties.tableHeadColor,
     tableIsNarrow: state.cssProperties.tableIsNarrow,
     tableIsHoverable: state.cssProperties.tableIsHoverable,
-    tableIsFullwidth: state.cssProperties.tableIsFullwidth,
-    themePrimaryColor: state.cssProperties.themePrimaryColor
+    tableIsFullwidth: state.cssProperties.tableIsFullwidth
   };
 };
 
 const mapDispatchToProps = dispatch => {
   return {
-    updateThemePrimaryColor: themePrimaryColor =>
-      dispatch(updateThemePrimaryColor(themePrimaryColor)),
+    updateThemePrimaryColor: themeSecondaryColor =>
+      dispatch(updateThemePrimaryColor(themeSecondaryColor)),
+    updateThemeSecondaryColor: themePrimaryColor =>
+      dispatch(updateThemeSecondaryColor(themePrimaryColor)),
+    updateThemeInfoColor: infoColor =>
+      dispatch(updateThemeInfoColor(infoColor)),
+    updateThemeSuccessColor: successColor =>
+      dispatch(updateThemeSuccessColor(successColor)),
+    updateThemeDangerColor: dangerColor =>
+      dispatch(updateThemeDangerColor(dangerColor)),
+    updateThemeWarningColor: warningColor =>
+      dispatch(updateThemeWarningColor(warningColor)),
     updateTableHeadColor: color => dispatch(updateTableHeadColor(color)),
     updateTableNarrow: isNarrow => dispatch(updateTableNarrow(isNarrow)),
     updateTableHoverable: isHoverable =>

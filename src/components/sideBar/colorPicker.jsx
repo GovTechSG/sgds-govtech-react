@@ -27,32 +27,30 @@ class ColorPicker extends Component {
       left: "0px"
     };
     return (
-      <div>
-        <div className="colorPicker">
-          <div>{this.props.colorName}</div>
-          <input
-            className="col is-11 color"
-            type="button"
-            value={this.props.inputColor}
-            onClick={() => this.toggleColorPicker()}
-            readOnly
-          />
-          <div
-            className="color-preview"
-            style={{ backgroundColor: this.props.inputColor }}
-          />
-          {this.state.showColorPicker ? (
-            <div style={popover}>
-              <div style={cover} onClick={() => this.hideColorPicker()} />
-              <SketchPicker
-                color={this.props.inputColor}
-                onChangeComplete={this.props.changeColor}
-                disableAlpha={true}
-                presetColors={[]}
-              />
-            </div>
-          ) : null}
-        </div>
+      <div className="colorPicker">
+        <div>{this.props.colorName}</div>
+        <input
+          className="col is-11 color"
+          type="button"
+          value={this.props.inputColor}
+          onClick={() => this.toggleColorPicker()}
+          readOnly
+        />
+        <div
+          className="color-preview"
+          style={{ backgroundColor: this.props.inputColor }}
+        />
+        {this.state.showColorPicker ? (
+          <div style={popover}>
+            <div style={cover} onClick={() => this.hideColorPicker()} />
+            <SketchPicker
+              color={this.props.inputColor}
+              onChangeComplete={this.props.changeColor}
+              disableAlpha={true}
+              presetColors={[]}
+            />
+          </div>
+        ) : null}
       </div>
     );
   }
