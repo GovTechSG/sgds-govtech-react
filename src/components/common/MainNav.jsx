@@ -13,7 +13,8 @@ class MainNav extends Component {
       showSearch: false
     };
   }
-  selectMenuTab = (index, subIndex, subMenuIndex) => {
+  selectMenuTab = (item, index, subIndex, subMenuIndex) => {
+    this.props.selectItem(item);
     if (subMenuIndex >= 0) {
       this.setState({
         selectedTab: index,
@@ -105,7 +106,9 @@ class MainNav extends Component {
                                 }
                                 href={sublink.link}
                                 key={i}
-                                onClick={() => this.selectMenuTab(index, i)}
+                                onClick={() =>
+                                  this.selectMenuTab(sublink.name, index, i)
+                                }
                               >
                                 {sublink.name}
                               </a>
@@ -154,7 +157,12 @@ class MainNav extends Component {
                                             }
                                             key={b}
                                             onClick={() =>
-                                              this.selectMenuTab(index, i, b)
+                                              this.selectMenuTab(
+                                                subMenuItem.name,
+                                                index,
+                                                i,
+                                                b
+                                              )
                                             }
                                           >
                                             {subMenuItem.name}
@@ -195,7 +203,7 @@ class MainNav extends Component {
                             : "") +
                           " is-tab"
                         }
-                        onClick={() => this.selectMenuTab(index)}
+                        onClick={() => this.selectMenuTab(link.name, index)}
                       >
                         {link.img ? (
                           <img src={link.img} alt={link.name} />
