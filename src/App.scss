@@ -13,6 +13,9 @@ body {
   & div {
     padding: 2rem;
   }
+  .content:not(:last-child) {
+    margin-bottom: 0px !important;
+  }
   .componentList {
     flex: 1;
     height: 100%;
@@ -69,7 +72,7 @@ body {
   .sideBar {
     order: 1;
     flex-shrink: 0;
-    width: 400px;
+    // width: 400px;
     height: 100%;
     border-left: 1px solid #dfe3e6;
     padding: 0px;
@@ -80,6 +83,7 @@ body {
       width: 140px;
       padding: 10px 5px;
       overflow-y: auto;
+      display: none;
       .listItem {
         padding: 5px;
         a {
@@ -94,8 +98,19 @@ body {
       overflow-y: auto;
       .buttonGroup {
         padding: 5px 10px;
+        .colorPicker:first-child {
+          padding-top: 0px;
+        }
         .colorPicker {
-          padding: 0px;
+          padding: 10px 0 0 0;
+          .color-preview {
+            position: absolute;
+            width: 20px;
+            height: 20px;
+            border-radius: 5px;
+            z-index: 1;
+            transform: translate(960%, -128%);
+          }
         }
         .inputTitle:first-child {
           margin-top: 0px;
@@ -120,16 +135,6 @@ body {
           border-radius: 0.5rem;
         }
       }
-      // .colorPicker {
-      //   padding: 5px 10px;
-      //   & div {
-      //     padding: initial;
-      //   }
-      //   .rowTitle {
-      //     padding: 5px 10px;
-      //   }
-
-      // }
     }
     & div {
       padding: 0px;
