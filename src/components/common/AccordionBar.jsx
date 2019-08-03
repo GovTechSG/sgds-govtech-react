@@ -10,6 +10,12 @@ class AccordionBar extends Component {
   }
 
   selectAccordion(index) {
+    if (index === this.state.selected) {
+      this.setState({
+        selected: -1
+      });
+      return;
+    }
     this.setState({
       selected: index
     });
