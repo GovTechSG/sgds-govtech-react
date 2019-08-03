@@ -45,14 +45,6 @@ class Button extends Component {
     return className;
   }
 
-  isDisabled() {
-    if (this.props.isDisabled) {
-      return true;
-    } else {
-      return false;
-    }
-  }
-
   getStyle() {
     if (this.props.isOutlined) {
       return {
@@ -75,15 +67,21 @@ class Button extends Component {
     }
   }
 
+  onClick = () => {
+    if (!this.props.disabled) {
+      this.props.onClick();
+    }
+  }
+
   render() {
     return (
       <a
         className={this.getClassName()}
         style={this.getStyle()}
-        disabled={this.isDisabled()}
+        disabled={this.props.isDisabled}
         onMouseEnter={() => this.mouseHoverOn()}
         onMouseLeave={() => this.mouseHoverOff()}
-        onClick={this.props.onClick}
+        onClick={this.onClick}
       >
         {this.props.children}
       </a>
@@ -99,7 +97,12 @@ Button.propTypes = {
   isDisabled: PropTypes.bool,
   paddingHorizontal: PropTypes.number,
   paddingVertical: PropTypes.number,
-  themePrimaryColor: PropTypes.string
+  themePrimaryColor: PropTypes.string,
+  onClick: PropTypes.func
 };
+
+Button.defaultProps = {
+  onClick() {}
+}
 
 export default Button;
