@@ -30,27 +30,33 @@ class ComponentList extends Component {
     super(props);
     this.state = {
       defaultButtonText: "Default Button",
-      primaryButtonText: "Primary Button"
+      defaultButtonDisabled: false,
+      primaryButtonText: "Primary Button",
+      primaryButtonDisabled: false
     };
   }
   defaultButtonClicked = () => {
     this.setState({
-      defaultButtonText: "Clicked!"
+      defaultButtonText: "Clicked!",
+      defaultButtonDisabled: true
     });
     setTimeout(() => {
       this.setState({
-        defaultButtonText: "Default Button"
+        defaultButtonText: "Default Button",
+        defaultButtonDisabled: false
       });
     }, 1500);
   };
 
   primaryButtonClicked = () => {
     this.setState({
-      primaryButtonText: "Clicked!"
+      primaryButtonText: "Clicked!",
+      primaryButtonDisabled: true
     });
     setTimeout(() => {
       this.setState({
-        primaryButtonText: "Default Button"
+        primaryButtonText: "Default Button",
+        primaryButtonDisabled: false
       });
     }, 1500);
   };
@@ -297,13 +303,17 @@ class ComponentList extends Component {
       <div className="componentList content">
         <div className="elementTitle">Buttons</div>
         <div className="button-row">
-          <Button onClick={this.defaultButtonClicked}>
+          <Button
+            onClick={this.defaultButtonClicked}
+            isDisabled={this.state.defaultButtonDisabled}
+          >
             {this.state.defaultButtonText}
           </Button>
           <Button
             isPrimary={true}
             onClick={this.primaryButtonClicked}
             themePrimaryColor={themePrimaryColor}
+            isDisabled={this.state.primaryButtonDisabled}
           >
             {this.state.primaryButtonText}
           </Button>
