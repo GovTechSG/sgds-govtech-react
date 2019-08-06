@@ -61,7 +61,9 @@ class Button extends Component {
         paddingTop: this.props.paddingVertical,
         paddingBottom: this.props.paddingVertical,
         borderColor: this.props.themePrimaryColor,
-        backgroundColor: this.state.hovered ? this.props.themePrimaryColor : "transparent",
+        backgroundColor: this.state.hovered
+          ? this.props.themePrimaryColor
+          : "transparent",
         color: this.state.hovered ? "#fff" : this.props.themePrimaryColor
       };
     } else {

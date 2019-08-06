@@ -1,5 +1,6 @@
 /* eslint-disable jsx-a11y/anchor-is-valid */
 import React, { Component } from "react";
+import styled from "styled-components";
 import Brand from "./Brand";
 import PropTypes from "prop-types";
 
@@ -10,6 +11,10 @@ class MainNav extends Component {
       selectedTab: 0,
       selectedSub: 0,
       selectedSunItem: 0,
+      hoverTabName: null,
+      hoverTab: null,
+      hoverSub: null,
+      hoverSunItem: null,
       showSearch: false
     };
   }
@@ -43,19 +48,128 @@ class MainNav extends Component {
       () => console.log(this.state.showSearch)
     );
   };
-  // hoverOn = index => {
-  //   this.setState(
-  //     {
-  //       selected: index
-  //     }
-  //   );
-  // };
-  // hoverOff = () => {
-  //   this.setState({
-  //     selected: null
-  //   });
-  // };
+  hoverOn = (name, index, subIndex, subMenuIndex) => {
+    if (subMenuIndex >= 0) {
+      this.setState(
+        {
+          hoverTabName: name,
+          hoverTab: index,
+          hoverSub: subIndex,
+          hoverSunItem: subMenuIndex
+        }
+        // () =>
+        //   console.log(
+        //     this.state.hoverTabName,
+        //     this.state.hoverTab,
+        //     this.state.hoverSub,
+        //     this.state.hoverSunItem
+        //   )
+      );
+    } else if (subIndex >= 0) {
+      this.setState(
+        {
+          hoverTabName: name,
+          hoverTab: index,
+          hoverSub: subIndex,
+          hoverSunItem: null
+        }
+        // () =>
+        //   console.log(
+        //     this.state.hoverTabName,
+        //     this.state.hoverTab,
+        //     this.state.hoverSub,
+        //     this.state.hoverSunItem
+        //   )
+      );
+    } else {
+      this.setState({
+        hoverTabName: name,
+        hoverTab: index,
+        hoverSub: null,
+        hoverSunItem: null
+      });
+    }
+  };
+  hoverOff = () => {
+    this.setState({
+      hoverTabName: null,
+      hoverTab: null,
+      hoverSub: null,
+      hoverSunItem: null
+    });
+  };
   render() {
+    const NavTabWithSub = styled.a`
+      padding: 0.5rem 2rem 0.5rem 0.5rem;
+      align-items: center;
+      display: flex;
+      cursor: pointer;
+      color: #484848;
+      line-height: 1.5;
+      position: relative;
+      text-decoration: none;
+      font-size: inherit;
+      border-bottom: 5px solid transparent
+      &:hover {
+        font-weight: 600;
+        color: ${this.props.themePrimaryColor};
+      }
+      &:after {
+        color: ${this.props.themePrimaryColor};
+        content: "";
+        display: block;
+        font-family: sgds-icons;
+        margin-top: -0.7rem;
+        pointer-events: none;
+        position: absolute;
+        top: 50%;
+        right: 0.5rem;
+        border: 0;
+      }
+    `;
+    const NavTabWithNoSub = styled.a`
+      border-bottom: 5px solid transparent
+      min-height: 5.25rem;
+      padding-bottom: calc(0.5rem - 1px);
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      flex-grow: 0;
+      flex-shrink: 0;
+      color: #484848;
+      line-height: 1.5;
+      padding: 0.5rem 0.75rem;
+      position: relative;
+      &:hover {
+        color: ${this.props.themePrimaryColor};
+        font-weight: 600;
+        border-bottom: 5px solid ${this.props.themePrimaryColor};
+      }
+    `;
+    const NavSub = styled.a`
+      font-size: 1.125rem;
+      align-items: center;
+      border: 0
+      box-sizing: border-box;
+      color: rgb(72, 72, 72);
+      cursor: pointer;
+      display: flex;
+      flex-grow: 0;
+      flex-shrink: 0;
+      height: 43px;
+      line-height: 27px;
+      margin-top: 5px;
+      padding: .5rem 1rem;
+      position: relative;
+      text-decoration: none;
+      white-space: nowrap;
+      width: 158.219px;
+      &:hover {
+        color: ${this.props.themePrimaryColor};
+        font-weight: 600;
+      }
+    `;
+
     return (
       <div>
         <nav className="navbar">
@@ -83,35 +197,60 @@ class MainNav extends Component {
                         className="navbar-item has-dropdown is-hoverable"
                         key={index}
                       >
-                        <a
-                          className={
-                            "navbar-link is-uppercase" +
-                            (this.state.selectedTab === index
-                              ? " is-active"
-                              : "")
+                        <NavTabWithSub
+                          className={"is-uppercase"}
+                          // className={
+                          //   "navbar-link is-uppercase" +
+                          //   (this.state.selectedTab === index
+                          //     ? " is-active"
+                          //     : "")
+                          // }
+                          style={
+                            this.state.selectedTab === index
+                              ? {
+                                  color: this.props.themePrimaryColor,
+                                  fontWeight: 600,
+                                  borderBottom: "5px solid",
+                                  borderBottomColor: this.props
+                                    .themePrimaryColor
+                                }
+                              : null
                           }
                         >
                           {link.name}
-                        </a>
+                        </NavTabWithSub>
                         <div className="navbar-dropdown">
                           {link.sublinks.map((sublink, i) => {
                             return (
-                              <a
-                                className={
-                                  "navbar-item" +
-                                  (this.state.selectedSub === i &&
-                                  this.state.selectedTab === index
-                                    ? " is-active"
-                                    : "")
-                                }
+                              <NavSub
+                                // className={
+                                //   "navbar-item" +
+                                //   (this.state.selectedSub === i &&
+                                //   this.state.selectedTab === index
+                                //     ? " is-active"
+                                //     : "")
+                                // }
                                 href={sublink.link}
                                 key={i}
+                                style={
+                                  this.state.selectedSub === i &&
+                                  this.state.selectedTab === index
+                                    ? {
+                                        color: this.props.themePrimaryColor,
+                                        fontWeight: 600
+                                      }
+                                    : null
+                                }
                                 onClick={() =>
                                   this.selectMenuTab(sublink.name, index, i)
                                 }
+                                onMouseEnter={() =>
+                                  this.hoverOn(sublink.name, index, i)
+                                }
+                                onMouseLeave={() => this.hoverOff()}
                               >
                                 {sublink.name}
-                              </a>
+                              </NavSub>
                             );
                           })}
                         </div>
@@ -123,16 +262,28 @@ class MainNav extends Component {
                         className="navbar-item has-dropdown is-hoverable is-mega"
                         key={index}
                       >
-                        <a
-                          className={
-                            "navbar-link is-uppercase" +
-                            (this.state.selectedTab === index
-                              ? " is-active"
-                              : "")
+                        <NavTabWithSub
+                          className={"is-uppercase"}
+                          // className={
+                          //   "navbar-link is-uppercase" +
+                          //   (this.state.selectedTab === index
+                          //     ? " is-active"
+                          //     : "")
+                          // }
+                          style={
+                            this.state.selectedTab === index
+                              ? {
+                                  color: this.props.themePrimaryColor,
+                                  fontWeight: 600,
+                                  borderBottom: "5px solid",
+                                  borderBottomColor: this.props
+                                    .themePrimaryColor
+                                }
+                              : null
                           }
                         >
                           {link.name}
-                        </a>
+                        </NavTabWithSub>
                         <div className="navbar-dropdown">
                           <div className="sgds-container is-fluid">
                             <div className="row">
@@ -145,17 +296,29 @@ class MainNav extends Component {
                                     {subMenu.subMenuItems.map(
                                       (subMenuItem, b) => {
                                         return (
-                                          <a
-                                            className={
-                                              "navbar-item" +
-                                              (this.state.selectedTab ===
+                                          <NavSub
+                                            // className={
+                                            //   "navbar-item" +
+                                            //   (this.state.selectedTab ===
+                                            //     index &&
+                                            //   this.state.selectedSub === i &&
+                                            //   this.state.selectedSunItem === b
+                                            //     ? " is-active"
+                                            //     : "")
+                                            // }
+                                            key={b}
+                                            style={
+                                              this.state.selectedTab ===
                                                 index &&
                                               this.state.selectedSub === i &&
                                               this.state.selectedSunItem === b
-                                                ? " is-active"
-                                                : "")
+                                                ? {
+                                                    color: this.props
+                                                      .themePrimaryColor,
+                                                    fontWeight: 600
+                                                  }
+                                                : null
                                             }
-                                            key={b}
                                             onClick={() =>
                                               this.selectMenuTab(
                                                 subMenuItem.name,
@@ -164,9 +327,18 @@ class MainNav extends Component {
                                                 b
                                               )
                                             }
+                                            onMouseEnter={() =>
+                                              this.hoverOn(
+                                                subMenuItem.name,
+                                                index,
+                                                i,
+                                                b
+                                              )
+                                            }
+                                            onMouseLeave={() => this.hoverOff()}
                                           >
                                             {subMenuItem.name}
-                                          </a>
+                                          </NavSub>
                                         );
                                       }
                                     )}
@@ -193,40 +365,55 @@ class MainNav extends Component {
                     );
                   } else {
                     return (
-                      <a
+                      <NavTabWithNoSub
+                        className={"is-uppercase"}
                         href={link.link}
                         key={index}
-                        className={
-                          "navbar-item is-uppercase" +
-                          (this.state.selectedTab === index
-                            ? " is-active"
-                            : "") +
-                          " is-tab"
+                        // className={
+                        //   "navbar-item is-uppercase" +
+                        //   // (this.state.selectedTab === index
+                        //   //   ? " is-active"
+                        //   //   : "") +
+                        //   " is-tab"
+                        // }
+                        style={
+                          this.state.selectedTab === index
+                            ? {
+                                color: this.props.themePrimaryColor,
+                                fontWeight: 600,
+                                borderBottom: "5px solid",
+                                borderBottomColor: this.props.themePrimaryColor
+                              }
+                            : null
                         }
                         onClick={() => this.selectMenuTab(link.name, index)}
+                        onMouseEnter={() => this.hoverOn(link.name, index)}
+                        onMouseLeave={() => this.hoverOff()}
                       >
                         {link.img ? (
                           <img src={link.img} alt={link.name} />
                         ) : (
                           link.name
                         )}
-                      </a>
+                      </NavTabWithNoSub>
                     );
                   }
                 })}
               </div>
             ) : null}
-            <div className="navbar-end is-hidden-touch">
-              <div className="navbar-item">
-                <button
-                  className="sgds-button is-white is-large search-toggle"
-                  data-target="searchbar-1"
-                  onClick={() => this.toggleSearchBar()}
-                >
-                  <span className="sgds-icon sgds-icon-search" />
-                </button>
+            {this.props.displaySeardh ? (
+              <div className="navbar-end is-hidden-touch">
+                <div className="navbar-item">
+                  <button
+                    className="sgds-button is-white is-large search-toggle"
+                    data-target="searchbar-1"
+                    onClick={() => this.toggleSearchBar()}
+                  >
+                    <span className="sgds-icon sgds-icon-search" />
+                  </button>
+                </div>
               </div>
-            </div>
+            ) : null}
           </div>
         </nav>
         <div

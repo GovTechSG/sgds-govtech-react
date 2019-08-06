@@ -70,6 +70,7 @@ class App extends Component {
           brand={mainNavItems.brand}
           links={mainNavItems.links}
           selectItem={this.selectMenuItem}
+          themePrimaryColor={"#6037B3"}
         />
         <Body display={this.state.showPanel} />
         <Footer />

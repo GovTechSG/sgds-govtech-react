@@ -1,5 +1,6 @@
 /* eslint-disable jsx-a11y/anchor-is-valid */
 import React, { Component } from "react";
+
 import { connect } from "react-redux";
 
 // Import Elements
@@ -279,9 +280,19 @@ class ComponentList extends Component {
     excerpt: ["Excerpt 1", "Excerpt 2", "Excerpt 3", "Excerpt 4", "Excerpt 5"]
   };
 
+  selectMenuItem = item => {
+    console.log(item);
+  };
+
   render() {
     const tableHeadColor = this.props.tableHeadColor;
     const themePrimaryColor = this.props.themePrimaryColor;
+    const styles = {
+      backgroundColor: "#f1f1f1",
+      "&:hover": {
+        backgroundColor: "#000"
+      }
+    };
     return (
       <div className="componentList content">
         <div className="elementTitle">Buttons</div>
@@ -289,7 +300,11 @@ class ComponentList extends Component {
           <Button onClick={this.defaultButtonClicked}>
             {this.state.defaultButtonText}
           </Button>
-          <Button isPrimary={true} onClick={this.primaryButtonClicked}>
+          <Button
+            isPrimary={true}
+            onClick={this.primaryButtonClicked}
+            themePrimaryColor={themePrimaryColor}
+          >
             {this.state.primaryButtonText}
           </Button>
         </div>
@@ -394,8 +409,11 @@ class ComponentList extends Component {
         </div>
         <div className="elementTitle">Navigation Bar</div>
         <MainNav
+          themePrimaryColor={themePrimaryColor}
           brand={this.mainNavItems.brand}
           links={this.mainNavItems.links}
+          selectItem={this.selectMenuItem}
+          displaySeardh={true}
         />
         <div className="elementTitle">Typography</div>
         <TypographyComponent />

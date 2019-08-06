@@ -21,6 +21,86 @@ import {
 } from "../../store/actions/index";
 
 class Template extends Component {
+  mainNavItems = {
+    brand: {
+      img: "https://www.designsystem.gov.sg/assets/img/logo_sgds.png",
+      name: "Brand",
+      link: ""
+    },
+    links: [
+      {
+        img: "",
+        name: "MEGA MENU1",
+        subMenuInfo: {
+          title: "Sub Menu 1 Info",
+          content:
+            "You can put short paragraph of information here to describe about this section."
+        },
+        subMenus: [
+          {
+            subMenuTitle: "SUB MENU 1A",
+            subMenuItems: [
+              {
+                name: "Sub Link 1",
+                link: "#link1"
+              },
+              {
+                name: "Sub Link 2",
+                link: "#link1"
+              },
+              {
+                name: "Sub Link 3",
+                link: "#link1"
+              }
+            ]
+          },
+          {
+            subMenuTitle: "SUB MENU 1B",
+            subMenuItems: [
+              {
+                name: "SUB MENU 2A",
+                link: "#link1"
+              },
+              {
+                name: "SUB MENU 2A",
+                link: "#link1"
+              },
+              {
+                name: "SUB MENU 2A",
+                link: "#link1"
+              }
+            ]
+          }
+        ]
+      },
+      {
+        img: "",
+        name: "Link2",
+        sublinks: [
+          {
+            img: "",
+            name: "SubLink2-1"
+          },
+          {
+            img: "",
+            name: "SubLink2-2"
+          },
+          {
+            img: "",
+            name: "SubLink2-3"
+          }
+        ]
+      },
+      {
+        img: "",
+        name: "Link3"
+      }
+    ]
+  };
+
+  selectMenuItem = item => {
+    console.log(item);
+  };
   render() {
     return (
       <div className="template">
@@ -42,51 +122,13 @@ class Template extends Component {
             </div>
           </div>
         </div>
-        <nav className="navbar" role="navigation">
-          <div className="sgds-container">
-            <div className="navbar-brand">
-              <a className="navbar-item">
-                <img
-                  src="https://www.designsystem.gov.sg/assets/img/logo_sgds.png"
-                  alt=""
-                />
-              </a>
-              <div className="navbar-burger burger" data-target="mainnav-2">
-                <span />
-                <span />
-                <span />
-              </div>
-            </div>
-            <div id="mainnav-2" className="navbar-menu">
-              <div className="navbar-item has-dropdown is-hoverable">
-                <a className="navbar-link is-uppercase is-active">Who we are</a>
-                <div className="navbar-dropdown">
-                  <a className="navbar-item is-active">Sub Link 1</a>
-                  <a className="navbar-item">Sub Link 2</a>
-                  <a className="navbar-item">Sub Link 3</a>
-                </div>
-              </div>
-              <div className="navbar-item has-dropdown is-hoverable">
-                <a className="navbar-link is-uppercase">Link 2</a>
-                <div className="navbar-dropdown">
-                  <a className="navbar-item">
-                    External Link 1
-                    <i className="sgds-icon sgds-icon-external" />
-                  </a>
-                  <a className="navbar-item">
-                    External Link 2
-                    <i className="sgds-icon sgds-icon-external" />
-                  </a>
-                  <a className="navbar-item">
-                    External Link 3
-                    <i className="sgds-icon sgds-icon-external" />
-                  </a>
-                </div>
-              </div>
-              <a className="navbar-item is-uppercase is-tab">External Link 3</a>
-            </div>
-          </div>
-        </nav>
+        <MainNav
+          brand={this.mainNavItems.brand}
+          links={this.mainNavItems.links}
+          selectItem={this.selectMenuItem}
+          themePrimaryColor={this.props.themePrimaryColor}
+          displaySeardh={false}
+        />
         <section className="sgds-hero has-background-primary">
           <div className="sgds-hero-body sgds-container is-fluid">
             <div className="row is-vcentered">
