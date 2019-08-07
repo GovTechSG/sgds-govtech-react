@@ -10,9 +10,7 @@ body {
   display: flex;
   height: calc(100vh - 30px);
   overflow-y: scroll;
-  & div {
-    padding: 2rem;
-  }
+
   .content:not(:last-child) {
     margin-bottom: 0px !important;
   }
@@ -21,6 +19,7 @@ body {
     height: 100%;
     overflow-y: auto;
     background-color: rgb(244, 247, 251);
+    padding: 1.5rem;
     .elementTitle {
       font-size: 20px;
       font-weight: 600;
@@ -73,6 +72,9 @@ body {
     flex: 1 1;
     height: 100%;
     overflow-y: auto;
+    overflow-x: hidden;
+    padding: 1.5rem;
+    background: lightslategrey;
   }
   .sideBar {
     order: 1;
