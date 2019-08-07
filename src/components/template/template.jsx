@@ -128,6 +128,7 @@ class Template extends Component {
           selectItem={this.selectMenuItem}
           themePrimaryColor={this.props.themePrimaryColor}
           displaySeardh={false}
+          isFluid={true}
         />
         <section className="sgds-hero has-background-primary">
           <div className="sgds-hero-body sgds-container is-fluid">

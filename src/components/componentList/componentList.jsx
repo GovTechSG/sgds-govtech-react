@@ -423,6 +423,7 @@ class ComponentList extends Component {
           brand={this.mainNavItems.brand}
           links={this.mainNavItems.links}
           selectItem={this.selectMenuItem}
+          isFluid={true}
           displaySeardh={true}
         />
         <div className="elementTitle">Typography</div>

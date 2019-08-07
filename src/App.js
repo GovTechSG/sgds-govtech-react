@@ -71,6 +71,7 @@ class App extends Component {
           links={mainNavItems.links}
           selectItem={this.selectMenuItem}
           themePrimaryColor={"#6037B3"}
+          isFluid={true}
         />
         <Body display={this.state.showPanel} />
         <Footer />

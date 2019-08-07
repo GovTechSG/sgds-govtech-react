@@ -173,7 +173,11 @@ class MainNav extends Component {
     return (
       <div>
         <nav className="navbar">
-          <div className="sgds-container">
+          <div
+            className={
+              "sgds-container" + (this.props.isFluid ? " is-fluid" : "")
+            }
+          >
             <div className="navbar-brand">
               <Brand
                 img={this.props.brand.img}
