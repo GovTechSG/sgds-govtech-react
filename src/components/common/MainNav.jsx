@@ -422,7 +422,7 @@ class MainNav extends Component {
         </nav>
         <div
           className={
-            "sgds-container is-fluid is-hidden-touch is-marginless" +
+            "sgds-container is-hidden-touch is-marginless" +
             (this.state.showSearch ? null : " hide")
           }
           id="searchbar-1"

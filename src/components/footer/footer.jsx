@@ -7,7 +7,7 @@ class Fotter extends Component {
   render() {
     return (
       <footer className="sgds-footer top-section">
-        <div className="sgds-container is-fluid">
+        <div className="sgds-container">
           <div className="row">
             <div className="col header">
               <h5 className="sub-header has-text-white">

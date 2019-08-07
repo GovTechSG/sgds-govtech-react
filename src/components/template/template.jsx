@@ -128,10 +128,10 @@ class Template extends Component {
           selectItem={this.selectMenuItem}
           themePrimaryColor={this.props.themePrimaryColor}
           displaySeardh={false}
-          isFluid={true}
+          isFluid={false}
         />
         <section className="sgds-hero has-background-primary">
-          <div className="sgds-hero-body sgds-container is-fluid">
+          <div className="sgds-hero-body sgds-container">
             <div className="row is-vcentered">
               <div className="col is-8 is-offset-2 has-text-white has-text-centered">
                 <h1 className="display">
@@ -342,7 +342,7 @@ class Template extends Component {
             </div>
           </div>
         </section>
-        <div className="sgds-section">
+        <div className="sgds-section has-background-white">
           <div className="sgds-container">
             <div className="row has-text-centered">
               <div className="col is-10 is-offset-1">
@@ -479,7 +479,7 @@ class Template extends Component {
             </div>
           </div>
         </div>
-        <div className="sgds-section">
+        <div className="sgds-section has-background-white">
           <div className="sgds-container">
             <div className="row">
               <div className="col is-10 is-offset-1">
