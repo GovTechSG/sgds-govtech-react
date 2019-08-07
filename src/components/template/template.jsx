@@ -5,6 +5,7 @@ import { connect } from "react-redux";
 // Import Element
 import {
   MainNav,
+  Hero,
   Button,
   Breadcrumb,
   AccordionBar,
@@ -98,6 +99,14 @@ class Template extends Component {
     ]
   };
 
+  hero = {
+    defaultHero: {
+      title: "design system",
+      subtitle:
+        "Unites Singapore Government Digital Services around a common UI language and user experience"
+    }
+  };
+
   selectMenuItem = item => {
     console.log(item);
   };
@@ -130,35 +139,11 @@ class Template extends Component {
           displaySeardh={false}
           isFluid={false}
         />
-        <section className="sgds-hero has-background-primary">
-          <div className="sgds-hero-body sgds-container">
-            <div className="row is-vcentered">
-              <div className="col is-8 is-offset-2 has-text-white has-text-centered">
-                <h1 className="display">
-                  <b>SGDS</b>
-                </h1>
-                <h5 className="is-hidden-mobile margin--top--lg  margin--bottom--lg">
-                  The Singapore Government Design System (SGDS) was developed to
-                  unite teams in creating fast, accessible and mobile friendly
-                  digital services with a common set of UI components that
-                  comply to the Digital Service Standards.
-                </h5>
-                <div className="field has-addons">
-                  <div className="control  is-expanded">
-                    <input
-                      className="input"
-                      type="text"
-                      placeholder="Find a repository"
-                    />
-                  </div>
-                  <div className="control">
-                    <a className="sgds-button is-white is-outlined">Search</a>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-        </section>
+        <Hero
+          themePrimaryColor={this.props.themePrimaryColor}
+          title={this.hero.defaultHero.title}
+          subtitle={this.hero.defaultHero.subtitle}
+        />
         <section
           className="sgds-section is-paddingless has-background-secondary"
           id="key-highlights"

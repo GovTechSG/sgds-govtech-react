@@ -14,7 +14,8 @@ import {
   Breadcrumb,
   AccordionBar,
   Card,
-  Callout
+  Callout,
+  Hero
 } from "../common";
 
 // Import Redux Store
@@ -268,6 +269,37 @@ class ComponentList extends Component {
     }
   ];
 
+  hero = {
+    defaultHero: {
+      title: "design system",
+      subtitle:
+        "Unites Singapore Government Digital Services around a common UI language and user experience"
+    },
+    withDropdown: {
+      title: "design system",
+      subtitle:
+        "Unites Singapore Government Digital Services around a common UI language and user experience",
+      dropdown: {
+        dropdownText: "Click Here",
+        dropdownList: [
+          "Dropdown item",
+          "Other dropdown item",
+          "Active dropdown item",
+          "Other dropdown item"
+        ]
+      },
+      hover: {
+        dropdownText: "Hoverable Dropdown",
+        dropdownList: [
+          "Dropdown item",
+          "Other dropdown item",
+          "Active dropdown item",
+          "Other dropdown item"
+        ]
+      }
+    }
+  };
+
   cardItems = {
     cardTitle: "Card Title",
     carSubTitle: "Card Sub-title",
@@ -452,6 +484,11 @@ class ComponentList extends Component {
         <Card card={this.cardItems} />
         <div className="elementTitle">Callout</div>
         <Callout callout={this.callout} />
+        <Hero
+          themePrimaryColor={themePrimaryColor}
+          title={this.hero.defaultHero.title}
+          subtitle={this.hero.defaultHero.subtitle}
+        />
         <div className="row">
           <div className="sgds-button sgds-button is-rounded is-primary is-large">
             <button onClick={this.exportStyle}>Export</button>
