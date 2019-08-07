@@ -444,6 +444,7 @@ class MainNav extends Component {
                     <button
                       type="submit"
                       className="sgds-button is-primary has-text-white padding--left padding--right"
+                      style={{ backgroundColor: this.props.themePrimaryColor }}
                     >
                       SEARCH
                     </button>
