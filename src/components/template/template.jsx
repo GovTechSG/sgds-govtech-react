@@ -114,6 +114,12 @@ class Template extends Component {
   render() {
     return (
       <Frame>
+        <head>
+          <link
+            rel="stylesheet"
+            href="https://cdn.jsdelivr.net/npm/sgds-govtech@1.2.3/css/sgds.css"
+          />
+        </head>
         <div className="template">
           <div className="sgds-masthead">
             <div className="sgds-container">
