@@ -1,80 +1,67 @@
-/* eslint-disable jsx-a11y/anchor-is-valid */
 import React, { Component } from "react";
+import PropTypes from "prop-types";
 
-class AccordionBar extends Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      selected: 0
-    };
-  }
+class Accordion extends Component {
+  state = {
+    isActive: this.props.initiallyOpen
+  };
 
-  selectAccordion(index) {
-    if (index === this.state.selected) {
-      this.setState({
-        selected: -1
-      });
+  isAccordionActive = () => {
+    // If isActive is passed by props, override internal state
+    if (this.props.hasOwnProperty("isActive")) {
+      return this.props.isActive;
+    }
+    return this.state.isActive;
+  };
+
+  onHeaderClick = () => {
+    if (!this.props.onHeaderClick) {
+      this.setState({ isActive: !this.state.isActive });
       return;
     }
-    this.setState({
-      selected: index
-    });
-  }
-
-  getAccordionHeaderClassName(index) {
-    let className = "sgds-accordion-header";
-    if (index === this.state.selected) {
-      className = className.concat(" active");
-    }
-    return className;
-  }
-
-  getAccordionBodyClassName(index) {
-    let className = "sgds-accordion-body";
-    if (index === this.state.selected) {
-      className = className.concat(" is-open");
-    }
-    return className;
-  }
-
-  getAccordionChevronClassName(index) {
-    let className = "sgds-icon";
-    if (index === this.state.selected) {
-      className = className.concat(" sgds-icon-chevron-up");
-    } else {
-      className = className.concat(" sgds-icon-chevron-down");
-    }
-    return className;
-  }
+    this.props.onHeaderClick();
+  };
 
   render() {
-    let items = this.props.items;
     return (
       <div className="sgds-accordion">
-        {items.map((value, index) => {
-          return (
-            <div
-              className="sgds-accordion-set"
-              key={index}
-              onClick={() => this.selectAccordion(index)}
-            >
-              <a
-                className={this.getAccordionHeaderClassName(index)}
-                role="button"
-                aria-expanded="false"
-              >
-                {value.title}
-                <i className={this.getAccordionChevronClassName(index)} />
-              </a>
-              <div className={this.getAccordionBodyClassName(index)}>
-                <p> {value.content}</p>
-              </div>
-            </div>
-          );
-        })}
+        <a
+          href="#!"
+          className={`sgds-accordion-header ${
+            this.isAccordionActive() ? "is-active" : ""
+          }`}
+          role="button"
+          aria-expanded={this.isAccordionActive()}
+          onClick={this.onHeaderClick}
+        >
+          {this.props.header}
+          <i
+            className={`sgds-icon sgds-icon-chevron-${
+              this.isAccordionActive() ? "up" : "down"
+            }`}
+          />
+        </a>
+        <div
+          className={`sgds-accordion-body ${
+            this.isAccordionActive() ? "is-open" : ""
+          }`}
+        >
+          {this.props.children}
+        </div>
       </div>
     );
   }
 }
 
-export default AccordionBar;
+Accordion.defaultProps = {
+  initiallyOpen: false
+}
+
+Accordion.propTypes = {
+  header: PropTypes.string,
+  initiallyOpen: PropTypes.bool,
+  isActive: PropTypes.bool,
+  onHeaderClick: PropTypes.func
+};
+
+export default Accordion;

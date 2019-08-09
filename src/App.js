@@ -4,6 +4,8 @@ import { DropdownDocs } from "./docs";
 
 import "./App.scss";
 
+import AccordionDocs from "./docs/AccordionDocs";
+
 class App extends Component {
   render() {
     return (
@@ -18,6 +20,7 @@ class App extends Component {
         />
         <section className="sgds-section">
           <DropdownDocs />
+          <AccordionDocs />
         </section>
       </div>
     );
