@@ -1,4 +1,3 @@
-/* eslint-disable jsx-a11y/anchor-is-valid */
 import React, { Component } from "react";
 
 class Hero extends Component {
@@ -38,6 +37,10 @@ class Hero extends Component {
       </section>
     );
   }
+}
+
+Hero.propTypes = {
+
 }
 
 export default Hero;
