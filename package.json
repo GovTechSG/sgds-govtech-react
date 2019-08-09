@@ -7,7 +7,7 @@
   "main": "dist/index.js",
   "scripts": {
     "build": "react-scripts build",
-    "compile": "rm -rf ./dist && NODE_ENV=production babel src/components/common --out-dir ./dist --source-maps",
+    "compile": "rm -rf ./dist && NODE_ENV=production babel src/components --out-dir ./dist --source-maps",
     "eject": "react-scripts eject",
     "start": "react-scripts start",
     "test": "react-scripts test"
@@ -35,6 +35,7 @@
     "react-dom": "^16.8.6",
     "react-scripts": "3.0.0",
     "sgds-govtech": "^1.2.3",
-    "styled-components": "^4.3.2"
+    "styled-components": "^4.3.2",
+    "react-syntax-highlighter": "^11.0.2"
   }
 }
