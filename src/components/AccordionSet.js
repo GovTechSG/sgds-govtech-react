@@ -38,7 +38,7 @@ class AccordionSet extends Component {
 
   render() {
     return (
-      <React.Fragment>
+      <div className="accordion-set">
         {
           React.Children.map(this.props.children, (child, index) => {
             return React.cloneElement(child, {
@@ -49,7 +49,7 @@ class AccordionSet extends Component {
             })
           })
         }
-      </React.Fragment>
+      </div>
     );
   }
 }
