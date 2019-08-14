@@ -1,12 +1,11 @@
 import React, { Component } from "react";
+import PropTypes from "prop-types";
 
 class Dropdown extends Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      showDropdown: false
-    };
-  }
+  state = {
+    showDropdown: false
+  };
+
   componentDidMount() {
     document.addEventListener("mousedown", this.hideDropdown);
   }
@@ -19,9 +18,11 @@ class Dropdown extends Component {
       showDropdown: !this.state.showDropdown
     });
   };
+
   setContentWrapperRef = node => {
     this.contentWrapperRef = node; // Set directly on 'this' since it won't change/re-render
   };
+
   hideDropdown = event => {
     if (
       this.contentWrapperRef &&
@@ -35,7 +36,12 @@ class Dropdown extends Component {
 
   render() {
     return (
-      <div className="sgds-dropdown" ref={this.setContentWrapperRef}>
+      <div
+        className={`sgds-dropdown ${
+          this.state.showDropdown ? "is-active" : ""
+        }`}
+        ref={this.setContentWrapperRef}
+      >
         <div className="sgds-dropdown-trigger">
           <button
             className="sgds-button"
@@ -43,7 +49,7 @@ class Dropdown extends Component {
             aria-controls="sgds-dropdown-menu"
             onClick={this.toggleDropdown}
           >
-            <span>{this.props.name}</span>
+            <span>{this.props.title}</span>
             <span className="icon">
               <span
                 className={`sgds-icon sgds-icon-chevron-${
@@ -53,36 +59,23 @@ class Dropdown extends Component {
             </span>
           </button>
         </div>
-        <div
-          className="sgds-dropdown-menu"
-          id="sgds-dropdown-menu"
-          role="menu"
-          style={{
-            display: this.state.showDropdown ? "block" : "none"
-          }}
-        >
-          <div className="sgds-dropdown-content">
-            {this.props.links.map((link, index) => {
-              if (link.divider) {
-                return <hr key={index} className="sgds-dropdown-divider" />;
-              }
-              return (
-                <a
-                  href={link.link}
-                  className={`sgds-dropdown-item ${
-                    link.active ? "is-active" : ""
-                  }`}
-                  key={index}
-                >
-                  {link.name}
-                </a>
-              );
-            })}
+        <div className="sgds-dropdown-menu" id="sgds-dropdown-menu" role="menu">
+          <div
+            className="sgds-dropdown-content"
+            onClick={() => {
+              this.setState({ showDropdown: false });
+            }}
+          >
+            {this.props.children}
           </div>
         </div>
       </div>
     );
   }
 }
+
+Dropdown.propTypes = {
+  title: PropTypes.string
+};
 
 export default Dropdown;

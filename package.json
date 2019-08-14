@@ -7,7 +7,8 @@
   "main": "dist/index.js",
   "scripts": {
     "build": "react-scripts build",
-    "compile": "rm -rf ./dist && NODE_ENV=production babel src/components/common --out-dir ./dist --source-maps",
+    "compile": "rm -rf ./dist && NODE_ENV=production babel src/components --out-dir ./dist --source-maps",
+    "compile::watch": "rm -rf ./dist && NODE_ENV=production babel src/components --watch --out-dir ./dist --source-maps",
     "eject": "react-scripts eject",
     "start": "react-scripts start",
     "test": "react-scripts test"
@@ -29,23 +30,14 @@
   },
   "devDependencies": {
     "@babel/cli": "^7.5.5",
-    "@babel/preset-react": "^7.0.0",
     "node-sass": "^4.12.0",
+    "prettier": "^1.18.2",
     "prop-types": "^15.7.2",
     "react": "^16.8.6",
-    "react-color": "^2.17.3",
-    "react-compound-slider": "^2.0.0",
     "react-dom": "^16.8.6",
-    "react-redux": "^7.1.0",
     "react-scripts": "3.0.0",
-    "redux": "^4.0.1",
-    "redux-thunk": "^2.3.0",
+    "react-syntax-highlighter": "^11.0.2",
     "sgds-govtech": "^1.2.3",
-    "throttle-debounce": "^2.1.0"
-  },
-  "dependencies": {
-    "react-frame-component": "^4.1.1",
-    "styled-components": "^4.3.2",
-    "typescript": "^3.5.3"
+    "styled-components": "^4.3.2"
   }
 }
