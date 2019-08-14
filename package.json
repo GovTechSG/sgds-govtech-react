@@ -8,6 +8,7 @@
   "scripts": {
     "build": "react-scripts build",
     "compile": "rm -rf ./dist && NODE_ENV=production babel src/components --out-dir ./dist --source-maps",
+    "compile::watch": "rm -rf ./dist && NODE_ENV=production babel src/components --watch --out-dir ./dist --source-maps",
     "eject": "react-scripts eject",
     "start": "react-scripts start",
     "test": "react-scripts test"
