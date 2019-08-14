@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import { Hero } from "./components";
+import { Hero, Masthead } from "./components";
 import { DropdownDocs } from "./docs";
 
 import "./App.scss";
@@ -10,6 +10,7 @@ class App extends Component {
   render() {
     return (
       <div className="app">
+        <Masthead hasLanguageSelector={true}></Masthead>
         <Hero
           title={
             <b>

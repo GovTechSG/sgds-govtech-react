@@ -8,4 +8,5 @@ export { default as Card } from "./Card";
 export { default as Dropdown } from "./Dropdown";
 export { default as DropdownItem } from "./DropdownItem";
 export { default as Hero } from "./Hero";
+export { default as Masthead } from "./Masthead";
 export { default as MainNav } from "./MainNav";
