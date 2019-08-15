@@ -6,21 +6,14 @@ class AccordionSet extends Component {
     this.state = {
       activeAccordion: -1
     };
-  }
-
-  selectAccordion(index) {
-    if (index === this.state.selected) {
-      this.setState({
-        selected: -1
-      });
-      return;
+    for (let i = 0; i < props.children.length; i++) {
+      if (props.children[i].props.initiallyOpen) {
+        this.state.activeAccordion = i;
+      }
     }
-    this.setState({
-      selected: index
-    });
   }
 
-  toggleActiveAccordion = (index) => {
+  toggleActiveAccordion = index => {
     if (index === this.state.activeAccordion) {
       this.setState({
         activeAccordion: -1
@@ -30,25 +23,23 @@ class AccordionSet extends Component {
     this.setState({
       activeAccordion: index
     });
-  }
+  };
 
   shouldAccordionRender = index => {
     return this.state.activeAccordion === index;
-  }
+  };
 
   render() {
     return (
       <div className="accordion-set">
-        {
-          React.Children.map(this.props.children, (child, index) => {
-            return React.cloneElement(child, {
-              isActive: this.shouldAccordionRender(index),
-              onHeaderClick: () => {
-                this.toggleActiveAccordion(index);
-              }
-            })
-          })
-        }
+        {React.Children.map(this.props.children, (child, index) => {
+          return React.cloneElement(child, {
+            isActive: this.shouldAccordionRender(index),
+            onHeaderClick: () => {
+              this.toggleActiveAccordion(index);
+            }
+          });
+        })}
       </div>
     );
   }

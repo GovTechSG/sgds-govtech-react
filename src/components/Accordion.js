@@ -24,30 +24,20 @@ class Accordion extends Component {
 
   render() {
     return (
-      <div className="sgds-accordion">
+      <div className={`sgds-accordion ${this.isAccordionActive() ? "is-open" : ""}`}>
         <a
           href="#!"
-          className={`sgds-accordion-header ${
-            this.isAccordionActive() ? "is-active" : ""
-          }`}
+          className={`sgds-accordion-header ${this.isAccordionActive() ? "is-active" : ""}`}
           role="button"
           aria-expanded={this.isAccordionActive()}
           onClick={this.onHeaderClick}
         >
           {this.props.header}
           <i
-            className={`sgds-icon sgds-icon-chevron-${
-              this.isAccordionActive() ? "up" : "down"
-            }`}
+            className={`sgds-icon sgds-icon-chevron-${this.isAccordionActive() ? "up" : "down"}`}
           />
         </a>
-        <div
-          className={`sgds-accordion-body ${
-            this.isAccordionActive() ? "is-open" : ""
-          }`}
-        >
-          {this.props.children}
-        </div>
+        <div className={`sgds-accordion-body`}>{this.props.children}</div>
       </div>
     );
   }
@@ -55,7 +45,7 @@ class Accordion extends Component {
 
 Accordion.defaultProps = {
   initiallyOpen: false
-}
+};
 
 Accordion.propTypes = {
   header: PropTypes.string,
