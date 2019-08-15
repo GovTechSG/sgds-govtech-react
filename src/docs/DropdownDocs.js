@@ -2,33 +2,36 @@ import React, { Component } from "react";
 import SyntaxHighlighter from "react-syntax-highlighter";
 
 import { Dropdown, DropdownItem, Button } from "../components";
+import { formatCode } from "./lib";
 
-const codeString = `<Dropdown title="Click me">
-  <DropdownItem
-    href="#!"
+const codeString = formatCode(`<Dropdown title="Click me">
+<DropdownItem href="/">Item 1: Pass href as a prop to render a link</DropdownItem>
+<DropdownItem
+  href="#!"
+  onClick={() => {
+    this.onDropdownItemClicked(2);
+  }}
+>
+  Item 2: Use onClick to control behaviour
+</DropdownItem>
+<DropdownItem
+  onClick={() => {
+    this.onDropdownItemClicked(3);
+  }}
+>
+  Item 3: Not a link
+</DropdownItem>
+<DropdownItem>
+  <p>Item 4: Insert any content you wish to</p>
+  <Button
     onClick={() => {
-      this.onDropdownItemClicked(1);
+      this.onDropdownItemClicked(4);
     }}
   >
-    Item 1 is a link
-  </DropdownItem>
-  <DropdownItem
-    onClick={() => {
-      this.onDropdownItemClicked(2);
-    }}
-  >
-    Item 2 is not a link
-  </DropdownItem>
-  <DropdownItem>
-    <Button
-      onClick={() => {
-        this.onDropdownItemClicked(3);
-      }}
-    >
-      Item 3 can be anything, even a button
-    </Button>
-  </DropdownItem>
-</Dropdown>`;
+    A button
+  </Button>
+</DropdownItem>
+</Dropdown>`);
 
 class DropdownDocs extends Component {
   state = {
@@ -50,28 +53,30 @@ class DropdownDocs extends Component {
             <div className="row">
               <div className="col is-6">
                 <Dropdown title="Click me">
+                  <DropdownItem href="/">Item 1: Pass href as a prop to render a link</DropdownItem>
                   <DropdownItem
                     href="#!"
-                    onClick={() => {
-                      this.onDropdownItemClicked(1);
-                    }}
-                  >
-                    Item 1 is a link
-                  </DropdownItem>
-                  <DropdownItem
                     onClick={() => {
                       this.onDropdownItemClicked(2);
                     }}
                   >
-                    Item 2 is not a link
+                    Item 2: Use onClick to control behaviour
+                  </DropdownItem>
+                  <DropdownItem
+                    onClick={() => {
+                      this.onDropdownItemClicked(3);
+                    }}
+                  >
+                    Item 3: Not a link
                   </DropdownItem>
                   <DropdownItem>
+                    <p>Item 4: Insert any content you wish to</p>
                     <Button
                       onClick={() => {
-                        this.onDropdownItemClicked(3);
+                        this.onDropdownItemClicked(4);
                       }}
                     >
-                      Item 3 can be anything, even a button
+                      A button
                     </Button>
                   </DropdownItem>
                 </Dropdown>

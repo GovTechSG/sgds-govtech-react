@@ -29,8 +29,8 @@ const accordionSetCodeString = formatCode(`<AccordionSet>
 <Accordion header="Click me to reveal/hide my content">
   <p>Hello there!</p>
 </Accordion>
-<Accordion header="Click me to reveal/hide my content">
-  <p>Hello there!</p>
+<Accordion header="Click me to reveal/hide my content" initiallyOpen>
+  <p>Only 1 Accordion in an Accordion Set can be initially open.</p>
 </Accordion>
 <Accordion header="Click me to reveal/hide my content">
   <p>Hello there!</p>
@@ -88,8 +88,8 @@ class AccordionDocs extends Component {
                   <Accordion header="Click me to reveal/hide my content">
                     <p>Hello there!</p>
                   </Accordion>
-                  <Accordion header="Click me to reveal/hide my content">
-                    <p>Hello there!</p>
+                  <Accordion header="Click me to reveal/hide my content" initiallyOpen>
+                    <p>Only 1 Accordion in an Accordion Set can be initially open.</p>
                   </Accordion>
                   <Accordion header="Click me to reveal/hide my content">
                     <p>Hello there!</p>

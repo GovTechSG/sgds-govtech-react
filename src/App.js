@@ -1,10 +1,16 @@
 import React, { Component } from "react";
-import { Hero, Masthead } from "./components";
+import { Hero, Masthead,Footer } from "./components";
 import { DropdownDocs } from "./docs";
 
 import "./App.scss";
 
 import AccordionDocs from "./docs/AccordionDocs";
+const links={
+  privacy:' ',
+  termsOfUse:' ',
+  contact:' ',
+  feedback:' '
+}
 
 class App extends Component {
   render() {
@@ -23,6 +29,8 @@ class App extends Component {
           <DropdownDocs />
           <AccordionDocs />
         </section>
+        <Footer title='Singapore Design Systems' date='15 Aug 2019' links={links}>
+        </Footer>
       </div>
     );
   }

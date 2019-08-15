@@ -51,3 +51,6 @@ ReactDOM.render(
   document.getElementById('root')
 );
 ```
+
+### Patch Notes
+V0.1.2: Added footer and masthead to component library
