@@ -50,37 +50,19 @@ class MainNav extends Component {
   };
   hoverOn = (name, index, subIndex, subMenuIndex) => {
     if (subMenuIndex >= 0) {
-      this.setState(
-        {
-          hoverTabName: name,
-          hoverTab: index,
-          hoverSub: subIndex,
-          hoverSunItem: subMenuIndex
-        }
-        // () =>
-        //   console.log(
-        //     this.state.hoverTabName,
-        //     this.state.hoverTab,
-        //     this.state.hoverSub,
-        //     this.state.hoverSunItem
-        //   )
-      );
+      this.setState({
+        hoverTabName: name,
+        hoverTab: index,
+        hoverSub: subIndex,
+        hoverSunItem: subMenuIndex
+      });
     } else if (subIndex >= 0) {
-      this.setState(
-        {
-          hoverTabName: name,
-          hoverTab: index,
-          hoverSub: subIndex,
-          hoverSunItem: null
-        }
-        // () =>
-        //   console.log(
-        //     this.state.hoverTabName,
-        //     this.state.hoverTab,
-        //     this.state.hoverSub,
-        //     this.state.hoverSunItem
-        //   )
-      );
+      this.setState({
+        hoverTabName: name,
+        hoverTab: index,
+        hoverSub: subIndex,
+        hoverSunItem: null
+      });
     } else {
       this.setState({
         hoverTabName: name,
