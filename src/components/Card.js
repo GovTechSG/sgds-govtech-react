@@ -19,14 +19,24 @@ class Card extends Component {
         <div className="sgds-card-footer">
           <div className="sgds-card-footer-item">
             <span>
-              <a href={this.props.card.button1.link}>
+              <a
+                style={
+                  this.props.infoColor ? { color: this.props.infoColor } : {}
+                }
+                href={this.props.card.button1.link}
+              >
                 {this.props.card.button1.text}
               </a>
             </span>
           </div>
           <div className="sgds-card-footer-item">
             <span>
-              <a href={this.props.card.button2.link}>
+              <a
+                style={
+                  this.props.infoColor ? { color: this.props.infoColor } : {}
+                }
+                href={this.props.card.button2.link}
+              >
                 {this.props.card.button2.text}
               </a>
             </span>
