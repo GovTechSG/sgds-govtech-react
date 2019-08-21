@@ -10,6 +10,7 @@
     "compile": "rm -rf ./dist && NODE_ENV=production babel src/components --out-dir ./dist --source-maps",
     "compile::watch": "rm -rf ./dist && NODE_ENV=production babel src/components --watch --out-dir ./dist --source-maps",
     "eject": "react-scripts eject",
+    "prepublishOnly": "npm run compile",
     "start": "react-scripts start",
     "test": "react-scripts test"
   },
