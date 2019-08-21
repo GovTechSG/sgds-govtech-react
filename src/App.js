@@ -1,16 +1,17 @@
 import React, { Component } from "react";
-import { Hero, Masthead,Footer } from "./components";
-import { DropdownDocs } from "./docs";
+import { Hero, Masthead, Footer } from "./components";
+import AccordionDocs from "./docs/AccordionDocs";
+import DropdownDocs from "./docs/DropdownDocs";
+import ButtonDocs from "./docs/ButtonDocs";
 
 import "./App.scss";
 
-import AccordionDocs from "./docs/AccordionDocs";
-const links={
-  privacy:' ',
-  termsOfUse:' ',
-  contact:' ',
-  feedback:' '
-}
+const links = {
+  privacy: " ",
+  termsOfUse: " ",
+  contact: " ",
+  feedback: " "
+};
 
 class App extends Component {
   render() {
@@ -26,11 +27,15 @@ class App extends Component {
           subtitle="SGDS components for React"
         />
         <section className="sgds-section">
-          <DropdownDocs />
           <AccordionDocs />
         </section>
-        <Footer title='Singapore Design Systems' date='15 Aug 2019' links={links}>
-        </Footer>
+        <section className="sgds-section">
+          <ButtonDocs />
+        </section>
+        <section className="sgds-section">
+          <DropdownDocs />
+        </section>
+        <Footer title="Singapore Design Systems" date="15 Aug 2019" links={links}></Footer>
       </div>
     );
   }
