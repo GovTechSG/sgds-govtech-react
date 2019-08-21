@@ -26,6 +26,9 @@ class Breadcrumb extends Component {
             return (
               <li key={index}>
                 <a
+                  style={
+                    this.props.infoColor ? { color: this.props.infoColor } : {}
+                  }
                   className={this.props.hasTextWhite ? "has-text-white" : null}
                   href={value.link}
                 >
