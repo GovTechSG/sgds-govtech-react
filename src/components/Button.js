@@ -6,7 +6,8 @@ class Button extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      hovered: false
+      hovered: false,
+      focused: false
     };
   }
 
@@ -52,11 +53,10 @@ class Button extends Component {
         paddingRight: this.props.paddingHorizontal,
         paddingTop: this.props.paddingVertical,
         paddingBottom: this.props.paddingVertical,
-        borderColor: this.props.themePrimaryColor,
-        backgroundColor: this.state.hovered
-          ? this.props.themePrimaryColor
-          : "transparent",
-        color: this.state.hovered ? "#fff" : this.props.themePrimaryColor
+        borderColor: this.props.primaryColor,
+        backgroundColor:
+          this.state.hovered || this.state.focused ? this.props.primaryColor : "transparent",
+        color: this.state.hovered || this.state.focused ? "#fff" : this.props.primaryColor
       };
     } else {
       return {
@@ -64,7 +64,7 @@ class Button extends Component {
         paddingRight: this.props.paddingHorizontal,
         paddingTop: this.props.paddingVertical,
         paddingBottom: this.props.paddingVertical,
-        backgroundColor: this.props.themePrimaryColor
+        backgroundColor: this.props.primaryColor
       };
     }
   }
@@ -73,20 +73,30 @@ class Button extends Component {
     if (!this.props.disabled) {
       this.props.onClick();
     }
-  }
+  };
 
   render() {
     return (
-      <a
+      <button
         className={this.getClassName()}
         style={this.getStyle()}
         disabled={this.props.isDisabled}
-        onMouseEnter={() => this.mouseHoverOn()}
-        onMouseLeave={() => this.mouseHoverOff()}
+        onMouseEnter={() =>
+          this.setState({
+            hovered: true
+          })
+        }
+        onMouseLeave={() =>
+          this.setState({
+            hovered: false
+          })
+        }
         onClick={this.onClick}
+        onFocus={() => this.setState({ focused: true })}
+        onBlur={() => this.setState({ focused: false })}
       >
         {this.props.children}
-      </a>
+      </button>
     );
   }
 }
@@ -99,12 +109,12 @@ Button.propTypes = {
   isDisabled: PropTypes.bool,
   paddingHorizontal: PropTypes.number,
   paddingVertical: PropTypes.number,
-  themePrimaryColor: PropTypes.string,
+  primaryColor: PropTypes.string,
   onClick: PropTypes.func
 };
 
 Button.defaultProps = {
   onClick() {}
-}
+};
 
 export default Button;
