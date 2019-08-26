@@ -4,8 +4,7 @@ node_js: '10'
 # Script that is run before the script phase
 before_script:
 - npm run build-storybook
-script:
-- echo "skipping tests"
+
 # Deployment information
 deploy:
   provider: pages # Tell Travis we want to deploy to Github Pages
