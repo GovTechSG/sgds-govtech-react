@@ -1,0 +1,17 @@
+language: 'node_js'
+node_js: '10'
+
+# Script that is run before the script phase
+before_script:
+- npm run build-storybook
+
+# Deployment information
+deploy:
+  provider: pages 
+  skip-cleanup: true 
+  github-token: $GITHUB_TOKEN 
+  local_dir: storybook-static 
+  repo: GovTechSG/sgds-govtech-react 
+  target_branch: gh-pages 
+  on:
+    branch: master 

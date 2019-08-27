@@ -11,7 +11,9 @@
     "compile::watch": "rm -rf ./dist && NODE_ENV=production babel src/components --watch --out-dir ./dist --source-maps",
     "eject": "react-scripts eject",
     "start": "react-scripts start",
-    "test": "react-scripts test"
+    "test": "react-scripts test",
+    "storybook": "start-storybook -p 6006",
+    "build-storybook": "build-storybook -s public"
   },
   "browserslist": {
     "production": [
@@ -30,14 +32,26 @@
   },
   "devDependencies": {
     "@babel/cli": "^7.5.5",
+    "@babel/core": "^7.5.5",
+    "@storybook/addon-a11y": "^5.1.11",
+    "@storybook/addon-actions": "^5.1.11",
+    "@storybook/addon-links": "^5.1.11",
+    "@storybook/addon-notes": "^5.1.11",
+    "@storybook/addon-storysource": "^5.1.11",
+    "@storybook/addons": "^5.1.11",
+    "@storybook/react": "^5.1.11",
+    "babel-loader": "^8.0.5",
     "node-sass": "^4.12.0",
     "prettier": "^1.18.2",
     "prop-types": "^15.7.2",
     "react": "^16.8.6",
     "react-dom": "^16.8.6",
-    "react-scripts": "3.0.0",
     "react-syntax-highlighter": "^11.0.2",
     "sgds-govtech": "^1.3.0",
+    "storybook-addon-markdown": "github:mihalik/storybook-addon-markdown",
     "styled-components": "^4.3.2"
+  },
+  "dependencies": {
+    "react-scripts": "3.0.0"
   }
 }
