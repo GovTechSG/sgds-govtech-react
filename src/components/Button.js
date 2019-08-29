@@ -24,9 +24,38 @@ class Button extends Component {
     });
   }
 
+  getSize(){
+     let size = "";
+    if (this.props.buttonSize === "small") {
+      size = " is-small";
+    } else if (this.props.buttonSize === "medium") {
+      size = " is-medium";
+    } else if (this.props.buttonSize === "large") {
+      size = " is-large";
+    }
+    return size
+  }
+
+  getColorType(){
+    if(this.props.colorType==='success'){
+      return ' is-success'
+    }
+    if(this.props.colorType==='warning'){
+      return ' is-warning'
+    }
+      
+    if(this.props.colorType==='danger'){
+      return ' is-danger'
+    }
+
+    if(this.props.colorType==='info'){
+      return ' is-info'
+    }
+    return ''
+  }
   // isPrimary, isOutlined, isRounded, disabled, buttonSize
   getClassName() {
-    let className = "sgds-button";
+    let className =  this.props.isSecondary?"sgds-sec-button":"sgds-button";
     if (this.props.isPrimary) {
       className = className.concat(" is-primary");
     }
@@ -36,13 +65,9 @@ class Button extends Component {
     if (this.props.isRounded) {
       className = className.concat(" is-rounded");
     }
-    if (this.props.buttonSize === "small") {
-      className = className.concat(" is-small");
-    } else if (this.props.buttonSize === "medium") {
-      className = className.concat(" is-medium");
-    } else if (this.props.buttonSize === "large") {
-      className = className.concat(" is-large");
-    }
+    className = className.concat(this.getSize());
+    className = className.concat(this.getColorType());
+
     return className;
   }
 
@@ -103,6 +128,7 @@ class Button extends Component {
 
 Button.propTypes = {
   isPrimary: PropTypes.bool,
+  isSecondary: PropTypes.bool,
   isOutlined: PropTypes.bool,
   isRounded: PropTypes.bool,
   buttonSize: PropTypes.string,
