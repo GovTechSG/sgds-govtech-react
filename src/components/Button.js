@@ -136,7 +136,8 @@ Button.propTypes = {
   paddingHorizontal: PropTypes.number,
   paddingVertical: PropTypes.number,
   primaryColor: PropTypes.string,
-  onClick: PropTypes.func
+  onClick: PropTypes.func,
+  colorType: PropTypes.string
 };
 
 Button.defaultProps = {
