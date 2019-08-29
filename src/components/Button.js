@@ -65,6 +65,9 @@ class Button extends Component {
     if (this.props.isRounded) {
       className = className.concat(" is-rounded");
     }
+    if(this.props.isLoading){
+      className = className.concat(" is-loading");
+    }
     className = className.concat(this.getSize());
     className = className.concat(this.getColorType());
 
@@ -128,6 +131,7 @@ class Button extends Component {
 
 Button.propTypes = {
   isPrimary: PropTypes.bool,
+  isLoading: PropTypes.bool,
   isSecondary: PropTypes.bool,
   isOutlined: PropTypes.bool,
   isRounded: PropTypes.bool,

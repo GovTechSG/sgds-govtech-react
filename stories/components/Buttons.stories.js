@@ -33,6 +33,7 @@ import {Button} from 'sgds-govtech-react'
 <Button isPrimary isOutlined> This button is outlined</Button>
 <Button isPrimary isRounded> This button is rounded</Button>
 <Button isPrimary isDisabled> This button is disabled</Button>
+<Button isPrimary isLoading> This button is loading</Button>
 `
 const buttonCode2 = 
 `
@@ -93,6 +94,10 @@ const Buttons = (props) => {
           <ButtonContainer className="col is-3">
             <Button isPrimary isDisabled> This button is disabled</Button>
             <CodeText>isDisabled</CodeText>
+          </ButtonContainer>
+          <ButtonContainer className="col is-3">
+            <Button isPrimary isLoading> This button is loading</Button>
+            <CodeText>isLoading</CodeText>
           </ButtonContainer>
         </div>
         <div className="row">
