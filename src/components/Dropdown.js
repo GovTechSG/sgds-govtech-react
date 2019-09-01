@@ -7,10 +7,12 @@ class Dropdown extends Component {
   };
 
   componentDidMount() {
-    document.addEventListener("mousedown", this.hideDropdown);
+    document.addEventListener("mousedown", this.hideDropdownOnClick);
+    document.addEventListener("keydown", this.hideDropdownOnEscape);
   }
   componentWillUnmount() {
-    document.removeEventListener("mousedown", this.hideDropdown);
+    document.removeEventListener("mousedown", this.hideDropdownOnClick);
+    document.removeEventListener("keydown", this.hideDropdownOnEscape);
   }
 
   toggleDropdown = () => {
@@ -23,7 +25,7 @@ class Dropdown extends Component {
     this.contentWrapperRef = node; // Set directly on 'this' since it won't change/re-render
   };
 
-  hideDropdown = event => {
+  hideDropdownOnClick = event => {
     if (
       this.contentWrapperRef &&
       !this.contentWrapperRef.contains(event.target)
@@ -33,6 +35,14 @@ class Dropdown extends Component {
       });
     }
   };
+
+  hideDropdownOnEscape = event => {
+    if (event.key === "Escape") {
+      this.setState({
+        showDropdown: false
+      });
+    }
+  }
 
   render() {
     return (
