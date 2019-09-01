@@ -42,9 +42,40 @@ class Dropdown extends Component {
         showDropdown: false
       });
     }
-  }
+  };
 
   render() {
+    if (this.props.isHoverable) {
+      return (
+        <div
+          className={`sgds-dropdown ${
+            this.state.showDropdown ? "is-active" : ""
+          }`}
+          onMouseLeave={() => this.setState({ showDropdown: false })}
+        >
+          <div className="sgds-dropdown-trigger">
+            <button
+              className="sgds-button"
+              aria-haspopup="true"
+              aria-controls="sgds-dropdown-menu"
+              onMouseEnter={() => this.setState({ showDropdown: true })}
+            >
+              <span>{this.props.title}</span>
+              <span className="icon">
+                <span
+                  className={`sgds-icon sgds-icon-chevron-${
+                    this.state.showDropdown ? "up" : "down"
+                  }`}
+                />
+              </span>
+            </button>
+          </div>
+          <div className="sgds-dropdown-menu" role="menu">
+            <div className="sgds-dropdown-content">{this.props.children}</div>
+          </div>
+        </div>
+      );
+    }
     return (
       <div
         className={`sgds-dropdown ${
@@ -69,7 +100,7 @@ class Dropdown extends Component {
             </span>
           </button>
         </div>
-        <div className="sgds-dropdown-menu" id="sgds-dropdown-menu" role="menu">
+        <div className="sgds-dropdown-menu" role="menu">
           <div
             className="sgds-dropdown-content"
             onClick={() => {
@@ -85,7 +116,8 @@ class Dropdown extends Component {
 }
 
 Dropdown.propTypes = {
-  title: PropTypes.string
+  title: PropTypes.string,
+  isHoverable: PropTypes.bool
 };
 
 export default Dropdown;
