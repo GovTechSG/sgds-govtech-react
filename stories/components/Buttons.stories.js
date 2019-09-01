@@ -94,7 +94,6 @@ const ButtonStories = props => {
           </ButtonContainer>
           <ButtonContainer className="col is-3">
             <Button isPrimary onClick={action("primary-button-click")}>
-              {" "}
               This is a primary button
             </Button>
             <CodeText>isPrimary</CodeText>
