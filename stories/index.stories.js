@@ -7,13 +7,16 @@ import AccordionStories from "./components/Accordion.stories";
 
 import buttonNotes from "./notes/components/buttons.md";
 import welcomeNotes from "./notes/welcome.md";
+import accordionNotes from "./notes/components/accordions.md";
 
 storiesOf("Welcome", module).add("Introduction", () => <Welcome></Welcome>, {
   notes: { markdown: welcomeNotes }
 });
 
 storiesOf("Components", module)
-  .add("Accordions", () => <AccordionStories />, {})
+  .add("Accordions", () => <AccordionStories />, {
+    notes: { markdown: accordionNotes }
+  })
   .add("Buttons", () => <ButtonStories />, {
     notes: { markdown: buttonNotes }
   });
