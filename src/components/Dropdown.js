@@ -7,10 +7,12 @@ class Dropdown extends Component {
   };
 
   componentDidMount() {
-    document.addEventListener("mousedown", this.hideDropdown);
+    document.addEventListener("mousedown", this.hideDropdownOnClick);
+    document.addEventListener("keydown", this.hideDropdownOnEscape);
   }
   componentWillUnmount() {
-    document.removeEventListener("mousedown", this.hideDropdown);
+    document.removeEventListener("mousedown", this.hideDropdownOnClick);
+    document.removeEventListener("keydown", this.hideDropdownOnEscape);
   }
 
   toggleDropdown = () => {
@@ -23,7 +25,7 @@ class Dropdown extends Component {
     this.contentWrapperRef = node; // Set directly on 'this' since it won't change/re-render
   };
 
-  hideDropdown = event => {
+  hideDropdownOnClick = event => {
     if (
       this.contentWrapperRef &&
       !this.contentWrapperRef.contains(event.target)
@@ -34,7 +36,46 @@ class Dropdown extends Component {
     }
   };
 
+  hideDropdownOnEscape = event => {
+    if (event.key === "Escape") {
+      this.setState({
+        showDropdown: false
+      });
+    }
+  };
+
   render() {
+    if (this.props.isHoverable) {
+      return (
+        <div
+          className={`sgds-dropdown ${
+            this.state.showDropdown ? "is-active" : ""
+          }`}
+          onMouseLeave={() => this.setState({ showDropdown: false })}
+        >
+          <div className="sgds-dropdown-trigger">
+            <button
+              className="sgds-button"
+              aria-haspopup="true"
+              aria-controls="sgds-dropdown-menu"
+              onMouseEnter={() => this.setState({ showDropdown: true })}
+            >
+              <span>{this.props.title}</span>
+              <span className="icon">
+                <span
+                  className={`sgds-icon sgds-icon-chevron-${
+                    this.state.showDropdown ? "up" : "down"
+                  }`}
+                />
+              </span>
+            </button>
+          </div>
+          <div className="sgds-dropdown-menu" role="menu">
+            <div className="sgds-dropdown-content">{this.props.children}</div>
+          </div>
+        </div>
+      );
+    }
     return (
       <div
         className={`sgds-dropdown ${
@@ -59,7 +100,7 @@ class Dropdown extends Component {
             </span>
           </button>
         </div>
-        <div className="sgds-dropdown-menu" id="sgds-dropdown-menu" role="menu">
+        <div className="sgds-dropdown-menu" role="menu">
           <div
             className="sgds-dropdown-content"
             onClick={() => {
@@ -75,7 +116,8 @@ class Dropdown extends Component {
 }
 
 Dropdown.propTypes = {
-  title: PropTypes.string
+  title: PropTypes.string,
+  isHoverable: PropTypes.bool
 };
 
 export default Dropdown;

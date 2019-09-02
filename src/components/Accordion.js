@@ -14,7 +14,8 @@ class Accordion extends Component {
     return this.state.isActive;
   };
 
-  onHeaderClick = () => {
+  onHeaderClick = (event) => {
+    event.preventDefault();
     if (!this.props.onHeaderClick) {
       this.setState({ isActive: !this.state.isActive });
       return;
