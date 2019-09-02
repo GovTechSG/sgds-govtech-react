@@ -1,4 +1,6 @@
 import React, { Component } from "react";
+import PropTypes from "prop-types";
+
 class Masthead extends Component {
   constructor(props) {
     super(props);
@@ -9,6 +11,9 @@ class Masthead extends Component {
       isActive: false
     };
     this.languageSelectHandler = props.languageSelectHandler;
+    if(this.languageSelectHandler){
+      this.languageSelectHandler('English')
+    }
     // should languages be extensible?
     this.languages = ["English", "中文", "Bahasa Melayu", "தமிழ்"];
   }
@@ -83,5 +88,13 @@ class Masthead extends Component {
     );
   }
 }
+
+Masthead.propTypes = {
+  hasLanguageSelector: PropTypes.bool,
+};
+
+Masthead.defaultProps = {
+  onClick() {}
+};
 
 export default Masthead;
