@@ -10,6 +10,7 @@ import BreadcrumbStories from "./components/Breadcrumb.stories"
 import buttonNotes from "./notes/components/buttons.md";
 import welcomeNotes from "./notes/welcome.md";
 import accordionNotes from "./notes/components/accordions.md";
+import breadcrumbNotes from "./notes/components/breadcrumb.md";
 
 storiesOf("Welcome", module).add("Introduction", () => <Welcome></Welcome>, {
   notes: { markdown: welcomeNotes }
@@ -23,4 +24,6 @@ storiesOf("Components", module)
     notes: { markdown: buttonNotes }
   })
   .add("Dropdowns", () => <DropdownStories />)
-  .add("Breadcrumbs",()=><BreadcrumbStories/>);
+  .add("Breadcrumbs",()=><BreadcrumbStories/>,{
+    notes: {markdown: breadcrumbNotes }
+  });
