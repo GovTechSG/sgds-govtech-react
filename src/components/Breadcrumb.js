@@ -10,7 +10,7 @@ class Breadcrumb extends Component {
   }
 
   getNavClassName() {
-    let className = "sgds-breadcrumb";
+    let className = `sgds-breadcrumb ${this.props.className}`;
     if (this.props.hasBackgroundDark) {
       className = className.concat(" has-background-dark");
     }
@@ -23,6 +23,7 @@ class Breadcrumb extends Component {
       <nav className={this.getNavClassName()} aria-label="breadcrumbs">
         <ul>
           {items.map((value, index) => {
+            console.log(value)
             return (
               <li key={index}>
                 <a
