@@ -78,7 +78,8 @@ const mainNavItems = {
     },
     {
       img: "",
-      name: "Link3"
+      name: "Link3",
+      link: "/"
     }
   ]
 };
@@ -143,6 +144,8 @@ const MainNavStories = props => {
             brand={mainNavItems.brand}
             links={mainNavItems.links}
             displaySearch={true}
+            searchChangeHandler={(event)=>console.log(event.target.value)}
+            searchClickHandler={(inp)=>console.log("clicked")}
           />
           </div>
         </div>

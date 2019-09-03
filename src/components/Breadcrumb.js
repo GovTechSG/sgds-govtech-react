@@ -23,7 +23,6 @@ class Breadcrumb extends Component {
       <nav className={this.getNavClassName()} aria-label="breadcrumbs">
         <ul>
           {items.map((value, index) => {
-            console.log(value)
             return (
               <li key={index}>
                 <a

@@ -17,7 +17,10 @@ class MainNav extends Component {
       hoverSunItem: null,
       showSearch: false
     };
+    this.searchChangeHandler = props.searchChangeHandler?props.searchChangeHandler:()=>{}
+    this.searchClickHandler = props.searchClickHandler?props.searchClickHandler:()=>{}
   }
+   
   selectMenuTab = (item, index, subIndex, subMenuIndex) => {
     this.props.selectItem(item);
     if (subMenuIndex >= 0) {
@@ -41,12 +44,7 @@ class MainNav extends Component {
     }
   };
   toggleSearchBar = () => {
-    this.setState(
-      {
-        showSearch: !this.state.showSearch
-      },
-      () => console.log(this.state.showSearch)
-    );
+    this.setState({showSearch: !this.state.showSearch});
   };
   hoverOn = (name, index, subIndex, subMenuIndex) => {
     if (subMenuIndex >= 0) {
@@ -386,6 +384,7 @@ class MainNav extends Component {
                       type="text"
                       placeholder="What are you looking for?"
                       name="nav-4-search"
+                      onChange={this.searchChangeHandler.bind(this)}
                     />
                     <span className="icon is-left">
                       <i className="search-bar-icon sgds-icon sgds-icon-search is-size-7" />
@@ -396,6 +395,7 @@ class MainNav extends Component {
                       type="submit"
                       className="sgds-button is-primary has-text-white padding--left padding--right"
                       style={{ backgroundColor: this.props.themePrimaryColor }}
+                      onClick={this.searchClickHandler.bind(this)}
                     >
                       SEARCH
                     </button>
