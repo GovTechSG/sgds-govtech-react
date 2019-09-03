@@ -10,8 +10,11 @@
 
 ### links object structure
 Links takes in a list of objects and renders them depending on the content of the objects.
-```
-<!-- Mega Menus -->
+
+#### Mega Menus
+
+```Javascript
+
 {
   img: "",
   name: "MEGA MENU1",
@@ -32,10 +35,12 @@ Links takes in a list of objects and renders them depending on the content of th
     },...
   ]
 } 
-```
 
 ```
-<!-- Regular Link Dropdown Menus -->
+
+#### Regular Link Dropdown Menus
+
+```Javascript
 {
   {
     img: "",
@@ -50,8 +55,9 @@ Links takes in a list of objects and renders them depending on the content of th
 } 
 ```
 
-```
-<!-- Simple Link Menu-->
+#### Simple Link Menus
+
+```Javascript
 {
   img: "",
   name: "Link3",

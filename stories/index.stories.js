@@ -13,6 +13,7 @@ import buttonNotes from "./notes/components/buttons.md";
 import welcomeNotes from "./notes/welcome.md";
 import accordionNotes from "./notes/components/accordions.md";
 import breadcrumbNotes from "./notes/components/breadcrumb.md";
+import mainNavNotes from "./notes/components/mainnav.md";
 
 storiesOf("Welcome", module).add("Introduction", () => <Welcome></Welcome>, {
   notes: { markdown: welcomeNotes }
@@ -20,7 +21,9 @@ storiesOf("Welcome", module).add("Introduction", () => <Welcome></Welcome>, {
 
 storiesOf("Required Components", module)
 .add("Masthead",()=><MastheadStories/>)
-.add("MainNav",()=><MainNavStories/>)
+.add("MainNav",()=><MainNavStories/>,{
+  notes:{markdown: mainNavNotes}
+})
 
 
 storiesOf("Components", module)
