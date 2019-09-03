@@ -10,7 +10,7 @@ class MainNav extends Component {
     this.state = {
       selectedTab: 0,
       selectedSub: 0,
-      selectedSunItem: 0,
+      selectedSubItem: 0,
       hoverTabName: null,
       hoverTab: null,
       hoverSub: null,
@@ -24,19 +24,19 @@ class MainNav extends Component {
       this.setState({
         selectedTab: index,
         selectedSub: subIndex,
-        selectedSunItem: subMenuIndex
+        selectedSubItem: subMenuIndex
       });
     } else if (subIndex >= 0) {
       this.setState({
         selectedTab: index,
         selectedSub: subIndex,
-        selectedSunItem: null
+        selectedSubItem: null
       });
     } else {
       this.setState({
         selectedTab: index,
         selectedSub: null,
-        selectedSunItem: null
+        selectedSubItem: null
       });
     }
   };
@@ -185,12 +185,6 @@ class MainNav extends Component {
                       >
                         <NavTabWithSub
                           className={"is-uppercase"}
-                          // className={
-                          //   "navbar-link is-uppercase" +
-                          //   (this.state.selectedTab === index
-                          //     ? " is-active"
-                          //     : "")
-                          // }
                           style={
                             this.state.selectedTab === index
                               ? {
@@ -209,13 +203,6 @@ class MainNav extends Component {
                           {link.sublinks.map((sublink, i) => {
                             return (
                               <NavSub
-                                // className={
-                                //   "navbar-item" +
-                                //   (this.state.selectedSub === i &&
-                                //   this.state.selectedTab === index
-                                //     ? " is-active"
-                                //     : "")
-                                // }
                                 href={sublink.link}
                                 key={i}
                                 style={
@@ -250,12 +237,6 @@ class MainNav extends Component {
                       >
                         <NavTabWithSub
                           className={"is-uppercase"}
-                          // className={
-                          //   "navbar-link is-uppercase" +
-                          //   (this.state.selectedTab === index
-                          //     ? " is-active"
-                          //     : "")
-                          // }
                           style={
                             this.state.selectedTab === index
                               ? {
@@ -283,21 +264,12 @@ class MainNav extends Component {
                                       (subMenuItem, b) => {
                                         return (
                                           <NavSub
-                                            // className={
-                                            //   "navbar-item" +
-                                            //   (this.state.selectedTab ===
-                                            //     index &&
-                                            //   this.state.selectedSub === i &&
-                                            //   this.state.selectedSunItem === b
-                                            //     ? " is-active"
-                                            //     : "")
-                                            // }
                                             key={b}
                                             style={
                                               this.state.selectedTab ===
                                                 index &&
                                               this.state.selectedSub === i &&
-                                              this.state.selectedSunItem === b
+                                              this.state.selectedSubItem === b
                                                 ? {
                                                     color: this.props
                                                       .themePrimaryColor,
@@ -355,13 +327,6 @@ class MainNav extends Component {
                         className={"is-uppercase"}
                         href={link.link}
                         key={index}
-                        // className={
-                        //   "navbar-item is-uppercase" +
-                        //   // (this.state.selectedTab === index
-                        //   //   ? " is-active"
-                        //   //   : "") +
-                        //   " is-tab"
-                        // }
                         style={
                           this.state.selectedTab === index
                             ? {
@@ -387,7 +352,7 @@ class MainNav extends Component {
                 })}
               </div>
             ) : null}
-            {this.props.displaySeardh ? (
+            {this.props.displaySearch ? (
               <div className="navbar-end is-hidden-touch">
                 <div className="navbar-item">
                   <button
@@ -448,7 +413,6 @@ class MainNav extends Component {
 MainNav.propTypes = {
   links: PropTypes.arrayOf(
     PropTypes.shape({
-      // link: PropTypes.string.isRequired,
       name: PropTypes.string.isRequired,
       img: PropTypes.string
     })
