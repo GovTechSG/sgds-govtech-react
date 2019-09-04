@@ -2,12 +2,15 @@ import { storiesOf } from "@storybook/react";
 import React from "react";
 
 import Welcome from "./pages/welcome.stories";
-import ButtonStories from "./components/Buttons.stories";
-import AccordionStories from "./components/Accordion.stories";
-import DropdownStories from "./components/Dropdown.stories";
-import BreadcrumbStories from "./components/Breadcrumb.stories"
-import MastheadStories from "./components/Masthead.stories"
-import MainNavStories from "./components/MainNav.stories"
+import {
+  Button,
+  Accordion,
+  Dropdown,
+  Breadcrumb,
+  Masthead,
+  MainNav,
+  Footer
+} from "./components"
 
 import buttonNotes from "./notes/components/buttons.md";
 import welcomeNotes from "./notes/welcome.md";
@@ -20,20 +23,22 @@ storiesOf("Welcome", module).add("Introduction", () => <Welcome></Welcome>, {
 });
 
 storiesOf("Required Components", module)
-.add("Masthead",()=><MastheadStories/>)
-.add("MainNav",()=><MainNavStories/>,{
+.add("Masthead",()=><Masthead/>)
+.add("MainNav",()=><MainNav/>,{
   notes:{markdown: mainNavNotes}
 })
+.add("Footer",()=><Footer/>)
+
 
 
 storiesOf("Components", module)
-  .add("Accordions", () => <AccordionStories />, {
+  .add("Accordions", () => <Accordion />, {
     notes: { markdown: accordionNotes }
   })
-  .add("Buttons", () => <ButtonStories />, {
+  .add("Buttons", () => <Button />, {
     notes: { markdown: buttonNotes }
   })
-  .add("Dropdowns", () => <DropdownStories />)
-  .add("Breadcrumbs",()=><BreadcrumbStories/>,{
+  .add("Dropdowns", () => <Dropdown />)
+  .add("Breadcrumbs",()=><Breadcrumb/>,{
     notes: {markdown: breadcrumbNotes }
   });
