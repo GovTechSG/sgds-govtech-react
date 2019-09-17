@@ -9,12 +9,10 @@ import { Page, Title } from "../shared-styles";
 const code1 = `
 import { Tab } from 'sgds-govtech-react' 
 
-<Tab />
+<Tab tabItems={tabItems} />
 
 `;
-const code2 = `// Using react hooks as the handler. You can use other functions to handle the state change
-<Tab />
-`;
+
 
 const tabItems = [
   {
@@ -62,17 +60,17 @@ const TabStories = props => {
   return (
     <Page>
       <Title className="sgds-section">
-        <h3 className="has-text-white has-text-weight-semibold">Masthead</h3>
+        <h3 className="has-text-white has-text-weight-semibold">Tab</h3>
       </Title>
       <section className="sgds-section">
         <h4 className="has-text-primary">
-        The Masthead is a standard component that has to be present in all pages of '.gov.sg' websites.
+        Tabs are navigation elements that let users easily access different areas of a site or different parts of an individual page. Think tabbed dividers in a filing cabinet – by clicking a tab, users can easily locate a page containing related content
         </h4>
 
         <hr className="margin--bottom--lg margin--top--lg"></hr>
 
         <h5 className="has-text-primary has-text-weight-semibold margin--bottom">
-          Default Masthead
+          Default Tab
         </h5>
         <div className="row is-multiline">
           <div className="col">

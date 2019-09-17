@@ -22,6 +22,7 @@ import mainNavNotes from "./notes/components/mainnav.md";
 import footerNotes from "./notes/components/footer.md";
 import sideNavNotes from "./notes/components/sidenav.md";
 import mastheadNotes from "./notes/components/masthead.md";
+import tabNotes from "./notes/components/tab.md";
 
 storiesOf("Welcome", module).add("Introduction", () => <Welcome></Welcome>, {
   notes: { markdown: welcomeNotes }
@@ -54,4 +55,8 @@ storiesOf("Components", module)
   .add("Breadcrumbs",()=><Breadcrumb/>,{
     notes: {markdown: breadcrumbNotes }
   })
-  .add("Tabs",()=><Tab/>)
+  .add("Tabs",()=><Tab/>,
+  {
+    notes: {markdown: tabNotes}
+  }
+  )
