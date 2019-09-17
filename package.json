@@ -7,9 +7,9 @@
   "main": "dist/index.js",
   "scripts": {
     "build": "react-scripts build",
+    "build:lib": "rm -rf ./dist && NODE_ENV=production babel src/components --out-dir ./dist --source-maps",
     "build:storybook": "build-storybook -s public",
-    "compile": "rm -rf ./dist && NODE_ENV=production babel src/components --out-dir ./dist --source-maps",
-    "compile:watch": "rm -rf ./dist && NODE_ENV=production babel src/components --watch --out-dir ./dist --source-maps",
+    "build:watch": "rm -rf ./dist && NODE_ENV=production babel src/components --watch --out-dir ./dist --source-maps",
     "eject": "react-scripts eject",
     "start": "react-scripts start",
     "storybook": "start-storybook -p 6006",
