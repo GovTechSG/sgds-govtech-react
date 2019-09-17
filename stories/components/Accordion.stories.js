@@ -5,32 +5,39 @@ import SyntaxHighlighter from "../lib/SyntaxHighlighter";
 import { formatCode } from "../lib/utils";
 import { Page, Title } from "../shared-styles";
 
-const accordionBasicCode = `import { Accordion } from "sgds-govtech-react";
-
+const accordionBasicCode = `
+import { Accordion } from "sgds-govtech-react";
 <>
-<Accordion header="Click me to reveal/hide my content">
-<p>Hello there!</p>
-</Accordion>
-<Accordion header="I am initially open" initiallyOpen>
-<p>Bye!</p>
-</Accordion>
-<Accordion
-header="Passing in isActive as a prop locks the accordion at an open or closed state"
-isActive
->
-<p>I am always displayed</p>
-</Accordion>
-<Accordion
-header="Passing in isActive as a prop locks the accordion at an open or closed state"
-isActive={false}
->
-<p>I am always hidden</p>
-</Accordion></>`;
 
-const accordionSetCode = `<AccordionSet>
 <Accordion header="Click me to reveal/hide my content">
   <p>Hello there!</p>
 </Accordion>
+
+<Accordion header="Click me to reveal/hide my content" initiallyOpen>
+  <p>Hello there!</p>
+</Accordion>
+
+<Accordion header="I am initially open" initiallyOpen >
+  <p>Bye!</p>
+</Accordion>
+
+<Accordion header="Passing in isActive as a prop locks the accordion at an open or closed state" isActive >
+  <p>I am always displayed</p>
+</Accordion>
+
+<Accordion header="Passing in isActive as a prop locks the accordion at an open or closed state" isActive={false} >
+  <p>I am always hidden</p>
+</Accordion>
+
+</>
+`;
+
+const accordionSetCode = `
+<AccordionSet>
+<Accordion header="Click me to reveal/hide my content">
+  <p>Hello there!</p>
+</Accordion>
+
 <Accordion
   header="Click me to reveal/hide my content"
   initiallyOpen
@@ -39,9 +46,11 @@ const accordionSetCode = `<AccordionSet>
     Only 1 Accordion in an Accordion Set can be initially open.
   </p>
 </Accordion>
+
 <Accordion header="Click me to reveal/hide my content">
   <p>Hello there!</p>
 </Accordion>
+
 </AccordionSet>`;
 
 const AccordionStories = props => {
