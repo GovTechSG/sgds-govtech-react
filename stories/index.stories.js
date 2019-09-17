@@ -9,7 +9,8 @@ import {
   Breadcrumb,
   Masthead,
   MainNav,
-  Footer
+  Footer,
+  Tab
 } from "./components"
 
 import buttonNotes from "./notes/components/buttons.md";
@@ -34,6 +35,7 @@ storiesOf("Required Components", module)
 
 
 
+
 storiesOf("Components", module)
   .add("Accordions", () => <Accordion />, {
     notes: { markdown: accordionNotes }
@@ -44,4 +46,5 @@ storiesOf("Components", module)
   .add("Dropdowns", () => <Dropdown />)
   .add("Breadcrumbs",()=><Breadcrumb/>,{
     notes: {markdown: breadcrumbNotes }
-  });
+  })
+  .add("Tabs",()=><Tab/>)
