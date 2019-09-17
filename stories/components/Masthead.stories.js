@@ -15,7 +15,7 @@ import { Masthead } from 'sgds-govtech-react'
 const code2 = `// Using react hooks as the handler. You can use other functions to handle the state change
 <Masthead hasLanguageSelector languageSelectHandler={setLanguage}/>
 `;
-const BreadcrumbStories = props => {
+const MastheadStories = props => {
   const [language, setLanguage] = useState('')
   return (
     <Page>
@@ -64,4 +64,4 @@ const BreadcrumbStories = props => {
   );
 };
 
-export default BreadcrumbStories;
+export default MastheadStories;
