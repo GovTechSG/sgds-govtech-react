@@ -2,6 +2,8 @@
 
 React components powered by [Singapore Government Design System](https://www.designsystem.gov.sg).
 
+React Documentation can be found [here](https://govtechsg.github.io/sgds-govtech-react) - [https://govtechsg.github.io/sgds-govtech-react](https://govtechsg.github.io/sgds-govtech-react)
+
 We are in early development! If you are trying out sgds-govtech-react, feel free to leave us feedback in the issues page, or even submit a [PR](https://github.com/govtechsg/sgds-govtech-react/pulls)!
 
 ## Installation
@@ -53,4 +55,5 @@ ReactDOM.render(
 ```
 
 ### Patch Notes
+V0.1.3: Added Sidenav, Tab and their storybook documentation to the library
 V0.1.2: Added footer and masthead to component library
