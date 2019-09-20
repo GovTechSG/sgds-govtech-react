@@ -55,5 +55,5 @@ ReactDOM.render(
 ```
 
 ### Patch Notes
-V0.1.5: Added Sidenav, Tab and their storybook documentation to the library
+V0.1.7: Added Sidenav, Tab and their storybook documentation to the library
 V0.1.2: Added footer and masthead to component library
