@@ -13,7 +13,8 @@ Links takes in a list of objects and renders them depending on the content of th
 [
   {
     title:'Item1',
-    link:'#'
+    link:'#',
+    isActive: false
   },
   {
     title:'Item2',
@@ -29,3 +30,39 @@ Links takes in a list of objects and renders them depending on the content of th
 ]
 ```
 
+### Customising the SideNav
+By passing in children into the object you can overwrite the default <a> tag that is generated.
+You can also open the nav by default by adding a isActive into the menuItems object
+```Javascript
+[
+  {
+    title:'Item1',
+    link:'#',
+  },
+  { 
+    title:'Item2',
+    isActive:true,
+    onClick:(id,isActive)=>{
+      console.log(`test: ${MenuItems2[id].isActive}`);
+      MenuItems2[id].isActive=isActive
+    },
+    subMenuItems:[
+      {
+        children:(          
+          <a class="second-level-nav-item" href='#'>
+            Passed in Child Link 1
+          </a>
+        )
+      },
+      {title:'SubItem2',link:'#'}
+    ]
+  },
+  {
+    children:(          
+      <a href='#'>
+        Item 3
+      </a>
+    )
+  },
+]
+```

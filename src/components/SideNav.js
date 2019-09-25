@@ -1,9 +1,11 @@
 import React, { Component, useState } from "react";
 import PropTypes from "prop-types";
 
+
+//  TODO : Add accessibility to the framework.
 const DropDownLink = (props) =>{
   const dropDownClickHandler = () =>{
-    props.onClick(props.id,!props.isActive);
+    props.onClick(props.position,!props.isActive);
   }
   let computedLinkClass = "second-level-nav-header "
   let computedIconClass = "sgds-icon "
@@ -27,23 +29,44 @@ class SideNav extends Component {
     super(props);
     this.menuItems = props.menuItems
     //Initialize the dropdown states
-    let dropDownStates = {}
+    
+    let defaultStates = {}
+    this.isNotMissingState = true
     this.menuItems.forEach((item,idx)=>{
-      dropDownStates[`dropdown-${idx}`]=false
+      if(typeof item.isActive === 'boolean'){
+        defaultStates[`dropdown-${idx}`]=item.isActive
+      }else{
+        defaultStates[`dropdown-${idx}`]=false
+      }
     })
+    let dropDownStates =  defaultStates
     this.state = dropDownStates
   }
+
+  // Need to write tests to ensure that this works properly
   mainLinkOnClickHandler = (id,isActive)=>{
-    this.setState({[id]:isActive})
+    if(this.menuItems[id].onClick){
+      this.menuItems[id].onClick(id,isActive)
+    }
+    this.setState({[`dropdown-${id}`]:isActive})
   }
   renderSubMenuItems=(subMenuItems)=>{
+
     let renderedSubMenuItems = subMenuItems.map((subItem,idx) => {
-      return(
-        <li key={`subItem-${idx}`}>
+      try{
+        let linkChild = subItem.children ? subItem.children :(
           <a class="second-level-nav-item" href={subItem.link}>
             {subItem.title}
           </a>
-        </li>)
+        )
+        return(
+          <li key={`subItem-${idx}`}>
+            {linkChild}
+          </li>)
+      }catch(err){
+        console.error("Sub Menu Items could not be rendered :" + err.message)
+        return(<div></div>)
+      }
     })
     return renderedSubMenuItems
   }
@@ -54,7 +77,7 @@ class SideNav extends Component {
       if(item.subMenuItems){
         renderedItems.push(          
           <li key={`mainList-${idx}`} className="second-level-nav">
-            <DropDownLink isActive={this.state[`dropdown-${idx}`]} onClick={this.mainLinkOnClickHandler} key={`dropdown-${idx}`} id={`dropdown-${idx}`}>
+            <DropDownLink isActive={this.state[`dropdown-${idx}`]} onClick={this.mainLinkOnClickHandler} key={`dropdown-${idx}`} position={idx}>
               {item.title}
             </DropDownLink>
           </li>
@@ -66,11 +89,14 @@ class SideNav extends Component {
           </div>
         )
       }else{
+        let listContent = item.children? item.children : (
+          <a href={item.link}>
+            {item.title}
+          </a>
+        )
         renderedItems.push(          
           <li key={`mainList-${idx}`}>
-            <a href={item.link}>
-                {item.title}
-            </a>
+            {listContent}
           </li>
         )
       }
