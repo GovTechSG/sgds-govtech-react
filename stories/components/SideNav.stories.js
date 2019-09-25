@@ -20,6 +20,42 @@ const MenuItems=[
   {title:'Item2',subMenuItems:[{title:'SubItem1',link:'#'},{title:'SubItem2',link:'#'}]},
   {title:'Item3',link:'#'},
 ]
+
+const MenuItems2=[
+  {
+    title:'Item1',
+    link:'#',
+  },
+  { 
+    title:'Item2',
+    isActive:true,
+    onClick:(id,isActive)=>{
+      console.log(`test: ${MenuItems2[id].isActive}`);
+      MenuItems2[id].isActive=isActive
+    },
+    subMenuItems:[
+    {
+      children:(          
+        <a class="second-level-nav-item" href='#'>
+          Passed in Child Link 1
+        </a>
+      )
+    },
+    {title:'SubItem2',link:'#'}
+  ]},
+  {
+    children:(          
+    <a href='#'>
+      Item 3
+    </a>
+  )
+},
+]
+const MenuStates={
+  'dropdown-0':false,
+  'dropdown-1':true,
+  'dropdown-2':false,
+}
 const SideNavStories = props => {
   return (
     <Page>
@@ -46,6 +82,21 @@ const SideNavStories = props => {
             <SyntaxHighlighter>{code1}</SyntaxHighlighter>
           </div>
         </div>
+        <hr className="margin--bottom--lg margin--top--lg"></hr>
+
+          <h5 className="has-text-primary has-text-weight-semibold margin--bottom">
+            Customised SideNav
+          </h5>
+          <div className="row is-multiline">
+            <div className="col is-3">
+              <SideNav menuItems={MenuItems2}></SideNav>
+            </div>
+          </div>
+          <div className="row">
+            <div className="col ">
+              <SyntaxHighlighter>{code1}</SyntaxHighlighter>
+            </div>
+          </div>
       </section>
     </Page>
   );

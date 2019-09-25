@@ -1,11 +1,12 @@
 {
   "name": "sgds-govtech-react",
-  "version": "0.1.5",
+  "version": "0.1.9",
   "files": [
     "dist"
   ],
   "main": "dist/index.js",
   "scripts": {
+    "prepublishOnly": "rm -rf ./dist && NODE_ENV=production babel src/components --out-dir ./dist --source-maps",
     "build": "react-scripts build",
     "build:lib": "rm -rf ./dist && NODE_ENV=production babel src/components --out-dir ./dist --source-maps",
     "build:storybook": "build-storybook -s public",
