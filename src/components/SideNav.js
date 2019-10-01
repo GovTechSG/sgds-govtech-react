@@ -55,7 +55,7 @@ class SideNav extends Component {
     let renderedSubMenuItems = subMenuItems.map((subItem,idx) => {
       try{
         let linkChild = subItem.children ? subItem.children :(
-          <a class="second-level-nav-item" href={subItem.link}>
+          <a className="second-level-nav-item" href={subItem.link}>
             {subItem.title}
           </a>
         )
