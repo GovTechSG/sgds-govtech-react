@@ -80,10 +80,10 @@ class Masthead extends Component {
                 <span className="is-text">A Singapore Government Agency Website</span>
               </a>
             </div>
-            {this.renderSelectedLanguage()}
+            {/* {this.renderSelectedLanguage()} */}
           </div>
         </div>
-        {this.renderLanguageSelector()}
+        {/* {this.renderLanguageSelector()} */}
       </div>
     );
   }
