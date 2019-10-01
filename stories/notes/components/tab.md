@@ -17,7 +17,7 @@ Content can be any JSX nested block child.
     title:'Tab 1',
     icon:'sgds-icon-boat',
     content:(  
-      <div class="col">
+      <div className="col">
         <h5>Tab 1 Content</h5>
         <p>
           Lorem ipsum dolor sit amet, consectetur adipisicing elit. Asperiores eos fugiat in
@@ -30,7 +30,7 @@ Content can be any JSX nested block child.
     title:'Tab 2',
     icon:'sgds-icon-bus',
     content:(  
-      <div class="col">
+      <div className="col">
         <h5>Tab 2 Content</h5>
         <p>
           Lorem ipsum dolor sit amet, consectetur adipisicing elit. Asperiores eos fugiat in
@@ -43,7 +43,7 @@ Content can be any JSX nested block child.
     title:'Tab 3',
     icon:'sgds-icon-train',
     content:(  
-      <div class="col">
+      <div className="col">
         <h5>Tab 3 Content</h5>
         <p>
           Lorem ipsum dolor sit amet, consectetur adipisicing elit. Asperiores eos fugiat in
