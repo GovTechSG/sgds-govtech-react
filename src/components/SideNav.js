@@ -40,7 +40,7 @@ class SideNav extends Component {
     let renderedSubMenuItems = subMenuItems.map((subItem,idx) => {
       return(
         <li key={`subItem-${idx}`}>
-          <a class="second-level-nav-item" href={subItem.link}>
+          <a className="second-level-nav-item" href={subItem.link}>
             {subItem.title}
           </a>
         </li>)

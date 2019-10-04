@@ -1,64 +1,61 @@
-import React,{ useState } from "react";
-import styled from "styled-components";
-import { action } from "@storybook/addon-actions";
-import { formatCode } from "../lib/utils";
+import React from "react";
 import SyntaxHighlighter from "../lib/SyntaxHighlighter";
 import { Masthead } from "../../src/components";
-import { Page, Title } from "../shared-styles";
+import {
+  Page,
+  Title,
+  ParagraphHeader,
+  ParagraphSubHeader
+} from "../shared-styles";
 
 const code1 = `
-import { Masthead } from 'sgds-govtech-react' 
+import { Masthead } from 'sgds-govtech-react';
 
-<Masthead />
-
+function App() {
+  return (
+    <div className="app">
+      <Masthead />
+    </div>
+  )
+}
 `;
-const code2 = `// Using react hooks as the handler. You can use other functions to handle the state change
-<Masthead hasLanguageSelector languageSelectHandler={setLanguage}/>
-`;
-const MastheadStories = props => {
-  const [language, setLanguage] = useState('')
+const code2 = `<Masthead hasMaxWidth={false}`;
+const MastheadStories = () => {
   return (
     <Page>
-      <Title className="sgds-section">
+      <Title>
         <h3 className="has-text-white has-text-weight-semibold">Masthead</h3>
       </Title>
       <section className="sgds-section">
-        <h4 className="has-text-primary">
-        The Masthead is a standard component that has to be present in all pages of '.gov.sg' websites.
-        </h4>
+        <ParagraphHeader>
+          The Masthead is an official Government Banner, containing the
+          Singapore Government Online Logo
+        </ParagraphHeader>
+        <ParagraphSubHeader>
+          Every page of a .gov.sg digital service should contain the masthead.
+        </ParagraphSubHeader>
 
         <hr className="margin--bottom--lg margin--top--lg"></hr>
 
-        <h5 className="has-text-primary has-text-weight-semibold margin--bottom">
-          Default Masthead
-        </h5>
-        <div className="row is-multiline">
-          <div className="col">
-            <Masthead />
-          </div>
-        </div>
-        <div className="row">
-          <div className="col ">
-            <SyntaxHighlighter>{code1}</SyntaxHighlighter>
-          </div>
-        </div>
+        <ParagraphHeader>Masthead example</ParagraphHeader>
+        <Masthead />
+        <SyntaxHighlighter>{code1}</SyntaxHighlighter>
+
         <hr className="margin--bottom--lg margin--top--lg"></hr>
-        <h5 className="has-text-primary has-text-weight-semibold margin--bottom">
-          Masthead with Language Selector 
-        </h5>
-        <div className="row is-multiline">
-          <div className="col">
-            <Masthead hasLanguageSelector languageSelectHandler={setLanguage}/>
-            <p className="padding--top">Selected Language: 
-            {language}
-            </p>
-          </div>
-        </div>
-        <div className="row">
-          <div className="col">
-            <SyntaxHighlighter>{code2}</SyntaxHighlighter>
-          </div>
-        </div>
+
+        <ParagraphHeader>Masthead without maximum width</ParagraphHeader>
+        <p>
+          By default the masthead's contents have their maximum width at
+          different screen sizes governed by the{" "}
+          <a href="https://www.designsystem.gov.sg/docs/container">container</a>{" "}
+          component.
+        </p>
+        <p>
+          You can remove maximum width limitations but keep a 32px margin on
+          both sides by passing <code>{`hasMaxWidth={false}`}</code>
+        </p>
+        <Masthead hasMaxWidth={false} />
+        <SyntaxHighlighter>{code2}</SyntaxHighlighter>
       </section>
     </Page>
   );

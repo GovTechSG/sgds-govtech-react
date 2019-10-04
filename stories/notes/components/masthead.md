@@ -1,13 +1,7 @@
 # Masthead Info Sheet
 
-### Input Properties
+### Props
 
-| Property   | Description                                                            |
-| ---------- | ---------------------------------------------------------------------- |
-| hasLanguageSelector  | Adds a language selector to the masthead |
-
-### Event handlers
-
-| Property | Description                   |
-| -------- | ----------------------------- |
-| languageSelectHandler  | Pass a language selector handler |
+| Property    | Description                                                                                     |
+| ----------- | ----------------------------------------------------------------------------------------------- |
+| hasMaxWidth | Default: true. Limits the contents of the masthead to a maximum width, depending on screen size |

@@ -1,10 +1,10 @@
 import React from "react";
 import { Prism } from "react-syntax-highlighter";
-import { base16AteliersulphurpoolLight } from "react-syntax-highlighter/dist/esm/styles/prism";
+import { atomDark } from "react-syntax-highlighter/dist/esm/styles/prism";
 
 function SyntaxHighlighter(props) {
   return (
-    <Prism language="jsx" style={base16AteliersulphurpoolLight}>
+    <Prism language="jsx" style={atomDark}>
       {props.children}
     </Prism>
   );

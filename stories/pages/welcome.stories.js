@@ -1,16 +1,16 @@
 import React from "react";
-import { Page, paragraphHeaderStyles, Title } from "../shared-styles";
+import { Page, ParagraphHeader, Title } from "../shared-styles";
 
-const Welcome = props => {
+const Welcome = () => {
   return (
     <Page>
       <Title className="sgds-section">
         <h3 className="has-text-white has-text-weight-semibold">
-          Welcome to the Singapore Design System React Docs
+          Welcome to the Singapore Government Design System - React Docs
         </h3>
       </Title>
       <section className="sgds-section">
-        <h4 className={paragraphHeaderStyles}>About</h4>
+        <ParagraphHeader>About</ParagraphHeader>
         <p>
           The Singapore Government Design System (SGDS) was developed to unite
           teams in creating fast, accessible and mobile friendly digital
@@ -18,7 +18,7 @@ const Welcome = props => {
           Service Standards.
         </p>
         <hr className="margin--bottom--lg margin--top--lg"></hr>
-        <h4 className={paragraphHeaderStyles}>How to use this documentation</h4>
+        <ParagraphHeader>How to use the documentation</ParagraphHeader>
         <p>
           The documentation is broken down into two parts, the canvas (upper
           area) and the addons (lower area). The section you are currently
@@ -26,8 +26,8 @@ const Welcome = props => {
           you can interact with.
         </p>
         <p>
-          The lower area below houses additional tools to assist you in
-          implementing the components in your project.
+          The lower area below houses additional information to assist you in
+          implementing SGDS-React components in your project.
         </p>
       </section>
     </Page>
