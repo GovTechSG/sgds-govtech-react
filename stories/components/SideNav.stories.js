@@ -36,7 +36,7 @@ const MenuItems2=[
     subMenuItems:[
     {
       children:(          
-        <a class="second-level-nav-item" href='#'>
+        <a className="second-level-nav-item" href='#'>
           Passed in Child Link 1
         </a>
       )

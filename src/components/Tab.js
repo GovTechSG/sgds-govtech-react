@@ -20,10 +20,10 @@ class Tab extends Component {
       let isSelected = this.state.selectedTab === `tab${idx}`
       let icon = []
       if(item.icon){
-        icon = (<i class={`sgds-icon padding--right--sm ${item.icon}`}></i>)
+        icon = (<i className={`sgds-icon padding--right--sm ${item.icon}`}></i>)
       }
       return (
-        <li key={`tab${idx}`} id={`tab${idx}`} class={isSelected?'is-active': ''}>
+        <li key={`tab${idx}`} id={`tab${idx}`} className={isSelected?'is-active': ''}>
           <a role="tab" aria-selected={isSelected} aria-controls={`tab${idx}`} onClick={()=>{this.handleTabClick(`tab${idx}`)}} >
               {icon}
               {item.title}
@@ -39,9 +39,9 @@ class Tab extends Component {
       let isSelected = this.state.selectedTab === `tab${idx}`
       if(isSelected){
         return(
-          <div class="row" id={`tab${idx}`} role="tabpanel" aria-labelledby={`tab${idx}`}>
-            <div class="col">
-                <div class="row">
+          <div className="row" id={`tab${idx}`} role="tabpanel" aria-labelledby={`tab${idx}`}>
+            <div className="col">
+                <div className="row">
                     {item.content}
                 </div>
             </div>
@@ -56,8 +56,8 @@ class Tab extends Component {
   render() {
     return (
       <div className={this.classes}>
-        <div class="sgds-tabs">
-          <ul class="no-margin" role="tablist">
+        <div className="sgds-tabs">
+          <ul className="no-margin" role="tablist">
             {this.renderTabs()}
           </ul>
         </div>
