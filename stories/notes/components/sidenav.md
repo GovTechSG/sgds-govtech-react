@@ -49,7 +49,7 @@ You can also open the nav by default by adding a isActive into the menuItems obj
     subMenuItems:[
       {
         children:(          
-          <a class="second-level-nav-item" href='#'>
+          <a className="second-level-nav-item" href='#'>
             Passed in Child Link 1
           </a>
         )
