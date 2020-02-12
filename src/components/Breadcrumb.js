@@ -17,6 +17,10 @@ class Breadcrumb extends Component {
     return className;
   }
 
+  handleClick = value => {
+    window.location.href = `${value.link}`;
+  };
+
   render() {
     let items = this.props.items;
     return (
@@ -24,13 +28,12 @@ class Breadcrumb extends Component {
         <ul>
           {items.map((value, index) => {
             return (
-              <li key={index}>
+              <li key={index} onClick={() => this.handleClick(value)}>
                 <a
                   style={
                     this.props.infoColor ? { color: this.props.infoColor } : {}
                   }
                   className={this.props.hasTextWhite ? "has-text-white" : null}
-                  href={value.link}
                 >
                   {value.text}
                 </a>
