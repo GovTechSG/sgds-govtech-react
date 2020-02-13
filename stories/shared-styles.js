@@ -6,6 +6,6 @@ export const Title = styled.section`
   padding:30px;
 `
 export const Page = styled.div`
-  flex:1 0 auto;
+  flex: 1 0 auto;
 `
 export const paragraphHeaderStyles= "has-text-primary has-text-weight-semibold margin--bottom";

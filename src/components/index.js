@@ -1,7 +1,7 @@
 export { default as Accordion } from "./Accordion";
 export { default as AccordionSet } from "./AccordionSet";
 export { default as Brand } from "./Brand";
-export { default as Breadcrumb } from "./Breadcrumb";
+export { default as Breadcrumb, BreadcrumbItem } from "./Breadcrumb";
 export { default as Button } from "./Button";
 export { default as Callout } from "./Callout";
 export { default as Card } from "./Card";

@@ -12,7 +12,7 @@ import {
   Footer,
   Tab,
   SideNav
-} from "./components"
+} from "./components";
 
 import buttonNotes from "./notes/components/buttons.md";
 import welcomeNotes from "./notes/welcome.md";
@@ -28,21 +28,19 @@ storiesOf("Welcome", module).add("Introduction", () => <Welcome></Welcome>, {
   notes: { markdown: welcomeNotes }
 });
 
-storiesOf("Required Components", module)
-.add("Masthead",()=><Masthead/>,{
-  notes:{markdown:mastheadNotes}
-})
-.add("MainNav",()=><MainNav/>,{
-  notes:{markdown: mainNavNotes}
-})
-.add("Footer",()=><Footer/>,{
-  notes:{markdown: footerNotes}
-})
-.add("Sidenav",()=><SideNav/>,{
-  notes:{markdown: sideNavNotes}
-})
-
-
+storiesOf("DSS Components", module)
+  .add("Masthead", () => <Masthead />, {
+    notes: { markdown: mastheadNotes }
+  })
+  .add("MainNav", () => <MainNav />, {
+    notes: { markdown: mainNavNotes }
+  })
+  .add("Footer", () => <Footer />, {
+    notes: { markdown: footerNotes }
+  })
+  .add("Sidenav", () => <SideNav />, {
+    notes: { markdown: sideNavNotes }
+  });
 
 storiesOf("Components", module)
   .add("Accordions", () => <Accordion />, {
@@ -52,11 +50,9 @@ storiesOf("Components", module)
     notes: { markdown: buttonNotes }
   })
   .add("Dropdowns", () => <Dropdown />)
-  .add("Breadcrumbs",()=><Breadcrumb/>,{
-    notes: {markdown: breadcrumbNotes }
+  .add("Breadcrumbs", () => <Breadcrumb />, {
+    notes: { markdown: breadcrumbNotes }
   })
-  .add("Tabs",()=><Tab/>,
-  {
-    notes: {markdown: tabNotes}
-  }
-  )
+  .add("Tabs", () => <Tab />, {
+    notes: { markdown: tabNotes }
+  });

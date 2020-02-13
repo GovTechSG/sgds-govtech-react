@@ -18,29 +18,56 @@ class Breadcrumb extends Component {
   }
 
   render() {
-    let items = this.props.items;
     return (
       <nav className={this.getNavClassName()} aria-label="breadcrumbs">
         <ul>
-          {items.map((value, index) => {
-            return (
-              <li key={index}>
-                <a
-                  style={
-                    this.props.infoColor ? { color: this.props.infoColor } : {}
-                  }
-                  className={this.props.hasTextWhite ? "has-text-white" : null}
-                  href={value.link}
-                >
-                  {value.text}
-                </a>
-              </li>
-            );
-          })}
+          {this.props.items.length > 0
+            ? this.props.items.map((value, index) => {
+                return (
+                  <li key={index}>
+                    <a
+                      style={
+                        this.props.infoColor
+                          ? { color: this.props.infoColor }
+                          : {}
+                      }
+                      className={
+                        this.props.hasTextWhite ? "has-text-white" : null
+                      }
+                      href={value.link}
+                    >
+                      {value.text}
+                    </a>
+                  </li>
+                );
+              })
+            : React.Children.map(this.props.children, (child, index) => {
+                return React.cloneElement(child, {
+                  hasTextWhite: this.props.hasTextWhite
+                });
+              })}
         </ul>
       </nav>
     );
   }
 }
+
+export function BreadcrumbItem(props) {
+  return (
+    <li>
+      <a
+        className={props.hasTextWhite ? "has-text-white" : ""}
+        onClick={props.onClick}
+        href={props.href}
+      >
+        {props.children}
+      </a>
+    </li>
+  );
+}
+
+Breadcrumb.defaultProps = {
+  items: []
+};
 
 export default Breadcrumb;
