@@ -2,7 +2,7 @@ import React from "react";
 import { formatCode } from "../lib/utils";
 import SyntaxHighlighter from "../lib/SyntaxHighlighter";
 import { Breadcrumb, BreadcrumbItem } from "../../src/components";
-import { Page, Title } from "../shared-styles";
+import { Page, Title, Divider } from "../shared-styles";
 
 const code1 = `
 import { Breadcrumb } from 'sgds-govtech-react' 
@@ -44,19 +44,11 @@ const BreadcrumbStories = props => {
           website as a row of links, usually around the top of the page
         </h4>
 
-        <hr className="margin--bottom--lg margin--top--lg"></hr>
+        <Divider />
 
         <h5 className="has-text-primary has-text-weight-semibold margin--bottom">
           Default Breadcrumb
         </h5>
-
-        <Breadcrumb>
-          <BreadcrumbItem onClick={() => console.log("clicked")}>
-            Home
-          </BreadcrumbItem>
-          <BreadcrumbItem href="/">Sub-section</BreadcrumbItem>
-        </Breadcrumb>
-
         <p>
           <strong>Items syntax</strong>
         </p>
@@ -78,6 +70,8 @@ const BreadcrumbStories = props => {
           <strong>Code</strong>
         </p>
         <SyntaxHighlighter>{formatCode(code1)}</SyntaxHighlighter>
+
+        <Divider />
 
         <p>
           <strong>
@@ -109,7 +103,8 @@ const BreadcrumbStories = props => {
           {formatCode(codeBreadcrumbItems1)}
         </SyntaxHighlighter>
 
-        <hr className="margin--bottom--lg margin--top--lg"></hr>
+        <Divider />
+
         <h5 className="has-text-primary has-text-weight-semibold margin--bottom">
           Breadcrumb with background color
         </h5>
@@ -133,6 +128,8 @@ const BreadcrumbStories = props => {
           <strong>Code</strong>
         </p>
         <SyntaxHighlighter>{formatCode(code2)}</SyntaxHighlighter>
+
+        <Divider />
 
         <p>
           <strong>

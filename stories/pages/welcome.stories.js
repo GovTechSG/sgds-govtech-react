@@ -1,5 +1,12 @@
 import React from "react";
-import { Page, paragraphHeaderStyles, Title } from "../shared-styles";
+import SyntaxHighlighter from "../lib/SyntaxHighlighter";
+import { Page, paragraphHeaderStyles, Title, Divider } from "../shared-styles";
+
+let importSyntax = `
+<link
+  rel="stylesheet"
+  href="https://cdn.jsdelivr.net/npm/sgds-govtech@1.3.9/css/sgds.css"
+/>`;
 
 const Welcome = props => {
   return (
@@ -17,7 +24,31 @@ const Welcome = props => {
           services with a common set of UI components that comply to the Digital
           Service Standards.
         </p>
-        <hr className="margin--bottom--lg margin--top--lg"></hr>
+        <Divider />
+
+        <h4 className={paragraphHeaderStyles}>Get started</h4>
+
+        <h5 className={paragraphHeaderStyles}>
+          Importing SGDS CSS styles into your project
+        </h5>
+
+        <p>
+          Import SGDS styles through a CDN into the <code>head</code> of your
+          HTML:
+        </p>
+
+        <SyntaxHighlighter>{importSyntax}</SyntaxHighlighter>
+
+        <h5 className={paragraphHeaderStyles}>
+          Installing <code>sgds-govtech-react</code>
+        </h5>
+
+        <p>
+          You can use NPM: <code>npm install sgds-govtech-react</code>
+        </p>
+
+        <Divider />
+
         <h4 className={paragraphHeaderStyles}>How to use this documentation</h4>
         <p>
           The documentation is broken down into two parts, the canvas (upper

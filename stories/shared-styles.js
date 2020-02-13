@@ -8,4 +8,8 @@ export const Title = styled.section`
 export const Page = styled.div`
   flex: 1 0 auto;
 `
-export const paragraphHeaderStyles= "has-text-primary has-text-weight-semibold margin--bottom";
+export const paragraphHeaderStyles = "has-text-primary has-text-weight-semibold margin--bottom";
+
+export const Divider = styled.hr`
+  margin: 2rem 0;
+`
