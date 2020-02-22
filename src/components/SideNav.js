@@ -105,11 +105,20 @@ class SideNav extends Component {
   };
 
   render() {
+    if (this.props.menuItems && this.props.menuItems.length > 0) {
+      return (
+        <aside className="sgds-menu">
+          <ul className="sgds-menu-list">{this.renderMenuItems()}</ul>
+        </aside>
+      );
+    }
     return (
       <aside className="sgds-menu">
-        <ul className="sgds-menu-list">{this.renderMenuItems()}</ul>
+        <ul className="sgds-menu-list">
+          
+        </ul>
       </aside>
-    );
+    )
   }
 }
 

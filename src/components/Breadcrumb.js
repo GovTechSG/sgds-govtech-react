@@ -10,7 +10,7 @@ class Breadcrumb extends Component {
   }
 
   getNavClassName() {
-    let className = `sgds-breadcrumb ${this.props.className}`;
+    let className = `sgds-breadcrumb ${this.props.className || ""}`;
     if (this.props.hasBackgroundDark) {
       className = className.concat(" has-background-dark");
     }

@@ -1,10 +1,8 @@
-import React,{ useState } from "react";
-import styled from "styled-components";
-import { action } from "@storybook/addon-actions";
-import { formatCode } from "../lib/utils";
+import React from "react";
 import SyntaxHighlighter from "../lib/SyntaxHighlighter";
 import { SideNav } from "../../src/components";
-import { Page, Title } from "../shared-styles";
+import { Page, Title, Divider } from "../shared-styles";
+import "./SideNav.stories.scss";
 
 const code1 = `
 import { SideNav } from 'sgds-govtech-react' 
@@ -12,69 +10,81 @@ import { SideNav } from 'sgds-govtech-react'
 <SideNav menuItems={MenuItems}></SideNav>
 
 `;
-const code2 = `// Using react hooks as the handler. You can use other functions to handle the state change
-<Masthead hasLanguageSelector languageSelectHandler={setLanguage}/>
-`;
-const MenuItems=[
-  {title:'Item1',link:'#'},
-  {title:'Item2',subMenuItems:[{title:'SubItem1',link:'#'},{title:'SubItem2',link:'#'}]},
-  {title:'Item3',link:'#'},
-]
-
-const MenuItems2=[
+const MenuItems = [
+  { title: "Item1", link: "#" },
   {
-    title:'Item1',
-    link:'#',
+    title: "Item2",
+    subMenuItems: [
+      { title: "SubItem1", link: "#" },
+      { title: "SubItem2", link: "#" }
+    ]
   },
-  { 
-    title:'Item2',
-    isActive:true,
-    onClick:(id,isActive)=>{
-      console.log(`test: ${MenuItems2[id].isActive}`);
-      MenuItems2[id].isActive=isActive
-    },
-    subMenuItems:[
-    {
-      children:(          
-        <a className="second-level-nav-item" href='#'>
-          Passed in Child Link 1
-        </a>
-      )
-    },
-    {title:'SubItem2',link:'#'}
-  ]},
+  { title: "Item3", link: "#" }
+];
+
+const MenuItems2 = [
   {
-    children:(          
-    <a href='#'>
-      Item 3
-    </a>
-  )
-},
-]
-const MenuStates={
-  'dropdown-0':false,
-  'dropdown-1':true,
-  'dropdown-2':false,
-}
+    title: "Item1",
+    link: "#"
+  },
+  {
+    title: "Item2",
+    isActive: true,
+    onClick: (id, isActive) => {
+      console.log(`test: ${MenuItems2[id].isActive}`);
+      MenuItems2[id].isActive = isActive;
+    },
+    subMenuItems: [
+      {
+        children: (
+          <a className="second-level-nav-item" href="#">
+            Passed in Child Link 1
+          </a>
+        )
+      },
+      { title: "SubItem2", link: "#" }
+    ]
+  },
+  {
+    children: <a href="#">Item 3</a>
+  }
+];
 const SideNavStories = props => {
   return (
-    <Page>
+    <Page className="sidenav-stories">
       <Title className="sgds-section">
-        <h3 className="has-text-white has-text-weight-semibold">Side Navigation</h3>
+        <h3 className="has-text-white">Side Navigation</h3>
       </Title>
       <section className="sgds-section">
         <h4 className="has-text-primary">
-        Side nav is a standard component that all '.gov.sg' websites must adopt for every inner page that has second or more levels of navigation items
+          The side nav is a standard component that all '.gov.sg' websites must
+          adopt for pages that reside under two or more levels of navigation
         </h4>
 
-        <hr className="margin--bottom--lg margin--top--lg"></hr>
+        <Divider />
+
+        <h5 className="has-text-primary">Standard SideNav</h5>
+
+        <p>Example</p>
+
+        <div className="row">
+          <div className="col is-3">
+            <SideNav menuItems={MenuItems}></SideNav>
+          </div>
+        </div>
+
+        <p>Code</p>
+
+        <SyntaxHighlighter>{code1}</SyntaxHighlighter>
+
+        <Divider />
 
         <h5 className="has-text-primary has-text-weight-semibold margin--bottom">
-          Standard SideNav
+          Customised SideNav
         </h5>
         <div className="row is-multiline">
           <div className="col is-3">
-            <SideNav menuItems={MenuItems}></SideNav>
+            <SideNav menuItems={MenuItems2}></SideNav>
           </div>
         </div>
         <div className="row">
@@ -82,21 +92,6 @@ const SideNavStories = props => {
             <SyntaxHighlighter>{code1}</SyntaxHighlighter>
           </div>
         </div>
-        <hr className="margin--bottom--lg margin--top--lg"></hr>
-
-          <h5 className="has-text-primary has-text-weight-semibold margin--bottom">
-            Customised SideNav
-          </h5>
-          <div className="row is-multiline">
-            <div className="col is-3">
-              <SideNav menuItems={MenuItems2}></SideNav>
-            </div>
-          </div>
-          <div className="row">
-            <div className="col ">
-              <SyntaxHighlighter>{code1}</SyntaxHighlighter>
-            </div>
-          </div>
       </section>
     </Page>
   );
