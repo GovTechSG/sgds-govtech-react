@@ -24,8 +24,8 @@ class Button extends Component {
     });
   }
 
-  getSize(){
-     let size = "";
+  getSize() {
+    let size = "";
     if (this.props.buttonSize === "small") {
       size = " is-small";
     } else if (this.props.buttonSize === "medium") {
@@ -33,29 +33,29 @@ class Button extends Component {
     } else if (this.props.buttonSize === "large") {
       size = " is-large";
     }
-    return size
+    return size;
   }
 
-  getColorType(){
-    if(this.props.colorType==='success'){
-      return ' is-success'
+  getColorType() {
+    if (this.props.colorType === "success") {
+      return " is-success";
     }
-    if(this.props.colorType==='warning'){
-      return ' is-warning'
-    }
-      
-    if(this.props.colorType==='danger'){
-      return ' is-danger'
+    if (this.props.colorType === "warning") {
+      return " is-warning";
     }
 
-    if(this.props.colorType==='info'){
-      return ' is-info'
+    if (this.props.colorType === "danger") {
+      return " is-danger";
     }
-    return ''
+
+    if (this.props.colorType === "info") {
+      return " is-info";
+    }
+    return "";
   }
   // isPrimary, isOutlined, isRounded, disabled, buttonSize
   getClassName() {
-    let className =  this.props.isSecondary?"sgds-sec-button":"sgds-button";
+    let className = this.props.isSecondary ? "sgds-sec-button" : "sgds-button";
     if (this.props.isPrimary) {
       className = className.concat(" is-primary");
     }
@@ -65,13 +65,13 @@ class Button extends Component {
     if (this.props.isRounded) {
       className = className.concat(" is-rounded");
     }
-    if(this.props.isLoading){
+    if (this.props.isLoading) {
       className = className.concat(" is-loading");
     }
     className = className.concat(this.getSize());
     className = className.concat(this.getColorType());
 
-    return className;
+    return className.concat(` ${this.props.className || ""}`);
   }
 
   getStyle() {
@@ -83,8 +83,14 @@ class Button extends Component {
         paddingBottom: this.props.paddingVertical,
         borderColor: this.props.primaryColor,
         backgroundColor:
-          this.state.hovered || this.state.focused ? this.props.primaryColor : "transparent",
-        color: this.state.hovered || this.state.focused ? "#fff" : this.props.primaryColor
+          this.state.hovered || this.state.focused
+            ? this.props.primaryColor
+            : "transparent",
+        color:
+          this.state.hovered || this.state.focused
+            ? "#fff"
+            : this.props.primaryColor,
+        ...this.props.style
       };
     } else {
       return {
@@ -92,7 +98,8 @@ class Button extends Component {
         paddingRight: this.props.paddingHorizontal,
         paddingTop: this.props.paddingVertical,
         paddingBottom: this.props.paddingVertical,
-        backgroundColor: this.props.primaryColor
+        backgroundColor: this.props.primaryColor,
+        ...this.props.style
       };
     }
   }
@@ -130,6 +137,8 @@ class Button extends Component {
 }
 
 Button.propTypes = {
+  className: PropTypes.string,
+  style: PropTypes.object,
   isPrimary: PropTypes.bool,
   isLoading: PropTypes.bool,
   isSecondary: PropTypes.bool,
