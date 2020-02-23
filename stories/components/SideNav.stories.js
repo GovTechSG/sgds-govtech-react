@@ -2,7 +2,6 @@ import React from "react";
 import SyntaxHighlighter from "../lib/SyntaxHighlighter";
 import { SideNav } from "../../src/components";
 import { Page, Title, Divider } from "../shared-styles";
-import "./SideNav.stories.scss";
 
 const code1 = `
 import { SideNav } from 'sgds-govtech-react' 
@@ -52,18 +51,22 @@ const MenuItems2 = [
 const SideNavStories = props => {
   return (
     <Page className="sidenav-stories">
-      <Title className="sgds-section">
-        <h3 className="has-text-white">Side Navigation</h3>
+      <Title>
+        <h2>Side Navigation</h2>
       </Title>
       <section className="sgds-section">
-        <h4 className="has-text-primary">
-          The side nav is a standard component that all '.gov.sg' websites must
-          adopt for pages that reside under two or more levels of navigation
-        </h4>
+        <h3>
+          The Side Navigation Bar helps user navigate pages that reside under two or
+          more levels of navigation
+        </h3>
+        <p>
+          The side nav is a DSS component. It should be present in all 'gov.sg'
+          websites.
+        </p>
 
         <Divider />
 
-        <h5 className="has-text-primary">Standard SideNav</h5>
+        <h4>Standard SideNav</h4>
 
         <p>Example</p>
 
@@ -79,19 +82,13 @@ const SideNavStories = props => {
 
         <Divider />
 
-        <h5 className="has-text-primary has-text-weight-semibold margin--bottom">
-          Customised SideNav
-        </h5>
-        <div className="row is-multiline">
+        <h4>Customised SideNav</h4>
+        <div className="row">
           <div className="col is-3">
             <SideNav menuItems={MenuItems2}></SideNav>
           </div>
         </div>
-        <div className="row">
-          <div className="col ">
-            <SyntaxHighlighter>{code1}</SyntaxHighlighter>
-          </div>
-        </div>
+        <SyntaxHighlighter>{code1}</SyntaxHighlighter>
       </section>
     </Page>
   );

@@ -17,10 +17,14 @@ class MainNav extends Component {
       hoverSunItem: null,
       showSearch: false
     };
-    this.searchChangeHandler = props.searchChangeHandler?props.searchChangeHandler:()=>{}
-    this.searchClickHandler = props.searchClickHandler?props.searchClickHandler:()=>{}
+    this.searchChangeHandler = props.searchChangeHandler
+      ? props.searchChangeHandler
+      : () => {};
+    this.searchClickHandler = props.searchClickHandler
+      ? props.searchClickHandler
+      : () => {};
   }
-   
+
   selectMenuTab = (item, index, subIndex, subMenuIndex) => {
     this.props.selectItem(item);
     if (subMenuIndex >= 0) {
@@ -44,7 +48,7 @@ class MainNav extends Component {
     }
   };
   toggleSearchBar = () => {
-    this.setState({showSearch: !this.state.showSearch});
+    this.setState({ showSearch: !this.state.showSearch });
   };
   hoverOn = (name, index, subIndex, subMenuIndex) => {
     if (subMenuIndex >= 0) {

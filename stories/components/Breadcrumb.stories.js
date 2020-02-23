@@ -3,6 +3,7 @@ import { formatCode } from "../lib/utils";
 import SyntaxHighlighter from "../lib/SyntaxHighlighter";
 import { Breadcrumb, BreadcrumbItem } from "../../src/components";
 import { Page, Title, Divider } from "../shared-styles";
+import "./Breadcrumb.stories.scss";
 
 const code1 = `
 import { Breadcrumb } from 'sgds-govtech-react' 
@@ -22,7 +23,7 @@ import { Breadcrumb, BreadcrumbItem } from 'sgds-govtech-react';
 </Breadcrumb>`;
 
 const code2 = `
-<Breadcrumb className="padding--bottom content" items={[{text:'HOME',link:'/'},{text:'SUB-LINK',link:'/'},{text:'CURRENT-PAGE',link:'/'},]} hasBackgroundDark hasTextWhite></Breadcrumb>
+<Breadcrumb items={[{text:'HOME',link:'/'},{text:'SUB-LINK',link:'/'},{text:'CURRENT-PAGE',link:'/'},]} hasBackgroundDark hasTextWhite></Breadcrumb>
 `;
 
 const codeBreadcrumbItems2 = `
@@ -34,23 +35,26 @@ const codeBreadcrumbItems2 = `
 </Breadcrumb>`;
 const BreadcrumbStories = props => {
   return (
-    <Page>
-      <Title className="sgds-section">
-        <h3 className="has-text-white has-text-weight-semibold">Breadcrumb</h3>
+    <Page className="breadcrumb-stories">
+      <Title>
+        <h2>Breadcrumb</h2>
       </Title>
       <section className="sgds-section">
-        <h4 className="has-text-primary">
-          Breadcrumb is a navigation aid that display a user's location on a
-          website as a row of links, usually around the top of the page
-        </h4>
+        <h3>
+          Breadcrumbs are navigation aids that help users understand their
+          location on website.
+        </h3>
+
+        <p>
+          Breadcrumbs are often styled as a row of links, usually around the top
+          of the page
+        </p>
 
         <Divider />
 
-        <h5 className="has-text-primary has-text-weight-semibold margin--bottom">
-          Default Breadcrumb
-        </h5>
+        <h4>Default Breadcrumb</h4>
         <p>
-          <strong>Items syntax</strong>
+          <strong>Items array syntax</strong>
         </p>
         <p>
           Pass an array of objects into the items prop of a{" "}
@@ -74,9 +78,7 @@ const BreadcrumbStories = props => {
         <Divider />
 
         <p>
-          <strong>
-            <code>BreadcrumbItem</code> syntax
-          </strong>
+          <strong>&lt;BreadcrumbItem&gt; syntax</strong>
         </p>
         <p>
           Pass each <code>BreadcrumbItem</code> component as a child into the
@@ -105,9 +107,7 @@ const BreadcrumbStories = props => {
 
         <Divider />
 
-        <h5 className="has-text-primary has-text-weight-semibold margin--bottom">
-          Breadcrumb with background color
-        </h5>
+        <h4>Breadcrumb with background color</h4>
         <p>
           <strong>Items syntax</strong>
         </p>
@@ -115,7 +115,6 @@ const BreadcrumbStories = props => {
           <strong>Example</strong>
         </p>
         <Breadcrumb
-          className="padding--bottom content"
           items={[
             { text: "HOME", link: "/" },
             { text: "SUB-LINK", link: "/" },
@@ -132,9 +131,7 @@ const BreadcrumbStories = props => {
         <Divider />
 
         <p>
-          <strong>
-            <code>BreadcrumbItem</code> syntax
-          </strong>
+          <strong>&lt;BreadcrumbItem&gt; syntax</strong>
         </p>
         <p>
           <strong>Example</strong>
