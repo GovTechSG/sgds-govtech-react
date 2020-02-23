@@ -17,24 +17,28 @@ const MastheadStories = props => {
   return (
     <Page>
       <Title>
-        <h3>Masthead</h3>
+        <h2>Masthead</h2>
       </Title>
       <section className="sgds-section">
-        <h4>
-          The Masthead is a standard component that has to be present in all
-          pages of '.gov.sg' websites.
-        </h4>
+        <h3>
+          The Masthead informs users that the website they are visiting
+          represents the Singapore Government.
+        </h3>
+        <p>
+          It is a DSS component that has to be present in all pages of
+          '.gov.sg' websites.
+        </p>
 
         <Divider />
 
-        <h5>Default Masthead</h5>
+        <h4>Default Masthead</h4>
         <Masthead />
 
         <SyntaxHighlighter>{code1}</SyntaxHighlighter>
 
         <Divider />
 
-        {/* <h5>Masthead with Language Selector</h5>
+        {/* <h4>Masthead with Language Selector</h4>
 
         <div>
           <Masthead hasLanguageSelector languageSelectHandler={setLanguage} />

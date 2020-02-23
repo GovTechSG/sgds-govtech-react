@@ -1,10 +1,8 @@
 import React from "react";
-import styled from "styled-components";
-import { action } from "@storybook/addon-actions";
 import { formatCode } from "../lib/utils";
 import SyntaxHighlighter from "../lib/SyntaxHighlighter";
 import { Footer } from "../../src/components";
-import { Page, Title } from "../shared-styles";
+import { Page, Title, Divider } from "../shared-styles";
 const links = {
   privacy: " ",
   termsOfUse: " ",
@@ -18,9 +16,22 @@ import { Footer } from 'sgds-govtech-react'
 
 `;
 const code2 = `
+const links = {
+  privacy: " ",
+  termsOfUse: " ",
+  contact: " ",
+  feedback: " "
+};
+
 <Footer title="Singapore Design Systems" date="15 Aug 2019" links={links}/>
 `;
 const code3 = `
+const links = {
+  privacy: " ",
+  termsOfUse: " ",
+  contact: " ",
+  feedback: " "
+};
 <Footer title="Singapore Design Systems" date="15 Aug 2019" links={links}>
 <div className="col is-3">
     <p className="has-text-white"><b>Category 1</b></p>
@@ -33,72 +44,72 @@ const code3 = `
     <p><a href="">Link</a></p>
 </div>
 </Footer>
-`
+`;
 const FooterStories = props => {
   return (
     <Page>
-      <Title className="sgds-section">
-        <h3 className="has-text-white has-text-weight-semibold">Footer</h3>
+      <Title>
+        <h2>Footer</h2>
       </Title>
       <section className="sgds-section">
-        <h4 className="has-text-primary">
-        The footer is a component that all '.gov.sg' websites must adopt. Footers provide a secondary navigation scheme to essential information (eg legal)
-        </h4>
+        <h3>
+          The footer provides secondary navigation, guiding users to information
+          about the website, organisation or product
+        </h3>
+        <p>
+          The footer is a DSS component. It should be present in all 'gov.sg'
+          websites.
+        </p>
 
-        <hr className="margin--bottom--lg margin--top--lg"></hr>
+        <Divider />
 
-        <h5 className="has-text-primary has-text-weight-semibold margin--bottom">
-          Default Footer
-        </h5>
-        <div className="row is-multiline">
-          <div className="col">
-          <Footer title="Singapore Design Systems" date="15 Aug 2019" ></Footer>
+        <h4>Default Footer</h4>
+        <Footer title="Singapore Design Systems" date="15 Aug 2019"></Footer>
+        <SyntaxHighlighter>{formatCode(code1)}</SyntaxHighlighter>
+
+        <Divider />
+
+        <h4>Footer with necessary links</h4>
+
+        <Footer
+          title="Singapore Design Systems"
+          date="15 Aug 2019"
+          links={links}
+        ></Footer>
+        <SyntaxHighlighter>{formatCode(code2)}</SyntaxHighlighter>
+
+        <Divider />
+
+        <h4>Footer with navigational links and required links</h4>
+        <Footer
+          title="Singapore Design Systems"
+          date="15 Aug 2019"
+          links={links}
+        >
+          <div className="col is-3">
+            <p className="has-text-white">
+              <b>Category 1</b>
+            </p>
+            <p>
+              <a href="">Link</a>
+            </p>
+            <p>
+              <a href="">Link</a>
+            </p>
           </div>
-        </div>
-        <div className="row">
-          <div className="col ">
-            <SyntaxHighlighter>{formatCode(code1)}</SyntaxHighlighter>
+          <div className="col is-3">
+            <p className="has-text-white">
+              <b>Category 2</b>
+            </p>
+            <p>
+              <a href="">Link</a>
+            </p>
+            <p>
+              <a href="">Link</a>
+            </p>
           </div>
-        </div>
-        <hr className="margin--bottom--lg margin--top--lg"></hr>
-        <h5 className="has-text-primary has-text-weight-semibold margin--bottom">
-          Footer with necessary links
-        </h5>
-        <div className="row is-multiline">
-          <div className="col">
-          <Footer title="Singapore Design Systems" date="15 Aug 2019" links={links}></Footer>
-          </div>
-        </div>
-        <div className="row">
-          <div className="col">
-            <SyntaxHighlighter>{formatCode(code2)}</SyntaxHighlighter>
-          </div>
-        </div>
-        <hr className="margin--bottom--lg margin--top--lg"></hr>
-        <h5 className="has-text-primary has-text-weight-semibold margin--bottom">
-          Footer with navigational links and required links
-        </h5>
-        <div className="row is-multiline">
-          <div className="col">
-          <Footer title="Singapore Design Systems" date="15 Aug 2019" links={links}>
-            <div className="col is-3">
-                <p className="has-text-white"><b>Category 1</b></p>
-                <p><a href="">Link</a></p>
-                <p><a href="">Link</a></p>
-            </div>
-            <div className="col is-3">
-                <p className="has-text-white"><b>Category 2</b></p>
-                <p><a href="">Link</a></p>
-                <p><a href="">Link</a></p>
-            </div>
-          </Footer>
-          </div>
-        </div>
-        <div className="row">
-          <div className="col">
-            <SyntaxHighlighter>{formatCode(code3)}</SyntaxHighlighter>
-          </div>
-        </div>
+        </Footer>
+        <SyntaxHighlighter>{formatCode(code3)}</SyntaxHighlighter>
       </section>
     </Page>
   );
