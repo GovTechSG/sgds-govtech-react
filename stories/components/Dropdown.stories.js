@@ -4,7 +4,7 @@ import DropdownItem from "../../src/components/DropdownItem";
 import Button from "../../src/components/Button";
 import SyntaxHighlighter from "../lib/SyntaxHighlighter";
 import { formatCode } from "../lib/utils";
-import { Page, Title } from "../shared-styles";
+import { Page, Title, Divider } from "../shared-styles";
 
 const dropdownCode = `<Dropdown title="Click me">{/* Or <Dropdown title="Hover me" isHoverable */}
 <DropdownItem href="/">
@@ -45,23 +45,24 @@ const DropdownStories = props => {
   }
   return (
     <Page>
-      <Title className="sgds-section">
-        <h3 className="has-text-white has-text-weight-semibold">Dropdowns</h3>
+      <Title>
+        <h2>Dropdowns</h2>
       </Title>
       <section className="sgds-section">
-        <h4 className="has-text-primary">
+        <h3>
           Use dropdowns to show or hide a list of elements or links.
-        </h4>
+        </h3>
 
-        <hr className="margin--bottom--lg margin--top--lg"></hr>
+        <Divider />
 
-        <h5 className="has-text-primary has-text-weight-semibold margin--bottom">
+        <h4>
           Standard Usage
-        </h5>
+        </h4>
         <div className="row">
           <div className="col is-3">
-            <h6>Standard dropdown</h6>
-            <Dropdown title="Click me"> {/* Or <Dropdown title="Hover me" isHoverable */}
+            <h5>Standard dropdown</h5>
+            <Dropdown title="Click me">
+              {/* Or <Dropdown title="Hover me" isHoverable */}
               <DropdownItem href="/">
                 Item 1: Pass href as a prop to render a link
               </DropdownItem>
@@ -94,7 +95,7 @@ const DropdownStories = props => {
             </Dropdown>
           </div>
           <div className="col is-3">
-            <h6>Hoverable dropdown</h6>
+            <h5>Hoverable dropdown</h5>
             <Dropdown title="Hover over me" isHoverable>
               <DropdownItem href="/">
                 Item 1: Pass href as a prop to render a link

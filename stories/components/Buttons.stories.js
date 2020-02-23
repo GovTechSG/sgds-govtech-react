@@ -4,7 +4,7 @@ import { action } from "@storybook/addon-actions";
 import { formatCode } from "../lib/utils";
 import SyntaxHighlighter from "../lib/SyntaxHighlighter";
 import { Button } from "../../src/components";
-import { Page, Title } from "../shared-styles";
+import { Page, Title, Divider } from "../shared-styles";
 const ButtonContainer = styled.div`
   display:flex;
   flex-direction:column;
@@ -70,22 +70,18 @@ const buttonCode3 = `
 const ButtonStories = props => {
   return (
     <Page>
-      <Title className="sgds-section">
-        <h3 className="has-text-white has-text-weight-semibold">Buttons</h3>
+      <Title>
+        <h2>Buttons</h2>
       </Title>
       <section className="sgds-section">
-        <h4 className="has-text-primary">
-          The button is an ordinary, everyday element of interaction design.
-          Although buttons look simple, their designs have evolved over decades
-          of usage. Buttons should be used for users to interact with a web
-          page, and can be a powerful tool in directing a user's focus.
-        </h4>
+        <h3>
+          Buttons should be used for users to interact with a web page, and can
+          be a powerful tool in directing a user's focus
+        </h3>
 
-        <hr className="margin--bottom--lg margin--top--lg"></hr>
+        <Divider />
 
-        <h5 className="has-text-primary has-text-weight-semibold margin--bottom">
-          Standard Usage
-        </h5>
+        <h4>Standard Usage</h4>
         <div className="row is-multiline">
           <ButtonContainer className="col is-3">
             <Button onClick={action("default-button-click")}>
@@ -139,17 +135,11 @@ const ButtonStories = props => {
             <CodeText>isLoading</CodeText>
           </ButtonContainer>
         </div>
-        <div className="row">
-          <div className="col">
-            <SyntaxHighlighter>{formatCode(buttonCode1)}</SyntaxHighlighter>
-          </div>
-        </div>
+        <SyntaxHighlighter>{formatCode(buttonCode1)}</SyntaxHighlighter>
 
-        <hr></hr>
+        <Divider />
 
-        <h5 className="has-text-primary has-text-weight-semibold margin--top--lg margin--bottom">
-          Icon Buttons
-        </h5>
+        <h4>Icon Buttons</h4>
         <p>
           You can also insert icons from our library on any part of a button
         </p>
@@ -174,30 +164,19 @@ const ButtonStories = props => {
             </Button>
           </RowButtonContainer>
         </div>
-        <div className="row">
-          <div className="col">
-            <SyntaxHighlighter>{formatCode(buttonCode2)}</SyntaxHighlighter>
-          </div>
-        </div>
+        <SyntaxHighlighter>{formatCode(buttonCode2)}</SyntaxHighlighter>
 
-        <hr></hr>
-        <h5 className="has-text-primary has-text-weight-semibold margin--top--lg margin--bottom">
-          Colors
-        </h5>
+        <Divider />
+
+        <h4>Colors</h4>
         <p>You can also apply the default color schemes to the buttons</p>
-        <div className="row is-multiline">
-          <RowButtonContainer className="col">
-            <Button colorType="info">Info</Button>
-            <Button colorType="success">Success</Button>
-            <Button colorType="warning">Warning</Button>
-            <Button colorType="danger">Danger</Button>
-          </RowButtonContainer>
-        </div>
-        <div className="row">
-          <div className="col">
-            <SyntaxHighlighter>{formatCode(buttonCode3)}</SyntaxHighlighter>
-          </div>
-        </div>
+        <RowButtonContainer>
+          <Button colorType="info">Info</Button>
+          <Button colorType="success">Success</Button>
+          <Button colorType="warning">Warning</Button>
+          <Button colorType="danger">Danger</Button>
+        </RowButtonContainer>
+        <SyntaxHighlighter>{formatCode(buttonCode3)}</SyntaxHighlighter>
       </section>
     </Page>
   );

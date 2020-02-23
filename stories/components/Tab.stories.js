@@ -16,11 +16,8 @@ const tabItems = [
     icon: "sgds-icon-boat",
     content: (
       <div className="col">
-        <h5>Tab 1 Content</h5>
-        <p>
-          Lorem ipsum dolor sit amet, consectetur adipisicing elit. Asperiores
-          eos fugiat in incidunt mollitia quam qui totam vel veritatis vero.
-        </p>
+        <h4>Tab 1 Content</h4>
+        <p>I am display tab 1's content</p>
       </div>
     )
   },
@@ -29,11 +26,8 @@ const tabItems = [
     icon: "sgds-icon-bus",
     content: (
       <div className="col">
-        <h5>Tab 2 Content</h5>
-        <p>
-          Lorem ipsum dolor sit amet, consectetur adipisicing elit. Asperiores
-          eos fugiat in incidunt mollitia quam qui totam vel veritatis vero.
-        </p>
+        <h4>Tab 2 Content</h4>
+        <p>I am display tab 2's content</p>
       </div>
     )
   },
@@ -42,11 +36,8 @@ const tabItems = [
     icon: "sgds-icon-train",
     content: (
       <div className="col">
-        <h5>Tab 3 Content</h5>
-        <p>
-          Lorem ipsum dolor sit amet, consectetur adipisicing elit. Asperiores
-          eos fugiat in incidunt mollitia quam qui totam vel veritatis vero.
-        </p>
+        <h4>Tab 3 Content</h4>
+        <p>I am display tab 3's content</p>
       </div>
     )
   }
@@ -55,33 +46,26 @@ const tabItems = [
 const TabStories = props => {
   return (
     <Page>
-      <Title className="sgds-section">
-        <h3 className="has-text-white has-text-weight-semibold">Tab</h3>
+      <Title>
+        <h2>Tab</h2>
       </Title>
       <section className="sgds-section">
-        <h4 className="has-text-primary">
+        <h3>
           Tabs are navigation elements that let users easily access different
-          areas of a site or different parts of an individual page. Think tabbed
-          dividers in a filing cabinet – by clicking a tab, users can easily
-          locate a page containing related content
-        </h4>
+          areas of a site or different parts of an individual page
+        </h3>
+
+        <p>
+          Think tabbed dividers in a filing cabinet – by clicking a tab, users
+          can easily locate a page containing related content
+        </p>
 
         <Divider />
 
-        <h5 className="has-text-primary has-text-weight-semibold margin--bottom">
-          Default Tab
-        </h5>
-        <div className="row is-multiline">
-          <div className="col">
-            <Tab tabItems={tabItems} />
-          </div>
-        </div>
-        <div className="row">
-          <div className="col ">
-            <SyntaxHighlighter>{code1}</SyntaxHighlighter>
-          </div>
-        </div>
-        <Divider />
+        <h4>Default Tab</h4>
+        <Tab tabItems={tabItems} />
+
+        <SyntaxHighlighter>{code1}</SyntaxHighlighter>
       </section>
     </Page>
   );
