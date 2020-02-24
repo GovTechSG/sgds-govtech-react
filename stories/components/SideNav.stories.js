@@ -213,9 +213,9 @@ const SideNavStories = props => {
         </div>
         <SyntaxHighlighter>{code2}</SyntaxHighlighter>
 
-        <p>
+        <h4>
           <code>&lt;SideNavItem&gt;</code> component syntax
-        </p>
+        </h4>
 
         <div className="row">
           <div className="col is-3">
