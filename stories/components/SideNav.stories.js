@@ -217,6 +217,19 @@ const SideNavStories = props => {
           <code>&lt;SideNavItem&gt;</code> component syntax
         </h4>
 
+        <p>
+          You can nest <code>&lt;SideNavItem&gt;</code> components within
+          <code>&lt;SideNav&gt;</code>.
+        </p>
+        <p>
+          By passing the <code>component</code>
+          prop, you can specify your own custom components as a
+          <code>&lt;SideNavItem&gt;</code>, such as the
+          <code>&lt;Link&gt;</code> component from React Router. You can also
+          specify any props consumed by your custom component directly on the
+          <code>&lt;SideNavItem&gt;</code>, as shown below.
+        </p>
+
         <div className="row">
           <div className="col is-3">
             <SideNav>
@@ -268,6 +281,16 @@ const SideNavStories = props => {
                   style={{ marginLeft: "1.5rem" }}
                 >
                   A Custom Component
+                </SideNavMenuItem>
+              </SideNavMenu>
+              <SideNavMenu text="Side Nav Menu 2">
+                <SideNavMenuItem
+                  onClick={e => {
+                    e.preventDefault();
+                    console.log("Clicked sub-item 2");
+                  }}
+                >
+                  Sub-item - onClick prop
                 </SideNavMenuItem>
               </SideNavMenu>
             </SideNav>
