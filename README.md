@@ -29,7 +29,7 @@ npm install sgds-govtech-react
 ```javascript
 // In your entry point
 
-import 'sgds-govtech/sass/sgds.css'
+import 'sgds-govtech/css/sgds.css'
 ```
 
 ### Getting started
