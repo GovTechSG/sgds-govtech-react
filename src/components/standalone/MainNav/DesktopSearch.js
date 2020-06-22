@@ -88,7 +88,6 @@ const SearchInput = styled.input`
   -webkit-appearance: none;
   align-items: center;
   font-size: 1.25rem;
-  height: 2.25em;
   justify-content: flex-start;
   line-height: 1.5;
   padding: calc(.375em - 1px) calc(.625em - 1px);

@@ -61,7 +61,7 @@ class MainNav extends Component {
 
 
     return (
-      <div id="app-root">
+      <div id={this.props.id}>
         <SGDSNavBar>
           <NavBarContainer
             className={
@@ -73,7 +73,6 @@ class MainNav extends Component {
             if (!React.isValidElement(child)) {
               return null;
             }
-            const childValue = child.props.value === undefined ? childIndex : child.props.value;
 
             return React.cloneElement(child, {
                 links: this.props.links,

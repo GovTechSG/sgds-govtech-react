@@ -14,35 +14,45 @@ const MenuContainer = styled.div`
   }
 `;
 
-function NavMenu(props) {
-
-  const [active, setActive] = useState(0);
-
-  const handleChange = (index, sub, subItem) => {
-    setActive({
-      index: index,
-      sub: sub,
-      subItem: subItem
-    })
+class NavMenu extends React.Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      active: 0
+    };
   }
-  return (
-  <MenuContainer>
-    {React.Children.map(props.children, (child, childIndex) => {
-            if (!React.isValidElement(child)) {
-              return null;
-            }
 
-            return React.cloneElement(child, {
-                active: active,
-                links: props.links,
-                themePrimaryColor: props.themePrimaryColor,
-                onChange: handleChange,
-                rootId: props.rootId
-            });
-          })}
+  render() {
+    const handleChange = (index, sub, subItem) => {
+      this.setState({
+        active: 
+          {
+            index: index,
+            sub: sub,
+            subItem: subItem
+          }
+        })
+    }
+    return (
+      <MenuContainer>
+        {React.Children.map(this.props.children, (child, childIndex) => {
+                if (!React.isValidElement(child)) {
+                  return null;
+                }
+    
+                return React.cloneElement(child, {
+                    active: this.state.active,
+                    links: this.props.links,
+                    themePrimaryColor: this.props.themePrimaryColor,
+                    onChange: handleChange,
+                    rootId: this.props.rootId
+                });
+              })}
+    
+      </MenuContainer>
+      );
+  }
 
-  </MenuContainer>
-  );
 }
 
 export default NavMenu;

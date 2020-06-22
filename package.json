@@ -51,5 +51,11 @@
     "react-syntax-highlighter": "^11.0.2",
     "styled-components": "4.4.1",
     "storybook-addon-markdown": "github:mihalik/storybook-addon-markdown"
+  },
+  "dependencies": {
+    "@babel/plugin-proposal-class-properties": "^7.10.1",
+    "@babel/plugin-proposal-object-rest-spread": "^7.10.3",
+    "@babel/preset-env": "^7.10.3",
+    "@babel/preset-react": "^7.10.1"
   }
 }
