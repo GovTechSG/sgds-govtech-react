@@ -18,3 +18,21 @@ export {
   SideNavMenu,
   SideNavMenuItem
 } from "./SideNav";
+
+export { default as StandaloneMasthead } from "./standalone/Masthead";
+export { default as StandaloneFooter } from "./standalone/Footer";
+export { default as StandaloneMainNav } from "./standalone/MainNav/MainNav";
+export { default as StandaloneSideNav } from "./standalone/SideNav";
+
+export { default as NavBarBrand } from "./standalone/MainNav/NavBarBrand";
+export { default as NavMenu } from "./standalone/MainNav/NavMenu";
+export { default as NavbarItem } from "./standalone/MainNav/NavbarItem";
+export { default as DesktopSearch } from "./standalone/MainNav/DesktopSearch";
+export { default as NavTabWithSub } from "./standalone/MainNav/NavTabWithSub";
+export { default as NavTabWithNoSub } from "./standalone/MainNav/NavTabWithNoSub";
+
+
+
+
+
+
