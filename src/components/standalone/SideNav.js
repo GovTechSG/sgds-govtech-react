@@ -1,4 +1,63 @@
 import React, { Component, useState } from "react";
+import styled from "styled-components";
+
+
+const SGDSMenu = styled.aside`
+  display: block; 
+`;
+
+const SGDSMenuList = styled.ul`
+  list-style: none!important;
+  margin-left: 2em;
+  margin-top: 1em;
+  margin: 0;
+
+ li {
+    font-size: 1.3rem;
+    line-height: 2rem;
+    margin: 0;
+    padding: 0;
+  }
+`;
+
+const MenuListItem = styled.li`
+
+  a {
+    color: #323232;
+    display: flex;
+    font-size: 1.0625rem;
+    justify-content: space-between;
+    align-items: center;
+    padding: .75rem 0;
+    cursor: pointer;
+    text-decoration: none;
+  }
+
+  a.is-active {
+    color: #6037b3;
+    font-weight: 600;
+    border-color: #6037b3;
+  }
+
+  :not(:first-child) a {
+    border-top: 1px solid #767676;
+  }
+  
+  &.is-second-level{
+    a {
+      border: 0!important;
+      padding-left: 1.5rem;
+      padding-top: 0;
+    }
+  }
+
+`;
+
+const SubMenu = styled.div`
+  &.is-hidden {
+    display: none!important;
+  }
+`;
 
 // TODO: Take in a onClick handler on the links instead.
 // For accessibility, change a to Button
@@ -36,11 +95,11 @@ class SideNav extends Component {
         let linkChild = subItem.children ? (
           subItem.children
         ) : (
-          <a className="second-level-nav-item" href={subItem.link}>
+          <a href={subItem.link}>
             {subItem.title}
           </a>
         );
-        return <li key={`subItem-${idx}`}>{linkChild}</li>;
+        return <MenuListItem className = "is-second-level" key={`subItem-${idx}`}>{linkChild}</MenuListItem>;
       } catch (err) {
         console.error("Sub Menu Items could not be rendered :" + err.message);
         return <div></div>;
@@ -54,7 +113,7 @@ class SideNav extends Component {
     this.menuItems.forEach((item, idx) => {
       if (item.subMenuItems) {
         renderedItems.push(
-          <li key={`mainList-${idx}`} className="second-level-nav">
+          <MenuListItem key={`mainList-${idx}`}>
             <DropDownLink
               isActive={this.state[`dropdown-${idx}`]}
               onClick={this.mainLinkOnClickHandler}
@@ -63,16 +122,16 @@ class SideNav extends Component {
             >
               {item.title}
             </DropDownLink>
-          </li>
+          </MenuListItem>
         );
         let hiddenClass = this.state[`dropdown-${idx}`] ? "" : "is-hidden";
         renderedItems.push(
-          <div
+          <SubMenu
             key={`subMenuList-${idx}`}
-            className={`second-level-nav-div ${hiddenClass}`}
+            className={`${hiddenClass}`}
           >
             {this.renderSubMenuItems(item.subMenuItems)}
-          </div>
+          </SubMenu>
         );
       } else {
         let listContent = item.children ? (
@@ -80,7 +139,7 @@ class SideNav extends Component {
         ) : (
           <a href={item.link}>{item.title}</a>
         );
-        renderedItems.push(<li key={`mainList-${idx}`}>{listContent}</li>);
+        renderedItems.push(<MenuListItem key={`mainList-${idx}`}>{listContent}</MenuListItem>);
       }
     });
     return renderedItems;
@@ -89,15 +148,15 @@ class SideNav extends Component {
   render() {
     if (this.props.menuItems && this.props.menuItems.length > 0) {
       return (
-        <aside className="sgds-menu">
-          <ul className="sgds-menu-list">{this.renderMenuItems()}</ul>
-        </aside>
+        <SGDSMenu>
+          <SGDSMenuList>{this.renderMenuItems()}</SGDSMenuList>
+          </SGDSMenu>
       );
     }
     return (
-      <aside className="sgds-menu">
-        <ul className="sgds-menu-list">{this.props.children}</ul>
-      </aside>
+      <SGDSMenu>
+        <SGDSMenuList>{this.props.children}</SGDSMenuList>
+      </SGDSMenu>
     );
   }
 }
