@@ -180,13 +180,9 @@ function DropDownLink(props) {
     props.onClick(props.position, !props.isActive);
   };
   let computedLinkClass = "";
-  let computedIconClass = "sgds-icon ";
   if (props.isActive) {
     computedLinkClass += "is-active";
-    // computedIconClass += "sgds-icon-chevron-up";
-  } else {
-    // computedIconClass += "sgds-icon-chevron-down";
-  }
+  } 
   return (
     <a className={computedLinkClass} onClick={dropDownClickHandler}>
       {props.children}
