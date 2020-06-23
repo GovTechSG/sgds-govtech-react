@@ -43,8 +43,13 @@ const MenuListItem = styled.li`
     border-top: 1px solid #767676;
   }
   
-  &.is-second-level{
+  &.is-sub{
     a {
+      border: 0!important;
+      padding-left: 1.5rem;
+      padding-top: 0;
+    }
+    button {
       border: 0!important;
       padding-left: 1.5rem;
       padding-top: 0;
@@ -99,7 +104,7 @@ class SideNav extends Component {
             {subItem.title}
           </a>
         );
-        return <MenuListItem className = "is-second-level" key={`subItem-${idx}`}>{linkChild}</MenuListItem>;
+        return <MenuListItem className = "is-sub" key={`subItem-${idx}`}>{linkChild}</MenuListItem>;
       } catch (err) {
         console.error("Sub Menu Items could not be rendered :" + err.message);
         return <div></div>;
@@ -166,7 +171,7 @@ function DropDownLink(props) {
   const dropDownClickHandler = () => {
     props.onClick(props.position, !props.isActive);
   };
-  let computedLinkClass = "second-level-nav-header ";
+  let computedLinkClass = "";
   let computedIconClass = "sgds-icon ";
   if (props.isActive) {
     computedLinkClass += "is-active";
@@ -187,13 +192,13 @@ export function SideNavItem(props) {
     let componentProps = { ...props };
     delete componentProps.component;
     return (
-      <li>
+      <MenuListItem className={`${props.className}`}>
         <props.component {...componentProps} />
-      </li>
+      </MenuListItem>
     );
   }
   return (
-    <li>
+    <MenuListItem className={`${props.className}`}>
       <a
         href={props.href || ""}
         onClick={props.onClick || (() => {})}
@@ -201,7 +206,7 @@ export function SideNavItem(props) {
       >
         {props.children}
       </a>
-    </li>
+    </MenuListItem>
   );
 }
 
@@ -209,7 +214,7 @@ export function SideNavMenuItem(props) {
   return (
     <SideNavItem
       {...props}
-      className={`second-level-nav-item ${props.className || ""}`}
+      className={`is-sub ${props.className || ""}`}
     ></SideNavItem>
   );
 }
@@ -219,10 +224,10 @@ export function SideNavMenu(props) {
   let [open, setOpen] = useState(initiallyOpen);
   return (
     <>
-      <li className="second-level-nav">
+      <MenuListItem>
         <a
           href="#!"
-          className={`second-level-nav-header ${
+          className={`${
             props.isActive ? "is-active" : ""
           }`}
           onClick={e => {
@@ -236,7 +241,7 @@ export function SideNavMenu(props) {
             aria-hidden={open ? "false" : "true"}
           ></i>
         </a>
-      </li>
+      </MenuListItem>
       {open ? <div>{props.children}</div> : null}
     </>
   );
