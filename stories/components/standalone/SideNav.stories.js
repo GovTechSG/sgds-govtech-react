@@ -2,9 +2,9 @@ import React from "react";
 import SyntaxHighlighter from "../../lib/SyntaxHighlighter";
 import {
   StandaloneSideNav,
-  SideNavItem,
-  SideNavMenu,
-  SideNavMenuItem,
+  StandaloneSideNavItem,
+  StandaloneSideNavMenu,
+  StandaloneSideNavMenuItem,
   Button
 } from "../../../src/components";
 import { Page, Title, Divider } from "../../shared-styles";
@@ -69,27 +69,27 @@ const MenuItems2 = [
 const code3 = `
 import {
   SideNav,
-  SideNavItem,
-  SideNavMenu,
-  SideNavMenuItem,
+  StandaloneSideNavItem,
+  StandaloneSideNavMenu,
+  StandaloneSideNavMenuItem,
   Button
 } from "sgds-govtech-react";
 
 <div className="row">
   <div className="col is-3">
     <SideNav>
-      <SideNavItem href="#!" isActive>
+      <StandaloneSideNavItem href="#!" isActive>
         Item 1 - href prop
-      </SideNavItem>
-      <SideNavItem
+      </StandaloneSideNavItem>
+      <StandaloneSideNavItem
         onClick={e => {
           e.preventDefault();
           console.log("Clicked Item 2");
         }}
       >
         Item 2 - onClick prop
-      </SideNavItem>
-      <SideNavItem
+      </StandaloneSideNavItem>
+      <StandaloneSideNavItem
         href="#!"
         onClick={e => {
           e.preventDefault();
@@ -97,20 +97,20 @@ import {
         }}
       >
         Item 3 - both href and onClick props
-      </SideNavItem>
-      <SideNavItem
+      </StandaloneSideNavItem>
+      <StandaloneSideNavItem
         component={Button}
         buttonSize="small"
         onClick={() => console.log("Clicked custom component")}
       >
         A Custom Component
-      </SideNavItem>
+      </StandaloneSideNavItem>
 
-      <SideNavMenu text="Side Nav Menu" initiallyOpen isActive>
-        <SideNavMenuItem href="#!">
+      <StandaloneSideNavMenu text="Side Nav Menu" initiallyOpen isActive>
+        <StandaloneSideNavMenuItem href="#!">
           Sub-item 1 - href prop
-        </SideNavMenuItem>
-        <SideNavMenuItem
+        </StandaloneSideNavMenuItem>
+        <StandaloneSideNavMenuItem
           isActive
           onClick={e => {
             e.preventDefault();
@@ -118,16 +118,16 @@ import {
           }}
         >
           Sub-item 2 - onClick prop
-        </SideNavMenuItem>
-        <SideNavMenuItem
+        </StandaloneSideNavMenuItem>
+        <StandaloneSideNavMenuItem
           component={Button}
           buttonSize="small"
           onClick={() => console.log("Clicked custom component")}
           style={{ marginLeft: "1.5rem" }}
         >
           A Custom Component
-        </SideNavMenuItem>
-      </SideNavMenu>
+        </StandaloneSideNavMenuItem>
+      </StandaloneSideNavMenu>
     </SideNav>
   </div>
 </div>
@@ -214,37 +214,37 @@ const SideNavStories = props => {
         <SyntaxHighlighter>{code2}</SyntaxHighlighter>
 
         <h4>
-          <code>&lt;SideNavItem&gt;</code> component syntax
+          <code>&lt;StandaloneSideNavItem&gt;</code> component syntax
         </h4>
 
         <p>
-          You can nest <code>&lt;SideNavItem&gt;</code> components within
+          You can nest <code>&lt;StandaloneSideNavItem&gt;</code> components within
           <code>&lt;SideNav&gt;</code>.
         </p>
         <p>
           By passing the <code>component</code>
           prop, you can specify your own custom components as a
-          <code>&lt;SideNavItem&gt;</code>, such as the
+          <code>&lt;StandaloneSideNavItem&gt;</code>, such as the
           <code>&lt;Link&gt;</code> component from React Router. You can also
           specify any props consumed by your custom component directly on the
-          <code>&lt;SideNavItem&gt;</code>, as shown below.
+          <code>&lt;StandaloneSideNavItem&gt;</code>, as shown below.
         </p>
 
         <div className="row">
           <div className="col is-3">
             <StandaloneSideNav>
-              <SideNavItem href="#!" isActive>
+              <StandaloneSideNavItem href="#!" isActive>
                 Item 1 - href prop
-              </SideNavItem>
-              <SideNavItem
+              </StandaloneSideNavItem>
+              <StandaloneSideNavItem
                 onClick={e => {
                   e.preventDefault();
                   console.log("Clicked Item 2");
                 }}
               >
                 Item 2 - onClick prop
-              </SideNavItem>
-              <SideNavItem
+              </StandaloneSideNavItem>
+              <StandaloneSideNavItem
                 href="#!"
                 onClick={e => {
                   e.preventDefault();
@@ -252,20 +252,20 @@ const SideNavStories = props => {
                 }}
               >
                 Item 3 - both href and onClick props
-              </SideNavItem>
-              <SideNavItem
+              </StandaloneSideNavItem>
+              <StandaloneSideNavItem
                 component={Button}
                 buttonSize="small"
                 onClick={() => console.log("Clicked custom component")}
               >
                 A Custom Component
-              </SideNavItem>
+              </StandaloneSideNavItem>
 
-              <SideNavMenu text="Side Nav Menu" initiallyOpen isActive>
-                <SideNavMenuItem href="#!">
+              <StandaloneSideNavMenu text="Side Nav Menu" initiallyOpen isActive>
+                <StandaloneSideNavMenuItem href="#!">
                   Sub-item 1 - href prop
-                </SideNavMenuItem>
-                <SideNavMenuItem
+                </StandaloneSideNavMenuItem>
+                <StandaloneSideNavMenuItem
                   isActive
                   onClick={e => {
                     e.preventDefault();
@@ -273,26 +273,26 @@ const SideNavStories = props => {
                   }}
                 >
                   Sub-item 2 - onClick prop
-                </SideNavMenuItem>
-                <SideNavMenuItem
+                </StandaloneSideNavMenuItem>
+                <StandaloneSideNavMenuItem
                   component={Button}
                   buttonSize="small"
                   onClick={() => console.log("Clicked custom component")}
                   style={{ marginLeft: "1.5rem" }}
                 >
                   A Custom Component
-                </SideNavMenuItem>
-              </SideNavMenu>
-              <SideNavMenu text="Side Nav Menu 2">
-                <SideNavMenuItem
+                </StandaloneSideNavMenuItem>
+              </StandaloneSideNavMenu>
+              <StandaloneSideNavMenu text="Side Nav Menu 2">
+                <StandaloneSideNavMenuItem
                   onClick={e => {
                     e.preventDefault();
                     console.log("Clicked sub-item 2");
                   }}
                 >
                   Sub-item - onClick prop
-                </SideNavMenuItem>
-              </SideNavMenu>
+                </StandaloneSideNavMenuItem>
+              </StandaloneSideNavMenu>
             </StandaloneSideNav>
           </div>
           <div className="col">

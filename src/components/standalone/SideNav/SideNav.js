@@ -1,5 +1,7 @@
 import React, { Component, useState } from "react";
 import styled from "styled-components";
+import SideNavMenu from "./SideNavMenu";
+import SideNavMenuItem from "./SideNavMenuItem";
 
 
 const SGDSMenu = styled.aside`
@@ -62,6 +64,12 @@ const SubMenu = styled.div`
   &.is-hidden {
     display: none!important;
   }
+`;
+
+const Icon = styled.span`
+  margin-left: 8px;
+  display: flex;
+  align-items: center;
 `;
 
 // TODO: Take in a onClick handler on the links instead.
@@ -175,75 +183,26 @@ function DropDownLink(props) {
   let computedIconClass = "sgds-icon ";
   if (props.isActive) {
     computedLinkClass += "is-active";
-    computedIconClass += "sgds-icon-chevron-up";
+    // computedIconClass += "sgds-icon-chevron-up";
   } else {
-    computedIconClass += "sgds-icon-chevron-down";
+    // computedIconClass += "sgds-icon-chevron-down";
   }
   return (
     <a className={computedLinkClass} onClick={dropDownClickHandler}>
       {props.children}
-      <i className={computedIconClass} aria-hidden="true"></i>
+      {props.isActive ? 
+      (<Icon>
+        <svg width="15" height="15" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path d="M10.2799 8.61124L10.2753 8.60692L12.0003 7L21 15.384L19 17L12.0049 10.2182L4.72495 17L3 15.3931L10.2799 8.61124Z" fill="#6037b3"/>
+        </svg>
+      </Icon>) :
+      (<Icon>
+          <svg width="15" height="15" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <path d="M13.7201 15.3888L13.7247 15.3931L11.9997 17L3 8.61605L5 7L11.9951 13.7818L19.2751 7L21 8.60692L13.7201 15.3888Z" fill="#484848"/>
+          </svg>
+      </Icon>)
+      }
     </a>
-  );
-}
-
-export function SideNavItem(props) {
-  if (props.component) {
-    let componentProps = { ...props };
-    delete componentProps.component;
-    return (
-      <MenuListItem className={`${props.className}`}>
-        <props.component {...componentProps} />
-      </MenuListItem>
-    );
-  }
-  return (
-    <MenuListItem className={`${props.className}`}>
-      <a
-        href={props.href || ""}
-        onClick={props.onClick || (() => {})}
-        className={`${props.className} ${props.isActive ? "is-active" : ""}`}
-      >
-        {props.children}
-      </a>
-    </MenuListItem>
-  );
-}
-
-export function SideNavMenuItem(props) {
-  return (
-    <SideNavItem
-      {...props}
-      className={`is-sub ${props.className || ""}`}
-    ></SideNavItem>
-  );
-}
-
-export function SideNavMenu(props) {
-  let initiallyOpen = !!props.initiallyOpen;
-  let [open, setOpen] = useState(initiallyOpen);
-  return (
-    <>
-      <MenuListItem>
-        <a
-          href="#!"
-          className={`${
-            props.isActive ? "is-active" : ""
-          }`}
-          onClick={e => {
-            e.preventDefault();
-            setOpen(!open);
-          }}
-        >
-          {props.text}
-          <i
-            className={`sgds-icon sgds-icon-chevron-${open ? "up" : "down"} `}
-            aria-hidden={open ? "false" : "true"}
-          ></i>
-        </a>
-      </MenuListItem>
-      {open ? <div>{props.children}</div> : null}
-    </>
   );
 }
 

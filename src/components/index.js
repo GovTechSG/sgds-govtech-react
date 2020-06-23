@@ -22,7 +22,10 @@ export {
 export { default as StandaloneMasthead } from "./standalone/Masthead";
 export { default as StandaloneFooter } from "./standalone/Footer";
 export { default as StandaloneMainNav } from "./standalone/MainNav/MainNav";
-export { default as StandaloneSideNav } from "./standalone/SideNav";
+export { default as StandaloneSideNav} from "./standalone/SideNav/SideNav";
+export { default as StandaloneSideNavItem} from "./standalone/SideNav/SideNavItem";
+export { default as StandaloneSideNavMenu} from "./standalone/SideNav/SideNavMenu";
+export { default as StandaloneSideNavMenuItem} from "./standalone/SideNav/SideNavMenuItem";
 
 export { default as NavBarBrand } from "./standalone/MainNav/NavBarBrand";
 export { default as NavMenu } from "./standalone/MainNav/NavMenu";
