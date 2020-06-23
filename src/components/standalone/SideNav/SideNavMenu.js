@@ -68,19 +68,12 @@ class SideNavMenu extends Component {
                   }}
                 >
                   {this.props.text}
-                {this.state.open ? 
-                (<Icon>
+                <Icon>
                     <svg width="15" height="15" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                        <path d="M10.2799 8.61124L10.2753 8.60692L12.0003 7L21 15.384L19 17L12.0049 10.2182L4.72495 17L3 15.3931L10.2799 8.61124Z" fill="#6037b3"/>
+                        <path d="M10.2799 8.61124L10.2753 8.60692L12.0003 7L21 15.384L19 17L12.0049 10.2182L4.72495 17L3 15.3931L10.2799 8.61124Z" 
+                        fill={this.state.open ? "#6037b3" : "#484848"}/>
                     </svg>
-                </Icon>) :
-                (<Icon>
-                    <svg width="15" height="15" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                    <path d="M13.7201 15.3888L13.7247 15.3931L11.9997 17L3 8.61605L5 7L11.9951 13.7818L19.2751 7L21 8.60692L13.7201 15.3888Z" fill="#484848"/>
-                    </svg>
-                </Icon>)
-                }
-
+                </Icon>
                 </a>
               </MenuListItem>
               {this.state.open ? <div>{this.props.children}</div> : null}

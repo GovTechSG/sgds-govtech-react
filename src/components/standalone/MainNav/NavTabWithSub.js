@@ -86,6 +86,13 @@ function NavTabWithSub (props) {
     &:hover {
       font-weight: 600;
       color: ${props.themePrimaryColor};
+      span {
+        svg {
+          path {
+            fill: #1a88ff;
+          }
+        }
+      }
     }
     &.is-uppercase {
       text-transform: uppercase!important;
@@ -203,7 +210,8 @@ function NavTabWithSub (props) {
         {props.link.name}
         <Icon>
           <svg width="15" height="15" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-          <path d="M13.7201 15.3888L13.7247 15.3931L11.9997 17L3 8.61605L5 7L11.9951 13.7818L19.2751 7L21 8.60692L13.7201 15.3888Z" fill="#484848"/>
+          <path d="M13.7201 15.3888L13.7247 15.3931L11.9997 17L3 8.61605L5 7L11.9951 13.7818L19.2751 7L21 8.60692L13.7201 15.3888Z" 
+          fill="#484848"/>
           </svg>
         </Icon>
       </StyledNavTabWithSub>
