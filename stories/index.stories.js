@@ -11,7 +11,11 @@ import {
   MainNav,
   Footer,
   Tab,
-  SideNav
+  SideNav,
+  StandaloneMasthead,
+  StandaloneMainNav,
+  StandaloneFooter,
+  StandaloneSideNav
 } from "./components";
 
 import buttonNotes from "./notes/components/buttons.md";
@@ -39,6 +43,20 @@ storiesOf("DSS Components", module)
     notes: { markdown: footerNotes }
   })
   .add("Sidenav", () => <SideNav />, {
+    notes: { markdown: sideNavNotes }
+  });
+
+storiesOf("DSS Components (Standalone)", module)
+  .add("Masthead", () => <StandaloneMasthead />, {
+    notes: { markdown: mastheadNotes }
+  })
+  .add("MainNav", () => <StandaloneMainNav />, {
+    notes: { markdown: mainNavNotes }
+  })
+  .add("Footer", () => <StandaloneFooter />, {
+    notes: { markdown: footerNotes }
+  })
+  .add("SideNav", () => <StandaloneSideNav />, {
     notes: { markdown: sideNavNotes }
   });
 
