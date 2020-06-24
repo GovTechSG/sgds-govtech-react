@@ -11,7 +11,7 @@ const SearchContainer = styled.div`
   position: relative;
 
   @media screen and (min-width: 1024px) {
-  display: none!important;
+    display: none!important;
   }
 
 `;
@@ -74,7 +74,6 @@ font-size: 1.25rem;
 position: relative;
 text-align: left;
 margin-right: -1px;
-padding-bottom: .5rem!important;
 `;
 
 const SearchInput = styled.input`
@@ -99,38 +98,8 @@ const SearchInput = styled.input`
   max-width: 100%;
   box-shadow: none!important;
   margin: 0;
-
+  box-sizing: border-box;
 `;
-
-
-const SearchButton = styled.button`
-    align-items: center;
-    background-color: #6037b3;
-    border-bottom-left-radius: 0;
-    border-color: transparent;
-    border-radius: 0;
-    box-shadow: none;
-    border-top-left-radius: 0;
-    border-width: 1px !default;
-    color: #fff!important;
-    cursor: pointer;
-    display: inline-flex;
-    font-size: 1.25rem;
-    height: 2.25em;
-    justify-content: center;
-    line-height: 1.5;
-    padding: calc(.375em - 1px) .75em;
-    padding-left: 1rem!important;
-    padding-right: 1rem!important;
-    position: relative;
-    text-align: center;
-    vertical-align: top;
-    white-space: nowrap;
-    :hover {
-      background-color: #4f2d94;
-      border-color: transparent;
-    }
-  `;
 
   const StyledHR = styled.hr`
   background-color: #d6d6d6;
@@ -151,7 +120,7 @@ function MobileSearch(props) {
         <Row>
           <Col>
             <StyledHR/>
-            <form>
+            <form onSubmit={props.searchClickHandler}>
               <SearchbarContainer>
                 <SearchInputSection>
                   <SearchInputIcon>
@@ -159,7 +128,6 @@ function MobileSearch(props) {
                     <path fill-rule="evenodd" clip-rule="evenodd" d="M14.5189 2.6665C7.97308 2.6665 2.66663 7.97296 2.66663 14.5188C2.66663 21.0646 7.97308 26.3711 14.5189 26.3711C17.2575 26.3711 19.7791 25.4423 21.786 23.8825L27.2381 29.3347L29.3333 27.2395L23.8814 21.7875C25.4419 19.7804 26.3712 17.2581 26.3712 14.5188C26.3712 7.97296 21.0648 2.6665 14.5189 2.6665ZM14.5189 5.62957C19.4283 5.62957 23.4081 9.60941 23.4081 14.5188C23.4081 19.4282 19.4283 23.408 14.5189 23.408C9.60949 23.408 5.62965 19.4282 5.62965 14.5188C5.62965 9.60941 9.60949 5.62957 14.5189 5.62957Z" fill="#d6d6d6"/>
                     </svg>
                   </SearchInputIcon>
-                  <form onSubmit={props.searchClickHandler}>
                   <SearchInput
                     id="nav-4-search"
                     type="text"
@@ -167,7 +135,6 @@ function MobileSearch(props) {
                     name="nav-4-search"
                     onChange={props.searchChangeHandler.bind(this)}
                   />
-                    </form>
                 </SearchInputSection>
 
               </SearchbarContainer>
