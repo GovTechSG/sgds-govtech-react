@@ -84,29 +84,84 @@ const mainNavItems = {
 };
 
 const code1 = `
-import { MainNav } from 'sgds-govtech-react' 
+import { StandaloneMainNav, NavBarBrand, NavMenu, NavbarItem, NavTabWithNoSub, NavTabWithSub } from 'sgds-govtech-react' 
 
-<MainNav
-  brand={mainNavItems.brand}
-  links={mainNavItems.links}
-/>
+<StandaloneMainNav
+id="app-root-1"
+links = {mainNavItems.links}>
 
+<NavBarBrand
+  name={mainNavItems.brand.name}
+  link={mainNavItems.brand.link}
+  img={mainNavItems.brand.img}/>
+<NavMenu>
+
+  <NavbarItem 
+    isStart = {true}
+    displaySearch = {false}
+  >
+
+    <NavTabWithSub
+    link = {mainNavItems.links[0]}
+    >
+
+    </NavTabWithSub>
+    <NavTabWithSub
+    link = {mainNavItems.links[1]}
+    >
+
+    </NavTabWithSub>
+
+    <NavTabWithNoSub 
+    link = {mainNavItems.links[2]}
+    ></NavTabWithNoSub>
+  </NavbarItem>
+
+</NavMenu>
+
+</StandaloneMainNav>
 `;
+
 const code2 = `
-<MainNav
-  brand={mainNavItems.brand}
-  links={mainNavItems.links}
-  displaySearch={true}
-  searchChangeHandler={event => {
-    event.preventDefault();
-    console.log("Search input changed");
-  }}
-  searchClickHandler={event => {
-    event.preventDefault();
-    console.log("Search button clicked");
-  }}
-/>
+<StandaloneMainNav
+id="app-root-2"
+links = {mainNavItems.links}>
+  <NavBarBrand
+  name={mainNavItems.brand.name}
+  link={mainNavItems.brand.link}
+  img={mainNavItems.brand.img}/>
+  <NavMenu>
+    <NavbarItem 
+      isStart = {true}
+      displaySearch = {false}
+    >
+      <NavTabWithSub
+      link = {mainNavItems.links[0]}
+      />
+      <NavTabWithSub
+      link = {mainNavItems.links[1]}
+      />
+      <NavTabWithNoSub 
+      link = {mainNavItems.links[2]}
+      />
+    </NavbarItem>
+
+    <NavbarItem
+    isStart={false}
+    displaySearch={true}
+    searchChangeHandler = {event => {
+      event.preventDefault();
+      console.log("Search input changed");
+    }}
+    searchClickHandler = {event => {
+      event.preventDefault();
+      console.log("Search button clicked");
+    }}
+    ></NavbarItem>
+  </NavMenu>
+</StandaloneMainNav>
 `;
+
 const MainNavStories = props => {
   // const [selectedItem, setSelectedItem] = useState("");
   return (
@@ -129,7 +184,7 @@ const MainNavStories = props => {
         <h4>Standard Main Navigation Bar</h4>
 
         <StandaloneMainNav
-        id="app-root"
+        id="app-root-1"
         links = {mainNavItems.links}>
         
         <NavBarBrand
@@ -159,7 +214,6 @@ const MainNavStories = props => {
             ></NavTabWithNoSub>
           </NavbarItem>
 
-
         </NavMenu>
 
       </StandaloneMainNav>
@@ -171,7 +225,7 @@ const MainNavStories = props => {
         <h4>Main Navigation with Search</h4>
 
         <StandaloneMainNav
-        id="app-root"
+        id="app-root-2"
         links = {mainNavItems.links}>
           <NavBarBrand
           name={mainNavItems.brand.name}
@@ -207,8 +261,6 @@ const MainNavStories = props => {
             ></NavbarItem>
           </NavMenu>
         </StandaloneMainNav>
-
-        
 
         <SyntaxHighlighter>{formatCode(code2)}</SyntaxHighlighter>
       </section>
