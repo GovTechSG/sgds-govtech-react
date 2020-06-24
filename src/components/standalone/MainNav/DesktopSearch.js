@@ -11,7 +11,7 @@ const SearchContainer = styled.div`
   position: relative;
 
   @media screen and (max-width: 1023px) {
-  display: block;
+  display: none!important;
   }
 
 `;

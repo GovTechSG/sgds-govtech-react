@@ -70,25 +70,28 @@ span {
 }
 `;   
 
-function NavBarBrand(props) {
-  return (
-    <NavBarBrandContainer>
-      <NavBarItemBrand  href={props.link}>
-        {props.img ? (
-          <img src={props.img} alt={props.name} />
-        ) : (
-          <h1>{props.name}</h1>
-        )}
-      </NavBarItemBrand>
-      {props.links ? (
-                <NavbarBurger>
-                  <span />
-                  <span />
-                  <span />
-                </NavbarBurger>
-              ) : null}
-    </NavBarBrandContainer>
-  );
+function NavBarBrand (props) {
+
+    return (
+      <NavBarBrandContainer>
+        <NavBarItemBrand  href={props.link}>
+          {props.img ? (
+            <img src={props.img} alt={props.name} />
+          ) : (
+            <h1>{props.name}</h1>
+          )}
+        </NavBarItemBrand>
+        {props.links ? (
+                  <NavbarBurger 
+                  onClick={props.onChange}>
+                    <span />
+                    <span />
+                    <span />
+                  </NavbarBurger>
+                ) : null}
+      </NavBarBrandContainer>
+    );
+  
 }
 
 NavBarBrand.propTypes = {

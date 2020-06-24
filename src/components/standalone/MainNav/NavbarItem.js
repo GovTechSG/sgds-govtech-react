@@ -2,15 +2,13 @@ import React from "react";
 import styled from "styled-components";
 import DesktopSearch from "./DesktopSearch";
 import ReactDOM from "react-dom";
+import MobileSearch from "./MobileSearch";
 
 const NavBarSection = styled.div`
 @media screen and (min-width: 1024px){
   justify-content: flex-end;
   align-items: stretch;
   display: flex;  
-}
-@media screen and (max-width: 1023px){
-  display: none!important;
 }
 
 &.is-end {
@@ -81,6 +79,11 @@ white-space: nowrap;
   border-color: transparent;
   color: #0a0a0a;
 }
+
+@media screen and (max-width: 1023px) {
+  display: none!important;
+}
+
 `;
 
 
@@ -124,24 +127,28 @@ class NavbarItem extends React.Component {
     
       { this.props.displaySearch ? 
           <NavBarItem>
-          <SearchIconButton
-            data-target="searchbar-1"
-            onClick={() => this.setState({
-              showSearch : !this.state.showSearch
-            }) }
-          >
-            <svg width="20" height="20" viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg">
-            <path fill-rule="evenodd" clip-rule="evenodd" d="M14.5189 2.6665C7.97308 2.6665 2.66663 7.97296 2.66663 14.5188C2.66663 21.0646 7.97308 26.3711 14.5189 26.3711C17.2575 26.3711 19.7791 25.4423 21.786 23.8825L27.2381 29.3347L29.3333 27.2395L23.8814 21.7875C25.4419 19.7804 26.3712 17.2581 26.3712 14.5188C26.3712 7.97296 21.0648 2.6665 14.5189 2.6665ZM14.5189 5.62957C19.4283 5.62957 23.4081 9.60941 23.4081 14.5188C23.4081 19.4282 19.4283 23.408 14.5189 23.408C9.60949 23.408 5.62965 19.4282 5.62965 14.5188C5.62965 9.60941 9.60949 5.62957 14.5189 5.62957Z" fill="#323232"/>
-            </svg>
+            <MobileSearch
+            themePrimaryColor = {this.props.themePrimaryColor}
+            searchChangeHandler = {this.props.searchChangeHandler}
+            searchClickHandler = {this.props.searchClickHandler}/>
+            <SearchIconButton
+              data-target="searchbar-1"
+              onClick={() => this.setState({
+                showSearch : !this.state.showSearch
+              }) }
+            >
+              <svg width="20" height="20" viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <path fill-rule="evenodd" clip-rule="evenodd" d="M14.5189 2.6665C7.97308 2.6665 2.66663 7.97296 2.66663 14.5188C2.66663 21.0646 7.97308 26.3711 14.5189 26.3711C17.2575 26.3711 19.7791 25.4423 21.786 23.8825L27.2381 29.3347L29.3333 27.2395L23.8814 21.7875C25.4419 19.7804 26.3712 17.2581 26.3712 14.5188C26.3712 7.97296 21.0648 2.6665 14.5189 2.6665ZM14.5189 5.62957C19.4283 5.62957 23.4081 9.60941 23.4081 14.5188C23.4081 19.4282 19.4283 23.408 14.5189 23.408C9.60949 23.408 5.62965 19.4282 5.62965 14.5188C5.62965 9.60941 9.60949 5.62957 14.5189 5.62957Z" fill="#323232"/>
+              </svg>
 
-          </SearchIconButton>
-          
-          <Modal open = {this.state.showSearch}
-          themePrimaryColor = {this.props.themePrimaryColor}
-          searchChangeHandler = {this.props.searchChangeHandler}
-          searchClickHandler = {this.props.searchClickHandler}
-          rootId = {this.props.rootId}>
-          </Modal>
+            </SearchIconButton>
+            
+            <Modal open = {this.state.showSearch}
+            themePrimaryColor = {this.props.themePrimaryColor}
+            searchChangeHandler = {this.props.searchChangeHandler}
+            searchClickHandler = {this.props.searchClickHandler}
+            rootId = {this.props.rootId}>
+            </Modal>
           </NavBarItem>
 
           : null

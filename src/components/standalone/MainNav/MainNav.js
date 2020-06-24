@@ -6,6 +6,15 @@ import PropTypes from "prop-types";
 class MainNav extends Component {
   constructor(props) {
     super(props);
+    this.state = {
+      open: false,
+    }
+  }
+
+  toggle = () => {
+    this.setState({
+      open: !this.state.open,
+    })
   }
 
   render() {
@@ -75,6 +84,8 @@ class MainNav extends Component {
             }
 
             return React.cloneElement(child, {
+                open: this.state.open,
+                onChange: this.toggle,
                 links: this.props.links,
                 themePrimaryColor: this.props.themePrimaryColor,
                 rootId: this.props.id

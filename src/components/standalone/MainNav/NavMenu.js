@@ -12,6 +12,13 @@ const MenuContainer = styled.div`
     align-items: stretch;
     display: flex;
   }
+  @media screen and (max-width: 1023px){
+    &.is-active {
+      display:block!important;
+      padding-bottom: 1rem;
+    }
+  }
+  
 `;
 
 class NavMenu extends React.Component {
@@ -34,7 +41,7 @@ class NavMenu extends React.Component {
         })
     }
     return (
-      <MenuContainer>
+      <MenuContainer className={this.props.open ? "is-active" : ""}>
         {React.Children.map(this.props.children, (child, childIndex) => {
                 if (!React.isValidElement(child)) {
                   return null;

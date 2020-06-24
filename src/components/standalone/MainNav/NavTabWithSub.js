@@ -142,18 +142,18 @@ function NavTabWithSub (props) {
 
     @media screen and (min-width: 1216px) {
       max-width: 1152px;
+      &.is-fluid{
+        max-width: none;
+        padding-left: 32px;
+        padding-right: 32px;
+        width: 100%;
+      }
     }
 
     @media screen and (max-width: 1023px) {
       display: block;
     }
 
-    &.is-fluid{
-      max-width: none;
-      padding-left: 32px;
-      padding-right: 32px;
-      width: 100%;
-    }
   `;
 
 
