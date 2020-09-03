@@ -4,9 +4,9 @@ import PropTypes from "prop-types";
 function Container(props) {
   const getClassName = () => {
     if (props.isFluid) {
-      return "sgds-container is-fluid";
+      return "sgds-container is-fluid " + props.className;
     } else {
-      return "sgds-container";
+      return "sgds-container " + props.className;
     }
   };
 
@@ -20,6 +20,7 @@ function Container(props) {
 Container.propTypes = {
   isFluid: PropTypes.oneOfType([PropTypes.bool, PropTypes.string]),
   style: PropTypes.object,
+  className: PropTypes.string
 };
 
 export default Container;
