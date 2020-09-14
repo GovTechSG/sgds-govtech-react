@@ -7,3 +7,5 @@ export { default as MainNav } from "./MainNav.stories";
 export { default as Footer } from './Footer.stories';
 export { default as Tab } from './Tab.stories';
 export { default as SideNav } from './SideNav.stories';
+export { default as Container } from './Container.stories';
+export { default as Section } from './Section.stories';
