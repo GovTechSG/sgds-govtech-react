@@ -1,17 +1,22 @@
 import React from "react";
 import PropTypes from "prop-types";
 
-function Container(props) {
+function Row(props) {
   const getSelfClassName = () => {
     return props.className ?? false;
   };
 
   const getClassName = () => {
     let className = "";
-    if (props.isFluid) {
-      className = "sgds-container is-fluid";
+    if (props.isDesktop) {
+      className = "row is-desktop";
+    } else if (props.isMobile) {
+      className = "row is-mobile";
     } else {
-      className = "sgds-container";
+      className = "row";
+    }
+    if (props.isMultiline) {
+      className = className + " is-multiline";
     }
     if (getSelfClassName()) {
       return `${className} ${getSelfClassName()}`;
@@ -27,10 +32,12 @@ function Container(props) {
   );
 }
 
-Container.propTypes = {
-  isFluid: PropTypes.oneOfType([PropTypes.bool, PropTypes.string]),
+Row.propTypes = {
+  isMultiline: PropTypes.oneOfType([PropTypes.bool, PropTypes.string]),
+  isDesktop: PropTypes.oneOfType([PropTypes.bool, PropTypes.string]),
+  isMobile: PropTypes.oneOfType([PropTypes.bool, PropTypes.string]),
   style: PropTypes.object,
   className: PropTypes.string,
 };
 
-export default Container;
+export default Row;

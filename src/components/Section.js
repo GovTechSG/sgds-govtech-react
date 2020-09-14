@@ -2,15 +2,25 @@ import React from "react";
 import PropTypes from "prop-types";
 
 function Section(props) {
+  const getSelfClassName = () => {
+    return props.className ?? false;
+  };
+
   const getClassName = () => {
+    let className = "";
     if (props.isSmall) {
-      return "sgds-section is-small " + props.className;
+      className = "sgds-section is-small";
     } else if (props.isMedium) {
-      return "sgds-section is-medium " + props.className;
+      className = "sgds-section is-medium";
     } else if (props.isLarge) {
-      return "sgds-section is-large " + props.className;
+      className = "sgds-section is-large";
     } else {
-      return "sgds-section " + props.className;
+      className = "sgds-section";
+    }
+    if (getSelfClassName()) {
+      return `${className} ${getSelfClassName()}`;
+    } else {
+      return className;
     }
   };
 

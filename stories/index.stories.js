@@ -14,6 +14,8 @@ import {
   SideNav,
   Container,
   Section,
+  Row,
+  Col,
 } from "./components";
 
 import buttonNotes from "./notes/components/buttons.md";
@@ -48,8 +50,10 @@ storiesOf("Components", module)
   .add("Accordions", () => <Accordion />, {
     notes: { markdown: accordionNotes },
   })
-  .add("Container", () => <Container />)
-  .add("Section", () => <Section />)
+  .add("Containers", () => <Container />)
+  .add("Sections", () => <Section />)
+  .add("Rows", () => <Row />)
+  .add("Columns", () => <Col />)
   .add("Buttons", () => <Button />, {
     notes: { markdown: buttonNotes },
   })

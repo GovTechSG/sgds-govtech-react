@@ -9,3 +9,5 @@ export { default as Tab } from './Tab.stories';
 export { default as SideNav } from './SideNav.stories';
 export { default as Container } from './Container.stories';
 export { default as Section } from './Section.stories';
+export { default as Row } from './Row.stories';
+export { default as Col } from './Col.stories';
