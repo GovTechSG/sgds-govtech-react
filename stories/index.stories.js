@@ -16,6 +16,7 @@ import {
   Section,
   Row,
   Col,
+  Notification,
 } from "./components";
 
 import buttonNotes from "./notes/components/buttons.md";
@@ -61,6 +62,7 @@ storiesOf("Components", module)
   .add("Breadcrumbs", () => <Breadcrumb />, {
     notes: { markdown: breadcrumbNotes },
   })
+  .add("Notifications", () => <Notification />)
   .add("Tabs", () => <Tab />, {
     notes: { markdown: tabNotes },
   });
