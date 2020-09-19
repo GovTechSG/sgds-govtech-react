@@ -12,27 +12,72 @@ npm install sgds-govtech-react
 ```
 ## Usage
 
-### You will need to first import the [sgds](https://www.designsystem.gov.sg) css styles, either in your website's `<head>` element or through your frontend build.
+You will need to first import the [sgds](https://www.designsystem.gov.sg) css styles, either in your website's `<head>` element or through your frontend build.
 
-#### HTML
+For example, `create-react-app` users should insert the css into the `<head>` of `public/index.html`
+
 ```html
 <head>
     <link
         rel="stylesheet"
-        href="https://unpkg.com/sgds-govtech/css/sgds.css"
+        href="https://cdn.jsdelivr.net/npm/sgds-govtech@1.3.15/css/sgds.css"
     />
 </head>
 ```
 
-#### Webpack
+Alternatively, install the `sgds-govtech` package:
+
+```bash
+npm install sgds-govtech
+```
+
+And import the `css` through your bundler:
 
 ```javascript
 // In your entry point
-
-import 'sgds-govtech/css/sgds.css'
+import 'sgds-govtech/css/sgds.css';
 ```
 
-### Getting started
+## Customisation (advanced)
+
+If you want to modify SGDS's base styling, you can import the Sass source (your project needs to support Sass compilation) and modify SGDS variables.
+
+```
+npm install sgds-govtech
+```
+
+For example, importing sgds in your own sass file:
+
+```scss
+// styles/app.scss
+
+// Override SGDS defaults
+$primary: rgb(8, 11, 56);
+$secondary: #ff8c00;
+$warning: rgb(134, 37, 37);
+
+// This must be overridden if you want to use icons! See below for more details
+$sgds-font-path: "../../../fonts";
+
+// Import all of sgds
+@import "~sgds-govtech/sgds/sass/sgds.scss";
+```
+
+Then, in your app:
+
+```js
+import React from "react";
+
+import "./styles/app.scss";
+
+export default function App() {
+    return <div>...</div>
+}
+```
+
+For more information on customising with Sass, see the [SGDS documentation](https://www.designsystem.tech.gov.sg/docs/customise-sgds/).
+
+## Getting started
 
 ```jsx
 import React from 'react';
