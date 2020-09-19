@@ -51,5 +51,8 @@
     "react-syntax-highlighter": "^11.0.2",
     "storybook-addon-markdown": "github:mihalik/storybook-addon-markdown",
     "styled-components": "^4.4.1"
+  },
+  "peerDependencies": {
+    "styled-components": "^4.4.1"
   }
 }
