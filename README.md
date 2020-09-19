@@ -10,6 +10,9 @@ We are in early development! If you are trying out sgds-govtech-react, feel free
 ```
 npm install sgds-govtech-react
 ```
+
+**Peer dependencies** Note that sgds-govtech-react has a peer dependency of styled-components - both packages need to be installed.
+
 ## Usage
 
 You will need to first import the [sgds](https://www.designsystem.gov.sg) css styles, either in your website's `<head>` element or through your frontend build.
