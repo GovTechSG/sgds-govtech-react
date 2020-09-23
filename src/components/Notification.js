@@ -38,7 +38,6 @@ function Notification(props) {
         {props.closable ? (
           <span
             className="delete"
-            id="cancel-notification"
             onClick={() => {
               props.onClose();
             }}
