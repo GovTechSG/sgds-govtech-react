@@ -26,3 +26,5 @@ yarn-error.log*
 .vscode
 
 storybook-static
+
+*.bak
