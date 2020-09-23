@@ -1,1 +1,0 @@
-{"version":3,"file":"static/css/main.9f515402.chunk.css","sources":["webpack:///Breadcrumb.stories.scss"],"sourcesContent":[".breadcrumb-stories {\n  .sgds-breadcrumb {\n    ul {\n      list-style: inherit;\n      margin: 0;\n      li {\n        margin-top: 0;\n      }\n    }\n  }\n}"],"mappings":"AAAA;;","sourceRoot":""}
