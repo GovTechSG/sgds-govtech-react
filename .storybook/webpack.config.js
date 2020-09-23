@@ -4,17 +4,15 @@ module.exports = {
   module: {
     rules: [
       {
+        // Will take .babelrc from project root
         test: /\.(js|jsx)$/,
         loader: "babel-loader",
-        include: [
-          path.resolve(__dirname, "../src"),
-          path.resolve(__dirname, "../stories")
-        ]
       },
       {
-        test: /\.css$/,
-        use: ["style-loader", "css-loader"]
-      }
-    ]
-  }
+        // for loading sgds package's scss
+        test: /sgds-govtech\/fonts\/sgds-icons*\.(woff|woff2|eot|ttf|otf|svg)$/,
+        use: ["file-loader"],
+      },
+    ],
+  },
 };

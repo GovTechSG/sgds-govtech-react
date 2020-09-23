@@ -7,11 +7,14 @@ React Documentation can be found [here](https://govtechsg.github.io/sgds-govtech
 We are in early development! If you are trying out sgds-govtech-react, feel free to leave us feedback in the issues page, or even submit a [PR](https://github.com/govtechsg/sgds-govtech-react/pulls)!
 
 ## Installation
+
 ```
 npm install sgds-govtech-react
 ```
 
-**Peer dependencies** Note that sgds-govtech-react has a peer dependency of styled-components - both packages need to be installed.
+### Peer dependencies
+
+Note that sgds-govtech-react has a peer dependency of styled-components - both packages need to be installed.
 
 ## Usage
 
@@ -21,10 +24,10 @@ For example, `create-react-app` users should insert the css into the `<head>` of
 
 ```html
 <head>
-    <link
-        rel="stylesheet"
-        href="https://cdn.jsdelivr.net/npm/sgds-govtech@1.3.15/css/sgds.css"
-    />
+  <link
+    rel="stylesheet"
+    href="https://cdn.jsdelivr.net/npm/sgds-govtech@1.3.15/css/sgds.css"
+  />
 </head>
 ```
 
@@ -34,16 +37,16 @@ Alternatively, install the `sgds-govtech` package:
 npm install sgds-govtech
 ```
 
-And import the `css` through your bundler:
+And import the `css` using your build tool (e.g. Webpack):
 
 ```javascript
 // In your entry point
-import 'sgds-govtech/css/sgds.css';
+import "sgds-govtech/css/sgds.css";
 ```
 
-## Customisation (advanced)
+### Customisation with Sass (advanced)
 
-If you want to modify SGDS's base styling, you can import the Sass source (your project needs to support Sass compilation) and modify SGDS variables.
+If you want to modify SGDS's base styling, you can import the Sass source (your project needs to support Sass compilation) and [override SGDS's sass variables](https://www.designsystem.tech.gov.sg/docs/customise-sgds/).
 
 ```
 npm install sgds-govtech
@@ -59,7 +62,8 @@ $primary: rgb(8, 11, 56);
 $secondary: #ff8c00;
 $warning: rgb(134, 37, 37);
 
-// This must be overridden if you want to use icons! See below for more details
+// You must override this variable!
+// See https://www.designsystem.tech.gov.sg/docs/customise-sgds/ for details
 $sgds-font-path: "../../../fonts";
 
 // Import all of sgds
@@ -74,7 +78,7 @@ import React from "react";
 import "./styles/app.scss";
 
 export default function App() {
-    return <div>...</div>
+  return <div>...</div>;
 }
 ```
 
@@ -83,25 +87,23 @@ For more information on customising with Sass, see the [SGDS documentation](http
 ## Getting started
 
 ```jsx
-import React from 'react';
-import ReactDOM from 'react-dom';
+import React from "react";
+import ReactDOM from "react-dom";
 
 import { Button } from "sgds-govtech-react";
 
 const app = () => {
-    return (
-        <div className="App">
-            <Button>Submit</Button>
-        </div>
-    )
-}
+  return (
+    <div className="App">
+      <Button>Submit</Button>
+    </div>
+  );
+};
 
-ReactDOM.render(
-  app,
-  document.getElementById('root')
-);
+ReactDOM.render(app, document.getElementById("root"));
 ```
 
 ### Patch Notes
+
 V0.1.7: Added Sidenav, Tab and their storybook documentation to the library
 V0.1.2: Added footer and masthead to component library

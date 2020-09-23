@@ -1,17 +1,17 @@
 {
   "name": "sgds-govtech-react",
   "version": "0.1.12",
+  "main": "dist/index.js",
   "files": [
     "dist"
   ],
-  "main": "dist/index.js",
   "scripts": {
-    "prepublishOnly": "rm -rf ./dist && NODE_ENV=production babel src/components --out-dir ./dist --source-maps",
     "build": "react-scripts build",
     "build:lib": "rm -rf ./dist && NODE_ENV=production babel src/components --out-dir ./dist --source-maps",
-    "build:storybook": "build-storybook -s public",
+    "build:storybook": "build-storybook -o storybook-build",
     "build:watch": "rm -rf ./dist && NODE_ENV=production babel src/components --watch --out-dir ./dist --source-maps",
     "eject": "react-scripts eject",
+    "prepublishOnly": "npm run build:lib",
     "start": "react-scripts start",
     "storybook": "start-storybook -p 6006",
     "test": "react-scripts test"
@@ -32,27 +32,34 @@
     "extends": "react-app"
   },
   "devDependencies": {
-    "@babel/cli": "^7.8.4",
-    "@babel/core": "^7.8.4",
-    "@storybook/addon-a11y": "^5.3.13",
-    "@storybook/addon-actions": "^5.3.13",
-    "@storybook/addon-links": "^5.3.13",
-    "@storybook/addon-notes": "^5.3.13",
-    "@storybook/addon-storysource": "^5.3.13",
-    "@storybook/addons": "^5.3.13",
-    "@storybook/react": "^5.3.13",
-    "babel-loader": "^8.0.6",
-    "node-sass": "^4.13.1",
+    "@babel/cli": "^7.11.6",
+    "@babel/core": "^7.11.6",
+    "@babel/plugin-proposal-class-properties": "^7.10.4",
+    "@babel/plugin-proposal-object-rest-spread": "^7.11.0",
+    "@babel/plugin-transform-modules-umd": "^7.10.4",
+    "@babel/preset-env": "^7.11.5",
+    "@babel/preset-react": "^7.10.4",
+    "@storybook/addon-a11y": "^5.3.21",
+    "@storybook/addon-actions": "^5.3.21",
+    "@storybook/addon-links": "^5.3.21",
+    "@storybook/addon-notes": "^5.3.21",
+    "@storybook/addons": "^5.3.21",
+    "@storybook/react": "^5.3.21",
+    "babel-loader": "^8.1.0",
+    "file-loader": "^6.1.0",
+    "node-sass": "^4.14.1",
     "prettier": "^1.19.1",
     "prop-types": "^15.7.2",
-    "react": "^16.12.0",
-    "react-dom": "^16.12.0",
-    "react-scripts": "^3.3.1",
+    "react": "^16.13.1",
+    "react-dom": "^16.13.1",
+    "react-markdown": "^4.3.1",
+    "react-scripts": "^3.4.3",
     "react-syntax-highlighter": "^11.0.2",
-    "storybook-addon-markdown": "github:mihalik/storybook-addon-markdown",
-    "styled-components": "^4.4.1"
+    "sgds-govtech": "*",
+    "styled-components": "^5.2.0",
+    "url-loader": "^4.1.0"
   },
   "peerDependencies": {
-    "styled-components": "^4.4.1"
+    "styled-components": "^5.2.0"
   }
 }
