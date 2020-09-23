@@ -1,5 +1,3 @@
-const path = require("path");
-
 module.exports = {
   module: {
     rules: [
@@ -11,7 +9,11 @@ module.exports = {
       {
         // for loading sgds package's scss
         test: /sgds-govtech\/fonts\/sgds-icons*\.(woff|woff2|eot|ttf|otf|svg)$/,
-        use: ["file-loader"],
+        use: [
+          {
+            loader: "url-loader",
+          },
+        ],
       },
     ],
   },
