@@ -57,7 +57,7 @@ const AccordionStories = props => {
   return (
     <Page>
       <Title>
-        <h3>Accordions</h3>
+        <h2>Accordions</h2>
       </Title>
       <section className="sgds-section">
         <h4>

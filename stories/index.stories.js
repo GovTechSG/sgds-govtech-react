@@ -14,6 +14,9 @@ import {
   SideNav,
   Container,
   Section,
+  Row,
+  Col,
+  Notification,
 } from "./components";
 
 import buttonNotes from "./notes/components/buttons.md";
@@ -48,8 +51,10 @@ storiesOf("Components", module)
   .add("Accordions", () => <Accordion />, {
     notes: { markdown: accordionNotes },
   })
-  .add("Container", () => <Container />)
-  .add("Section", () => <Section />)
+  .add("Containers", () => <Container />)
+  .add("Sections", () => <Section />)
+  .add("Rows", () => <Row />)
+  .add("Columns", () => <Col />)
   .add("Buttons", () => <Button />, {
     notes: { markdown: buttonNotes },
   })
@@ -57,6 +62,7 @@ storiesOf("Components", module)
   .add("Breadcrumbs", () => <Breadcrumb />, {
     notes: { markdown: breadcrumbNotes },
   })
+  .add("Notifications", () => <Notification />)
   .add("Tabs", () => <Tab />, {
     notes: { markdown: tabNotes },
   });
