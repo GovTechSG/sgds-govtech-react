@@ -15,7 +15,7 @@ class MainNav extends Component {
       hoverTab: null,
       hoverSub: null,
       hoverSunItem: null,
-      showSearch: false
+      showSearch: false,
     };
     this.searchChangeHandler = props.searchChangeHandler
       ? props.searchChangeHandler
@@ -31,19 +31,19 @@ class MainNav extends Component {
       this.setState({
         selectedTab: index,
         selectedSub: subIndex,
-        selectedSubItem: subMenuIndex
+        selectedSubItem: subMenuIndex,
       });
     } else if (subIndex >= 0) {
       this.setState({
         selectedTab: index,
         selectedSub: subIndex,
-        selectedSubItem: null
+        selectedSubItem: null,
       });
     } else {
       this.setState({
         selectedTab: index,
         selectedSub: null,
-        selectedSubItem: null
+        selectedSubItem: null,
       });
     }
   };
@@ -56,21 +56,21 @@ class MainNav extends Component {
         hoverTabName: name,
         hoverTab: index,
         hoverSub: subIndex,
-        hoverSunItem: subMenuIndex
+        hoverSunItem: subMenuIndex,
       });
     } else if (subIndex >= 0) {
       this.setState({
         hoverTabName: name,
         hoverTab: index,
         hoverSub: subIndex,
-        hoverSunItem: null
+        hoverSunItem: null,
       });
     } else {
       this.setState({
         hoverTabName: name,
         hoverTab: index,
         hoverSub: null,
-        hoverSunItem: null
+        hoverSunItem: null,
       });
     }
   };
@@ -79,9 +79,10 @@ class MainNav extends Component {
       hoverTabName: null,
       hoverTab: null,
       hoverSub: null,
-      hoverSunItem: null
+      hoverSunItem: null,
     });
   };
+
   render() {
     const NavTabWithSub = styled.a`
       padding: 0.5rem 2rem 0.5rem 0.5rem;
@@ -194,7 +195,7 @@ class MainNav extends Component {
                                   fontWeight: 600,
                                   borderBottom: "5px solid",
                                   borderBottomColor: this.props
-                                    .themePrimaryColor
+                                    .themePrimaryColor,
                                 }
                               : null
                           }
@@ -212,7 +213,7 @@ class MainNav extends Component {
                                   this.state.selectedTab === index
                                     ? {
                                         color: this.props.themePrimaryColor,
-                                        fontWeight: 600
+                                        fontWeight: 600,
                                       }
                                     : null
                                 }
@@ -246,7 +247,7 @@ class MainNav extends Component {
                                   fontWeight: 600,
                                   borderBottom: "5px solid",
                                   borderBottomColor: this.props
-                                    .themePrimaryColor
+                                    .themePrimaryColor,
                                 }
                               : null
                           }
@@ -275,7 +276,7 @@ class MainNav extends Component {
                                                 ? {
                                                     color: this.props
                                                       .themePrimaryColor,
-                                                    fontWeight: 600
+                                                    fontWeight: 600,
                                                   }
                                                 : null
                                             }
@@ -335,7 +336,7 @@ class MainNav extends Component {
                                 color: this.props.themePrimaryColor,
                                 fontWeight: 600,
                                 borderBottom: "5px solid",
-                                borderBottomColor: this.props.themePrimaryColor
+                                borderBottomColor: this.props.themePrimaryColor,
                               }
                             : null
                         }
@@ -418,9 +419,9 @@ MainNav.propTypes = {
   links: PropTypes.arrayOf(
     PropTypes.shape({
       name: PropTypes.string.isRequired,
-      img: PropTypes.string
+      img: PropTypes.string,
     })
-  )
+  ),
 };
 
 export default MainNav;

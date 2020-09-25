@@ -436,22 +436,39 @@ const MainNavStories = (props) => {
         <ul>
           <li>
             MainNavItem: a flexible component that renders links or container
-            components styled to fit inside the main nav. Also accepts the{" "}
-            <code>as</code> prop that allows you to define any component you
-            want to be rendered, e.g. the <code>Link</code> component from{" "}
-            <code>react-router</code>.
+            components styled to fit inside the main nav.
+            <ul>
+              <li>
+                Use the <code>as</code> prop to define any component you want to
+                be rendered, e.g. the <code>Link</code> component from{" "}
+                <code>react-router</code>.
+              </li>
+            </ul>
           </li>
-          <li>MainNavDropdown</li>
+          <li>
+            MainNavDropdown: a container to wrap MainNavItems around a dropdown.
+            On desktop (&gt;=1024px), the dropdown displays on hover. On mobile,
+            users need to tap the dropdown to toggle showing/hiding its
+            contents.
+            <ul>
+              <li>
+                Accepts the <code>isMega</code> prop to make the dropdown
+                full-width, allowing you to insert any kind of content you need.
+              </li>
+            </ul>
+          </li>
         </ul>
 
         <h4>Code</h4>
 
+        <h5>Example 1</h5>
         <ComposableMainNav1 />
 
         <SyntaxHighlighter>
           {formatCode(composableMainNav1Code)}
         </SyntaxHighlighter>
 
+        <h5>Example 2</h5>
         <ComposableMainNav2 />
 
         <SyntaxHighlighter>

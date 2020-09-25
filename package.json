@@ -6,15 +6,11 @@
     "dist"
   ],
   "scripts": {
-    "build": "react-scripts build",
     "build:lib": "rm -rf ./dist && NODE_ENV=production babel src/components --out-dir ./dist --source-maps",
     "build:storybook": "build-storybook -o storybook-build",
     "build:watch": "rm -rf ./dist && NODE_ENV=production babel src/components --watch --out-dir ./dist --source-maps",
-    "eject": "react-scripts eject",
     "prepublishOnly": "npm run build:lib",
-    "start": "react-scripts start",
-    "storybook": "start-storybook -p 6006",
-    "test": "react-scripts test"
+    "storybook": "start-storybook -p 6006"
   },
   "browserslist": {
     "production": [
@@ -35,6 +31,7 @@
     "@babel/cli": "^7.11.6",
     "@babel/core": "^7.11.6",
     "@babel/plugin-proposal-class-properties": "^7.10.4",
+    "@babel/plugin-proposal-nullish-coalescing-operator": "^7.10.4",
     "@babel/preset-env": "^7.11.5",
     "@babel/preset-react": "^7.10.4",
     "@storybook/addon-a11y": "^5.3.21",
@@ -47,6 +44,7 @@
     "@storybook/addons": "^5.3.21",
     "@storybook/react": "^5.3.21",
     "babel-loader": "^8.1.0",
+    "css-loader": "^4.3.0",
     "file-loader": "^6.1.0",
     "node-sass": "^4.14.1",
     "prettier": "^1.19.1",
@@ -54,9 +52,10 @@
     "react": "^16.13.1",
     "react-dom": "^16.13.1",
     "react-markdown": "^4.3.1",
-    "react-scripts": "^3.4.3",
     "react-syntax-highlighter": "^11.0.2",
+    "sass-loader": "^10.0.2",
     "sgds-govtech": "*",
+    "style-loader": "^1.2.1",
     "styled-components": "^5.2.0",
     "url-loader": "^4.1.0"
   },
