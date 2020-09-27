@@ -128,6 +128,16 @@ import {
           A Custom Component
         </SideNavMenuItem>
       </SideNavMenu>
+      <SideNavMenu text="Side Nav Menu 2">
+        <SideNavMenuItem
+          onClick={e => {
+            e.preventDefault();
+            console.log("Clicked sub-item 2");
+          }}
+        >
+          Sub-item - onClick prop
+        </SideNavMenuItem>
+      </SideNavMenu>
     </SideNav>
   </div>
 </div>
@@ -214,12 +224,13 @@ const SideNavStories = props => {
         <SyntaxHighlighter>{code2}</SyntaxHighlighter>
 
         <h4>
-          <code>&lt;SideNavItem&gt;</code> component syntax
+          Composable side nav
         </h4>
 
         <p>
           You can nest <code>&lt;SideNavItem&gt;</code> components within
-          <code>&lt;SideNav&gt;</code>.
+          <code>&lt;SideNav&gt;</code> to compose compose your side navigation with greater
+          flexibility.
         </p>
         <p>
           By passing the <code>component</code>
