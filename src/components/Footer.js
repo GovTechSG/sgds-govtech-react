@@ -77,7 +77,7 @@ function Footer(props) {
   return (
     <footer className='sgds-footer'>
       <div className="top-section">
-        <div className="sgds-container is-fluid">
+        <div className={`sgds-container ${props.isFluid ? "is-fluid" : ""}`}>
           <div className="row">
             <div className="col">
               <h5 className="has-text-white"><b>{props.title}</b></h5>
@@ -97,7 +97,7 @@ function Footer(props) {
       </div>
 
       <div className="bottom-section">
-        <div className="sgds-container is-fluid">
+        <div className={`sgds-container ${props.isFluid ? "is-fluid" : ""}`}>
           <div className="row is-multiline">
             <div className="col is-12">
               <ul>
@@ -120,7 +120,8 @@ Footer.propTypes = {
     termsOfUse: PropTypes.string,
     contact: PropTypes.string,
     feedback: PropTypes.string
-  })
+  }),
+  isFluid: PropTypes.oneOfType([PropTypes.bool, PropTypes.string]),
 };
 
 export default Footer;
