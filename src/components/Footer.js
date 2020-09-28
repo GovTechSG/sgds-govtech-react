@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from "prop-types";
 
 // TODO : Improve error handling of inputs into components
 function Footer(props) {
@@ -109,6 +110,17 @@ function Footer(props) {
       </div>
     </footer>
   );
-}
+};
+
+Footer.propTypes = {
+  title: PropTypes.string,
+  date: PropTypes.string,
+  links: PropTypes.objectOf({
+    privacy: PropTypes.string,
+    termsOfUse: PropTypes.string,
+    contact: PropTypes.string,
+    feedback: PropTypes.string
+  })
+};
 
 export default Footer;
