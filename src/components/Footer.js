@@ -115,13 +115,13 @@ function Footer(props) {
 Footer.propTypes = {
   title: PropTypes.string,
   date: PropTypes.string,
-  links: PropTypes.objectOf({
+  links: PropTypes.shape({
     privacy: PropTypes.string,
     termsOfUse: PropTypes.string,
     contact: PropTypes.string,
     feedback: PropTypes.string
   }),
-  isFluid: PropTypes.oneOfType([PropTypes.bool, PropTypes.string]),
+  isFluid: PropTypes.bool
 };
 
 export default Footer;
