@@ -359,6 +359,7 @@ const MainNavStories = (props) => {
       <Title>
         <h2>Main Navigation</h2>
       </Title>
+
       <section className="sgds-section">
         <h3>
           The Main Navigation Bar helps users navigate top-level pages within a
@@ -368,35 +369,8 @@ const MainNavStories = (props) => {
           The main nav is a DSS component. It should be present in all 'gov.sg'
           websites.
         </p>
-
-        <Divider />
-
-        <h3>Standard Main Navigation Bar</h3>
-        <MainNav
-          brand={mainNavItems.brand}
-          links={mainNavItems.links}
-          selectItem={setSelectedItem}
-        />
-        <p>Selected Item: {selectedItem}</p>
-        <SyntaxHighlighter>{formatCode(code1)}</SyntaxHighlighter>
-
-        <Divider />
-        <h3>Main Navigation with Search</h3>
-        <MainNav
-          brand={mainNavItems.brand}
-          links={mainNavItems.links}
-          displaySearch={true}
-          searchChangeHandler={(event) => {
-            event.preventDefault();
-            console.log("Search input changed");
-          }}
-          searchClickHandler={(event) => {
-            event.preventDefault();
-            console.log("Search button clicked");
-          }}
-        />
-        <SyntaxHighlighter>{formatCode(code2)}</SyntaxHighlighter>
       </section>
+
       <section className="sgds-section">
         <h3>Composable main navigation</h3>
         <p>
@@ -459,6 +433,13 @@ const MainNavStories = (props) => {
           </li>
         </ul>
 
+        <p>
+          For more information, see the{" "}
+          <a href="https://www.designsystem.tech.gov.sg/docs/main-nav/">
+            SGDS CSS framework docs
+          </a>
+        </p>
+
         <h4>Code</h4>
 
         <h5>Example 1</h5>
@@ -474,6 +455,47 @@ const MainNavStories = (props) => {
         <SyntaxHighlighter>
           {formatCode(composableMainNav2Code)}
         </SyntaxHighlighter>
+      </section>
+
+      <section className="sgds-section">
+        <h3>Standard Main Navigation Bar</h3>
+        <p>
+          The following kitchen sink main navigation component provides a
+          generalized interface, which you may find useful for very simple
+          navigation menus.
+        </p>
+        <p>
+          Note that the import path for this component is:
+          <br />
+          <code>import {MainNav} from "sgds-govtech-react"</code>
+          <br />
+          while that for the composable main nav above is: <br />
+          <code>import {MainNav} from "sgds-govtech-react/dist/standard"</code>
+        </p>
+        <MainNav
+          brand={mainNavItems.brand}
+          links={mainNavItems.links}
+          selectItem={setSelectedItem}
+        />
+        <p>Selected Item: {selectedItem}</p>
+        <SyntaxHighlighter>{formatCode(code1)}</SyntaxHighlighter>
+
+        <Divider />
+        <h4>Main Navigation with Search</h4>
+        <MainNav
+          brand={mainNavItems.brand}
+          links={mainNavItems.links}
+          displaySearch={true}
+          searchChangeHandler={(event) => {
+            event.preventDefault();
+            console.log("Search input changed");
+          }}
+          searchClickHandler={(event) => {
+            event.preventDefault();
+            console.log("Search button clicked");
+          }}
+        />
+        <SyntaxHighlighter>{formatCode(code2)}</SyntaxHighlighter>
       </section>
     </Page>
   );

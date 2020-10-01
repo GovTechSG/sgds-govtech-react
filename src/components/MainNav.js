@@ -16,6 +16,7 @@ class MainNav extends Component {
       hoverSub: null,
       hoverSunItem: null,
       showSearch: false,
+      expandMenu: false,
     };
     this.searchChangeHandler = props.searchChangeHandler
       ? props.searchChangeHandler
@@ -80,6 +81,11 @@ class MainNav extends Component {
       hoverTab: null,
       hoverSub: null,
       hoverSunItem: null,
+    });
+  };
+  toggleMobileMenu = () => {
+    this.setState({
+      expandMenu: !this.state.expandMenu,
     });
   };
 
@@ -157,20 +163,25 @@ class MainNav extends Component {
 
     return (
       <div>
-        <nav className="navbar">
+        <nav className="sgds-navbar">
           <div
             className={
               "sgds-container" + (this.props.isFluid ? " is-fluid" : "")
             }
           >
-            <div className="navbar-brand">
+            <div className="sgds-navbar-brand">
               <Brand
                 img={this.props.brand.img}
                 name={this.props.brand.name}
                 link={this.props.brand.link}
               />
               {this.props.links ? (
-                <div className="navbar-burger burger ">
+                <div
+                  className={`sgds-navbar-burger burger ${
+                    this.state.expandMenu ? "is-active" : ""
+                  }`}
+                  onClick={this.toggleMobileMenu}
+                >
                   <span />
                   <span />
                   <span />
@@ -178,12 +189,16 @@ class MainNav extends Component {
               ) : null}
             </div>
             {this.props.links ? (
-              <div className={"navbar-menu "}>
+              <div
+                className={`sgds-navbar-menu ${
+                  this.state.expandMenu ? "is-active" : ""
+                }`}
+              >
                 {this.props.links.map((link, index) => {
                   if (link.sublinks) {
                     return (
                       <div
-                        className="navbar-item has-dropdown is-hoverable"
+                        className="sgds-navbar-item has-dropdown is-hoverable"
                         key={index}
                       >
                         <NavTabWithSub
@@ -202,7 +217,7 @@ class MainNav extends Component {
                         >
                           {link.name}
                         </NavTabWithSub>
-                        <div className="navbar-dropdown">
+                        <div className="sgds-navbar-dropdown">
                           {link.sublinks.map((sublink, i) => {
                             return (
                               <NavSub
@@ -235,7 +250,7 @@ class MainNav extends Component {
                   } else if (link.subMenus) {
                     return (
                       <div
-                        className="navbar-item has-dropdown is-hoverable is-mega"
+                        className="sgds-navbar-item has-dropdown is-hoverable is-mega"
                         key={index}
                       >
                         <NavTabWithSub
@@ -254,13 +269,13 @@ class MainNav extends Component {
                         >
                           {link.name}
                         </NavTabWithSub>
-                        <div className="navbar-dropdown">
+                        <div className="sgds-navbar-dropdown">
                           <div className="sgds-container is-fluid">
                             <div className="row">
                               {link.subMenus.map((subMenu, i) => {
                                 return (
                                   <div className="col is-3" key={i}>
-                                    <p className="navbar-item is-uppercase">
+                                    <p className="sgds-navbar-item is-uppercase">
                                       <b>{subMenu.subMenuTitle}</b>
                                     </p>
                                     {subMenu.subMenuItems.map(
@@ -308,7 +323,7 @@ class MainNav extends Component {
                               })}
                               {link.subMenuInfo ? (
                                 <div className="col is-6">
-                                  <div className="navbar-item is-wrapped">
+                                  <div className="sgds-navbar-item is-wrapped">
                                     <p>
                                       <b>{link.subMenuInfo.title}</b>
                                       <br />
@@ -356,8 +371,8 @@ class MainNav extends Component {
               </div>
             ) : null}
             {this.props.displaySearch ? (
-              <div className="navbar-end is-hidden-touch">
-                <div className="navbar-item">
+              <div className="sgds-navbar-end is-hidden-touch">
+                <div className="sgds-navbar-item">
                   <button
                     className="sgds-button is-white is-large search-toggle"
                     data-target="searchbar-1"
