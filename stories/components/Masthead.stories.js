@@ -1,19 +1,19 @@
-import React, { useState } from "react";
+import React from "react";
 import SyntaxHighlighter from "../lib/SyntaxHighlighter";
-import { Masthead } from "../../src/components";
+import { formatCode } from "../lib/utils";
+import { Masthead as ComposableMasthead } from "../../src/components/standard";
 import { Page, Title, Divider } from "../shared-styles";
 
-const code1 = `
-import { Masthead } from 'sgds-govtech-react' 
+const composableMHCode = `import { Masthead } from "sgds-govtech-react/dist/standard"
 
 <Masthead />
+`;
 
-`;
-const code2 = `// Using react hooks as the handler. You can use other functions to handle the state change
-<Masthead hasLanguageSelector languageSelectHandler={setLanguage}/>
-`;
-const MastheadStories = props => {
-  const [language, setLanguage] = useState("");
+const fluidMHCode = `<Masthead isFluid />`;
+
+const childrenMHCode = `<Masthead>A Singapore Government Website</Masthead>`;
+
+const MastheadStories = () => {
   return (
     <Page>
       <Title>
@@ -25,29 +25,36 @@ const MastheadStories = props => {
           represents the Singapore Government.
         </h3>
         <p>
-          It is a DSS component that has to be present in all pages of
-          '.gov.sg' websites.
+          It is a DSS component that has to be present in all pages of '.gov.sg'
+          websites.
         </p>
 
         <Divider />
 
         <h4>Default Masthead</h4>
-        <Masthead />
-
-        <SyntaxHighlighter>{code1}</SyntaxHighlighter>
+        <ComposableMasthead />
+        <SyntaxHighlighter>{formatCode(composableMHCode)}</SyntaxHighlighter>
 
         <Divider />
 
-        {/* <h4>Masthead with Language Selector</h4>
+        <p>
+          Use <code>isFluid</code> to remove max-width restrictions on masthead
+          contents
+        </p>
+        <ComposableMasthead isFluid></ComposableMasthead>
+        <SyntaxHighlighter>{formatCode(fluidMHCode)}</SyntaxHighlighter>
 
-        <div>
-          <Masthead hasLanguageSelector languageSelectHandler={setLanguage} />
-          <p className="padding--top">
-            Selected Language:
-            {language}
-          </p>
-        </div>
-        <SyntaxHighlighter>{code2}</SyntaxHighlighter> */}
+        <Divider />
+
+        <p>Add children to the component to use different text.</p>
+        <ComposableMasthead>A Singapore Government Website</ComposableMasthead>
+        <SyntaxHighlighter>{formatCode(childrenMHCode)}</SyntaxHighlighter>
+
+        <Divider />
+
+        <p>Use <code>noLink</code> to remove the default masthead link.</p>
+        <ComposableMasthead noLink />
+        <SyntaxHighlighter>{formatCode(`<Masthead noLink />`)}</SyntaxHighlighter>
       </section>
     </Page>
   );
