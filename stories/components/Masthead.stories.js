@@ -4,15 +4,6 @@ import { formatCode } from "../lib/utils";
 import { Masthead as ComposableMasthead } from "../../src/components/standard";
 import { Page, Title, Divider } from "../shared-styles";
 
-const composableMHCode = `import { Masthead } from "sgds-govtech-react/dist/standard"
-
-<Masthead />
-`;
-
-const fluidMHCode = `<Masthead isFluid />`;
-
-const childrenMHCode = `<Masthead>A Singapore Government Website</Masthead>`;
-
 const MastheadStories = () => {
   return (
     <Page>
@@ -50,13 +41,9 @@ const MastheadStories = () => {
           contents
         </p>
         <ComposableMasthead isFluid></ComposableMasthead>
-        <SyntaxHighlighter>{formatCode(fluidMHCode)}</SyntaxHighlighter>
-
-        <Divider />
-
-        <p>Add children to the component to use different text.</p>
-        <ComposableMasthead>A Singapore Government Website</ComposableMasthead>
-        <SyntaxHighlighter>{formatCode(childrenMHCode)}</SyntaxHighlighter>
+        <SyntaxHighlighter>
+          {formatCode(`<Masthead isFluid />`)}
+        </SyntaxHighlighter>
 
         <Divider />
 
