@@ -1,6 +1,15 @@
 import React from "react";
 import PropTypes from "prop-types";
 
+function MastheadContent({ children }) {
+  return (
+    <>
+      <span className="sgds-icon sgds-icon-sg-crest"></span>
+      <span className="is-text">{children}</span>
+    </>
+  );
+}
+
 export function Masthead({ isFluid = false, noLink = false, children }) {
   return (
     <div className="sgds-masthead">
@@ -8,18 +17,14 @@ export function Masthead({ isFluid = false, noLink = false, children }) {
         <div className="row">
           <div className="col">
             {noLink ? (
-              <>
-                <span className="sgds-icon sgds-icon-sg-crest"></span>
-                <span className="is-text">
-                  {children || `A Singapore Government Agency Website`}
-                </span>
-              </>
+              <MastheadContent>
+                {children || `A Singapore Government Agency Website`}
+              </MastheadContent>
             ) : (
               <a href="https://www.gov.sg">
-                <span className="sgds-icon sgds-icon-sg-crest"></span>
-                <span className="is-text">
+                <MastheadContent>
                   {children || `A Singapore Government Agency Website`}
-                </span>
+                </MastheadContent>
               </a>
             )}
           </div>

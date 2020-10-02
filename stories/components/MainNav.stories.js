@@ -159,19 +159,19 @@ const ComposableMainNav1 = () => {
       <MainNavMenu expand={showNavMenu}>
         <MainNavMenuStart>
           <MainNavItem href="#!">Who we are</MainNavItem>
-          <MainNavItem href="#!" isUpperCase>
-            isUpperCase
+          <MainNavItem href="#!" isUpperCase isTab>
+            isUpperCase &amp; isTab
           </MainNavItem>
-          <MainNavItem href="#!" isTab>
-            isTab
+          {/* use the 'as' prop to MainNavItem to use any component, such as a react-router 'Link'. */}
+          <MainNavItem as={Link} isTab to="#!">
+            Custom component
           </MainNavItem>
           <MainNavDropdown
             label="Hover dropdown"
             onClick={() => console.log("Clicked!")}
           >
             <MainNavItem href="#!">Dropdown item 1</MainNavItem>
-            {/* use the 'as' prop to MainNavItem to use any component, such as a react-router 'Link'. */}
-            <MainNavItem as={Link} to="/dropdown-item-2">
+            <MainNavItem as={Link} to="#!">
               Dropdown item 2
             </MainNavItem>
           </MainNavDropdown>
@@ -200,19 +200,18 @@ const ComposableMainNav1 = () => {
       <MainNavMenu expand={showNavMenu}>
         <MainNavMenuStart>
           <MainNavItem href="#!">Who we are</MainNavItem>
-          <MainNavItem href="#!" isUpperCase>
-            isUpperCase
+          <MainNavItem href="#!" isUpperCase isTab>
+            isUpperCase &amp; isTab
           </MainNavItem>
-          <MainNavItem href="#!" isTab>
-            isTab
+          <MainNavItem as={Link} isTab to="#!">
+            Custom component
           </MainNavItem>
           <MainNavDropdown
             label="Hover dropdown"
             onClick={() => console.log("Clicked!")}
           >
             <MainNavItem href="#!">Dropdown item 1</MainNavItem>
-            {/* use the 'as' prop to MainNavItem to use any component, such as a react-router 'Link'. */}
-            <MainNavItem as={Link} to="/dropdown-item-2">
+            <MainNavItem as={Link} to="#!">
               Dropdown item 2
             </MainNavItem>
           </MainNavDropdown>
@@ -234,13 +233,10 @@ import {
   MainNavMenuStart,
   MainNavMenuEnd,
 } from "sgds-govtech-react/dist/standard";
+import { Row, Col } from "sgds-govtech-react";
 
-const Link = (props) => {
-  return (
-    <a href={props.to} className={props.className}>
-      {props.children}
-    </a>
-  );
+const MyMenuHeader = (props) => {
+  return <strong className={props.className}>{props.children}</strong>;
 };
 
 const ComposableMainNav2 = () => {

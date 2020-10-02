@@ -33,7 +33,15 @@ const MastheadStories = () => {
 
         <h4>Default Masthead</h4>
         <ComposableMasthead />
-        <SyntaxHighlighter>{formatCode(composableMHCode)}</SyntaxHighlighter>
+        <SyntaxHighlighter>
+          {formatCode(
+            `import { Masthead } from "sgds-govtech-react/dist/standard";
+
+            export default function App() {
+              return <Masthead />
+            }`
+          )}
+        </SyntaxHighlighter>
 
         <Divider />
 
@@ -52,9 +60,13 @@ const MastheadStories = () => {
 
         <Divider />
 
-        <p>Use <code>noLink</code> to remove the default masthead link.</p>
+        <p>
+          Use <code>noLink</code> to remove the default masthead link.
+        </p>
         <ComposableMasthead noLink />
-        <SyntaxHighlighter>{formatCode(`<Masthead noLink />`)}</SyntaxHighlighter>
+        <SyntaxHighlighter>
+          {formatCode(`<Masthead noLink />`)}
+        </SyntaxHighlighter>
       </section>
     </Page>
   );
