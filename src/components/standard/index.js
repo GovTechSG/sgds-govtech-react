@@ -8,3 +8,4 @@ export {
   MainNavMenuStart,
   MainNavMenuEnd,
 } from "./MainNav";
+export { Masthead } from "./Masthead";

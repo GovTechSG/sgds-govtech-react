@@ -159,19 +159,19 @@ const ComposableMainNav1 = () => {
       <MainNavMenu expand={showNavMenu}>
         <MainNavMenuStart>
           <MainNavItem href="#!">Who we are</MainNavItem>
-          <MainNavItem href="#!" isUpperCase>
-            isUpperCase
+          <MainNavItem href="#!" isUpperCase isTab>
+            isUpperCase &amp; isTab
           </MainNavItem>
-          <MainNavItem href="#!" isTab>
-            isTab
+          {/* use the 'as' prop to MainNavItem to use any component, such as a react-router 'Link'. */}
+          <MainNavItem as={Link} isTab to="#!">
+            Custom component
           </MainNavItem>
           <MainNavDropdown
             label="Hover dropdown"
             onClick={() => console.log("Clicked!")}
           >
             <MainNavItem href="#!">Dropdown item 1</MainNavItem>
-            {/* use the 'as' prop to MainNavItem to use any component, such as a react-router 'Link'. */}
-            <MainNavItem as={Link} to="/dropdown-item-2">
+            <MainNavItem as={Link} to="#!">
               Dropdown item 2
             </MainNavItem>
           </MainNavDropdown>
@@ -200,19 +200,18 @@ const ComposableMainNav1 = () => {
       <MainNavMenu expand={showNavMenu}>
         <MainNavMenuStart>
           <MainNavItem href="#!">Who we are</MainNavItem>
-          <MainNavItem href="#!" isUpperCase>
-            isUpperCase
+          <MainNavItem href="#!" isUpperCase isTab>
+            isUpperCase &amp; isTab
           </MainNavItem>
-          <MainNavItem href="#!" isTab>
-            isTab
+          <MainNavItem as={Link} isTab to="#!">
+            Custom component
           </MainNavItem>
           <MainNavDropdown
             label="Hover dropdown"
             onClick={() => console.log("Clicked!")}
           >
             <MainNavItem href="#!">Dropdown item 1</MainNavItem>
-            {/* use the 'as' prop to MainNavItem to use any component, such as a react-router 'Link'. */}
-            <MainNavItem as={Link} to="/dropdown-item-2">
+            <MainNavItem as={Link} to="#!">
               Dropdown item 2
             </MainNavItem>
           </MainNavDropdown>
@@ -234,13 +233,10 @@ import {
   MainNavMenuStart,
   MainNavMenuEnd,
 } from "sgds-govtech-react/dist/standard";
+import { Row, Col } from "sgds-govtech-react";
 
-const Link = (props) => {
-  return (
-    <a href={props.to} className={props.className}>
-      {props.children}
-    </a>
-  );
+const MyMenuHeader = (props) => {
+  return <strong className={props.className}>{props.children}</strong>;
 };
 
 const ComposableMainNav2 = () => {
@@ -438,6 +434,17 @@ const MainNavStories = (props) => {
           <a href="https://www.designsystem.tech.gov.sg/docs/main-nav/">
             SGDS CSS framework docs
           </a>
+        </p>
+
+        <p>
+          <strong>Note:</strong>The main nav menu collapses on screens
+          &lt;1024px, after which it is toggled by the &lt;MainNavBurger&gt;
+          component. You will need to implement your own state variable
+          (boolean) and pass that to the <code>expand</code> prop to the
+          &lt;MainNavBurger&gt; and the &lt;MainNavMenu&gt; components. If
+          <code>expand={"{true}"}</code>, the burger button and main nav menu
+          would be displayed on mobile views. This is demonstrated in code
+          examples 1 and 2 below.
         </p>
 
         <h4>Code</h4>

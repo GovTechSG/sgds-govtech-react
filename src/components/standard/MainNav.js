@@ -16,21 +16,25 @@ export function MainNavBrand(props) {
 }
 
 export function MainNavItem({ as, href = "", ...props }) {
+  let navItemClass = `sgds-navbar-item ${
+    props.isUpperCase ? "is-uppercase" : ""
+  } ${props.isTab ? "is-tab" : ""}`;
+
   if (as) {
     const MorphedComponent = as;
     return (
-      <MorphedComponent className="sgds-navbar-item" {...props}>
+      <MorphedComponent className={navItemClass} {...props}>
         {props.children}
       </MorphedComponent>
     );
   }
+
   const mainNavItemProps = {
-    className: `sgds-navbar-item ${props.isUpperCase ? "is-uppercase" : ""} ${
-      props.isTab ? "is-tab" : ""
-    }`,
+    className: navItemClass,
     href,
     onClick: props.onClick,
   };
+
   return href ? (
     <a {...mainNavItemProps}>{props.children}</a>
   ) : (
