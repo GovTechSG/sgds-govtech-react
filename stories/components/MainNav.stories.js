@@ -436,6 +436,17 @@ const MainNavStories = (props) => {
           </a>
         </p>
 
+        <p>
+          <strong>Note:</strong>The main nav menu collapses on screens
+          &lt;1024px, after which it is toggled by the &lt;MainNavBurger&gt;
+          component. You will need to implement your own state variable
+          (boolean) and pass that to the <code>expand</code> prop to the
+          &lt;MainNavBurger&gt; and the &lt;MainNavMenu&gt; components. If
+          <code>expand={"{true}"}</code>, the burger button and main nav menu
+          would be displayed on mobile views. This is demonstrated in code
+          examples 1 and 2 below.
+        </p>
+
         <h4>Code</h4>
 
         <h5>Example 1</h5>
