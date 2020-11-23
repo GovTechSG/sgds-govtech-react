@@ -1,2 +1,0 @@
-(window.webpackJsonp=window.webpackJsonp||[]).push([[60],{710:function(module,exports,__webpack_require__){module.exports=__webpack_require__(1)("btvq")}}]);
-//# sourceMappingURL=react-syntax-highlighter_languages_highlight_gams.03c473f1ebfc1fbc4153.bundle.js.map

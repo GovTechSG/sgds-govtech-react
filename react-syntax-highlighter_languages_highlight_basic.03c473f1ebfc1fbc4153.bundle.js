@@ -1,2 +1,0 @@
-(window.webpackJsonp=window.webpackJsonp||[]).push([[19],{669:function(module,exports,__webpack_require__){module.exports=__webpack_require__(1)("gJTP")}}]);
-//# sourceMappingURL=react-syntax-highlighter_languages_highlight_basic.03c473f1ebfc1fbc4153.bundle.js.map
