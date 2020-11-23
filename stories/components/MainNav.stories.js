@@ -158,7 +158,7 @@ const ComposableMainNav1 = () => {
       </MainNavBrand>
       <MainNavMenu expand={showNavMenu}>
         <MainNavMenuStart>
-          <MainNavItem href="#!">Who we are</MainNavItem>
+          <MainNavItem href="#!" isActive>isActive</MainNavItem>
           <MainNavItem href="#!" isUpperCase isTab>
             isUpperCase &amp; isTab
           </MainNavItem>
@@ -199,7 +199,7 @@ const ComposableMainNav1 = () => {
       </MainNavBrand>
       <MainNavMenu expand={showNavMenu}>
         <MainNavMenuStart>
-          <MainNavItem href="#!">Who we are</MainNavItem>
+          <MainNavItem href="#!" isActive>isActive</MainNavItem>
           <MainNavItem href="#!" isUpperCase isTab>
             isUpperCase &amp; isTab
           </MainNavItem>

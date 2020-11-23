@@ -18,7 +18,7 @@ export function MainNavBrand(props) {
 export function MainNavItem({ as, href = "", ...props }) {
   let navItemClass = `sgds-navbar-item ${
     props.isUpperCase ? "is-uppercase" : ""
-  } ${props.isTab ? "is-tab" : ""}`;
+  } ${props.isTab ? "is-tab" : ""} ${props.isActive ? "is-active" : ""}`;
 
   if (as) {
     const MorphedComponent = as;
@@ -47,6 +47,7 @@ MainNavItem.propTypes = {
   isUpperCase: PropTypes.bool,
   isTab: PropTypes.bool,
   onClick: PropTypes.func,
+  isActive: PropTypes.bool,
 };
 
 export function MainNavBurger({ onClick, expand = "" }) {
