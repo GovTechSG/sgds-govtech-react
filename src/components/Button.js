@@ -1,6 +1,7 @@
 /* eslint-disable jsx-a11y/anchor-is-valid */
 import React, { Component } from "react";
 import PropTypes from "prop-types";
+import getUnhandledProps from "../lib/getUnhandledProps";
 
 class Button extends Component {
   constructor(props) {
@@ -111,6 +112,8 @@ class Button extends Component {
   };
 
   render() {
+    const rest = getUnhandledProps(Button.propTypes, this.props);
+
     return (
       <button
         className={this.getClassName()}
@@ -129,6 +132,7 @@ class Button extends Component {
         onClick={this.onClick}
         onFocus={() => this.setState({ focused: true })}
         onBlur={() => this.setState({ focused: false })}
+        {...rest}
       >
         {this.props.children}
       </button>

@@ -68,6 +68,12 @@ const buttonCode3 = `
 <Button colorType="danger">Danger</Button>
 </>
 `;
+const buttonCode4 = `
+<>
+<Button aria-label="Close">Put &quot;X&quot; icon here; screenreader reads &quot;Close&quot;</Button>
+<Button data-example="value">I have a data- attribute on me!</Button>
+</>
+`;
 const ButtonStories = props => {
   return (
     <Page>
@@ -178,6 +184,15 @@ const ButtonStories = props => {
           <Button colorType="danger">Danger</Button>
         </RowButtonContainer>
         <SyntaxHighlighter>{formatCode(buttonCode3)}</SyntaxHighlighter>
+
+        <Divider />
+        <h4>Additional attributes</h4>
+        <p>You can provide your own attributes as well.</p>
+        <RowButtonContainer>
+          <Button aria-label="Close">Put &quot;X&quot; icon here; screenreader reads &quot;Close&quot;</Button>
+          <Button data-example="value">I have a data- attribute on me!</Button>
+        </RowButtonContainer>
+        <SyntaxHighlighter>{formatCode(buttonCode4)}</SyntaxHighlighter>
       </section>
     </Page>
   );
