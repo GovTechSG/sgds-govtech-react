@@ -1,6 +1,12 @@
 # Changelog
 
-## [0.2.6] - 2012-04-12
+## [0.2.7] - 2021-04-13
+
+### Fixed
+
+- Build output for library
+
+## [0.2.6] - 2021-04-12
 
 ### Added
 

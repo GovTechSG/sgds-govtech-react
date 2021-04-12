@@ -1,7 +1,7 @@
 /* eslint-disable jsx-a11y/anchor-is-valid */
 import React, { Component } from "react";
 import PropTypes from "prop-types";
-import getUnhandledProps from "../lib/getUnhandledProps";
+import getUnhandledProps from "./lib/getUnhandledProps";
 
 class Button extends Component {
   constructor(props) {
