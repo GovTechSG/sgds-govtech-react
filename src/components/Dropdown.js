@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import PropTypes from "prop-types";
-
+import Button from "./Button";
 class Dropdown extends Component {
   state = {
     showDropdown: false
@@ -54,8 +54,8 @@ class Dropdown extends Component {
           onMouseLeave={() => this.setState({ showDropdown: false })}
         >
           <div className="sgds-dropdown-trigger">
-            <button
-              className="sgds-button"
+            <Button
+              type="button"
               aria-haspopup="true"
               aria-controls="sgds-dropdown-menu"
               onMouseEnter={() => this.setState({ showDropdown: true })}
@@ -68,7 +68,7 @@ class Dropdown extends Component {
                   }`}
                 />
               </span>
-            </button>
+            </Button>
           </div>
           <div className="sgds-dropdown-menu" role="menu">
             <div className="sgds-dropdown-content">{this.props.children}</div>
@@ -84,8 +84,8 @@ class Dropdown extends Component {
         ref={this.setContentWrapperRef}
       >
         <div className="sgds-dropdown-trigger">
-          <button
-            className="sgds-button"
+          <Button
+            type="button"
             aria-haspopup="true"
             aria-controls="sgds-dropdown-menu"
             onClick={this.toggleDropdown}
@@ -98,7 +98,7 @@ class Dropdown extends Component {
                 }`}
               />
             </span>
-          </button>
+          </Button>
         </div>
         <div className="sgds-dropdown-menu" role="menu">
           <div
