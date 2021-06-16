@@ -1,0 +1,26 @@
+{
+    "arrowParens": "avoid",
+    "tabWidth": 4,
+    "useTabs": false,
+    "quoteProps": "consistent",
+    "overrides": [
+        {
+            "files": ["*.ts", "*.tsx", "*.js", "*.jsx"],
+            "options": {
+                "singleQuote": false
+            }
+        },
+        {
+            "files": ["*.yaml", "*.yml"],
+            "options": {
+                "tabWidth": 2
+            }
+        },
+        {
+            "files": ["*.md"],
+            "options": {
+                "proseWrap": "never"
+            }
+        }
+    ]
+}
