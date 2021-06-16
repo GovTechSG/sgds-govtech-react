@@ -1,61 +1,54 @@
 {
-  "name": "sgds-govtech-react",
-  "version": "0.2.7",
-  "main": "dist/index.js",
-  "files": [
-    "dist"
-  ],
-  "scripts": {
-    "build:lib": "rm -rf ./dist && NODE_ENV=production babel src/components --out-dir ./dist --source-maps",
-    "build:storybook": "build-storybook -o storybook-build",
-    "build:watch": "rm -rf ./dist && NODE_ENV=production babel src/components --watch --out-dir ./dist --source-maps",
-    "prepublishOnly": "npm run build:lib",
-    "storybook": "start-storybook -p 6006"
-  },
-  "browserslist": {
-    "production": [
-      ">0.2%",
-      "not dead",
-      "not op_mini all"
+    "name": "sgds-govtech-react",
+    "version": "0.2.7",
+    "main": "dist/index.js",
+    "module": "dist/index.esm.js",
+    "types": "dist/index.d.ts",
+    "files": [
+        "dist"
     ],
-    "development": [
-      "last 1 chrome version",
-      "last 1 firefox version",
-      "last 1 safari version"
-    ]
-  },
-  "eslintConfig": {
-    "extends": "react-app"
-  },
-  "devDependencies": {
-    "@babel/cli": "^7.11.6",
-    "@babel/core": "^7.11.6",
-    "@babel/plugin-proposal-class-properties": "^7.10.4",
-    "@babel/plugin-proposal-nullish-coalescing-operator": "^7.10.4",
-    "@babel/preset-env": "^7.11.5",
-    "@babel/preset-react": "^7.10.4",
-    "@storybook/addon-essentials": "^6.0.22",
-    "@storybook/addon-links": "^6.0.22",
-    "@storybook/addons": "^6.0.22",
-    "@storybook/react": "^6.0.22",
-    "babel-loader": "^8.1.0",
-    "css-loader": "^4.3.0",
-    "file-loader": "^6.1.0",
-    "node-sass": "^4.14.1",
-    "prettier": "^1.19.1",
-    "prop-types": "^15.7.2",
-    "react": "^16.13.1",
-    "react-dom": "^16.13.1",
-    "react-is": "^16.13.1",
-    "react-markdown": "^4.3.1",
-    "react-syntax-highlighter": "^11.0.2",
-    "sass-loader": "^10.0.2",
-    "sgds-govtech": "*",
-    "style-loader": "^1.2.1",
-    "styled-components": "^5.2.0",
-    "url-loader": "^4.1.0"
-  },
-  "peerDependencies": {
-    "styled-components": "^5.2.0"
-  }
+    "scripts": {
+        "build:lib": "rm -rf ./dist && NODE_ENV=production babel src/components --out-dir ./dist --source-maps",
+        "build:storybook": "build-storybook -o storybook-build",
+        "build:watch": "rm -rf ./dist && NODE_ENV=production babel src/components --watch --out-dir ./dist --source-maps",
+        "prepublishOnly": "npm run build:lib",
+        "storybook": "start-storybook -p 6006"
+    },
+    "eslintConfig": {
+        "extends": "react-app"
+    },
+    "devDependencies": {
+        "@babel/core": "^7.14.6",
+        "@babel/plugin-proposal-class-properties": "^7.14.5",
+        "@babel/plugin-proposal-nullish-coalescing-operator": "^7.14.5",
+        "@babel/preset-env": "^7.14.5",
+        "@babel/preset-react": "^7.14.5",
+        "@babel/preset-typescript": "^7.14.5",
+        "@rollup/plugin-babel": "^5.3.0",
+        "@rollup/plugin-commonjs": "^19.0.0",
+        "@rollup/plugin-node-resolve": "^13.0.0",
+        "@rollup/plugin-typescript": "^8.2.1",
+        "@storybook/addon-essentials": "^6.2.9",
+        "@storybook/addon-links": "^6.2.9",
+        "@storybook/addons": "^6.2.9",
+        "@storybook/react": "^6.2.9",
+        "@tsconfig/create-react-app": "^1.0.2",
+        "@types/react": "^17.0.11",
+        "@types/react-dom": "^17.0.7",
+        "acorn-jsx": "^5.3.1",
+        "prettier": "^2.3.1",
+        "prop-types": "^15.7.2",
+        "react": "^16.13.1",
+        "react-dom": "^16.13.1",
+        "rollup": "^2.51.2",
+        "rollup-plugin-peer-deps-external": "^2.2.4",
+        "rollup-plugin-typescript2": "^0.30.0",
+        "sgds-govtech": "^1.3.1",
+        "styled-components": "^5.2.0",
+        "typescript": "^4.3.2"
+    },
+    "peerDependencies": {
+        "sgds-govtech": "^1.3.1",
+        "styled-components": "^5.2.0"
+    }
 }
