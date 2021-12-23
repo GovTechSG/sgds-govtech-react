@@ -1,61 +1,80 @@
 {
-  "name": "sgds-govtech-react",
-  "version": "0.2.7",
+  "version": "0.1.0",
+  "license": "MIT",
   "main": "dist/index.js",
+  "typings": "dist/index.d.ts",
   "files": [
-    "dist"
+    "dist",
+    "src"
   ],
+  "engines": {
+    "node": ">=10"
+  },
   "scripts": {
-    "build:lib": "rm -rf ./dist && NODE_ENV=production babel src/components --out-dir ./dist --source-maps",
-    "build:storybook": "build-storybook -o storybook-build",
-    "build:watch": "rm -rf ./dist && NODE_ENV=production babel src/components --watch --out-dir ./dist --source-maps",
-    "prepublishOnly": "npm run build:lib",
-    "storybook": "start-storybook -p 6006"
-  },
-  "browserslist": {
-    "production": [
-      ">0.2%",
-      "not dead",
-      "not op_mini all"
-    ],
-    "development": [
-      "last 1 chrome version",
-      "last 1 firefox version",
-      "last 1 safari version"
-    ]
-  },
-  "eslintConfig": {
-    "extends": "react-app"
-  },
-  "devDependencies": {
-    "@babel/cli": "^7.11.6",
-    "@babel/core": "^7.11.6",
-    "@babel/plugin-proposal-class-properties": "^7.10.4",
-    "@babel/plugin-proposal-nullish-coalescing-operator": "^7.10.4",
-    "@babel/preset-env": "^7.11.5",
-    "@babel/preset-react": "^7.10.4",
-    "@storybook/addon-essentials": "^6.0.22",
-    "@storybook/addon-links": "^6.0.22",
-    "@storybook/addons": "^6.0.22",
-    "@storybook/react": "^6.0.22",
-    "babel-loader": "^8.1.0",
-    "css-loader": "^4.3.0",
-    "file-loader": "^6.1.0",
-    "node-sass": "^4.14.1",
-    "prettier": "^1.19.1",
-    "prop-types": "^15.7.2",
-    "react": "^16.13.1",
-    "react-dom": "^16.13.1",
-    "react-is": "^16.13.1",
-    "react-markdown": "^4.3.1",
-    "react-syntax-highlighter": "^11.0.2",
-    "sass-loader": "^10.0.2",
-    "sgds-govtech": "*",
-    "style-loader": "^1.2.1",
-    "styled-components": "^5.2.0",
-    "url-loader": "^4.1.0"
+    "start": "tsdx watch",
+    "build": "tsdx build",
+    "test": "tsdx test --passWithNoTests",
+    "lint": "tsdx lint",
+    "prepare": "tsdx build",
+    "size": "size-limit",
+    "analyze": "size-limit --why",
+    "storybook": "start-storybook -p 6006",
+    "build-storybook": "build-storybook"
   },
   "peerDependencies": {
-    "styled-components": "^5.2.0"
+    "react": ">=16"
+  },
+  "husky": {
+    "hooks": {
+      "pre-commit": "tsdx lint"
+    }
+  },
+  "prettier": {
+    "printWidth": 80,
+    "semi": true,
+    "singleQuote": true,
+    "trailingComma": "es5"
+  },
+  "name": "react-dev-2.0",
+  "author": "GovTech",
+  "module": "dist/react-dev-2.0.esm.js",
+  "size-limit": [
+    {
+      "path": "dist/react-dev-2.0.cjs.production.min.js",
+      "limit": "10 KB"
+    },
+    {
+      "path": "dist/react-dev-2.0.esm.js",
+      "limit": "10 KB"
+    }
+  ],
+  "devDependencies": {
+    "@babel/core": "^7.16.5",
+    "@size-limit/preset-small-lib": "^7.0.4",
+    "@storybook/addon-essentials": "^6.4.9",
+    "@storybook/addon-info": "^5.3.21",
+    "@storybook/addon-links": "^6.4.9",
+    "@storybook/addons": "^6.4.9",
+    "@storybook/react": "^6.4.9",
+    "@types/react": "^17.0.37",
+    "@types/react-dom": "^17.0.11",
+    "babel-loader": "^8.2.3",
+    "husky": "^7.0.4",
+    "react": "^17.0.2",
+    "react-dom": "^17.0.2",
+    "react-is": "^17.0.2",
+    "size-limit": "^7.0.4",
+    "tsdx": "^0.14.1",
+    "tslib": "^2.3.1",
+    "typescript": "^4.5.4"
+  },
+  "dependencies": {
+    "@restart/ui": "^0.2.5",
+    "@storybook/addon-a11y": "^6.4.9",
+    "classnames": "^2.3.1",
+    "formik": "^2.2.9",
+    "prop-types-extra": "^1.1.1",
+    "react-transition-group": "^4.4.2",
+    "yup": "^0.32.11"
   }
 }
