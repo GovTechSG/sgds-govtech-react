@@ -127,6 +127,7 @@ const Fade = React.forwardRef<Transition<any>, FadeProps>(
               'fade',
               className,
               children.props.className,
+              //@ts-ignore
               fadeStyles[status],
               transitionClasses[status],
             ),
