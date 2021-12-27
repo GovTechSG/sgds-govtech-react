@@ -1,0 +1,42 @@
+import { ArgsTable, Canvas, Meta, Story } from '@storybook/addon-docs';
+import { useState } from 'react';
+import { Modal, Button } from '../../src/components/index';
+
+<Meta title="MDX/Modal" component={Modal} />
+
+### Accordion
+
+Let's define a story for our `Modal` component
+
+export const Template = (args) => {
+  const [show, setShow] = useState(false);
+  const handleClose = () => setShow(false);
+  const handleShow = () => setShow(true);
+  return (
+      <>
+      <Button variant="primary" onClick={handleShow}>
+        Launch demo modal
+      </Button>
+      <Modal show={show} onHide={handleClose}>
+        <Modal.Header closeButton>
+          <Modal.Title>Modal heading</Modal.Title>
+        </Modal.Header>
+        <Modal.Body>Woohoo, you're reading this text in a modal!</Modal.Body>
+        <Modal.Footer>
+          <Button variant="secondary" onClick={handleClose}>
+            Close
+          </Button>
+          <Button variant="primary" onClick={handleClose}>
+            Save Changes
+          </Button>
+        </Modal.Footer>
+      </Modal>
+    </>
+  );
+};
+
+<Canvas>
+  <Story name="Modal">{Template.bind({})}</Story>
+</Canvas>
+
+<ArgsTable story="Modal" />
