@@ -2,9 +2,9 @@ import classNames from 'classnames';
 import * as React from 'react';
 import PropTypes from 'prop-types';
 
-import { useBootstrapPrefix } from './ThemeProvider';
+import { useBootstrapPrefix } from '../ThemeProvider';
 
-import { BsPrefixProps } from './helpers';
+import { BsPrefixProps } from '../helpers';
 
 export interface ModalDialogProps
   extends React.HTMLAttributes<HTMLDivElement>,

@@ -14,16 +14,16 @@ import * as React from 'react';
 import { useCallback, useMemo, useRef, useState } from 'react';
 import BaseModal, { ModalProps as BaseModalProps } from '@restart/ui/Modal';
 import { ModalInstance } from '@restart/ui/ModalManager';
-import { getSharedManager } from './BootstrapModalManager';
-import Fade from './Fade';
+import { getSharedManager } from '../BootstrapModalManager';
+import Fade from '../Fade';
 import ModalBody from './ModalBody';
 import ModalContext from './ModalContext';
 import ModalDialog from './ModalDialog';
 import ModalFooter from './ModalFooter';
 import ModalHeader from './ModalHeader';
 import ModalTitle from './ModalTitle';
-import { BsPrefixRefForwardingComponent } from './helpers';
-import { useBootstrapPrefix, useIsRTL } from './ThemeProvider';
+import { BsPrefixRefForwardingComponent } from '../helpers';
+import { useBootstrapPrefix, useIsRTL } from '../ThemeProvider';
 
 export interface ModalProps
   extends Omit<

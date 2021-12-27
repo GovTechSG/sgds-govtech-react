@@ -10,7 +10,7 @@ import BaseModal, {
 import Fade from './Fade';
 import OffcanvasBody from './OffcanvasBody';
 import OffcanvasToggling from './OffcanvasToggling';
-import ModalContext from './ModalContext';
+import ModalContext from './Modal/ModalContext';
 import NavbarContext from './NavbarContext';
 import OffcanvasHeader from './OffcanvasHeader';
 import OffcanvasTitle from './OffcanvasTitle';

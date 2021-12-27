@@ -1,12 +1,12 @@
 import classNames from 'classnames';
 import PropTypes from 'prop-types';
 import * as React from 'react';
-import { useBootstrapPrefix } from './ThemeProvider';
-import { CloseButtonVariant } from './CloseButton';
+import { useBootstrapPrefix } from '../ThemeProvider';
+import { CloseButtonVariant } from '../CloseButton';
 import AbstractModalHeader, {
   AbstractModalHeaderProps,
 } from './AbstractModalHeader';
-import { BsPrefixOnlyProps } from './helpers';
+import { BsPrefixOnlyProps } from '../helpers';
 
 export interface ModalHeaderProps
   extends AbstractModalHeaderProps,

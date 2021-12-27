@@ -108,15 +108,15 @@ export type { ListGroupProps } from './ListGroup';
 export { default as ListGroupItem } from './ListGroupItem';
 export type { ListGroupItemProps } from './ListGroupItem';
 
-export { default as Modal } from './Modal';
-export type { ModalProps } from './Modal';
+export { default as Modal } from './Modal/Modal';
+export type { ModalProps } from './Modal/Modal';
 
-export { default as ModalBody } from './ModalBody';
-export { default as ModalDialog } from './ModalDialog';
-export type { ModalDialogProps } from './ModalDialog';
+export { default as ModalBody } from './Modal/ModalBody';
+export { default as ModalDialog } from './Modal/ModalDialog';
+export type { ModalDialogProps } from './Modal/ModalDialog';
 
-export { default as ModalFooter } from './ModalFooter';
-export { default as ModalTitle } from './ModalTitle';
+export { default as ModalFooter } from './Modal/ModalFooter';
+export { default as ModalTitle } from './Modal/ModalTitle';
 export { default as Nav } from './Nav';
 export type { NavProps } from './Nav';
 

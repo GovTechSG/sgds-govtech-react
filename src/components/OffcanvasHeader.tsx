@@ -5,7 +5,7 @@ import { useBootstrapPrefix } from './ThemeProvider';
 import { CloseButtonVariant } from './CloseButton';
 import AbstractModalHeader, {
   AbstractModalHeaderProps,
-} from './AbstractModalHeader';
+} from './Modal/AbstractModalHeader';
 import { BsPrefixOnlyProps } from './helpers';
 
 export interface OffcanvasHeaderProps
