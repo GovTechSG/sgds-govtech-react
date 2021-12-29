@@ -1,15 +1,20 @@
 import { ArgsTable, Canvas, Meta, Story } from '@storybook/addon-docs';
 
-import { Accordion } from '../../src/components/index';
+import { Accordion} from '../../src/components/index';
 
-<Meta title="MDX/Accordion" component={Accordion} />
+<Meta title="MDX/Accordion" component={Accordion} argTypes={{
+    as: { table: { disable: true }},
+    bsPrefix: { table: { disable: true}}
+  }}/>
 
-### Accordion
+# Accordion
 
-Let's define a story for our `Accordion` component
+Build vertically collapsing accordions in combination with the Collapse component.
+
+### 1. Basic Accordion
 
 export const Template = (args) => (
-  <Accordion defaultActiveKey="0">
+<Accordion {...args}>
   <Accordion.Item eventKey="0">
     <Accordion.Header>Accordion Item #1</Accordion.Header>
     <Accordion.Body>
@@ -37,10 +42,34 @@ export const Template = (args) => (
 </Accordion>
 );
 
-<Canvas>
-  <Story name="Accordion">
+<Canvas withSource="open">
+  <Story name="Basic" args={{
+    defaultActiveKey: '0'
+  }}>
+  {Template.bind({})}
+  </Story>
+</Canvas>
+
+<ArgsTable story='Basic'/>
+
+### 2. Fully Collapsed State
+
+If you want your `Accordion` to start in a fully-collapsed state, then simply don't pass in a `defaultActiveKey` prop to `Accordion`.
+
+<Canvas withSource="open">
+  <Story name="Fully Collapsed State">
     {Template.bind({})}
   </Story>
 </Canvas>
 
-<ArgsTable story="Accordion"/>
+<ArgsTable story="Fully Collapsed State" />
+
+### 3. Flush
+
+Add `flush` to remove the default background-color, some borders, and some rounded corners to render accordions edge-to-edge with their parent container.
+
+<Canvas withSource="open">
+  <Story name="Flush" args={{ flush: true}}>{Template.bind({})}</Story>
+</Canvas>
+
+<ArgsTable story="Flush" />

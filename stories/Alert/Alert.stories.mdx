@@ -1,0 +1,28 @@
+import React, { useState } from 'react';
+import { ArgsTable, Canvas, Meta, Story } from '@storybook/addon-docs';
+import { Alert, Button } from '../../src/components/index';
+
+<Meta title="MDX/Alert" component={Alert}/>
+
+export const Template = (args) => {
+    const [show, setShow] = useState(true);
+    if (show) {
+        return (
+        <Alert {...args} onClose={() => setShow(false)}>
+            <Alert.Heading>Oh snap! You got an error!</Alert.Heading>
+            <p>
+            Change this and that and try again. Duis mollis, est non commodo
+            luctus, nisi erat porttitor ligula, eget lacinia odio sem nec elit.
+            Cras mattis consectetur purus sit amet fermentum.
+            </p>
+        </Alert>
+        );
+    }
+    return <Button onClick={() => setShow(true)}>Show Alert</Button>;
+};
+
+<Canvas withSource="open">
+  <Story name="AlertME" args={{ variant: 'warning', dismissible: true, show: true }}>{Template.bind({})}</Story>
+</Canvas>
+
+<ArgsTable story="AlertME" />
