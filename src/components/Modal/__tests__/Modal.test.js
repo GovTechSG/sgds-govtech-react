@@ -9,9 +9,8 @@ describe('<Modal>', () => {
     // make sure the dangling portal elements get cleaned up
     document.body.innerHTML = '';
   });   
-
   it('Should forward ref to BaseModal', () => {
-    const noOp = () => {};
+    const noOp = jest.fn()
     const ref = React.createRef();
     mount(
       <Modal show onHide={noOp} animation={false} ref={ref}>
@@ -23,13 +22,14 @@ describe('<Modal>', () => {
   });
 
   it('Should render the modal content', () => {
-    const noOp = () => {};
+    const noOp = jest.fn()
     const wrapper = mount(
       <Modal show onHide={noOp} animation={false}>
         <strong>Message</strong>
       </Modal>,
     )
     expect(wrapper.find('strong').text()).toEqual('Message')
+    expect(wrapper.find('div.sgds')).toBeDefined()
     
   });
 
@@ -73,7 +73,7 @@ describe('<Modal>', () => {
   });
 
   it('Should show "static" dialog animation when backdrop is clicked', () => {
-    const noOp = () => {};
+    const noOp = jest.fn()
     const wrapper = mount(
       <Modal show onHide={noOp} backdrop="static">
         <strong>Message</strong>
@@ -87,7 +87,7 @@ describe('<Modal>', () => {
   });
 
   it('Should show "static" dialog animation when esc pressed and keyboard is false', () => {
-    const noOp = () => {};
+    const noOp = jest.fn()
     const wrapper = mount(
       <Modal show onHide={noOp} backdrop="static" keyboard={false}>
         <strong>Message</strong>
@@ -102,7 +102,7 @@ describe('<Modal>', () => {
   });
 
   it('Should not show "static" dialog animation when esc pressed and keyboard is true', () => {
-    const noOp = () => {};
+    const noOp = jest.fn()
     const wrapper = mount(
       <Modal show onHide={noOp} backdrop="static" keyboard>
         <strong>Message</strong>
@@ -157,7 +157,7 @@ describe('<Modal>', () => {
 
 
   it('Should use backdropClassName to add classes to the backdrop', () => {
-    const noOp = () => {};
+    const noOp = jest.fn()
 
     const wrapper = mount(
       <Modal show backdropClassName="my-modal-backdrop" onHide={noOp}>
@@ -168,7 +168,7 @@ describe('<Modal>', () => {
   });
 
   it('Should pass size to the dialog', () => {
-    const noOp = () => {};
+    const noOp = jest.fn()
     const wrapper = mount(
       <Modal show size="sm" onHide={noOp}>
         <strong>Message</strong>
@@ -197,7 +197,7 @@ describe('<Modal>', () => {
   });
 
   it('Should pass centered to the dialog', () => {
-    const noOp = () => {};
+    const noOp = jest.fn()
    const wrapper = mount(
       <Modal show centered onHide={noOp}>
         <strong>Message</strong>
@@ -207,7 +207,7 @@ describe('<Modal>', () => {
   });
 
   it('Should pass scrollable to the dialog', () => {
-    const noOp = () => {};
+    const noOp = jest.fn()
    const wrapper= mount(
       <Modal show scrollable onHide={noOp}>
         <strong>Message</strong>
@@ -218,7 +218,7 @@ describe('<Modal>', () => {
   });
 
   it('Should pass dialog style to the dialog', () => {
-    const noOp = () => {};
+    const noOp = jest.fn()
     const dialog = mount(
       <Modal show style={{ color: 'red' }} onHide={noOp}>
         <strong>Message</strong>
@@ -232,7 +232,7 @@ describe('<Modal>', () => {
   });
 
   it('Should pass dialogClassName to the dialog', () => {
-    const noOp = () => {};
+    const noOp = jest.fn()
     const wrapper = mount(
       <Modal show dialogClassName="my-dialog" onHide={noOp}>
         <strong>Message</strong>
@@ -242,7 +242,7 @@ describe('<Modal>', () => {
   });
 
   it('Should pass contentClassName to .modal-content', () => {
-    const noOp = () => {};
+    const noOp = jest.fn()
     const wrapper =  mount(
       <Modal show contentClassName="my-content" onHide={noOp}>
         <strong>Message</strong>
@@ -253,7 +253,7 @@ describe('<Modal>', () => {
   });
 
   it('Should use dialogAs', () => {
-    const noOp = () => {};
+    const noOp = jest.fn()
 
     function CustomDialog() {
       return <div className="custom-dialog" tabIndex="-1" />;
@@ -378,7 +378,7 @@ describe('<Modal>', () => {
   });
 
   it('Should set aria-labelledby to the role="dialog" element if aria-labelledby set', () => {
-    const noOp = () => {};
+    const noOp = jest.fn()
     const wrapper = mount(
       <Modal show onHide={noOp} aria-labelledby="modal-title">
         <Modal.Header closeButton>
@@ -392,7 +392,7 @@ describe('<Modal>', () => {
   });
 
   it('Should call onEscapeKeyDown when keyboard is true', () => {
-    const noOp = () => {};
+    const noOp = jest.fn()
     const onEscapeKeyDownSpy = sinon.spy();
     mount(
       <Modal show onHide={noOp} keyboard onEscapeKeyDown={onEscapeKeyDownSpy}>
@@ -407,7 +407,7 @@ describe('<Modal>', () => {
   });
 
   it('Should not call onEscapeKeyDown when keyboard is false', () => {
-    const noOp = () => {};
+    const noOp = jest.fn()
     const onEscapeKeyDownSpy = sinon.spy();
     mount(
       <Modal
@@ -427,7 +427,7 @@ describe('<Modal>', () => {
   });
 
   it('Should use custom props manager if specified', (done) => {
-    const noOp = () => {};
+    const noOp = jest.fn()
 
     class MyModalManager extends ModalManager {
       add() {
