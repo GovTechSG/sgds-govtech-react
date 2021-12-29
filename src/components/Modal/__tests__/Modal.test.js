@@ -1,6 +1,6 @@
 import { mount } from 'enzyme';
 import * as React from 'react';
-// import ModalManager from '@restart/ui/ModalManager';
+import ModalManager from '@restart/ui/ModalManager';
 import Modal from '../Modal';
 import sinon from "sinon";
 
@@ -343,9 +343,9 @@ describe('<Modal>', () => {
       }
 
       const instance = mount(<Component />);
-      instance.setState({ show: false });
+      instance.setState({ show: false }); 
 
-      expect(offSpy).toHaveBeenCalledWith('resize');
+      expect(offSpy.calledWith('resize')).toBe(true); 
     });
   });
 
@@ -359,7 +359,7 @@ describe('<Modal>', () => {
       .find('div.modal.show')
       .simulate('click');
 
-    expect(onHideSpy).to.have.been.called;
+    expect(onHideSpy.called).toBe(true)
   });
 
   it('Should not call onHide if the click target comes from inside the dialog', () => {
@@ -374,7 +374,7 @@ describe('<Modal>', () => {
     wrapper.find('div.modal.show').simulate('mouseUp');
     wrapper.find('div.modal.show').simulate('click');
 
-    expect(onHideSpy).to.not.have.been.called;
+    expect(onHideSpy.notCalled).toBe(true)
   });
 
   it('Should set aria-labelledby to the role="dialog" element if aria-labelledby set', () => {
@@ -403,7 +403,7 @@ describe('<Modal>', () => {
     const event = new KeyboardEvent('keydown', { keyCode: 27 });
     document.dispatchEvent(event);
 
-    expect(onEscapeKeyDownSpy).to.have.been.called;
+    expect(onEscapeKeyDownSpy.called).toBe(true); 
   });
 
   it('Should not call onEscapeKeyDown when keyboard is false', () => {
@@ -423,7 +423,7 @@ describe('<Modal>', () => {
     const event = new KeyboardEvent('keydown', { keyCode: 27 });
     document.dispatchEvent(event);
 
-    expect(onEscapeKeyDownSpy).to.not.have.been.called;
+    expect(onEscapeKeyDownSpy.notCalled).toBe(true)
   });
 
   it('Should use custom props manager if specified', (done) => {
