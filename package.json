@@ -89,6 +89,9 @@
     "testMatch": [
       "**/__tests__/**/*.[jt]s?(x)",
       "**/?(*.)+(spec|test).[tj]s?(x)"
-    ]
+    ],
+    "collectCoverage": true,
+    "collectCoverageFrom": ["src/**/*.{ts,tsx}", "!**/node_modules/**"],
+    "coverageDirectory": "./coverage/"
   }
 }
