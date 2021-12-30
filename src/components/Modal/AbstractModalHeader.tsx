@@ -2,7 +2,7 @@ import PropTypes from 'prop-types';
 import * as React from 'react';
 import { useContext } from 'react';
 import useEventCallback from '@restart/hooks/useEventCallback';
-import CloseButton, { CloseButtonVariant } from '../CloseButton';
+import CloseButton, { CloseButtonVariant } from '../CloseButton/CloseButton';
 import ModalContext from './ModalContext';
 
 export interface AbstractModalHeaderProps

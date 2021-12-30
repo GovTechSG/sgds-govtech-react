@@ -48,8 +48,8 @@ export type { ButtonProps } from './Button/Button';
 // export { default as CarouselItem } from './CarouselItem';
 // export type { CarouselItemProps } from './CarouselItem';
 
-export { default as CloseButton } from './CloseButton';
-export type { CloseButtonProps } from './CloseButton';
+export { default as CloseButton } from './CloseButton/CloseButton';
+export type { CloseButtonProps } from './CloseButton/CloseButton';
 
 // export { default as Col } from './Col';
 // export type { ColProps } from './Col';

@@ -1,6 +1,6 @@
 import { mount } from 'enzyme';
 import * as React from 'react';
-import CloseButton from '../../CloseButton'
+import CloseButton from '../../CloseButton/CloseButton'
 import Modal from '../Modal';
 import sinon from "sinon";
 
