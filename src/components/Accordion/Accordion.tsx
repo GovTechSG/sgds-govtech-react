@@ -4,14 +4,14 @@ import { useMemo } from 'react';
 import PropTypes from 'prop-types';
 import { SelectCallback } from '@restart/ui/types';
 import { useUncontrolled } from 'uncontrollable';
-import { useBootstrapPrefix } from './ThemeProvider';
+import { useBootstrapPrefix } from '../ThemeProvider';
 import AccordionBody from './AccordionBody';
 import AccordionButton from './AccordionButton';
 import AccordionCollapse from './AccordionCollapse';
 import AccordionContext from './AccordionContext';
 import AccordionHeader from './AccordionHeader';
 import AccordionItem from './AccordionItem';
-import { BsPrefixProps, BsPrefixRefForwardingComponent } from './helpers';
+import { BsPrefixProps, BsPrefixRefForwardingComponent } from '../helpers';
 
 export interface AccordionProps
   extends Omit<React.HTMLAttributes<HTMLElement>, 'onSelect'>,

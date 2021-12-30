@@ -10,7 +10,7 @@ describe('<Modal>', () => {
     document.body.innerHTML = '';
   });   
   it('Should forward ref to BaseModal', () => {
-    const noOp = jest.fn()
+    const noOp = jest.fn() 
     const ref = React.createRef();
     mount(
       <Modal show onHide={noOp} animation={false} ref={ref}>
@@ -41,7 +41,6 @@ describe('<Modal>', () => {
     )
       .find('div.modal')
       .getDOMNode();
-      console.log(node)
     expect(node.style.display).toEqual('block');
   });
 
@@ -332,7 +331,7 @@ describe('<Modal>', () => {
         state = {
           show: true,
         };
-
+ 
         render() {
           if (!this.state.show) {
             return null;

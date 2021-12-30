@@ -3,10 +3,10 @@ import * as React from 'react';
 import { useContext } from 'react';
 import PropTypes from 'prop-types';
 import { Transition } from 'react-transition-group';
-import { useBootstrapPrefix } from './ThemeProvider';
-import Collapse, { CollapseProps } from './Collapse';
+import { useBootstrapPrefix } from '../ThemeProvider';
+import Collapse, { CollapseProps } from '../Collapse';
 import AccordionContext from './AccordionContext';
-import { BsPrefixRefForwardingComponent, BsPrefixProps } from './helpers';
+import { BsPrefixRefForwardingComponent, BsPrefixProps } from '../helpers';
 
 export interface AccordionCollapseProps extends BsPrefixProps, CollapseProps {
   eventKey: string;

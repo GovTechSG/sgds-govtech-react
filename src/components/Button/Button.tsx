@@ -5,9 +5,9 @@ import {
   useButtonProps,
   ButtonProps as BaseButtonProps,
 } from '@restart/ui/Button';
-import { useBootstrapPrefix } from './ThemeProvider';
-import { BsPrefixProps, BsPrefixRefForwardingComponent } from './helpers';
-import { ButtonVariant } from './types';
+import { useBootstrapPrefix } from '../ThemeProvider';
+import { BsPrefixProps, BsPrefixRefForwardingComponent } from '../helpers';
+import { ButtonVariant } from '../types';
 
 export interface ButtonProps
   extends BaseButtonProps,

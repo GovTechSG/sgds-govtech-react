@@ -54,8 +54,7 @@ function createBootstrapComponent(Component, opts) {
   const { prefix, forwardRefAs = isClassy ? 'ref' : 'innerRef' } = opts;
 
   const Wrapped = React.forwardRef(({ ...props }, ref) => {
-    //@ts-ignore
-    props[forwardRefAs] = ref;
+    (props as any)[forwardRefAs] = ref;
     const bsPrefix = useBootstrapPrefix((props as any).bsPrefix, prefix);
     return <Component {...props} bsPrefix={bsPrefix} />;
   });
