@@ -63,8 +63,8 @@ export type { CollapseProps } from './Collapse';
 // export { default as DropdownButton } from './DropdownButton';
 // export type { DropdownButtonProps } from './DropdownButton';
 
-export { default as Fade } from './Fade';
-export type { FadeProps } from './Fade';
+export { default as Fade } from './Fade/Fade';
+export type { FadeProps } from './Fade/Fade';
 
 // export { default as Form } from './Form';
 // export type { FormProps } from './Form';

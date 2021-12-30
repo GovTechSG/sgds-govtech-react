@@ -8,9 +8,9 @@ import Transition, {
   ENTERING,
 } from 'react-transition-group/Transition';
 import { TransitionCallbacks } from '@restart/ui/types';
-import transitionEndListener from './transitionEndListener';
-import triggerBrowserReflow from './triggerBrowserReflow';
-import TransitionWrapper from './TransitionWrapper';
+import transitionEndListener from '../transitionEndListener';
+import triggerBrowserReflow from '../triggerBrowserReflow';
+import TransitionWrapper from '../TransitionWrapper';
 
 export interface FadeProps extends TransitionCallbacks {
   className?: string;
