@@ -1,43 +1,42 @@
 import { mount } from 'enzyme';
 import * as React from 'react';
 import ModalManager from '@restart/ui/ModalManager';
+import { act } from 'react-dom/test-utils';
 import Modal from '../Modal';
-import sinon from "sinon";
+import sinon from 'sinon';
 
 describe('<Modal>', () => {
   afterEach(() => {
     // make sure the dangling portal elements get cleaned up
     document.body.innerHTML = '';
-  });   
+  });
   it('Should forward ref to BaseModal', () => {
-    const noOp = jest.fn() 
+    const noOp = jest.fn();
     const ref = React.createRef();
     mount(
       <Modal show onHide={noOp} animation={false} ref={ref}>
         <strong>Message</strong>
-      </Modal>,
+      </Modal>
     );
-    expect(ref.current.dialog).toBeDefined()
-
+    expect(ref.current.dialog).toBeDefined();
   });
 
   it('Should render the modal content', () => {
-    const noOp = jest.fn()
+    const noOp = jest.fn();
     const wrapper = mount(
       <Modal show onHide={noOp} animation={false}>
         <strong>Message</strong>
-      </Modal>,
-    )
-    expect(wrapper.find('strong').text()).toEqual('Message')
-    expect(wrapper.find('div.sgds')).toBeDefined()
-    
+      </Modal>
+    );
+    expect(wrapper.find('strong').text()).toEqual('Message');
+    expect(wrapper.find('div.sgds')).toBeDefined();
   });
 
   it('Should sets `display: block` to `div.modal` when animation is false', () => {
     const node = mount(
       <Modal show animation={false}>
         <strong>Message</strong>
-      </Modal>,
+      </Modal>
     )
       .find('div.modal')
       .getDOMNode();
@@ -52,7 +51,7 @@ describe('<Modal>', () => {
     mount(
       <Modal show onHide={doneOp}>
         <strong>Message</strong>
-      </Modal>,
+      </Modal>
     )
       .find('div.modal') // the modal-dialog element is pointer-events: none;
       .simulate('click');
@@ -63,7 +62,7 @@ describe('<Modal>', () => {
     mount(
       <Modal show onHide={onHideSpy} backdrop="static">
         <strong>Message</strong>
-      </Modal>,
+      </Modal>
     )
       .find('ModalDialog')
       .simulate('click');
@@ -72,11 +71,11 @@ describe('<Modal>', () => {
   });
 
   it('Should show "static" dialog animation when backdrop is clicked', () => {
-    const noOp = jest.fn()
+    const noOp = jest.fn();
     const wrapper = mount(
       <Modal show onHide={noOp} backdrop="static">
         <strong>Message</strong>
-      </Modal>,
+      </Modal>
     );
 
     const modal = wrapper.find('.modal');
@@ -85,22 +84,27 @@ describe('<Modal>', () => {
     expect(wrapper.find('.modal-static').length).toEqual(1);
   });
 
-  it('Should show "static" dialog animation when esc pressed and keyboard is false', () => {
-    const noOp = jest.fn()
+  it('Should show "static" dialog animation when esc pressed and keyboard is false', async() => {
+    const noOp = jest.fn();
     const wrapper = mount(
       <Modal show onHide={noOp} backdrop="static" keyboard={false}>
         <strong>Message</strong>
-      </Modal>,
+      </Modal>
     );
+    const waitForComponentToPaint = async (wrapper) => {
+      await act(async () => {
+        await new Promise(resolve => setTimeout(resolve));
+        const event = new KeyboardEvent('keydown', { keyCode: 27 }); 
+        document.dispatchEvent(event);
+        wrapper.update();
+      });
+    };
+    await waitForComponentToPaint(wrapper);
 
-    const event = new KeyboardEvent('keydown', { keyCode: 27 });
-    document.dispatchEvent(event);
-    wrapper.update();
-
-    expect(wrapper.find('.modal-static').length).toEqual(1);
+    expect(wrapper.find('.modal-static').length).toEqual(1);  
   });
 
-  it('Should not show "static" dialog animation when esc pressed and keyboard is true', () => {
+  it('Should not show "static" dialog animation when esc pressed and keyboard is true', async() => {
     const noOp = jest.fn()
     const wrapper = mount(
       <Modal show onHide={noOp} backdrop="static" keyboard>
@@ -108,9 +112,15 @@ describe('<Modal>', () => {
       </Modal>,
     );
 
-    const event = new KeyboardEvent('keydown', { keyCode: 27 });
-    document.dispatchEvent(event);
-    wrapper.update();
+    const waitForComponentToPaint = async (wrapper) => {
+      await act(async () => {
+        await new Promise(resolve => setTimeout(resolve));
+        const event = new KeyboardEvent('keydown', { keyCode: 27 }); 
+        document.dispatchEvent(event);
+        wrapper.update();
+      });
+    };
+    await waitForComponentToPaint(wrapper); 
 
     expect(wrapper.find('.modal-static').length).toEqual(0);
   });
@@ -153,7 +163,6 @@ describe('<Modal>', () => {
     )
     expect(wrapper.exists('div.modal.mymodal')).toEqual(true)
   });
-
 
   it('Should use backdropClassName to add classes to the backdrop', () => {
     const noOp = jest.fn()
@@ -225,8 +234,6 @@ describe('<Modal>', () => {
     )
       .find('div.modal')
       .getDOMNode();
-      console.log(dialog)
-    // assert.ok(dialog.style.color === 'red');
     expect(dialog.style.color).toEqual('red')
   });
 
@@ -331,7 +338,7 @@ describe('<Modal>', () => {
         state = {
           show: true,
         };
- 
+
         render() {
           if (!this.state.show) {
             return null;
@@ -342,9 +349,9 @@ describe('<Modal>', () => {
       }
 
       const instance = mount(<Component />);
-      instance.setState({ show: false }); 
+      instance.setState({ show: false });
 
-      expect(offSpy.calledWith('resize')).toBe(true); 
+      expect(offSpy.calledWith('resize')).toBe(true);
     });
   });
 
@@ -402,7 +409,7 @@ describe('<Modal>', () => {
     const event = new KeyboardEvent('keydown', { keyCode: 27 });
     document.dispatchEvent(event);
 
-    expect(onEscapeKeyDownSpy.called).toBe(true); 
+    expect(onEscapeKeyDownSpy.called).toBe(true);
   });
 
   it('Should not call onEscapeKeyDown when keyboard is false', () => {

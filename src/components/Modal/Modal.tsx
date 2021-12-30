@@ -14,7 +14,7 @@ import * as React from 'react';
 import { useCallback, useMemo, useRef, useState } from 'react';
 import BaseModal, { ModalProps as BaseModalProps } from '@restart/ui/Modal';
 import { ModalInstance } from '@restart/ui/ModalManager';
-import { getSharedManager } from '../BootstrapModalManager';
+import { getSharedManager } from '../BootstrapModalManager/BootstrapModalManager';
 import Fade from '../Fade';
 import ModalBody from './ModalBody';
 import ModalContext from './ModalContext';
