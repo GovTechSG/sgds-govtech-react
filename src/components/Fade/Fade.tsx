@@ -18,7 +18,7 @@ export interface FadeProps extends TransitionCallbacks {
   mountOnEnter?: boolean;
   unmountOnExit?: boolean;
   appear?: boolean;
-  timeout?: number;
+  timeout?: number | null;
   children: React.ReactElement;
   transitionClasses?: Record<string, string>;
 }

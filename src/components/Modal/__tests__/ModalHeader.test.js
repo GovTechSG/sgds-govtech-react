@@ -11,7 +11,7 @@ describe('Modal.Header', () => {
         <strong>Content</strong>
       </Modal.Header>,
     )
-    expect(wrapper.find('div.modal-header.custom-class>strong')).toBeDefined()
+    expect(wrapper.find('div.modal-header.custom-class>strong')).toBeDefined();
   });
 
   it('has closeButton without a containing Modal and renders', () => {

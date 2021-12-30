@@ -9,7 +9,7 @@ describe('<Modal>', () => {
   afterEach(() => {
     // make sure the dangling portal elements get cleaned up
     document.body.innerHTML = '';
-  });
+  }); 
   it('Should forward ref to BaseModal', () => {
     const noOp = jest.fn();
     const ref = React.createRef();
@@ -105,7 +105,7 @@ describe('<Modal>', () => {
   });
 
   it('Should not show "static" dialog animation when esc pressed and keyboard is true', async() => {
-    const noOp = jest.fn()
+    const noOp = jest.fn() 
     const wrapper = mount(
       <Modal show onHide={noOp} backdrop="static" keyboard>
         <strong>Message</strong>
