@@ -2,7 +2,7 @@ import classNames from 'classnames';
 import PropTypes from 'prop-types';
 import * as React from 'react';
 import { useBootstrapPrefix } from '../ThemeProvider';
-import { CloseButtonVariant } from '../CloseButton';
+import { CloseButtonVariant } from '../CloseButton/CloseButton';
 import AbstractModalHeader, {
   AbstractModalHeaderProps,
 } from './AbstractModalHeader';

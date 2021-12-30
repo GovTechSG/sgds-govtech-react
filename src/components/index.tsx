@@ -48,8 +48,8 @@ export type { ButtonProps } from './Button/Button';
 // export { default as CarouselItem } from './CarouselItem';
 // export type { CarouselItemProps } from './CarouselItem';
 
-export { default as CloseButton } from './CloseButton';
-export type { CloseButtonProps } from './CloseButton';
+export { default as CloseButton } from './CloseButton/CloseButton';
+export type { CloseButtonProps } from './CloseButton/CloseButton';
 
 // export { default as Col } from './Col';
 // export type { ColProps } from './Col';
@@ -63,8 +63,8 @@ export type { CollapseProps } from './Collapse';
 // export { default as DropdownButton } from './DropdownButton';
 // export type { DropdownButtonProps } from './DropdownButton';
 
-export { default as Fade } from './Fade';
-export type { FadeProps } from './Fade';
+export { default as Fade } from './Fade/Fade';
+export type { FadeProps } from './Fade/Fade';
 
 // export { default as Form } from './Form';
 // export type { FormProps } from './Form';

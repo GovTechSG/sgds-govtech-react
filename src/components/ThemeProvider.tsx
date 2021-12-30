@@ -48,7 +48,6 @@ export function useIsRTL() {
 //@ts-ignore
 function createBootstrapComponent(Component, opts) {
   if (typeof opts === 'string') opts = { prefix: opts };
-  console.log(Component.prototype)
   const isClassy = Component.prototype && Component.prototype.isReactComponent;
   // If it's a functional component make sure we don't break it with a ref
   const { prefix, forwardRefAs = isClassy ? 'ref' : 'innerRef' } = opts;
