@@ -38,10 +38,10 @@ const MARGINS: { [d in Dimension]: string[] } = {
 
 function getDefaultDimensionValue(
   dimension: Dimension,
-  elem: HTMLElement,
+  elem: HTMLElement
 ): number {
   const offset = `offset${dimension[0].toUpperCase()}${dimension.slice(1)}`;
-  const value = elem[offset];
+  const value = (elem as any)[offset];
   const margins = MARGINS[dimension];
 
   return (
@@ -52,8 +52,14 @@ function getDefaultDimensionValue(
     parseInt(css(elem, margins[1]), 10)
   );
 }
-
-const collapseStyles = {
+interface ICollapseStyles {
+  [EXITED]: string;
+  [EXITING]: string;
+  [ENTERING]: string;
+  [ENTERED]: string;
+  [key: string]: string;
+}
+const collapseStyles: ICollapseStyles = {
   [EXITED]: 'collapse',
   [EXITING]: 'collapsing',
   [ENTERING]: 'collapsing',
@@ -168,7 +174,7 @@ const Collapse = React.forwardRef<Transition<any>, CollapseProps>(
       getDimensionValue = getDefaultDimensionValue,
       ...props
     },
-    ref,
+    ref
   ) => {
     /* Compute dimension */
     const computedDimension =
@@ -177,49 +183,49 @@ const Collapse = React.forwardRef<Transition<any>, CollapseProps>(
     /* -- Expanding -- */
     const handleEnter = useMemo(
       () =>
-        createChainedFunction((elem) => {
+        createChainedFunction((elem: any) => {
           elem.style[computedDimension] = '0';
         }, onEnter),
-      [computedDimension, onEnter],
+      [computedDimension, onEnter]
     );
 
     const handleEntering = useMemo(
       () =>
-        createChainedFunction((elem) => {
+        createChainedFunction((elem: any) => {
           const scroll = `scroll${computedDimension[0].toUpperCase()}${computedDimension.slice(
-            1,
+            1
           )}`;
           elem.style[computedDimension] = `${elem[scroll]}px`;
         }, onEntering),
-      [computedDimension, onEntering],
+      [computedDimension, onEntering]
     );
 
     const handleEntered = useMemo(
       () =>
-        createChainedFunction((elem) => {
+        createChainedFunction((elem: any) => {
           elem.style[computedDimension] = null;
         }, onEntered),
-      [computedDimension, onEntered],
+      [computedDimension, onEntered]
     );
 
     /* -- Collapsing -- */
     const handleExit = useMemo(
       () =>
-        createChainedFunction((elem) => {
+        createChainedFunction((elem: any) => {
           elem.style[computedDimension] = `${getDimensionValue(
             computedDimension,
-            elem,
+            elem
           )}px`;
           triggerBrowserReflow(elem);
         }, onExit),
-      [onExit, getDimensionValue, computedDimension],
+      [onExit, getDimensionValue, computedDimension]
     );
     const handleExiting = useMemo(
       () =>
-        createChainedFunction((elem) => {
+        createChainedFunction((elem: any) => {
           elem.style[computedDimension] = null;
         }, onExiting),
-      [computedDimension, onExiting],
+      [computedDimension, onExiting]
     );
 
     return (
@@ -242,13 +248,13 @@ const Collapse = React.forwardRef<Transition<any>, CollapseProps>(
               className,
               children.props.className,
               collapseStyles[state],
-              computedDimension === 'width' && 'collapse-horizontal',
+              computedDimension === 'width' && 'collapse-horizontal'
             ),
           })
         }
       </TransitionWrapper>
     );
-  },
+  }
 );
 
 // @ts-ignore

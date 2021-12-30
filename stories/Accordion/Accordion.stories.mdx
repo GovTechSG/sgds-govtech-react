@@ -9,7 +9,7 @@ import { Accordion } from '../../src/components/index';
 Let's define a story for our `Accordion` component
 
 export const Template = (args) => (
-  <Accordion defaultActiveKey="0">
+  <Accordion defaultActiveKey="0" {...args}>
   <Accordion.Item eventKey="0">
     <Accordion.Header>Accordion Item #1</Accordion.Header>
     <Accordion.Body>

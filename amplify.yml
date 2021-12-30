@@ -1,0 +1,22 @@
+version: 1
+frontend:
+  phases:
+    preBuild:
+      commands:
+        - rm -rf node_modules && npm ci
+    build:
+      commands:
+        - npm run build-storybook
+  artifacts:
+    baseDirectory: /storybook-static
+    files:
+      - '**/*'
+test:
+  phases:
+    test:
+      commands:
+        - npm run test
+  artifacts:
+    baseDirectory: coverage
+    configFilePath: '**/coverage-final.json'
+    files: '**/*'
