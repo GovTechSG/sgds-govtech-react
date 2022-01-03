@@ -4,39 +4,126 @@ import { Modal, Button } from '../../src/components/index';
 
 <Meta title="MDX/Modal" component={Modal} />
 
-### Accordion
+# Modal
 
 Let's define a story for our `Modal` component
 
-export const Template = (args) => {
-  const [show, setShow] = useState(false);
-  const handleClose = () => setShow(false);
-  const handleShow = () => setShow(true);
-  return (
+export const NamedTemplate = (type = '') => {
+  const Template = (args) => {
+    const [show, setShow] = useState(false);
+    const handleClose = () => setShow(false);
+    const handleShow = () => setShow(true);
+    return (
       <>
-      <Button variant="primary" onClick={handleShow}>
-        Launch demo modal
-      </Button>
-      <Modal show={show} onHide={handleClose} {...args}>
-        <Modal.Header closeButton>
-          <Modal.Title>Modal heading</Modal.Title>
-        </Modal.Header>
-        <Modal.Body>Woohoo, you're reading this text in a modal!</Modal.Body>
-        <Modal.Footer>
-          <Button variant="secondary" onClick={handleClose}>
-            Close
-          </Button>
-          <Button variant="primary" onClick={handleClose}>
-            Save Changes
-          </Button>
-        </Modal.Footer>
-      </Modal>
-    </>
-  );
+        <Button variant="primary" onClick={handleShow}>
+          {type} modal
+        </Button>
+        <Modal show={show} onHide={handleClose} {...args}>
+          <Modal.Header closeButton>
+            <Modal.Title>Modal heading</Modal.Title>
+          </Modal.Header>
+          <Modal.Body>Woohoo, you're reading this text in a modal!</Modal.Body>
+          <Modal.Footer>
+            <Button variant="secondary" onClick={handleClose}>
+              Close
+            </Button>
+            <Button variant="primary" onClick={handleClose}>
+              Save Changes
+            </Button>
+          </Modal.Footer>
+        </Modal>
+      </>
+    );
+  };
+  return Template;
 };
+export const defaultModal = NamedTemplate('Default').bind({});
+export const smallModal = NamedTemplate('Small').bind({});
+export const largeModal = NamedTemplate('Large').bind({});
+export const xLargeModal = NamedTemplate('Extra large').bind({});
+export const templateCode = `
+ const Template = (args) => {
+    const [show, setShow] = useState(false);
+    const handleClose = () => setShow(false);
+    const handleShow = () => setShow(true);
+    return (
+      <>
+        <Button variant="primary" onClick={handleShow}>
+          {type} modal
+        </Button>
+        <Modal show={show} onHide={handleClose} {...args}>
+          <Modal.Header closeButton>
+            <Modal.Title>Modal heading</Modal.Title>
+          </Modal.Header>
+          <Modal.Body>Woohoo, you're reading this text in a modal!</Modal.Body>
+          <Modal.Footer>
+            <Button variant="secondary" onClick={handleClose}>
+              Close
+            </Button>
+            <Button variant="primary" onClick={handleClose}>
+              Save Changes
+            </Button>
+          </Modal.Footer>
+        </Modal>
+      </>
+    );
+  };
+`
+
+## Default state
+
+The `Modal` is hidden by default and appears with backdrop and animation on click. `Modal` component consists of
+`Modal.Title`, `Modal.Header`, `Modal.Body`, `Modal.Footer`, `Modal.Dialog`. Add children components to customize your `Modal`
 
 <Canvas>
-  <Story name="Modal">{Template.bind({})}</Story>
+  <Story
+    name="default"
+    parameters={{
+      docs: {
+        source: {
+          code: templateCode,
+        },
+        type: 'code'
+      },
+    }}
+  >
+    {defaultModal}
+  </Story>
 </Canvas>
 
-<ArgsTable story="Modal" />
+<ArgsTable story="default" />
+
+## Size
+
+You can specify a bootstrap large or small modal by using the size prop: `sm`, `lg`, `xl`
+
+<Canvas>
+  <Story
+    name="size small"
+    args={{
+      size: 'sm',
+    }}
+  >
+    {smallModal}
+  </Story>
+  <Story
+    name="size large"
+    args={{
+      size: 'lg',
+    }}
+  >
+    {largeModal}
+  </Story>
+  <Story
+    name="size xlarge"
+    args={{
+      size: 'xl',
+    }}
+  >
+    {xLargeModal}
+  </Story>
+</Canvas>
+
+## Full Screen Modal
+
+You can use the fullscreen prop to make the modal fullscreen. Specifying a breakpoint will only set the modal as fullscreen below the breakpoint size
