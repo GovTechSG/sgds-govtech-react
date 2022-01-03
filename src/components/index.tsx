@@ -117,6 +117,7 @@ export type { ModalDialogProps } from './Modal/ModalDialog';
 
 export { default as ModalFooter } from './Modal/ModalFooter';
 export { default as ModalTitle } from './Modal/ModalTitle';
+
 // export { default as Nav } from './Nav';
 // export type { NavProps } from './Nav';
 
@@ -169,8 +170,8 @@ export type { PaginationProps } from './Pagination/Pagination';
 // export { default as Ratio } from './Ratio';
 // export type { RatioProps } from './Ratio';
 
-// export { default as Row } from './Row';
-// export type { RowProps } from './Row';
+export { default as Row } from './Row';
+export type { RowProps } from './Row';
 
 // export { default as Spinner } from './Spinner';
 // export type { SpinnerProps } from './Spinner';

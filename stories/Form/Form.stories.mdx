@@ -5,7 +5,22 @@ import { Form, Button } from '../../src/components/index';
 <Meta
   title="MDX/Form"
   component={Form}
-  argTypes={{ onClick: { action: 'clicked' } }}
+  argTypes={{ 
+    validated: {
+      description: 'Mark a form as having been validated. Setting it to `true` will toggle any validation styles on the forms elements.',
+      table: {
+        category: '<Form>',
+        type: { summary: 'boolean' },
+      },
+    },
+     validated: {
+      description: 'Mark a form as having been validated. Setting it to `true` will toggle any validation styles on the forms elements.',
+      table: {
+        category: '<Form>',
+        type: { summary: 'boolean' },
+      },
+    },
+    onClick: { action: 'clicked' } }}
 />
 
 # Forms
