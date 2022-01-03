@@ -1,75 +1,229 @@
 import { ArgsTable, Canvas, Meta, Story } from '@storybook/addon-docs';
 
-import { Accordion} from '../../src/components/index';
+import { Accordion } from '../../src/components/index';
 
-<Meta title="MDX/Accordion" component={Accordion} argTypes={{
-    as: { table: { disable: true }},
-    bsPrefix: { table: { disable: true}}
-  }}/>
+<Meta
+  title="MDX/Accordion"
+  component={Accordion}
+  argTypes={{
+    defaultActiveKey: {
+      description: 'The default active key that is expanded on start',
+      table: {
+        category: '<Accordion>',
+        type: { summary: 'string' },
+      },
+    },
+    activeKey: {
+      description:
+        'The current active key that corresponds to the currently expanded card',
+      table: {
+        category: '<Accordion>',
+        type: { summary: 'string' },
+      },
+    },
+    as: {
+      description: 'Set a custom element for this component',
+      table: {
+        category: '<Accordion>',
+        type: { summary: 'elementType' },
+      },
+      control: { disable: true },
+    },
+    bsPrefix: { table: { disable: true } },
+    eventKey: {
+      description:
+        'A unique key used to control `Accordion.Item` collapse/expand. *Required* to apply **defaultActiveKey** & **activeKey**',
+      table: {
+        category: '<AccordionItem>',
+        type: { summary: 'string' },
+      },
+    },
+    flush: {
+      description:
+        'Removes border, renders accordion edge-to-edge with its parent container',
+      table: {
+        category: '<Accordion>',
+        type: { summary: 'boolean' },
+      },
+    },
+    onClick: {
+      action: 'clicked',
+      table: { disable: true },
+    },
+  }}
+/>
 
 # Accordion
 
 Build vertically collapsing accordions in combination with the Collapse component.
 
-### 1. Basic Accordion
+## 1. Basic Accordion
 
 export const Template = (args) => (
-<Accordion {...args}>
-  <Accordion.Item eventKey="0">
-    <Accordion.Header>Accordion Item #1</Accordion.Header>
-    <Accordion.Body>
-      Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod
-      tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim
-      veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea
-      commodo consequat. Duis aute irure dolor in reprehenderit in voluptate
-      velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat
-      cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id
-      est laborum.
-    </Accordion.Body>
-  </Accordion.Item>
-  <Accordion.Item eventKey="1">
-    <Accordion.Header>Accordion Item #2</Accordion.Header>
-    <Accordion.Body>
-      Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod
-      tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim
-      veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea
-      commodo consequat. Duis aute irure dolor in reprehenderit in voluptate
-      velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat
-      cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id
-      est laborum.
-    </Accordion.Body>
-  </Accordion.Item>
-</Accordion>
+  <Accordion {...args}>
+    <Accordion.Item eventKey="0">
+      <Accordion.Header>Accordion Item #1</Accordion.Header>
+      <Accordion.Body>
+        Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod
+        tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim
+        veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea
+        commodo consequat. Duis aute irure dolor in reprehenderit in voluptate
+        velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint
+        occaecat cupidatat non proident, sunt in culpa qui officia deserunt
+        mollit anim id est laborum.
+      </Accordion.Body>
+    </Accordion.Item>
+    <Accordion.Item eventKey="1">
+      <Accordion.Header>Accordion Item #2</Accordion.Header>
+      <Accordion.Body>
+        Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod
+        tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim
+        veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea
+        commodo consequat. Duis aute irure dolor in reprehenderit in voluptate
+        velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint
+        occaecat cupidatat non proident, sunt in culpa qui officia deserunt
+        mollit anim id est laborum.
+      </Accordion.Body>
+    </Accordion.Item>
+  </Accordion>
 );
 
-<Canvas withSource="open">
-  <Story name="Basic" args={{
-    defaultActiveKey: '0'
-  }}>
-  {Template.bind({})}
-  </Story>
-</Canvas>
-
-<ArgsTable story='Basic'/>
-
-### 2. Fully Collapsed State
-
-If you want your `Accordion` to start in a fully-collapsed state, then simply don't pass in a `defaultActiveKey` prop to `Accordion`.
-
-<Canvas withSource="open">
-  <Story name="Fully Collapsed State">
+<Canvas>
+  <Story
+    name="Basic"
+    args={{
+      defaultActiveKey: '0',
+    }}
+  >
     {Template.bind({})}
   </Story>
 </Canvas>
 
+<ArgsTable story="Basic" />
+
+```jsx
+import { Accordion } from 'sgds-react';
+
+export const Accordion = () => {
+  return (
+    <Accordion defaultActiveKey="0">
+      <Accordion.Item eventKey="0">
+        <Accordion.Header>Accordion Item #1</Accordion.Header>
+        <Accordion.Body>
+          Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
+          eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad
+          minim veniam, quis nostrud exercitation ullamco laboris nisi ut
+          aliquip ex ea commodo consequat. Duis aute irure dolor in
+          reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla
+          pariatur. Excepteur sint occaecat cupidatat non proident, sunt in
+          culpa qui officia deserunt mollit anim id est laborum.
+        </Accordion.Body>
+      </Accordion.Item>
+      <Accordion.Item eventKey="1">
+        <Accordion.Header>Accordion Item #2</Accordion.Header>
+        <Accordion.Body>
+          Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
+          eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad
+          minim veniam, quis nostrud exercitation ullamco laboris nisi ut
+          aliquip ex ea commodo consequat. Duis aute irure dolor in
+          reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla
+          pariatur. Excepteur sint occaecat cupidatat non proident, sunt in
+          culpa qui officia deserunt mollit anim id est laborum.
+        </Accordion.Body>
+      </Accordion.Item>
+    </Accordion>
+  );
+};
+```
+
+## 2. Fully Collapsed State
+
+If you want your `Accordion` to start in a fully-collapsed state, then simply don't pass in a `defaultActiveKey` prop to `Accordion`.
+
+<Canvas>
+  <Story name="Fully Collapsed State">{Template.bind({})}</Story>
+</Canvas>
+
 <ArgsTable story="Fully Collapsed State" />
 
-### 3. Flush
+```jsx
+import { Accordion } from 'sgds-react';
+
+export const Accordion = () => {
+  return (
+    <Accordion>
+      <Accordion.Item eventKey="0">
+        <Accordion.Header>Accordion Item #1</Accordion.Header>
+        <Accordion.Body>
+          Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
+          eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad
+          minim veniam, quis nostrud exercitation ullamco laboris nisi ut
+          aliquip ex ea commodo consequat. Duis aute irure dolor in
+          reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla
+          pariatur. Excepteur sint occaecat cupidatat non proident, sunt in
+          culpa qui officia deserunt mollit anim id est laborum.
+        </Accordion.Body>
+      </Accordion.Item>
+      <Accordion.Item eventKey="1">
+        <Accordion.Header>Accordion Item #2</Accordion.Header>
+        <Accordion.Body>
+          Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
+          eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad
+          minim veniam, quis nostrud exercitation ullamco laboris nisi ut
+          aliquip ex ea commodo consequat. Duis aute irure dolor in
+          reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla
+          pariatur. Excepteur sint occaecat cupidatat non proident, sunt in
+          culpa qui officia deserunt mollit anim id est laborum.
+        </Accordion.Body>
+      </Accordion.Item>
+    </Accordion>
+  );
+};
+```
+
+## 3. Flush
 
 Add `flush` to remove the default background-color, some borders, and some rounded corners to render accordions edge-to-edge with their parent container.
 
-<Canvas withSource="open">
-  <Story name="Flush" args={{ flush: true}}>{Template.bind({})}</Story>
+<Canvas>
+  <Story name="Flush" args={{ flush: true }}>
+    {Template.bind({})}
+  </Story>
 </Canvas>
 
 <ArgsTable story="Flush" />
+
+```jsx
+import { Accordion } from 'sgds-react';
+
+export const Accordion = () => {
+  return (
+    <Accordion flush>
+      <Accordion.Item eventKey="0">
+        <Accordion.Header>Accordion Item #1</Accordion.Header>
+        <Accordion.Body>
+          Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
+          eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad
+          minim veniam, quis nostrud exercitation ullamco laboris nisi ut
+          aliquip ex ea commodo consequat. Duis aute irure dolor in
+          reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla
+          pariatur. Excepteur sint occaecat cupidatat non proident, sunt in
+          culpa qui officia deserunt mollit anim id est laborum.
+        </Accordion.Body>
+      </Accordion.Item>
+      <Accordion.Item eventKey="1">
+        <Accordion.Header>Accordion Item #2</Accordion.Header>
+        <Accordion.Body>
+          Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
+          eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad
+          minim veniam, quis nostrud exercitation ullamco laboris nisi ut
+          aliquip ex ea commodo consequat. Duis aute irure dolor in
+          reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla
+          pariatur. Excepteur sint occaecat cupidatat non proident, sunt in
+          culpa qui officia deserunt mollit anim id est laborum.
+        </Accordion.Body>
+      </Accordion.Item>
+    </Accordion>
+  );
+};
+```

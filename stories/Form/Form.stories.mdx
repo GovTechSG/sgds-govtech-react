@@ -1,0 +1,110 @@
+import { ArgsTable, Canvas, Meta, Story } from '@storybook/addon-docs';
+
+import { Form, Button } from '../../src/components/index';
+
+<Meta
+  title="MDX/Form"
+  component={Form}
+  argTypes={{ onClick: { action: 'clicked' } }}
+/>
+
+# Forms
+
+Examples and usage guidelines for form control styles, layout options, and custom components for creating a wide variety of forms.
+
+The `<Form.Control>` component renders a form control with Bootstrap styling. The `<Form.Group>` component wraps a form control with proper spacing,
+along with support for a label, help text, and validation state. To ensure accessibility, set controlId on `<FormGroup>`, and use `<FormLabel>` for the label.
+
+## 1. Basic Form
+
+export const Template = () => {
+  const onSubmit = (event) => {
+    event.preventDefault();
+    console.log('submission prevented');
+  };
+  return (
+    <Form onSubmit={onSubmit}>
+      <Form.Group className="mb-3" controlId="formBasicEmail">
+        <Form.Label>Email address</Form.Label>
+        <Form.Control type="email" placeholder="Enter email" />
+        <Form.Text className="text-muted">
+          We'll never share your email with anyone else.
+        </Form.Text>
+      </Form.Group>
+      <Form.Group className="mb-3" controlId="formBasicPassword">
+        <Form.Label>Password</Form.Label>
+        <Form.Control type="password" placeholder="Password" />
+      </Form.Group>
+      <Form.Group className="mb-3" controlId="formBasicCheckbox">
+        <Form.Check type="checkbox" label="Check me out" />
+      </Form.Group>
+      <Button variant="primary" type="submit">
+        Submit
+      </Button>
+    </Form>
+  );
+};
+
+<Canvas>
+  <Story name="Basic">{Template.bind({})}</Story>
+</Canvas>
+
+The `<Form.Control>` component directly renders the `<input>` or other specified component. If you need to access the value of an uncontrolled `<Form.Control>`,
+attach a ref to it as you would with an uncontrolled input, then call `ReactDOM.findDOMNode(ref)` to get the DOM node. You can then interact with that node as you would with any other uncontrolled input.
+
+If your application contains a large number of form groups, we recommend building a higher-level component encapsulating a complete field group that renders the label, the control, and any other necessary components.
+We don't provide this out-of-the-box, because the composition of those field groups is too specific to an individual application to admit a good one-size-fits-all solution.
+
+## 2. Disabled forms
+
+Add the `disabled` boolean attribute on an input to prevent user interactions and make it appear lighter.
+
+<Canvas>
+  <Story name="Disabled Inputs">
+    <>
+      <Form.Group className="mb-3">
+        <Form.Label>Disabled input</Form.Label>
+        <Form.Control placeholder="Disabled input" disabled />
+      </Form.Group>
+      <Form.Group className="mb-3">
+        <Form.Label>Disabled select menu</Form.Label>
+        <Form.Select disabled>
+          <option>Disabled select</option>
+        </Form.Select>
+      </Form.Group>
+      <Form.Group className="mb-3">
+        <Form.Check type="checkbox" label="Can't check this" disabled />
+      </Form.Group>
+    </>
+  </Story>
+</Canvas>
+
+Add the `disabled` attribute to a `<fieldset>` to disable all the controls within.
+<Canvas>
+  <Story name="Disabled fieldset">
+    <Form>
+      <fieldset disabled>
+        <Form.Group className="mb-3">
+          <Form.Label htmlFor="disabledTextInput">Disabled input</Form.Label>
+          <Form.Control id="disabledTextInput" placeholder="Disabled input" />
+        </Form.Group>
+        <Form.Group className="mb-3">
+          <Form.Label htmlFor="disabledSelect">Disabled select menu</Form.Label>
+          <Form.Select id="disabledSelect">
+            <option>Disabled select</option>
+          </Form.Select>
+        </Form.Group>
+        <Form.Group className="mb-3">
+          <Form.Check
+            type="checkbox"
+            id="disabledFieldsetCheck"
+            label="Can't check this"
+          />
+        </Form.Group>
+        <Button type="submit">Submit</Button>
+      </fieldset>
+    </Form>
+  </Story>
+</Canvas>
+
+<ArgsTable story='Basic'/>
