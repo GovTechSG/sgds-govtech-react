@@ -1,6 +1,6 @@
 import { ArgsTable, Canvas, Meta, Story } from '@storybook/addon-docs';
 import { useState } from 'react';
-import { Modal, Button } from '../../src/components/index';
+import { Modal, Button, Row, Col } from '../../src/components/index';
 
 <Meta title="MDX/Modal" component={Modal} />
 
@@ -8,7 +8,11 @@ import { Modal, Button } from '../../src/components/index';
 
 Let's define a story for our `Modal` component
 
-export const NamedTemplate = (type = '') => {
+export const NamedTemplate = (
+  type = '',
+  singleProp = {},
+  bodyContent = "Woohoo, you're reading this text in a modal!"
+) => {
   const Template = (args) => {
     const [show, setShow] = useState(false);
     const handleClose = () => setShow(false);
@@ -18,11 +22,11 @@ export const NamedTemplate = (type = '') => {
         <Button variant="primary" onClick={handleShow}>
           {type} modal
         </Button>
-        <Modal show={show} onHide={handleClose} {...args}>
+        <Modal show={show} onHide={handleClose} {...singleProp} {...args}>
           <Modal.Header closeButton>
             <Modal.Title>Modal heading</Modal.Title>
           </Modal.Header>
-          <Modal.Body>Woohoo, you're reading this text in a modal!</Modal.Body>
+          <Modal.Body>{bodyContent}</Modal.Body>
           <Modal.Footer>
             <Button variant="secondary" onClick={handleClose}>
               Close
@@ -70,7 +74,50 @@ import { Modal, Button } from 'sgds-react';
     );
   };
 `;
-export const customCssTemplate = NamedTemplate('Custom CSS').bind({});
+export const customCssDialog = NamedTemplate('Custom Dialog Classname', {
+  dialogClassName: 'text-primary',
+}).bind({});
+export const customCssContent = NamedTemplate('Custom Content Classname', {
+  contentClassName: 'text-warning',
+}).bind({});
+export const customCssBg = NamedTemplate('Custom Background Classname', {
+  backdropClassName: 'bg-primary',
+}).bind({});
+export const FULLSCREEN_PROPS = [
+  true,
+  'sm-down',
+  'md-down',
+  'lg-down',
+  'xl-down',
+  'xxl-down',
+];
+export const noAnim = NamedTemplate('No Animation', {
+  animation: false,
+}).bind({});
+export const scrollable = NamedTemplate(
+  'Scrollable',
+  {
+    scrollable: true,
+  },
+  `Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed id egestas libero. Proin sed erat sed lectus efficitur rutrum condimentum ac orci. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed ut vehicula diam. Cras placerat placerat aliquam. Cras semper risus sed libero feugiat, at luctus ipsum pellentesque. Vivamus posuere leo dolor, vel ornare justo convallis quis. Quisque volutpat aliquet maximus.
+Nulla nibh nibh, malesuada non cursus eu, mollis a tellus. Etiam ante purus, tincidunt sed quam porta, semper tincidunt diam. In hac habitasse platea dictumst. Proin auctor feugiat mollis. Quisque sit amet sem elementum, pulvinar quam sit amet, tristique metus. Suspendisse potenti. Aliquam blandit et diam vitae pulvinar. Sed vestibulum eget sapien sit amet vestibulum. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vivamus semper porta enim, sed viverra eros auctor ac. Nulla consequat maximus lorem, condimentum consequat mi. Maecenas malesuada volutpat consequat. Praesent tempor in risus ut commodo.
+Proin ut velit blandit, tincidunt velit id, finibus urna. Vestibulum a ligula tortor. Etiam id felis odio. Nunc interdum placerat ante ut fermentum. Morbi vitae nisi a tellus hendrerit imperdiet vel in elit. Nam eget enim ultricies urna tristique vehicula. Pellentesque tempor nunc eu diam elementum, eget egestas odio viverra. Integer in sapien urna. Cras rhoncus, neque eget auctor ultricies, tortor tortor pharetra purus, vitae ullamcorper tellus sem a justo. Ut egestas, felis quis vestibulum elementum, velit purus varius massa, ac dignissim nibh libero at massa. Donec non maximus est, a facilisis nulla. Phasellus a tortor dignissim, auctor lorem eget, tristique urna. Aenean efficitur nunc sed sodales scelerisque. Praesent maximus pharetra nisi, dignissim elementum ligula volutpat ut. Vivamus sagittis tincidunt augue, vitae sagittis ligula dictum eu. Vestibulum aliquam augue arcu, eget bibendum urna posuere sed.
+Fusce vulputate velit sit amet enim tempor aliquam sed eu ante. Nam sit amet dui ipsum. Etiam ac arcu lectus. Praesent pretium neque erat, at placerat augue cursus id. Integer cursus erat sit amet lectus tristique vehicula. Ut id justo quis leo malesuada porta non vel ante. Maecenas eget nisl tellus. Vivamus porttitor in nisl vulputate blandit. Suspendisse id imperdiet neque. Integer et convallis eros. Mauris tellus ligula, placerat efficitur porttitor ut, sagittis at enim.
+Sed pulvinar ipsum purus. Nullam eleifend scelerisque mauris, vitae consequat enim eleifend non. Aliquam suscipit egestas tellus nec aliquet. Morbi a bibendum lorem. Vivamus magna sapien, viverra quis maximus sed, finibus vitae est. Donec mollis pretium arcu, at sodales nisi pretium vel. Quisque a imperdiet enim. Suspendisse feugiat sagittis quam, vitae feugiat lorem aliquam sit amet. Duis convallis consequat elit sed bibendum. Sed aliquam vehicula dolor vitae gravida. Nulla ut diam in nibh pharetra commodo at in purus.
+`
+).bind({});
+export const notScrollable = NamedTemplate(
+  'Not Scrollable',
+  {
+    scrollable: false,
+  },
+  `Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed id egestas libero. Proin sed erat sed lectus efficitur rutrum condimentum ac orci. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed ut vehicula diam. Cras placerat placerat aliquam. Cras semper risus sed libero feugiat, at luctus ipsum pellentesque. Vivamus posuere leo dolor, vel ornare justo convallis quis. Quisque volutpat aliquet maximus.
+Nulla nibh nibh, malesuada non cursus eu, mollis a tellus. Etiam ante purus, tincidunt sed quam porta, semper tincidunt diam. In hac habitasse platea dictumst. Proin auctor feugiat mollis. Quisque sit amet sem elementum, pulvinar quam sit amet, tristique metus. Suspendisse potenti. Aliquam blandit et diam vitae pulvinar. Sed vestibulum eget sapien sit amet vestibulum. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vivamus semper porta enim, sed viverra eros auctor ac. Nulla consequat maximus lorem, condimentum consequat mi. Maecenas malesuada volutpat consequat. Praesent tempor in risus ut commodo.
+Proin ut velit blandit, tincidunt velit id, finibus urna. Vestibulum a ligula tortor. Etiam id felis odio. Nunc interdum placerat ante ut fermentum. Morbi vitae nisi a tellus hendrerit imperdiet vel in elit. Nam eget enim ultricies urna tristique vehicula. Pellentesque tempor nunc eu diam elementum, eget egestas odio viverra. Integer in sapien urna. Cras rhoncus, neque eget auctor ultricies, tortor tortor pharetra purus, vitae ullamcorper tellus sem a justo. Ut egestas, felis quis vestibulum elementum, velit purus varius massa, ac dignissim nibh libero at massa. Donec non maximus est, a facilisis nulla. Phasellus a tortor dignissim, auctor lorem eget, tristique urna. Aenean efficitur nunc sed sodales scelerisque. Praesent maximus pharetra nisi, dignissim elementum ligula volutpat ut. Vivamus sagittis tincidunt augue, vitae sagittis ligula dictum eu. Vestibulum aliquam augue arcu, eget bibendum urna posuere sed.
+Fusce vulputate velit sit amet enim tempor aliquam sed eu ante. Nam sit amet dui ipsum. Etiam ac arcu lectus. Praesent pretium neque erat, at placerat augue cursus id. Integer cursus erat sit amet lectus tristique vehicula. Ut id justo quis leo malesuada porta non vel ante. Maecenas eget nisl tellus. Vivamus porttitor in nisl vulputate blandit. Suspendisse id imperdiet neque. Integer et convallis eros. Mauris tellus ligula, placerat efficitur porttitor ut, sagittis at enim.
+Sed pulvinar ipsum purus. Nullam eleifend scelerisque mauris, vitae consequat enim eleifend non. Aliquam suscipit egestas tellus nec aliquet. Morbi a bibendum lorem. Vivamus magna sapien, viverra quis maximus sed, finibus vitae est. Donec mollis pretium arcu, at sodales nisi pretium vel. Quisque a imperdiet enim. Suspendisse feugiat sagittis quam, vitae feugiat lorem aliquam sit amet. Duis convallis consequat elit sed bibendum. Sed aliquam vehicula dolor vitae gravida. Nulla ut diam in nibh pharetra commodo at in purus.
+`
+).bind({});
 
 ## Default state
 
@@ -140,23 +187,46 @@ import { Modal } from 'sgds-react';
 </Modal>;
 ```
 
-## Full Screen Modal
+## Fullscreen Modal
 
 You can use the fullscreen prop to make the modal fullscreen. Specifying a breakpoint will only set the modal as fullscreen below the breakpoint size
 
-## Apply Custom CSS to Modal
-You can apply custom css to the modal dialog div using the dialogClassName prop. Example is using a custom css class with width set to 90%.
+<Story name="fullscreen modal">
+  <Row>
+    {FULLSCREEN_PROPS.map((opt, i) => (
+      <Col key={i}>
+        {NamedTemplate(`Full screen: ${opt}`, { fullscreen: opt })()}
+      </Col>
+    ))}
+  </Row>
+</Story>
 
-<Canvas>
-  <Story
-    name="custom css"
-    args={{
-      dialogClassName: 'text-primary',
-    }}
-  >
-    {customCssTemplate}
-  </Story>
-</Canvas>
+```jsx
+import { Modal } from 'sgds-react';
+
+<Modal show={show} onHide={handleClose} fullscreen={true}>
+  ...
+</Modal>;
+<Modal show={show} onHide={handleClose} fullscreen="sm-down">
+  ...
+</Modal>;
+<Modal show={show} onHide={handleClose} fullscreen="md-down">
+  ...
+</Modal>;
+<Modal show={show} onHide={handleClose} fullscreen="lg-down">
+  ...
+</Modal>;
+```
+
+## Apply Custom CSS to Modal
+
+You can apply custom css using props: dialogClassName, contentPropClassName
+
+### dialogClassName
+
+You can apply custom css to the modal dialog div using the dialogClassName prop. Example is using a custom css class .text-primary.
+
+<Story name="custom css - dialogClassName">{customCssDialog}</Story>
 
 ```jsx
 import { Modal } from 'sgds-react';
@@ -164,5 +234,65 @@ import { Modal } from 'sgds-react';
 <Modal show={show} onHide={handleClose} dialogClassName="text-primary">
   ...
 </Modal>;
-
 ```
+
+### contentPropClassName
+
+Use contentPropClassName to add an optional extra classname to .modal-content. Example is using a custom css class .text-warning.
+
+<Story name="custom css - contentPropClassName">{customCssContent}</Story>
+
+```jsx
+import { Modal } from 'sgds-react';
+
+<Modal show={show} onHide={handleClose} contentClassName="text-warning">
+  ...
+</Modal>;
+```
+
+### backdropClassName
+
+Add an optional extra class name to .modal-backdrop It could end up looking like class="modal-backdrop foo-modal-backdrop in".
+
+<Story name="custom css - backdropClassName">{customCssBg}</Story>
+
+```jsx
+import { Modal } from 'sgds-react';
+
+<Modal show={show} onHide={handleClose} backdropClassName="bg-primary">
+  ...
+</Modal>;
+```
+
+## Without Animation
+
+A Modal can also be without an animation. For that set the `animation` prop to `false`.
+
+<Story name="animation">{noAnim}</Story>
+
+```jsx
+import { Modal } from 'sgds-react';
+
+<Modal show={show} onHide={handleClose} animation={false}>
+  ...
+</Modal>;
+```
+
+## Scrollable
+
+When modal content is long , it make sense to enable `scrollable` to `true`
+
+<Story name="scroll">
+  <Row>
+    <Col>{scrollable()}</Col>
+    <Col>{notScrollable()}</Col>
+    <Col></Col>
+    <Col></Col>
+    <Col></Col>
+  </Row>
+</Story>
+
+# API
+
+Modal Component is based on `react-bootstrap` and build on top of `@restart/ui`'s `modal`
+Refer to [API](https://react-bootstrap.github.io/components/modal/#api) for full list of props
