@@ -42,7 +42,8 @@ export const smallModal = NamedTemplate('Small').bind({});
 export const largeModal = NamedTemplate('Large').bind({});
 export const xLargeModal = NamedTemplate('Extra large').bind({});
 export const templateCode = `
- const Template = (args) => {
+import { Modal, Button } from 'sgds-react';
+ const DefaultModal = (args) => {
     const [show, setShow] = useState(false);
     const handleClose = () => setShow(false);
     const handleShow = () => setShow(true);
@@ -51,7 +52,7 @@ export const templateCode = `
         <Button variant="primary" onClick={handleShow}>
           {type} modal
         </Button>
-        <Modal show={show} onHide={handleClose} {...args}>
+        <Modal show={show} onHide={handleClose}>
           <Modal.Header closeButton>
             <Modal.Title>Modal heading</Modal.Title>
           </Modal.Header>
@@ -68,7 +69,8 @@ export const templateCode = `
       </>
     );
   };
-`
+`;
+export const customCssTemplate = NamedTemplate('Custom CSS').bind({});
 
 ## Default state
 
@@ -83,7 +85,7 @@ The `Modal` is hidden by default and appears with backdrop and animation on clic
         source: {
           code: templateCode,
         },
-        type: 'code'
+        type: 'code',
       },
     }}
   >
@@ -124,6 +126,43 @@ You can specify a bootstrap large or small modal by using the size prop: `sm`, `
   </Story>
 </Canvas>
 
+```jsx
+import { Modal } from 'sgds-react';
+
+<Modal show={show} onHide={handleClose} size="sm">
+  ...
+</Modal>;
+<Modal show={show} onHide={handleClose} size="lg">
+  ...
+</Modal>;
+<Modal show={show} onHide={handleClose} size="xl">
+  ...
+</Modal>;
+```
+
 ## Full Screen Modal
 
 You can use the fullscreen prop to make the modal fullscreen. Specifying a breakpoint will only set the modal as fullscreen below the breakpoint size
+
+## Apply Custom CSS to Modal
+You can apply custom css to the modal dialog div using the dialogClassName prop. Example is using a custom css class with width set to 90%.
+
+<Canvas>
+  <Story
+    name="custom css"
+    args={{
+      dialogClassName: 'text-primary',
+    }}
+  >
+    {customCssTemplate}
+  </Story>
+</Canvas>
+
+```jsx
+import { Modal } from 'sgds-react';
+
+<Modal show={show} onHide={handleClose} dialogClassName="text-primary">
+  ...
+</Modal>;
+
+```
