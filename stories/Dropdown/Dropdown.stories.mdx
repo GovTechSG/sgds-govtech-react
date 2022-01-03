@@ -1,0 +1,256 @@
+import { ArgsTable, Meta, Story, Canvas } from '@storybook/addon-docs';
+import { Dropdown, Row, Col } from '../../src/components/index';
+
+<Meta
+  title="MDX/Dropdown"
+  component={Dropdown}
+  argTypes={{
+    bsPrefix: { table: { disable: true } },
+    drop: { table: { disable: true } },
+    align: { table: { disable: true } },
+    flip: { table: { disable: true } },
+    focusFirstItemOnShow: { table: { disable: true } },
+    navbar: { table: { disable: true } },
+    autoClose: {
+      description:
+        'A set of popper options and props passed directly to Popper.',
+      table: {
+        category: '<Dropdown>',
+        type: { summary: "true | 'outside' | 'inside' | false" },
+        defaultValue: { summary: 'true' },
+      },
+      control: { disable: true },
+    },
+    popperConfig: {
+      description:
+        'A set of popper options and props passed directly to Popper.',
+      table: {
+        category: '<Dropdown.Menu>',
+        type: { summary: 'object' },
+      },
+    },
+    as: {
+      description: 'You can use a custom element type for this component.',
+      table: {
+        category: '<Dropdown>',
+        type: { summary: 'elementType' },
+      },
+      control: { disable: true },
+    },
+    href: {
+      description: 'HTML href attribute corresponding to a.href.',
+      table: {
+        category: '<Dropdown.Item>',
+        type: { summary: 'string' },
+      },
+      control: { disable: true },
+    },
+    disabled: {
+      description: 'Disable the menu item, making it unselectable.',
+      table: {
+        category: '<Dropdown.Item>',
+        type: { summary: 'boolean' },
+      },
+      defaultValue: { summary: 'false' },
+      control: { disable: true },
+    },
+    onClick: {
+      description: 'Callback fired when the menu item is clicked.',
+      table: {
+        category: '<Dropdown.Item>',
+        type: { summary: 'function' },
+      },
+      control: { disable: true },
+    },
+    show: {
+      description: 'Controls the visibility of the Dropdown menu',
+      table: {
+        category: '<Dropdown.Menu>',
+        type: { summary: 'boolean' },
+      },
+      control: { disable: true },
+    },
+  }}
+/>
+
+# Dropdowns
+
+Toggle contextual overlays for displaying lists of links
+
+export const popperConfig = {
+  modifiers: [
+    {
+      name: 'offset',
+      options: {
+        offset: [0, 10]
+      },
+    },
+  ],
+};
+
+export const Template = (args) => (
+  <Dropdown {...args}>
+    <Dropdown.Toggle variant="white">Dropdown Button</Dropdown.Toggle>
+    <Dropdown.Menu popperConfig={popperConfig}>
+      <Dropdown.Item href="#">Action</Dropdown.Item>
+      <Dropdown.Item href="#">Another action</Dropdown.Item>
+      <Dropdown.Item onClick={() => console.log('Clicked')}>
+        Something else
+      </Dropdown.Item>
+    </Dropdown.Menu>
+  </Dropdown>
+);
+
+## 1. Single button dropdowns
+
+The basic Dropdown is composed of a wrapping `Dropdown` and
+inner `<Dropdown.Menu>`, and `<Dropdown.Toggle>`. By
+default the `<Dropdown.Toggle>` will render a
+`Button` component and accepts all the same props.
+
+<Story name="Basic">{Template.bind({})}</Story>
+
+<ArgsTable story="Basic" />
+
+```jsx
+import { Dropdown } from 'sgds-react';
+
+const popperConfig = {
+    modifiers: [
+    {
+      name: 'offset',
+      options: {
+        offset: [0, 10]
+      },
+    },
+  ],
+};
+
+export const Dropdown = () => {
+  return (
+    <Dropdown>
+      <Dropdown.Toggle variant="white">Dropdown Button</Dropdown.Toggle>
+      <Dropdown.Menu popperConfig={popperConfig}>
+        <Dropdown.Item href="#">Action</Dropdown.Item>
+        <Dropdown.Item href="#">Another action</Dropdown.Item>
+        <Dropdown.Item onClick={() => console.log('Clicked')}>
+          Something else
+        </Dropdown.Item>
+      </Dropdown.Menu>
+    </Dropdown>
+  );
+};
+```
+
+## 2. AutoClose
+
+By default, the dropdown menu is closed when selecting a menu item or clicking outside of the dropdown menu. This behaviour can be changed by using the `autoClose` property.
+
+By default, `autoClose` is set to the **default value true** and behaves like expected. By choosing **false**, the dropdown menu can only be toggled by clicking on the dropdown button. inside makes the dropdown disappear only by choosing a menu item and outside closes the dropdown menu only by clicking outside.
+
+Notice how the dropdown is toggled in each scenario by clicking on the button.
+
+<Story name="AutoClose">
+  <Row>
+    <Col>
+      <Dropdown>
+        <Dropdown.Toggle variant="white" id="dropdown-autoclose-true">
+          Default Dropdown
+        </Dropdown.Toggle>
+        <Dropdown.Menu popperConfig={popperConfig}>
+          <Dropdown.Item href="#">Menu Item</Dropdown.Item>
+          <Dropdown.Item href="#">Menu Item</Dropdown.Item>
+          <Dropdown.Item href="#">Menu Item</Dropdown.Item>
+        </Dropdown.Menu>
+      </Dropdown>
+    </Col>
+    <Col>
+      <Dropdown autoClose="inside">
+        <Dropdown.Toggle variant="white" id="dropdown-autoclose-inside">
+          Clickable Outside
+        </Dropdown.Toggle>
+        <Dropdown.Menu popperConfig={popperConfig}>
+          <Dropdown.Item href="#">Menu Item</Dropdown.Item>
+          <Dropdown.Item href="#">Menu Item</Dropdown.Item>
+          <Dropdown.Item href="#">Menu Item</Dropdown.Item>
+        </Dropdown.Menu>
+      </Dropdown>
+    </Col>
+    <Col>
+      <Dropdown autoClose="outside">
+        <Dropdown.Toggle variant="white" id="dropdown-autoclose-outside">
+          Clickable Inside
+        </Dropdown.Toggle>
+        <Dropdown.Menu popperConfig={popperConfig}>
+          <Dropdown.Item href="#">Menu Item</Dropdown.Item>
+          <Dropdown.Item href="#">Menu Item</Dropdown.Item>
+          <Dropdown.Item href="#">Menu Item</Dropdown.Item>
+        </Dropdown.Menu>
+      </Dropdown>
+    </Col>
+    <Col>
+      <Dropdown autoClose={false}>
+        <Dropdown.Toggle variant="white" id="dropdown-autoclose-false">
+          Manual Close
+        </Dropdown.Toggle>
+        <Dropdown.Menu popperConfig={popperConfig}>
+          <Dropdown.Item href="#">Menu Item</Dropdown.Item>
+          <Dropdown.Item href="#">Menu Item</Dropdown.Item>
+          <Dropdown.Item href="#">Menu Item</Dropdown.Item>
+        </Dropdown.Menu>
+      </Dropdown>
+    </Col>
+  </Row>
+</Story>
+
+```jsx
+import { Dropdown } from 'sgds-react';
+
+// autoClose : true (default)
+  <Dropdown>
+    <Dropdown.Toggle variant="white">
+      Clickable Inside
+    </Dropdown.Toggle>
+    <Dropdown.Menu popperConfig={popperConfig}>
+      <Dropdown.Item href="#">Menu Item</Dropdown.Item>
+      <Dropdown.Item href="#">Menu Item</Dropdown.Item>
+      <Dropdown.Item href="#">Menu Item</Dropdown.Item>
+    </Dropdown.Menu>
+  </Dropdown>
+
+// autoClose : inside
+  <Dropdown autoClose="inside">
+    <Dropdown.Toggle variant="white">
+      Clickable Inside
+    </Dropdown.Toggle>
+    <Dropdown.Menu popperConfig={popperConfig}>
+      <Dropdown.Item href="#">Menu Item</Dropdown.Item>
+      <Dropdown.Item href="#">Menu Item</Dropdown.Item>
+      <Dropdown.Item href="#">Menu Item</Dropdown.Item>
+    </Dropdown.Menu>
+  </Dropdown>
+
+// autoClose : outside
+  <Dropdown autoClose="outside">
+    <Dropdown.Toggle variant="white">
+      Clickable Inside
+    </Dropdown.Toggle>
+    <Dropdown.Menu popperConfig={popperConfig}>
+      <Dropdown.Item href="#">Menu Item</Dropdown.Item>
+      <Dropdown.Item href="#">Menu Item</Dropdown.Item>
+      <Dropdown.Item href="#">Menu Item</Dropdown.Item>
+    </Dropdown.Menu>
+  </Dropdown>
+
+// autoClose : false
+  <Dropdown autoClose={false}>
+    <Dropdown.Toggle variant="white">
+      Manual Close
+    </Dropdown.Toggle>
+    <Dropdown.Menu popperConfig={popperConfig}>
+      <Dropdown.Item href="#">Menu Item</Dropdown.Item>
+      <Dropdown.Item href="#">Menu Item</Dropdown.Item>
+      <Dropdown.Item href="#">Menu Item</Dropdown.Item>
+    </Dropdown.Menu>
+  </Dropdown>
+```

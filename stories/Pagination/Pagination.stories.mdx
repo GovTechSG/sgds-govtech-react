@@ -1,0 +1,122 @@
+import { ArgsTable, Canvas, Meta, Story } from '@storybook/addon-docs';
+import { useState, useEffect } from 'react';
+import { Pagination, PageItem } from '../../src/components/index';
+
+<Meta title="MDX/Pagination" component={Pagination}/>
+
+# Pagination
+
+A set of presentational components for building pagination UI.
+
+<Canvas withSource="open">
+  <Story name="Basic">
+    <Pagination>
+      <Pagination.Prev />
+      <Pagination.Item>{1}</Pagination.Item>
+      <Pagination.Item>{10}</Pagination.Item>
+      <Pagination.Item>{11}</Pagination.Item>
+      <Pagination.Item active>{12}</Pagination.Item>
+      <Pagination.Item>{13}</Pagination.Item>
+      <Pagination.Item disabled>{14}</Pagination.Item>
+      <Pagination.Ellipsis />
+      <Pagination.Item>{20}</Pagination.Item>
+      <Pagination.Next />
+    </Pagination>
+  </Story>
+</Canvas>
+
+
+
+
+export const Template = () => {
+  const renderData = (data) => {
+  return (
+    <ul>
+      {data.map((todo, index) => {
+        return <li key={index}>{todo.title}</li>;
+      })}
+    </ul>
+  );
+};
+  const [data, setData] = useState([]);
+  const [currentPage, setCurrentPage] = useState(1);
+  const [itemsPerPage, setItemsPerPage] = useState(5);
+  // how many page numbers to display
+  const [pageNumberLimit, setPageNumberLimit] = useState(3);
+  const [maxPageNumberLimit, setMaxPageNumberLimit] = useState(3);
+  const [minPageNumberLimit, setMinPageNumberLimit] = useState(0);
+  // set the id of page item clicked to currentPage
+  const handlePageClick = (event) => {
+    setCurrentPage(Number(event.target.id));
+  };
+  const pages = [];
+  for (let i = 1; i <= Math.ceil(data.length / itemsPerPage); i++) {
+    pages.push(i);
+  }
+  //eg. last item index of 3rd page =  30  =  page 3 * 5 items per page
+  const indexOfLastItem = currentPage * itemsPerPage;
+  // index of first item of current page
+  const indexofFirstItem = indexOfLastItem - itemsPerPage;
+  // current item indexes per page
+  const currentItems = data.slice(indexofFirstItem, indexOfLastItem);
+  const renderPageNumbers = pages.map((number) => {
+    if (number < maxPageNumberLimit + 1 && number > minPageNumberLimit) {
+      return (
+        <Pagination.Item
+          key={number}
+          id={number}
+          onClick={handlePageClick}
+          className={currentPage == number ? "active" : null}
+        >
+          {number}
+        </Pagination.Item>
+      );
+    } else {
+      return null;
+    }
+  });
+  useEffect(() => {
+    fetch("https://jsonplaceholder.typicode.com/todos/")
+      .then((response) => response.json())
+      .then((json) => setData(json));
+  }, []);
+  const handleNextButton = () => {
+    setCurrentPage(currentPage + 1);
+    if (currentPage + 1 > maxPageNumberLimit) {
+      setMaxPageNumberLimit(maxPageNumberLimit + pageNumberLimit);
+      setMinPageNumberLimit(minPageNumberLimit + pageNumberLimit);
+    }
+  };
+  const handlePrevButton = () => {
+    setCurrentPage(currentPage - 1);
+    if ((currentPage - 1) % minPageNumberLimit == 0) {
+      setMaxPageNumberLimit(maxPageNumberLimit - pageNumberLimit);
+      setMinPageNumberLimit(minPageNumberLimit - pageNumberLimit);
+    }
+  };
+  // ellipsis increment logic
+  let pageIncrementBtn = null;
+  if (pages.length > maxPageNumberLimit) {
+    pageIncrementBtn = <Pagination.Ellipsis onClick={handleNextButton} disabled />;
+  }
+  return (
+    <div>
+      {renderData(currentItems)}
+      <Pagination size="sm" style={{ listStyle: "none", display: "flex" }}>
+        <Pagination.Prev
+          onClick={handlePrevButton}
+          disabled={currentPage == pages[0] ? true : false}
+        />
+        {renderPageNumbers}
+        {pageIncrementBtn}
+        <Pagination.Next onClick={handleNextButton} disabled={currentPage == pages[pages.length - 1] ? true : false}/>
+      </Pagination>
+    </div>
+  );
+};
+
+<Canvas>
+  <Story name="Sample">{Template.bind({})}</Story>
+</Canvas>
+
+<ArgsTable story="Sample"/>
