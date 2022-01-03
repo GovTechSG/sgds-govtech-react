@@ -45,7 +45,7 @@ export function useIsRTL() {
   const { dir } = useContext(ThemeContext);
   return dir === 'rtl';
 }
-
+//@ts-ignore
 function createBootstrapComponent(Component, opts) {
   if (typeof opts === 'string') opts = { prefix: opts };
   const isClassy = Component.prototype && Component.prototype.isReactComponent;
@@ -53,7 +53,7 @@ function createBootstrapComponent(Component, opts) {
   const { prefix, forwardRefAs = isClassy ? 'ref' : 'innerRef' } = opts;
 
   const Wrapped = React.forwardRef(({ ...props }, ref) => {
-    props[forwardRefAs] = ref;
+    (props as any)[forwardRefAs] = ref;
     const bsPrefix = useBootstrapPrefix((props as any).bsPrefix, prefix);
     return <Component {...props} bsPrefix={bsPrefix} />;
   });

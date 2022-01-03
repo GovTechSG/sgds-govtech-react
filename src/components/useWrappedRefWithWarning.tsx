@@ -2,7 +2,7 @@ import invariant from 'invariant';
 import { useCallback } from 'react';
 import useMergedRefs from '@restart/hooks/useMergedRefs';
 
-export default function useWrappedRefWithWarning(ref, componentName) {
+export default function useWrappedRefWithWarning(ref:any, componentName:any) {
   // @ts-ignore
   if (!__DEV__) return ref;
 

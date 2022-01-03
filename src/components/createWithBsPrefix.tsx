@@ -4,7 +4,7 @@ import * as React from 'react';
 import { useBootstrapPrefix } from './ThemeProvider';
 import { BsPrefixRefForwardingComponent } from './helpers';
 
-const pascalCase = (str) => str[0].toUpperCase() + camelize(str).slice(1);
+const pascalCase = (str: string) => str[0].toUpperCase() + camelize(str).slice(1);
 
 interface BsPrefixOptions<As extends React.ElementType = 'div'> {
   displayName?: string;
