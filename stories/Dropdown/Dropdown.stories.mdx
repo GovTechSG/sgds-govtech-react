@@ -19,7 +19,15 @@ import { Dropdown, Row, Col } from '../../src/components/index';
         type: { summary: "true | 'outside' | 'inside' | false" },
         defaultValue: { summary: 'true' },
       },
-      control: { disable: true },
+      control: {
+        type: 'select',
+        options: [
+          true,
+          'outside',
+          'inside',
+          false
+        ],
+      },
     },
     popperConfig: {
       description:
@@ -28,6 +36,7 @@ import { Dropdown, Row, Col } from '../../src/components/index';
         category: '<Dropdown.Menu>',
         type: { summary: 'object' },
       },
+      control: { disable: false },
     },
     as: {
       description: 'You can use a custom element type for this component.',
@@ -77,21 +86,10 @@ import { Dropdown, Row, Col } from '../../src/components/index';
 
 Toggle contextual overlays for displaying lists of links
 
-export const popperConfig = {
-  modifiers: [
-    {
-      name: 'offset',
-      options: {
-        offset: [0, 10]
-      },
-    },
-  ],
-};
-
 export const Template = (args) => (
   <Dropdown {...args}>
     <Dropdown.Toggle variant="white">Dropdown Button</Dropdown.Toggle>
-    <Dropdown.Menu popperConfig={popperConfig}>
+    <Dropdown.Menu>
       <Dropdown.Item href="#">Action</Dropdown.Item>
       <Dropdown.Item href="#">Another action</Dropdown.Item>
       <Dropdown.Item onClick={() => console.log('Clicked')}>
@@ -157,7 +155,7 @@ Notice how the dropdown is toggled in each scenario by clicking on the button.
         <Dropdown.Toggle variant="white" id="dropdown-autoclose-true">
           Default Dropdown
         </Dropdown.Toggle>
-        <Dropdown.Menu popperConfig={popperConfig}>
+        <Dropdown.Menu>
           <Dropdown.Item href="#">Menu Item</Dropdown.Item>
           <Dropdown.Item href="#">Menu Item</Dropdown.Item>
           <Dropdown.Item href="#">Menu Item</Dropdown.Item>
@@ -169,7 +167,7 @@ Notice how the dropdown is toggled in each scenario by clicking on the button.
         <Dropdown.Toggle variant="white" id="dropdown-autoclose-inside">
           Clickable Outside
         </Dropdown.Toggle>
-        <Dropdown.Menu popperConfig={popperConfig}>
+        <Dropdown.Menu>
           <Dropdown.Item href="#">Menu Item</Dropdown.Item>
           <Dropdown.Item href="#">Menu Item</Dropdown.Item>
           <Dropdown.Item href="#">Menu Item</Dropdown.Item>
@@ -181,7 +179,7 @@ Notice how the dropdown is toggled in each scenario by clicking on the button.
         <Dropdown.Toggle variant="white" id="dropdown-autoclose-outside">
           Clickable Inside
         </Dropdown.Toggle>
-        <Dropdown.Menu popperConfig={popperConfig}>
+        <Dropdown.Menu>
           <Dropdown.Item href="#">Menu Item</Dropdown.Item>
           <Dropdown.Item href="#">Menu Item</Dropdown.Item>
           <Dropdown.Item href="#">Menu Item</Dropdown.Item>
@@ -193,7 +191,7 @@ Notice how the dropdown is toggled in each scenario by clicking on the button.
         <Dropdown.Toggle variant="white" id="dropdown-autoclose-false">
           Manual Close
         </Dropdown.Toggle>
-        <Dropdown.Menu popperConfig={popperConfig}>
+        <Dropdown.Menu>
           <Dropdown.Item href="#">Menu Item</Dropdown.Item>
           <Dropdown.Item href="#">Menu Item</Dropdown.Item>
           <Dropdown.Item href="#">Menu Item</Dropdown.Item>

@@ -177,7 +177,7 @@ const DropdownMenu: BsPrefixRefForwardingComponent<'div', DropdownMenuProps> =
         rootCloseEvent,
         show: showProps,
         usePopper: !isNavbar && alignClasses.length === 0,
-        offset: [0, 2],
+        offset: [0, 10],
         popperConfig,
         placement,
       });
