@@ -153,6 +153,8 @@ export type { PageItemProps } from './PageItem';
 
 export { default as Pagination } from './Pagination/Pagination';
 export type { PaginationProps } from './Pagination/Pagination';
+export { default as PaginationExtended } from './PaginationExtended/PaginationExtended';
+export type { PaginationExtendedProps } from './PaginationExtended/PaginationExtended';
 
 // export { default as Placeholder } from './Placeholder';
 // export type { PlaceholderProps } from './Placeholder';
@@ -192,8 +194,8 @@ export type { RowProps } from './Row';
 // export type { TabContainerProps } from './TabContainer';
 
 // export { default as TabContent } from './TabContent';
-// export { default as Table } from './Table';
-// export type { TableProps } from './Table';
+export { default as Table } from './Table/Table';
+export type { TableProps } from './Table/Table';
 
 // export { default as TabPane } from './TabPane';
 // export type { TabPaneProps } from './TabPane';
