@@ -16,10 +16,10 @@ import InputGroupContext from '../InputGroupContext';
 import { useBootstrapPrefix, useIsRTL } from '../ThemeProvider';
 import createWithBsPrefix from '../createWithBsPrefix';
 import { BsPrefixProps, BsPrefixRefForwardingComponent } from '../helpers';
-import { AlignType, alignDirection, AlignDirection } from '../types';
+import { alignDirection, AlignDirection } from '../types';
 
 const DropdownHeader = createWithBsPrefix('dropdown-header', {
-  defaultProps: { role: 'heading' },  
+  defaultProps: { role: 'heading' },
 });
 const DropdownDivider = createWithBsPrefix('dropdown-divider', {
   Component: 'hr',
@@ -46,10 +46,10 @@ const propTypes = {
   bsPrefix: PropTypes.string,
   /**
    * Determines the direction and location of the Menu in relation to it's Toggle.
-   * 
-   * @type {"start"|"end"|"up"|"down" }
+   *
+   * @type {"end"|"up"|"down" }
    */
-  drop: PropTypes.oneOf(['up', 'start', 'end', 'down']),
+  drop: PropTypes.oneOf(['up', 'end', 'down']),
   as: PropTypes.elementType,
   align: alignDirection,
 
@@ -166,7 +166,7 @@ const Dropdown: BsPrefixRefForwardingComponent<'div', DropdownProps> =
           meta.source = 'rootClose';
 
         if (isClosingPermitted(meta.source!)) onToggle?.(nextShow, meta);
-      },
+      }
     );
 
     const alignEnd = align === 'end';
@@ -178,7 +178,7 @@ const Dropdown: BsPrefixRefForwardingComponent<'div', DropdownProps> =
         drop,
         isRTL,
       }),
-      [align, drop, isRTL],
+      [align, drop, isRTL]
     );
 
     return (
@@ -200,10 +200,9 @@ const Dropdown: BsPrefixRefForwardingComponent<'div', DropdownProps> =
               className={classNames(
                 className,
                 show && 'show',
-                (!drop || drop === 'down') && prefix,
-                drop === 'up' && 'dropup' && prefix,
-                drop === 'end' && 'dropend' && prefix,
-                drop === 'start' && 'dropstart' && prefix,
+                prefix,
+                drop === 'up' && 'dropup',
+                drop === 'end' && 'dropend'
               )}
             />
           )}

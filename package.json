@@ -60,6 +60,7 @@
     "@types/react": "^17.0.37",
     "@types/react-dom": "^17.0.11",
     "@types/react-transition-group": "^4.4.4",
+    "@types/sinon": "^10.0.6",
     "@wojtekmaj/enzyme-adapter-react-17": "^0.6.6",
     "babel-loader": "^8.2.3",
     "enzyme": "^3.11.0",
