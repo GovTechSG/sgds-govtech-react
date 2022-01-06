@@ -1,72 +1,28 @@
 import { ArgsTable, Canvas, Meta, Story } from '@storybook/addon-docs';
-
 import { Button } from '../../src/components/index';
-
 import { useState, useEffect } from 'react';
+import { HIDDEN_COMMON_PROPS } from '../helpers';
 
-<Meta title="MDX/Button" component={Button} argTypes={{
-  active: {
-      description:
-        'Manually set the visual state of the button to :active',
-      table: {
-        category: '<Button>',
-        type: { summary: "boolean" },
-        defaultValue: { summary: 'false' },
-      },
-      control: { disable: true },
-    },
-    as: {
-      description:
-        'You can use a custom element type for this component.',
-      table: {
-        category: '<Button>',
-        type: { summary: "elementType" },
-      },
-      control: { disable: true },
-    },
-    href: {
-      description:
-        'Providing a `href` will render an `<a>` element, styled as a button.',
-      table: {
-        category: '<Button>',
-        type: { summary: "string" },
-      },
-      control: { disable: true },
-    },
-    size: {
-      description:
-        'Specifies a large or small button.',
-      table: {
-        category: '<Button>',
-        type: { summary: "'sm' | 'lg'" },
-      },
-      control: { disable: true },
-    },
-    type: {
-      description:
-        'Defines HTML button type attribute.',
-      table: {
-        category: '<Button>',
-        type: { summary: "'button' | 'reset' | 'submit' | null" },
-        defaultValue: { summary: `'button'` },
-      },
-      control: { disable: true },
-    },
-    variant: {
-      description:
-        'One or more button variant combinations <br/> buttons may be one of a variety of visual variants such as:',
-      table: {
-        category: '<Button>',
-        type: { summary: "'primary', 'secondary', 'success', 'danger', 'warning', 'info', 'dark', 'light', 'link' | 'outline-primary', 'outline-secondary', 'outline-success', 'outline-danger', 'outline-warning', 'outline-info', 'outline-dark', 'outline-light" },
-        defaultValue: { summary: `'primary'` },
-      },
-      control: { disable: true },
-    },
-}}/>
+<Meta
+  title="MDX/Button"
+  component={Button}
+  argTypes={{
+    ...HIDDEN_COMMON_PROPS,
+    as: { table: { disable: true } },
+  }}
+/>
 
 # Buttons
 
 Custom button styles for actions in forms, dialogs, and more with support for multiple sizes, states, and more.
+
+export const defaultTemplate = (args) => <Button {...args}>Default</Button>;
+
+<Canvas>
+  <Story name="Default">{defaultTemplate.bind({})}</Story>
+</Canvas>
+
+<ArgsTable story="Default" />
 
 ## 1. Examples
 
@@ -291,4 +247,16 @@ function LoadingButton() {
 render(<LoadingButton />);
 ```
 
-<ArgsTable story="Button loading state" />
+## 9. Add icon as a child component
+
+Add icon to `Button` as a children component
+
+export const iconTemplate = (args) => (
+  <Button {...args}>
+    <i class="bi bi-arrow-90deg-left"></i> Button with icon
+  </Button>
+);
+
+<Canvas>
+  <Story name="Button with icon">{iconTemplate.bind({})}</Story>
+</Canvas>
