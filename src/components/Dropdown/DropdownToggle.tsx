@@ -62,7 +62,7 @@ const DropdownToggle: DropdownToggleComponent = React.forwardRef(
     }: DropdownToggleProps,
     ref,
   ) => {
-    const prefix = useBootstrapPrefix(bsPrefix, 'dropdown-toggle');
+    const prefix = 'dropdown-toggle'
     const dropdownContext = useContext(DropdownContext);
     const isInputGroup = useContext(InputGroupContext);
 

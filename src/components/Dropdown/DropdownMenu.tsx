@@ -13,7 +13,6 @@ import warning from 'warning';
 import DropdownContext, { DropDirection } from './DropdownContext';
 import InputGroupContext from '../InputGroupContext';
 import NavbarContext from '../NavbarContext';
-import { useBootstrapPrefix } from '../ThemeProvider';
 import useWrappedRefWithWarning from '../useWrappedRefWithWarning';
 import { BsPrefixProps, BsPrefixRefForwardingComponent } from '../helpers';
 import { AlignType, AlignDirection, alignPropType, Placement } from '../types';
@@ -140,7 +139,7 @@ const DropdownMenu: BsPrefixRefForwardingComponent<'div', DropdownMenuProps> =
     ) => {
       let alignEnd = false;
       const isNavbar = useContext(NavbarContext);
-      const prefix = useBootstrapPrefix(bsPrefix, 'dropdown-menu');
+      const prefix = 'dropdown-menu'
       const { align: contextAlign, drop, isRTL } = useContext(DropdownContext);
       align = align || contextAlign;
       const isInputGroup = useContext(InputGroupContext);
@@ -210,7 +209,6 @@ const DropdownMenu: BsPrefixRefForwardingComponent<'div', DropdownMenuProps> =
         //@ts-ignore
         props['x-placement'] = popper.placement;
       }
-
       return (
         <Component
           {...props}

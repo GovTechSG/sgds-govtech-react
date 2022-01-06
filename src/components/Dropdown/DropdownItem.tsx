@@ -62,7 +62,7 @@ const DropdownItem: BsPrefixRefForwardingComponent<
     },
     ref,
   ) => {
-    const prefix = useBootstrapPrefix(bsPrefix, 'dropdown-item');
+    const prefix = 'dropdown-item'
     const [dropdownItemProps, meta] = useDropdownItem({
       key: eventKey,
       href: props.href,

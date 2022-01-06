@@ -23,3 +23,5 @@ const checkPropType = (type: any) => {
     
     return 'object'
 }
+
+export const HIDDEN_COMMON_PROPS = { bsPrefix: { table: { disable: true } } };
