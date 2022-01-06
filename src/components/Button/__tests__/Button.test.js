@@ -148,9 +148,9 @@ describe('<Button>', () => {
   it('Should allow a child component', () => {
     const $button = mount(
       <Button bsPrefix="my-btn" variant="danger">
-        <symbol>test</symbol>
+        <span>test</span>
       </Button>,
     )
-    expect($button.find('symbol')).toBeDefined()
+    expect($button.find('span')).toBeDefined()
   });
 });

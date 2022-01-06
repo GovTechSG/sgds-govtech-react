@@ -6,7 +6,6 @@ import BaseDropdownItem, {
   DropdownItemProps as BaseDropdownItemProps,
 } from '@restart/ui/DropdownItem';
 import Anchor from '@restart/ui/Anchor';
-import { useBootstrapPrefix } from '../ThemeProvider';
 import { BsPrefixProps, BsPrefixRefForwardingComponent } from '../helpers';
 
 export interface DropdownItemProps
@@ -62,7 +61,7 @@ const DropdownItem: BsPrefixRefForwardingComponent<
     },
     ref,
   ) => {
-    const prefix = useBootstrapPrefix(bsPrefix, 'dropdown-item');
+    const prefix = 'dropdown-item'
     const [dropdownItemProps, meta] = useDropdownItem({
       key: eventKey,
       href: props.href,

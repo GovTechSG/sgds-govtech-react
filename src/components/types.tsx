@@ -45,8 +45,7 @@ export type ResponsiveAlignProp =
   | { xxl: AlignDirection };
 
 export type AlignType = AlignDirection | ResponsiveAlignProp;
-
-const alignDirection = PropTypes.oneOf<AlignDirection>(['start', 'end']);
+export const alignDirection = PropTypes.oneOf<AlignDirection>(['start', 'end']);
 
 export const alignPropType = PropTypes.oneOfType([
   alignDirection,

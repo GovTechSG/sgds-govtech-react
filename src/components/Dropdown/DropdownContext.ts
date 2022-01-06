@@ -1,7 +1,7 @@
 import * as React from 'react';
 import { AlignType } from '../types';
 
-export type DropDirection = 'up' | 'start' | 'end' | 'down';
+export type DropDirection = 'up' | 'end' | 'down' /* | 'start' */;
 
 export type DropdownContextValue = {
   align?: AlignType;

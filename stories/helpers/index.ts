@@ -1,4 +1,4 @@
-import BaseModal, { ModalProps as BaseModalProps } from '@restart/ui/Modal';
+import { ModalProps as BaseModalProps } from '@restart/ui/Modal';
 
 export const commonInputPropsArgType = (modalProps: BaseModalProps) => {
   const argTypes = Object.entries(modalProps).map(([key, value]) => {
@@ -14,12 +14,13 @@ export const commonInputPropsArgType = (modalProps: BaseModalProps) => {
 };
 
 const checkPropType = (type: any) => {
-  if (type === String) {
-    return 'string';
-  }
-  if (type === Boolean) return 'boolean';
-
-  return 'object';
-};
+    if (type === String) {
+        return 'string'
+    } 
+    if (type === Boolean)
+        return 'boolean'
+    
+    return 'object'
+}
 
 export const HIDDEN_COMMON_PROPS = { bsPrefix: { table: { disable: true } } };

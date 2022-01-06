@@ -24,6 +24,7 @@ module.exports = {
     check: false, // type-check stories during Storybook build
     reactDocgen: 'react-docgen-typescript',
     reactDocgenTypescriptOptions: {
+      shouldExtractLiteralValuesFromEnum: true,
       compilerOptions: {
         allowSyntheticDefaultImports: false,
         esModuleInterop: false,
