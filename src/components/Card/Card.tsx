@@ -2,7 +2,10 @@ import classNames from 'classnames';
 import * as React from 'react';
 import PropTypes from 'prop-types';
 
-import { useBootstrapPrefix } from '../ThemeProvider';
+import {
+  useBootstrapPrefix,
+  SGDSWrapper,
+} from '../ThemeProvider/ThemeProvider';
 import createWithBsPrefix from '../createWithBsPrefix';
 import divWithClassName from '../divWithClassName';
 import CardImg from './CardImg';
@@ -72,45 +75,43 @@ const defaultProps = {
   body: false,
 };
 
-export const Card: BsPrefixRefForwardingComponent<'div', CardProps> = React.forwardRef<
-  HTMLElement,
-  CardProps
->(
-  (
-    {
-      bsPrefix,
-      className,
-      bg,
-      text,
-      border,
-      body,
-      children,
-      // Need to define the default "as" during prop destructuring to be compatible with styled-components github.com/react-bootstrap/react-bootstrap/issues/3595
-      as: Component = 'div',
-      ...props
-    },
-    ref,
-  ) => {
-    const prefix = useBootstrapPrefix(bsPrefix, 'card');
+export const Card: BsPrefixRefForwardingComponent<'div', CardProps> =
+  React.forwardRef<HTMLElement, CardProps>(
+    (
+      {
+        bsPrefix,
+        className,
+        bg,
+        text,
+        border,
+        body,
+        children,
+        // Need to define the default "as" during prop destructuring to be compatible with styled-components github.com/react-bootstrap/react-bootstrap/issues/3595
+        as: Component = 'div',
+        ...props
+      },
+      ref
+    ) => {
+      const prefix = useBootstrapPrefix(bsPrefix, 'card');
 
-    return (
-      <Component
-        ref={ref}
-        {...props}
-        className={classNames(
-          'sgds',
-          className,
-          prefix,
-          bg && `bg-${bg}`,
-          text && `text-${text}`,
-          border && `border-${border}`,
-        )}
-      >
-        {body ? <CardBody>{children}</CardBody> : children}
-      </Component>
-    );
-  },
-);
+      return (
+        <SGDSWrapper
+          as={Component}
+          ref={ref}
+          {...props}
+          className={classNames(
+            className,
+            prefix,
+            bg && `bg-${bg}`,
+            text && `text-${text}`,
+            border && `border-${border}`
+          )}
+        >
+          {body ? <CardBody>{children}</CardBody> : children}
+        </SGDSWrapper>
+      );
+    }
+  );
 
 Card.displayName = 'Card';
 Card.propTypes = propTypes;

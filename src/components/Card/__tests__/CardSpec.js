@@ -1,8 +1,14 @@
 import { mount } from 'enzyme';
 import * as React from 'react'
+import { SGDSWrapper } from '../../ThemeProvider/ThemeProvider';
 import Card from '../Card';
 
 describe('<Card>', () => {
+  it('should have sgds prefix on wrapper', () => {
+    const wrapper = mount(<Card>Title</Card>);
+    expect(wrapper.find(SGDSWrapper).exists()).toBe(true);
+    expect(wrapper.find('.card').at(1).hasClass('sgds')).toBe(true);
+  });
   it('should output a div', () => {
     const wrapper = mount(<Card>Card</Card>)
     expect(wrapper.find('div').exists()).toBe(true)
