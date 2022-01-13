@@ -4,7 +4,7 @@ import * as React from 'react';
 
 import FormGroup, { FormGroupProps } from './Form/FormGroup';
 import { BsPrefixProps, BsPrefixRefForwardingComponent } from './helpers';
-import { useBootstrapPrefix } from './ThemeProvider';
+import { useBootstrapPrefix } from './ThemeProvider/ThemeProvider';
 
 export interface FloatingLabelProps extends FormGroupProps, BsPrefixProps {
   controlId?: string;

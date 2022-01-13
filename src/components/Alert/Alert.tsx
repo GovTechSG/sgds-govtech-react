@@ -6,7 +6,7 @@ import { elementType } from 'prop-types-extra';
 import { useUncontrolled } from 'uncontrollable';
 import useEventCallback from '@restart/hooks/useEventCallback';
 import Anchor from '@restart/ui/Anchor';
-import { useBootstrapPrefix } from '../ThemeProvider';
+import { useBootstrapPrefix, SGDSWrapper } from '../ThemeProvider/ThemeProvider';
 import Fade from '../Fade/Fade';
 import CloseButton, { CloseButtonVariant } from '../CloseButton/CloseButton';
 import { Variant } from '../types';
@@ -120,7 +120,8 @@ const Alert = React.forwardRef<HTMLDivElement, AlertProps>(
     });
     const Transition = transition === true ? Fade : transition;
     const alert = (
-      <div
+      <SGDSWrapper
+        as="div"
         role="alert"
         {...(!Transition ? props : undefined)}
         ref={ref}
@@ -139,7 +140,7 @@ const Alert = React.forwardRef<HTMLDivElement, AlertProps>(
           />
         )}
         {children}
-      </div>
+      </SGDSWrapper>
     );
 
     if (!Transition) return show ? alert : null;

@@ -2,7 +2,7 @@ import classNames from 'classnames';
 import PropTypes from 'prop-types';
 import * as React from 'react';
 import { useContext } from 'react';
-import { useBootstrapPrefix } from '../ThemeProvider';
+import { useBootstrapPrefix } from '../ThemeProvider/ThemeProvider';
 import { BsPrefixOnlyProps, BsPrefixRefForwardingComponent } from '../helpers';
 import FormContext from './FormContext';
 

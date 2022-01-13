@@ -1,4 +1,4 @@
-import BaseModal, { ModalProps as BaseModalProps } from '@restart/ui/Modal';
+import { ModalProps as BaseModalProps } from '@restart/ui/Modal';
 
 export const commonInputPropsArgType = (modalProps: BaseModalProps) => {
   const argTypes = Object.entries(modalProps).map(([key, value]) => {

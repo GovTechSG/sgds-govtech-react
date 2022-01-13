@@ -203,8 +203,8 @@ export type { TableProps } from './Table/Table';
 // export { default as Tabs } from './Tabs';
 // export type { TabsProps } from './Tabs';
 
-export { default as ThemeProvider } from './ThemeProvider';
-export type { ThemeProviderProps } from './ThemeProvider';
+export { default as ThemeProvider } from './ThemeProvider/ThemeProvider';
+export type { ThemeProviderProps } from './ThemeProvider/ThemeProvider';
 
 // export { default as Toast } from './Toast';
 // export type { ToastProps } from './Toast';

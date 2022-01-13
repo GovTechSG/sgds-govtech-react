@@ -23,7 +23,7 @@ import ModalFooter from './ModalFooter';
 import ModalHeader from './ModalHeader';
 import ModalTitle from './ModalTitle';
 import { BsPrefixRefForwardingComponent } from '../helpers';
-import { useBootstrapPrefix, useIsRTL } from '../ThemeProvider';
+import { useBootstrapPrefix, useIsRTL, SGDSWrapper } from '../ThemeProvider/ThemeProvider';
 
 export interface ModalProps
   extends Omit<
@@ -442,11 +442,12 @@ const Modal: BsPrefixRefForwardingComponent<'div', ModalProps> =
         baseModalStyle.display = 'block';
       }
       const renderDialog = (dialogProps: ModalDialogProps) => (
-        <div
+        <SGDSWrapper
           role="dialog"
           {...dialogProps}
           style={baseModalStyle}
           className={classNames(
+            // SGDS_PREFIX,
             className,
             bsPrefix,
             animateStaticModal && `${bsPrefix}-static`,
@@ -465,7 +466,7 @@ const Modal: BsPrefixRefForwardingComponent<'div', ModalProps> =
           >
             {children}
           </Dialog>
-        </div>
+        </SGDSWrapper>
       );
 
       return (

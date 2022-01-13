@@ -1,6 +1,7 @@
 import PropTypes from 'prop-types';
 import * as React from 'react';
-import { useContext, useMemo } from 'react';
+import { useContext, useMemo, ElementType, HTMLAttributes } from 'react';
+import classNames from 'classnames';
 
 export interface ThemeContextValue {
   prefixes: Record<string, string>;
@@ -31,12 +32,13 @@ ThemeProvider.propTypes = {
   dir: PropTypes.string,
 } as any;
 
+export const SGDS_PREFIX = 'sgds'
 export function useBootstrapPrefix(
   prefix: string | undefined,
   defaultPrefix: string,
 ): string {
   const { prefixes } = useContext(ThemeContext);
-  return prefix || prefixes[defaultPrefix] || `sgds ${defaultPrefix}`;
+  return prefix || prefixes[defaultPrefix] || `${defaultPrefix}`;
 }
 
 // `sgds-${defaultPrefix}`
@@ -62,5 +64,13 @@ function createBootstrapComponent(Component, opts) {
   return Wrapped;
 }
 
-export { createBootstrapComponent, Consumer as ThemeConsumer };
+interface SGDSComponentProps extends HTMLAttributes<HTMLElement> {
+  as?: ElementType;
+}
+
+const SGDSWrapper =  React.forwardRef<HTMLElement,SGDSComponentProps>(({ as: Tag = 'div', ...props}, ref) => {
+  return <Tag ref={ref} {...props} className={classNames(props.className, 'sgds')}  />;
+});
+
+export { createBootstrapComponent, Consumer as ThemeConsumer, SGDSWrapper };
 export default ThemeProvider;
