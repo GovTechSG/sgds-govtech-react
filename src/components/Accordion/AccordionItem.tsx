@@ -2,7 +2,7 @@ import classNames from 'classnames';
 import * as React from 'react';
 import { useMemo } from 'react';
 import PropTypes from 'prop-types';
-import { useBootstrapPrefix } from '../ThemeProvider';
+import { useBootstrapPrefix } from '../ThemeProvider/ThemeProvider';
 import AccordionItemContext, {
   AccordionItemContextValue,
 } from './AccordionItemContext';

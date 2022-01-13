@@ -1,7 +1,7 @@
 import classNames from 'classnames';
 import * as React from 'react';
 import PropTypes from 'prop-types';
-import { useBootstrapPrefix } from '../ThemeProvider';
+import { useBootstrapPrefix } from '../ThemeProvider/ThemeProvider';
 import AccordionButton from './AccordionButton';
 import { BsPrefixRefForwardingComponent, BsPrefixProps } from '../helpers';
 

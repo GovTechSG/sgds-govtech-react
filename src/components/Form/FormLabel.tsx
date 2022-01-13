@@ -6,7 +6,7 @@ import warning from 'warning';
 
 import Col, { ColProps } from '../Col';
 import FormContext from './FormContext';
-import { useBootstrapPrefix } from '../ThemeProvider';
+import { useBootstrapPrefix } from '../ThemeProvider/ThemeProvider';
 import { BsPrefixProps, BsPrefixRefForwardingComponent } from '../helpers';
 
 interface FormLabelBaseProps

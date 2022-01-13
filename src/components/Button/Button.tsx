@@ -5,7 +5,7 @@ import {
   useButtonProps,
   ButtonProps as BaseButtonProps,
 } from '@restart/ui/Button';
-import { useBootstrapPrefix } from '../ThemeProvider';
+import { useBootstrapPrefix, SGDSWrapper } from '../ThemeProvider/ThemeProvider';
 import { BsPrefixProps, BsPrefixRefForwardingComponent } from '../helpers';
 import { ButtonVariant } from '../types';
 
@@ -63,8 +63,8 @@ const propTypes = {
    * @default 'button'
    */
   type: PropTypes.oneOf(['button', 'reset', 'submit', null]),
-
   as: PropTypes.elementType,
+
 };
 
 const defaultProps = {
@@ -73,7 +73,7 @@ const defaultProps = {
   disabled: false,
 };
 
-const Button: BsPrefixRefForwardingComponent<'button', ButtonProps> =
+export const Button: BsPrefixRefForwardingComponent<'button', ButtonProps> =
   React.forwardRef<HTMLButtonElement, ButtonProps>(
     ({ as, bsPrefix, variant, size, active, className, ...props }, ref) => {
       const prefix = useBootstrapPrefix(bsPrefix, 'btn');
@@ -85,7 +85,8 @@ const Button: BsPrefixRefForwardingComponent<'button', ButtonProps> =
       const Component = tagName as React.ElementType;
 
       return (
-        <Component
+        <SGDSWrapper
+          as={Component}
           {...props}
           {...buttonProps}
           ref={ref}
@@ -95,11 +96,11 @@ const Button: BsPrefixRefForwardingComponent<'button', ButtonProps> =
             active && 'active',
             variant && `${prefix}-${variant}`,
             size && `${prefix}-${size}`,
-            props.href && props.disabled && 'disabled',
+            props.href && props.disabled && 'disabled'
           )}
         />
       );
-    },
+    }
   );
 
 Button.displayName = 'Button';
