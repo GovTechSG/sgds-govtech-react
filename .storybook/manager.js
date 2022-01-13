@@ -13,7 +13,7 @@ addons.setConfig({
   selectedPanel: undefined,
   initialActive: 'sidebar',
   sidebar: {
-    showRoots: true,
+    showRoots: false,
     collapsedRoots: ['other'],
   },
   toolbar: {

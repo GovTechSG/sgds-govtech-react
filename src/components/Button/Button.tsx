@@ -5,7 +5,7 @@ import {
   useButtonProps,
   ButtonProps as BaseButtonProps,
 } from '@restart/ui/Button';
-import { useBootstrapPrefix } from '../ThemeProvider';
+import { useBootstrapPrefix, SGDSWrapper } from '../ThemeProvider/ThemeProvider';
 import { BsPrefixProps, BsPrefixRefForwardingComponent } from '../helpers';
 import { ButtonVariant } from '../types';
 
@@ -85,7 +85,8 @@ export const Button: BsPrefixRefForwardingComponent<'button', ButtonProps> =
       const Component = tagName as React.ElementType;
 
       return (
-        <Component
+        <SGDSWrapper
+          as={Component}
           {...props}
           {...buttonProps}
           ref={ref}

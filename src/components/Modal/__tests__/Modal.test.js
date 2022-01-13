@@ -4,12 +4,21 @@ import ModalManager from '@restart/ui/ModalManager';
 import { act } from 'react-dom/test-utils';
 import Modal from '../Modal';
 import sinon from 'sinon';
+import { SGDSWrapper } from '../../ThemeProvider/ThemeProvider';
 
 describe('<Modal>', () => {
   afterEach(() => {
     // make sure the dangling portal elements get cleaned up
     document.body.innerHTML = '';
   }); 
+  it('should have sgds prefix on wrapper', () => {
+    const wrapper = mount(<Modal show >
+      <strong>Message</strong>
+    </Modal>)
+    expect(wrapper.find(SGDSWrapper).exists()).toBe(true)
+    expect(wrapper.find('.modal').at(1).hasClass('sgds')).toBe(true)
+    wrapper.unmount()
+  }) 
   it('Should forward ref to BaseModal', () => {
     const noOp = jest.fn();
     const ref = React.createRef();
@@ -40,7 +49,7 @@ describe('<Modal>', () => {
     )
       .find('div.modal')
       .getDOMNode();
-    expect(node.style.display).toEqual('block');
+    expect(node.style.display).toEqual('block'); 
   });
 
   it('Should close the modal when the modal dialog is clicked', (done) => {
@@ -78,10 +87,10 @@ describe('<Modal>', () => {
       </Modal>
     );
 
-    const modal = wrapper.find('.modal');
+    const modal = wrapper.find('.modal').at(1);
     modal.simulate('click');
-
-    expect(wrapper.find('.modal-static').length).toEqual(1);
+      // ?
+    expect(wrapper.find('.modal-static').length).toEqual(2);
   });
 
   it('Should show "static" dialog animation when esc pressed and keyboard is false', async() => {
@@ -101,7 +110,7 @@ describe('<Modal>', () => {
     };
     await waitForComponentToPaint(wrapper);
 
-    expect(wrapper.find('.modal-static').length).toEqual(1);  
+    expect(wrapper.find('.modal-static').length).toEqual(2);  
   });
 
   it('Should not show "static" dialog animation when esc pressed and keyboard is true', async() => {
@@ -133,7 +142,7 @@ describe('<Modal>', () => {
       </Modal>,
     );
 
-    const modal = wrapper.find('.modal');
+    const modal = wrapper.find('.modal').at(1);
     modal.simulate('click');
 
     expect(wrapper.find('.modal-static').length).toEqual(0);
@@ -317,7 +326,7 @@ describe('<Modal>', () => {
         <strong>Message</strong>
       </Modal>,
     );
-    modal = instance.find('.modal').getDOMNode();
+    modal = instance.find('.modal').at(0).getDOMNode();
     modal.addEventListener('transitionend', increment);
     instance.setProps({ show: false });
   });

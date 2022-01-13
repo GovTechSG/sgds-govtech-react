@@ -13,7 +13,7 @@ import DropdownItem from './DropdownItem';
 import DropdownMenu, { getDropdownMenuPlacement } from './DropdownMenu';
 import DropdownToggle from './DropdownToggle';
 import InputGroupContext from '../InputGroupContext';
-import { useBootstrapPrefix, useIsRTL } from '../ThemeProvider';
+import { useBootstrapPrefix, useIsRTL, SGDSWrapper } from '../ThemeProvider/ThemeProvider';
 import createWithBsPrefix from '../createWithBsPrefix';
 import { BsPrefixProps, BsPrefixRefForwardingComponent } from '../helpers';
 import { alignDirection, AlignDirection } from '../types';
@@ -194,7 +194,8 @@ const Dropdown: BsPrefixRefForwardingComponent<'div', DropdownProps> =
           {isInputGroup ? (
             props.children
           ) : (
-            <Component
+            <SGDSWrapper
+            as={Component}
               {...props}
               ref={ref}
               className={classNames(

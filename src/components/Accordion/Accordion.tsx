@@ -4,7 +4,7 @@ import { useMemo } from 'react';
 import PropTypes from 'prop-types';
 import { SelectCallback } from '@restart/ui/types';
 import { useUncontrolled } from 'uncontrollable';
-import { useBootstrapPrefix } from '../ThemeProvider';
+import { useBootstrapPrefix, SGDSWrapper } from '../ThemeProvider/ThemeProvider';
 import AccordionBody from './AccordionBody';
 import AccordionButton from './AccordionButton';
 import AccordionCollapse from './AccordionCollapse';
@@ -12,7 +12,6 @@ import AccordionContext from './AccordionContext';
 import AccordionHeader from './AccordionHeader';
 import AccordionItem from './AccordionItem';
 import { BsPrefixProps, BsPrefixRefForwardingComponent } from '../helpers';
-
 export interface AccordionProps
   extends Omit<React.HTMLAttributes<HTMLElement>, 'onSelect'>,
     BsPrefixProps {
@@ -66,10 +65,11 @@ const Accordion: BsPrefixRefForwardingComponent<'div', AccordionProps> =
 
     return (
       <AccordionContext.Provider value={contextValue}>
-        <Component
+        <SGDSWrapper
+          as={Component}
           ref={ref}
           {...controlledProps}
-          className={classNames(className, prefix, flush && `${prefix}-flush`)}
+          className={classNames( className, prefix, flush && `${prefix}-flush`)}
         />
       </AccordionContext.Provider>
     );
