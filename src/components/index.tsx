@@ -226,8 +226,8 @@ export type { ThemeProviderProps } from './ThemeProvider/ThemeProvider';
 //   ToggleButtonRadioProps,
 // } from './ToggleButtonGroup';
 
-// export { default as Tooltip } from './Tooltip';
-// export type { TooltipProps } from './Tooltip';
+export { default as Tooltip } from './Tooltip/Tooltip';
+export type { TooltipProps } from './Tooltip/Tooltip';
 
 import * as yup from 'yup';
 import * as formik from 'formik';
