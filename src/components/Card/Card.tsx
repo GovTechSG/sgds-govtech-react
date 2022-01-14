@@ -22,6 +22,7 @@ const CardSubtitle = createWithBsPrefix('card-subtitle', {
   Component: DivStyledAsH6,
 });
 const CardLink = createWithBsPrefix('card-link', { Component: 'a' });
+const CardStretchedLink = createWithBsPrefix('card-link stretched-link', { Component: 'a' });
 const CardText = createWithBsPrefix('card-text', { Component: 'p' });
 const CardFooter = createWithBsPrefix('card-footer');
 const CardImgOverlay = createWithBsPrefix('card-img-overlay');
@@ -123,6 +124,7 @@ export default Object.assign(Card, {
   Subtitle: CardSubtitle,
   Body: CardBody,
   Link: CardLink,
+  StretchedLink: CardStretchedLink,
   Text: CardText,
   Header: CardHeader,
   Footer: CardFooter,
