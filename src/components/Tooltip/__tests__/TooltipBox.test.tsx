@@ -1,13 +1,13 @@
 import { render } from '@testing-library/react';
-import Tooltip from '../Tooltip';
+import TooltipBox from '../TooltipBox';
 import * as React from 'react';
 
 describe('Tooltip', () => {
   it('Should output a tooltip with content', () => {
     const { getByTestId } = render(
-      <Tooltip data-testid="test-tooltip" placement="right">
+      <TooltipBox data-testid="test-tooltip" placement="right">
         <strong>Tooltip Content</strong>
-      </Tooltip>
+      </TooltipBox>
     );
 
     expect(getByTestId('test-tooltip').classList).toContain('tooltip');

@@ -5,7 +5,7 @@ import { render, fireEvent, waitFor, act } from '@testing-library/react';
 import sinon from 'sinon';
 import OverlayTrigger from '../OverlayTrigger';
 import Popover from '../../Popover/Popover';
-import Tooltip from '../../Tooltip/Tooltip';
+import TooltipBox from '../../Tooltip/TooltipBox';
 
 describe('<OverlayTrigger>', () => {
   // Swallow extra props.
@@ -347,7 +347,7 @@ describe('<OverlayTrigger>', () => {
       },
       {
         name: 'Tooltip',
-        overlay: <Tooltip id="test-tooltip">test</Tooltip>,
+        overlay: <TooltipBox id="test-tooltip">test</TooltipBox>,
       },
     ].forEach((testCase) => {
       describe(testCase.name, () => {

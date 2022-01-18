@@ -1,118 +1,58 @@
-import classNames from 'classnames';
 import * as React from 'react';
-import PropTypes from 'prop-types';
-import { OverlayArrowProps } from '@restart/ui/Overlay';
-import { useBootstrapPrefix, useIsRTL } from '../ThemeProvider/ThemeProvider';
+import { useState, useRef } from 'react';
 import { Placement } from '../types';
-import { BsPrefixProps, getOverlayDirection } from '../helpers';
+import Overlay, { OverlayChildren } from '../Overlay/Overlay';
+import Button from '../Button/Button';
+import OverlayTrigger from '../Overlay/OverlayTrigger';
+import TooltipBox from './TooltipBox';
 
-export interface TooltipProps
-  extends React.HTMLAttributes<HTMLDivElement>,
-    BsPrefixProps {
-  placement?: Placement;
-  arrowProps?: Partial<OverlayArrowProps>;
-  show?: boolean;
-  popper?: any;
+export interface TooltipProps {
+  placement: Placement;
+  type: 'hover' | 'click';
+  //   childComponent: JSX.Element
 }
-
-const propTypes = {
-  /**
-   * @default 'tooltip'
-   */
-  bsPrefix: PropTypes.string,
-
-  /**
-   * An html id attribute, necessary for accessibility
-   * @type {string}
-   * @required
-   */
-  id: PropTypes.string,
-
-  /**
-   * Sets the direction the Tooltip is positioned towards.
-   *
-   * > This is generally provided by the `Overlay` component positioning the tooltip
-   */
-  placement: PropTypes.oneOf([
-    'auto-start',
-    'auto',
-    'auto-end',
-    'top-start',
-    'top',
-    'top-end',
-    'right-start',
-    'right',
-    'right-end',
-    'bottom-end',
-    'bottom',
-    'bottom-start',
-    'left-end',
-    'left',
-    'left-start',
-  ]),
-
-  /**
-   * An Overlay injected set of props for positioning the tooltip arrow.
-   *
-   * > This is generally provided by the `Overlay` component positioning the tooltip
-   *
-   * @type {{ ref: ReactRef, style: Object }}
-   */
-  arrowProps: PropTypes.shape({
-    ref: PropTypes.any,
-    style: PropTypes.object,
-  }),
-
-  /** @private */
-  popper: PropTypes.object,
-
-  /** @private */
-  show: PropTypes.any,
+const defaultProps: TooltipProps = {
+  placement: 'top',
+  type: 'hover',
+  //   childComponent: <Button>test</Button>
 };
 
-const defaultProps = {
-  placement: 'right',
-};
-
-const Tooltip = React.forwardRef<HTMLDivElement, TooltipProps>(
-  (
-    {
-      bsPrefix,
-      placement,
-      className,
-      style,
-      children,
-      arrowProps,
-      popper: _,
-      show: _2,
-      ...props
-    }: TooltipProps,
-    ref,
-  ) => {
-    bsPrefix = useBootstrapPrefix(bsPrefix, 'tooltip');
-    const isRTL = useIsRTL();
-
-    const [primaryPlacement] = placement?.split('-') || [];
-    const bsDirection = getOverlayDirection(primaryPlacement, isRTL);
-
-    return (
-      <div
-        ref={ref}
-        style={style}
-        role="tooltip"
-        x-placement={primaryPlacement}
-        className={classNames(className, bsPrefix, `bs-tooltip-${bsDirection}`)}
-        {...props}
-      >
-        <div className="tooltip-arrow" {...arrowProps} />
-        <div className={`${bsPrefix}-inner`}>{children}</div>
-      </div>
-    );
-  },
+const HoverTooltip = (
+  placement: Placement,
+  overlay: JSX.Element
+): JSX.Element => (
+  <OverlayTrigger
+    placement={placement}
+    overlay={<TooltipBox>Tooltip</TooltipBox>}
+  >
+    {overlay}
+  </OverlayTrigger>
 );
 
-Tooltip.propTypes = propTypes as any;
-Tooltip.defaultProps = defaultProps as any;
-Tooltip.displayName = 'Tooltip';
+const Tooltip = (props: TooltipProps = defaultProps): JSX.Element => {
+  const { type, placement } = props;
+  const [show, setShow] = useState(false);
+  const target = useRef(null);
+  const ClickToolTip = () => (
+    <>
+      {
+        <Button ref={target} onClick={() => setShow(!show)}>
+          Click me!
+        </Button>
+      }
+      <Overlay target={target.current} show={show} placement={placement}>
+        {(props) => <TooltipBox {...props}>My Tooltip</TooltipBox>}
+      </Overlay>
+    </>
+  );
+  if (type === 'hover')
+    return HoverTooltip(
+      placement,
+      <Button ref={target} onClick={() => setShow(!show)}>
+        Click me!
+      </Button>
+    );
+  else return ClickToolTip();
+};
 
 export default Tooltip;

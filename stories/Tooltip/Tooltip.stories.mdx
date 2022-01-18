@@ -1,10 +1,44 @@
 import { ArgsTable, Canvas, Meta, Story } from '@storybook/addon-docs';
-import { Tooltip } from '../../src/components/index';
+import {
+  TooltipBox,
+  Button,
+  OverlayTrigger,
+  Row,
+  Col,
+} from '../../src/components/index';
+import { HIDDEN_COMMON_PROPS } from '../helpers';
 
-<Meta title="MDX/Modal" component={Tooltip} />
+<Meta
+  title="MDX/Tooltip"
+  component={TooltipBox}
+  argTypes={{ ...HIDDEN_COMMON_PROPS }}
+/>
+
+export function Template(args) {
+  return (
+    <Row>
+      <Col>
+        <OverlayTrigger
+          key="top"
+          placement="top"
+          overlay={<TooltipBox>Tooltip</TooltipBox>}
+        >
+          <Button variant="secondary">Tooltip</Button>
+        </OverlayTrigger>
+      </Col>
+    </Row>
+  );
+}
+
+# Tooltip
+
+Tooltip component needs to be used together with its parent component: `Overlay` or `OverlayTrigger`.
+`Tooltip` does not position itself, instead `Overlay` or `OverlayTrigger` components inject `ref` and `style` props
+
 
 <Canvas>
-    <Story name="Default">
-        
-    </Story>
+  <Story name="Default">{Template.bind({})}</Story> 
 </Canvas>
+
+<ArgsTable story="Default" />
+
