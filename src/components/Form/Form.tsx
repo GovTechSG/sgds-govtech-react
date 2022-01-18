@@ -17,6 +17,7 @@ export interface FormProps
   extends React.FormHTMLAttributes<HTMLFormElement>,
     AsProp {
   validated?: boolean;
+  searchIcon?: boolean;
 }
 
 const propTypes = {
@@ -36,6 +37,8 @@ const propTypes = {
    */
   validated: PropTypes.bool,
   as: PropTypes.elementType,
+
+  searchIcon: PropTypes.bool,
 };
 
 const Form: BsPrefixRefForwardingComponent<'form', FormProps> =
@@ -46,16 +49,18 @@ const Form: BsPrefixRefForwardingComponent<'form', FormProps> =
         validated,
         // Need to define the default "as" during prop destructuring to be compatible with styled-components github.com/react-bootstrap/react-bootstrap/issues/3595
         as: Component = 'form',
+        searchIcon = true,
         ...props
       },
-      ref,
+      ref
     ) => (
       <Component
         {...props}
+        searchIcon={searchIcon}
         ref={ref}
         className={classNames(className, validated && 'was-validated')}
       />
-    ),
+    )
   );
 
 Form.displayName = 'Form';

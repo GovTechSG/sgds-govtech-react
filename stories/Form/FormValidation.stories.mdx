@@ -1,0 +1,106 @@
+import { ArgsTable, Canvas, Meta, Story } from '@storybook/addon-docs';
+import {useState } from 'react';
+import { Form, Button, Col, InputGroup, Row } from '../../src/components/index';
+
+<Meta title="MDX/Form Validation" component={Form} />
+
+# Form Validation
+
+Provide valuable, actionable feedback to your users with HTML5 form validation, via browser default behaviors or custom styles and JavaScript.
+
+## 1. Native HTML5 Form Validation
+
+For native HTML form validation–available in all our supported browsers, the :valid and :invalid pseudo selectors are used to apply validation styles as well as display feedback messages.
+
+Bootstrap scopes the :valid and :invalid styles to parent .was-validated class, usually applied to the `<Form>` (you can use the validated prop as a shortcut). Otherwise, any required field without a value shows up as invalid on page load. This way, you may choose when to activate them (typically after form submission is attempted).
+
+export const Template = (args) => {
+  const [validated, setValidated] = useState(false);
+  const handleSubmit = (event) => {
+    const form = event.currentTarget;
+    if (form.checkValidity() === false) {
+      event.preventDefault();
+      event.stopPropagation();
+    }
+    setValidated(true);
+  };
+  return (
+    <Form noValidate validated={validated} onSubmit={handleSubmit}>
+      <Row className="mb-3">
+        <Form.Group as={Col} md="4" controlId="validationCustom01">
+          <Form.Label>First name</Form.Label>
+          <Form.Control
+            required
+            type="text"
+            placeholder="First name"
+            defaultValue="Mark"
+          />
+        </Form.Group>
+        <Form.Group as={Col} md="4" controlId="validationCustom02">
+          <Form.Label>Last name</Form.Label>
+          <Form.Control
+            required
+            type="text"
+            placeholder="Last name"
+            defaultValue="Otto"
+          />
+        </Form.Group>
+        <Form.Group as={Col} md="4" controlId="validationCustomUsername">
+          <Form.Label>Username</Form.Label>
+          <InputGroup hasValidation>
+          <Form.Control.Feedback type="invalid">
+              Please choose a username.
+            </Form.Control.Feedback>
+            <InputGroup.Text id="inputGroupPrepend">@</InputGroup.Text>
+            <Form.Control
+              type="text"
+              placeholder="Username"
+              aria-describedby="inputGroupPrepend"
+              required
+              searchIcon={false}
+            />
+          </InputGroup>
+        </Form.Group>
+      </Row>
+      <Row className="mb-3">
+        <Form.Group as={Col} md="6" controlId="validationCustom03">
+          <Form.Label>City</Form.Label>
+          <Form.Control type="text" placeholder="City" required />
+          <Form.Control.Feedback type="invalid">
+            Please provide a valid city.
+          </Form.Control.Feedback>
+        </Form.Group>
+        <Form.Group as={Col} md="3" controlId="validationCustom04">
+          <Form.Label>State</Form.Label>
+          <Form.Control type="text" placeholder="State" required />
+          <Form.Control.Feedback type="invalid">
+            Please provide a valid state.
+          </Form.Control.Feedback>
+        </Form.Group>
+        <Form.Group as={Col} md="3" controlId="validationCustom05">
+          <Form.Label>Zip</Form.Label>
+           <Form.Control.Feedback style={{ display: ''}} type="invalid">
+            Please provide a valid zip.
+          </Form.Control.Feedback>
+          <Form.Control type="text" placeholder="Zip" required searchIcon={false}/>
+        </Form.Group>
+      </Row>
+      <Form.Group className="mb-3">
+        <Form.Check
+          required
+          label="Agree to terms and conditions"
+          feedback="You must agree before submitting."
+          feedbackType="invalid"
+        />
+      </Form.Group>
+      <Button type="submit">Submit form</Button>
+    </Form>
+  );
+};
+
+<Canvas>
+  <Story name="Form Validation">{Template.bind({})}</Story>
+</Canvas>
+
+
+<ArgsTable story="Form Validation"/>

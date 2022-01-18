@@ -1,4 +1,4 @@
-import PropTypes from 'prop-types';
+// import PropTypes from 'prop-types';
 import * as React from 'react';
 import { useState } from 'react';
 import Pagination, { PaginationProps } from '../Pagination/Pagination';
@@ -6,43 +6,49 @@ import Pagination, { PaginationProps } from '../Pagination/Pagination';
 export interface PaginationExtendedProps extends PaginationProps {
   dataLength: number;
   currentPage: number;
-  itemsPerPage: number;
+  itemsPerPage?: number;
   limit?: number;
   setCurrentPage: React.Dispatch<React.SetStateAction<number>>;
-  setItemsPerPage: React.Dispatch<React.SetStateAction<number>>;
-  [other: string]: any;
-  //directionVariant: 'icon' | 'icon-text' |'text'
+  // setItemsPerPage: React.Dispatch<React.SetStateAction<number>>;
+  // [other: string]: any;
+  directionVariant?: 'icon' | 'icon-text' | 'text';
+  size: 'sm' | 'md' | 'lg';
 }
 
-const propTypes = {
-  /**
-   * @default 'paginationExtended'
-   * */
-  dataLength: PropTypes.number.isRequired,
-  currentPage: PropTypes.number.isRequired,
-  itemsPerPage: PropTypes.number.isRequired,
-  limit: PropTypes.number,
-  setCurrentPage: PropTypes.func.isRequired,
-  setItemsPerPage: PropTypes.func.isRequired,
-};
+// const propTypes = {
+//   /**
+//    * @default 'paginationExtended'
+//    * */
+//   dataLength: PropTypes.number.isRequired,
+//   currentPage: PropTypes.number.isRequired,
+//   itemsPerPage: PropTypes.number.isRequired,
+//   limit: PropTypes.number,
+//   directionVariant: PropTypes.oneOf(['icon', 'icon-text', 'text'] as const),
+  // setCurrentPage: PropTypes.func.isRequired,
+  // setItemsPerPage: PropTypes.func.isRequired,
+// };
 
-const defaultProps = {
-    dataLength : 0, 
-    currentPage: 1, 
-    itemsPerPage: 5,
-    limit: 3,
-    setCurrentPage: (): void => {},
-    setItemsPerPage: ():void  => {}
-}
+// const defaultProps = {
+//   dataLength: 0,
+//   currentPage: 1,
+//   itemsPerPage: 5,
+//   limit: 3,
+//   directionVariant: 'icon-text',
+//   size: 'sm',
+  // setCurrentPage: (): void => {},
+  // setItemsPerPage: ():void  => {}
+// };
 
-const PaginationExtended: React.FC<PaginationExtendedProps> = ({
+export const PaginationExtended: React.FC<PaginationExtendedProps> = ({
   dataLength = 0,
   currentPage = 1,
   itemsPerPage = 5,
   limit = 3,
   setCurrentPage,
+  directionVariant = 'icon-text',
+  size = 'sm',
 }) => {
-//   const [pageNumberLimit, setPageNumberLimit] = useState(limit);
+  //   const [pageNumberLimit, setPageNumberLimit] = useState(limit);
   const [maxPageNumberLimit, setMaxPageNumberLimit] = useState(limit);
   const [minPageNumberLimit, setMinPageNumberLimit] = useState(0);
 
@@ -63,13 +69,12 @@ const PaginationExtended: React.FC<PaginationExtendedProps> = ({
     let endPage;
 
     startPage = currentPage - Math.floor(limit / 2);
-    if (startPage <= 0) startPage = 1
-    if (startPage === 1) endPage = startPage + limit -1 
-        else endPage = currentPage + Math.floor(limit / 2);
-    if(endPage > pages.length) endPage = pages.length
+    if (startPage <= 0) startPage = 1;
+    if (startPage === 1) endPage = startPage + limit - 1;
+    else endPage = currentPage + Math.floor(limit / 2);
+    if (endPage > pages.length) endPage = pages.length;
 
-    if(currentPage === pages.length) startPage = pages.length - limit + 1
-
+    if (currentPage === pages.length) startPage = pages.length - limit + 1;
 
     for (let i = startPage; i <= endPage; i++) {
       pagesToShow.push(i);
@@ -107,25 +112,77 @@ const PaginationExtended: React.FC<PaginationExtendedProps> = ({
       <Pagination.Ellipsis onClick={handleNextButton} disabled />
     );
   }
-  return (
-    <Pagination size="sm" style={{ listStyle: 'none', display: 'flex' }}>
+
+  let renderDirectionVariantLeft;
+  let renderDirectionVariantRight;
+
+  if (directionVariant == 'text') {
+    renderDirectionVariantLeft = (
       <Pagination.Prev
         onClick={handlePrevButton}
         disabled={currentPage == pages[0] ? true : false}
-      />
-      {renderPgNumbers()}
-    
-      {pageIncrementBtn}
+      >
+        Previous
+      </Pagination.Prev>
+    );
+
+    renderDirectionVariantRight = (
       <Pagination.Next
         onClick={handleNextButton}
         disabled={currentPage == pages[pages.length - 1] ? true : false}
-      />
+      >
+        Next
+      </Pagination.Next>
+    );
+  } else if (directionVariant == 'icon') {
+    renderDirectionVariantLeft = (
+      <Pagination.Prev
+        onClick={handlePrevButton}
+        disabled={currentPage == pages[0] ? true : false}
+      >
+        <i className="bi bi-chevron-left"></i>
+      </Pagination.Prev>
+    );
+
+    renderDirectionVariantRight = (
+      <Pagination.Next
+        onClick={handleNextButton}
+        disabled={currentPage == pages[pages.length - 1] ? true : false}
+      >
+        <i className="bi bi-chevron-right"></i>
+      </Pagination.Next>
+    );
+  } else if (directionVariant == 'icon-text') {
+    renderDirectionVariantLeft = (
+      <Pagination.Prev
+        onClick={handlePrevButton}
+        disabled={currentPage == pages[0] ? true : false}
+      >
+        <i className="bi bi-chevron-left"></i> Previous
+      </Pagination.Prev>
+    );
+
+    renderDirectionVariantRight = (
+      <Pagination.Next
+        onClick={handleNextButton}
+        disabled={currentPage == pages[pages.length - 1] ? true : false}
+      >
+        Next <i className="bi bi-chevron-right"></i>
+      </Pagination.Next>
+    );
+  }
+
+  return (
+    <Pagination size={size}>
+      {renderDirectionVariantLeft}
+      {renderPgNumbers()}
+
+      {pageIncrementBtn}
+      {renderDirectionVariantRight}
     </Pagination>
-  );
+  )
 };
 
-PaginationExtended.propTypes = propTypes;
+// PaginationExtended.propTypes = propTypes;
 PaginationExtended.displayName = 'PaginationExtended';
 // PaginationExtended.defaultProps = defaultProps;
-
-export default PaginationExtended;

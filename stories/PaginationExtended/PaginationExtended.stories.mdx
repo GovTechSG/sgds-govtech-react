@@ -1,9 +1,62 @@
 import { ArgsTable, Canvas, Meta, Story } from '@storybook/addon-docs';
 import { useState, useEffect } from 'react';
-import { Pagination, PageItem, Table } from '../../src/components/index';
+// import { Pagination, PageItem, Table } from '../../src/components/index';
 import { PaginationExtended } from '../../src/components/index';
 
-<Meta title="MDX/PaginationExtended" component={PaginationExtended} />
+<Meta
+  title="MDX/PaginationExtended"
+  component={PaginationExtended}
+  argTypes={{
+    dataLength: {
+      description: 'A prop that inserts the length value from a given sets of data objects. Value can be set using useState hook.',
+      control: { disable: true }
+    },
+    currentPage: {
+      description: 'A prop that sets the starting active page upon render. Value can be set using useState hook.',
+      control: { disable: true }
+    },
+    itemsPerPage: {
+      description: 'A prop that sets the amount of data objects to be displayed per page. Value can be set using useState hook.',
+      control: { disable: true }
+    },
+    limit: {
+      description: 'A prop that sets the page limit to be displayed at any given render. e.g 3, 5, 7, 9',
+      
+    },
+    size: {
+      description: 'A prop that sets the size of all page items.',
+      table: {
+        type: { summary: 'string' },
+      },
+    },
+    directionVariant: {
+      description: 'A prop that sets the page direction button to contain text and/or icon.',
+      table: {
+        type: { summary: 'string' },
+      },
+    },
+     directionVariant: {
+      description: 'A prop that sets the page direction button to contain text and/or icon.',
+      table: {
+        type: { summary: 'string' },
+      },
+    },
+    setCurrentPage: {
+      description: 'A prop that is being triggered by clicking a page item which sets page numbering & enable active mode. Value to be inserted using useState hook',
+    control: { disable: true }
+    },
+    bsPrefix: { table: { disable: true } },
+    as: { table: { disable: true } },
+  }}
+/>
+
+# Pagination
+
+The Pagination component enables the user to select a specific page from a range of pages
+
+## 1. Pagination with data
+
+The `<PaginationExtended>` component will include some props which is needed for the pagination to work. Users will be required to provide the **data objects** to be passed in as data length, a **current page** set as initial active, and set the **number of data items** to be rendered per page. Below is a sample of pagination with a table formatted data.
 
 export const Template = (args) => {
   const renderData = (data) => {
@@ -24,7 +77,7 @@ export const Template = (args) => {
   const [data, setData] = useState([]);
   const [currentPage, setCurrentPage] = useState(1);
   const [itemsPerPage, setItemsPerPage] = useState(5);
-    const indexOfLastItem = currentPage * itemsPerPage;
+  const indexOfLastItem = currentPage * itemsPerPage;
   const indexofFirstItem = indexOfLastItem - itemsPerPage;
   const currentItems = data.slice(indexofFirstItem, indexOfLastItem);
   useEffect(() => {
@@ -32,7 +85,7 @@ export const Template = (args) => {
       .then((response) => response.json())
       .then((json) => setData(json));
     return () => {
-      setData([]); // This worked for me
+      setData([]);
     };
   }, []);
   return (
@@ -45,17 +98,14 @@ export const Template = (args) => {
             <th>Body</th>
           </tr>
         </thead>
-        <tbody>
-          {renderData(currentItems)}
-        </tbody>
+        <tbody>{renderData(currentItems)}</tbody>
       </Table>
-       <PaginationExtended
-       {...args}
-        dataLength= {data.length}
+      <PaginationExtended
+        {...args}
+        dataLength={data.length}
         currentPage={currentPage}
         setCurrentPage={setCurrentPage}
         itemsPerPage={itemsPerPage}
-        setItemsPerPage={setItemsPerPage}
       />
     </div>
   );
@@ -65,4 +115,65 @@ export const Template = (args) => {
   <Story name="PaginationExtended">{Template.bind({})}</Story>
 </Canvas>
 
-<ArgsTable story="PaginationExtended"/>
+<ArgsTable story="PaginationExtended" />
+
+```jsx
+import { PaginationExtended, Table } from 'sgds-react';
+import React, { useState, useEffect } from 'react';
+
+export const Template = (args) => {
+  const renderData = (data) => {
+    return (
+      <>
+        {data.map((post, index) => {
+          return (
+            <tr key={index}>
+              <td>{post.id}</td>
+              <td key={index}>{post.title}</td>
+              <td>{post.body}</td>
+            </tr>
+          );
+        })}
+      </>
+    );
+  };
+  const [data, setData] = useState([]);
+  const [currentPage, setCurrentPage] = useState(1);
+  const [itemsPerPage, setItemsPerPage] = useState(5);
+  const indexOfLastItem = currentPage * itemsPerPage;
+  const indexofFirstItem = indexOfLastItem - itemsPerPage;
+  const currentItems = data.slice(indexofFirstItem, indexOfLastItem);
+
+  // fetch api sample
+  useEffect(() => {
+    fetch('https://jsonplaceholder.typicode.com/posts')
+      .then((response) => response.json())
+      .then((json) => setData(json));
+    return () => {
+      setData([]);
+    };
+  }, []);
+
+  return (
+    <div>
+      <Table striped bordered hover>
+        <thead>
+          <tr>
+            <th>Id</th>
+            <th>Title</th>
+            <th>Body</th>
+          </tr>
+        </thead>
+        <tbody>{renderData(currentItems)}</tbody>
+      </Table>
+      <PaginationExtended
+        {...args}
+        dataLength={data.length}
+        currentPage={currentPage}
+        setCurrentPage={setCurrentPage}
+        itemsPerPage={itemsPerPage}
+      />
+    </div>
+  );
+};
+```

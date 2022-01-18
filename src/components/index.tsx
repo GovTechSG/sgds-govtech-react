@@ -99,8 +99,8 @@ export type { FormSelectProps } from './Form/FormSelect';
 // export type { ImageProps } from './Image';
 
 // export { default as Figure } from './Figure';
-// export { default as InputGroup } from './InputGroup';
-// export type { InputGroupProps } from './InputGroup';
+export { default as InputGroup } from './InputGroup';
+export type { InputGroupProps } from './InputGroup';
 
 // export { default as ListGroup } from './ListGroup';
 // export type { ListGroupProps } from './ListGroup';
@@ -153,7 +153,7 @@ export type { PageItemProps } from './PageItem';
 
 export { default as Pagination } from './Pagination/Pagination';
 export type { PaginationProps } from './Pagination/Pagination';
-export { default as PaginationExtended } from './PaginationExtended/PaginationExtended';
+export { PaginationExtended } from './PaginationExtended/PaginationExtended';
 export type { PaginationExtendedProps } from './PaginationExtended/PaginationExtended';
 
 // export { default as Placeholder } from './Placeholder';

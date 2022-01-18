@@ -6,12 +6,12 @@ import { useBootstrapPrefix } from '../ThemeProvider';
 import PageItem, { Ellipsis, First, Last, Next, Prev } from '../PageItem';
 import { BsPrefixProps } from '../helpers';
 
-type PaginationSize = 'sm' | 'lg';
+type PaginationSize = 'sm' | 'md' | 'lg';
 
 export interface PaginationProps
   extends BsPrefixProps,
     React.HTMLAttributes<HTMLUListElement> {
-  size?: 'sm' | 'lg';
+  size?: 'sm' | 'md' | 'lg';
 }
 
 const propTypes = {
@@ -23,9 +23,9 @@ const propTypes = {
   /**
    * Set's the size of all PageItems.
    *
-   * @type {('sm'|'lg')}
+   * @type {('sm' | 'md' | lg')}
    */
-  size: PropTypes.oneOf<PaginationSize>(['sm', 'lg']),
+  size: PropTypes.oneOf<PaginationSize>(['sm', 'md', 'lg']),
 };
 
 /**
