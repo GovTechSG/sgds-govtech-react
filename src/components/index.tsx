@@ -153,8 +153,8 @@ export type { PageItemProps } from './PageItem';
 
 export { default as Pagination } from './Pagination/Pagination';
 export type { PaginationProps } from './Pagination/Pagination';
-export { PaginationExtended } from './PaginationExtended/PaginationExtended';
-export type { PaginationExtendedProps } from './PaginationExtended/PaginationExtended';
+export { Paginations } from './Paginations/Paginations';
+export type { PaginationsProps } from './Paginations/Paginations';
 
 // export { default as Placeholder } from './Placeholder';
 // export type { PlaceholderProps } from './Placeholder';

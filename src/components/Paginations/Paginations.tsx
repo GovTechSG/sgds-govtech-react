@@ -3,7 +3,7 @@ import * as React from 'react';
 import { useState } from 'react';
 import Pagination, { PaginationProps } from '../Pagination/Pagination';
 
-export interface PaginationExtendedProps extends PaginationProps {
+export interface PaginationsProps extends PaginationProps {
   dataLength: number;
   currentPage: number;
   itemsPerPage?: number;
@@ -13,19 +13,20 @@ export interface PaginationExtendedProps extends PaginationProps {
   // [other: string]: any;
   directionVariant?: 'icon' | 'icon-text' | 'text';
   size: 'sm' | 'md' | 'lg';
+  ellipsisOn: boolean;
 }
 
 // const propTypes = {
 //   /**
-//    * @default 'paginationExtended'
+//    * @default 'paginations'
 //    * */
 //   dataLength: PropTypes.number.isRequired,
 //   currentPage: PropTypes.number.isRequired,
 //   itemsPerPage: PropTypes.number.isRequired,
 //   limit: PropTypes.number,
 //   directionVariant: PropTypes.oneOf(['icon', 'icon-text', 'text'] as const),
-  // setCurrentPage: PropTypes.func.isRequired,
-  // setItemsPerPage: PropTypes.func.isRequired,
+// setCurrentPage: PropTypes.func.isRequired,
+// setItemsPerPage: PropTypes.func.isRequired,
 // };
 
 // const defaultProps = {
@@ -35,11 +36,11 @@ export interface PaginationExtendedProps extends PaginationProps {
 //   limit: 3,
 //   directionVariant: 'icon-text',
 //   size: 'sm',
-  // setCurrentPage: (): void => {},
-  // setItemsPerPage: ():void  => {}
+// setCurrentPage: (): void => {},
+// setItemsPerPage: ():void  => {}
 // };
 
-export const PaginationExtended: React.FC<PaginationExtendedProps> = ({
+export const Paginations: React.FC<PaginationsProps> = ({
   dataLength = 0,
   currentPage = 1,
   itemsPerPage = 5,
@@ -47,6 +48,7 @@ export const PaginationExtended: React.FC<PaginationExtendedProps> = ({
   setCurrentPage,
   directionVariant = 'icon-text',
   size = 'sm',
+  ellipsisOn = false,
 }) => {
   //   const [pageNumberLimit, setPageNumberLimit] = useState(limit);
   const [maxPageNumberLimit, setMaxPageNumberLimit] = useState(limit);
@@ -105,13 +107,61 @@ export const PaginationExtended: React.FC<PaginationExtendedProps> = ({
       setMinPageNumberLimit(minPageNumberLimit - limit);
     }
   };
+
+  // handleclick for ellipsisOn
+
+  const handleNextEllipsisButton = () => {
+    setCurrentPage(currentPage + 3);
+    if (currentPage + 3 > maxPageNumberLimit) {
+      setMaxPageNumberLimit(maxPageNumberLimit + limit);
+      setMinPageNumberLimit(minPageNumberLimit + limit);
+    }
+  };
+  const handlePrevEllipsisButton = () => {
+    setCurrentPage(currentPage - 3);
+    if ((currentPage - 3) % minPageNumberLimit == 0) {
+      setMaxPageNumberLimit(maxPageNumberLimit - limit);
+      setMinPageNumberLimit(minPageNumberLimit - limit);
+    }
+  };
   // ellipsis increment logic
   let pageIncrementBtn = null;
-  if (pages.length > maxPageNumberLimit) {
+  let pageDecrementBtn = null;
+  if (ellipsisOn === false) {
+    if (pages.length > maxPageNumberLimit) {
+      pageIncrementBtn = (
+        <Pagination.Ellipsis onClick={handleNextButton} disabled />
+      );
+    }
+  } else {
+    pageDecrementBtn = (
+      <Pagination.Ellipsis
+        onClick={handlePrevEllipsisButton}
+        disabled={currentPage - limit <= pages[0] ? true : false}
+      />
+    );
     pageIncrementBtn = (
-      <Pagination.Ellipsis onClick={handleNextButton} disabled />
+      <Pagination.Ellipsis onClick={handleNextEllipsisButton} disabled={currentPage + limit >= pages.length ? true : false}/>
     );
   }
+
+  // if (ellipsisOn) {
+  //   if (pages.length > maxPageNumberLimit) {
+  //     pageIncrementBtn = (
+  //       <Pagination.Ellipsis onClick={handleNextEllipsisButton}/>
+  //     );
+  //     pageDecrementBtn = (
+  //       <Pagination.Ellipsis onClick={handlePrevEllipsisButton}/>
+  //     );
+  //   } else if (pages.length == maxPageNumberLimit){
+  //     pageIncrementBtn = (
+  //       <Pagination.Ellipsis onClick={handleNextEllipsisButton}/>
+  //     );
+  //     pageDecrementBtn = (
+  //       <Pagination.Ellipsis onClick={handlePrevEllipsisButton} disabled={currentPage == pages[0] ? true : false}/>
+  //     );
+  //   }
+  // }
 
   let renderDirectionVariantLeft;
   let renderDirectionVariantRight;
@@ -175,14 +225,14 @@ export const PaginationExtended: React.FC<PaginationExtendedProps> = ({
   return (
     <Pagination size={size}>
       {renderDirectionVariantLeft}
+      {pageDecrementBtn}
       {renderPgNumbers()}
-
       {pageIncrementBtn}
       {renderDirectionVariantRight}
     </Pagination>
-  )
+  );
 };
 
 // PaginationExtended.propTypes = propTypes;
-PaginationExtended.displayName = 'PaginationExtended';
+Paginations.displayName = 'Paginations';
 // PaginationExtended.defaultProps = defaultProps;

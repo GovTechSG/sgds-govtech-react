@@ -1,11 +1,10 @@
 import { ArgsTable, Canvas, Meta, Story } from '@storybook/addon-docs';
 import { useState, useEffect } from 'react';
-// import { Pagination, PageItem, Table } from '../../src/components/index';
-import { PaginationExtended } from '../../src/components/index';
+import { Paginations } from '../../src/components/index';
 
 <Meta
-  title="MDX/PaginationExtended"
-  component={PaginationExtended}
+  title="MDX/Paginations"
+  component={Paginations}
   argTypes={{
     dataLength: {
       description: 'A prop that inserts the length value from a given sets of data objects. Value can be set using useState hook.',
@@ -50,13 +49,13 @@ import { PaginationExtended } from '../../src/components/index';
   }}
 />
 
-# Pagination
+# Paginations
 
 The Pagination component enables the user to select a specific page from a range of pages
 
-## 1. Pagination with data
+## 1. Paginations
 
-The `<PaginationExtended>` component will include some props which is needed for the pagination to work. Users will be required to provide the **data objects** to be passed in as data length, a **current page** set as initial active, and set the **number of data items** to be rendered per page. Below is a sample of pagination with a table formatted data.
+The `<Paginations>` component will include some props which is needed for the pagination to work. Users will be required to provide the **data objects** to be passed in as data length, a **current page** set as initial active, and set the **number of data items** to be rendered per page. Below is a sample of pagination with a table formatted data.
 
 export const Template = (args) => {
   const renderData = (data) => {
@@ -100,7 +99,7 @@ export const Template = (args) => {
         </thead>
         <tbody>{renderData(currentItems)}</tbody>
       </Table>
-      <PaginationExtended
+      <Paginations
         {...args}
         dataLength={data.length}
         currentPage={currentPage}
@@ -112,13 +111,13 @@ export const Template = (args) => {
 };
 
 <Canvas>
-  <Story name="PaginationExtended">{Template.bind({})}</Story>
+  <Story name="Paginations">{Template.bind({})}</Story>
 </Canvas>
 
-<ArgsTable story="PaginationExtended" />
+<ArgsTable story="Paginations" />
 
 ```jsx
-import { PaginationExtended, Table } from 'sgds-react';
+import { Paginations, Table } from 'sgds-react';
 import React, { useState, useEffect } from 'react';
 
 export const Template = (args) => {
@@ -166,7 +165,7 @@ export const Template = (args) => {
         </thead>
         <tbody>{renderData(currentItems)}</tbody>
       </Table>
-      <PaginationExtended
+      <Paginations
         {...args}
         dataLength={data.length}
         currentPage={currentPage}

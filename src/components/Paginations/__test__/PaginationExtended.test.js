@@ -1,6 +1,6 @@
 import { mount, shallow } from 'enzyme';
 import * as React from 'react';
-import { PaginationExtended } from '../PaginationExtended';
+import { PaginationExtended } from '../Paginations';
 import Pagination from '../../Pagination/Pagination';
 import { act } from 'react-dom/test-utils';
 import sinon from 'sinon';

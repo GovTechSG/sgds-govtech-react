@@ -63,6 +63,28 @@ export const Template = (args) => {
   <Story name="Basic">{Template.bind({})}</Story>
 </Canvas>
 
+```jsx
+<Form onSubmit={onSubmit}>
+      <Form.Group className="mb-3" controlId="formBasicEmail">
+        <Form.Label>Email address</Form.Label>
+        <Form.Control htmlSize={5} type="email" placeholder="Enter email"/>
+        <Form.Text className="text-muted">
+          We'll never share your email with anyone else.
+        </Form.Text>
+      </Form.Group>
+      <Form.Group className="mb-3" controlId="formBasicPassword">
+        <Form.Label>Password</Form.Label>
+        <Form.Control type="password" placeholder="Password" />
+      </Form.Group>
+      <Form.Group className="mb-3" controlId="formBasicCheckbox">
+        <Form.Check type="checkbox" label="Check me out" />
+      </Form.Group>
+      <Button variant="primary" type="submit">
+        Submit
+      </Button>
+    </Form>
+````
+
 <ArgsTable story='Basic'/>
 
 The `<Form.Control>` component directly renders the `<input>` or other specified component. If you need to access the value of an uncontrolled `<Form.Control>`,
