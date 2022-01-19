@@ -14,13 +14,26 @@ export const commonInputPropsArgType = (modalProps: BaseModalProps) => {
 };
 
 const checkPropType = (type: any) => {
-    if (type === String) {
-        return 'string'
-    } 
-    if (type === Boolean)
-        return 'boolean'
-    
-    return 'object'
-}
+  if (type === String) {
+    return 'string';
+  }
+  if (type === Boolean) return 'boolean';
 
-export const HIDDEN_COMMON_PROPS = { bsPrefix: { table: { disable: true } } };
+  return 'object';
+};
+
+export const HIDDEN_COMMON_PROPS = {
+  bsPrefix: { table: { disable: true } },
+  as: { table: { disable: true } },
+};
+
+export const VARIANT = [
+  'primary',
+  'secondary',
+  'success',
+  'danger',
+  'warning',
+  'info',
+  'dark',
+  'light',
+];

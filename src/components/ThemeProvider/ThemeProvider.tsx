@@ -32,7 +32,6 @@ ThemeProvider.propTypes = {
   dir: PropTypes.string,
 } as any;
 
-export const SGDS_PREFIX = 'sgds'
 export function useBootstrapPrefix(
   prefix: string | undefined,
   defaultPrefix: string,

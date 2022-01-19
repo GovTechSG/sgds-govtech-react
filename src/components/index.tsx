@@ -35,13 +35,13 @@ export type { ButtonProps } from './Button/Button';
 // export { default as ButtonToolbar } from './ButtonToolbar';
 // export type { ButtonToolbarProps } from './ButtonToolbar';
 
-// export { default as Card } from './Card';
-// export type { CardProps } from './Card';
+export { default as Card } from './Card/Card';
+export type { CardProps } from './Card/Card';
 
-// export { default as CardImg } from './CardImg';
-// export type { CardImgProps } from './CardImg';
+export { default as CardImg } from './Card/CardImg';
+export type { CardImgProps } from './Card/CardImg';
 
-// export { default as CardGroup } from './CardGroup';
+export { default as CardGroup } from './Card/CardGroup';
 // export { default as Carousel } from './Carousel';
 // export type { CarouselProps } from './Carousel';
 
