@@ -41,7 +41,7 @@ export interface OverlayProps
   extends Omit<BaseOverlayProps, 'children' | 'transition' | 'rootCloseEvent'> {
   children: OverlayChildren;
   transition?: TransitionType;
-  placement?: Placement;
+  placement?: Placement | undefined;
   rootCloseEvent?: RootCloseEvent;
 }
 
@@ -124,9 +124,6 @@ const propTypes = {
    * The placement of the Overlay in relation to it's `target`.
    */
   placement: PropTypes.oneOf<Placement>([
-    'auto-start',
-    'auto',
-    'auto-end',
     'top-start',
     'top',
     'top-end',

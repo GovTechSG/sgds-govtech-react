@@ -1,58 +1,62 @@
 import * as React from 'react';
 import { useState, useRef } from 'react';
 import { Placement } from '../types';
-import Overlay, { OverlayChildren } from '../Overlay/Overlay';
-import Button from '../Button/Button';
+import Overlay from '../Overlay/Overlay';
 import OverlayTrigger from '../Overlay/OverlayTrigger';
 import TooltipBox from './TooltipBox';
+import CloseButton from '../CloseButton/CloseButton';
 
 export interface TooltipProps {
   placement: Placement;
   type: 'hover' | 'click';
-  //   childComponent: JSX.Element
+  children: JSX.Element;
+  content: string;
 }
 const defaultProps: TooltipProps = {
   placement: 'top',
   type: 'hover',
-  //   childComponent: <Button>test</Button>
+  children: <></>,
+  content: '',
 };
 
-const HoverTooltip = (
-  placement: Placement,
-  overlay: JSX.Element
-): JSX.Element => (
-  <OverlayTrigger
-    placement={placement}
-    overlay={<TooltipBox>Tooltip</TooltipBox>}
-  >
-    {overlay}
-  </OverlayTrigger>
-);
-
-const Tooltip = (props: TooltipProps = defaultProps): JSX.Element => {
-  const { type, placement } = props;
+export const Tooltip = (props: TooltipProps = defaultProps): JSX.Element => {
+  const { type, placement, children, content } = props;
   const [show, setShow] = useState(false);
   const target = useRef(null);
-  const ClickToolTip = () => (
+  const clickToolTip = () => (
     <>
-      {
-        <Button ref={target} onClick={() => setShow(!show)}>
-          Click me!
-        </Button>
-      }
+      {React.cloneElement(children, {
+        onClick: () => setShow(!show),
+        ref: target,
+      })}
       <Overlay target={target.current} show={show} placement={placement}>
-        {(props) => <TooltipBox {...props}>My Tooltip</TooltipBox>}
+        {(props) => (
+          <TooltipBox
+            {...props}
+            closeBtn={
+              <CloseButton variant="white" onClick={() => setShow(!show)} />
+            }
+          >
+            {content}
+          </TooltipBox>
+        )}
       </Overlay>
     </>
   );
-  if (type === 'hover')
-    return HoverTooltip(
-      placement,
-      <Button ref={target} onClick={() => setShow(!show)}>
-        Click me!
-      </Button>
-    );
-  else return ClickToolTip();
+  const hoverTooltip = () => (
+    <OverlayTrigger
+      placement={placement}
+      overlay={<TooltipBox>{content}</TooltipBox>}
+    >
+      {React.cloneElement(children, {
+        onClick: () => setShow(!show),
+        ref: target,
+      })}
+    </OverlayTrigger>
+  );
+  return type === 'hover' ? hoverTooltip() : clickToolTip();
 };
+
+Tooltip.defaultProps = defaultProps;
 
 export default Tooltip;

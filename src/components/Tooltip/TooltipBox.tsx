@@ -1,6 +1,5 @@
 import classNames from 'classnames';
 import * as React from 'react';
-import PropTypes from 'prop-types';
 import { OverlayArrowProps } from '@restart/ui/Overlay';
 import { useBootstrapPrefix, useIsRTL } from '../ThemeProvider/ThemeProvider';
 import { Placement } from '../types';
@@ -13,62 +12,8 @@ export interface TooltipBoxProps
   arrowProps?: Partial<OverlayArrowProps>;
   show?: boolean;
   popper?: any;
+  closeBtn?: JSX.Element;
 }
-
-const propTypes = {
-  /**
-   * @default 'tooltip'
-   */
-  bsPrefix: PropTypes.string,
-
-  /**
-   * An html id attribute, necessary for accessibility
-   * @type {string}
-   * @required
-   */
-  id: PropTypes.string,
-
-  /**
-   * Sets the direction the Tooltip is positioned towards.
-   *
-   * > This is generally provided by the `Overlay` component positioning the tooltip
-   */
-  placement: PropTypes.oneOf([
-    'auto-start',
-    'auto',
-    'auto-end',
-    'top-start',
-    'top',
-    'top-end',
-    'right-start',
-    'right',
-    'right-end',
-    'bottom-end',
-    'bottom',
-    'bottom-start',
-    'left-end',
-    'left',
-    'left-start',
-  ]),
-
-  /**
-   * An Overlay injected set of props for positioning the tooltip arrow.
-   *
-   * > This is generally provided by the `Overlay` component positioning the tooltip
-   *
-   * @type {{ ref: ReactRef, style: Object }}
-   */
-  arrowProps: PropTypes.shape({
-    ref: PropTypes.any,
-    style: PropTypes.object,
-  }),
-
-  /** @private */
-  popper: PropTypes.object,
-
-  /** @private */
-  show: PropTypes.any,
-};
 
 const defaultProps = {
   placement: 'right',
@@ -85,9 +30,10 @@ const TooltipBox = React.forwardRef<HTMLDivElement, TooltipBoxProps>(
       arrowProps,
       popper: _,
       show: _2,
+      closeBtn,
       ...props
     }: TooltipBoxProps,
-    ref,
+    ref
   ) => {
     bsPrefix = useBootstrapPrefix(bsPrefix, 'tooltip');
     const isRTL = useIsRTL();
@@ -105,14 +51,16 @@ const TooltipBox = React.forwardRef<HTMLDivElement, TooltipBoxProps>(
         {...props}
       >
         <div className="tooltip-arrow" {...arrowProps} />
-        <div className={`${bsPrefix}-inner`}>{children}</div>
+        <div className={`${bsPrefix}-inner`}>
+          {children}
+          { closeBtn}
+        </div>
       </div>
     );
-  },
+  }
 );
 
-TooltipBox.propTypes = propTypes as any;
-TooltipBox.defaultProps = defaultProps as any;
+TooltipBox.defaultProps = defaultProps as Partial<TooltipBoxProps>;
 TooltipBox.displayName = 'Tooltip';
 
 export default TooltipBox;
