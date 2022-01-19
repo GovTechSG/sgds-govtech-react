@@ -4,16 +4,19 @@ import AccordionButton from '../AccordionButton';
 
 describe('<AccordionButton>', () => {
   it('Should have button as default component', () => {
-    mount(<AccordionButton />).assertSingle('button[type="button"]');
+    const wrapper = mount(<AccordionButton />).find('button[type="button"]');
+    expect(wrapper).toBeDefined();
   });
 
-//   it('Should allow rendering as different component', () => {
-//     mount(<AccordionButton as="div" />).assertSingle('div.accordion-button');
-//   });
+  it('Should allow rendering as different component', () => {
+    const wrapper = mount(<AccordionButton as="div" />).find('div.accordion-button');
+    expect(wrapper).toBeDefined();
+  });
 
   // Just to get full coverage on the useAccordionButton click handler.
   it('Should just work if there is no onSelect or onClick handler', () => {
-    const wrapper = mount(<AccordionButton />);
-    wrapper.simulate('click');
+    const mockCallBack = jest.fn();
+    const wrapper = mount(<AccordionButton onClick={mockCallBack} />);
+    expect(mockCallBack.mock.calls.length).toBeDefined();
   });
 });
