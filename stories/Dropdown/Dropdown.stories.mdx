@@ -9,9 +9,7 @@ import { useState } from 'react';
   argTypes={{
     ...HIDDEN_COMMON_PROPS,
     drop: {
-      description:
-        'Determines the direction and location of the Menu in relation to its Toggle',
-      control: { type: 'select' },
+      table: {disable: true}
     },
     align: {
       description: `Aligns the dropdown menu to the specified side of the Dropdown toggle`,
@@ -105,7 +103,7 @@ Notice how the dropdown is toggled in each scenario by clicking on the button.
     <Col>
       <Dropdown autoClose="inside">
         <Dropdown.Toggle variant="white" id="dropdown-autoclose-inside">
-          Clickable Outside
+          Click Inside To Close
         </Dropdown.Toggle>
         <Dropdown.Menu>
           <Dropdown.Item href="#">Menu Item</Dropdown.Item>
@@ -117,7 +115,7 @@ Notice how the dropdown is toggled in each scenario by clicking on the button.
     <Col>
       <Dropdown autoClose="outside">
         <Dropdown.Toggle variant="white" id="dropdown-autoclose-outside">
-          Clickable Inside
+          Clickable Outside To Close
         </Dropdown.Toggle>
         <Dropdown.Menu>
           <Dropdown.Item href="#">Menu Item</Dropdown.Item>
@@ -129,7 +127,7 @@ Notice how the dropdown is toggled in each scenario by clicking on the button.
     <Col>
       <Dropdown autoClose={false}>
         <Dropdown.Toggle variant="white" id="dropdown-autoclose-false">
-          Manual Close
+          Click Button to Close
         </Dropdown.Toggle>
         <Dropdown.Menu>
           <Dropdown.Item href="#">Menu Item</Dropdown.Item>
