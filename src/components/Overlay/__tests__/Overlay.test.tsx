@@ -1,7 +1,7 @@
 import * as React from 'react';
 import {  render, waitFor } from '@testing-library/react';
 import Overlay from '../Overlay';
-import Popover from '../../Popover/Popover';
+import TooltipBox from '../../Tooltip/TooltipBox' 
 
 describe('<Overlay>', () => {
   it('should forward ref to the overlay', () => {
@@ -9,7 +9,7 @@ describe('<Overlay>', () => {
     waitFor(() => {
       render(
         <Overlay ref={ref} show target={ref.current}>
-          <Popover id="my-overlay">test</Popover>
+          <TooltipBox id="my-overlay">test</TooltipBox>
         </Overlay>,
       );
       
@@ -21,9 +21,9 @@ describe('<Overlay>', () => {
     const ref = React.createRef<any>();
     const { getByTestId } = render(
       <Overlay show transition ref={ref} target={ref.current}>
-        <Popover id="my-overlay" data-testid="test">
+        <TooltipBox id="my-overlay" data-testid="test">
           test
-        </Popover>
+        </TooltipBox>
       </Overlay>,
     );
     const popoverElem = getByTestId('test');
@@ -34,9 +34,9 @@ describe('<Overlay>', () => {
     const ref = React.createRef<any>();
     const { getByTestId } = render(
       <Overlay show transition={false} ref={ref} target={ref.current}>
-        <Popover id="my-overlay" data-testid="test">
+        <TooltipBox id="my-overlay" data-testid="test">
           test
-        </Popover>
+        </TooltipBox>
       </Overlay>,
     );
     const popoverElem = getByTestId('test');

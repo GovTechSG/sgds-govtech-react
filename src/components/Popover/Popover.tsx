@@ -1,6 +1,5 @@
 import classNames from 'classnames';
 import * as React from 'react';
-import PropTypes from 'prop-types';
 import { OverlayArrowProps } from '@restart/ui/Overlay';
 import { useBootstrapPrefix, useIsRTL } from '../ThemeProvider/ThemeProvider';
 import PopoverHeader from './PopoverHeader';
@@ -18,65 +17,6 @@ export interface PopoverProps
   popper?: any;
   show?: boolean;
 }
-
-const propTypes = {
-  /**
-   * @default 'popover'
-   */
-  bsPrefix: PropTypes.string,
-
-  /**
-   * An html id attribute, necessary for accessibility
-   * @type {string}
-   * @required
-   */
-  id: PropTypes.string,
-
-  /**
-   * Sets the direction the Popover is positioned towards.
-   *
-   * > This is generally provided by the `Overlay` component positioning the popover
-   */
-  placement: PropTypes.oneOf<Placement>([
-    'auto-start',
-    'auto',
-    'auto-end',
-    'top-start',
-    'top',
-    'top-end',
-    'right-start',
-    'right',
-    'right-end',
-    'bottom-end',
-    'bottom',
-    'bottom-start',
-    'left-end',
-    'left',
-    'left-start',
-  ]),
-
-  /**
-   * An Overlay injected set of props for positioning the popover arrow.
-   *
-   * > This is generally provided by the `Overlay` component positioning the popover
-   */
-  arrowProps: PropTypes.shape({
-    ref: PropTypes.any,
-    style: PropTypes.object,
-  }),
-
-  /**
-   * When this prop is set, it creates a Popover with a Popover.Body inside
-   * passing the children directly to it
-   */
-  body: PropTypes.bool,
-
-  /** @private */
-  popper: PropTypes.object,
-
-  /** @private */
-  show: PropTypes.bool,
-};
 
 const defaultProps: Partial<PopoverProps> = {
   placement: 'right',
@@ -123,7 +63,6 @@ const Popover = React.forwardRef<HTMLDivElement, PopoverProps>(
   },
 );
 
-Popover.propTypes = propTypes as any;
 Popover.defaultProps = defaultProps;
 
 export default Object.assign(Popover, {

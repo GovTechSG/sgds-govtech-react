@@ -3,7 +3,6 @@ import * as React from 'react';
 import { render, fireEvent, waitFor, act } from '@testing-library/react';
 import sinon from 'sinon';
 import OverlayTrigger from '../OverlayTrigger';
-import Popover from '../../Popover/Popover';
 import TooltipBox from '../../Tooltip/TooltipBox';
  
 describe('<OverlayTrigger>', () => {
@@ -340,10 +339,10 @@ describe('<OverlayTrigger>', () => {
 
   describe('overlay types', () => {
     [
-      {
-        name: 'Popover',
-        overlay: <Popover id="test-popover">test</Popover>,
-      },
+      // {
+      //   name: 'Popover',
+      //   overlay: <Popover id="test-popover">test</Popover>,
+      // },
       {
         name: 'Tooltip',
         overlay: <TooltipBox id="test-tooltip">test</TooltipBox>,
