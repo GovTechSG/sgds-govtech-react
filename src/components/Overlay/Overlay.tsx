@@ -1,7 +1,6 @@
 import * as React from 'react';
 import { useRef } from 'react';
 import classNames from 'classnames';
-import PropTypes from 'prop-types';
 import BaseOverlay, {
   OverlayProps as BaseOverlayProps,
   OverlayArrowProps,
@@ -44,100 +43,6 @@ export interface OverlayProps
   placement?: Placement | undefined;
   rootCloseEvent?: RootCloseEvent;
 }
-
-const propTypes = {
-  /**
-   * A component instance, DOM node, or function that returns either.
-   * The `container` element will have the Overlay appended to it via a React portal.
-   */
-  container: PropTypes.oneOfType([componentOrElement, PropTypes.func]),
-
-  /**
-   * A component instance, DOM node, or function that returns either.
-   * The overlay will be positioned in relation to the `target`
-   */
-  target: PropTypes.oneOfType([componentOrElement, PropTypes.func]),
-
-  /**
-   * Set the visibility of the Overlay
-   */
-  show: PropTypes.bool,
-
-  /**
-   * A set of popper options and props passed directly to Popper.
-   */
-  popperConfig: PropTypes.object,
-
-  /**
-   * Specify whether the overlay should trigger onHide when the user clicks outside the overlay
-   */
-  rootClose: PropTypes.bool,
-
-  /**
-   * Specify event for triggering a "root close" toggle.
-   */
-  rootCloseEvent: PropTypes.oneOf<RootCloseEvent>(['click', 'mousedown']),
-
-  /**
-   * A callback invoked by the overlay when it wishes to be hidden. Required if
-   * `rootClose` is specified.
-   */
-  onHide: PropTypes.func,
-
-  /**
-   * Animate the entering and exiting of the Overlay. `true` will use the `<Fade>` transition,
-   * or a custom react-transition-group `<Transition>` component can be provided.
-   */
-  transition: PropTypes.oneOfType([PropTypes.bool, elementType]),
-
-  /**
-   * Callback fired before the Overlay transitions in
-   */
-  onEnter: PropTypes.func,
-
-  /**
-   * Callback fired as the Overlay begins to transition in
-   */
-  onEntering: PropTypes.func,
-
-  /**
-   * Callback fired after the Overlay finishes transitioning in
-   */
-  onEntered: PropTypes.func,
-
-  /**
-   * Callback fired right before the Overlay transitions out
-   */
-  onExit: PropTypes.func,
-
-  /**
-   * Callback fired as the Overlay begins to transition out
-   */
-  onExiting: PropTypes.func,
-
-  /**
-   * Callback fired after the Overlay finishes transitioning out
-   */
-  onExited: PropTypes.func,
-
-  /**
-   * The placement of the Overlay in relation to it's `target`.
-   */
-  placement: PropTypes.oneOf<Placement>([
-    'top-start',
-    'top',
-    'top-end',
-    'right-start',
-    'right',
-    'right-end',
-    'bottom-end',
-    'bottom',
-    'bottom-start',
-    'left-end',
-    'left',
-    'left-start',
-  ]),
-};
 
 const defaultProps: Partial<OverlayProps> = {
   transition: Fade,
@@ -220,7 +125,6 @@ const Overlay = React.forwardRef<HTMLElement, OverlayProps>(
 );
 
 Overlay.displayName = 'Overlay';
-Overlay.propTypes = propTypes;
 Overlay.defaultProps = defaultProps;
 
 export default Overlay;

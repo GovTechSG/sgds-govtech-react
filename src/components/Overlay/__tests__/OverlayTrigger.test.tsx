@@ -1,12 +1,11 @@
 import PropTypes from 'prop-types';
 import * as React from 'react';
-// import { fireEvent, render, act } from '@testing-library/react';
 import { render, fireEvent, waitFor, act } from '@testing-library/react';
 import sinon from 'sinon';
 import OverlayTrigger from '../OverlayTrigger';
 import Popover from '../../Popover/Popover';
 import TooltipBox from '../../Tooltip/TooltipBox';
-
+ 
 describe('<OverlayTrigger>', () => {
   // Swallow extra props.
   const TemplateDiv = React.forwardRef(
