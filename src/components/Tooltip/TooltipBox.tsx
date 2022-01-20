@@ -1,7 +1,7 @@
 import classNames from 'classnames';
 import * as React from 'react';
 import { OverlayArrowProps } from '@restart/ui/Overlay';
-import { useBootstrapPrefix, useIsRTL } from '../ThemeProvider/ThemeProvider';
+import { useBootstrapPrefix, useIsRTL, SGDSWrapper } from '../ThemeProvider/ThemeProvider';
 import { Placement } from '../types';
 import { BsPrefixProps, getOverlayDirection } from '../helpers';
 
@@ -42,7 +42,7 @@ const TooltipBox = React.forwardRef<HTMLDivElement, TooltipBoxProps>(
     const bsDirection = getOverlayDirection(primaryPlacement, isRTL);
 
     return (
-      <div
+      <SGDSWrapper
         ref={ref}
         style={style}
         role="tooltip"
@@ -55,7 +55,7 @@ const TooltipBox = React.forwardRef<HTMLDivElement, TooltipBoxProps>(
           {children}
           { closeBtn}
         </div>
-      </div>
+      </SGDSWrapper>
     );
   }
 );

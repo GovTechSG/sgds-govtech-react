@@ -12,9 +12,11 @@ describe('TooltipBox', () => {
 
     expect(getByTestId('test-tooltip-box').classList).toContain('tooltip');
     expect(getByTestId('test-tooltip-box').classList).toContain('bs-tooltip-end');
+    expect(getByTestId('test-tooltip-box').classList).toContain('sgds');
 
     expect(getByTestId('test-tooltip-box').getAttribute('x-placement')).toEqual(
       'right'
     );
   });
 });
+ 

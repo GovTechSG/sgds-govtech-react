@@ -2,15 +2,15 @@ import {
   render,
   fireEvent,
   screen,
-  waitForElementToBeRemoved,
   waitFor,
+  waitForElementToBeRemoved,
 } from '@testing-library/react';
 import Tooltip from '../Tooltip';
 import * as React from 'react';
 import Button from '../../Button/Button';
 
 describe('Tooltip', () => {
-  it('default Tooltip should appear on hover', () => {
+  it('default Tooltip should appear on hover', async () => {
     const { container } = render(
       <Tooltip content="default tooltip">
         <button>Tooltip Content</button>
@@ -20,13 +20,15 @@ describe('Tooltip', () => {
     expect($button).toBeDefined();
     expect(screen.queryByText('default tooltip')).toBeNull();
     fireEvent.mouseOver($button as HTMLButtonElement);
-    expect(screen.queryByText('default tooltip')).not.toBeNull();
-    expect(screen.queryByRole('tooltip')?.classList).toContain(
-      'bs-tooltip-top'
-    );
+    await waitFor(() => {
+      expect(screen.queryByText('default tooltip')).not.toBeNull();
+      expect(screen.queryByRole('tooltip')?.classList).toContain(
+        'bs-tooltip-top'
+      );
+    });
   });
 
-  it('change placement prop value should change bs-tooltip-xx class', () => {
+  it('change placement prop value should change bs-tooltip-xx class', async () => {
     const { container } = render(
       <Tooltip content="default tooltip" placement="bottom">
         <button>Tooltip Content</button>
@@ -36,7 +38,9 @@ describe('Tooltip', () => {
 
     fireEvent.mouseOver($button as HTMLButtonElement);
     const $tooltip = screen.queryByRole('tooltip');
-    expect($tooltip?.classList).toContain('bs-tooltip-bottom');
+    await waitFor(() =>
+      expect($tooltip?.classList).toContain('bs-tooltip-bottom')
+    );
   });
 
   it('clickable tooltip should not be hoverable', async () => {
@@ -46,37 +50,42 @@ describe('Tooltip', () => {
       </Tooltip>
     );
     const $button = container.querySelectorAll('button')[0];
-      // hover should not open tooltip
+    // hover should not open tooltip
     fireEvent.mouseOver($button as HTMLButtonElement);
+    await waitFor(() => {
+      expect(screen.queryByText('default tooltip')).toBeNull();
+      expect(screen.queryByText('default tooltip')?.children).toBeUndefined();
+    });
 
-    expect(screen.queryByText('default tooltip')).toBeNull();
-    expect(screen.queryByText('default tooltip')?.children).toBeUndefined();
-    
-      // click should open tooltip
+    // click should open tooltip
     fireEvent.click($button as HTMLButtonElement);
-    expect(screen.queryByText('default tooltip')).not.toBeNull();
-    expect(screen.queryByText('default tooltip')?.children.length).toEqual(1);
-    expect(
-      screen.queryByText('default tooltip')?.children[0].classList
-    ).toContain('btn-close');
+    await waitFor(() => {
+      expect(screen.queryByText('default tooltip')).not.toBeNull();
+      expect(screen.queryByText('default tooltip')?.children.length).toEqual(1);
+      expect(
+        screen.queryByText('default tooltip')?.children[0].classList
+      ).toContain('btn-close');
+    });
 
-      // close tooltip by clicking on target element
+    // close tooltip by clicking on target element
     fireEvent.click($button as HTMLButtonElement);
     await waitForElementToBeRemoved(screen.queryByText('default tooltip'));
     expect(screen.queryByText('default tooltip')).toBeNull();
-    
-    // open tooltip again 
+
+    // open tooltip again
     fireEvent.click($button as HTMLButtonElement);
-    await waitFor(() => 
+    await waitFor(() =>
       expect(screen.queryByText('default tooltip')).not.toBeNull()
     );
 
-    // clicking document cannot close tooltip 
-    fireEvent.click(document)
-    await waitFor(() => expect(screen.queryByText('default tooltip')).not.toBeNull())
+    // clicking document cannot close tooltip
+    fireEvent.click(document);
+    await waitFor(() =>
+      expect(screen.queryByText('default tooltip')).not.toBeNull()
+    );
     const $closeBtn = screen.queryByText('default tooltip')?.children[0];
 
-    // close tooltip by clicking on closeBtn 
+    // close tooltip by clicking on closeBtn
     fireEvent.click($closeBtn as HTMLButtonElement);
     await waitForElementToBeRemoved(screen.queryByText('default tooltip'));
     expect(screen.queryByText('default tooltip')).toBeNull();

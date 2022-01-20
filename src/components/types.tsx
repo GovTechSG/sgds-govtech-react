@@ -1,5 +1,4 @@
 import PropTypes from 'prop-types';
-import {BasePlacement, VariationPlacement} from '@popperjs/core'
 
 export type Variant =
   | 'primary'
