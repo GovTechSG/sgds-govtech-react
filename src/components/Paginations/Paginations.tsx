@@ -1,7 +1,7 @@
 // import PropTypes from 'prop-types';
 import * as React from 'react';
 import { useState } from 'react';
-import PaginationBase, { PaginationBaseProps } from '../Pagination/PaginationBase';
+import PaginationBase, { PaginationBaseProps } from '../PaginationBase/PaginationBase';
 
 export interface PaginationsProps extends PaginationBaseProps {
   dataLength: number;

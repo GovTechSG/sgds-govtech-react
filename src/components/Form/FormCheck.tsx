@@ -6,7 +6,7 @@ import Feedback, { FeedbackType } from '../Feedback';
 import FormCheckInput from './FormCheckInput';
 import FormCheckLabel from './FormCheckLabel';
 import FormContext from './FormContext';
-import { useBootstrapPrefix } from '../ThemeProvider';
+import { useBootstrapPrefix } from '../ThemeProvider/ThemeProvider';
 import { BsPrefixProps, BsPrefixRefForwardingComponent } from '../helpers';
 
 export type FormCheckType = 'checkbox' | 'radio' | 'switch';

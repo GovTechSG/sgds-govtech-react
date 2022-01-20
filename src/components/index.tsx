@@ -35,13 +35,13 @@ export type { ButtonProps } from './Button/Button';
 // export { default as ButtonToolbar } from './ButtonToolbar';
 // export type { ButtonToolbarProps } from './ButtonToolbar';
 
-// export { default as Card } from './Card';
-// export type { CardProps } from './Card';
+export { default as Card } from './Card/Card';
+export type { CardProps } from './Card/Card';
 
-// export { default as CardImg } from './CardImg';
-// export type { CardImgProps } from './CardImg';
+export { default as CardImg } from './Card/CardImg';
+export type { CardImgProps } from './Card/CardImg';
 
-// export { default as CardGroup } from './CardGroup';
+export { default as CardGroup } from './Card/CardGroup';
 // export { default as Carousel } from './Carousel';
 // export type { CarouselProps } from './Carousel';
 
@@ -151,8 +151,8 @@ export { default as ModalTitle } from './Modal/ModalTitle';
 export { default as PageItem } from './PageItem';
 export type { PageItemProps } from './PageItem';
 
-export { default as Pagination } from './Pagination/PaginationBase';
-export type { PaginationProps } from './Pagination/PaginationBase';
+export { default as PaginationBase } from './PaginationBase/PaginationBase';
+export type { PaginationBaseProps } from './PaginationBase/PaginationBase';
 export { Paginations } from './Paginations/Paginations';
 export type { PaginationsProps } from './Paginations/Paginations';
 
@@ -203,8 +203,8 @@ export type { TableProps } from './Table/Table';
 // export { default as Tabs } from './Tabs';
 // export type { TabsProps } from './Tabs';
 
-export { default as ThemeProvider } from './ThemeProvider';
-export type { ThemeProviderProps } from './ThemeProvider';
+export { default as ThemeProvider } from './ThemeProvider/ThemeProvider';
+export type { ThemeProviderProps } from './ThemeProvider/ThemeProvider';
 
 // export { default as Toast } from './Toast';
 // export type { ToastProps } from './Toast';

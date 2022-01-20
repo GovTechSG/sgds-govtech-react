@@ -1,6 +1,6 @@
 import { mount, shallow } from 'enzyme';
 import * as React from 'react';
-import PaginationBase from '../../Pagination/Pagination';
+import PaginationBase from '../Pagination';
 import { act } from 'react-dom/test-utils';
 import sinon from 'sinon';
 

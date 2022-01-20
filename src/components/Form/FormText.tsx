@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 
 import * as React from 'react';
 
-import { useBootstrapPrefix } from '../ThemeProvider';
+import { useBootstrapPrefix } from '../ThemeProvider/ThemeProvider';
 
 import { BsPrefixProps, BsPrefixRefForwardingComponent } from '../helpers';
 

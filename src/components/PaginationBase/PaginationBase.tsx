@@ -2,7 +2,7 @@ import classNames from 'classnames';
 import PropTypes from 'prop-types';
 import * as React from 'react';
 
-import { useBootstrapPrefix } from '../ThemeProvider';
+import { useBootstrapPrefix, SGDSWrapper } from '../ThemeProvider/ThemeProvider';
 import PageItem, { Ellipsis, First, Last, Next, Prev } from '../PageItem';
 import { BsPrefixProps } from '../helpers';
 
@@ -40,17 +40,18 @@ const PaginationBase = React.forwardRef<HTMLUListElement, PaginationBaseProps>(
   ({ bsPrefix, className, size, ...props }, ref) => {
     const decoratedBsPrefix = useBootstrapPrefix(bsPrefix, 'pagination');
     return (
-      <ul
+      <SGDSWrapper
+        as="ul"
         ref={ref}
         {...props}
         className={classNames(
           className,
           decoratedBsPrefix,
-          size && `${decoratedBsPrefix}-${size}`,
+          size && `${decoratedBsPrefix}-${size}`
         )}
       />
     );
-  },
+  }
 );
 
 PaginationBase.propTypes = propTypes;

@@ -5,7 +5,7 @@ import * as React from 'react';
 import { useMemo } from 'react';
 
 import createWithBsPrefix from './createWithBsPrefix';
-import { useBootstrapPrefix } from './ThemeProvider';
+import { useBootstrapPrefix } from './ThemeProvider/ThemeProvider';
 import FormCheckInput from './Form/FormCheckInput';
 import InputGroupContext from './InputGroupContext';
 import { BsPrefixProps, BsPrefixRefForwardingComponent } from './helpers';

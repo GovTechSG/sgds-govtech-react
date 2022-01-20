@@ -1,84 +1,31 @@
 import { ArgsTable, Meta, Story, Canvas } from '@storybook/addon-docs';
 import { Dropdown, Row, Col } from '../../src/components/index';
+import { HIDDEN_COMMON_PROPS } from '../helpers';
+import { useState } from 'react';
 
 <Meta
   title="MDX/Dropdown"
   component={Dropdown}
   argTypes={{
-    bsPrefix: { table: { disable: true } },
-    drop: { table: { disable: true } },
-    align: { table: { disable: true } },
+    ...HIDDEN_COMMON_PROPS,
+    drop: {
+      table: {disable: true}
+    },
+    align: {
+      description: `Aligns the dropdown menu to the specified side of the Dropdown toggle`,
+    },
     flip: { table: { disable: true } },
+    as: { table: { disable: true } },
     focusFirstItemOnShow: { table: { disable: true } },
     navbar: { table: { disable: true } },
     autoClose: {
       description:
-        'A set of popper options and props passed directly to Popper.',
-      table: {
-        category: '<Dropdown>',
-        type: { summary: "true | 'outside' | 'inside' | false" },
-        defaultValue: { summary: 'true' },
-      },
-      control: {
-        type: 'select',
-        options: [
-          true,
-          'outside',
-          'inside',
-          false
-        ],
-      },
+        'Controls the auto close behaviour of the dropdown when clicking outside of the button or the list',
+      control: { type: 'select' },
+      options: [true, false, 'outside', 'inside'],
     },
-    popperConfig: {
-      description:
-        'A set of popper options and props passed directly to Popper.',
-      table: {
-        category: '<Dropdown.Menu>',
-        type: { summary: 'object' },
-      },
-      control: { disable: false },
-    },
-    as: {
-      description: 'You can use a custom element type for this component.',
-      table: {
-        category: '<Dropdown>',
-        type: { summary: 'elementType' },
-      },
-      control: { disable: true },
-    },
-    href: {
-      description: 'HTML href attribute corresponding to a.href.',
-      table: {
-        category: '<Dropdown.Item>',
-        type: { summary: 'string' },
-      },
-      control: { disable: true },
-    },
-    disabled: {
-      description: 'Disable the menu item, making it unselectable.',
-      table: {
-        category: '<Dropdown.Item>',
-        type: { summary: 'boolean' },
-      },
-      defaultValue: { summary: 'false' },
-      control: { disable: true },
-    },
-    onClick: {
-      description: 'Callback fired when the menu item is clicked.',
-      table: {
-        category: '<Dropdown.Item>',
-        type: { summary: 'function' },
-      },
-      control: { disable: true },
-    },
-    show: {
-      description: 'Controls the visibility of the Dropdown menu',
-      table: {
-        category: '<Dropdown.Menu>',
-        type: { summary: 'boolean' },
-      },
-      control: { disable: true },
-    },
+    onSelect: { control: { disable: true } },
+    onToggle: { control: { disable: true } },
   }}
 />
 
@@ -90,7 +37,9 @@ export const Template = (args) => (
   <Dropdown {...args}>
     <Dropdown.Toggle variant="white">Dropdown Button</Dropdown.Toggle>
     <Dropdown.Menu>
-      <Dropdown.Item href="#">Action</Dropdown.Item>
+      <Dropdown.Item href="#" eventKey="abc">
+        Action
+      </Dropdown.Item>
       <Dropdown.Item href="#">Another action</Dropdown.Item>
       <Dropdown.Item onClick={() => console.log('Clicked')}>
         Something else
@@ -112,17 +61,6 @@ default the `<Dropdown.Toggle>` will render a
 
 ```jsx
 import { Dropdown } from 'sgds-react';
-
-const popperConfig = {
-    modifiers: [
-    {
-      name: 'offset',
-      options: {
-        offset: [0, 10]
-      },
-    },
-  ],
-};
 
 export const Dropdown = () => {
   return (
@@ -165,7 +103,7 @@ Notice how the dropdown is toggled in each scenario by clicking on the button.
     <Col>
       <Dropdown autoClose="inside">
         <Dropdown.Toggle variant="white" id="dropdown-autoclose-inside">
-          Clickable Outside
+          Click Inside To Close
         </Dropdown.Toggle>
         <Dropdown.Menu>
           <Dropdown.Item href="#">Menu Item</Dropdown.Item>
@@ -177,7 +115,7 @@ Notice how the dropdown is toggled in each scenario by clicking on the button.
     <Col>
       <Dropdown autoClose="outside">
         <Dropdown.Toggle variant="white" id="dropdown-autoclose-outside">
-          Clickable Inside
+          Clickable Outside To Close
         </Dropdown.Toggle>
         <Dropdown.Menu>
           <Dropdown.Item href="#">Menu Item</Dropdown.Item>
@@ -189,7 +127,7 @@ Notice how the dropdown is toggled in each scenario by clicking on the button.
     <Col>
       <Dropdown autoClose={false}>
         <Dropdown.Toggle variant="white" id="dropdown-autoclose-false">
-          Manual Close
+          Click Button to Close
         </Dropdown.Toggle>
         <Dropdown.Menu>
           <Dropdown.Item href="#">Menu Item</Dropdown.Item>
@@ -252,3 +190,62 @@ import { Dropdown } from 'sgds-react';
     </Dropdown.Menu>
   </Dropdown>
 ```
+
+## 3. Event Handlers
+
+### onSelect
+
+A callback fired when a menu item is selected
+
+`(eventKey: any, event: Object) => any` .
+
+### onToggle
+
+Controls show. callback fired when the Dropdown wishes to change visibility. Called with the requested show value, the DOM event, and the source that fired it: `click`,`keydown`,`rootClose`.
+
+`(nextShow: boolean, meta: ToggleMetadata, ): void`
+
+export const onSelectToggleTemplate = () => {
+  //onSelect
+  const [value, setValue] = useState('');
+  const [evtTime, setEvtTime] = useState('');
+  const handleSelect = (key, evt) => {
+    setValue(key);
+    setEvtTime(new Date(evt.timeStamp).toString());
+  };
+  // onToggle
+  const [show, setShow] = useState(false);
+  const [source, setSource] = useState('');
+  const handleToggle = (isOpen, evt) => {
+    setShow(isOpen);
+    setSource(evt.source);
+  };
+  return (
+    <div>
+      <Dropdown onSelect={handleSelect} onToggle={handleToggle}>
+        <Dropdown.Toggle variant="white">Default Dropdown</Dropdown.Toggle>
+        <Dropdown.Menu>
+          <Dropdown.Item eventKey="apple">Apple</Dropdown.Item>
+          <Dropdown.Item eventKey="orange">Orange</Dropdown.Item>
+          <Dropdown.Item eventKey="melon">Melon</Dropdown.Item>
+        </Dropdown.Menu>
+      </Dropdown>
+      <br />
+      <br />
+      <h4>
+        {value} has been selected on {evtTime}
+      </h4>
+      <br />
+      <br />
+      <h4>
+        Dropdown is toggled: {`${show}`} by {source}
+      </h4>
+    </div>
+  );
+};
+
+<Canvas>
+  <Story height="200px" name="Event Handlers">
+    {onSelectToggleTemplate.bind({})}
+  </Story>
+</Canvas>

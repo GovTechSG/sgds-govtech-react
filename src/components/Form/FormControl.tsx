@@ -5,7 +5,7 @@ import { useContext } from 'react';
 import warning from 'warning';
 import Feedback from '../Feedback';
 import FormContext from './FormContext';
-import { useBootstrapPrefix } from '../ThemeProvider';
+import { useBootstrapPrefix } from '../ThemeProvider/ThemeProvider';
 import { BsPrefixProps, BsPrefixRefForwardingComponent } from '../helpers';
 
 type FormControlElement = HTMLInputElement | HTMLTextAreaElement;

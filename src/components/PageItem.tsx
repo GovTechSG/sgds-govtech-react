@@ -73,7 +73,7 @@ PageItem.displayName = 'PageItem';
 
 export default PageItem;
 
-function createButton(name: string, defaultValue: ReactNode, label = name) {
+function createButton(name: string, defaultValue: ReactNode, label = name, withText: boolean = false) {
   function Button({ children, ...props }: PageItemProps) {
     return (
       <PageItem {...props}>

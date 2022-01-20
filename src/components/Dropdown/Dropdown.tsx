@@ -13,10 +13,10 @@ import DropdownItem from './DropdownItem';
 import DropdownMenu, { getDropdownMenuPlacement } from './DropdownMenu';
 import DropdownToggle from './DropdownToggle';
 import InputGroupContext from '../InputGroupContext';
-import { useBootstrapPrefix, useIsRTL } from '../ThemeProvider';
+import { useBootstrapPrefix, useIsRTL, SGDSWrapper } from '../ThemeProvider/ThemeProvider';
 import createWithBsPrefix from '../createWithBsPrefix';
 import { BsPrefixProps, BsPrefixRefForwardingComponent } from '../helpers';
-import { AlignType, alignPropType } from '../types';
+import { alignDirection, AlignDirection } from '../types';
 
 const DropdownHeader = createWithBsPrefix('dropdown-header', {
   defaultProps: { role: 'heading' },
@@ -34,7 +34,7 @@ export interface DropdownProps
     BsPrefixProps,
     Omit<React.HTMLAttributes<HTMLElement>, 'onSelect' | 'children'> {
   drop?: DropDirection;
-  align?: AlignType;
+  align?: AlignDirection;
   flip?: boolean;
   focusFirstItemOnShow?: boolean | 'keyboard';
   navbar?: boolean;
@@ -46,21 +46,12 @@ const propTypes = {
   bsPrefix: PropTypes.string,
   /**
    * Determines the direction and location of the Menu in relation to it's Toggle.
+   *
+   * @type {"end"|"up"|"down" }
    */
-  drop: PropTypes.oneOf(['up', 'start', 'end', 'down']),
-
+  drop: PropTypes.oneOf(['up', 'end', 'down']),
   as: PropTypes.elementType,
-
-  /**
-   * Aligns the dropdown menu to the specified side of the Dropdown toggle. You can
-   * also align the menu responsively for breakpoints starting at `sm` and up.
-   * The alignment direction will affect the specified breakpoint or larger.
-   *
-   * *Note: Using responsive alignment will disable Popper usage for positioning.*
-   *
-   * @type {"start"|"end"|{ sm: "start"|"end" }|{ md: "start"|"end" }|{ lg: "start"|"end" }|{ xl: "start"|"end"}|{ xxl: "start"|"end"} }
-   */
-  align: alignPropType,
+  align: alignDirection,
 
   /**
    * Whether or not the Dropdown is visible.
@@ -127,6 +118,7 @@ const defaultProps: Partial<DropdownProps> = {
   navbar: false,
   align: 'start',
   autoClose: true,
+  focusFirstItemOnShow: 'keyboard',
 };
 
 const Dropdown: BsPrefixRefForwardingComponent<'div', DropdownProps> =
@@ -174,7 +166,7 @@ const Dropdown: BsPrefixRefForwardingComponent<'div', DropdownProps> =
           meta.source = 'rootClose';
 
         if (isClosingPermitted(meta.source!)) onToggle?.(nextShow, meta);
-      },
+      }
     );
 
     const alignEnd = align === 'end';
@@ -186,7 +178,7 @@ const Dropdown: BsPrefixRefForwardingComponent<'div', DropdownProps> =
         drop,
         isRTL,
       }),
-      [align, drop, isRTL],
+      [align, drop, isRTL]
     );
 
     return (
@@ -202,16 +194,16 @@ const Dropdown: BsPrefixRefForwardingComponent<'div', DropdownProps> =
           {isInputGroup ? (
             props.children
           ) : (
-            <Component
+            <SGDSWrapper
+            as={Component}
               {...props}
               ref={ref}
               className={classNames(
                 className,
                 show && 'show',
-                (!drop || drop === 'down') && prefix,
+                prefix,
                 drop === 'up' && 'dropup',
-                drop === 'end' && 'dropend',
-                drop === 'start' && 'dropstart',
+                drop === 'end' && 'dropend'
               )}
             />
           )}

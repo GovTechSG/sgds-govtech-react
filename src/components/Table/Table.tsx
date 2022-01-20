@@ -1,7 +1,7 @@
 import classNames from 'classnames';
 import * as React from 'react';
 import PropTypes from 'prop-types';
-import { useBootstrapPrefix } from '../ThemeProvider';
+import { useBootstrapPrefix, SGDSWrapper } from '../ThemeProvider/ThemeProvider';
 
 import { BsPrefixOnlyProps } from '../helpers';
 
@@ -99,7 +99,7 @@ const Table = React.forwardRef<HTMLTableElement, TableProps>(
       
     
 
-    const table = <table {...props} className={classes} ref={ref}></table>;
+    const table = <SGDSWrapper as="table" {...props} className={classes} ref={ref} />;
     if (responsive) {
       let responsiveClass = `${decoratedBsPrefix}-responsive`;
       if (typeof responsive === 'string') {

@@ -7,7 +7,6 @@ import DropdownContext from '@restart/ui/DropdownContext';
 import useMergedRefs from '@restart/hooks/useMergedRefs';
 import Button, { ButtonProps, CommonButtonProps } from '../Button/Button';
 import InputGroupContext from '../InputGroupContext';
-import { useBootstrapPrefix } from '../ThemeProvider';
 import useWrappedRefWithWarning from '../useWrappedRefWithWarning';
 import { BsPrefixRefForwardingComponent } from '../helpers';
 
@@ -62,7 +61,7 @@ const DropdownToggle: DropdownToggleComponent = React.forwardRef(
     }: DropdownToggleProps,
     ref,
   ) => {
-    const prefix = useBootstrapPrefix(bsPrefix, 'dropdown-toggle');
+    const prefix = 'dropdown-toggle'
     const dropdownContext = useContext(DropdownContext);
     const isInputGroup = useContext(InputGroupContext);
 
