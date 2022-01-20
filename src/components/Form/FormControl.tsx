@@ -120,7 +120,7 @@ const FormControl: BsPrefixRefForwardingComponent<'input', FormControlProps> =
         isInvalid = false,
         plaintext,
         readOnly,
-        searchIcon = true,
+        searchIcon = false,
         // Need to define the default "as" during prop destructuring to be compatible with styled-components github.com/react-bootstrap/react-bootstrap/issues/3595
         as: Component = 'input',
         ...props
@@ -146,28 +146,27 @@ const FormControl: BsPrefixRefForwardingComponent<'input', FormControlProps> =
         '`controlId` is ignored on `<FormControl>` when `id` is specified.'
       );
 
-      let component;
-      if (searchIcon === true) {
-        component = (
-          <>
-            <div style={{ display: 'flex' }}>
-              <Component
-                {...props}
-                type={type}
-                size={htmlSize}
-                ref={ref}
-                readOnly={readOnly}
-                id={id || controlId}
-                searchIcon={searchIcon}
-                className={classNames(
-                  className,
-                  classes,
-                  isValid && `is-valid`,
-                  isInvalid && `is-invalid`,
-                  type === 'color' && `${bsPrefix}-color`
-                )}
-                style={{ paddingRight: '40px' }}
-              />
+      return (
+        <>
+          <div style={{ display: 'flex' }}>
+            <Component
+              {...props}
+              type={type}
+              size={htmlSize}
+              ref={ref}
+              readOnly={readOnly}
+              id={id || controlId}
+              searchIcon={searchIcon}
+              className={classNames(
+                className,
+                classes,
+                isValid && `is-valid`,
+                isInvalid && `is-invalid`,
+                type === 'color' && `${bsPrefix}-color`
+              )}
+              style={{ paddingRight: '40px' }}
+            />
+            {searchIcon == true ? (
               <span
                 style={{
                   position: 'relative',
@@ -178,30 +177,10 @@ const FormControl: BsPrefixRefForwardingComponent<'input', FormControlProps> =
               >
                 <i className="bi bi-search"></i>
               </span>
-            </div>
-          </>
-        );
-      } else if ( searchIcon === false) {
-        component = (
-          <Component
-            {...props}
-            type={type}
-            size={htmlSize}
-            ref={ref}
-            readOnly={readOnly}
-            id={id || controlId}
-            className={classNames(
-              className,
-              classes,
-              isValid && `is-valid`,
-              isInvalid && `is-invalid`,
-              type === 'color' && `${bsPrefix}-color`
-            )}
-          />
-        );
-      }
-
-      return <>{component}</>;
+            ) : null}
+          </div>
+        </>
+      );
     }
   );
 

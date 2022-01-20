@@ -1,7 +1,7 @@
 import { mount, shallow } from 'enzyme';
 import * as React from 'react';
 import { Paginations } from '../Paginations';
-import Pagination from '../../Pagination/Pagination';
+import PaginationBase from '../../Pagination/PaginationBase';
 import { act } from 'react-dom/test-utils';
 import sinon from 'sinon';
 
@@ -14,40 +14,31 @@ describe('<Paginations>', () => {
     expect(wrapper.length).toEqual(1);
   });
   
-  it('renders <Pagination.Item/>', () => {
+  it('renders <PaginationBase.Item/>', () => {
     const wrapper  = mount(<Paginations/>);
-    expect(wrapper.find(<Pagination.Item/>)).toBeDefined();
+    expect(wrapper.find(<PaginationBase.Item/>)).toBeDefined();
   });
   
-  it('renders <Pagination.Ellipsis/>', () => {
+  it('renders <PaginationBase.Ellipsis/>', () => {
     const wrapper  = mount(<Paginations/>);
-    expect(wrapper.find(<Pagination.Ellipsis/>)).toBeDefined();
+    expect(wrapper.find(<PaginationBase.Ellipsis/>)).toBeDefined();
   });
 
-  it('renders <Pagination.Prev/>', () => {
+  it('renders <PaginationBase.Prev/>', () => {
     const wrapper  = mount(<Paginations/>);
-    expect(wrapper.find(<Pagination.Prev/>)).toBeDefined();
+    expect(wrapper.find(<PaginationBase.Prev/>)).toBeDefined();
   });
 
   it('renders <Pagination.Next/>', () => {
     const wrapper  = mount(<Paginations />);
-    expect(wrapper.find(<Pagination.Next/>)).toBeDefined();
+    expect(wrapper.find(<PaginationBase.Next/>)).toBeDefined();
   });
 
   it('should increment after "Increment" button is clicked', () => {
     
-    // const handleNextButton = jest.fn();
+    
   });
-  // const handleNextButton = () => {
-  //   setCurrentPage(currentPage + 1);
-  //   if (currentPage + 1 > maxPageNumberLimit) {
-  //     setMaxPageNumberLimit(maxPageNumberLimit + limit);
-  //     setMinPageNumberLimit(minPageNumberLimit + limit);
-  //   }
-  // };
-  // <Pagination.Next
-  //       onClick={handleNextButton}
-  //     ></Pagination.Next>
+  
   it('renders the active class when click on a page item', () => {
 
   });

@@ -6,9 +6,9 @@ import { useBootstrapPrefix } from '../ThemeProvider';
 import PageItem, { Ellipsis, First, Last, Next, Prev } from '../PageItem';
 import { BsPrefixProps } from '../helpers';
 
-type PaginationSize = 'sm' | 'md' | 'lg';
+type PaginationBaseSize = 'sm' | 'md' | 'lg';
 
-export interface PaginationProps
+export interface PaginationBaseProps
   extends BsPrefixProps,
     React.HTMLAttributes<HTMLUListElement> {
   size?: 'sm' | 'md' | 'lg';
@@ -25,7 +25,7 @@ const propTypes = {
    *
    * @type {('sm' | 'md' | lg')}
    */
-  size: PropTypes.oneOf<PaginationSize>(['sm', 'md', 'lg']),
+  size: PropTypes.oneOf<PaginationBaseSize>(['sm', 'md', 'lg']),
 };
 
 /**
@@ -36,7 +36,7 @@ const propTypes = {
  * @property {PageItem} Next
  * @property {PageItem} Last
  */
-const Pagination = React.forwardRef<HTMLUListElement, PaginationProps>(
+const PaginationBase = React.forwardRef<HTMLUListElement, PaginationBaseProps>(
   ({ bsPrefix, className, size, ...props }, ref) => {
     const decoratedBsPrefix = useBootstrapPrefix(bsPrefix, 'pagination');
     return (
@@ -53,10 +53,10 @@ const Pagination = React.forwardRef<HTMLUListElement, PaginationProps>(
   },
 );
 
-Pagination.propTypes = propTypes;
-Pagination.displayName = 'Pagination';
+PaginationBase.propTypes = propTypes;
+PaginationBase.displayName = 'PaginationBase';
 
-export default Object.assign(Pagination, {
+export default Object.assign(PaginationBase, {
   First,
   Prev,
   Ellipsis,

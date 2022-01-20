@@ -151,8 +151,8 @@ export { default as ModalTitle } from './Modal/ModalTitle';
 export { default as PageItem } from './PageItem';
 export type { PageItemProps } from './PageItem';
 
-export { default as Pagination } from './Pagination/Pagination';
-export type { PaginationProps } from './Pagination/Pagination';
+export { default as Pagination } from './Pagination/PaginationBase';
+export type { PaginationProps } from './Pagination/PaginationBase';
 export { Paginations } from './Paginations/Paginations';
 export type { PaginationsProps } from './Paginations/Paginations';
 

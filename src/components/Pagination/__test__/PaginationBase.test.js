@@ -1,17 +1,17 @@
 import { mount, shallow } from 'enzyme';
 import * as React from 'react';
-import Pagination from '../../Pagination/Pagination';
+import PaginationBase from '../../Pagination/Pagination';
 import { act } from 'react-dom/test-utils';
 import sinon from 'sinon';
 
-describe('<Pagination>', () => {
+describe('<PaginationBase>', () => {
   it('should have class', () => {
-    const wrapper = shallow(<Pagination/>);
+    const wrapper = shallow(<PaginationBase/>);
     expect(wrapper.hasClass('pagination')).toEqual(true);
   });
 
   it('should render correctly when size is set', () => {
-     const wrapper = shallow(<Pagination size='sm'/>);
+     const wrapper = shallow(<PaginationBase size='sm'/>);
      expect(wrapper.is('.pagination.pagination-sm')).toEqual(true);
   });
 });
