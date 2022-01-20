@@ -137,11 +137,22 @@ export const Paginations: React.FC<PaginationsProps> = ({
     pageDecrementBtn = (
       <Pagination.Ellipsis
         onClick={handlePrevEllipsisButton}
-        disabled={currentPage - limit <= pages[0] ? true : false}
+        style={
+          currentPage - limit + 2 <= pages[0]
+            ? { display: 'none' }
+            : { display: 'block' }
+        }
       />
     );
     pageIncrementBtn = (
-      <Pagination.Ellipsis onClick={handleNextEllipsisButton} disabled={currentPage + limit >= pages.length ? true : false}/>
+      <Pagination.Ellipsis
+        onClick={handleNextEllipsisButton}
+        style={
+          currentPage + limit - 2 >= pages.length
+            ? { display: 'none' }
+            : { display: 'block' }
+        }
+      />
     );
   }
 
