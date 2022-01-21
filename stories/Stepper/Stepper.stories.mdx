@@ -1,0 +1,68 @@
+import Stepper from '../../src/components/Stepper/Stepper';
+import { ArgsTable, Canvas, Meta, Story } from '@storybook/addon-docs';
+import useStep from '../../src/components/Stepper/useStep';
+import { Button } from '../../src/components/index';
+
+<Meta title="MDX/Stepper" component={Stepper} />
+
+export const Template = () => {
+  const stepMethods = useStep([
+    {
+      component: 'At Step 1',
+      title: 'Create project',
+      stepHeader: 'SGTS agreement',
+      onNextStep: async (onDone) => {
+        onDone();
+        console.log('onNextStep1');
+      },
+      onArrived: async (onDone) => console.log('onArrived1'),
+    },
+    {
+      component: 'At Step 2',
+      title: 'Create project',
+      stepHeader: 'SGTS agreement',
+      onNextStep: async (onDone) => {
+        onDone();
+        console.log('nextstep2');
+      },
+      onPrevStep: async (onDone) => {
+        console.log('prevStep2');
+      },
+      onArrived: async (onDone) => console.log('onArrived2'),
+    },
+    {
+      component: 'At Step 3',
+      title: 'Create project',
+      stepHeader: 'SGTS agreement',
+      onNextStep: async (onDone) => {
+        console.log('submit action ');
+      },
+      onPrevStep: async (onDone) => {
+        console.log('prevStep3');
+      },
+      onArrived: async (onDone) => console.log('onArrived3 '),
+    },
+  ]);
+  const {
+    state: stepState,
+    getTitle,
+    setStep,
+    nextStep,
+    prevStep,
+    getNextButtonTitle,
+    getBackButtonTitle,
+    getComponent,
+  } = stepMethods;
+  return (
+    <>
+      <Stepper methods={stepMethods} />
+      <div>{getComponent()}</div>
+      {getBackButtonTitle() && <Button onClick={prevStep} variant='danger'> {getBackButtonTitle()}</Button>}
+      <Button onClick={nextStep}> {getNextButtonTitle()}</Button>
+    </>
+  );
+};
+
+<Canvas>
+  <Story name="default">{Template.bind({})}</Story>
+</Canvas>
