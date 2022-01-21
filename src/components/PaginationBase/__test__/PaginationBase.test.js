@@ -1,8 +1,6 @@
-import { mount, shallow } from 'enzyme';
+import { shallow } from 'enzyme';
 import * as React from 'react';
-import PaginationBase from '../Pagination';
-import { act } from 'react-dom/test-utils';
-import sinon from 'sinon';
+import PaginationBase from '../PaginationBase';
 
 describe('<PaginationBase>', () => {
   it('should have class', () => {

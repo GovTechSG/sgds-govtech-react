@@ -1,6 +1,4 @@
-// import PropTypes from 'prop-types';
 import * as React from 'react';
-import { useState } from 'react';
 import PaginationBase, {
   PaginationBaseProps,
 } from '../PaginationBase/PaginationBase';
@@ -45,8 +43,9 @@ export const Paginations: React.FC<PaginationsProps> = ({
 
     startPage = currentPage - Math.floor(limit / 2);
     if (startPage <= 0) startPage = 1;
-    if (startPage === 1) endPage = startPage + limit - 1;
-    else endPage = currentPage + Math.floor(limit / 2);
+    
+    endPage = startPage + limit - 1;
+
     if (endPage > pages.length) endPage = pages.length;
 
     if (currentPage === pages.length) startPage = pages.length - limit + 1;
@@ -86,7 +85,7 @@ export const Paginations: React.FC<PaginationsProps> = ({
   };
 
   const renderLastEllipsis = () => {
-    if(currentPage + Math.floor(limit / 2) < pages.length)
+    if(pages.length !== limit && currentPage + Math.floor(limit / 2) < pages.length)
     return(
       <PaginationBase.Ellipsis onClick={handleNextEllipsisButton} disabled={!ellipsisOn} />
     )
@@ -94,7 +93,7 @@ export const Paginations: React.FC<PaginationsProps> = ({
   }
 
   const renderFirstEllipsis = () => {
-    if (currentPage - Math.floor(limit / 2 ) > 1)
+    if (pages.length !== limit && currentPage - Math.floor(limit / 2 ) > 1)
     return(
       <PaginationBase.Ellipsis onClick={handlePrevEllipsisButton} />
     ) 

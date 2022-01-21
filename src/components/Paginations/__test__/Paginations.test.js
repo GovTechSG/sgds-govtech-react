@@ -1,9 +1,7 @@
-import { mount, shallow } from 'enzyme';
 import * as React from 'react';
 import { Paginations } from '../Paginations';
-import PaginationBase from '../../PaginationBase/PaginationBase';
-// import { act } from 'react-dom/test-utils';
-// import sinon from 'sinon';
+// import PaginationBase from '../../PaginationBase/PaginationBase';
+
 
 //React-testing-library 
 import { render, fireEvent, waitFor }  from '@testing-library/react';
