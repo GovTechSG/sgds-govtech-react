@@ -26,8 +26,6 @@ export const Paginations: React.FC<PaginationsProps> = ({
   size = 'sm',
   ellipsisOn = false,
 }) => {
-  const [maxPageNumberLimit, setMaxPageNumberLimit] = useState(limit);
-  const [minPageNumberLimit, setMinPageNumberLimit] = useState(0);
 
   // set the id of page item clicked to currentPage
   const handlePageClick = (event: React.MouseEvent<HTMLLIElement>) => {
@@ -70,148 +68,75 @@ export const Paginations: React.FC<PaginationsProps> = ({
 
   const handleNextButton = () => {
     setCurrentPage(currentPage + 1);
-    if (currentPage + 1 > maxPageNumberLimit) {
-      setMaxPageNumberLimit(maxPageNumberLimit + limit);
-      setMinPageNumberLimit(minPageNumberLimit + limit);
-    }
   };
   const handlePrevButton = () => {
     setCurrentPage(currentPage - 1);
-    if ((currentPage - 1) % minPageNumberLimit == 0) {
-      setMaxPageNumberLimit(maxPageNumberLimit - limit);
-      setMinPageNumberLimit(minPageNumberLimit - limit);
-    }
   };
 
   // handleclick for ellipsisOn
 
   const handleNextEllipsisButton = () => {
     setCurrentPage(currentPage + limit);
-    if (currentPage + limit > maxPageNumberLimit) {
-      setMaxPageNumberLimit(maxPageNumberLimit + limit);
-      setMinPageNumberLimit(minPageNumberLimit + limit);
-    }
+    if(currentPage + limit > pages.length ) setCurrentPage(pages.length)
   };
   const handlePrevEllipsisButton = () => {
     setCurrentPage(currentPage - limit);
-    if ((currentPage - limit) % minPageNumberLimit == 0) {
-      setMaxPageNumberLimit(maxPageNumberLimit - limit);
-      setMinPageNumberLimit(minPageNumberLimit - limit);
-    }
+    if(currentPage - limit < 1) setCurrentPage(1)
+ 
   };
 
-  let pageDecrementBtn = (
-    <PaginationBase.Ellipsis onClick={handlePrevEllipsisButton} />
-  );
-  let pageIncrementBtn = (
-    <PaginationBase.Ellipsis onClick={handleNextEllipsisButton} />
-  );
-  
-  // ellipsisOff logic
-  if (!ellipsisOn) {
-    if (pages.length > maxPageNumberLimit) {
-      //@ts-ignore
-      pageDecrementBtn = null;
-      pageIncrementBtn = (
-        <PaginationBase.Ellipsis onClick={handleNextButton} disabled />
-      );
-    }
+  const renderLastEllipsis = () => {
+    if(currentPage + Math.floor(limit / 2) < pages.length)
+    return(
+      <PaginationBase.Ellipsis onClick={handleNextEllipsisButton} disabled={!ellipsisOn} />
+    )
+    else return null
   }
 
-  //ellipsisOn logic
-
-  if (ellipsisOn) {
-    // left ellipsis: shows null
-    if (currentPage <= (limit + 1)/ 2) {
-      //@ts-ignore
-      pageDecrementBtn = null;
-    }
-   
-    // left ellipsis: shows disable range, once first page number is seen within row of page, removed ellipsis
-    if ((currentPage >= Math.ceil((limit + 2)/ 2) && (currentPage < pages[limit]))) {
-      pageDecrementBtn = (
-        <PaginationBase.Ellipsis onClick={handlePrevEllipsisButton} disabled />
-      );
-    }
-    // right ellipsis: shows null
-    if(currentPage >= Math.floor(pages.length - limit + 2 / 2)){
-      //@ts-ignore
-      pageIncrementBtn = null;
-    }
-    //right ellipsis: shows disable range, once last page number is seen within row of page, removed ellipsis
-    if ((currentPage >= Math.floor((pages.length - 1 - (limit / 2))) && (currentPage < pages.length - 2))) {
-      pageIncrementBtn = (
-        <PaginationBase.Ellipsis onClick={handleNextEllipsisButton} disabled />
-      );
-    }
+  const renderFirstEllipsis = () => {
+    if (currentPage - Math.floor(limit / 2 ) > 1)
+    return(
+      <PaginationBase.Ellipsis onClick={handlePrevEllipsisButton} />
+    ) 
+    else return null
   }
 
-  let renderDirectionVariantLeft;
-  let renderDirectionVariantRight;
 
-  if (directionVariant == 'text') {
-    renderDirectionVariantLeft = (
-      <PaginationBase.Prev
-        onClick={handlePrevButton}
-        disabled={currentPage == pages[0] ? true : false}
-      >
-        Previous
-      </PaginationBase.Prev>
+  const directionBtnContent = (
+    directionLabel: 'Previous' | 'Next',
+    iconClass: string
+  ) => {
+    return (
+      <>
+        {directionVariant !== 'icon' &&
+          directionLabel === 'Next' &&
+          directionLabel}
+        {directionVariant === 'text' ? null : <i className={iconClass} />}
+        {directionVariant !== 'icon' &&
+          directionLabel === 'Previous' &&
+          directionLabel}
+      </>
     );
-
-    renderDirectionVariantRight = (
-      <PaginationBase.Next
-        onClick={handleNextButton}
-        disabled={currentPage == pages[pages.length - 1] ? true : false}
-      >
-        Next
-      </PaginationBase.Next>
-    );
-  } else if (directionVariant == 'icon') {
-    renderDirectionVariantLeft = (
-      <PaginationBase.Prev
-        onClick={handlePrevButton}
-        disabled={currentPage == pages[0] ? true : false}
-      >
-        <i className="bi bi-chevron-left"></i>
-      </PaginationBase.Prev>
-    );
-
-    renderDirectionVariantRight = (
-      <PaginationBase.Next
-        onClick={handleNextButton}
-        disabled={currentPage == pages[pages.length - 1] ? true : false}
-      >
-        <i className="bi bi-chevron-right"></i>
-      </PaginationBase.Next>
-    );
-  } else if (directionVariant == 'icon-text') {
-    renderDirectionVariantLeft = (
-      <PaginationBase.Prev
-        onClick={handlePrevButton}
-        disabled={currentPage == pages[0] ? true : false}
-      >
-        <i className="bi bi-chevron-left"></i> Previous
-      </PaginationBase.Prev>
-    );
-
-    renderDirectionVariantRight = (
-      <PaginationBase.Next
-        onClick={handleNextButton}
-        disabled={currentPage == pages[pages.length - 1] ? true : false}
-      >
-        Next <i className="bi bi-chevron-right"></i>
-      </PaginationBase.Next>
-    );
-  }
+  };
 
   return (
     <PaginationBase size={size}>
-      {renderDirectionVariantLeft}
-      {pageDecrementBtn}
+      <PaginationBase.Prev
+        onClick={handlePrevButton}
+        disabled={currentPage <= 1}
+      >
+        {directionBtnContent('Previous', 'bi bi-chevron-left')}
+      </PaginationBase.Prev>
+      {ellipsisOn ? renderFirstEllipsis() : null}
       {renderPgNumbers()}
-      {pageIncrementBtn}
-      {renderDirectionVariantRight}
+      {renderLastEllipsis()}
+
+      <PaginationBase.Next
+        onClick={handleNextButton}
+        disabled={currentPage >= pages.length}
+      >
+        {directionBtnContent('Next', 'bi bi-chevron-right')}
+      </PaginationBase.Next>
     </PaginationBase>
   );
 };
