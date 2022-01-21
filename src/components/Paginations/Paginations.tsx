@@ -1,7 +1,9 @@
 // import PropTypes from 'prop-types';
 import * as React from 'react';
 import { useState } from 'react';
-import PaginationBase, { PaginationBaseProps } from '../PaginationBase/PaginationBase';
+import PaginationBase, {
+  PaginationBaseProps,
+} from '../PaginationBase/PaginationBase';
 
 export interface PaginationsProps extends PaginationBaseProps {
   dataLength: number;
@@ -84,49 +86,64 @@ export const Paginations: React.FC<PaginationsProps> = ({
   // handleclick for ellipsisOn
 
   const handleNextEllipsisButton = () => {
-    setCurrentPage(currentPage + 3);
-    if (currentPage + 3 > maxPageNumberLimit) {
+    setCurrentPage(currentPage + limit);
+    if (currentPage + limit > maxPageNumberLimit) {
       setMaxPageNumberLimit(maxPageNumberLimit + limit);
       setMinPageNumberLimit(minPageNumberLimit + limit);
     }
   };
   const handlePrevEllipsisButton = () => {
-    setCurrentPage(currentPage - 3);
-    if ((currentPage - 3) % minPageNumberLimit == 0) {
+    setCurrentPage(currentPage - limit);
+    if ((currentPage - limit) % minPageNumberLimit == 0) {
       setMaxPageNumberLimit(maxPageNumberLimit - limit);
       setMinPageNumberLimit(minPageNumberLimit - limit);
     }
   };
-  // ellipsis increment logic
-  let pageIncrementBtn = null;
-  let pageDecrementBtn = null;
-  if (ellipsisOn === false) {
+
+  let pageDecrementBtn = (
+    <PaginationBase.Ellipsis onClick={handlePrevEllipsisButton} />
+  );
+  let pageIncrementBtn = (
+    <PaginationBase.Ellipsis onClick={handleNextEllipsisButton} />
+  );
+  
+  // ellipsisOff logic
+  if (!ellipsisOn) {
     if (pages.length > maxPageNumberLimit) {
+      //@ts-ignore
+      pageDecrementBtn = null;
       pageIncrementBtn = (
         <PaginationBase.Ellipsis onClick={handleNextButton} disabled />
       );
     }
-  } else {
-    pageDecrementBtn = (
-      <PaginationBase.Ellipsis
-        onClick={handlePrevEllipsisButton}
-        style={
-          currentPage - limit + 2 <= pages[0]
-            ? { display: 'none' }
-            : { display: 'block' }
-        }
-      />
-    );
-    pageIncrementBtn = (
-      <PaginationBase.Ellipsis
-        onClick={handleNextEllipsisButton}
-        style={
-          currentPage + limit - 2 >= pages.length
-            ? { display: 'none' }
-            : { display: 'block' }
-        }
-      />
-    );
+  }
+
+  //ellipsisOn logic
+
+  if (ellipsisOn) {
+    // left ellipsis: shows null
+    if (currentPage <= (limit + 1)/ 2) {
+      //@ts-ignore
+      pageDecrementBtn = null;
+    }
+   
+    // left ellipsis: shows disable range, once first page number is seen within row of page, removed ellipsis
+    if ((currentPage >= Math.ceil((limit + 2)/ 2) && (currentPage < pages[limit]))) {
+      pageDecrementBtn = (
+        <PaginationBase.Ellipsis onClick={handlePrevEllipsisButton} disabled />
+      );
+    }
+    // right ellipsis: shows null
+    if(currentPage >= Math.floor(pages.length - limit + 2 / 2)){
+      //@ts-ignore
+      pageIncrementBtn = null;
+    }
+    //right ellipsis: shows disable range, once last page number is seen within row of page, removed ellipsis
+    if ((currentPage >= Math.floor((pages.length - 1 - (limit / 2))) && (currentPage < pages.length - 2))) {
+      pageIncrementBtn = (
+        <PaginationBase.Ellipsis onClick={handleNextEllipsisButton} disabled />
+      );
+    }
   }
 
   let renderDirectionVariantLeft;
@@ -200,4 +217,3 @@ export const Paginations: React.FC<PaginationsProps> = ({
 };
 
 Paginations.displayName = 'Paginations';
-

@@ -31,9 +31,8 @@ describe('<Paginations>', () => {
     expect($icons[1].classList).toContain('bi')
     
     // test that span's text are present
-    //TODO : remove the extra previous
-    // expect(getByText('Previous')).toBeDefined()
-    // expect(getByText('Next')).toBeDefined()
+    expect(getByText('Previous')).toBeDefined()
+    expect(getByText('Next')).toBeDefined()
   });
   
   it('renders 1 page numbers as dataLength = 1', () => {
@@ -51,22 +50,76 @@ describe('<Paginations>', () => {
   })
 
   it('onclick should change li page to active', async()=> {
-    const {  container,getByText, queryByText } = render(<Paginations limit={3} dataLength={20} currentPage={1}/>)
+    const mockFn = jest.fn() 
+    const {  container,getByText, queryByText } = render(<Paginations limit={3} dataLength={20} currentPage={1} setCurrentPage={mockFn}/>)
     const $li = container.querySelectorAll('li')
     const $page1 = $li[1]
-   // <li> <a>1</a></li>
-    // expect(screen.queryByText('1').parent).toBeDefined()
+
     expect($page1.children[0].textContent).toEqual('1')
     expect($page1.classList).toContain('active')
 
-    const $page2 = $li[2]
+    const $page2 = container.querySelectorAll('li')[2].children[0]
+    expect($page2.tagName).toEqual('A')
     fireEvent.click($page2)
     await waitFor(() => {
-      // expect($page1.classList).not.toContain('active')
-      expect($page2.classList).toContain('active')
+      expect(mockFn).toHaveBeenCalled()
     })
+    // To Do : Find a way to test class .active changes 
 
   })
+
+});
+
+describe('ellipsis behaviour', () => {
+
+  it('when no data pass in pagination has no ellipsis' , () => {
+    const {  queryByText } = render(<Paginations />)
+    expect(queryByText('…')).toBeNull()
+  })
+
+ it('last ellipsis should appear when page > 3', () => {
+   // 20 / 5 = 4 page
+  const { queryByText } = render(<Paginations dataLength={20}/>)
+  expect(queryByText('…')).not.toBeNull()
+  expect(queryByText('…').parentElement).toHaveAttribute('disabled')
+  expect(queryByText('…').textContent).toEqual('…')
+})
+ it('last ellipsis should not appear when page < 3', () => {
+   // 15 / 5 = 3 page
+  const { queryByText, rerender } = render(<Paginations dataLength={15}/>)
+  expect(queryByText('…')).toBeNull()
+
+  // 10 / 5 = 2 page
+  rerender(<Paginations dataLength={10}/>)
+  expect(queryByText('…')).toBeNull()
+
+  // 5 / 5 = 1 page
+  rerender(<Paginations dataLength={5}/>)
+  expect(queryByText('…')).toBeNull()
+})
+
+it('renders first ellipsis when ellipsisOn = true' , () => {
+  const { queryAllByText, rerender } = render(<Paginations dataLength={50} currentPage={1} ellipsisOn={true}/>)
+  // no first ellipsis
+  //ToDO : fix 
+  expect(queryAllByText('…').length).toEqual(1)
+
+  rerender(<Paginations dataLength={50} currentPage={5} ellipsisOn={true}/>)
+  expect(queryAllByText('…').length).toEqual(2)
+
+
+  //at last page , the last ellipsis should disappear
+
+  rerender(<Paginations dataLength={50} currentPage={9} ellipsisOn={true}/>)
+  expect(queryAllByText('…').length).toEqual(1)
+  rerender(<Paginations dataLength={50} currentPage={10} ellipsisOn={true}/>)
+  expect(queryAllByText('…').length).toEqual(1)
+
+})
+})
+
+  // first ellipsis should not appear, last ellipsis should appear + disabled
+
   // it('renders <PaginationBase.Item/>', () => {
   //   const wrapper  = mount(<Paginations/>);
   //   expect(wrapper.find(<PaginationBase.Item/>)).toBeDefined();
@@ -113,5 +166,5 @@ describe('<Paginations>', () => {
   // });
   
   
-});
+
 

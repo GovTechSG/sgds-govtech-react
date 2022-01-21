@@ -73,12 +73,12 @@ PageItem.displayName = 'PageItem';
 
 export default PageItem;
 
-function createButton(name: string, defaultValue: ReactNode, label = name, withText: boolean = false) {
+function createButton(name: string, defaultValue: ReactNode) {
   function Button({ children, ...props }: PageItemProps) {
     return (
       <PageItem {...props}>
         <span aria-hidden="true">{children || defaultValue}</span>
-        <span className="visually-hidden">{label}</span>
+        {/* <span className="visually-hidden">{label}</span> */}
       </PageItem>
     );
   }
@@ -89,7 +89,7 @@ function createButton(name: string, defaultValue: ReactNode, label = name, withT
 }
 
 export const First = createButton('First', '«');
-export const Prev = createButton('Prev', '‹', 'Previous');
-export const Ellipsis = createButton('Ellipsis', '…', 'More');
+export const Prev = createButton('Previous', '‹');
+export const Ellipsis = createButton('Ellipsis', '…');
 export const Next = createButton('Next', '›');
 export const Last = createButton('Last', '»');
