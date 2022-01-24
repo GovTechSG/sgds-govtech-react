@@ -56,6 +56,8 @@
     "@storybook/addon-links": "^6.4.9",
     "@storybook/addons": "^6.4.9",
     "@storybook/react": "^6.4.9",
+    "@testing-library/jest-dom": "^5.16.1",
+    "@testing-library/react": "^12.1.2",
     "@types/enzyme": "^3.10.10",
     "@types/react": "^17.0.37",
     "@types/react-dom": "^17.0.11",

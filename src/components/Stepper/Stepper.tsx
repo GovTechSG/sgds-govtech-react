@@ -15,8 +15,6 @@ function Stepper({ methods }: { methods: UseStepMethods }) {
   const back = (stepMetadata: WrappedStepMetadata) => {
     return () => {
       if (stepMetadata.step < state.currentStep) {
-        console.log('click back')
-
         return setStep(stepMetadata.step);
       }
       return

@@ -15,7 +15,7 @@ export const Template = () => {
         onDone();
         console.log('onNextStep1');
       },
-      onArrived: async (onDone) => console.log('onArrived1'),
+      onArrived: async () => console.log('onArrived1'),
     },
     {
       component: 'At Step 2',
@@ -25,10 +25,11 @@ export const Template = () => {
         onDone();
         console.log('nextstep2');
       },
-      onPrevStep: async (onDone) => {
+      onPreviousStep: async (onDone) => {
         console.log('prevStep2');
+        onDone()
       },
-      onArrived: async (onDone) => console.log('onArrived2'),
+      onArrived: async () => console.log('onArrived2'),
     },
     {
       component: 'At Step 3',
@@ -37,10 +38,11 @@ export const Template = () => {
       onNextStep: async (onDone) => {
         console.log('submit action ');
       },
-      onPrevStep: async (onDone) => {
+      onPreviousStep: async (onDone) => {
         console.log('prevStep3');
+        onDone()
       },
-      onArrived: async (onDone) => console.log('onArrived3 '),
+      onArrived: async () => console.log('onArrived3 '),
     },
   ]);
   const {
@@ -52,6 +54,7 @@ export const Template = () => {
     getNextButtonTitle,
     getBackButtonTitle,
     getComponent,
+    reset
   } = stepMethods;
   return (
     <>
@@ -59,6 +62,8 @@ export const Template = () => {
       <div>{getComponent()}</div>
       {getBackButtonTitle() && <Button onClick={prevStep} variant='danger'> {getBackButtonTitle()}</Button>}
       <Button onClick={nextStep}> {getNextButtonTitle()}</Button>
+      <Button onClick={reset} variant='secondary'> Reset </Button>
+      <Button onClick={() => setStep(3)} variant='warning'> Jump to last page </Button>
     </>
   );
 };
