@@ -12,6 +12,7 @@ export interface PaginationsProps extends PaginationBaseProps {
   directionVariant?: 'icon' | 'icon-text' | 'text';
   size: 'sm' | 'md' | 'lg';
   ellipsisOn: boolean;
+  ellipsisJump: number;
 }
 
 export const Paginations: React.FC<PaginationsProps> = ({
@@ -23,6 +24,7 @@ export const Paginations: React.FC<PaginationsProps> = ({
   directionVariant = 'icon-text',
   size = 'sm',
   ellipsisOn = false,
+  ellipsisJump = 3
 }) => {
 
   // set the id of page item clicked to currentPage
@@ -31,26 +33,28 @@ export const Paginations: React.FC<PaginationsProps> = ({
     setCurrentPage(Number(liTarget.id));
   };
 
+
   const pages = [];
   for (let i = 1; i <= Math.ceil(dataLength / itemsPerPage); i++) {
     pages.push(i);
   }
+  const sanitizeLimit = limit >= pages.length ? pages.length : limit;
 
   const renderPgNumbers = () => {
     const pagesToShow = [];
-    let startPage;
+    let sanitizeStartPage;
     let endPage;
 
-    startPage = currentPage - Math.floor(limit / 2);
-    if (startPage <= 0) startPage = 1;
+    sanitizeStartPage = limit >= pages.length ? 1 :currentPage - Math.floor(sanitizeLimit / 2);
+    if (sanitizeStartPage <= 0) sanitizeStartPage = 1;
     
-    endPage = startPage + limit - 1;
+    endPage = sanitizeStartPage + sanitizeLimit - 1;
 
     if (endPage > pages.length) endPage = pages.length;
 
-    if (currentPage === pages.length) startPage = pages.length - limit + 1;
+    if (currentPage === pages.length) sanitizeStartPage = pages.length - sanitizeLimit + 1;
 
-    for (let i = startPage; i <= endPage; i++) {
+    for (let i = sanitizeStartPage; i <= endPage; i++) {
       pagesToShow.push(i);
     }
     return pagesToShow.map((number) => (
@@ -75,17 +79,20 @@ export const Paginations: React.FC<PaginationsProps> = ({
   // handleclick for ellipsisOn
 
   const handleNextEllipsisButton = () => {
-    setCurrentPage(currentPage + limit);
-    if(currentPage + limit > pages.length ) setCurrentPage(pages.length)
+    setCurrentPage(currentPage + ellipsisJump);
+    if(currentPage + ellipsisJump > pages.length ) setCurrentPage(pages.length)
   };
   const handlePrevEllipsisButton = () => {
-    setCurrentPage(currentPage - limit);
-    if(currentPage - limit < 1) setCurrentPage(1)
+    setCurrentPage(currentPage - ellipsisJump);
+    if(currentPage - ellipsisJump < 1) setCurrentPage(1)
  
   };
 
   const renderLastEllipsis = () => {
-    if(pages.length !== limit && currentPage + Math.floor(limit / 2) < pages.length)
+    const isEvenLimit = sanitizeLimit % 2 === 0
+    const differentialLimitCondition = isEvenLimit ? currentPage + Math.floor(sanitizeLimit / 2) <= pages.length :currentPage + Math.floor(sanitizeLimit / 2) < pages.length;
+   
+    if(pages.length !== sanitizeLimit && differentialLimitCondition)
     return(
       <PaginationBase.Ellipsis onClick={handleNextEllipsisButton} disabled={!ellipsisOn} />
     )
@@ -93,7 +100,7 @@ export const Paginations: React.FC<PaginationsProps> = ({
   }
 
   const renderFirstEllipsis = () => {
-    if (pages.length !== limit && currentPage - Math.floor(limit / 2 ) > 1)
+    if (pages.length !== sanitizeLimit && currentPage - Math.floor(sanitizeLimit / 2 ) > 1)
     return(
       <PaginationBase.Ellipsis onClick={handlePrevEllipsisButton} />
     ) 

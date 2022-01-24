@@ -12,7 +12,7 @@ import DropdownContext, { DropDirection } from './DropdownContext';
 import DropdownItem from './DropdownItem';
 import DropdownMenu, { getDropdownMenuPlacement } from './DropdownMenu';
 import DropdownToggle from './DropdownToggle';
-import InputGroupContext from '../InputGroupContext';
+import InputGroupContext from '../InputGroup/InputGroupContext';
 import { useBootstrapPrefix, useIsRTL, SGDSWrapper } from '../ThemeProvider/ThemeProvider';
 import createWithBsPrefix from '../createWithBsPrefix';
 import { BsPrefixProps, BsPrefixRefForwardingComponent } from '../helpers';
