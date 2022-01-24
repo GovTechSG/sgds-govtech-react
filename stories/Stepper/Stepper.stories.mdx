@@ -1,51 +1,178 @@
-import Stepper from '../../src/components/Stepper/Stepper';
 import { ArgsTable, Canvas, Meta, Story } from '@storybook/addon-docs';
-import useStep from '../../src/components/Stepper/useStep';
-import { Button } from '../../src/components/index';
+import {
+  Button,
+  Stepper,
+  Form,
+  useStep,
+  Row,
+  Col,
+} from '../../src/components/index';
+import { useState } from 'react';
 
 <Meta title="MDX/Stepper" component={Stepper} />
 
 export const Template = () => {
+   const initialState = {
+    firstName: '',
+    lastName: '',
+    gender: '',
+    email: '',
+    address: '',
+  };
+   const [details, setDetails] = useState(initialState);
+  const handleChange = (e) => {
+    setDetails({ ...details, [e.target.name]: e.target.value });
+  };
+   const ComponentOne = (
+    <>
+      <Form.Group className="mb-3" controlId="formBasicFirstName">
+        <Form.Label>First Name</Form.Label>
+        <Form.Control
+          type="text"
+          placeholder="Enter first name"
+          name="firstName"
+          onChange={handleChange}
+          value={details.firstName}
+        />
+      </Form.Group>
+      <Form.Group className="mb-3" controlId="formBasicLastName">
+        <Form.Label>Last Name</Form.Label>
+        <Form.Control
+          type="text"
+          placeholder="Enter last name"
+          name="lastName"
+          onChange={handleChange}
+          value={details.lastName}
+        />
+      </Form.Group>
+      <Form.Group className="mb-3" controlId="formBasicCheckbox">
+        <Form.Check
+          type="radio"
+          name="gender"
+          value="female"
+          label="Female"
+          inline
+          onChange={handleChange}
+          checked={details.gender === 'female'}
+        />
+        <Form.Check
+          type="radio"
+          name="gender"
+          value="male"
+          label="Male"
+          inline
+          onChange={handleChange}
+          checked={details.gender === 'male'}
+        />
+      </Form.Group>
+    </>
+  );
+  const ComponentTwo = (
+    <>
+      <Form.Group className="mb-3" controlId="formEmail">
+        <Form.Label>Email</Form.Label>
+        <Form.Control
+          type="email"
+          placeholder="Enter email"
+          name="email"
+          onChange={handleChange}
+          value={details.email}
+        />
+      </Form.Group>
+      <Form.Group className="mb-3" controlId="formBasicLastName">
+        <Form.Label>House Address</Form.Label>
+        <Form.Control
+          type="text"
+          placeholder="House address e.g Blk 24 Seng Kang Way #02-05"
+          name="address"
+          onChange={handleChange}
+          value={details.address}
+        />
+      </Form.Group>
+    </>
+  );
+  const ComponentThree = (
+    <>
+      <Form.Group className="mb-3" controlId="formBasicFirstName">
+        <Form.Label>First Name</Form.Label>
+        <Form.Control
+          type="text"
+          value={details.firstName}
+          name="firstName"
+          plaintext
+          readOnly
+        />
+      </Form.Group>
+      <Form.Group className="mb-3" controlId="formBasicLastName">
+        <Form.Label>Last Name</Form.Label>
+        <Form.Control
+          type="text"
+          name="lastName"
+          value={details.lastName}
+          plaintext
+          readOnly
+        />
+      </Form.Group>
+      <Form.Group className="mb-3" controlId="formBasicCheckbox">
+        <Form.Check
+          type="radio"
+          name="gender"
+          value="female"
+          label="Female"
+          inline
+          checked={details.gender === 'female'}
+          plaintext
+          readOnly
+        />
+        <Form.Check
+          type="radio"
+          name="gender"
+          value="male"
+          label="Male"
+          inline
+          checked={details.gender === 'male'}
+          plaintext
+          readOnly
+        />
+      </Form.Group>
+      <Form.Group className="mb-3" controlId="formEmail">
+        <Form.Label>Email</Form.Label>
+        <Form.Control
+          type="email"
+          name="email"
+          readOnly
+          value={details.email}
+        />
+      </Form.Group>
+      <Form.Group className="mb-3" controlId="formBasicLastName">
+        <Form.Label>House Address</Form.Label>
+        <Form.Control
+          type="text"
+          name="address"
+          readOnly
+          value={details.address}
+        />
+      </Form.Group>
+    </>
+  );
   const stepMethods = useStep([
     {
-      component: 'At Step 1',
-      title: 'Create project',
-      stepHeader: 'SGTS agreement',
-      onNextStep: async (onDone) => {
-        onDone();
-        console.log('onNextStep1');
-      },
-      onArrived: async () => console.log('onArrived1'),
+      component: ComponentOne,
+      title: 'Personal Details',
+      stepHeader: 'Personal Details',
     },
     {
-      component: 'At Step 2',
-      title: 'Create project',
-      stepHeader: 'SGTS agreement',
-      onNextStep: async (onDone) => {
-        onDone();
-        console.log('nextstep2');
-      },
-      onPreviousStep: async (onDone) => {
-        console.log('prevStep2');
-        onDone()
-      },
-      onArrived: async () => console.log('onArrived2'),
+      component: ComponentTwo,
+      title: 'Address and Contact Information',
+      stepHeader: 'Address and Contact Information',
     },
     {
-      component: 'At Step 3',
+      component: ComponentThree,
       title: 'Create project',
-      stepHeader: 'SGTS agreement',
-      onNextStep: async (onDone) => {
-        console.log('submit action ');
-      },
-      onPreviousStep: async (onDone) => {
-        console.log('prevStep3');
-        onDone()
-      },
-      onArrived: async () => console.log('onArrived3 '),
+      stepHeader: 'Review',
     },
   ]);
-  const {
+   const {
     state: stepState,
     getTitle,
     setStep,
@@ -54,19 +181,47 @@ export const Template = () => {
     getNextButtonTitle,
     getBackButtonTitle,
     getComponent,
-    reset
+    reset,
   } = stepMethods;
-  return (
+  const resetForm = () => {
+    setDetails(initialState);
+    reset();
+  };
+    return (
     <>
       <Stepper methods={stepMethods} />
-      <div>{getComponent()}</div>
-      {getBackButtonTitle() && <Button onClick={prevStep} variant='danger'> {getBackButtonTitle()}</Button>}
-      <Button onClick={nextStep}> {getNextButtonTitle()}</Button>
-      <Button onClick={reset} variant='secondary'> Reset </Button>
-      <Button onClick={() => setStep(3)} variant='warning'> Jump to last page </Button>
+      <Form className="p-3">
+        <div>{getComponent()}</div>
+        <div className="d-flex justify-content-between">
+          <div>
+            {getBackButtonTitle() && (
+              <Button onClick={prevStep} variant="danger" className="me-3">
+                {getBackButtonTitle()}
+              </Button>
+            )}
+            <Button onClick={resetForm} variant="secondary">
+              Reset
+            </Button>
+          </div>
+          <div>
+            <Button onClick={nextStep}> {getNextButtonTitle()}</Button>
+            <Button
+              className="ms-3"
+              onClick={() => setStep(3)}
+              variant="warning"
+            >
+              Jump to last page
+            </Button>
+          </div>
+        </div>
+      </Form>
     </>
   );
 };
+
+# Stepper
+
+Stepper informs users which step they are in a form or process.
 
 <Canvas>
   <Story name="default">{Template.bind({})}</Story>

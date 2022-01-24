@@ -41,4 +41,6 @@ function Stepper({ methods }: { methods: UseStepMethods }) {
   );
 }
 
+Stepper.displayName = 'Stepper'
+
 export default Stepper;
