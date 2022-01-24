@@ -156,7 +156,6 @@ const FormControl: BsPrefixRefForwardingComponent<'input', FormControlProps> =
               ref={ref}
               readOnly={readOnly}
               id={id || controlId}
-              searchIcon={searchIcon}
               className={classNames(
                 className,
                 classes,
