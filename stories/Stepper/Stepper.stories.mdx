@@ -12,18 +12,18 @@ import { useState } from 'react';
 <Meta title="MDX/Stepper" component={Stepper} />
 
 export const Template = () => {
-   const initialState = {
+  const initialState = {
     firstName: '',
     lastName: '',
     gender: '',
     email: '',
     address: '',
   };
-   const [details, setDetails] = useState(initialState);
+  const [details, setDetails] = useState(initialState);
   const handleChange = (e) => {
     setDetails({ ...details, [e.target.name]: e.target.value });
   };
-   const ComponentOne = (
+  const ComponentOne = (
     <>
       <Form.Group className="mb-3" controlId="formBasicFirstName">
         <Form.Label>First Name</Form.Label>
@@ -121,7 +121,6 @@ export const Template = () => {
           label="Female"
           inline
           checked={details.gender === 'female'}
-          plaintext
           readOnly
         />
         <Form.Check
@@ -131,7 +130,6 @@ export const Template = () => {
           label="Male"
           inline
           checked={details.gender === 'male'}
-          plaintext
           readOnly
         />
       </Form.Group>
@@ -142,6 +140,7 @@ export const Template = () => {
           name="email"
           readOnly
           value={details.email}
+          plaintext
         />
       </Form.Group>
       <Form.Group className="mb-3" controlId="formBasicLastName">
@@ -151,6 +150,7 @@ export const Template = () => {
           name="address"
           readOnly
           value={details.address}
+          plaintext
         />
       </Form.Group>
     </>
@@ -160,19 +160,37 @@ export const Template = () => {
       component: ComponentOne,
       title: 'Personal Details',
       stepHeader: 'Personal Details',
+      onNextStep: async (onDone) => {
+        onDone();
+      },
+      onArrived: async () => console.log('onArrived1'),
     },
     {
       component: ComponentTwo,
       title: 'Address and Contact Information',
       stepHeader: 'Address and Contact Information',
+      onNextStep: async (onDone) => {
+        onDone();
+      },
+      onPreviousStep: async (onDone) => {
+        onDone();
+      },
+      onArrived: async () => console.log('onArrived2'),
     },
     {
       component: ComponentThree,
       title: 'Create project',
       stepHeader: 'Review',
+      onNextStep: async (onDone) => {
+        console.log('submit action ');
+      },
+      onPreviousStep: async (onDone) => {
+        onDone();
+      },
+      onArrived: async () => console.log('onArrived3 '),
     },
   ]);
-   const {
+  const {
     state: stepState,
     getTitle,
     setStep,
@@ -187,7 +205,7 @@ export const Template = () => {
     setDetails(initialState);
     reset();
   };
-    return (
+  return (
     <>
       <Stepper methods={stepMethods} />
       <Form className="p-3">
@@ -222,7 +240,128 @@ export const Template = () => {
 # Stepper
 
 Stepper informs users which step they are in a form or process.
+Each step markers indicate the stage of the process.
 
 <Canvas>
-  <Story name="default">{Template.bind({})}</Story>
+  <Story name="example">{Template.bind({})}</Story>
 </Canvas>
+
+## Usage
+
+Stepper component takes in a `methods` prop of type `UseStepMethods`.
+
+```js
+interface UseStepMethods {
+  state: State;
+  stepsMetadata: WrappedStepsMetadata;
+  nextStep: () => Promise<void>;
+  prevStep: () => Promise<void>;
+  setStep: (step: number) => Promise<void>;
+  getTitle: () => string;
+  getComponent: () => any;
+  getNextButtonTitle: () => string;
+  getBackButtonTitle: () => string | null;
+  reset: () => Promise<void>;
+}
+```
+
+1. `UseStepMethods` can be generated from a custom hook `useStep`. Import useStep hook
+
+```jsx
+import { useStep } from 'sgds-govtech-react';
+```
+
+2. Pass in `StepMetadata[]` to `useStep` which returns object of type `UseStepMethods`
+   Customise the Stepper component through `StepMetadata[]`
+
+```jsx
+import { useStep, StepMetadata, Stepper } from 'sgds-govtech-react'
+
+const ExampleStepper = () => {
+  const metadata : StepMetadata[] = useStep([
+    {
+      component: ComponentOne,
+      title: 'Personal Details',
+      stepHeader: 'Personal Details',
+      onNextStep: async (onDone) => {
+        onDone();
+      },
+      onArrived: async () => console.log('onArrived1'),
+    },
+    {
+      component: ComponentTwo,
+      title: 'Address and Contact Information',
+      stepHeader: 'Address and Contact Information',
+      onNextStep: async (onDone) => {
+        onDone();
+      },
+      onPreviousStep: async (onDone) => {
+        onDone();
+      },
+      onArrived: async () => console.log('onArrived2'),
+    },
+    {
+      component: ComponentThree,
+      title: 'Create project',
+      stepHeader: 'Review',
+      onNextStep: async (onDone) => {
+        console.log('submit action ');
+      },
+      onPreviousStep: async (onDone) => {
+        onDone();
+      },
+      onArrived: async () => console.log('onArrived3 '),
+    },
+  ]);
+
+  const stepMethods = useStep(metadata)
+
+  return(
+    <Stepper methods={stepMethods}>
+  )
+}
+
+```
+
+
+```js
+interface UseStepMethods {
+  state: State;
+  stepsMetadata: WrappedStepsMetadata;
+  nextStep: () => Promise<void>;
+  prevStep: () => Promise<void>;
+  setStep: (step: number) => Promise<void>;
+  getTitle: () => string;
+  getComponent: () => any;
+  getNextButtonTitle: () => string;
+  getBackButtonTitle: () => string | null;
+  reset: () => Promise<void>;
+}
+```
+
+3. Destructure the returned object of `stepMethods` to access the various step methods
+```jsx
+import { useStep, StepMetadata, Stepper } from 'sgds-govtech-react'
+
+const ExampleStepper = () => {
+  const metadata : StepMetadata[] = useStep([...]);
+
+  const stepMethods = useStep(metadata)
+
+  const {
+      state: stepState,
+      getTitle,
+      setStep,
+      nextStep,
+      prevStep,
+      getNextButtonTitle,
+      getBackButtonTitle,
+      getComponent,
+      reset,
+    } = stepMethods;
+
+  return(
+    <Stepper methods={stepMethods}>
+  )
+}
+```
