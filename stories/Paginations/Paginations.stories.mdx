@@ -52,7 +52,11 @@ import { Paginations, Table } from '../../src/components/index';
     },
     ellipsisOn: {
       description:
-        'Sets ellipsis to be able to increment/decrement pages based on the pages limit set.',
+        'Toggles ellipsis buttons to be able to increment/decrement pages based on the ellipsisJump value set. By default, it will be false.',
+    },
+    ellipsisJump: {
+      description:
+        'When ellipsisOn is activated, length of decrementing/incrementing of pages can be set with a number value.',
     },
     bsPrefix: { table: { disable: true } }, // to remove as commonHiddenProps
     as: { table: { disable: true } },
@@ -90,37 +94,37 @@ export const DUMMY_DATA = [
     id: 5,
     title: 'nesciunt quas odio',
     body: 'repudiandae veniam quaerat sunt sed\nalias aut fugiat sit autem sed est\nvoluptatem omnis possimus esse voluptatibus quis\nest aut tenetur dolor neque',
-  }
-  // {
-  //   userId: 1,
-  //   id: 6,
-  //   title: 'dolorem eum magni eos aperiam quia',
-  //   body: 'ut aspernatur corporis harum nihil quis provident sequi\nmollitia nobis aliquid molestiae\nperspiciatis et ea nemo ab reprehenderit accusantium quas\nvoluptate dolores velit et doloremque molestiae',
-  // },
-  // {
-  //   userId: 1,
-  //   id: 7,
-  //   title: 'magnam facilis autem',
-  //   body: 'dolore placeat quibusdam ea quo vitae\nmagni quis enim qui quis quo nemo aut saepe\nquidem repellat excepturi ut quia\nsunt ut sequi eos ea sed quas',
-  // },
-  // {
-  //   userId: 1,
-  //   id: 8,
-  //   title: 'dolorem dolore est ipsam',
-  //   body: 'dignissimos aperiam dolorem qui eum\nfacilis quibusdam animi sint suscipit qui sint possimus cum\nquaerat magni maiores excepturi\nipsam ut commodi dolor voluptatum modi aut vitae',
-  // },
-  // {
-  //   userId: 1,
-  //   id: 9,
-  //   title: 'nesciunt iure omnis dolorem tempora et accusantium',
-  //   body: 'consectetur animi nesciunt iure dolore\nenim quia ad\nveniam autem ut quam aut nobis\net est aut quod aut provident voluptas autem voluptas',
-  // },
-  // {
-  //   userId: 1,
-  //   id: 10,
-  //   title: 'optio molestias id quia eum',
-  //   body: 'quo et expedita modi cum officia vel magni\ndoloribus qui repudiandae\nvero nisi sit\nquos veniam quod sed accusamus veritatis error',
-  // },
+  },
+  {
+    userId: 1,
+    id: 6,
+    title: 'dolorem eum magni eos aperiam quia',
+    body: 'ut aspernatur corporis harum nihil quis provident sequi\nmollitia nobis aliquid molestiae\nperspiciatis et ea nemo ab reprehenderit accusantium quas\nvoluptate dolores velit et doloremque molestiae',
+  },
+  {
+    userId: 1,
+    id: 7,
+    title: 'magnam facilis autem',
+    body: 'dolore placeat quibusdam ea quo vitae\nmagni quis enim qui quis quo nemo aut saepe\nquidem repellat excepturi ut quia\nsunt ut sequi eos ea sed quas',
+  },
+  {
+    userId: 1,
+    id: 8,
+    title: 'dolorem dolore est ipsam',
+    body: 'dignissimos aperiam dolorem qui eum\nfacilis quibusdam animi sint suscipit qui sint possimus cum\nquaerat magni maiores excepturi\nipsam ut commodi dolor voluptatum modi aut vitae',
+  },
+  {
+    userId: 1,
+    id: 9,
+    title: 'nesciunt iure omnis dolorem tempora et accusantium',
+    body: 'consectetur animi nesciunt iure dolore\nenim quia ad\nveniam autem ut quam aut nobis\net est aut quod aut provident voluptas autem voluptas',
+  },
+  {
+    userId: 1,
+    id: 10,
+    title: 'optio molestias id quia eum',
+    body: 'quo et expedita modi cum officia vel magni\ndoloribus qui repudiandae\nvero nisi sit\nquos veniam quod sed accusamus veritatis error',
+  },
 ];
 
 export const Template2 = (args) => {
@@ -326,25 +330,46 @@ The `directionVariant` string prop allows you to toggle between rendering text a
 
 ## 4. Setting Limit
 
-The `limit` prop will set the pages limit based on the `data.length` and `itemsPerPage` provided to be rendered in the pagination. By default, it is set to `3`. It should be set using odd numbers as any increment/decrement of pages will set the active page to be in the center of the limit. For example, setting a limit of `3` will show `6,7,8` with `7` as the active page in the middle.
+The `limit` prop will set the number of pages shown at any one time. It will be based on the `data.length` and `itemsPerPage` provided by user. 
+By default, limit is set to **3** and `itemsperPage` is set to **5**. 
+
+To illustrate, the examples below has been set to use a dummy data `data.length` of **10** and `itemsPerPage` of **1**. So altogether, there will be a total of **10** pages in the pagination.
+By setting the limit to **3** or **5** or **8**, it will show the number of pages equal to the particular limit given. Do ***note*** that if limit is set to be of higher value than the total pages for the pagination, it will just render the total pages at one go, ignoring the limit.
 
 <Canvas>
   <Story name="Limit 3">{Template2.bind({})}</Story>
   <Story name="Limit 5" args={{ limit: 5 }}>
     {Template2.bind({})}
   </Story>
-  <Story name="Limit 7" args={{ limit: 7 }}>
+  <Story name="Limit 8" args={{ limit: 8 }}>
     {Template2.bind({})}
   </Story>
 </Canvas>
 
 ## 5. Ellipsis Mode
 
-The `ellipsisOn` boolean prop allows user to increment/decrement pages based on the `limit` number settings. By default, it's `false` which shows a disabled increment ellipsis button. Setting to `true` will render and allow functionality of both ellipsis direction button.
+The `ellipsisOn` boolean prop allows user to skip pages using `ellipsisJump`. By default with `false`, it shows a disabled increment ellipsis button. Setting to `true` will render and allow functionality of both ellipsis direction button.
 
 <Canvas>
   <Story name="Ellipsis Off">{Template2.bind({})}</Story>
   <Story name="Ellipsis On" args={{ ellipsisOn: true }}>
+    {Template2.bind({})}
+  </Story>
+</Canvas>
+
+## 6. Ellipsis Jump
+
+By default, `ellipsisJump` value is set to 3. Set as desired to decrement/increment pages for the Ellipsis button. If it is set to be of higher value than the total pages in pagination, 
+it will decrement/increment to the end of the pages respectively.
+
+<Canvas>
+  <Story name="Ellipsis Jump - 3" args={{ ellipsisOn: true, ellipsisJump: 3 }}>
+    {Template2.bind({})}
+  </Story>
+  <Story name="Ellipsis Jump - 5" args={{ ellipsisOn: true, ellipsisJump: 5 }}>
+    {Template2.bind({})}
+  </Story>
+  <Story name="Ellipsis Jump - 8" args={{ ellipsisOn: true, ellipsisJump: 8 }}>
     {Template2.bind({})}
   </Story>
 </Canvas>

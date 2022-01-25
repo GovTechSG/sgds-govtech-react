@@ -178,8 +178,8 @@ export type { RowProps } from './Row';
 // export { default as Spinner } from './Spinner';
 // export type { SpinnerProps } from './Spinner';
 
-// export { default as SplitButton } from './SplitButton';
-// export type { SplitButtonProps } from './SplitButton';
+export { default as SplitButton } from './SplitButton/SplitButton';
+export type { SplitButtonProps } from './SplitButton/SplitButton';
 
 // export { default as SSRProvider } from './SSRProvider';
 // export type { SSRProviderProps } from './SSRProvider';
