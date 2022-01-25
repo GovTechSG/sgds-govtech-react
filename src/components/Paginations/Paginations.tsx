@@ -42,10 +42,13 @@ export const Paginations: React.FC<PaginationsProps> = ({
 
   const renderPgNumbers = () => {
     const pagesToShow = [];
-    let sanitizeStartPage;
+    let sanitizeStartPage = 1;
     let endPage;
+    
+    if (limit < pages.length) sanitizeStartPage = currentPage - Math.floor(sanitizeLimit / 2);
+    
+    if(pages.length - sanitizeStartPage < limit) sanitizeStartPage = pages.length + 1 - limit
 
-    sanitizeStartPage = limit >= pages.length ? 1 :currentPage - Math.floor(sanitizeLimit / 2);
     if (sanitizeStartPage <= 0) sanitizeStartPage = 1;
     
     endPage = sanitizeStartPage + sanitizeLimit - 1;

@@ -92,6 +92,19 @@ it('when limit < page.length, page number shows should be same count as limit th
   rerender(<Paginations limit={3} dataLength={5} itemsPerPage={1} currentPage={4} ellipsisOn={true}/>) 
   expect(container.textContent).toEqual('Previous…345Next')
 
+  rerender(<Paginations limit={8} dataLength={10} itemsPerPage={1} currentPage={1} ellipsisOn={false}/>) 
+  expect(container.textContent).toEqual('Previous12345678…Next') 
+  rerender(<Paginations limit={8} dataLength={10} itemsPerPage={1} currentPage={5} ellipsisOn={false}/>) 
+  expect(container.textContent).toEqual('Previous12345678…Next') 
+  rerender(<Paginations limit={8} dataLength={10} itemsPerPage={1} currentPage={6} ellipsisOn={false}/>) 
+  expect(container.textContent).toEqual('Previous23456789…Next') 
+  rerender(<Paginations limit={8} dataLength={10} itemsPerPage={1} currentPage={7} ellipsisOn={false}/>) 
+  expect(container.textContent).toEqual('Previous345678910Next') 
+  rerender(<Paginations limit={8} dataLength={10} itemsPerPage={1} currentPage={8} ellipsisOn={false}/>) 
+  expect(container.textContent).toEqual('Previous345678910Next') 
+  rerender(<Paginations limit={8} dataLength={10} itemsPerPage={1} currentPage={9} ellipsisOn={false}/>) 
+  expect(container.textContent).toEqual('Previous345678910Next') 
+
 })
 
   it('onclick should change li page to active', async()=> {

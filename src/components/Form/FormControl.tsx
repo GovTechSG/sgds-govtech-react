@@ -148,36 +148,34 @@ const FormControl: BsPrefixRefForwardingComponent<'input', FormControlProps> =
 
       return (
         <>
-          <div style={{ display: 'flex' }}>
-            <Component
-              {...props}
-              type={type}
-              size={htmlSize}
-              ref={ref}
-              readOnly={readOnly}
-              id={id || controlId}
-              className={classNames(
-                className,
-                classes,
-                isValid && `is-valid`,
-                isInvalid && `is-invalid`,
-                type === 'color' && `${bsPrefix}-color`
-              )}
-              style={{ paddingRight: '40px' }}
-            />
-            {searchIcon == true ? (
-              <span
-                style={{
-                  position: 'relative',
-                  top: '10px',
-                  right: '35px',
-                  zIndex: '99999',
-                }}
-              >
-                <i className="bi bi-search"></i>
-              </span>
-            ) : null}
-          </div>
+          <Component
+            {...props}
+            type={type}
+            size={htmlSize}
+            ref={ref}
+            readOnly={readOnly}
+            id={id || controlId}
+            className={classNames(
+              className,
+              classes,
+              isValid && `is-valid`,
+              isInvalid && `is-invalid`,
+              type === 'color' && `${bsPrefix}-color`
+            )}
+            style={{ paddingRight: '40px' }}
+          />
+          {searchIcon == true ? (
+            <span
+              style={{
+                position: 'relative',
+                top: '10px',
+                right: '35px',
+                zIndex: '99999',
+              }}
+            >
+              <i className="bi bi-search"></i>
+            </span>
+          ) : null}
         </>
       );
     }
