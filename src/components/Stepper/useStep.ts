@@ -4,7 +4,7 @@ export type OnDone = () => Promise<void>;
 
 export interface StepMetadata {
   component: any;
-  title: any;
+  title: string;
   stepHeader: string;
   onNextStep?: (onDone: OnDone) => Promise<void>;
   onPreviousStep?: (onDone: OnDone) => Promise<void>;
@@ -100,7 +100,7 @@ export interface UseStepMethods {
   nextStep: () => Promise<void>;
   prevStep: () => Promise<void>;
   setStep: (step: number) => Promise<void>;
-  getTitle: () => string;
+  getTitle: () => any;
   getComponent: () => any;
   getNextButtonTitle: () => string;
   getBackButtonTitle: () => string | null;
@@ -150,13 +150,10 @@ function useStep(stepsMetadata: StepMetadata[]): UseStepMethods {
       });
     };
     if (newStep > state.currentStep) {
-      console.log('1')
-
       await stepData.onNextStep(onDoneMethod);
     }
     if (newStep < state.currentStep) {
-      console.log('1')
-      await stepData.onPreviousStep(onDoneMethod);
+     await stepData.onPreviousStep(onDoneMethod);
     }
   };
 
