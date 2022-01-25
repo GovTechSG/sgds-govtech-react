@@ -5,7 +5,7 @@ export type OnDone = () => Promise<void>;
 export interface StepMetadata {
   component: any;
   title: any;
-  stepHeader: any;
+  stepHeader: string;
   onNextStep?: (onDone: OnDone) => Promise<void>;
   onPreviousStep?: (onDone: OnDone) => Promise<void>;
   onArrived?: () => Promise<void>;
@@ -150,9 +150,12 @@ function useStep(stepsMetadata: StepMetadata[]): UseStepMethods {
       });
     };
     if (newStep > state.currentStep) {
+      console.log('1')
+
       await stepData.onNextStep(onDoneMethod);
     }
     if (newStep < state.currentStep) {
+      console.log('1')
       await stepData.onPreviousStep(onDoneMethod);
     }
   };

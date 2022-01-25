@@ -19,6 +19,7 @@ export const Template = () => {
     email: '',
     address: '',
   };
+  const [submitted, setSubmitted] = useState(false);
   const [details, setDetails] = useState(initialState);
   const handleChange = (e) => {
     setDetails({ ...details, [e.target.name]: e.target.value });
@@ -181,9 +182,6 @@ export const Template = () => {
       component: ComponentThree,
       title: 'Create project',
       stepHeader: 'Review',
-      onNextStep: async (onDone) => {
-        console.log('submit action ');
-      },
       onPreviousStep: async (onDone) => {
         onDone();
       },
@@ -192,6 +190,7 @@ export const Template = () => {
   ]);
   const {
     state: stepState,
+    stepsMetadata,
     getTitle,
     setStep,
     nextStep,
@@ -205,34 +204,53 @@ export const Template = () => {
     setDetails(initialState);
     reset();
   };
+  const submit = () => {
+    alert('Form Submitted');
+    setSubmitted(true);
+  };
   return (
     <>
-      <Stepper methods={stepMethods} />
-      <Form className="p-3">
-        <div>{getComponent()}</div>
-        <div className="d-flex justify-content-between">
-          <div>
-            {getBackButtonTitle() && (
-              <Button onClick={prevStep} variant="danger" className="me-3">
-                {getBackButtonTitle()}
-              </Button>
-            )}
-            <Button onClick={resetForm} variant="secondary">
-              Reset
-            </Button>
-          </div>
-          <div>
-            <Button onClick={nextStep}> {getNextButtonTitle()}</Button>
-            <Button
-              className="ms-3"
-              onClick={() => setStep(3)}
-              variant="warning"
-            >
-              Jump to last page
-            </Button>
-          </div>
-        </div>
-      </Form>
+      {submitted ? (
+        <div>Submitted!</div>
+      ) : (
+        <>
+          <Stepper methods={stepMethods} />
+          <Form className="p-3">
+            <div>{getComponent()}</div>
+            <div className="d-flex justify-content-between">
+              <div>
+                {getBackButtonTitle() && (
+                  <Button onClick={prevStep} variant="danger" className="me-3">
+                    {getBackButtonTitle()}
+                  </Button>
+                )}
+                <Button onClick={resetForm} variant="secondary">
+                  Reset
+                </Button>
+              </div>
+              <div>
+                <Button
+                  onClick={
+                    stepsMetadata.isLastStep(stepState.currentStep)
+                      ? submit
+                      : nextStep
+                  }
+                >
+                  {' '}
+                  {getNextButtonTitle()}
+                </Button>
+                <Button
+                  className="ms-3"
+                  onClick={() => setStep(3)}
+                  variant="warning"
+                >
+                  Jump to last page
+                </Button>
+              </div>
+            </div>
+          </Form>
+        </>
+      )}
     </>
   );
 };
@@ -248,37 +266,26 @@ Each step markers indicate the stage of the process.
 
 ## Usage
 
-Stepper component takes in a `methods` prop of type `UseStepMethods`.
+### 1. `useStep` hook
 
-```js
-interface UseStepMethods {
-  state: State;
-  stepsMetadata: WrappedStepsMetadata;
-  nextStep: () => Promise<void>;
-  prevStep: () => Promise<void>;
-  setStep: (step: number) => Promise<void>;
-  getTitle: () => string;
-  getComponent: () => any;
-  getNextButtonTitle: () => string;
-  getBackButtonTitle: () => string | null;
-  reset: () => Promise<void>;
-}
-```
+`<Stepper /> ` takes in a `methods` prop of type `UseStepMethods` which can be generated from a custom hook `useStep`.
 
-1. `UseStepMethods` can be generated from a custom hook `useStep`. Import useStep hook
+Import `useStep` hook from `sgds-govtech-react`
 
 ```jsx
 import { useStep } from 'sgds-govtech-react';
 ```
 
-2. Pass in `StepMetadata[]` to `useStep` which returns object of type `UseStepMethods`
-   Customise the Stepper component through `StepMetadata[]`
+### 2. `StepMetadata`
+
+`useStep` hook takes in an array of objects of type `StepMetadata`. Each `StepMetadata` controls each step of the Stepper in ascending order of its index position in the array.
+See API for `StepMetadata`
 
 ```jsx
 import { useStep, StepMetadata, Stepper } from 'sgds-govtech-react'
 
 const ExampleStepper = () => {
-  const metadata : StepMetadata[] = useStep([
+  const metadata : StepMetadata[] = [
     {
       component: ComponentOne,
       title: 'Personal Details',
@@ -286,7 +293,7 @@ const ExampleStepper = () => {
       onNextStep: async (onDone) => {
         onDone();
       },
-      onArrived: async () => console.log('onArrived1'),
+      onArrived: async () => console.log('onArrived'),
     },
     {
       component: ComponentTwo,
@@ -306,15 +313,63 @@ const ExampleStepper = () => {
       stepHeader: 'Review',
       onNextStep: async (onDone) => {
         console.log('submit action ');
+        return history.push('/')
       },
       onPreviousStep: async (onDone) => {
         onDone();
       },
       onArrived: async () => console.log('onArrived3 '),
     },
-  ]);
+  ];
 
   const stepMethods = useStep(metadata)
+  ...
+}
+
+```
+
+- `component` controls the content to be rendered in each stage of the stepper. `component` can be a React component, HTML element, string etc.
+
+- `title` can be used to render the title of each stepper process. `title` can be a React component, HTML element, string etc.
+
+- `stepHeader` determines the step-detail of each step-marker. `stepHeader` is a string
+
+When side-effects like updating store and states are required, specify them in `onNextStep`, `onPrevious` or `onArrived`.
+
+- `onNextStep` specifies side-effects before the next component is rendered.
+
+- `onPreviousStep` specifies any side-effects before previous component is rendered.
+
+- `onArrived` specifies any side-effects after the component is rendered
+
+`onNextStep`, `onPreviousStep` and `onArrived` are optional.
+
+`onNextStep`, `onPreviousStep` runs OnDone() by default when triggered.
+
+When specifying `onPreviousStep` or `onNextStep`,`OnDone` must be specified after any side-effects to proceed to the previous stage.
+
+```js
+interface StepMetadata {
+  component: any;
+  title: any;
+  stepHeader: string;
+  onNextStep?: (onDone: OnDone) => Promise<void>;
+  onPreviousStep?: (onDone: OnDone) => Promise<void>;
+  onArrived?: () => Promise<void>;
+}
+```
+
+### 3. `UseStepMethods`
+
+`useStep` hook generates the object of type `UseStepMethods`
+
+```jsx
+import { useStep, StepMetadata, Stepper, UseStepMethods } from 'sgds-govtech-react'
+
+const ExampleStepper = () => {
+  const metadata : StepMetadata[] = [...];
+
+  const stepMethods: UseStepMethods = useStep(metadata)
 
   return(
     <Stepper methods={stepMethods}>
@@ -323,33 +378,19 @@ const ExampleStepper = () => {
 
 ```
 
+Destructure the returned object of `stepMethods` to access the various step methods
 
-```js
-interface UseStepMethods {
-  state: State;
-  stepsMetadata: WrappedStepsMetadata;
-  nextStep: () => Promise<void>;
-  prevStep: () => Promise<void>;
-  setStep: (step: number) => Promise<void>;
-  getTitle: () => string;
-  getComponent: () => any;
-  getNextButtonTitle: () => string;
-  getBackButtonTitle: () => string | null;
-  reset: () => Promise<void>;
-}
-```
-
-3. Destructure the returned object of `stepMethods` to access the various step methods
 ```jsx
 import { useStep, StepMetadata, Stepper } from 'sgds-govtech-react'
 
 const ExampleStepper = () => {
-  const metadata : StepMetadata[] = useStep([...]);
+  const metadata : StepMetadata[] = [...];
 
   const stepMethods = useStep(metadata)
 
   const {
-      state: stepState,
+      state,
+      stepsMetdata,
       getTitle,
       setStep,
       nextStep,
@@ -365,3 +406,87 @@ const ExampleStepper = () => {
   )
 }
 ```
+
+```js
+interface UseStepMethods {
+  state: StepperState;
+  stepsMetadata: WrappedStepsMetadata;
+  nextStep: () => Promise<void>;
+  prevStep: () => Promise<void>;
+  setStep: (step: number) => Promise<void>;
+  getTitle: () => string;
+  getComponent: () => any;
+  getNextButtonTitle: () => string;
+  getBackButtonTitle: () => string | null;
+  reset: () => Promise<void>;
+}
+```
+
+- `getNextButtonTitle` & `getBackButtonTitle` , `getTitle` render the titles of next & back button or component titles when required.
+
+- `getNextButtonTitle` returns 'Submit' instead of 'Next' on the last step
+
+- `prevStep`, `nextStep` performs the side-effects previously specified in `onPreviousStep` and `onNextStep`.
+
+- `setStep` accepts a step number argument and updates the currentStep state of Stepper.
+
+- `reset` resets the Stepper back to stage 1
+
+- `getComponent` renders the specified components for each step.
+
+  Refer to API for more details on each method
+
+```jsx
+...
+    const submit = () => {
+      alert('Form Submitted')
+      setSubmitted(true)
+  }
+
+  const {
+        state: stepState,
+        stepsMetdata,
+        getTitle,
+        setStep,
+        nextStep,
+        prevStep,
+        getNextButtonTitle,
+        getBackButtonTitle,
+        getComponent,
+        reset,
+      } = stepMethods;
+
+  return (
+    <>
+      <Stepper methods={stepMethods} />
+      <Form className="p-3">
+        <div>{getComponent()}</div>
+        <div className="d-flex justify-content-between">
+          <div>
+            {getBackButtonTitle() && (
+              <Button onClick={prevStep} variant="danger" className="me-3">
+                {getBackButtonTitle()}
+              </Button>
+            )}
+            <Button onClick={resetForm} variant="secondary">
+              Reset
+            </Button>
+          </div>
+          <div>
+            <Button onClick={stepsMetadata.isLastStep(stepState.currentStep) ? submit : nextStep}> {getNextButtonTitle()}</Button>
+            <Button
+              className="ms-3"
+              onClick={() => setStep(3)}
+              variant="warning"
+            >
+              Jump to last page
+            </Button>
+          </div>
+        </div>
+      </Form>
+    </>
+  );
+```
+
+
+## API
