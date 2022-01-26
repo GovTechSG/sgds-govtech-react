@@ -126,7 +126,7 @@ The `Modal` is hidden by default and appears with backdrop and animation on clic
 
 <Canvas>
   <Story
-    name="default"
+    name="Default"
     parameters={{
       docs: {
         source: {
@@ -140,7 +140,7 @@ The `Modal` is hidden by default and appears with backdrop and animation on clic
   </Story>
 </Canvas>
 
-<ArgsTable story="default" />
+<ArgsTable story="Default" />
 
 ## Size
 
@@ -148,7 +148,7 @@ You can specify a bootstrap large or small modal by using the size prop: `sm`, `
 
 <Canvas>
   <Story
-    name="size small"
+    name="Size Small"
     args={{
       size: 'sm',
     }}
@@ -156,7 +156,7 @@ You can specify a bootstrap large or small modal by using the size prop: `sm`, `
     {smallModal}
   </Story>
   <Story
-    name="size large"
+    name="Size Large"
     args={{
       size: 'lg',
     }}
@@ -164,7 +164,7 @@ You can specify a bootstrap large or small modal by using the size prop: `sm`, `
     {largeModal}
   </Story>
   <Story
-    name="size xlarge"
+    name="Size Xlarge"
     args={{
       size: 'xl',
     }}
@@ -191,7 +191,7 @@ import { Modal } from 'sgds-react';
 
 You can use the fullscreen prop to make the modal fullscreen. Specifying a breakpoint will only set the modal as fullscreen below the breakpoint size
 
-<Story name="fullscreen modal">
+<Story name="Fullscreen Modal">
   <Row>
     {FULLSCREEN_PROPS.map((opt, i) => (
       <Col key={i}>
@@ -226,7 +226,7 @@ You can apply custom css using props: dialogClassName, contentPropClassName
 
 You can apply custom css to the modal dialog div using the dialogClassName prop. Example is using a custom css class .text-primary.
 
-<Story name="custom css - dialogClassName">{customCssDialog}</Story>
+<Story name="Custom css - dialogClassName">{customCssDialog}</Story>
 
 ```jsx
 import { Modal } from 'sgds-react';
@@ -240,7 +240,7 @@ import { Modal } from 'sgds-react';
 
 Use contentPropClassName to add an optional extra classname to .modal-content. Example is using a custom css class .text-warning.
 
-<Story name="custom css - contentPropClassName">{customCssContent}</Story>
+<Story name="Custom CSS - contentPropClassName">{customCssContent}</Story>
 
 ```jsx
 import { Modal } from 'sgds-react';
@@ -254,7 +254,7 @@ import { Modal } from 'sgds-react';
 
 Add an optional extra class name to .modal-backdrop It could end up looking like class="modal-backdrop foo-modal-backdrop in".
 
-<Story name="custom css - backdropClassName">{customCssBg}</Story>
+<Story name="Custom CSS - backdropClassName">{customCssBg}</Story>
 
 ```jsx
 import { Modal } from 'sgds-react';
@@ -268,7 +268,7 @@ import { Modal } from 'sgds-react';
 
 A Modal can also be without an animation. For that set the `animation` prop to `false`.
 
-<Story name="animation">{noAnim}</Story>
+<Story name="Animation">{noAnim}</Story>
 
 ```jsx
 import { Modal } from 'sgds-react';
@@ -282,7 +282,7 @@ import { Modal } from 'sgds-react';
 
 When modal content is long , it make sense to enable `scrollable` to `true`
 
-<Story name="scroll">
+<Story name="Scroll">
   <Row>
     <Col>{scrollable()}</Col>
     <Col>{notScrollable()}</Col>

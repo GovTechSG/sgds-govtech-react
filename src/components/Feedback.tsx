@@ -40,17 +40,19 @@ const Feedback: BsPrefixRefForwardingComponent<'div', FeedbackProps> =
         tooltip = false,
         ...props
       },
-      ref,
-    ) => (
-      <Component
-        {...props}
-        ref={ref}
-        className={classNames(
-          className,
-          `${type}-${tooltip ? 'tooltip' : 'feedback'}`,
-        )}
-      />
-    ),
+      ref
+    ) => {
+      return (
+        <Component
+          {...props}
+          ref={ref}
+          className={classNames(
+            className,
+            `${type}-${tooltip ? 'tooltip' : 'feedback'}`
+          )}
+        />
+      );
+    }
   );
 
 Feedback.displayName = 'Feedback';

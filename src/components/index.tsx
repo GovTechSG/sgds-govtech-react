@@ -99,8 +99,8 @@ export type { FormSelectProps } from './Form/FormSelect';
 // export type { ImageProps } from './Image';
 
 // export { default as Figure } from './Figure';
-// export { default as InputGroup } from './InputGroup';
-// export type { InputGroupProps } from './InputGroup';
+export { default as InputGroup } from './InputGroup/InputGroup';
+export type { InputGroupProps } from './InputGroup/InputGroup';
 
 // export { default as ListGroup } from './ListGroup';
 // export type { ListGroupProps } from './ListGroup';
@@ -142,19 +142,19 @@ export { default as ModalTitle } from './Modal/ModalTitle';
 // export { default as OffcanvasTitle } from './OffcanvasTitle';
 // export { default as OffcanvasBody } from './OffcanvasBody';
 
-// export { default as Overlay } from './Overlay';
-// export type { OverlayProps } from './Overlay';
+export { default as Overlay } from './Overlay/Overlay';
+export type { OverlayProps } from './Overlay/Overlay';
 
-// export { default as OverlayTrigger } from './OverlayTrigger';
-// export type { OverlayTriggerProps } from './OverlayTrigger';
+export { default as OverlayTrigger } from './Overlay/OverlayTrigger';
+export type { OverlayTriggerProps } from './Overlay/OverlayTrigger';
 
 export { default as PageItem } from './PageItem';
 export type { PageItemProps } from './PageItem';
 
-export { default as Pagination } from './Pagination/Pagination';
-export type { PaginationProps } from './Pagination/Pagination';
-export { default as PaginationExtended } from './PaginationExtended/PaginationExtended';
-export type { PaginationExtendedProps } from './PaginationExtended/PaginationExtended';
+export { default as PaginationBase } from './PaginationBase/PaginationBase';
+export type { PaginationBaseProps } from './PaginationBase/PaginationBase';
+export { Paginations } from './Paginations/Paginations';
+export type { PaginationsProps } from './Paginations/Paginations';
 
 // export { default as Placeholder } from './Placeholder';
 // export type { PlaceholderProps } from './Placeholder';
@@ -178,8 +178,8 @@ export type { RowProps } from './Row';
 // export { default as Spinner } from './Spinner';
 // export type { SpinnerProps } from './Spinner';
 
-// export { default as SplitButton } from './SplitButton';
-// export type { SplitButtonProps } from './SplitButton';
+export { default as SplitButton } from './SplitButton/SplitButton';
+export type { SplitButtonProps } from './SplitButton/SplitButton';
 
 // export { default as SSRProvider } from './SSRProvider';
 // export type { SSRProviderProps } from './SSRProvider';
@@ -230,8 +230,12 @@ export type { ThemeProviderProps } from './ThemeProvider/ThemeProvider';
 //   ToggleButtonRadioProps,
 // } from './ToggleButtonGroup';
 
-// export { default as Tooltip } from './Tooltip';
-// export type { TooltipProps } from './Tooltip';
+export { default as TooltipBox } from './Tooltip/TooltipBox';
+export type { TooltipBoxProps } from './Tooltip/TooltipBox';
+
+export { default as Tooltip } from './Tooltip/Tooltip';
+export type { TooltipProps } from './Tooltip/Tooltip';
+
 
 import * as yup from 'yup';
 import * as formik from 'formik';

@@ -1,4 +1,5 @@
 import PropTypes from 'prop-types';
+import { BasePlacement } from '@popperjs/core'
 
 export type Variant =
   | 'primary'
@@ -34,6 +35,8 @@ export type Color =
   | 'muted';
 
 export type Placement = import('@restart/ui/usePopper').Placement;
+export type TooltipPlacement = BasePlacement | "top-start" | "bottom-start"
+
 
 export type AlignDirection = 'start' | 'end';
 

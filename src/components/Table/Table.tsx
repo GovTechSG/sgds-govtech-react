@@ -15,6 +15,7 @@ export interface TableProps
   size?: string;
   variant?: string;
   responsive?: boolean | string;
+  boxArrowIcon? : boolean;
 }
 
 const propTypes = {
@@ -79,6 +80,7 @@ const Table = React.forwardRef<HTMLTableElement, TableProps>(
       size,
       variant,
       responsive,
+      boxArrowIcon = true,
       ...props
     },
     ref,
@@ -94,6 +96,8 @@ const Table = React.forwardRef<HTMLTableElement, TableProps>(
       borderless && `${decoratedBsPrefix}-borderless`,
       hover && `${decoratedBsPrefix}-hover`,
     );
+      
+    
 
     const table = <SGDSWrapper as="table" {...props} className={classes} ref={ref} />;
     if (responsive) {
@@ -109,6 +113,7 @@ const Table = React.forwardRef<HTMLTableElement, TableProps>(
   },
 );
 
+// Table.displayName = 'Table';
 Table.propTypes = propTypes;
 
 export default Table;
