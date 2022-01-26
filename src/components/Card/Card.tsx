@@ -10,6 +10,7 @@ import createWithBsPrefix from '../createWithBsPrefix';
 import divWithClassName from '../divWithClassName';
 import CardImg from './CardImg';
 import CardHeader from './CardHeader';
+import CardChecked from './CardChecked'
 import { BsPrefixProps, BsPrefixRefForwardingComponent } from '../helpers';
 import { Color, Variant } from '../types';
 
@@ -34,43 +35,9 @@ export interface CardProps
   text?: Color;
   border?: Variant;
   body?: boolean;
+  actionCSS?: string;
+  checked? : boolean;
 }
-
-const propTypes = {
-  /**
-   * @default 'card'
-   */
-  bsPrefix: PropTypes.string,
-
-  /**
-   * Sets card background
-   *
-   * @type {('primary'|'secondary'|'success'|'danger'|'warning'|'info'|'dark'|'light')}
-   */
-  bg: PropTypes.string,
-
-  /**
-   * Sets card text color
-   *
-   * @type {('primary'|'secondary'|'success'|'danger'|'warning'|'info'|'dark'|'light'|'white'|'muted')}
-   */
-  text: PropTypes.string,
-
-  /**
-   * Sets card border color
-   *
-   * @type {('primary'|'secondary'|'success'|'danger'|'warning'|'info'|'dark'|'light')}
-   */
-  border: PropTypes.string,
-
-  /**
-   * When this prop is set, it creates a Card with a Card.Body inside
-   * passing the children directly to it
-   */
-  body: PropTypes.bool,
-
-  as: PropTypes.elementType,
-};
 
 const defaultProps = {
   body: false,
@@ -87,6 +54,8 @@ export const Card: BsPrefixRefForwardingComponent<'div', CardProps> =
         border,
         body,
         children,
+        actionCSS,
+        checked,
         // Need to define the default "as" during prop destructuring to be compatible with styled-components github.com/react-bootstrap/react-bootstrap/issues/3595
         as: Component = 'div',
         ...props
@@ -94,7 +63,7 @@ export const Card: BsPrefixRefForwardingComponent<'div', CardProps> =
       ref
     ) => {
       const prefix = useBootstrapPrefix(bsPrefix, 'card');
-
+  
       return (
         <SGDSWrapper
           as={Component}
@@ -105,7 +74,8 @@ export const Card: BsPrefixRefForwardingComponent<'div', CardProps> =
             prefix,
             bg && `bg-${bg}`,
             text && `text-${text}`,
-            border && `border-${border}`
+            border && `border-${border}`,
+            
           )}
         >
           {body ? <CardBody>{children}</CardBody> : children}
@@ -115,7 +85,6 @@ export const Card: BsPrefixRefForwardingComponent<'div', CardProps> =
   );
 
 Card.displayName = 'Card';
-Card.propTypes = propTypes;
 Card.defaultProps = defaultProps;
 
 export default Object.assign(Card, {
@@ -129,4 +98,5 @@ export default Object.assign(Card, {
   Header: CardHeader,
   Footer: CardFooter,
   ImgOverlay: CardImgOverlay,
+  Checked : CardChecked
 });

@@ -1,0 +1,45 @@
+import { ArgsTable, Canvas, Meta, Story } from '@storybook/addon-docs';
+import { HIDDEN_COMMON_PROPS, VARIANT } from '../helpers';
+import {
+  Card,
+  Button,
+  CardGroup,
+  Row,
+  Col,
+  Form,
+} from '../../src/components/index';
+
+<Meta
+  title="MDX/Action Card"
+  component={Card}
+  argTypes={{
+    ...HIDDEN_COMMON_PROPS,
+    bg: {
+      description: 'Sets card background',
+      control: { type: 'select' },
+      options: VARIANT,
+    },
+    border: {
+      description: 'Sets card border color',
+      control: { type: 'select' },
+      options: VARIANT,
+    },
+    body: { table: { disable: true } },
+  }}
+/>
+
+export const Template = (args) => {
+  return (
+    <Col xs lg="4">
+      <Form>
+        <Card.Checked name="test" type="radio">Apple</Card.Checked>
+        <Card.Checked name="test" type="radio">Orange</Card.Checked>
+        <Card.Checked name="test" type="radio">Carrot</Card.Checked>
+      </Form>
+    </Col>
+  );
+};
+
+<Canvas>
+  <Story name="Input Card">{Template.bind({})}</Story>
+</Canvas>

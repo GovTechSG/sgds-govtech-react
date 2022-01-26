@@ -11,23 +11,6 @@ export interface CardImgProps
   variant?: 'top' | 'bottom';
 }
 
-const propTypes = {
-  /**
-   * @default 'card-img'
-   */
-  bsPrefix: PropTypes.string,
-
-  /**
-   * Defines image position inside
-   * the card.
-   *
-   * @type {('top'|'bottom')}
-   */
-  variant: PropTypes.oneOf(['top', 'bottom']),
-
-  as: PropTypes.elementType,
-};
-
 const CardImg: BsPrefixRefForwardingComponent<'img', CardImgProps> =
   React.forwardRef(
     // Need to define the default "as" during prop destructuring to be compatible with styled-components github.com/react-bootstrap/react-bootstrap/issues/3595
@@ -56,6 +39,5 @@ const CardImg: BsPrefixRefForwardingComponent<'img', CardImgProps> =
     },
   );
 CardImg.displayName = 'CardImg';
-CardImg.propTypes = propTypes;
 
 export default CardImg;
