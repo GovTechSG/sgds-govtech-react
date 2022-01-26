@@ -11,6 +11,27 @@ import { useState } from 'react';
 
 <Meta title="MDX/Stepper" component={Stepper} />
 
+export const DefaultStepperTemplate = () => {
+  const stepMethods = useStep([
+    {
+      component: 'ComponentOne',
+      title: 'Personal Details',
+      stepHeader: 'Personal Details',
+    },
+    {
+      component: 'ComponentTwo',
+      title: 'Address and Contact Information',
+      stepHeader: 'Address and Contact Information',
+    },
+    {
+      component: 'ComponentThree',
+      title: 'Create project',
+      stepHeader: 'Review',
+    },
+  ]);
+  return <Stepper methods={stepMethods} />;
+};
+
 export const Template = () => {
   const initialState = {
     firstName: '',
@@ -163,31 +184,16 @@ export const Template = () => {
       component: ComponentOne,
       title: 'Personal Details',
       stepHeader: 'Personal Details',
-      onNextStep: (onDone) => {
-        onDone();
-      },
-      onArrived: () => console.log('onArrived1'),
     },
     {
       component: ComponentTwo,
       title: 'Address and Contact Information',
       stepHeader: 'Address and Contact Information',
-      onNextStep: (onDone) => {
-        onDone();
-      },
-      onPreviousStep: (onDone) => {
-        onDone();
-      },
-      onArrived: () => console.log('onArrived2'),
     },
     {
       component: ComponentThree,
       title: 'Create project',
       stepHeader: 'Review',
-      onPreviousStep: (onDone) => {
-        onDone();
-      },
-      onArrived: () => console.log('onArrived3'),
     },
   ]);
   const {
@@ -262,6 +268,16 @@ export const Template = () => {
 Stepper informs users which step they are in a form or process.
 Each step markers indicate the stage of the process.
 
+The default Stepper component consist of step markers and step details. The step markers consist of three states, inactive, active and done, indicated by the colors: grey, border-purple and filled-purple respectively.
+
+The step markers are clickable for backwards navigation.
+
+<Canvas>
+  <Story name="default">{DefaultStepperTemplate.bind({})}</Story>
+</Canvas>
+
+## Example 
+Try out the Stepper Component below with build-in Forms and Buttons
 <Canvas>
   <Story name="example">{Template.bind({})}</Story>
 </Canvas>
@@ -283,6 +299,24 @@ import { useStep } from 'sgds-govtech-react';
 `useStep` hook takes in an array of objects of type `StepMetadata`. Each `StepMetadata` controls each step of the Stepper in ascending order of its index position in the array.
 See [API](/docs/mdx-stepper--example#api) for `StepMetadata`
 
+- `component` controls the content to be rendered in each stage of the stepper. `component` can be a React component, HTML element, string etc.
+
+- `title` controls the content to be rendered for each Stepper process. `title` can be a React component, HTML element, string etc.
+
+- `stepHeader` determines the step detail of each step marker. `stepHeader` is a string
+
+When side-effects like updating store and states are required, specify them in `onNextStep`, `onPrevious` or `onArrived`.
+
+- `onNextStep` specifies side-effects before the next component is rendered. `onNextStep` has no effect on the last step object
+
+- `onPreviousStep` specifies any side-effects before previous component is rendered.
+
+- `onArrived` specifies any side-effects after the component is rendered
+
+`onNextStep`, `onPreviousStep` and `onArrived` are optional.
+
+When not specified, the default `onNextStep`, `onPreviousStep` runs OnDone() when triggered.
+
 ```jsx
 import { useStep, StepMetadata, Stepper } from 'sgds-govtech-react'
 
@@ -292,30 +326,28 @@ const ExampleStepper = () => {
       component: ComponentOne,
       title: 'Personal Details',
       stepHeader: 'Personal Details',
-      onNextStep: (onDone) => {
-        onDone();
-      },
-      onArrived: () => console.log('onArrived'),
     },
     {
       component: ComponentTwo,
       title: 'Address and Contact Information',
       stepHeader: 'Address and Contact Information',
       onNextStep: (onDone) => {
+        // Add your side effects here e.g. fetch API
         onDone();
       },
       onPreviousStep: (onDone) => {
+        // Add your side effects here e.g. clear states
         onDone();
       },
-      onArrived: () => console.log('onArrived2'),
+      onArrived: () =>{
+        // Add your side effects here
+        console.log('onArrived2')
+      }
     },
     {
       component: ComponentThree,
       title: 'Create project',
       stepHeader: 'Review',
-      onNextStep: (onDone) => {
-        console.log('submit action');
-      },
       onPreviousStep: (onDone) => {
         onDone();
       },
@@ -328,26 +360,6 @@ const ExampleStepper = () => {
 }
 
 ```
-
-- `component` controls the content to be rendered in each stage of the stepper. `component` can be a React component, HTML element, string etc.
-
-- `title` controls the content to be rendered for each Stepper process. `title` can be a React component, HTML element, string etc.
-
-- `stepHeader` determines the step detail of each step marker. `stepHeader` is a string
-
-When side-effects like updating store and states are required, specify them in `onNextStep`, `onPrevious` or `onArrived`.
-
-- `onNextStep` specifies side-effects before the next component is rendered.
-
-- `onPreviousStep` specifies any side-effects before previous component is rendered.
-
-- `onArrived` specifies any side-effects after the component is rendered
-
-`onNextStep`, `onPreviousStep` and `onArrived` are optional.
-
-`onNextStep`, `onPreviousStep` runs OnDone() by default when triggered.
-
-When specifying `onPreviousStep` or `onNextStep`,`OnDone` must be specified after any side-effects to proceed to the previous stage.
 
 ### 3. `UseStepMethods`
 
@@ -467,6 +479,10 @@ const ExampleStepper = () => {
 
 ### `<Stepper>`
 
+| Property  | Type             | Optional | Description                                                              |
+| --------- | ---------------- | -------- | ------------------------------------------------------------------------ |
+| `methods` | `UseStepMethods` | No       | Generate UseStepMethods by passing in `StepMetadata[]` to `useStep` hook |
+
 ### `StepMetadata`
 
 | Property         | Type                                                  | Optional | Description                                                                                                                                                                                                                                                                                                                                                                                                                                                    |
@@ -501,11 +517,11 @@ const ExampleStepper = () => {
 
 ### `WrappedStepsMetadata` Class
 
-| Property      | Type                                            | Description                                                                       |
-| ------------- | ----------------------------------------------- | --------------------------------------------------------------------------------- |
-| `length`      | `Getter`                                        | Returns the length of WrappedStepMetadata[] or the number of steps of the Stepper |
-| `findByStep`  | `Method` <br />`(step: number) => StepMetadata` | Finds and return the WrappedStepMetadata of a particular step                     |
-| `isFirstStep` | `Method` <br />`(step: number) => boolean`      | Checks if step passed in is the first step of Stepper                             |
-| `isLastStep`  | `Method` <br />`(step: number) => boolean`      | Checks if step passed in is the last step of Stepper                              |
-| `isLastStep`  | `Method` <br />`(step: number) => boolean`      | Checks if step passed is within the step range                                    |
-| `data`        | `Getter`                                        | Returns the WrappedStepMetadata[]                                                 |
+| Property            | Type                                            | Description                                                                       |
+| ------------------- | ----------------------------------------------- | --------------------------------------------------------------------------------- |
+| `length`            | `Getter`                                        | Returns the length of WrappedStepMetadata[] or the number of steps of the Stepper |
+| `findByStep`        | `Method` <br />`(step: number) => StepMetadata` | Finds and return the WrappedStepMetadata of a particular step                     |
+| `isFirstStep`       | `Method` <br />`(step: number) => boolean`      | Checks if step passed in is the first step of Stepper                             |
+| `isLastStep`        | `Method` <br />`(step: number) => boolean`      | Checks if step passed in is the last step of Stepper                              |
+| `isWithinStepRange` | `Method` <br />`(step: number) => boolean`      | Checks if step passed is within the step range                                    |
+| `data`              | `Getter`                                        | Returns the WrappedStepMetadata[]                                                 |
