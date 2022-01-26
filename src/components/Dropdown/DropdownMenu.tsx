@@ -11,7 +11,7 @@ import useMergedRefs from '@restart/hooks/useMergedRefs';
 import { SelectCallback } from '@restart/ui/types';
 import warning from 'warning';
 import DropdownContext, { DropDirection } from './DropdownContext';
-import InputGroupContext from '../InputGroupContext';
+import InputGroupContext from '../InputGroup/InputGroupContext';
 import NavbarContext from '../NavbarContext';
 import useWrappedRefWithWarning from '../useWrappedRefWithWarning';
 import { BsPrefixProps, BsPrefixRefForwardingComponent } from '../helpers';

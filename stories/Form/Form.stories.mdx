@@ -6,21 +6,20 @@ import { Form, Button } from '../../src/components/index';
   title="MDX/Form"
   component={Form}
   argTypes={{ 
-    validated: {
-      description: 'Mark a form as having been validated. Setting it to `true` will toggle any validation styles on the forms elements.',
-      table: {
-        category: '<Form>',
-        type: { summary: 'boolean' },
-      },
-    },
      validated: {
       description: 'Mark a form as having been validated. Setting it to `true` will toggle any validation styles on the forms elements.',
       table: {
         category: '<Form>',
         type: { summary: 'boolean' },
-      },
+        disable: true
+      }, // not needed, enabling this will clash icon with default searchIcon
     },
-    onClick: { action: 'clicked' } }}
+    onClick: { action: 'clicked' },
+    as: { table: { disable: true} },
+    searchIcon: {
+      description: 'A prop that allows toggling of searchIcon in `<FormControl>`'
+    },
+     }}
 />
 
 # Forms
@@ -32,7 +31,7 @@ along with support for a label, help text, and validation state. To ensure acces
 
 ## 1. Basic Form
 
-export const Template = () => {
+export const Template = (args) => {
   const onSubmit = (event) => {
     event.preventDefault();
     console.log('submission prevented');
@@ -41,7 +40,7 @@ export const Template = () => {
     <Form onSubmit={onSubmit}>
       <Form.Group className="mb-3" controlId="formBasicEmail">
         <Form.Label>Email address</Form.Label>
-        <Form.Control type="email" placeholder="Enter email" />
+        <Form.Control htmlSize={5} type="email" placeholder="Enter email" searchIcon/>
         <Form.Text className="text-muted">
           We'll never share your email with anyone else.
         </Form.Text>
@@ -63,6 +62,30 @@ export const Template = () => {
 <Canvas>
   <Story name="Basic">{Template.bind({})}</Story>
 </Canvas>
+
+```jsx
+<Form onSubmit={onSubmit}>
+      <Form.Group className="mb-3" controlId="formBasicEmail">
+        <Form.Label>Email address</Form.Label>
+        <Form.Control htmlSize={5} type="email" placeholder="Enter email"/>
+        <Form.Text className="text-muted">
+          We'll never share your email with anyone else.
+        </Form.Text>
+      </Form.Group>
+      <Form.Group className="mb-3" controlId="formBasicPassword">
+        <Form.Label>Password</Form.Label>
+        <Form.Control type="password" placeholder="Password" />
+      </Form.Group>
+      <Form.Group className="mb-3" controlId="formBasicCheckbox">
+        <Form.Check type="checkbox" label="Check me out" />
+      </Form.Group>
+      <Button variant="primary" type="submit">
+        Submit
+      </Button>
+    </Form>
+````
+
+<ArgsTable story='Basic'/>
 
 The `<Form.Control>` component directly renders the `<input>` or other specified component. If you need to access the value of an uncontrolled `<Form.Control>`,
 attach a ref to it as you would with an uncontrolled input, then call `ReactDOM.findDOMNode(ref)` to get the DOM node. You can then interact with that node as you would with any other uncontrolled input.
@@ -122,4 +145,19 @@ Add the `disabled` attribute to a `<fieldset>` to disable all the controls withi
   </Story>
 </Canvas>
 
-<ArgsTable story='Basic'/>
+
+## 3. Search Icon Input
+
+By default, `searchIcon` boolean attribute is set to `true` in input field. You may remove it by manually setting it to `false`.
+
+<Canvas>
+  <Story name="Input search icon">
+    <>
+      <Form.Group className="mb-3">
+        <Form.Label>Remove Search Icon</Form.Label>
+        <Form.Control placeholder="Remove search icon" searchIcon={false}/>
+      </Form.Group>
+    </>
+  </Story>
+</Canvas>
+

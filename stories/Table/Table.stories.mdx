@@ -1,0 +1,667 @@
+import { ArgsTable, Canvas, Meta, Story } from '@storybook/addon-docs';
+
+import { Table } from '../../src/components/index';
+
+<Meta
+  title="MDX/Table"
+  component={Table}
+  argTypes={{
+    variant: {
+      description:
+        'Invert the colors of the table — with light text on dark backgrounds by setting variant as `dark`.\n',
+      control: {
+        type: 'select',
+        options: [
+          'primary',
+          'secondary',
+          'success',
+          'warning',
+          'danger',
+          'light',
+          'info',
+          'dark',
+        ],
+      },
+    },
+    striped: {
+        description: 'Adds zebra-striping to any table row within the <tbody>.'
+    },
+    bordered: {
+        description: 'Adds borders on all sides of the table and cells.'
+    },
+    borderless: {
+        description: 'Removes all borders on the table and cells, including table header.'
+    },
+    hover: {
+        description: 'Enable a hover state on table rows within a `<tbody>`.\n'
+    },
+    bsPrefix: { table: { disable: true } },
+    responsive: { 
+        table: {
+        defaultValue: { summary: 'false' },
+    },
+    description: 'Allow tables to be scrolled horizontally with ease. Across every breakpoint, use responsive for horizontally scrolling tables. Responsive tables are wrapped automatically in a div. Use `responsive="sm"`, `responsive="md"`, `responsive="lg"`, or `responsive="xl"` as needed to create responsive tables up to a particular breakpoint. From that breakpoint and up, the table will behave normally and not scroll horizontally. \n\n Alternatively, set boolean to `true` instead to make it always responsive throughout breakpoints.\n'
+     },
+    size: {
+        description: 'Make tables more compact by cutting cell padding in half by setting size as `sm`.\n',
+        control: {
+        type: 'radio',
+        options: ['sm','lg']}
+    }
+  }}
+/>
+
+export const Basic = (args) => {
+  return (
+    <Table striped bordered hover {...args}>
+      <thead>
+        <tr>
+          <th>#</th>
+          <th>First Name</th>
+          <th>Last Name</th>
+          <th>Username</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>1</td>
+          <td>Mark</td>
+          <td>Otto</td>
+          <td>@mdo</td>
+        </tr>
+        <tr>
+          <td>2</td>
+          <td>Jacob</td>
+          <td>Thornton</td>
+          <td>@fat</td>
+        </tr>
+        <tr>
+          <td>3</td>
+          <td colSpan={2}>Larry the Bird</td>
+          <td>@twitter</td>
+        </tr>
+      </tbody>
+    </Table>
+  );
+};
+
+# Tables
+
+## 1. Basic
+
+Use the `striped`, `bordered` and `hover` props to customise the table.
+
+<Canvas>
+  <Story name="Basic">{Basic.bind({})}</Story>
+</Canvas>
+
+<ArgsTable story="Basic" />
+
+```jsx
+import { Table } from  'sgds-react';
+
+<Table striped bordered hover>
+      <thead>
+        <tr>
+          <th>#</th>
+          <th>First Name</th>
+          <th>Last Name</th>
+          <th>Username</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>1</td>
+          <td>Mark</td>
+          <td>Otto</td>
+          <td>@mdo</td>
+        </tr>
+        <tr>
+          <td>2</td>
+          <td>Jacob</td>
+          <td>Thornton</td>
+          <td>@fat</td>
+        </tr>
+        <tr>
+          <td>3</td>
+          <td colSpan={2}>Larry the Bird</td>
+          <td>@twitter</td>
+        </tr>
+      </tbody>
+    </Table>
+```
+
+## 2. Small Table
+
+Use `size="sm"` to make tables compact by cutting cell padding in half.
+
+<Canvas>
+  <Story name="Small table" args={{ size: 'sm' }}>
+    {Basic.bind({})}
+  </Story>
+</Canvas>
+
+```jsx
+import { Table } from  'sgds-react';
+
+<Table striped bordered hover size='sm'>
+      <thead>
+        <tr>
+          <th>#</th>
+          <th>First Name</th>
+          <th>Last Name</th>
+          <th>Username</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>1</td>
+          <td>Mark</td>
+          <td>Otto</td>
+          <td>@mdo</td>
+        </tr>
+        <tr>
+          <td>2</td>
+          <td>Jacob</td>
+          <td>Thornton</td>
+          <td>@fat</td>
+        </tr>
+        <tr>
+          <td>3</td>
+          <td colSpan={2}>Larry the Bird</td>
+          <td>@twitter</td>
+        </tr>
+      </tbody>
+    </Table>
+```
+
+## 3. Dark Table
+
+Use `variant="dark"` to invert the colors of the table and get light text on a dark background.
+
+<Canvas>
+  <Story name="Dark Mode" args={{ variant: 'dark' }}>
+    {Basic.bind({})}
+  </Story>
+</Canvas>
+
+```jsx
+import { Table } from  'sgds-react';
+
+<Table striped bordered hover variant='dark'>
+      <thead>
+        <tr>
+          <th>#</th>
+          <th>First Name</th>
+          <th>Last Name</th>
+          <th>Username</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>1</td>
+          <td>Mark</td>
+          <td>Otto</td>
+          <td>@mdo</td>
+        </tr>
+        <tr>
+          <td>2</td>
+          <td>Jacob</td>
+          <td>Thornton</td>
+          <td>@fat</td>
+        </tr>
+        <tr>
+          <td>3</td>
+          <td colSpan={2}>Larry the Bird</td>
+          <td>@twitter</td>
+        </tr>
+      </tbody>
+    </Table>
+```
+
+## 4. Responsive
+
+Responsive tables allow tables to be scrolled horizontally with ease.
+
+## Always Responsive
+
+Across every breakpoint, use `responsive` for horizontally scrolling tables. Responsive tables are wrapped automatically in a `div`.
+The following example has 12 columns that are scrollable horizontally.
+
+export const A_Responsive = (args) => {
+  return (
+    <>
+      <Table responsive>
+        <thead>
+          <tr>
+            <th>#</th>
+            {Array.from({ length: 12 }).map((_, index) => (
+              <th key={index}>Table heading</th>
+            ))}
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>1</td>
+            {Array.from({ length: 12 }).map((_, index) => (
+              <td key={index}>Table cell {index}</td>
+            ))}
+          </tr>
+          <tr>
+            <td>2</td>
+            {Array.from({ length: 12 }).map((_, index) => (
+              <td key={index}>Table cell {index}</td>
+            ))}
+          </tr>
+          <tr>
+            <td>3</td>
+            {Array.from({ length: 12 }).map((_, index) => (
+              <td key={index}>Table cell {index}</td>
+            ))}
+          </tr>
+        </tbody>
+      </Table>
+    </>
+  );
+};
+
+<Canvas>
+  <Story name="Responsive">{A_Responsive.bind({})}</Story>
+</Canvas>
+
+
+```jsx
+import { Table } from  'sgds-react';
+
+<Table responsive>
+        <thead>
+          <tr>
+            <th>#</th>
+            {Array.from({ length: 12 }).map((_, index) => (
+              <th key={index}>Table heading</th>
+            ))}
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>1</td>
+            {Array.from({ length: 12 }).map((_, index) => (
+              <td key={index}>Table cell {index}</td>
+            ))}
+          </tr>
+          <tr>
+            <td>2</td>
+            {Array.from({ length: 12 }).map((_, index) => (
+              <td key={index}>Table cell {index}</td>
+            ))}
+          </tr>
+          <tr>
+            <td>3</td>
+            {Array.from({ length: 12 }).map((_, index) => (
+              <td key={index}>Table cell {index}</td>
+            ))}
+          </tr>
+        </tbody>
+      </Table>
+```
+
+## 5. Breakpoint specific
+
+Use ` responsive="sm"``,  `responsive="md"`` , `responsive="lg" ``, or `responsive="xl"`` as needed to create responsive tables up to a particular breakpoint.
+From that breakpoint and up, the table will behave normally and not scroll horizontally.
+
+export const BP_Responsive = () => {
+  return (
+    <>
+      <div>
+        <Table responsive="sm">
+          <thead>
+            <tr>
+              <th>#</th>
+              <th>Table heading</th>
+              <th>Table heading</th>
+              <th>Table heading</th>
+              <th>Table heading</th>
+              <th>Table heading</th>
+              <th>Table heading</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>1</td>
+              <td>Table cell</td>
+              <td>Table cell</td>
+              <td>Table cell</td>
+              <td>Table cell</td>
+              <td>Table cell</td>
+              <td>Table cell</td>
+            </tr>
+            <tr>
+              <td>2</td>
+              <td>Table cell</td>
+              <td>Table cell</td>
+              <td>Table cell</td>
+              <td>Table cell</td>
+              <td>Table cell</td>
+              <td>Table cell</td>
+            </tr>
+            <tr>
+              <td>3</td>
+              <td>Table cell</td>
+              <td>Table cell</td>
+              <td>Table cell</td>
+              <td>Table cell</td>
+              <td>Table cell</td>
+              <td>Table cell</td>
+            </tr>
+          </tbody>
+        </Table>
+        <Table responsive="md">
+          <thead>
+            <tr>
+              <th>#</th>
+              <th>Table heading</th>
+              <th>Table heading</th>
+              <th>Table heading</th>
+              <th>Table heading</th>
+              <th>Table heading</th>
+              <th>Table heading</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>1</td>
+              <td>Table cell</td>
+              <td>Table cell</td>
+              <td>Table cell</td>
+              <td>Table cell</td>
+              <td>Table cell</td>
+              <td>Table cell</td>
+            </tr>
+            <tr>
+              <td>2</td>
+              <td>Table cell</td>
+              <td>Table cell</td>
+              <td>Table cell</td>
+              <td>Table cell</td>
+              <td>Table cell</td>
+              <td>Table cell</td>
+            </tr>
+            <tr>
+              <td>3</td>
+              <td>Table cell</td>
+              <td>Table cell</td>
+              <td>Table cell</td>
+              <td>Table cell</td>
+              <td>Table cell</td>
+              <td>Table cell</td>
+            </tr>
+          </tbody>
+        </Table>
+        <Table responsive="lg">
+          <thead>
+            <tr>
+              <th>#</th>
+              <th>Table heading</th>
+              <th>Table heading</th>
+              <th>Table heading</th>
+              <th>Table heading</th>
+              <th>Table heading</th>
+              <th>Table heading</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>1</td>
+              <td>Table cell</td>
+              <td>Table cell</td>
+              <td>Table cell</td>
+              <td>Table cell</td>
+              <td>Table cell</td>
+              <td>Table cell</td>
+            </tr>
+            <tr>
+              <td>2</td>
+              <td>Table cell</td>
+              <td>Table cell</td>
+              <td>Table cell</td>
+              <td>Table cell</td>
+              <td>Table cell</td>
+              <td>Table cell</td>
+            </tr>
+            <tr>
+              <td>3</td>
+              <td>Table cell</td>
+              <td>Table cell</td>
+              <td>Table cell</td>
+              <td>Table cell</td>
+              <td>Table cell</td>
+              <td>Table cell</td>
+            </tr>
+          </tbody>
+        </Table>
+        <Table responsive="xl">
+          <thead>
+            <tr>
+              <th>#</th>
+              <th>Table heading</th>
+              <th>Table heading</th>
+              <th>Table heading</th>
+              <th>Table heading</th>
+              <th>Table heading</th>
+              <th>Table heading</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>1</td>
+              <td>Table cell</td>
+              <td>Table cell</td>
+              <td>Table cell</td>
+              <td>Table cell</td>
+              <td>Table cell</td>
+              <td>Table cell</td>
+            </tr>
+            <tr>
+              <td>2</td>
+              <td>Table cell</td>
+              <td>Table cell</td>
+              <td>Table cell</td>
+              <td>Table cell</td>
+              <td>Table cell</td>
+              <td>Table cell</td>
+            </tr>
+            <tr>
+              <td>3</td>
+              <td>Table cell</td>
+              <td>Table cell</td>
+              <td>Table cell</td>
+              <td>Table cell</td>
+              <td>Table cell</td>
+              <td>Table cell</td>
+            </tr>
+          </tbody>
+        </Table>
+      </div>
+    </>
+  );
+};
+
+<Canvas>
+  <Story name="Breakpoint Specific">{BP_Responsive.bind({})}</Story>
+</Canvas>
+
+```jsx
+import { Table } from  'sgds-react';
+
+ <div>
+        <Table responsive="sm">
+          <thead>
+            <tr>
+              <th>#</th>
+              <th>Table heading</th>
+              <th>Table heading</th>
+              <th>Table heading</th>
+              <th>Table heading</th>
+              <th>Table heading</th>
+              <th>Table heading</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>1</td>
+              <td>Table cell</td>
+              <td>Table cell</td>
+              <td>Table cell</td>
+              <td>Table cell</td>
+              <td>Table cell</td>
+              <td>Table cell</td>
+            </tr>
+            <tr>
+              <td>2</td>
+              <td>Table cell</td>
+              <td>Table cell</td>
+              <td>Table cell</td>
+              <td>Table cell</td>
+              <td>Table cell</td>
+              <td>Table cell</td>
+            </tr>
+            <tr>
+              <td>3</td>
+              <td>Table cell</td>
+              <td>Table cell</td>
+              <td>Table cell</td>
+              <td>Table cell</td>
+              <td>Table cell</td>
+              <td>Table cell</td>
+            </tr>
+          </tbody>
+        </Table>
+        <Table responsive="md">
+          <thead>
+            <tr>
+              <th>#</th>
+              <th>Table heading</th>
+              <th>Table heading</th>
+              <th>Table heading</th>
+              <th>Table heading</th>
+              <th>Table heading</th>
+              <th>Table heading</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>1</td>
+              <td>Table cell</td>
+              <td>Table cell</td>
+              <td>Table cell</td>
+              <td>Table cell</td>
+              <td>Table cell</td>
+              <td>Table cell</td>
+            </tr>
+            <tr>
+              <td>2</td>
+              <td>Table cell</td>
+              <td>Table cell</td>
+              <td>Table cell</td>
+              <td>Table cell</td>
+              <td>Table cell</td>
+              <td>Table cell</td>
+            </tr>
+            <tr>
+              <td>3</td>
+              <td>Table cell</td>
+              <td>Table cell</td>
+              <td>Table cell</td>
+              <td>Table cell</td>
+              <td>Table cell</td>
+              <td>Table cell</td>
+            </tr>
+          </tbody>
+        </Table>
+        <Table responsive="lg">
+          <thead>
+            <tr>
+              <th>#</th>
+              <th>Table heading</th>
+              <th>Table heading</th>
+              <th>Table heading</th>
+              <th>Table heading</th>
+              <th>Table heading</th>
+              <th>Table heading</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>1</td>
+              <td>Table cell</td>
+              <td>Table cell</td>
+              <td>Table cell</td>
+              <td>Table cell</td>
+              <td>Table cell</td>
+              <td>Table cell</td>
+            </tr>
+            <tr>
+              <td>2</td>
+              <td>Table cell</td>
+              <td>Table cell</td>
+              <td>Table cell</td>
+              <td>Table cell</td>
+              <td>Table cell</td>
+              <td>Table cell</td>
+            </tr>
+            <tr>
+              <td>3</td>
+              <td>Table cell</td>
+              <td>Table cell</td>
+              <td>Table cell</td>
+              <td>Table cell</td>
+              <td>Table cell</td>
+              <td>Table cell</td>
+            </tr>
+          </tbody>
+        </Table>
+        <Table responsive="xl">
+          <thead>
+            <tr>
+              <th>#</th>
+              <th>Table heading</th>
+              <th>Table heading</th>
+              <th>Table heading</th>
+              <th>Table heading</th>
+              <th>Table heading</th>
+              <th>Table heading</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>1</td>
+              <td>Table cell</td>
+              <td>Table cell</td>
+              <td>Table cell</td>
+              <td>Table cell</td>
+              <td>Table cell</td>
+              <td>Table cell</td>
+            </tr>
+            <tr>
+              <td>2</td>
+              <td>Table cell</td>
+              <td>Table cell</td>
+              <td>Table cell</td>
+              <td>Table cell</td>
+              <td>Table cell</td>
+              <td>Table cell</td>
+            </tr>
+            <tr>
+              <td>3</td>
+              <td>Table cell</td>
+              <td>Table cell</td>
+              <td>Table cell</td>
+              <td>Table cell</td>
+              <td>Table cell</td>
+              <td>Table cell</td>
+            </tr>
+          </tbody>
+        </Table>
+      </div>
+```

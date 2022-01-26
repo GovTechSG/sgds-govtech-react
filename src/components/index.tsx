@@ -99,8 +99,8 @@ export type { FormSelectProps } from './Form/FormSelect';
 // export type { ImageProps } from './Image';
 
 // export { default as Figure } from './Figure';
-// export { default as InputGroup } from './InputGroup';
-// export type { InputGroupProps } from './InputGroup';
+export { default as InputGroup } from './InputGroup/InputGroup';
+export type { InputGroupProps } from './InputGroup/InputGroup';
 
 // export { default as ListGroup } from './ListGroup';
 // export type { ListGroupProps } from './ListGroup';
@@ -151,10 +151,10 @@ export { default as ModalTitle } from './Modal/ModalTitle';
 export { default as PageItem } from './PageItem';
 export type { PageItemProps } from './PageItem';
 
-export { default as Pagination } from './Pagination/Pagination';
-export type { PaginationProps } from './Pagination/Pagination';
-export { default as PaginationExtended } from './PaginationExtended/PaginationExtended';
-export type { PaginationExtendedProps } from './PaginationExtended/PaginationExtended';
+export { default as PaginationBase } from './PaginationBase/PaginationBase';
+export type { PaginationBaseProps } from './PaginationBase/PaginationBase';
+export { Paginations } from './Paginations/Paginations';
+export type { PaginationsProps } from './Paginations/Paginations';
 
 // export { default as Placeholder } from './Placeholder';
 // export type { PlaceholderProps } from './Placeholder';
@@ -178,8 +178,8 @@ export type { RowProps } from './Row';
 // export { default as Spinner } from './Spinner';
 // export type { SpinnerProps } from './Spinner';
 
-// export { default as SplitButton } from './SplitButton';
-// export type { SplitButtonProps } from './SplitButton';
+export { default as SplitButton } from './SplitButton/SplitButton';
+export type { SplitButtonProps } from './SplitButton/SplitButton';
 
 // export { default as SSRProvider } from './SSRProvider';
 // export type { SSRProviderProps } from './SSRProvider';
