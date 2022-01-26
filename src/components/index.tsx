@@ -142,11 +142,11 @@ export { default as ModalTitle } from './Modal/ModalTitle';
 // export { default as OffcanvasTitle } from './OffcanvasTitle';
 // export { default as OffcanvasBody } from './OffcanvasBody';
 
-// export { default as Overlay } from './Overlay';
-// export type { OverlayProps } from './Overlay';
+export { default as Overlay } from './Overlay/Overlay';
+export type { OverlayProps } from './Overlay/Overlay';
 
-// export { default as OverlayTrigger } from './OverlayTrigger';
-// export type { OverlayTriggerProps } from './OverlayTrigger';
+export { default as OverlayTrigger } from './Overlay/OverlayTrigger';
+export type { OverlayTriggerProps } from './Overlay/OverlayTrigger';
 
 export { default as PageItem } from './PageItem';
 export type { PageItemProps } from './PageItem';
@@ -226,8 +226,12 @@ export type { ThemeProviderProps } from './ThemeProvider/ThemeProvider';
 //   ToggleButtonRadioProps,
 // } from './ToggleButtonGroup';
 
-// export { default as Tooltip } from './Tooltip';
-// export type { TooltipProps } from './Tooltip';
+export { default as TooltipBox } from './Tooltip/TooltipBox';
+export type { TooltipBoxProps } from './Tooltip/TooltipBox';
+
+export { default as Tooltip } from './Tooltip/Tooltip';
+export type { TooltipProps } from './Tooltip/Tooltip';
+
 
 import * as yup from 'yup';
 import * as formik from 'formik';

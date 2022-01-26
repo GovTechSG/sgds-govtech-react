@@ -1,0 +1,126 @@
+import { ArgsTable, Canvas, Meta, Story } from '@storybook/addon-docs';
+import { useState, useRef } from 'react';
+import {
+  Tooltip,
+  Button,
+  OverlayTrigger,
+  Row,
+  Col,
+  Card,
+  Alert,
+} from '../../src/components/index';
+import { HIDDEN_COMMON_PROPS } from '../helpers';
+
+<Meta
+  title="MDX/Tooltip"
+  component={Tooltip}
+  argTypes={{
+    ...HIDDEN_COMMON_PROPS,
+    placement: {
+      description: 'The placement of the Tooltip in relation to its target',
+    },
+    type: {
+      description: 'Types of Tooltip include clickable and hoverable',
+    },
+    content: {
+      description: 'The text content to be displayed in the tooltip',
+    },
+  }}
+/>
+
+export const NamedTemplate = (targetContent = '') => {
+  const Template = (args) => {
+    return (
+      <Tooltip {...args}>
+        <Button>{targetContent}</Button>
+      </Tooltip>
+    );
+  };
+  return Template;
+};
+
+export const defaultTooltip = NamedTemplate('Hover me!').bind({});
+export const clickableTooltip = NamedTemplate('Click me!').bind({});
+
+# Tooltip
+
+`Tooltip` provides a brief description of a feature or page element.
+
+The default `Tooltip` is hoverable, with top placement. Pass in the Tooltip text through the `content` prop as a string
+The `Tooltip` component works as a wrapper around its target children element.
+
+<Canvas>
+  <Story name="Default" args={{ content: 'This is a sample Tooltip' }}>
+    {defaultTooltip}
+  </Story>
+</Canvas>
+
+<ArgsTable story="Default" />
+
+## Target Element / Component
+
+Wrap the target element or Component with `Tooltip`. `Tooltip` only accepts a single child.
+
+<Canvas>
+  <Story name="Target Components">
+    <div className="d-flex flex-column">
+      <Tooltip content="This is a sample Tooltip">
+        <Card>
+          <Card.Body>
+            <Card.Title>Hover Card! </Card.Title>
+            <Card.Text>Hover over me and you can see the Tooltip</Card.Text>
+            <Card.Link href="#">Go somewhere</Card.Link>
+          </Card.Body>
+        </Card>
+      </Tooltip>
+      <br />
+      <Tooltip content="This is a sample Tooltip">
+        <Alert variant="success">Hover over Alert Component!</Alert>
+      </Tooltip>
+    </div>
+  </Story>
+  <Story name="Target HTMLElements">
+    <div className="d-flex flex-column">
+      <Tooltip content="This is a sample Tooltip">
+        <div>You can hover over a div element</div>
+      </Tooltip>
+      <Tooltip content="This is a sample Tooltip">
+        <span>You can hover over a span element</span>
+      </Tooltip>
+      <Tooltip content="This is a sample Tooltip">
+        <textarea defaultValue="You can hover over a textarea element"></textarea>
+      </Tooltip>
+    </div>
+  </Story>
+</Canvas>
+
+## Clickable Tooltip
+
+Set `type` prop to 'click' for a clickable Tooltip. A clickable Tooltip includes `<CloseButton />` which closes the Tooltip onClick.
+The Tooltip can also be closed by clicking on the target element as well. Clickable Tooltip works on any target element or Component like `hover` type
+
+<Canvas>
+  <Story
+    name="Clickable"
+    args={{ content: 'This is a sample Tooltip', type: 'click' }}
+  >
+    {clickableTooltip}
+  </Story>
+  <Story name="Clickable Components">
+    <Tooltip content="This is a sample Tooltip" type="click">
+      <Alert variant="success">Click this Alert Component!</Alert>
+    </Tooltip>
+  </Story>
+  <Story name="Clickable Elements">
+    <Tooltip content="This is a sample Tooltip" type="click">
+      <div>Click this div element</div>
+    </Tooltip>
+  </Story>
+</Canvas>
+
+## API
+
+SGDS `Tooltip` component is built on top of React-bootstrap. Hoverable `Tooltip` uses `OverlayTrigger` component and clickable `Tooltip` uses `Overlay` component.
+The underlying third-party library is Popper.js.
+
+Please refer to https://react-bootstrap.github.io/components/overlays/#api for more detailed API documentation

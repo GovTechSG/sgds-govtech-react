@@ -160,7 +160,8 @@ describe('<Modal>', () => {
       </Modal>,
     )
       .find('.btn-close')
-      .simulate('click');
+      .simulate('click'); 
+      
   });
 
   it('Should pass className to the dialog', () => {
