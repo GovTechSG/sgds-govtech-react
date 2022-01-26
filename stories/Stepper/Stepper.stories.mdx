@@ -268,7 +268,7 @@ export const Template = () => {
 Stepper informs users which step they are in a form or process.
 Each step markers indicate the stage of the process.
 
-The default Stepper component consist of step markers and step details. The step markers consist of three states, inactive, active and done, indicated by the colors: grey, border-purple and filled-purple respectively.
+The default Stepper component consist of step markers and stepHeaders. The step markers consist of three states, inactive, active and done, indicated by the colors: grey, border-purple and filled-purple respectively.
 
 The step markers are clickable for backwards navigation.
 
@@ -379,7 +379,9 @@ const ExampleStepper = () => {
 }
 
 ```
+### 4. Integrate Stepper with other Components
 
+The Stepper Component only renders the stepHeader and step markers. `stepMethods` exposes methods to render the respective content per Step. 
 Destructure the returned object of `stepMethods` to access the various step methods
 
 ```jsx
