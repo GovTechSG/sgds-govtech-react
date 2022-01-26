@@ -6,7 +6,7 @@ import { useDropdownToggle } from '@restart/ui/DropdownToggle';
 import DropdownContext from '@restart/ui/DropdownContext';
 import useMergedRefs from '@restart/hooks/useMergedRefs';
 import Button, { ButtonProps, CommonButtonProps } from '../Button/Button';
-import InputGroupContext from '../InputGroupContext';
+import InputGroupContext from '../InputGroup/InputGroupContext';
 import useWrappedRefWithWarning from '../useWrappedRefWithWarning';
 import { BsPrefixRefForwardingComponent } from '../helpers';
 

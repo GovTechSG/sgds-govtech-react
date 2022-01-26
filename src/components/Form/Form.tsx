@@ -36,6 +36,8 @@ const propTypes = {
    */
   validated: PropTypes.bool,
   as: PropTypes.elementType,
+
+  searchIcon: PropTypes.bool,
 };
 
 const Form: BsPrefixRefForwardingComponent<'form', FormProps> =
@@ -48,14 +50,14 @@ const Form: BsPrefixRefForwardingComponent<'form', FormProps> =
         as: Component = 'form',
         ...props
       },
-      ref,
+      ref
     ) => (
       <Component
         {...props}
         ref={ref}
         className={classNames(className, validated && 'was-validated')}
       />
-    ),
+    )
   );
 
 Form.displayName = 'Form';

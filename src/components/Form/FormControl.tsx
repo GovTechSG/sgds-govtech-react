@@ -23,6 +23,7 @@ export interface FormControlProps
   type?: string;
   isValid?: boolean;
   isInvalid?: boolean;
+  searchIcon?: boolean;
 }
 
 const propTypes = {
@@ -71,6 +72,9 @@ const propTypes = {
   /** Make the control disabled */
   disabled: PropTypes.bool,
 
+  /** Make the control toggle a search icon */
+  searchIcon: PropTypes.bool,
+
   /**
    * The `value` attribute of underlying input
    *
@@ -116,11 +120,12 @@ const FormControl: BsPrefixRefForwardingComponent<'input', FormControlProps> =
         isInvalid = false,
         plaintext,
         readOnly,
+        searchIcon = false,
         // Need to define the default "as" during prop destructuring to be compatible with styled-components github.com/react-bootstrap/react-bootstrap/issues/3595
         as: Component = 'input',
         ...props
       },
-      ref,
+      ref
     ) => {
       const { controlId } = useContext(FormContext);
 
@@ -138,29 +143,42 @@ const FormControl: BsPrefixRefForwardingComponent<'input', FormControlProps> =
 
       warning(
         controlId == null || !id,
-        '`controlId` is ignored on `<FormControl>` when `id` is specified.',
+        '`controlId` is ignored on `<FormControl>` when `id` is specified.'
       );
 
       return (
         <>
-        <Component
-          {...props}
-          type={type}
-          size={htmlSize}
-          ref={ref}
-          readOnly={readOnly}
-          id={id || controlId}
-          className={classNames(
-            className,
-            classes,
-            isValid && `is-valid`,
-            isInvalid && `is-invalid`,
-            type === 'color' && `${bsPrefix}-color`,
-          )}
+          <Component
+            {...props}
+            type={type}
+            size={htmlSize}
+            ref={ref}
+            readOnly={readOnly}
+            id={id || controlId}
+            className={classNames(
+              className,
+              classes,
+              isValid && `is-valid`,
+              isInvalid && `is-invalid`,
+              type === 'color' && `${bsPrefix}-color`
+            )}
+            style={{ paddingRight: '40px' }}
           />
+          {searchIcon == true ? (
+            <span
+              style={{
+                position: 'relative',
+                top: '10px',
+                right: '35px',
+                zIndex: '99999',
+              }}
+            >
+              <i className="bi bi-search"></i>
+            </span>
+          ) : null}
         </>
       );
-    },
+    }
   );
 
 FormControl.displayName = 'FormControl';
