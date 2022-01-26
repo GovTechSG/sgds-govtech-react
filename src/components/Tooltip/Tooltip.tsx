@@ -1,13 +1,13 @@
 import * as React from 'react';
 import { useState, useRef } from 'react';
-import { Placement } from '../types';
+import { TooltipPlacement } from '../types';
 import Overlay from '../Overlay/Overlay';
 import OverlayTrigger from '../Overlay/OverlayTrigger';
 import TooltipBox from './TooltipBox';
 import CloseButton from '../CloseButton/CloseButton';
 
 export interface TooltipProps {
-  placement: Placement;
+  placement: TooltipPlacement;
   type: 'hover' | 'click';
   children: JSX.Element;
   content: string;
