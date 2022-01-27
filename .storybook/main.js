@@ -27,7 +27,7 @@ module.exports = {
       shouldExtractLiteralValuesFromEnum: true,
       propFilter: (prop) => {
         return prop.parent
-            ?  prop.parent.name !== 'DOMAttributes' && prop.parent.name !== 'HTMLAttributes' && prop.parent.name !== 'AriaAttributes'
+            ?  prop.parent.name !== 'DOMAttributes' && !prop.parent.name.includes('HTMLAttributes')  && prop.parent.name !== 'AriaAttributes'
             : true;
       },
       compilerOptions: {

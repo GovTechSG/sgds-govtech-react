@@ -1,6 +1,5 @@
 import classNames from 'classnames';
 import * as React from 'react';
-import PropTypes from 'prop-types';
 
 import { useBootstrapPrefix } from '../ThemeProvider/ThemeProvider';
 import { BsPrefixProps, BsPrefixRefForwardingComponent } from '../helpers';

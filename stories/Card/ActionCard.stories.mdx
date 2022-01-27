@@ -7,36 +7,117 @@ import {
   Row,
   Col,
   Form,
+  InputGroup,
+  FormControl,
+  CloseButton
 } from '../../src/components/index';
+import CardChecked from '../../src/components/Card/CardChecked';
+import { useState } from 'react';
 
 <Meta
   title="MDX/Action Card"
-  component={Card}
+  component={CardChecked}
   argTypes={{
     ...HIDDEN_COMMON_PROPS,
-    bg: {
-      description: 'Sets card background',
-      control: { type: 'select' },
-      options: VARIANT,
-    },
-    border: {
-      description: 'Sets card border color',
-      control: { type: 'select' },
-      options: VARIANT,
-    },
-    body: { table: { disable: true } },
   }}
 />
 
 export const Template = (args) => {
+  const [brand, setBrand] = useState('-');
+  const [qty, setQty] = useState(0);
+  const handleChange = (e) => {
+    setBrand(e.target.value);
+  };
+  const [count, setCount] = useState(0)
+  const onPlus = () => {
+    setCount(count+1)
+  }
+  const onMinus = () => {
+    if (count < 1) setCount(0)
+      else setCount(count-1)
+  }
+  const [disappear, setDisappear] = useState(false)
   return (
-    <Col xs lg="4">
-      <Form>
-        <Card.Checked name="test" type="radio">Apple</Card.Checked>
-        <Card.Checked name="test" type="radio">Orange</Card.Checked>
-        <Card.Checked name="test" type="radio">Carrot</Card.Checked>
-      </Form>
-    </Col>
+    <Row>
+      <Col xs lg="4">
+        <Form>
+          <CardChecked
+            name="test"
+            type="radio"
+            value="apple"
+            checked={brand === 'apple'}
+            onChange={handleChange}
+            {...args}
+          >
+            <Card.Body>
+              <Card.Title as="h4">
+                Apple <i className="bi bi-apple"></i>
+              </Card.Title>
+              <Card.Text>Macbook Pro M1</Card.Text>
+            </Card.Body>
+          </CardChecked>
+          <CardChecked
+            name="test"
+            type="radio"
+            value="microsoft"
+            checked={brand === 'microsoft'}
+            onChange={handleChange}
+          >
+            <Card.Body>
+              <Card.Title as="h4">
+                Microsoft <i className="bi bi-microsoft"></i>
+              </Card.Title>
+              <Card.Text>Microsoft Surface Pro</Card.Text>
+            </Card.Body>
+          </CardChecked>
+          <CardChecked
+            name="test"
+            type="radio"
+            value="acer"
+            checked={brand === 'acer'}
+            onChange={handleChange}
+          >
+            <Card.Body>
+              <Card.Title as="h4">
+                Acer <i className="bi bi-laptop"></i>
+              </Card.Title>
+              <Card.Text>Acer Aspire 5</Card.Text>
+            </Card.Body>
+          </CardChecked>
+        </Form>
+      </Col>
+      <Col xs lg="4">
+      <Card dismissible={true} >
+          <Card.Body>
+            <Card.Title as="h4">
+              Basket <i className="bi bi-cart"></i>
+            </Card.Title>
+            <Row>
+              <Col>
+                <Card.Text>Item Brand: </Card.Text>
+                <Card.Text>Qty: </Card.Text>
+              </Col>
+              <Col>
+                <Card.Text>{brand}</Card.Text>
+                <InputGroup size="sm">
+                  <Button onClick={onMinus}>-</Button>
+                  <FormControl
+                    type="number"
+                    aria-label="quantity-form-with-toggle"
+                    aria-describedby="basic-addon1"
+                    min="0"
+                    step="1"
+                    value={count}
+                    onChange={(e) => {setCount(parseInt(e.target.value))}}
+                  />
+                  <Button onClick={onPlus}>+</Button>
+                </InputGroup>
+              </Col>
+            </Row>
+          </Card.Body>
+        </Card>
+      </Col>
+    </Row>
   );
 };
 

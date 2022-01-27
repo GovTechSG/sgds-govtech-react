@@ -1,7 +1,6 @@
 import classNames from 'classnames';
 import * as React from 'react';
-import PropTypes from 'prop-types';
-
+import { useState } from 'react';
 import {
   useBootstrapPrefix,
   SGDSWrapper,
@@ -10,9 +9,10 @@ import createWithBsPrefix from '../createWithBsPrefix';
 import divWithClassName from '../divWithClassName';
 import CardImg from './CardImg';
 import CardHeader from './CardHeader';
-import CardChecked from './CardChecked'
+import CardChecked from './CardChecked';
 import { BsPrefixProps, BsPrefixRefForwardingComponent } from '../helpers';
-import { Color, Variant } from '../types';
+import { Color, Variant, CardVariant } from '../types';
+import { CloseButton } from '..';
 
 const DivStyledAsH6 = divWithClassName('h6');
 const CardBody = createWithBsPrefix('card-body');
@@ -23,7 +23,9 @@ const CardSubtitle = createWithBsPrefix('card-subtitle', {
   Component: DivStyledAsH6,
 });
 const CardLink = createWithBsPrefix('card-link', { Component: 'a' });
-const CardStretchedLink = createWithBsPrefix('card-link stretched-link', { Component: 'a' });
+const CardStretchedLink = createWithBsPrefix('card-link stretched-link', {
+  Component: 'a',
+});
 const CardText = createWithBsPrefix('card-text', { Component: 'p' });
 const CardFooter = createWithBsPrefix('card-footer');
 const CardImgOverlay = createWithBsPrefix('card-img-overlay');
@@ -36,7 +38,9 @@ export interface CardProps
   border?: Variant;
   body?: boolean;
   actionCSS?: string;
-  checked? : boolean;
+  checked?: boolean;
+  variant?: CardVariant;
+  dismissible?: boolean;
 }
 
 const defaultProps = {
@@ -56,6 +60,7 @@ export const Card: BsPrefixRefForwardingComponent<'div', CardProps> =
         children,
         actionCSS,
         checked,
+        dismissible,
         // Need to define the default "as" during prop destructuring to be compatible with styled-components github.com/react-bootstrap/react-bootstrap/issues/3595
         as: Component = 'div',
         ...props
@@ -63,24 +68,27 @@ export const Card: BsPrefixRefForwardingComponent<'div', CardProps> =
       ref
     ) => {
       const prefix = useBootstrapPrefix(bsPrefix, 'card');
-  
-      return (
-        <SGDSWrapper
-          as={Component}
-          ref={ref}
-          {...props}
-          className={classNames(
-            className,
-            prefix,
-            bg && `bg-${bg}`,
-            text && `text-${text}`,
-            border && `border-${border}`,
-            
-          )}
-        >
-          {body ? <CardBody>{children}</CardBody> : children}
-        </SGDSWrapper>
-      );
+      const [disappear, setDisappear] = useState(false);
+      const onDismiss = () => setDisappear(!disappear);
+      if (disappear) return null;
+      else
+        return (
+          <SGDSWrapper
+            as={Component}
+            ref={ref}
+            {...props}
+            className={classNames(
+              className,
+              prefix,
+              bg && `bg-${bg}`,
+              text && `text-${text}`,
+              border && `border-${border}`
+            )}
+          >
+            {dismissible ? <CloseButton onClick={onDismiss} /> : null}
+            {body ? <CardBody>{children}</CardBody> : children}
+          </SGDSWrapper>
+        );
     }
   );
 
@@ -98,5 +106,5 @@ export default Object.assign(Card, {
   Header: CardHeader,
   Footer: CardFooter,
   ImgOverlay: CardImgOverlay,
-  Checked : CardChecked
+  Checked: CardChecked,
 });

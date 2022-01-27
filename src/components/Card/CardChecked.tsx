@@ -6,9 +6,10 @@ import Card from './Card';
 
 export interface ActionCardProps
   extends BsPrefixProps,
-  FormCheckProps {}
+  Omit<FormCheckProps, 'isValid' | 'isInvalid' | 'feedback'| 'feedbackTooltip' | 'feedbackType'> {
+  }
 
-const CardChecked: React.FC<ActionCardProps> = ({children, type}) => {
+const CardChecked: React.FC<ActionCardProps> = ({children, ...props}) => {
   const formCheckRef = React.useRef<HTMLInputElement>(null);
   const cardRef = React.useRef<HTMLDivElement>(null);
 
@@ -18,9 +19,10 @@ const CardChecked: React.FC<ActionCardProps> = ({children, type}) => {
 };
    
   return (
-    <Card ref={cardRef} onClick={handleSelect} tabIndex={0}>
-      <FormCheck ref={formCheckRef} type={type} onClick={handleSelect}></FormCheck>
+    <Card ref={cardRef} onClick={handleSelect} tabIndex={0} variant="card-action">
+      <FormCheck ref={formCheckRef} {...props} onClick={handleSelect}></FormCheck>
       {children}
+     
     </Card>
   );
 };
