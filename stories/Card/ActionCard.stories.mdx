@@ -10,33 +10,54 @@ import {
   InputGroup,
   FormControl,
   CloseButton,
+  SelectableCard,
+  QuantityToggle
 } from '../../src/components/index';
-import ActionCard from '../../src/components/Card/ActionCard';
 import { useState } from 'react';
+import { CARD_COMMON_PROPS } from './argTypes';
 
 <Meta
-  title="MDX/Action Card"
-  component={ActionCard}
+  title="MDX/Card/Action Card/Selectable"
+  component={SelectableCard}
   argTypes={{
     ...HIDDEN_COMMON_PROPS,
+    ...CARD_COMMON_PROPS,
   }}
 />
 
-export const Template = (args) => {
+export const AppleBody = (
+  <Card.Body>
+    <Card.Title as="h4">
+      Apple <i className="bi bi-apple"></i>
+    </Card.Title>
+    <Card.Text>Macbook Pro M1</Card.Text>
+  </Card.Body>
+);
+
+export const MicrosoftBody = (
+  <Card.Body>
+    <Card.Title as="h4">
+      Microsoft <i className="bi bi-microsoft"></i>
+    </Card.Title>
+    <Card.Text>Microsoft Surface Pro</Card.Text>
+  </Card.Body>
+);
+
+export const AcerBody = (
+  <Card.Body>
+    <Card.Title as="h4">
+      Acer <i className="bi bi-laptop"></i>
+    </Card.Title>
+    <Card.Text>Acer Aspire 5</Card.Text>
+  </Card.Body>
+);
+
+export const ExampleTemplate = (args) => {
   const [brand, setBrand] = useState('');
   const [showBasket, setShowBasket] = useState(false);
   const handleChange = (e) => {
     setBrand(e.target.value);
   };
-  const [count, setCount] = useState(1);
-  const onPlus = () => {
-    setCount(count + 1);
-  };
-  const onMinus = () => {
-    if (count < 1) setCount(0);
-    else setCount(count - 1);
-  };
-  const [disappear, setDisappear] = useState(false);
   const handleDismiss = () => {
     //do side effects to handleDimiss
     setBrand('');
@@ -45,49 +66,33 @@ export const Template = (args) => {
     <Row>
       <Col xs lg="4">
         <Form>
-          <ActionCard
+          <SelectableCard
             name="test"
             type="radio"
             value="apple"
             checked={brand === 'apple'}
             onChange={handleChange}
-            {...args}
           >
-            <Card.Body>
-              <Card.Title as="h4">
-                Apple <i className="bi bi-apple"></i>
-              </Card.Title>
-              <Card.Text>Macbook Pro M1</Card.Text>
-            </Card.Body>
-          </ActionCard>
-          <ActionCard
+            {AppleBody}
+          </SelectableCard>
+          <SelectableCard
             name="test"
             type="radio"
             value="microsoft"
             checked={brand === 'microsoft'}
             onChange={handleChange}
           >
-            <Card.Body>
-              <Card.Title as="h4">
-                Microsoft <i className="bi bi-microsoft"></i>
-              </Card.Title>
-              <Card.Text>Microsoft Surface Pro</Card.Text>
-            </Card.Body>
-          </ActionCard>
-          <ActionCard
+            {MicrosoftBody}
+          </SelectableCard>
+          <SelectableCard
             name="test"
             type="radio"
             value="acer"
             checked={brand === 'acer'}
             onChange={handleChange}
           >
-            <Card.Body>
-              <Card.Title as="h4">
-                Acer <i className="bi bi-laptop"></i>
-              </Card.Title>
-              <Card.Text>Acer Aspire 5</Card.Text>
-            </Card.Body>
-          </ActionCard>
+            {AcerBody}
+          </SelectableCard>
         </Form>
       </Col>
       <Col xs lg="4">
@@ -104,21 +109,7 @@ export const Template = (args) => {
                 </Col>
                 <Col>
                   <Card.Text>{brand ? brand : '-'}</Card.Text>
-                  <InputGroup size="sm">
-                    <Button onClick={onMinus}>-</Button>
-                    <FormControl
-                      type="number"
-                      aria-label="quantity-form-with-toggle"
-                      aria-describedby="basic-addon1"
-                      min="1"
-                      step="1"
-                      value={count}
-                      onChange={(e) => {
-                        setCount(parseInt(e.target.value));
-                      }}
-                    />
-                    <Button onClick={onPlus}>+</Button>
-                  </InputGroup>
+                  <QuantityToggle />
                 </Col>
               </Row>
             </Card.Body>
@@ -129,6 +120,68 @@ export const Template = (args) => {
   );
 };
 
+# Action Card
+
+Action Cards are Cards that are able to perform actions like selection or quantity toggling. Usually with built-in input elements. 
+
+
+## `<SelectableCard />`
+
+`<SelectableCard />` are Cards with input checkbox , radio or switch functionalities.
+`<SelectableCard />` is a composite component built with `<Card />` and `<FormCheck />` with partially extended props from both Components.
+Like `<Card />`, it is a wrapper that accepts subcomponents of `Card` as children.
+
+The `ref` of `<FormCheck />` is extended to the `<Card/>` making the entire `<SelectableCard/>` essentially an input
+
+### Default 
+
+The default SelectableCard is a checkbox.
+
 <Canvas>
-  <Story name="Input Card">{Template.bind({})}</Story>
+  <Story name="Default SelectableCard">
+    {(args) => (
+      <Row>
+        <Col xs>
+          <SelectableCard {...args}>{AppleBody}</SelectableCard>
+        </Col>
+        <Col xs>
+          <></>
+        </Col>
+        <Col xs>
+          <></>
+        </Col>
+      </Row>
+    )}
+  </Story>
+</Canvas>
+
+<ArgsTable story="Default SelectableCard" />
+
+
+### Types
+
+Use `type` prop : `radio` / `switch` / `checkbox` to change the `SelectableCard` input type
+<Canvas>
+  <Story name="Types">
+    {() => (
+      <Row>
+        <Col xs>
+          <SelectableCard type="checkbox">{AppleBody}</SelectableCard>
+        </Col>
+        <Col xs>
+          <SelectableCard type="radio">{AppleBody}</SelectableCard>
+        </Col>
+        <Col xs>
+          <SelectableCard type="switch">{AppleBody}</SelectableCard>
+        </Col>
+      </Row>
+    )}
+  </Story>
+</Canvas>
+
+## Usage: Shopping Cart 
+
+An example of the usage of the `<SelectableCard />` with a Custom Basket card with `<QuantityToggle />`
+<Canvas>
+  <Story name="Shopping Cart Example">{ExampleTemplate.bind({})}</Story>
 </Canvas>

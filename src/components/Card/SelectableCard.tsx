@@ -1,5 +1,4 @@
 import * as React from 'react';
-import { BsPrefixProps } from '../helpers';
 import FormCheck, { FormCheckProps } from '../Form/FormCheck';
 import Card from './Card';
 import { CardProps } from '..';
@@ -12,12 +11,17 @@ type CardFormCheckProps = Omit<
   | 'feedbackType'
   | 'inline'
   | 'label'
+  | 'bsSwitchPrefix'
 > &
   Omit<CardProps, 'dismissible' | 'dismiss' | 'variant'>;
 
-export interface ActionCardProps extends BsPrefixProps, CardFormCheckProps {}
+export interface SelectableCardProps extends CardFormCheckProps {}
 
-const ActionCard: React.FC<ActionCardProps> = ({
+const defaultProps : Partial<SelectableCardProps> ={
+  disabled: false, 
+  type: 'checkbox',
+}
+const SelectableCard: React.FC<SelectableCardProps> = ({
   children,
   bg,
   text,
@@ -52,4 +56,7 @@ const ActionCard: React.FC<ActionCardProps> = ({
   );
 };
 
-export default ActionCard;
+SelectableCard.displayName = 'SelectableCard';
+SelectableCard.defaultProps = defaultProps
+
+export default SelectableCard;

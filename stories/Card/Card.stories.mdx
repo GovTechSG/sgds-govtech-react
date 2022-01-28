@@ -1,24 +1,14 @@
 import { ArgsTable, Canvas, Meta, Story } from '@storybook/addon-docs';
 import { HIDDEN_COMMON_PROPS, VARIANT } from '../helpers';
-
+import {CARD_COMMON_PROPS} from './argTypes'
 import { Card, Button, CardGroup, Row, Col } from '../../src/components/index';
 
 <Meta
-  title="MDX/Card"
+  title="MDX/Card/Informational Card"
   component={Card}
   argTypes={{
     ...HIDDEN_COMMON_PROPS,
-    bg: {
-      description: 'Sets card background',
-      control: { type: 'select' },
-      options: VARIANT,
-    },
-    border: {
-      description: 'Sets card border color',
-      control: { type: 'select' },
-      options: VARIANT,
-    },
-    body: { table: { disable: true } },
+   ...CARD_COMMON_PROPS
   }}
 />
 

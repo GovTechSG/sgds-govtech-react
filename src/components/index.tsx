@@ -11,7 +11,8 @@ export {
 } from './Accordion/AccordionButton';
 export type { AccordionButtonProps } from './Accordion/AccordionButton';
 
-export { default as ActionCard } from './Card/ActionCard'
+export { default as SelectableCard } from './Card/SelectableCard'
+export type { SelectableCardProps } from './Card/SelectableCard'
 
 export { default as Alert } from './Alert/Alert';
 export type { AlertProps } from './Alert/Alert';
@@ -171,6 +172,8 @@ export type { PaginationsProps } from './Paginations/Paginations';
 // export { default as ProgressBar } from './ProgressBar';
 // export type { ProgressBarProps } from './ProgressBar';
 
+export {default as QuantityToggle} from './QuantityToggle/QuantityToggle'
+export type { QuantityToggleProps } from './QuantityToggle/QuantityToggle'
 // export { default as Ratio } from './Ratio';
 // export type { RatioProps } from './Ratio';
 
