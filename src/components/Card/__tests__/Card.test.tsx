@@ -48,11 +48,6 @@ describe('<Card>', () => {
     expect(getByText('body').tagName).toEqual('SECTION');
   });
 
-  it('allows for the body shorthand', () => {
-    const { getByText } = render(<Card body>test</Card>);
-    expect(getByText('test').classList).toContain('card-body');
-  });
-
   it('Should have div as default component', () => {
     const { getByTestId } = render(<Card data-testid="default-test" />);
     expect(getByTestId('default-test').tagName).toEqual('DIV');
@@ -60,7 +55,6 @@ describe('<Card>', () => {
 });
 
 describe('Dismissible Card', () => {
-  
   
   it('should have CloseButton', () => {
     const {getByText} = render(<Card dismissible>Test</Card>)
@@ -75,6 +69,14 @@ describe('Dismissible Card', () => {
     fireEvent.click($closeBtn as Element)
 
       expect(queryByText('Test')).toBeNull() 
-
+  })
+  
+  it('when passed in onDismiss, onClick should trigger onDismiss', () => {
+    const onDismissMock = jest.fn()
+    const {getByText} = render(<Card dismissible dismiss={onDismissMock}>Test</Card>)
+    const $closeBtn = getByText('Test').querySelector('button')
+    fireEvent.click($closeBtn as Element)
+   expect(onDismissMock).toHaveBeenCalled()
+   
   })
 })

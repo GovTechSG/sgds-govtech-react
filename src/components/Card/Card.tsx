@@ -9,7 +9,6 @@ import createWithBsPrefix from '../createWithBsPrefix';
 import divWithClassName from '../divWithClassName';
 import CardImg from './CardImg';
 import CardHeader from './CardHeader';
-import CardChecked from './CardChecked';
 import { BsPrefixProps, BsPrefixRefForwardingComponent } from '../helpers';
 import { Color, Variant, CardVariant } from '../types';
 import { CloseButton } from '..';
@@ -36,16 +35,11 @@ export interface CardProps
   bg?: Variant;
   text?: Color;
   border?: Variant;
-  body?: boolean;
-  actionCSS?: string;
-  checked?: boolean;
   variant?: CardVariant;
   dismissible?: boolean;
+  dismiss?: Function; 
 }
 
-const defaultProps = {
-  body: false,
-};
 
 export const Card: BsPrefixRefForwardingComponent<'div', CardProps> =
   React.forwardRef<HTMLElement, CardProps>(
@@ -56,11 +50,9 @@ export const Card: BsPrefixRefForwardingComponent<'div', CardProps> =
         bg,
         text,
         border,
-        body,
         children,
-        actionCSS,
-        checked,
         dismissible,
+        dismiss,
         // Need to define the default "as" during prop destructuring to be compatible with styled-components github.com/react-bootstrap/react-bootstrap/issues/3595
         as: Component = 'div',
         ...props
@@ -69,7 +61,13 @@ export const Card: BsPrefixRefForwardingComponent<'div', CardProps> =
     ) => {
       const prefix = useBootstrapPrefix(bsPrefix, 'card');
       const [disappear, setDisappear] = useState(false);
-      const onDismiss = () => setDisappear(!disappear);
+      const handleDismiss = () => {
+        if (dismiss){
+          dismiss()
+          setDisappear(!disappear)
+        } else
+        setDisappear(!disappear)
+      };
       if (disappear) return null;
       else
         return (
@@ -85,15 +83,14 @@ export const Card: BsPrefixRefForwardingComponent<'div', CardProps> =
               border && `border-${border}`
             )}
           >
-            {dismissible ? <CloseButton onClick={onDismiss} /> : null}
-            {body ? <CardBody>{children}</CardBody> : children}
+            {dismissible ? <CloseButton onClick={handleDismiss} /> : null}
+            {children}
           </SGDSWrapper>
         );
     }
   );
 
 Card.displayName = 'Card';
-Card.defaultProps = defaultProps;
 
 export default Object.assign(Card, {
   Img: CardImg,
@@ -106,5 +103,4 @@ export default Object.assign(Card, {
   Header: CardHeader,
   Footer: CardFooter,
   ImgOverlay: CardImgOverlay,
-  Checked: CardChecked,
 });

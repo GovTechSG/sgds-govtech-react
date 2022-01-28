@@ -9,39 +9,43 @@ import {
   Form,
   InputGroup,
   FormControl,
-  CloseButton
+  CloseButton,
 } from '../../src/components/index';
-import CardChecked from '../../src/components/Card/CardChecked';
+import ActionCard from '../../src/components/Card/ActionCard';
 import { useState } from 'react';
 
 <Meta
   title="MDX/Action Card"
-  component={CardChecked}
+  component={ActionCard}
   argTypes={{
     ...HIDDEN_COMMON_PROPS,
   }}
 />
 
 export const Template = (args) => {
-  const [brand, setBrand] = useState('-');
-  const [qty, setQty] = useState(0);
+  const [brand, setBrand] = useState('');
+  const [showBasket, setShowBasket] = useState(false);
   const handleChange = (e) => {
     setBrand(e.target.value);
   };
-  const [count, setCount] = useState(0)
+  const [count, setCount] = useState(1);
   const onPlus = () => {
-    setCount(count+1)
-  }
+    setCount(count + 1);
+  };
   const onMinus = () => {
-    if (count < 1) setCount(0)
-      else setCount(count-1)
-  }
-  const [disappear, setDisappear] = useState(false)
+    if (count < 1) setCount(0);
+    else setCount(count - 1);
+  };
+  const [disappear, setDisappear] = useState(false);
+  const handleDismiss = () => {
+    //do side effects to handleDimiss
+    setBrand('');
+  };
   return (
     <Row>
       <Col xs lg="4">
         <Form>
-          <CardChecked
+          <ActionCard
             name="test"
             type="radio"
             value="apple"
@@ -55,8 +59,8 @@ export const Template = (args) => {
               </Card.Title>
               <Card.Text>Macbook Pro M1</Card.Text>
             </Card.Body>
-          </CardChecked>
-          <CardChecked
+          </ActionCard>
+          <ActionCard
             name="test"
             type="radio"
             value="microsoft"
@@ -69,8 +73,8 @@ export const Template = (args) => {
               </Card.Title>
               <Card.Text>Microsoft Surface Pro</Card.Text>
             </Card.Body>
-          </CardChecked>
-          <CardChecked
+          </ActionCard>
+          <ActionCard
             name="test"
             type="radio"
             value="acer"
@@ -83,39 +87,43 @@ export const Template = (args) => {
               </Card.Title>
               <Card.Text>Acer Aspire 5</Card.Text>
             </Card.Body>
-          </CardChecked>
+          </ActionCard>
         </Form>
       </Col>
       <Col xs lg="4">
-      <Card dismissible={true} >
-          <Card.Body>
-            <Card.Title as="h4">
-              Basket <i className="bi bi-cart"></i>
-            </Card.Title>
-            <Row>
-              <Col>
-                <Card.Text>Item Brand: </Card.Text>
-                <Card.Text>Qty: </Card.Text>
-              </Col>
-              <Col>
-                <Card.Text>{brand}</Card.Text>
-                <InputGroup size="sm">
-                  <Button onClick={onMinus}>-</Button>
-                  <FormControl
-                    type="number"
-                    aria-label="quantity-form-with-toggle"
-                    aria-describedby="basic-addon1"
-                    min="0"
-                    step="1"
-                    value={count}
-                    onChange={(e) => {setCount(parseInt(e.target.value))}}
-                  />
-                  <Button onClick={onPlus}>+</Button>
-                </InputGroup>
-              </Col>
-            </Row>
-          </Card.Body>
-        </Card>
+        {brand && (
+          <Card dismissible={true} dismiss={handleDismiss}>
+            <Card.Body>
+              <Card.Title as="h4">
+                Basket <i className="bi bi-cart"></i>
+              </Card.Title>
+              <Row>
+                <Col>
+                  <Card.Text>Item Brand: </Card.Text>
+                  <Card.Text>Qty: </Card.Text>
+                </Col>
+                <Col>
+                  <Card.Text>{brand ? brand : '-'}</Card.Text>
+                  <InputGroup size="sm">
+                    <Button onClick={onMinus}>-</Button>
+                    <FormControl
+                      type="number"
+                      aria-label="quantity-form-with-toggle"
+                      aria-describedby="basic-addon1"
+                      min="1"
+                      step="1"
+                      value={count}
+                      onChange={(e) => {
+                        setCount(parseInt(e.target.value));
+                      }}
+                    />
+                    <Button onClick={onPlus}>+</Button>
+                  </InputGroup>
+                </Col>
+              </Row>
+            </Card.Body>
+          </Card>
+        )}
       </Col>
     </Row>
   );

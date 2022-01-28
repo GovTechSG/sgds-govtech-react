@@ -11,6 +11,8 @@ export {
 } from './Accordion/AccordionButton';
 export type { AccordionButtonProps } from './Accordion/AccordionButton';
 
+export { default as ActionCard } from './Card/ActionCard'
+
 export { default as Alert } from './Alert/Alert';
 export type { AlertProps } from './Alert/Alert';
 
