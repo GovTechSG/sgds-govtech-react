@@ -1,6 +1,6 @@
 import { ArgsTable, Canvas, Meta, Story } from '@storybook/addon-docs';
 import { HIDDEN_COMMON_PROPS, VARIANT } from '../helpers';
-import {CARD_COMMON_PROPS} from './argTypes'
+import { CARD_COMMON_PROPS } from './argTypes';
 import { Card, Button, CardGroup, Row, Col } from '../../src/components/index';
 
 <Meta
@@ -8,7 +8,14 @@ import { Card, Button, CardGroup, Row, Col } from '../../src/components/index';
   component={Card}
   argTypes={{
     ...HIDDEN_COMMON_PROPS,
-   ...CARD_COMMON_PROPS
+    ...CARD_COMMON_PROPS,
+    dismissible: {
+      description: 'Sets card to be dismissible with close button',
+    },
+    dismiss: {
+      description:
+        'Add-on side-effects when required during dismissal of Card. Does not override the default dismiss action ',
+    },
   }}
 />
 
@@ -45,7 +52,12 @@ Cards can be used for headers and footers, a wide variety of content, contain co
   <Story name="Base Card">{Template.bind({})}</Story>
 </Canvas>
 
+## API
+
 <ArgsTable story="Base Card" />
+
+SGDS `Card` component is build on top of React-bootstrap.
+Please refer to https://react-bootstrap.github.io/components/cards/#api for more detailed API documentation
 
 ## Default Card with Call To Action (CTA)
 
@@ -152,9 +164,9 @@ Use `as` prop to change the default HTMLElement of Card sub-components when requ
 
 ## Add components as child elements of Card components
 
-Add sgds-react components like `Button` to Card as a child element or pass as props using `as` prop. 
+Add sgds-react components like `Button` to Card as a child element or pass as props using `as` prop.
 
-Both method achieves the same outcome. 
+Both method achieves the same outcome.
 
 <Canvas>
   <Story name="Add Child Components">
@@ -167,9 +179,7 @@ Both method achieves the same outcome.
           />
           <Card.Body>
             <Card.Title>'as' Prop</Card.Title>
-            <Card.Text>
-              Pass Button to Card.Link using the as prop
-            </Card.Text>
+            <Card.Text>Pass Button to Card.Link using the as prop</Card.Text>
             <Card.Link href="#" as={Button}>
               Button
             </Card.Link>
@@ -184,9 +194,7 @@ Both method achieves the same outcome.
           />
           <Card.Body>
             <Card.Title>children </Card.Title>
-            <Card.Text>
-              Directly add Button into Card as a children
-            </Card.Text>
+            <Card.Text>Directly add Button into Card as a children</Card.Text>
             <Button href="#">Button</Button>
           </Card.Body>
         </Card>
@@ -277,7 +285,30 @@ Use `CardGroup` to group your `Card` components
   </Story>
 </Canvas>
 
-## API
+## Dismiss Card
 
-SGDS `Card` component is build on top of React-bootstrap.
-Please refer to https://react-bootstrap.github.io/components/cards/#api for more detailed API documentation
+Set `dismiss` prop to true for dismissible `Card`. By default, `Card` will be dismissed with no side-effects.
+
+<Canvas>
+  <Story name="Dismissible Card" args={{ dismissible: true }}>
+    {Template.bind({})}
+  </Story>
+</Canvas>
+
+To perform additional side-effects, pass them in via the `dismiss` prop as a Function.
+
+```jsx
+<SelectableCard
+  dismissable
+  dismiss={() => alert('dismissed!')}
+></SelectableCard>
+```
+
+<Canvas>
+  <Story
+    name="Dismissible Card with alert side-effect"
+    args={{ dismissible: true, dismiss: () => alert('dismissed!') }}
+  >
+    {Template.bind({})}
+  </Story>
+</Canvas>

@@ -11,9 +11,9 @@ import {
   FormControl,
   CloseButton,
   SelectableCard,
-  QuantityToggle
+  QuantityToggle,
 } from '../../src/components/index';
-import { useState } from 'react';
+import { useState, useRef, useEffect } from 'react';
 import { CARD_COMMON_PROPS } from './argTypes';
 
 <Meta
@@ -22,6 +22,10 @@ import { CARD_COMMON_PROPS } from './argTypes';
   argTypes={{
     ...HIDDEN_COMMON_PROPS,
     ...CARD_COMMON_PROPS,
+    disabled: {
+      description: 'Disables the FormCheck when true'
+    },
+    type: {description: 'The type of checkable'}
   }}
 />
 
@@ -54,13 +58,20 @@ export const AcerBody = (
 
 export const ExampleTemplate = (args) => {
   const [brand, setBrand] = useState('');
-  const [showBasket, setShowBasket] = useState(false);
+  const [qty, setQty] = useState(1);
+  const [ordered, setOrder] = useState(null)
   const handleChange = (e) => {
     setBrand(e.target.value);
+    setOrder(null)
   };
   const handleDismiss = () => {
     //do side effects to handleDimiss
     setBrand('');
+    setOrder(null)
+    setQty(1)
+  };
+  const handleSubmit = () => {
+    setOrder({brand, qty})
   };
   return (
     <Row>
@@ -109,21 +120,29 @@ export const ExampleTemplate = (args) => {
                 </Col>
                 <Col>
                   <Card.Text>{brand ? brand : '-'}</Card.Text>
-                  <QuantityToggle />
+                  <QuantityToggle count={qty} setCount={setQty} />
                 </Col>
               </Row>
             </Card.Body>
+            <Button onClick={handleSubmit}>Submit</Button>
           </Card>
         )}
       </Col>
+      {ordered  ? (
+        <Col>
+          <Row>Ordered</Row>
+          <Row>
+            {brand} : {qty}
+          </Row>
+        </Col>
+      ) : <></>}
     </Row>
   );
 };
 
 # Action Card
 
-Action Cards are Cards that are able to perform actions like selection or quantity toggling. Usually with built-in input elements. 
-
+Action Cards are Cards that are able to perform actions like selection or quantity toggling. Usually with built-in input elements.
 
 ## `<SelectableCard />`
 
@@ -133,7 +152,7 @@ Like `<Card />`, it is a wrapper that accepts subcomponents of `Card` as childre
 
 The `ref` of `<FormCheck />` is extended to the `<Card/>` making the entire `<SelectableCard/>` essentially an input
 
-### Default 
+### Default
 
 The default SelectableCard is a checkbox.
 
@@ -155,12 +174,17 @@ The default SelectableCard is a checkbox.
   </Story>
 </Canvas>
 
+## API
+
 <ArgsTable story="Default SelectableCard" />
+
+`SelectableCard` partially extends `FormCheckProps`, `CardProps` and extends their HTMLAttributes. The resulting props are as indicated in ArgsTable above.
 
 
 ### Types
 
 Use `type` prop : `radio` / `switch` / `checkbox` to change the `SelectableCard` input type
+
 <Canvas>
   <Story name="Types">
     {() => (
@@ -179,9 +203,102 @@ Use `type` prop : `radio` / `switch` / `checkbox` to change the `SelectableCard`
   </Story>
 </Canvas>
 
-## Usage: Shopping Cart 
+## Usage: Shopping Cart
 
 An example of the usage of the `<SelectableCard />` with a Custom Basket card with `<QuantityToggle />`
+
+Click on the `SelectableCard` to choose your product to order
+
 <Canvas>
-  <Story name="Shopping Cart Example">{ExampleTemplate.bind({})}</Story>
+  <Story name="Usage Example">{ExampleTemplate.bind({})}</Story>
 </Canvas>
+
+### Shopping Cart Code 
+```jsx
+import {SelectableCard, Form, Col, Row, QuantityToggle, Card} from 'sgds-react'
+import { useState } from 'react'
+
+export const ShoppingCart = (args) => {
+  const [brand, setBrand] = useState('');
+  const [qty, setQty] = useState(1);
+  const [ordered, setOrder] = useState(null)
+  const handleChange = (e) => {
+    setBrand(e.target.value);
+    setOrder(null)
+  };
+  const handleDismiss = () => {
+    //do side effects to handleDimiss
+    setBrand('');
+    setOrder(null)
+    setQty(1)
+  };
+  const handleSubmit = () => {
+    setOrder({brand, qty})
+  };
+  return (
+    <Row>
+      <Col xs lg="4">
+        <Form>
+          <SelectableCard
+            name="test"
+            type="radio"
+            value="apple"
+            checked={brand === 'apple'}
+            onChange={handleChange}
+          >
+            {AppleBody}
+          </SelectableCard>
+          <SelectableCard
+            name="test"
+            type="radio"
+            value="microsoft"
+            checked={brand === 'microsoft'}
+            onChange={handleChange}
+          >
+            {MicrosoftBody}
+          </SelectableCard>
+          <SelectableCard
+            name="test"
+            type="radio"
+            value="acer"
+            checked={brand === 'acer'}
+            onChange={handleChange}
+          >
+            {AcerBody}
+          </SelectableCard>
+        </Form>
+      </Col>
+      <Col xs lg="4">
+        {brand && (
+          <Card dismissible={true} dismiss={handleDismiss}>
+            <Card.Body>
+              <Card.Title as="h4">
+                Basket <i className="bi bi-cart"></i>
+              </Card.Title>
+              <Row>
+                <Col>
+                  <Card.Text>Item Brand: </Card.Text>
+                  <Card.Text>Qty: </Card.Text>
+                </Col>
+                <Col>
+                  <Card.Text>{brand ? brand : '-'}</Card.Text>
+                  <QuantityToggle count={qty} setCount={setQty} />
+                </Col>
+              </Row>
+            </Card.Body>
+            <Button onClick={handleSubmit}>Submit</Button>
+          </Card>
+        )}
+      </Col>
+      {ordered  ? (
+        <Col>
+          <Row>Ordered</Row>
+          <Row>
+            {brand} : {qty}
+          </Row>
+        </Col>
+      ) : <></>}
+    </Row>
+  );
+};
+```

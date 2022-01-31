@@ -19,6 +19,7 @@ import { CARD_COMMON_PROPS } from './argTypes';
 />
 
 export const QtyToggleTemplate = () => {
+  const [count, setCount] = useState(0)
   return (
     <Row>
       <Col xs lg="4">
@@ -34,7 +35,7 @@ export const QtyToggleTemplate = () => {
                 </Col>
                 <Col>
                   <Card.Text>Apple</Card.Text>
-                  <QuantityToggle />
+                  <QuantityToggle count={count} setCount={setCount} />
                 </Col>
               </Row>
             </Card.Body>
