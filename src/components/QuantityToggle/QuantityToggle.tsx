@@ -1,18 +1,17 @@
 import * as React from 'react';
-import Button, { ButtonProps } from '../Button/Button';
-import InputGroup, { InputGroupProps } from '../InputGroup/InputGroup';
-import FormControl, { FormControlProps } from '../Form/FormControl';
+import Button from '../Button/Button';
+import InputGroup from '../InputGroup/InputGroup';
+import FormControl from '../Form/FormControl';
 import { BsPrefixRefForwardingComponent } from '../helpers';
+import { ButtonVariant } from '../types';
 
-type QuantityToggleType = Omit<InputGroupProps, 'hasValidation'> &
-  Omit<ButtonProps, 'size'> &
-  Omit<FormControlProps, 'isValid' | 'isInvalid' | 'searchIcon'>;
-
-export interface QuantityToggleProps extends QuantityToggleType {
+export interface QuantityToggleProps {
   step?: number;
   size?: 'sm' | 'lg';
-  count: number; 
-  setCount : React.Dispatch<React.SetStateAction<number>>;
+  count: number;
+  setCount: React.Dispatch<React.SetStateAction<number>>;
+  disabled?: boolean;
+  variant?: ButtonVariant;
 }
 
 const defaultProps: Partial<QuantityToggleProps> = {
@@ -20,12 +19,12 @@ const defaultProps: Partial<QuantityToggleProps> = {
   step: 1,
 };
 
-const QuantityToggle: BsPrefixRefForwardingComponent<
+export const QuantityToggle: BsPrefixRefForwardingComponent<
   'input',
   QuantityToggleProps
 > = React.forwardRef<HTMLInputElement, QuantityToggleProps>(
-  ({ size, step = 1, active, variant,count, setCount, ...props }, ref) => {
-    const buttonProps = { active, variant };
+  ({ size, step = 1, disabled, variant, count, setCount, ...props }, ref) => {
+    const buttonProps = { disabled, variant };
     const onPlus = () => {
       setCount(count + step);
     };
@@ -40,6 +39,7 @@ const QuantityToggle: BsPrefixRefForwardingComponent<
         </Button>
         <FormControl
           {...props}
+          disabled={disabled}
           ref={ref}
           type="number"
           value={count}
@@ -48,7 +48,7 @@ const QuantityToggle: BsPrefixRefForwardingComponent<
             setCount(parseInt(e.target.value));
           }}
         />
-        <Button onClick={onPlus}>+</Button>
+        <Button onClick={onPlus} {...buttonProps}>+</Button>
       </InputGroup>
     );
   }
