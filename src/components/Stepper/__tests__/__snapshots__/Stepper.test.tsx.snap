@@ -1,0 +1,840 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Stepper Stepper interactions with onClick methods 1`] = `
+<DocumentFragment>
+  <div
+    class="sgds-steps stepper"
+  >
+    <div
+      class="sgds-step-item stepper__item is-active"
+      data-testid="sgds-step"
+    >
+      <div
+        class="sgds-step-marker"
+      >
+        1
+      </div>
+      <div
+        class="sgds-step-details"
+      >
+        <p>
+          <b>
+            First Step
+          </b>
+        </p>
+      </div>
+    </div>
+    <div
+      class="sgds-step-item stepper__item "
+      data-testid="sgds-step"
+    >
+      <div
+        class="sgds-step-marker"
+      >
+        2
+      </div>
+      <div
+        class="sgds-step-details"
+      >
+        <p>
+          <b>
+            Second Step
+          </b>
+        </p>
+      </div>
+    </div>
+    <div
+      class="sgds-step-item stepper__item "
+      data-testid="sgds-step"
+    >
+      <div
+        class="sgds-step-marker"
+      >
+        3
+      </div>
+      <div
+        class="sgds-step-details"
+      >
+        <p>
+          <b>
+            Third Step
+          </b>
+        </p>
+      </div>
+    </div>
+  </div>
+  <div>
+    At Step 1
+  </div>
+  <h3>
+    Step 1
+  </h3>
+  <p>
+    currentStep: 1 
+  </p>
+  <button
+    class="btn btn-primary sgds"
+    type="button"
+  >
+     Next
+  </button>
+  <button
+    class="btn btn-primary sgds"
+    type="button"
+  >
+    Reset
+  </button>
+  <button
+    class="btn btn-warning sgds"
+    type="button"
+  >
+    Jump to last page
+  </button>
+</DocumentFragment>
+`;
+
+exports[`Stepper Stepper interactions with onClick methods 2`] = `
+<DocumentFragment>
+  <div
+    class="sgds-steps stepper"
+  >
+    <div
+      class="sgds-step-item stepper__item is-completed stepper__item--clickable"
+      data-testid="sgds-step"
+    >
+      <div
+        class="sgds-step-marker"
+      >
+        1
+      </div>
+      <div
+        class="sgds-step-details"
+      >
+        <p>
+          <b>
+            First Step
+          </b>
+        </p>
+      </div>
+    </div>
+    <div
+      class="sgds-step-item stepper__item is-active"
+      data-testid="sgds-step"
+    >
+      <div
+        class="sgds-step-marker"
+      >
+        2
+      </div>
+      <div
+        class="sgds-step-details"
+      >
+        <p>
+          <b>
+            Second Step
+          </b>
+        </p>
+      </div>
+    </div>
+    <div
+      class="sgds-step-item stepper__item "
+      data-testid="sgds-step"
+    >
+      <div
+        class="sgds-step-marker"
+      >
+        3
+      </div>
+      <div
+        class="sgds-step-details"
+      >
+        <p>
+          <b>
+            Third Step
+          </b>
+        </p>
+      </div>
+    </div>
+  </div>
+  <div>
+    At Step 2
+  </div>
+  <h3>
+    Step 2
+  </h3>
+  <p>
+    currentStep: 2 
+  </p>
+  <button
+    class="btn btn-danger sgds"
+    type="button"
+  >
+    Back
+  </button>
+  <button
+    class="btn btn-primary sgds"
+    type="button"
+  >
+     Next
+  </button>
+  <button
+    class="btn btn-primary sgds"
+    type="button"
+  >
+    Reset
+  </button>
+  <button
+    class="btn btn-warning sgds"
+    type="button"
+  >
+    Jump to last page
+  </button>
+</DocumentFragment>
+`;
+
+exports[`Stepper Stepper interactions with onClick methods 3`] = `
+<DocumentFragment>
+  <div
+    class="sgds-steps stepper"
+  >
+    <div
+      class="sgds-step-item stepper__item is-completed stepper__item--clickable"
+      data-testid="sgds-step"
+    >
+      <div
+        class="sgds-step-marker"
+      >
+        1
+      </div>
+      <div
+        class="sgds-step-details"
+      >
+        <p>
+          <b>
+            First Step
+          </b>
+        </p>
+      </div>
+    </div>
+    <div
+      class="sgds-step-item stepper__item is-completed stepper__item--clickable"
+      data-testid="sgds-step"
+    >
+      <div
+        class="sgds-step-marker"
+      >
+        2
+      </div>
+      <div
+        class="sgds-step-details"
+      >
+        <p>
+          <b>
+            Second Step
+          </b>
+        </p>
+      </div>
+    </div>
+    <div
+      class="sgds-step-item stepper__item is-active"
+      data-testid="sgds-step"
+    >
+      <div
+        class="sgds-step-marker"
+      >
+        3
+      </div>
+      <div
+        class="sgds-step-details"
+      >
+        <p>
+          <b>
+            Third Step
+          </b>
+        </p>
+      </div>
+    </div>
+  </div>
+  <div>
+    <div
+      class="fade alert alert-primary show sgds"
+      role="alert"
+    >
+      At Step 3
+    </div>
+  </div>
+  <h3>
+    Create project
+  </h3>
+  <p>
+    currentStep: 3 
+  </p>
+  <button
+    class="btn btn-danger sgds"
+    type="button"
+  >
+    Back
+  </button>
+  <button
+    class="btn btn-primary sgds"
+    type="button"
+  >
+     Submit
+  </button>
+  <button
+    class="btn btn-primary sgds"
+    type="button"
+  >
+    Reset
+  </button>
+  <button
+    class="btn btn-warning sgds"
+    type="button"
+  >
+    Jump to last page
+  </button>
+</DocumentFragment>
+`;
+
+exports[`Stepper Stepper interactions with onClick methods 4`] = `
+<DocumentFragment>
+  <div
+    class="sgds-steps stepper"
+  >
+    <div
+      class="sgds-step-item stepper__item is-completed stepper__item--clickable"
+      data-testid="sgds-step"
+    >
+      <div
+        class="sgds-step-marker"
+      >
+        1
+      </div>
+      <div
+        class="sgds-step-details"
+      >
+        <p>
+          <b>
+            First Step
+          </b>
+        </p>
+      </div>
+    </div>
+    <div
+      class="sgds-step-item stepper__item is-active"
+      data-testid="sgds-step"
+    >
+      <div
+        class="sgds-step-marker"
+      >
+        2
+      </div>
+      <div
+        class="sgds-step-details"
+      >
+        <p>
+          <b>
+            Second Step
+          </b>
+        </p>
+      </div>
+    </div>
+    <div
+      class="sgds-step-item stepper__item "
+      data-testid="sgds-step"
+    >
+      <div
+        class="sgds-step-marker"
+      >
+        3
+      </div>
+      <div
+        class="sgds-step-details"
+      >
+        <p>
+          <b>
+            Third Step
+          </b>
+        </p>
+      </div>
+    </div>
+  </div>
+  <div>
+    At Step 2
+  </div>
+  <h3>
+    Step 2
+  </h3>
+  <p>
+    currentStep: 2 
+  </p>
+  <button
+    class="btn btn-danger sgds"
+    type="button"
+  >
+    Back
+  </button>
+  <button
+    class="btn btn-primary sgds"
+    type="button"
+  >
+     Next
+  </button>
+  <button
+    class="btn btn-primary sgds"
+    type="button"
+  >
+    Reset
+  </button>
+  <button
+    class="btn btn-warning sgds"
+    type="button"
+  >
+    Jump to last page
+  </button>
+</DocumentFragment>
+`;
+
+exports[`Stepper Stepper interactions with onClick methods 5`] = `
+<DocumentFragment>
+  <div
+    class="sgds-steps stepper"
+  >
+    <div
+      class="sgds-step-item stepper__item is-active"
+      data-testid="sgds-step"
+    >
+      <div
+        class="sgds-step-marker"
+      >
+        1
+      </div>
+      <div
+        class="sgds-step-details"
+      >
+        <p>
+          <b>
+            First Step
+          </b>
+        </p>
+      </div>
+    </div>
+    <div
+      class="sgds-step-item stepper__item "
+      data-testid="sgds-step"
+    >
+      <div
+        class="sgds-step-marker"
+      >
+        2
+      </div>
+      <div
+        class="sgds-step-details"
+      >
+        <p>
+          <b>
+            Second Step
+          </b>
+        </p>
+      </div>
+    </div>
+    <div
+      class="sgds-step-item stepper__item "
+      data-testid="sgds-step"
+    >
+      <div
+        class="sgds-step-marker"
+      >
+        3
+      </div>
+      <div
+        class="sgds-step-details"
+      >
+        <p>
+          <b>
+            Third Step
+          </b>
+        </p>
+      </div>
+    </div>
+  </div>
+  <div>
+    At Step 1
+  </div>
+  <h3>
+    Step 1
+  </h3>
+  <p>
+    currentStep: 1 
+  </p>
+  <button
+    class="btn btn-primary sgds"
+    type="button"
+  >
+     Next
+  </button>
+  <button
+    class="btn btn-primary sgds"
+    type="button"
+  >
+    Reset
+  </button>
+  <button
+    class="btn btn-warning sgds"
+    type="button"
+  >
+    Jump to last page
+  </button>
+</DocumentFragment>
+`;
+
+exports[`Stepper Stepper interactions with onClick methods 6`] = `
+<DocumentFragment>
+  <div
+    class="sgds-steps stepper"
+  >
+    <div
+      class="sgds-step-item stepper__item is-active"
+      data-testid="sgds-step"
+    >
+      <div
+        class="sgds-step-marker"
+      >
+        1
+      </div>
+      <div
+        class="sgds-step-details"
+      >
+        <p>
+          <b>
+            First Step
+          </b>
+        </p>
+      </div>
+    </div>
+    <div
+      class="sgds-step-item stepper__item "
+      data-testid="sgds-step"
+    >
+      <div
+        class="sgds-step-marker"
+      >
+        2
+      </div>
+      <div
+        class="sgds-step-details"
+      >
+        <p>
+          <b>
+            Second Step
+          </b>
+        </p>
+      </div>
+    </div>
+    <div
+      class="sgds-step-item stepper__item "
+      data-testid="sgds-step"
+    >
+      <div
+        class="sgds-step-marker"
+      >
+        3
+      </div>
+      <div
+        class="sgds-step-details"
+      >
+        <p>
+          <b>
+            Third Step
+          </b>
+        </p>
+      </div>
+    </div>
+  </div>
+  <div>
+    At Step 1
+  </div>
+  <h3>
+    Step 1
+  </h3>
+  <p>
+    currentStep: 1 
+  </p>
+  <button
+    class="btn btn-primary sgds"
+    type="button"
+  >
+     Next
+  </button>
+  <button
+    class="btn btn-primary sgds"
+    type="button"
+  >
+    Reset
+  </button>
+  <button
+    class="btn btn-warning sgds"
+    type="button"
+  >
+    Jump to last page
+  </button>
+</DocumentFragment>
+`;
+
+exports[`Stepper Stepper interactions with onClick methods 7`] = `
+<DocumentFragment>
+  <div
+    class="sgds-steps stepper"
+  >
+    <div
+      class="sgds-step-item stepper__item is-active"
+      data-testid="sgds-step"
+    >
+      <div
+        class="sgds-step-marker"
+      >
+        1
+      </div>
+      <div
+        class="sgds-step-details"
+      >
+        <p>
+          <b>
+            First Step
+          </b>
+        </p>
+      </div>
+    </div>
+    <div
+      class="sgds-step-item stepper__item "
+      data-testid="sgds-step"
+    >
+      <div
+        class="sgds-step-marker"
+      >
+        2
+      </div>
+      <div
+        class="sgds-step-details"
+      >
+        <p>
+          <b>
+            Second Step
+          </b>
+        </p>
+      </div>
+    </div>
+    <div
+      class="sgds-step-item stepper__item "
+      data-testid="sgds-step"
+    >
+      <div
+        class="sgds-step-marker"
+      >
+        3
+      </div>
+      <div
+        class="sgds-step-details"
+      >
+        <p>
+          <b>
+            Third Step
+          </b>
+        </p>
+      </div>
+    </div>
+  </div>
+  <div>
+    At Step 1
+  </div>
+  <h3>
+    Step 1
+  </h3>
+  <p>
+    currentStep: 1 
+  </p>
+  <button
+    class="btn btn-primary sgds"
+    type="button"
+  >
+     Next
+  </button>
+  <button
+    class="btn btn-primary sgds"
+    type="button"
+  >
+    Reset
+  </button>
+  <button
+    class="btn btn-warning sgds"
+    type="button"
+  >
+    Jump to last page
+  </button>
+</DocumentFragment>
+`;
+
+exports[`Stepper Stepper interactions with onClick methods 8`] = `
+<DocumentFragment>
+  <div
+    class="sgds-steps stepper"
+  >
+    <div
+      class="sgds-step-item stepper__item is-completed stepper__item--clickable"
+      data-testid="sgds-step"
+    >
+      <div
+        class="sgds-step-marker"
+      >
+        1
+      </div>
+      <div
+        class="sgds-step-details"
+      >
+        <p>
+          <b>
+            First Step
+          </b>
+        </p>
+      </div>
+    </div>
+    <div
+      class="sgds-step-item stepper__item is-active"
+      data-testid="sgds-step"
+    >
+      <div
+        class="sgds-step-marker"
+      >
+        2
+      </div>
+      <div
+        class="sgds-step-details"
+      >
+        <p>
+          <b>
+            Second Step
+          </b>
+        </p>
+      </div>
+    </div>
+    <div
+      class="sgds-step-item stepper__item "
+      data-testid="sgds-step"
+    >
+      <div
+        class="sgds-step-marker"
+      >
+        3
+      </div>
+      <div
+        class="sgds-step-details"
+      >
+        <p>
+          <b>
+            Third Step
+          </b>
+        </p>
+      </div>
+    </div>
+  </div>
+  <div>
+    At Step 2
+  </div>
+  <h3>
+    Step 2
+  </h3>
+  <p>
+    currentStep: 2 
+  </p>
+  <button
+    class="btn btn-danger sgds"
+    type="button"
+  >
+    Back
+  </button>
+  <button
+    class="btn btn-primary sgds"
+    type="button"
+  >
+     Next
+  </button>
+  <button
+    class="btn btn-primary sgds"
+    type="button"
+  >
+    Reset
+  </button>
+  <button
+    class="btn btn-warning sgds"
+    type="button"
+  >
+    Jump to last page
+  </button>
+</DocumentFragment>
+`;
+
+exports[`Stepper default html structure, with minimal required stepMethods 1`] = `
+<DocumentFragment>
+  <div
+    class="sgds-steps stepper"
+  >
+    <div
+      class="sgds-step-item stepper__item is-active"
+      data-testid="sgds-step"
+    >
+      <div
+        class="sgds-step-marker"
+      >
+        1
+      </div>
+      <div
+        class="sgds-step-details"
+      >
+        <p>
+          <b>
+            First Step
+          </b>
+        </p>
+      </div>
+    </div>
+    <div
+      class="sgds-step-item stepper__item "
+      data-testid="sgds-step"
+    >
+      <div
+        class="sgds-step-marker"
+      >
+        2
+      </div>
+      <div
+        class="sgds-step-details"
+      >
+        <p>
+          <b>
+            Second Step
+          </b>
+        </p>
+      </div>
+    </div>
+    <div
+      class="sgds-step-item stepper__item "
+      data-testid="sgds-step"
+    >
+      <div
+        class="sgds-step-marker"
+      >
+        3
+      </div>
+      <div
+        class="sgds-step-details"
+      >
+        <p>
+          <b>
+            Third Step
+          </b>
+        </p>
+      </div>
+    </div>
+  </div>
+</DocumentFragment>
+`;
