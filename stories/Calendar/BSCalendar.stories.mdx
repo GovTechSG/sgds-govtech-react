@@ -1,0 +1,16 @@
+import { ArgsTable, Canvas, Meta, Story } from '@storybook/addon-docs';
+import { BSCalendar } from '../../src/components/index';
+import { useState } from 'react';
+
+
+<Meta title="MDX/BSCalendar" component={BSCalendar} />
+
+export const BSCalendarTemplate = () => {
+    return <BSCalendar />
+}
+
+<Canvas>
+  <Story name="Default">
+      {BSCalendarTemplate.bind({})}
+  </Story>
+</Canvas>
