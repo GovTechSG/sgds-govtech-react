@@ -15,8 +15,8 @@ export interface State {
 }
 
 export class WrappedStepMetadata {
-  private stepMetadata;
-  private index;
+  private stepMetadata: StepMetadata;
+  private index: number;
   constructor(stepMetadata: StepMetadata, index: number) {
     this.stepMetadata = stepMetadata;
     this.index = index;
@@ -62,7 +62,7 @@ export class WrappedStepMetadata {
 }
 
 export class WrappedStepsMetadata {
-  private wrappedStepMetadataArr;
+  private wrappedStepMetadataArr :WrappedStepMetadata[];
   constructor(wrappedStepMetadataArr: WrappedStepMetadata[]) {
     this.wrappedStepMetadataArr = wrappedStepMetadataArr;
   }

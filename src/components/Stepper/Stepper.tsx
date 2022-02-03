@@ -22,7 +22,7 @@ function Stepper({ methods }: { methods: UseStepMethods }) {
   };
   return (
     <div className="sgds-steps stepper">
-      {stepsMetadata.data.map((stepMetadata) => (
+      {stepsMetadata.data.map((stepMetadata: WrappedStepMetadata) => (
         <div
           data-testid="sgds-step"
           className={`sgds-step-item stepper__item ${getClass(stepMetadata)}`}
