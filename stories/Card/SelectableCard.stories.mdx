@@ -59,19 +59,18 @@ export const AcerBody = (
 export const ExampleTemplate = (args) => {
   const [brand, setBrand] = useState('');
   const [qty, setQty] = useState(1);
-  const [ordered, setOrder] = useState(null)
   const handleChange = (e) => {
     setBrand(e.target.value);
-    setOrder(null)
   };
   const handleDismiss = () => {
     //do side effects to handleDimiss
     setBrand('');
-    setOrder(null)
     setQty(1)
   };
   const handleSubmit = () => {
-    setOrder({brand, qty})
+    alert(`Order submitted: ${brand} laptop x${qty}`)
+    setBrand('')
+    setQty(1)
   };
   return (
     <Row>
@@ -107,7 +106,7 @@ export const ExampleTemplate = (args) => {
         </Form>
       </Col>
       <Col xs lg="4">
-        {brand && (
+        {brand &&  (
           <Card dismissible={true} dismiss={handleDismiss}>
             <Card.Body>
               <Card.Title as="h4">
@@ -128,14 +127,6 @@ export const ExampleTemplate = (args) => {
           </Card>
         )}
       </Col>
-      {ordered  ? (
-        <Col>
-          <Row>Ordered</Row>
-          <Row>
-            {brand} : {qty}
-          </Row>
-        </Col>
-      ) : <></>}
     </Row>
   );
 };
@@ -221,19 +212,18 @@ import { useState } from 'react'
 export const ShoppingCart = (args) => {
   const [brand, setBrand] = useState('');
   const [qty, setQty] = useState(1);
-  const [ordered, setOrder] = useState(null)
   const handleChange = (e) => {
     setBrand(e.target.value);
-    setOrder(null)
   };
   const handleDismiss = () => {
     //do side effects to handleDimiss
     setBrand('');
-    setOrder(null)
     setQty(1)
   };
   const handleSubmit = () => {
-    setOrder({brand, qty})
+    alert(`Order submitted: ${brand} laptop x${qty}`)
+    setBrand('')
+    setQty(1)
   };
   return (
     <Row>
@@ -269,7 +259,7 @@ export const ShoppingCart = (args) => {
         </Form>
       </Col>
       <Col xs lg="4">
-        {brand && (
+        {brand &&  (
           <Card dismissible={true} dismiss={handleDismiss}>
             <Card.Body>
               <Card.Title as="h4">
@@ -290,14 +280,6 @@ export const ShoppingCart = (args) => {
           </Card>
         )}
       </Col>
-      {ordered  ? (
-        <Col>
-          <Row>Ordered</Row>
-          <Row>
-            {brand} : {qty}
-          </Row>
-        </Col>
-      ) : <></>}
     </Row>
   );
 };
