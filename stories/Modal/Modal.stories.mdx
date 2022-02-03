@@ -1,8 +1,48 @@
 import { ArgsTable, Canvas, Meta, Story } from '@storybook/addon-docs';
 import { useState } from 'react';
 import { Modal, Button, Row, Col } from '../../src/components/index';
+import { HIDDEN_COMMON_PROPS } from '../helpers';
 
-<Meta title="MDX/Modal" component={Modal} />
+<Meta
+  title="MDX/Modal"
+  component={Modal}
+  argTypes={{
+    ...HIDDEN_COMMON_PROPS,
+    size: {
+      description:
+        'Render a large, extra large or small modal. When not provided, the modal is rendered with medium (default) size.',
+    },
+    fullscreen: {
+      description:
+        'Renders a fullscreen modal. Specifying a breakpoint will render the modal as fullscreen below the breakpoint size.',
+    },
+    centered: {
+      description: 'Vertically center the Dialog in the window',
+    },
+    backdropClassName: {
+      description:
+        "Add an optional extra class name to .modal-backdrop It could end up looking like class='modal-backdrop bg-primary'.",
+    },
+    animation: {
+      description: 'Open and close the Modal with a slide and fade animation.',
+    },
+    dialogClassName: {
+      description: 'A css class to apply to the Modal dialog DOM node.',
+    },
+    contentClassName: {
+      description: 'Add an optional extra class name to .modal-content',
+    },
+    dialogAs: {
+      description:
+        'A Component type that provides the modal content Markup. This is a useful prop when you want to use your own styles and markup to create a custom modal component.',
+      control: { disable: true },
+    },
+    scrollable: {
+      description:
+        'Allows scrolling the <Modal.Body> instead of the entire Modal when overflowing.',
+    },
+  }}
+/>
 
 # Modal
 
