@@ -192,6 +192,10 @@ export type { SplitButtonProps } from './SplitButton/SplitButton';
 // export { default as Stack } from './Stack';
 // export type { StackProps } from './Stack';
 
+export { default as Stepper } from './Stepper/Stepper'
+export { default as useStep } from './Stepper/useStep'
+export type { OnDone, StepMetadata, State as StepperState, UseStepMethods} from './Stepper/useStep'
+
 // export { default as Tab } from './Tab';
 // export type { TabProps } from './Tab';
 
