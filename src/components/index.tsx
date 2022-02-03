@@ -151,8 +151,8 @@ export type { OverlayProps } from './Overlay/Overlay';
 export { default as OverlayTrigger } from './Overlay/OverlayTrigger';
 export type { OverlayTriggerProps } from './Overlay/OverlayTrigger';
 
-export { default as PageItem } from './PageItem';
-export type { PageItemProps } from './PageItem';
+export { default as PageItem } from './PaginationBase/PageItem';
+export type { PageItemProps } from './PaginationBase/PageItem';
 
 export { default as PaginationBase } from './PaginationBase/PaginationBase';
 export type { PaginationBaseProps } from './PaginationBase/PaginationBase';
