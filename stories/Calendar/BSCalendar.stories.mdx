@@ -1,20 +1,21 @@
 import { ArgsTable, Canvas, Meta, Story } from '@storybook/addon-docs';
-import { BSCalendar } from '../../src/components/index';
+import { DatePicker, Row, Col } from '../../src/components/index';
 import { useState } from 'react';
 
+<Meta title="MDX/DatePicker" component={DatePicker} />
 
-<Meta title="MDX/BSCalendar" component={BSCalendar} />
-
-export const BSCalendarTemplate = () => {
-  const [value, setValue] =useState(new Date().toISOString())
-  const handleChange = (value, formattedValue ) => {
-    setValue({value , formattedValue})
-  }
-    return <BSCalendar value={value} onChange={handleChange}/>
-}
+export const DatePickerTemplate = (args) => {
+  const [value, setValue] = useState(new Date().toISOString());
+  const handleChange = (value, formattedValue) => {
+    setValue({ value, formattedValue });
+  };
+  return (
+      <div style={{width: '500px'}}>
+        <DatePicker value={value} onChange={handleChange} {...args}/>
+      </div>
+  );
+};
 
 <Canvas>
-  <Story name="Default">
-      {BSCalendarTemplate.bind({})}
-  </Story>
+  <Story name="Default">{DatePickerTemplate.bind({})}</Story>
 </Canvas>

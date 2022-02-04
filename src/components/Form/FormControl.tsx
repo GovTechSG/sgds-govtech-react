@@ -19,7 +19,7 @@ export interface FormControlProps
   readOnly?: boolean;
   disabled?: boolean;
   value?: string | string[] | number;
-  onChange?: React.ChangeEventHandler<FormControlElement>;
+  onChangeDate?: React.ChangeEventHandler<FormControlElement>;
   type?: string;
   isValid?: boolean;
   isInvalid?: boolean;

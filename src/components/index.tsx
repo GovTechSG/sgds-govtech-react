@@ -37,7 +37,8 @@ export type { ButtonProps } from './Button/Button';
 // export type { ButtonToolbarProps } from './ButtonToolbar';
 
 export {default as Calendar} from './Calendar/Calendar'
-export {default as BSCalendar} from './Calendar/DatePicker'
+export {default as DatePicker} from './Calendar/DatePicker'
+export type { DatePickerProps } from './Calendar/DatePicker'
 export type { CalendarProps } from './Calendar/Calendar'
 
 export { default as Card } from './Card/Card';

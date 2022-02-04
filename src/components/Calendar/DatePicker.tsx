@@ -1,22 +1,14 @@
-// See http://jszen.blogspot.com/2007/03/how-to-build-simple-calendar-with.html for calendar logic.
-
-import React, { KeyboardEventHandler } from 'react';
-import ReactDOM from 'react-dom';
-import Button from '../Button/Button';
+import React from 'react';
 import FormControl from '../Form/FormControl';
 import InputGroup from '../InputGroup/InputGroup';
 import Overlay from '../Overlay/Overlay';
 import Popover from '../Popover/Popover';
-import PropTypes from 'prop-types';
-import createReactClass from 'create-react-class';
 import Calendar from './BSCalendar';
 import CalendarHeader from './CalendarHeader';
-import { useState, useRef, useEffect } from 'react';
+import { useState, useRef } from 'react';
 import { Placement } from '../types';
 
-let instanceCount = 0;
-
-interface DatePickerProps {
+export interface DatePickerProps {
   defaultValue: string;
   value: string;
   required: boolean;
@@ -57,7 +49,7 @@ interface DatePickerProps {
 }
 
 interface CalendarState {
-  value: string ;
+  value: string;
   displayDate: Date;
   selectedDate: Date;
   inputValue: string;
@@ -67,13 +59,14 @@ interface CalendarState {
   separator: string;
 }
 
-const DatePicker: React.FC<DatePickerProps> = ({
+export const DatePicker: React.FC<DatePickerProps> = ({
   value = new Date().toISOString(),
   dateFormat = 'DD/MM/YYYY',
   calendarPlacement = 'bottom',
   ...props
 }) => {
   const formControlRef = useRef(null);
+  const overlayRef = useRef(null);
   const initialState: CalendarState = {
     value: value,
     displayDate: new Date(),
@@ -170,11 +163,11 @@ const DatePicker: React.FC<DatePickerProps> = ({
   };
 
   const handleInputChange = () => {
+    //@ts-ignore
     const originalValue = formControlRef.current.value;
     const inputValue = originalValue
       .replace(/(-|\/\/)/g, state.separator)
       .slice(0, 10);
-      console.log(inputValue)
     if (!inputValue) {
       clear();
       return;
@@ -243,7 +236,7 @@ const DatePicker: React.FC<DatePickerProps> = ({
         props.onChange(selectedDate.toISOString(), inputValue);
       }
     }
-  
+
     // setState({
     //   ...state,
     //   inputValue: inputValue,
@@ -298,9 +291,7 @@ const DatePicker: React.FC<DatePickerProps> = ({
     }
   };
   const onChangeDate = (newSelectedDate: Date) => {
-    console.log('hello', newSelectedDate)
     const inputValue = makeInputValueString(newSelectedDate);
-    console.log(inputValue)
     setState({
       ...state,
       inputValue: inputValue,
@@ -309,7 +300,6 @@ const DatePicker: React.FC<DatePickerProps> = ({
       value: newSelectedDate.toISOString(),
       focused: false,
     });
-    console.log(state)
     // if (props.onBlur) {
     //   const event = document.createEvent('CustomEvent');
     //   event.initEvent('Change Date', true, false);
@@ -420,50 +410,39 @@ const DatePicker: React.FC<DatePickerProps> = ({
       //   bsSize={this.props.bsSize}
       id={props.id ? `${props.id}_group` : undefined}
     >
-      {control}
+      <div ref={overlayRef}>{control}</div>
       <Overlay
         rootClose={true}
         onHide={handleHide}
         show={state.focused}
         target={formControlRef.current}
         placement={calendarPlacement}
+        container={overlayRef}
       >
-        <Popover
-          id={`date-picker-popover-${props.instanceCount}`}
-          className="date-picker-popover"
-          ref={formControlRef}
-        >
+        <Popover id={`date-picker-popover`}>
           <Popover.Header>{calendarHeader}</Popover.Header>
-
-          <Calendar
-            cellPadding={props.cellPadding}
-            selectedDate={state.selectedDate}
-            displayDate={state.displayDate}
-            onChange={onChangeDate}
-            weekStartsOn={props.weekStartsOn}
-            showTodayButton={props.showTodayButton}
-            todayButtonLabel={props.todayButtonLabel}
-            minDate={props.minDate}
-            maxDate={props.maxDate}
-            roundedCorners={props.roundedCorners}
-            showWeeks={props.showWeeks}
-          />
+          <Popover.Body>
+            <Calendar
+              cellPadding={props.cellPadding}
+              selectedDate={state.selectedDate}
+              displayDate={state.displayDate}
+              changeDate={onChangeDate}
+              weekStartsOn={props.weekStartsOn}
+              showTodayButton={props.showTodayButton}
+              todayButtonLabel={props.todayButtonLabel}
+              minDate={props.minDate}
+              maxDate={props.maxDate}
+              roundedCorners={props.roundedCorners}
+              showWeeks={props.showWeeks}
+            />
+          </Popover.Body>
         </Popover>
       </Overlay>
-  {/*     <div ref="overlayContainer" style={{ position: 'relative' }} /> */}
-    {/*   <input
-        ref="hiddenInput"
-        type="hidden"
-        id={props.id}
-        name={props.name}
-        value={state.value || ''}
-        data-formattedvalue={state.value ? state.inputValue : ''}
-      /> */}  
       {props.children}
     </InputGroup>
   );
 };
-export default DatePicker
+export default DatePicker;
 // export default createReactClass({
 //   displayName: 'DatePicker',
 

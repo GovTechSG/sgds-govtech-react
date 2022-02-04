@@ -23,6 +23,7 @@ const MONTH_LABELS = [
   'November',
   'December',
 ];
+
 const CalendarHeader: React.FC<CalendarHeaderProps> = ({
   monthLabels = MONTH_LABELS,
   previousButtonElement = '<',
@@ -34,21 +35,21 @@ const CalendarHeader: React.FC<CalendarHeaderProps> = ({
     if (!props.minDate) return false;
 
     const displayDate = new Date(props.displayDate);
-    const minDate = new Date(props.minDate);
+    const minimumDate = new Date(props.minDate);
     return (
-      minDate.getFullYear() == displayDate.getFullYear() &&
-      minDate.getMonth() == displayDate.getMonth()
+      minimumDate.getFullYear() == displayDate.getFullYear() &&
+      minimumDate.getMonth() == displayDate.getMonth()
     );
   }
 
   const displayingMaxMonth = () => {
     if (!props.maxDate) return false;
-
     const displayDate = new Date(props.displayDate);
-    const maxDate = new Date(props.maxDate);
+    const maximumDate = new Date(props.maxDate);
+    console.log(maximumDate)
     return (
-      maxDate.getFullYear() == displayDate.getFullYear() &&
-      maxDate.getMonth() == displayDate.getMonth()
+      maximumDate.getFullYear() == displayDate.getFullYear() &&
+      maximumDate.getMonth() == displayDate.getMonth()
     );
   }
 
@@ -66,9 +67,9 @@ const CalendarHeader: React.FC<CalendarHeaderProps> = ({
     props.onChange(newDisplayDate);
   }
   return (
-    <div className="text-center">
+    <div className="text-center d-flex justify-content-around">
       <div
-        className="text-muted pull-left datepicker-previous-wrapper"
+        className="text-muted pull-left"
         onClick={handleClickPrevious}
         style={{ cursor: 'pointer' }}
       >
@@ -79,7 +80,7 @@ const CalendarHeader: React.FC<CalendarHeaderProps> = ({
         {props.displayDate.getFullYear()}
       </span>
       <div
-        className="text-muted pull-right datepicker-next-wrapper"
+        className="text-muted pull-right"
         onClick={handleClickNext}
         style={{ cursor: 'pointer' }}
       >
