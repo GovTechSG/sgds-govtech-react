@@ -6,7 +6,11 @@ import { useState } from 'react';
 <Meta title="MDX/BSCalendar" component={BSCalendar} />
 
 export const BSCalendarTemplate = () => {
-    return <BSCalendar />
+  const [value, setValue] =useState(new Date().toISOString())
+  const handleChange = (value, formattedValue ) => {
+    setValue({value , formattedValue})
+  }
+    return <BSCalendar value={value} onChange={handleChange}/>
 }
 
 <Canvas>

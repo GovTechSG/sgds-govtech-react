@@ -4,7 +4,7 @@ interface CalendarHeaderProps {
   displayDate: Date;
   minDate?: string;
   maxDate?: string;
-  onChange: (date: Date) => React.ChangeEventHandler<HTMLInputElement>;
+  onChange: (date: Date) => void;
   monthLabels: string[];
   previousButtonElement: string | JSX.Element;
   nextButtonElement: string | JSX.Element;
@@ -25,6 +25,8 @@ const MONTH_LABELS = [
 ];
 const CalendarHeader: React.FC<CalendarHeaderProps> = ({
   monthLabels = MONTH_LABELS,
+  previousButtonElement = '<',
+  nextButtonElement = '>',
   ...props
 }) => {
 
@@ -70,7 +72,7 @@ const CalendarHeader: React.FC<CalendarHeaderProps> = ({
         onClick={handleClickPrevious}
         style={{ cursor: 'pointer' }}
       >
-        {displayingMinMonth() ? null : props.previousButtonElement}
+        {displayingMinMonth() ? null : previousButtonElement}
       </div>
       <span>
         {monthLabels[props.displayDate.getMonth()]}{' '}
@@ -81,7 +83,7 @@ const CalendarHeader: React.FC<CalendarHeaderProps> = ({
         onClick={handleClickNext}
         style={{ cursor: 'pointer' }}
       >
-        {displayingMaxMonth() ? null : props.nextButtonElement}
+        {displayingMaxMonth() ? null : nextButtonElement}
       </div>
     </div>
   );

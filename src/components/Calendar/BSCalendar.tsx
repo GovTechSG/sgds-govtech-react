@@ -1,12 +1,12 @@
 import * as React from 'react';
 import Button from '../Button/Button';
 interface CalendarProps {
-  selectedDate: Date;
-  displayDate: Date;
-  minDate: string;
-  maxDate: string;
-  onChange: (date: Date) => React.ChangeEventHandler<HTMLInputElement>;
-  dayLabels: string[];
+  selectedDate: Date ;
+  displayDate: Date ;
+  minDate?: string;
+  maxDate?: string;
+  onChange: (date: Date) => void;
+  dayLabels?: string[];
   cellPadding: string;
   weekStartsOn: number;
   showTodayButton: boolean;
@@ -43,12 +43,15 @@ const getWeekNumber = (date: Date) => {
 export const Calendar: React.FC<CalendarProps> = ({
   dayLabels = DAY_LABELS,
   cellPadding = '5px',
+  showWeeks = false,
+  todayButtonLabel = 'Today',
+  roundedCorners = false,
   ...props
 }) => {
   const handleClick = (e: React.MouseEvent<HTMLTableCellElement>) => {
     // assuming day is never null
     const day = e.currentTarget.getAttribute('data-day')!;
-    const newSelectedDate = setTimeToNoon(new Date(props.displayDate));
+    const newSelectedDate = setTimeToNoon(props.displayDate!);
     newSelectedDate.setDate(parseInt(day));
     props.onChange(newSelectedDate);
   };
@@ -58,7 +61,7 @@ export const Calendar: React.FC<CalendarProps> = ({
   };
 
   const currentDate = setTimeToNoon(new Date());
-  const selectedDate = setTimeToNoon(new Date(props.selectedDate));
+  const selectedDate = setTimeToNoon(props.selectedDate);
   const minDate = props.minDate ? setTimeToNoon(new Date(props.minDate)) : null;
   const maxDate = props.maxDate ? setTimeToNoon(new Date(props.maxDate)) : null;
   const year = props.displayDate.getFullYear();
@@ -72,7 +75,7 @@ export const Calendar: React.FC<CalendarProps> = ({
         ? 6
         : firstDay.getDay() - 1
       : firstDay.getDay();
-  const showWeeks = props.showWeeks;
+  // const showWeeks = props.showWeeks;
 
   let monthLength = daysInMonth[month];
   if (month == 1) {
@@ -98,7 +101,7 @@ export const Calendar: React.FC<CalendarProps> = ({
         const style = {
           cursor: 'pointer',
           padding: cellPadding,
-          borderRadius: props.roundedCorners ? 5 : 0,
+          borderRadius: roundedCorners ? 5 : 0,
         };
 
         if (beforeMinDate || afterMinDate) {
@@ -188,7 +191,7 @@ export const Calendar: React.FC<CalendarProps> = ({
                 className="u-today-button"
                 onClick={handleClickToday}
               >
-                {props.todayButtonLabel}
+                {todayButtonLabel}
               </Button>
             </td>
           </tr>
