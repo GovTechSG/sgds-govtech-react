@@ -18,7 +18,7 @@ const MAX_DATE = '2021-05-19T12:00:00.000Z';
 const MIN_DATE = '2020-05-19T12:00:00.000Z';
 const DAY_LABELS = ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'];
 const defaultProps = {
-  dayLabels: ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'],
+  dayLabels : ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'],
   cellPadding: '5px',
 };
 const daysInMonth = [31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31];
@@ -171,7 +171,7 @@ export const Calendar = React.forwardRef<HTMLTableElement, CalendarProps>(
       <td className="text-muted current-week" style={{ padding: cellPadding }} />
     ) : null;
     return (
-      <table className="text-center" ref={ref}>
+      <table className="text-center" ref={ref} >
         <thead>
           <tr>
             {weekColumn}
