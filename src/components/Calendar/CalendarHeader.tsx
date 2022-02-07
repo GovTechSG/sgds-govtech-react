@@ -1,6 +1,5 @@
 import * as React from 'react';
 import Dropdown from '../Dropdown/Dropdown';
-import FormControl from '../Form/FormControl'
 interface CalendarHeaderProps {
   displayDate: Date;
   minDate?: string;
@@ -9,6 +8,7 @@ interface CalendarHeaderProps {
   monthLabels: string[];
   previousButtonElement: string | JSX.Element;
   nextButtonElement: string | JSX.Element;
+  years?: number[]
 }
 const MONTH_LABELS = [
   'January',
@@ -38,6 +38,7 @@ const CalendarHeader: React.FC<CalendarHeaderProps> = ({
   monthLabels = MONTH_LABELS,
   previousButtonElement = '<',
   nextButtonElement = '>',
+  years = YEARS(),
   ...props
 }) => {
   const [year, setYear] = React.useState(props.displayDate.getFullYear())
@@ -75,11 +76,9 @@ const CalendarHeader: React.FC<CalendarHeaderProps> = ({
     newDisplayDate.setMonth(newDisplayDate.getMonth() + 1);
     props.onChange(newDisplayDate);
   };
-  const handleSelectYear = (key: string | null, e: React.SyntheticEvent<any>) => {
+  const handleSelectYear = (key: string | null) => {
     const newDate = props.displayDate
     newDate.setFullYear(parseInt(key!))
-    console.log(newDate)
-    const selectedMonth = key && monthLabels[parseInt(key)]
     props.onChange(newDate)
     setYear(parseInt(key!))
   };
@@ -96,13 +95,13 @@ const CalendarHeader: React.FC<CalendarHeaderProps> = ({
         {monthLabels[props.displayDate.getMonth()]}{' '}
       </span>
       <Dropdown onSelect={handleSelectYear}>
-      <input value={year}/>
-        <Dropdown.Toggle variant="white">
-     
+        <Dropdown.Toggle variant="white" >
+          {year}
         </Dropdown.Toggle>
         <Dropdown.Menu >
-          {YEARS().map((yr: number, idx: number) => (
+          {years.map((yr: number) => (
             <Dropdown.Item
+            key={yr}
             active={yr===year}
               eventKey={yr}
             >
@@ -111,10 +110,6 @@ const CalendarHeader: React.FC<CalendarHeaderProps> = ({
           ))}
         </Dropdown.Menu>
       </Dropdown>
-      {/* <span>
-        {monthLabels[props.displayDate.getMonth()]}{' '}
-        {props.displayDate.getFullYear()}
-      </span> */}
       <div
         className="text-muted pull-right"
         onClick={handleClickNext}
