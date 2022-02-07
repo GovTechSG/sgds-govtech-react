@@ -1,193 +1,225 @@
 import { ArgsTable, Canvas, Meta, Story } from '@storybook/addon-docs';
 import { useState } from 'react';
+import { HIDDEN_COMMON_PROPS } from '../helpers';
 import {
   InputGroup,
   Form,
   Button,
   DropdownButton,
   Dropdown,
-  SplitButton,
+  SplitButton
 } from '../../src/components/index';
 
-<Meta title="MDX/Input Group" component={InputGroup} />
+<Meta
+  title="MDX/Input Group"
+  component={InputGroup}
+  argTypes={{
+    ...HIDDEN_COMMON_PROPS,
+    hasValidation: {
+      description:
+        "Handles the input's rounded corners when using form validation. Use this when your input group contains both an input and feedback element. Refer to ***Input Group Validation***",
+      control: { disable: true },
+    },
+  }}
+/>
 
 # Input Group
 
-Easily extend `<Form.Control>` by adding text, buttons, or button groups on either side of textual inputs and custom select. Remember to place `<label>`s outside the input group.
+Easily extend `<Form.Control>` by adding text, buttons, or button groups on either side of textual inputs and custom select. Remember to place `<label>` outside the input group.
 
 export const Template = (args) => {
-  const handleSelect = (e) => {
-    setTitle(e);
-  };
-  const [title, setTitle] = useState('USD');
   return (
     <>
-      <Form.Label htmlFor="phone">Phone Number</Form.Label>
+      <Form.Label>Phone Number</Form.Label>
       <InputGroup className="mb-3">
         <InputGroup.Text id="basic-addon1">+65</InputGroup.Text>
         <Form.Control
-          placeholder="Username"
-          aria-label="Username"
+          placeholder="Phone number"
+          aria-label="Phone"
           aria-describedby="basic-addon1"
-          id="phone"
         />
-      </InputGroup>
-      <Form.Label htmlFor="username">Username</Form.Label>
-      <InputGroup className="mb-3">
-        <InputGroup.Text id="basic-addon2">@</InputGroup.Text>
-        <Form.Control
-          placeholder="Recipient's username"
-          aria-label="Recipient's username"
-          aria-describedby="basic-addon2"
-          id="username"
-        />
-      </InputGroup>
-      <Form.Label htmlFor="basic-url">Your URL</Form.Label>
-      <InputGroup className="mb-3">
-        <InputGroup.Text id="basic-addon3">
-          https://example.com/users/
-        </InputGroup.Text>
-        <Form.Control id="basic-url" aria-describedby="basic-addon3" />
-      </InputGroup>
-      <Form.Label htmlFor="currency">Currency</Form.Label>
-      <InputGroup className="mb-3">
-        <InputGroup.Text>USD</InputGroup.Text>
-        <Form.Control
-          id="currency"
-          aria-label="Amount (to the nearest dollar)"
-        />
-        <InputGroup.Text>.00</InputGroup.Text>
-      </InputGroup>
-      <Form.Label htmlFor="currencyDd">
-        Currency with Dropdown Toggle
-      </Form.Label>
-      <InputGroup className="mb-3">
-        <DropdownButton
-          variant="outline-secondary"
-          title={title}
-          id="input-group-dropdown-2"
-          align="end"
-          onSelect={handleSelect}
-        >
-          <Dropdown.Item eventKey="USD">USD</Dropdown.Item>
-          <Dropdown.Item eventKey="SGD">SGD</Dropdown.Item>
-          <Dropdown.Item eventKey="JPY">JPY</Dropdown.Item>
-          <Dropdown.Divider />
-          <Dropdown.Item eventKey="MYR">MYR</Dropdown.Item>
-        </DropdownButton>
-        <Form.Control id="currencyDd" />
-      </InputGroup>
-      <Form.Label htmlFor="txtarea">Text Area</Form.Label>
-      <InputGroup>
-        <InputGroup.Text>With textarea</InputGroup.Text>
-        <Form.Control as="textarea" id="txtarea" aria-label="With textarea" />
       </InputGroup>
     </>
   );
 };
 
 <Canvas>
-  <Story name="Input Group">{Template.bind({})}</Story>
+  <Story name="Example">{Template.bind({})}</Story>
 </Canvas>
 
-<ArgsTable story="Input Group"/>
+<ArgsTable story="Example" />
 
 ```jsx
+// Phone number Example
+import { InputGroup, Form } from 'sgds-react';
 
-  // Phonenumber Example
-
-  import { InputGroup, Form } from 'sgds-react';
-
-      <Form.Label htmlFor="phone">Phone Number</Form.Label>
-      <InputGroup className="mb-3">
-        <InputGroup.Text id="basic-addon1">+65</InputGroup.Text>
-        <Form.Control
-          placeholder="Username"
-          aria-label="Username"
+<Form.Label>Phone Number</Form.Label>
+  <InputGroup className="mb-3">
+    <InputGroup.Text id="basic-addon1">+65</InputGroup.Text>
+    <Form.Control
+          placeholder="Phone number"
+          aria-label="Phone"
           aria-describedby="basic-addon1"
-          id="phone"
+    />
+    </InputGroup>
+```
+
+## 2. Variant Icon Input
+
+By default, `variant` string attribute is set to empty. You may add it by manually setting it to `'has-icon`.
+
+<Canvas>
+  <Story name="Input icon">
+    <>
+      <Form.Label>Phone Number</Form.Label>
+      <InputGroup className="mb-3" variant="has-icon">
+        <i className="bi bi-search form-control-icon"></i>
+        <Form.Control
+          placeholder="Phone number"
+          aria-label="Phone"
+          aria-describedby="basic-addon1"
         />
       </InputGroup>
-
-  //  Username Example
-
-  import { InputGroup, Form } from 'sgds-react';
-
-      <Form.Label htmlFor="username">Username</Form.Label>
-      <InputGroup className="mb-3">
-        <InputGroup.Text id="basic-addon2">@</InputGroup.Text>
+      <Form.Label>Email</Form.Label>
+      <InputGroup className="mb-3" variant="has-icon">
+        <InputGroup.Text id="basic-addon1">Email</InputGroup.Text>
+        <i className="bi bi-search form-control-icon"></i>
         <Form.Control
-          placeholder="Recipient's username"
-          aria-label="Recipient's username"
+          placeholder="Email"
+          aria-label="Email"
           aria-describedby="basic-addon2"
-          id="username"
         />
       </InputGroup>
-
-  // URL Example
-
-  import { InputGroup, Form } from 'sgds-react';
-
-      <Form.Label htmlFor="basic-url">Your URL</Form.Label>
-      <InputGroup className="mb-3">
-        <InputGroup.Text id="basic-addon3">
-          https://example.com/users/
-        </InputGroup.Text>
-        <Form.Control id="basic-url" aria-describedby="basic-addon3" />
+      <InputGroup className="mb-3" variant="has-icon">
+        <InputGroup.Checkbox aria-label="Checkbox for following text input" />
+        <i className="bi bi-search form-control-icon"></i>
+        <Form.Control aria-label="Text input with checkbox" />
       </InputGroup>
-
-  // Currency Example
-
-  import { InputGroup, Form } from 'sgds-react';
-
-      <Form.Label htmlFor="currency">Currency</Form.Label>
-      <InputGroup className="mb-3">
-        <InputGroup.Text>USD</InputGroup.Text>
+      <InputGroup className="mb-3" variant="has-icon">
+        <InputGroup.Radio aria-label="Radio button for following text input" />
+        <i className="bi bi-search form-control-icon"></i>
+        <Form.Control aria-label="Text input with radio button" />
+      </InputGroup>
+      <InputGroup className="mb-3" variant="has-icon">
+        <InputGroup.Text>$</InputGroup.Text>
+        <InputGroup.Text>0.00</InputGroup.Text>
+        <i className="bi bi-search form-control-icon"></i>
+        <Form.Control aria-label="Dollar amount (with dot and two decimal places)" />
+      </InputGroup>
+      <InputGroup className="mb-3" variant="has-icon">
+        <Button variant="outline-secondary" id="button-addon1">
+          Button
+        </Button>
+        <i className="bi bi-search form-control-icon"></i>
         <Form.Control
-          id="currency"
-          aria-label="Amount (to the nearest dollar)"
+          aria-label="Example text with button addon"
+          aria-describedby="basic-addon1"
         />
-        <InputGroup.Text>.00</InputGroup.Text>
       </InputGroup>
-
-  // Currency with Togglelable Dropdown Button Example
-
-  import { useState } from 'react';
-  import { InputGroup, Form } from 'sgds-react';
-
-  const handleSelect = (e) => {
-    setTitle(e);
-  };
-  const [title, setTitle] = useState('USD');
-
-      <Form.Label htmlFor="currencyDropdown">Currency with Dropdown Toggle</Form.Label>
-      <InputGroup className="mb-3">
+      <InputGroup className="mb-3" variant="has-icon">
         <DropdownButton
           variant="outline-secondary"
-          title={title}
-          id="input-group-dropdown-2"
-          align="end"
-          onSelect={handleSelect}
+          title="Dropdown"
+          id="input-group-dropdown-1"
         >
-          <Dropdown.Item eventKey="USD">USD</Dropdown.Item>
-          <Dropdown.Item eventKey="SGD">SGD</Dropdown.Item>
-          <Dropdown.Item eventKey="JPY">JPY</Dropdown.Item>
+          <Dropdown.Item href="#">Action</Dropdown.Item>
+          <Dropdown.Item href="#">Another action</Dropdown.Item>
+          <Dropdown.Item href="#">Something else here</Dropdown.Item>
           <Dropdown.Divider />
-          <Dropdown.Item eventKey="MYR">MYR</Dropdown.Item>
+          <Dropdown.Item href="#" disabled>
+            Separated link
+          </Dropdown.Item>
         </DropdownButton>
-        <Form.Control id="currencyDropdown" />
+        <i className="bi bi-search form-control-icon"></i>
+        <Form.Control aria-label="Text input with dropdown button" />
+      </InputGroup>
+    </>
+  </Story>
+</Canvas>
+
+```jsx
+import { Form, InputGroup } from 'sgds-react';
+
+
+// Without <InputGroup.Text> left addon
+      <Form.Label>Phone Number</Form.Label>
+      <InputGroup className="mb-3" variant="has-icon">
+        <i className="bi bi-search form-control-icon"></i>
+        <Form.Control
+          placeholder="Phone number"
+          aria-label="Phone"
+          aria-describedby="basic-addon1"
+        />
       </InputGroup>
 
-  // Text Area Example
-      <Form.Label htmlFor="txtarea">Text Area</Form.Label>
-      <InputGroup>
-        <InputGroup.Text>With textarea</InputGroup.Text>
-        <Form.Control as="textarea" id="txtarea" aria-label="With textarea" />
+// With <InputGroup.Text> left addon
+      <Form.Label>Email</Form.Label>
+      <InputGroup className="mb-3" variant="has-icon">
+      <InputGroup.Text id="basic-addon1">Email</InputGroup.Text>
+        <i className="bi bi-search form-control-icon"></i>
+        <Form.Control
+          placeholder="Email"
+          aria-label="Email"
+          aria-describedby="basic-addon2"
+        />
+      </InputGroup>
+
+// With <InputGroup.Checkbox> left addon
+      <InputGroup className="mb-3" variant="has-icon">
+        <InputGroup.Checkbox aria-label="Checkbox for following text input" />
+        <i className="bi bi-search form-control-icon"></i>
+        <Form.Control aria-label="Text input with checkbox" />
+      </InputGroup>
+
+// With  <InputGroup.Radio> left addon
+      <InputGroup variant="has-icon">
+        <InputGroup.Radio aria-label="Radio button for following text input" />
+        <i className="bi bi-search form-control-icon"></i>
+        <Form.Control aria-label="Text input with radio button" />
+      </InputGroup>
+
+// With  Multiple left addon
+ <InputGroup className="mb-3" variant='has-icon'>
+        <InputGroup.Text>$</InputGroup.Text>
+        <InputGroup.Text>0.00</InputGroup.Text>
+        <i className="bi bi-search form-control-icon"></i>
+        <Form.Control aria-label="Dollar amount (with dot and two decimal places)" />
+      </InputGroup>
+
+// With Button left addon
+      <InputGroup className="mb-3" variant="has-icon">
+        <Button variant="outline-secondary" id="button-addon1">
+          Button
+        </Button>
+        <i className="bi bi-search form-control-icon"></i>
+        <Form.Control
+          aria-label="Example text with button addon"
+          aria-describedby="basic-addon1"
+        />
+      </InputGroup>
+
+// With DropdownButton left addon
+      <InputGroup className="mb-3" variant='has-icon'>
+        <DropdownButton
+          variant="outline-secondary"
+          title="Dropdown"
+          id="input-group-dropdown-1"
+        >
+          <Dropdown.Item href="#">Action</Dropdown.Item>
+          <Dropdown.Item href="#">Another action</Dropdown.Item>
+          <Dropdown.Item href="#">Something else here</Dropdown.Item>
+          <Dropdown.Divider />
+          <Dropdown.Item href="#" disabled>
+            Separated link
+          </Dropdown.Item>
+        </DropdownButton>
+        <i className="bi bi-search form-control-icon"></i>
+        <Form.Control aria-label="Text input with dropdown button" />
       </InputGroup>
 
 ```
 
-## 2. Sizing
+## 3. Sizing
 
 By default, form input elements will be set to medium size. Add `size="sm"` for small or `size="lg"` for large to `<InputGroup>` element and all elements within will resize accordingly.
 
@@ -224,10 +256,15 @@ By default, form input elements will be set to medium size. Add `size="sm"` for 
 </Canvas>
 
 ```jsx
- 
+import { Form, InputGroup } from 'sgds-react';
+
+<InputGroup size="sm" className="mb-3">
+  <InputGroup.Text id="inputGroup-sizing-sm">Small</InputGroup.Text>
+  <Form.Control aria-label="Small" aria-describedby="inputGroup-sizing-sm" />
+</InputGroup>;
 ```
 
-## 3. Checkboxes and radios
+## 4. Checkboxes and radios
 
 Use the `InputGroup.Radio` or `InputGroup.Checkbox` to add options to an input group.
 
@@ -246,7 +283,23 @@ Use the `InputGroup.Radio` or `InputGroup.Checkbox` to add options to an input g
   </Story>
 </Canvas>
 
-## 4. Multiple inputs
+```jsx
+import { Form, InputGroup } from 'sgds-react';
+
+// InputGroup Checkbox Example
+<InputGroup className="mb-3">
+  <InputGroup.Checkbox aria-label="Checkbox for following text input" />
+  <Form.Control aria-label="Text input with checkbox" />
+</InputGroup>;
+
+// InputGroup Radio Example
+<InputGroup className="mb-3">
+  <InputGroup.Checkbox aria-label="Checkbox for following text input" />
+  <Form.Control aria-label="Text input with checkbox" />
+</InputGroup>;
+```
+
+## 5. Multiple inputs
 
 While multiple inputs are supported visually, validation styles are only available for input groups with a single input.
 
@@ -260,7 +313,17 @@ While multiple inputs are supported visually, validation styles are only availab
   </Story>
 </Canvas>
 
-## 5. Multiple addons
+```jsx
+import { Form, InputGroup } from 'sgds-react';
+
+<InputGroup className="mb-3">
+  <InputGroup.Text>First and last name</InputGroup.Text>
+  <Form.Control aria-label="First name" />
+  <Form.Control aria-label="Last name" />
+</InputGroup>;
+```
+
+## 6. Multiple addons
 
 Multiple add-ons are supported and can be mixed with checkbox and radio input versions.
 
@@ -281,7 +344,24 @@ Multiple add-ons are supported and can be mixed with checkbox and radio input ve
   </Story>
 </Canvas>
 
-## 6. Button Addons
+```jsx
+import { Form, InputGroup } from 'sgds-react';
+
+  <InputGroup className="mb-3">
+    <InputGroup.Text>$</InputGroup.Text>
+    <InputGroup.Text>0.00</InputGroup.Text>
+    <Form.Control aria-label="Dollar amount (with dot and two decimal places)" />
+  </InputGroup>
+  <InputGroup>
+    <Form.Control aria-label="Dollar amount (with dot and two decimal places)" />
+    <InputGroup.Text>$</InputGroup.Text>
+    <InputGroup.Text>0.00</InputGroup.Text>
+  </InputGroup>
+```
+
+## 7. Button Addons
+
+Multiple button add-ons can also be aligned within an `<InputGroup>` for customized functionality.
 
 <Canvas>
   <Story name="Button Addons">
@@ -322,104 +402,540 @@ Multiple add-ons are supported and can be mixed with checkbox and radio input ve
   </Story>
 </Canvas>
 
-## 7. Button with Dropdowns
+```jsx
+import { useState } from 'react';
+import { Form, InputGroup, Button } from 'sgds-react';
 
-<Canvas>
-  <Story name="Button with Dropdowns">
+// Single button left add-on
+  <InputGroup className="mb-3">
+    <Button variant="outline-secondary" id="button-addon1">
+          Button
+    </Button>
+    <Form.Control
+    aria-label="Example text with button addon"
+    aria-describedby="basic-addon1"/>
+  </InputGroup>
+
+// Single button right add-on
+  <InputGroup className="mb-3">
+    <Form.Control
+      placeholder="Recipient's username"
+       aria-label="Recipient's username"
+          aria-describedby="basic-addon2"
+    />
+    <Button variant="outline-secondary" id="button-addon2">
+      Button
+    </Button>
+  </InputGroup>
+
+// Double button left add-on
+  <InputGroup className="mb-3">
+    <Button variant="outline-secondary">Button</Button>
+    <Button variant="outline-secondary">Button</Button>
+    <Form.Control aria-label="Example text with two button addons" />
+  </InputGroup>
+
+// Double button right add-on
+  <InputGroup>
+    <Form.Control
+      placeholder="Recipient's username"
+      aria-label="Recipient's username with two button addons"
+    />
+    <Button variant="outline-secondary">Button</Button>
+    <Button variant="outline-secondary">Button</Button>
+  </InputGroup>
+```
+
+## 8. DropdownButton Addons
+
+To allow dropdown add-ons, simply import a `DropdownButton` component to use it as below.
+
+<Story name="DropdownButton Addons">
+  <>
+    <InputGroup className="mb-3">
+      <DropdownButton
+        variant="outline-secondary"
+        title="Dropdown"
+        id="input-group-dropdown-1"
+      >
+        <Dropdown.Item href="#">Action</Dropdown.Item>
+        <Dropdown.Item href="#">Another action</Dropdown.Item>
+        <Dropdown.Item href="#">Something else here</Dropdown.Item>
+        <Dropdown.Divider />
+        <Dropdown.Item href="#" disabled>
+          Separated link
+        </Dropdown.Item>
+      </DropdownButton>
+      <Form.Control aria-label="Text input with dropdown button" />
+    </InputGroup>
+    <InputGroup className="mb-3">
+      <Form.Control aria-label="Text input with dropdown button" />
+      <DropdownButton
+        variant="outline-secondary"
+        title="Dropdown"
+        id="input-group-dropdown-2"
+        align="end"
+      >
+        <Dropdown.Item href="#">Action</Dropdown.Item>
+        <Dropdown.Item href="#">Another action</Dropdown.Item>
+        <Dropdown.Item href="#">Something else here</Dropdown.Item>
+        <Dropdown.Divider />
+        <Dropdown.Item href="#" disabled>
+          Separated link
+        </Dropdown.Item>
+      </DropdownButton>
+    </InputGroup>
+    <InputGroup>
+      <DropdownButton
+        variant="outline-secondary"
+        title="Dropdown"
+        id="input-group-dropdown-3"
+      >
+        <Dropdown.Item href="#">Action</Dropdown.Item>
+        <Dropdown.Item href="#">Another action</Dropdown.Item>
+        <Dropdown.Item href="#">Something else here</Dropdown.Item>
+        <Dropdown.Divider />
+        <Dropdown.Item href="#" disabled>
+          Separated link
+        </Dropdown.Item>
+      </DropdownButton>
+      <Form.Control aria-label="Text input with 2 dropdown buttons" />
+      <DropdownButton
+        variant="outline-secondary"
+        title="Dropdown"
+        id="input-group-dropdown-4"
+        align="end"
+      >
+        <Dropdown.Item href="#">Action</Dropdown.Item>
+        <Dropdown.Item href="#">Another action</Dropdown.Item>
+        <Dropdown.Item href="#">Something else here</Dropdown.Item>
+        <Dropdown.Divider />
+        <Dropdown.Item href="#" disabled>
+          Separated link
+        </Dropdown.Item>
+      </DropdownButton>
+    </InputGroup>
+  </>
+</Story>
+
+```jsx
+import {InputGroup, DropdownButton, Form}  from 'sgds-react';
+
+// DropdownButton left add-on
+<InputGroup className="mb-3">
+  <DropdownButton
+    variant="outline-secondary"
+    title="Dropdown"
+    id="input-group-dropdown-1"
+  >
+    <Dropdown.Item href="#">Action</Dropdown.Item>
+    <Dropdown.Item href="#">Another action</Dropdown.Item>
+    <Dropdown.Item href="#">Something else here</Dropdown.Item>
+    <Dropdown.Divider />
+    <Dropdown.Item href="#" disabled>
+      Separated link
+    </Dropdown.Item>
+  </DropdownButton>
+  <Form.Control aria-label="Text input with dropdown button" />
+</InputGroup>
+
+// DropdownButton right add-on
+<InputGroup className="mb-3">
+  <Form.Control aria-label="Text input with dropdown button" />
+  <DropdownButton
+    variant="outline-secondary"
+    title="Dropdown"
+    id="input-group-dropdown-2"
+    align="end"
+  >
+    <Dropdown.Item href="#">Action</Dropdown.Item>
+    <Dropdown.Item href="#">Another action</Dropdown.Item>
+    <Dropdown.Item href="#">Something else here</Dropdown.Item>
+    <Dropdown.Divider />
+    <Dropdown.Item href="#" disabled>
+      Separated link
+    </Dropdown.Item>
+  </DropdownButton>
+</InputGroup>
+
+// DropdownButton left/right add-on
+<InputGroup>
+  <DropdownButton
+    variant="outline-secondary"
+    title="Dropdown"
+    id="input-group-dropdown-3"
+  >
+    <Dropdown.Item href="#">Action</Dropdown.Item>
+    <Dropdown.Item href="#">Another action</Dropdown.Item>
+    <Dropdown.Item href="#">Something else here</Dropdown.Item>
+    <Dropdown.Divider />
+    <Dropdown.Item href="#" disabled>
+      Separated link
+    </Dropdown.Item>
+  </DropdownButton>
+  <Form.Control aria-label="Text input with 2 dropdown buttons" />
+  <DropdownButton
+    variant="outline-secondary"
+    title="Dropdown"
+    id="input-group-dropdown-4"
+    align="end"
+  >
+    <Dropdown.Item href="#">Action</Dropdown.Item>
+    <Dropdown.Item href="#">Another action</Dropdown.Item>
+    <Dropdown.Item href="#">Something else here</Dropdown.Item>
+    <Dropdown.Divider />
+    <Dropdown.Item href="#" disabled>
+      Separated link
+    </Dropdown.Item>
+  </DropdownButton>
+</InputGroup>
+```
+
+## 9. DropdownButton with Toggle Addons
+
+An extended use case of `<DropdownButton>` add-on that can be customized for toggling value using the useState hook.
+
+export const DropdownButtonToggle = (args) => {
+  const [allInputs, setAllInputs] = useState({
+    selectCurrency: 'USD',
+    selectEmail: '@gmail.com',
+  });
+  const currencySelectHandler = (e) => {
+    setAllInputs((prevState) => {
+      return {
+        ...prevState,
+        selectCurrency: e,
+      };
+    });
+  };
+  const emailSelectHandler = (e) => {
+    setAllInputs((prevState) => {
+      return { ...prevState, selectEmail: e };
+    });
+  };
+  return (
     <>
       <InputGroup className="mb-3">
         <DropdownButton
           variant="outline-secondary"
-          title="Dropdown"
-          id="input-group-dropdown-1"
+          title={allInputs.selectCurrency}
+          id="input-group-dropdown-toggle-1"
+          onSelect={currencySelectHandler}
         >
-          <Dropdown.Item href="#">Action</Dropdown.Item>
-          <Dropdown.Item href="#">Another action</Dropdown.Item>
-          <Dropdown.Item href="#">Something else here</Dropdown.Item>
+          <Dropdown.Item eventKey="USD">USD</Dropdown.Item>
+          <Dropdown.Item eventKey="MYR">MYR</Dropdown.Item>
+          <Dropdown.Item eventKey="JPY">JPY</Dropdown.Item>
           <Dropdown.Divider />
-          <Dropdown.Item href="#">Separated link</Dropdown.Item>
+          <Dropdown.Item eventKey="SGD">SGD</Dropdown.Item>
         </DropdownButton>
-        <Form.Control aria-label="Text input with dropdown button" />
+        <Form.Control aria-label="Text input with dropdown button toggle left addon" />
       </InputGroup>
       <InputGroup className="mb-3">
-        <Form.Control aria-label="Text input with dropdown button" />
+        <Form.Control aria-label="Text input with dropdown button toggle right addon" />
         <DropdownButton
           variant="outline-secondary"
-          title="Dropdown"
-          id="input-group-dropdown-2"
-          align="end"
+          title={allInputs.selectEmail}
+          id="input-group-dropdown-toggle-2"
+          onSelect={emailSelectHandler}
         >
-          <Dropdown.Item href="#">Action</Dropdown.Item>
-          <Dropdown.Item href="#">Another action</Dropdown.Item>
-          <Dropdown.Item href="#">Something else here</Dropdown.Item>
+          <Dropdown.Item eventKey="@gmail.com">@gmail.com</Dropdown.Item>
+          <Dropdown.Item eventKey="@yahoo.com">@yahoo.com</Dropdown.Item>
+          <Dropdown.Item eventKey="@outlook.com">@outlook.com</Dropdown.Item>
           <Dropdown.Divider />
-          <Dropdown.Item href="#">Separated link</Dropdown.Item>
-        </DropdownButton>
-      </InputGroup>
-      <InputGroup>
-        <DropdownButton
-          variant="outline-secondary"
-          title="Dropdown"
-          id="input-group-dropdown-3"
-        >
-          <Dropdown.Item href="#">Action</Dropdown.Item>
-          <Dropdown.Item href="#">Another action</Dropdown.Item>
-          <Dropdown.Item href="#">Something else here</Dropdown.Item>
-          <Dropdown.Divider />
-          <Dropdown.Item href="#">Separated link</Dropdown.Item>
-        </DropdownButton>
-        <Form.Control aria-label="Text input with 2 dropdown buttons" />
-        <DropdownButton
-          variant="outline-secondary"
-          title="Dropdown"
-          id="input-group-dropdown-4"
-          align="end"
-        >
-          <Dropdown.Item href="#">Action</Dropdown.Item>
-          <Dropdown.Item href="#">Another action</Dropdown.Item>
-          <Dropdown.Item href="#">Something else here</Dropdown.Item>
-          <Dropdown.Divider />
-          <Dropdown.Item href="#">Separated link</Dropdown.Item>
+          <Dropdown.Item eventKey="@zoho.com">@zoho.com</Dropdown.Item>
         </DropdownButton>
       </InputGroup>
     </>
-  </Story>
-</Canvas>
+  );
+};
 
-## 8. Segmented buttons
+<Story name="DropdownButton with Toggle Addons">
+  {DropdownButtonToggle.bind({})}
+</Story>
 
-<Canvas>
-  <Story name="Segmented Buttons">
+```jsx
+import { useState } from 'react';
+import { Form, InputGroup, DropdownButton } from 'sgds-react';
+
+const [allInputs, setAllInputs] = useState({
+    selectCurrency: 'USD',
+    selectEmail: '@gmail.com',
+  });
+
+  const currencySelectHandler = (e) => {
+    setAllInputs((prevState) => {
+      return {
+      ...prevState,
+      selectCurrency: e
+      };
+    });
+  };
+
+  const emailSelectHandler = (e) => {
+    setAllInputs((prevState) => {
+      return {...prevState,
+      selectEmail: e
+      };
+    });
+  };
+
+// Currency toggle left add-on
+<InputGroup className="mb-3">
+  <DropdownButton
+     variant="outline-secondary"
+     title={allInputs.selectCurrency}
+     id="input-group-dropdown-toggle-1"
+     onSelect={currencySelectHandler}
+   >
+    <Dropdown.Item eventKey="USD">USD</Dropdown.Item>
+    <Dropdown.Item eventKey="MYR">MYR</Dropdown.Item>
+    <Dropdown.Item eventKey="JPY">JPY</Dropdown.Item>
+    <Dropdown.Divider />
+    <Dropdown.Item eventKey="SGD">SGD</Dropdown.Item>
+  </DropdownButton>
+  <Form.Control aria-label="Text input with dropdown button toggle left addon" />
+</InputGroup>
+
+// Email toggle right add-on
+<InputGroup className="mb-3">
+  <Form.Control aria-label="Text input with dropdown button toggle right addon" />
+  <DropdownButton
+    variant="outline-secondary"
+    title={allInputs.selectEmail}
+    id="input-group-dropdown-toggle-2"
+    onSelect={emailSelectHandler}
+  >
+    <Dropdown.Item eventKey="@gmail.com">@gmail.com</Dropdown.Item>
+    <Dropdown.Item eventKey="@yahoo.com">@yahoo.com</Dropdown.Item>
+    <Dropdown.Item eventKey="@outlook.com">@outlook.com</Dropdown.Item>
+    <Dropdown.Divider />
+    <Dropdown.Item eventKey="@zoho.com">@zoho.com</Dropdown.Item>
+  </DropdownButton>
+</InputGroup>
+```
+
+## 10. Segmented buttons
+
+Another variant is the `<SplitButton>` addon which is a dual-function menu button that offers a default action as well as the possibility of choosing a different action by selecting from a set of alternatives.
+
+<Story name="Segmented Buttons">
+  <>
+    <InputGroup className="mb-3">
+      <SplitButton
+        variant="outline-secondary"
+        title="Action"
+        id="segmented-button-dropdown-1"
+      >
+        <Dropdown.Item href="#">Action</Dropdown.Item>
+        <Dropdown.Item href="#">Another action</Dropdown.Item>
+        <Dropdown.Item href="#">Something else here</Dropdown.Item>
+        <Dropdown.Divider />
+        <Dropdown.Item href="#">Separated link</Dropdown.Item>
+      </SplitButton>
+      <Form.Control aria-label="Text input with dropdown button" />
+    </InputGroup>
+    <InputGroup className="mb-3">
+      <Form.Control aria-label="Text input with dropdown button" />
+      <SplitButton
+        variant="outline-secondary"
+        title="Action"
+        id="segmented-button-dropdown-2"
+        alignRight
+      >
+        <Dropdown.Item href="#">Action</Dropdown.Item>
+        <Dropdown.Item href="#">Another action</Dropdown.Item>
+        <Dropdown.Item href="#">Something else here</Dropdown.Item>
+        <Dropdown.Divider />
+        <Dropdown.Item href="#">Separated link</Dropdown.Item>
+      </SplitButton>
+    </InputGroup>
+  </>
+</Story>
+
+```jsx
+import { SplitButton, InputGroup, Form } from 'sgds-react';
+
+<>
+  <InputGroup className="mb-3">
+    <SplitButton
+      variant="outline-secondary"
+      title="Action"
+      id="segmented-button-dropdown-1"
+    >
+      <Dropdown.Item href="#">Action</Dropdown.Item>
+      <Dropdown.Item href="#">Another action</Dropdown.Item>
+      <Dropdown.Item href="#">Something else here</Dropdown.Item>
+      <Dropdown.Divider />
+      <Dropdown.Item href="#">Separated link</Dropdown.Item>
+    </SplitButton>
+    <Form.Control aria-label="Text input with split button dropdown" />
+  </InputGroup>
+  <InputGroup className="mb-3">
+    <Form.Control aria-label="Text input with split button dropdown" />
+    <SplitButton
+      variant="outline-secondary"
+      title="Action"
+      id="segmented-button-dropdown-2"
+      alignRight
+    >
+      <Dropdown.Item href="#">Action</Dropdown.Item>
+      <Dropdown.Item href="#">Another action</Dropdown.Item>
+      <Dropdown.Item href="#">Something else here</Dropdown.Item>
+      <Dropdown.Divider />
+      <Dropdown.Item href="#">Separated link</Dropdown.Item>
+    </SplitButton>
+  </InputGroup>
+</>;
+```
+
+## 11. Segmented Buttons with Input Toggle
+
+An example of a use case for split button is where it groups related commands together into a dropdown,
+but also offers one-click access to a default choice that doesn’t require opening the menu.
+
+export const SplitButtonToggle = (args) => {
+  const [renderText, setRenderText] = useState('');
+  const renderTextClickHandler = (e) => {
+    setRenderText(e.target.textContent);
+  };
+  return (
     <>
+      <Form.Label htmlFor="splitButtonInput">
+        How did you know about us?
+      </Form.Label>
+      <Form.Text>Select an option from below.</Form.Text>
       <InputGroup className="mb-3">
         <SplitButton
           variant="outline-secondary"
-          title="Action"
-          id="segmented-button-dropdown-1"
+          title="Email"
+          id="segmented-button-dropdown-3"
+          onClick={renderTextClickHandler}
         >
-          <Dropdown.Item href="#">Action</Dropdown.Item>
-          <Dropdown.Item href="#">Another action</Dropdown.Item>
-          <Dropdown.Item href="#">Something else here</Dropdown.Item>
+          <Dropdown.Item onClick={renderTextClickHandler}>Email</Dropdown.Item>
+          <Dropdown.Item onClick={renderTextClickHandler}>
+            Facebook
+          </Dropdown.Item>
+          <Dropdown.Item onClick={renderTextClickHandler}>
+            Word of Mouth
+          </Dropdown.Item>
           <Dropdown.Divider />
-          <Dropdown.Item href="#">Separated link</Dropdown.Item>
+          <Dropdown.Item onClick={renderTextClickHandler}>
+            Linkedin
+          </Dropdown.Item>
         </SplitButton>
-        <Form.Control aria-label="Text input with dropdown button" />
-      </InputGroup>
-      <InputGroup className="mb-3">
-        <Form.Control aria-label="Text input with dropdown button" />
-        <SplitButton
-          variant="outline-secondary"
-          title="Action"
-          id="segmented-button-dropdown-2"
-          alignRight
-        >
-          <Dropdown.Item href="#">Action</Dropdown.Item>
-          <Dropdown.Item href="#">Another action</Dropdown.Item>
-          <Dropdown.Item href="#">Something else here</Dropdown.Item>
-          <Dropdown.Divider />
-          <Dropdown.Item href="#">Separated link</Dropdown.Item>
-        </SplitButton>
+        <Form.Control
+          aria-label="Text input with split button dropdown"
+          id="splitButtonInput"
+          defaultValue={renderText}
+          readOnly
+        />
       </InputGroup>
     </>
-  </Story>
-</Canvas>
+  );
+};
+
+<Story name="Segmented Buttons with Input Toggle">
+  {SplitButtonToggle.bind({})}
+</Story>
+
+```jsx
+import { InputGroup, SplitButton, Form } from 'sgds-react';
+
+const [renderText, setRenderText] = useState('');
+const renderTextClickHandler = (e) => {
+  setRenderText(e.target.textContent);
+};
+
+<>
+  <Form.Label htmlFor="splitButtonInput">How did you know about us?</Form.Label>
+  <Form.Text>Select an option from below.</Form.Text>
+  <InputGroup className="mb-3">
+    <SplitButton
+      variant="outline-secondary"
+      title="Email"
+      id="segmented-button-dropdown-3"
+      onClick={renderTextClickHandler}
+    >
+      <Dropdown.Item onClick={renderTextClickHandler}>Email</Dropdown.Item>
+      <Dropdown.Item onClick={renderTextClickHandler}>Facebook</Dropdown.Item>
+      <Dropdown.Item onClick={renderTextClickHandler}>
+        Word of Mouth
+      </Dropdown.Item>
+      <Dropdown.Divider />
+      <Dropdown.Item onClick={renderTextClickHandler}>Linkedin</Dropdown.Item>
+    </SplitButton>
+    <Form.Control
+      aria-label="Text input with split button dropdown"
+      id="splitButtonInput"
+      defaultValue={renderText}
+      readOnly
+    />
+  </InputGroup>
+</>;
+```
+
+## 12. Native Select Toggle
+
+Use the `<Form.Select>` as the native select tag within the input group.
+
+<Story name="Native Select Toggle">
+  <Form>
+  <InputGroup className="mb-3">
+    <Form.Select style={{textOverflow: 'ellipsis'}} aria-label="Default select example">
+      <option selected value="1">Oneasdasdasdasdadasd</option>
+      <option value="2">Two</option>
+      <option value="3">Three</option>
+    </Form.Select>
+    <Form.Control className="w-75"
+          placeholder="Select..."
+          aria-label="select"
+          aria-describedby="select-addon1"
+        />
+  </InputGroup>
+   <InputGroup className="mb-3">
+   <Form.Control className="w-75"
+          placeholder="Select..."
+          aria-label="select"
+          aria-describedby="select-addon2"
+        />
+    <Form.Select aria-label="Default select example">
+      <option selected value="1">Oneasdasdasdasdasdasdadas</option>
+      <option value="2">Two</option>
+      <option value="3">Three</option>
+    </Form.Select>
+  </InputGroup>
+  </Form>
+</Story>
+
+
+```jsx
+import { Form,InputGroup } from 'sgds-react';
+
+// Form select left addon
+  <InputGroup className="mb-3">
+    <Form.Select aria-label="Default select example">
+      <option selected value="1">One</option>
+      <option value="2">Two</option>
+      <option value="3">Three</option>
+    </Form.Select>
+    <Form.Control className="w-75"
+          placeholder="Select..."
+          aria-label="select"
+          aria-describedby="select-addon1"
+        />
+  </InputGroup>
+
+// Form select right addon
+   <InputGroup className="mb-3">
+   <Form.Control className="w-75"
+          placeholder="Select..."
+          aria-label="select"
+          aria-describedby="select-addon2"
+        />
+    <Form.Select aria-label="Default select example">
+      <option selected value="1">One</option>
+      <option value="2">Two</option>
+      <option value="3">Three</option>
+    </Form.Select>
+  </InputGroup>
+```

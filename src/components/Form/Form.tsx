@@ -35,9 +35,7 @@ const propTypes = {
    * toggle any validation styles on the forms elements.
    */
   validated: PropTypes.bool,
-  as: PropTypes.elementType,
-
-  searchIcon: PropTypes.bool,
+  as: PropTypes.elementType
 };
 
 const Form: BsPrefixRefForwardingComponent<'form', FormProps> =

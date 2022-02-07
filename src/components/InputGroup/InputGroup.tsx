@@ -5,7 +5,10 @@ import * as React from 'react';
 import { useMemo } from 'react';
 
 import createWithBsPrefix from '../createWithBsPrefix';
-import { useBootstrapPrefix } from '../ThemeProvider/ThemeProvider';
+import {
+  useBootstrapPrefix,
+  SGDSWrapper,
+} from '../ThemeProvider/ThemeProvider';
 import FormCheckInput from '../Form/FormCheckInput';
 import InputGroupContext from './InputGroupContext';
 import { BsPrefixProps, BsPrefixRefForwardingComponent } from '../helpers';
@@ -29,8 +32,9 @@ const InputGroupRadio = (props: any) => (
 export interface InputGroupProps
   extends BsPrefixProps,
     React.HTMLAttributes<HTMLElement> {
-  size?: 'sm' | 'lg';
+  size?: 'sm' | 'md' | 'lg';
   hasValidation?: boolean;
+  variant?: 'has-icon'
 }
 
 const propTypes = {
@@ -65,14 +69,15 @@ const InputGroup: BsPrefixRefForwardingComponent<'div', InputGroupProps> =
     (
       {
         bsPrefix,
-        size,
+        size = 'md',
         hasValidation,
         className,
         // Need to define the default "as" during prop destructuring to be compatible with styled-components github.com/react-bootstrap/react-bootstrap/issues/3595
         as: Component = 'div',
+        variant = null,
         ...props
       },
-      ref,
+      ref
     ) => {
       bsPrefix = useBootstrapPrefix(bsPrefix, 'input-group');
 
@@ -81,20 +86,22 @@ const InputGroup: BsPrefixRefForwardingComponent<'div', InputGroupProps> =
       const contextValue = useMemo(() => ({}), []);
 
       return (
-        <InputGroupContext.Provider value={contextValue}>
-          <Component
-            ref={ref}
-            {...props}
-            className={classNames(
-              className,
-              bsPrefix,
-              size && `${bsPrefix}-${size}`,
-              hasValidation && 'has-validation',
-            )}
-          />
-        </InputGroupContext.Provider>
+
+          <InputGroupContext.Provider value={contextValue}>
+            <SGDSWrapper as={Component}
+              ref={ref}
+              {...props}
+              variant={variant}
+              className={classNames(
+                className,
+                bsPrefix,
+                size && `${bsPrefix}-${size}`,
+                hasValidation && 'has-validation'
+              )}
+            />
+          </InputGroupContext.Provider>
       );
-    },
+    }
   );
 
 InputGroup.propTypes = propTypes;

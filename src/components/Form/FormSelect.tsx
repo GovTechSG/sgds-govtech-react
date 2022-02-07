@@ -15,48 +15,48 @@ export interface FormSelectProps
   isInvalid?: boolean;
 }
 
-const propTypes = {
-  /**
-   * @default {'form-select'}
-   */
-  bsPrefix: PropTypes.string,
+// const propTypes = {
+//   /**
+//    * @default {'form-select'}
+//    */
+//   bsPrefix: PropTypes.string,
 
-  /**
-   * Size variants
-   *
-   * @type {('sm'|'lg')}
-   */
-  size: PropTypes.string,
+//   /**
+//    * Size variants
+//    *
+//    * @type {('sm'|'lg')}
+//    */
+//   size: PropTypes.string,
 
-  /**
-   * The size attribute of the underlying HTML element.
-   * Specifies the number of visible options.
-   */
-  htmlSize: PropTypes.number,
+//   /**
+//    * The size attribute of the underlying HTML element.
+//    * Specifies the number of visible options.
+//    */
+//   htmlSize: PropTypes.number,
 
-  /** Make the control disabled */
-  disabled: PropTypes.bool,
+//   /** Make the control disabled */
+//   disabled: PropTypes.bool,
 
-  /**
-   * The `value` attribute of underlying input
-   *
-   * @controllable onChange
-   * */
-  value: PropTypes.oneOfType([
-    PropTypes.string,
-    PropTypes.arrayOf(PropTypes.string),
-    PropTypes.number,
-  ]),
+//   /**
+//    * The `value` attribute of underlying input
+//    *
+//    * @controllable onChange
+//    * */
+//   value: PropTypes.oneOfType([
+//     PropTypes.string,
+//     PropTypes.arrayOf(PropTypes.string),
+//     PropTypes.number,
+//   ]),
 
-  /** A callback fired when the `value` prop changes */
-  onChange: PropTypes.func,
+//   /** A callback fired when the `value` prop changes */
+//   onChange: PropTypes.func,
 
-  /** Add "valid" validation styles to the control */
-  isValid: PropTypes.bool,
+//   /** Add "valid" validation styles to the control */
+//   isValid: PropTypes.bool,
 
-  /** Add "invalid" validation styles to the control and accompanying label */
-  isInvalid: PropTypes.bool,
-};
+//   /** Add "invalid" validation styles to the control and accompanying label */
+//   isInvalid: PropTypes.bool,
+// };
 
 const FormSelect: BsPrefixRefForwardingComponent<'select', FormSelectProps> =
   React.forwardRef<HTMLSelectElement, FormSelectProps>(
@@ -95,6 +95,6 @@ const FormSelect: BsPrefixRefForwardingComponent<'select', FormSelectProps> =
   );
 
 FormSelect.displayName = 'FormSelect';
-FormSelect.propTypes = propTypes;
+// FormSelect.propTypes = propTypes;
 
 export default FormSelect;
