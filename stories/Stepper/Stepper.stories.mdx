@@ -1,0 +1,529 @@
+import { ArgsTable, Canvas, Meta, Story } from '@storybook/addon-docs';
+import {
+  Button,
+  Stepper,
+  Form,
+  useStep,
+  Row,
+  Col,
+} from '../../src/components/index';
+import { useState } from 'react';
+
+<Meta title="MDX/Stepper" component={Stepper} />
+
+export const DefaultStepperTemplate = () => {
+  const stepMethods = useStep([
+    {
+      component: 'ComponentOne',
+      title: 'Personal Details',
+      stepHeader: 'Personal Details',
+    },
+    {
+      component: 'ComponentTwo',
+      title: 'Address and Contact Information',
+      stepHeader: 'Address and Contact Information',
+    },
+    {
+      component: 'ComponentThree',
+      title: 'Create project',
+      stepHeader: 'Review',
+    },
+  ]);
+  return <Stepper methods={stepMethods} />;
+};
+
+export const Template = () => {
+  const initialState = {
+    firstName: '',
+    lastName: '',
+    gender: '',
+    email: '',
+    address: '',
+  };
+  const [submitted, setSubmitted] = useState(false);
+  const [details, setDetails] = useState(initialState);
+  const handleChange = (e) => {
+    setDetails({ ...details, [e.target.name]: e.target.value });
+  };
+  const ComponentOne = (
+    <>
+      <Form.Group className="mb-3" controlId="formBasicFirstName">
+        <Form.Label>First Name</Form.Label>
+        <Form.Text className="text-muted">Enter first name</Form.Text>
+        <Form.Control
+          type="text"
+          name="firstName"
+          onChange={handleChange}
+          value={details.firstName}
+        />
+      </Form.Group>
+      <Form.Group className="mb-3" controlId="formBasicLastName">
+        <Form.Label>Last Name</Form.Label>
+        <Form.Text className="text-muted">Enter last name</Form.Text>
+        <Form.Control
+          type="text"
+          name="lastName"
+          onChange={handleChange}
+          value={details.lastName}
+        />
+      </Form.Group>
+      <Form.Group className="mb-3" controlId="formBasicCheckbox">
+        <Form.Check
+          type="radio"
+          name="gender"
+          value="female"
+          label="Female"
+          inline
+          onChange={handleChange}
+          checked={details.gender === 'female'}
+        />
+        <Form.Check
+          type="radio"
+          name="gender"
+          value="male"
+          label="Male"
+          inline
+          onChange={handleChange}
+          checked={details.gender === 'male'}
+        />
+      </Form.Group>
+    </>
+  );
+  const ComponentTwo = (
+    <>
+      <Form.Group className="mb-3" controlId="formEmail">
+        <Form.Label>Email</Form.Label>
+        <Form.Text className="text-muted">Enter email</Form.Text>
+        <Form.Control
+          type="email"
+          name="email"
+          onChange={handleChange}
+          value={details.email}
+        />
+      </Form.Group>
+      <Form.Group className="mb-3" controlId="formBasicLastName">
+        <Form.Label>House Address</Form.Label>
+        <Form.Text className="text-muted">
+          e.g Blk 24 Seng Kang Way #02-05
+        </Form.Text>
+        <Form.Control
+          type="text"
+          name="address"
+          onChange={handleChange}
+          value={details.address}
+        />
+      </Form.Group>
+    </>
+  );
+  const ComponentThree = (
+    <>
+      <Form.Group className="mb-3" controlId="formBasicFirstName">
+        <Form.Label>First Name</Form.Label>
+        <Form.Control
+          type="text"
+          value={details.firstName}
+          name="firstName"
+          plaintext
+          readOnly
+        />
+      </Form.Group>
+      <Form.Group className="mb-3" controlId="formBasicLastName">
+        <Form.Label>Last Name</Form.Label>
+        <Form.Control
+          type="text"
+          name="lastName"
+          value={details.lastName}
+          plaintext
+          readOnly
+        />
+      </Form.Group>
+      <Form.Group className="mb-3" controlId="formBasicCheckbox">
+        <Form.Check
+          type="radio"
+          name="gender"
+          value="female"
+          label="Female"
+          inline
+          checked={details.gender === 'female'}
+          readOnly
+        />
+        <Form.Check
+          type="radio"
+          name="gender"
+          value="male"
+          label="Male"
+          inline
+          checked={details.gender === 'male'}
+          readOnly
+        />
+      </Form.Group>
+      <Form.Group className="mb-3" controlId="formEmail">
+        <Form.Label>Email</Form.Label>
+        <Form.Control
+          type="email"
+          name="email"
+          readOnly
+          value={details.email}
+          plaintext
+        />
+      </Form.Group>
+      <Form.Group className="mb-3" controlId="formBasicLastName">
+        <Form.Label>House Address</Form.Label>
+        <Form.Control
+          type="text"
+          name="address"
+          readOnly
+          value={details.address}
+          plaintext
+        />
+      </Form.Group>
+    </>
+  );
+  const stepMethods = useStep([
+    {
+      component: ComponentOne,
+      title: 'Personal Details',
+      stepHeader: 'Personal Details',
+    },
+    {
+      component: ComponentTwo,
+      title: 'Address and Contact Information',
+      stepHeader: 'Address and Contact Information',
+    },
+    {
+      component: ComponentThree,
+      title: 'Create project',
+      stepHeader: 'Review',
+    },
+  ]);
+  const {
+    state: stepState,
+    stepsMetadata,
+    getTitle,
+    setStep,
+    nextStep,
+    prevStep,
+    getNextButtonTitle,
+    getBackButtonTitle,
+    getComponent,
+    reset,
+  } = stepMethods;
+  const resetForm = () => {
+    setDetails(initialState);
+    reset();
+  };
+  const submit = () => {
+    alert('Form Submitted');
+    setSubmitted(true);
+  };
+  return (
+    <>
+      {submitted ? (
+        <div>Submitted!</div>
+      ) : (
+        <>
+          <Stepper methods={stepMethods} />
+          <Form className="p-3">
+            <div>{getComponent()}</div>
+            <div className="d-flex justify-content-between">
+              <div>
+                {getBackButtonTitle() && (
+                  <Button onClick={prevStep} variant="danger" className="me-3">
+                    {getBackButtonTitle()}
+                  </Button>
+                )}
+                <Button onClick={resetForm} variant="secondary">
+                  Reset
+                </Button>
+              </div>
+              <div>
+                <Button
+                  onClick={
+                    stepsMetadata.isLastStep(stepState.currentStep)
+                      ? submit
+                      : nextStep
+                  }
+                >
+                  {' '}
+                  {getNextButtonTitle()}
+                </Button>
+                <Button
+                  className="ms-3"
+                  onClick={() => setStep(3)}
+                  variant="warning"
+                >
+                  Jump to last page
+                </Button>
+              </div>
+            </div>
+          </Form>
+        </>
+      )}
+    </>
+  );
+};
+
+# Stepper
+
+Stepper informs users which step they are in a form or process.
+Each step markers indicate the stage of the process.
+
+The default Stepper component consist of step markers and stepHeaders. The step markers consist of three states, inactive, active and done, indicated by the colors: grey, border-purple and filled-purple respectively.
+
+The step markers are clickable for backwards navigation.
+
+<Canvas>
+  <Story name="Default">{DefaultStepperTemplate.bind({})}</Story>
+</Canvas>
+
+## Example 
+Try out the Stepper Component below with build-in Forms and Buttons
+<Canvas>
+  <Story name="Example">{Template.bind({})}</Story>
+</Canvas>
+
+## Usage
+
+### 1. `useStep` hook
+
+`<Stepper /> ` takes in a `methods` prop of type `UseStepMethods` which can be generated from a custom hook `useStep`.
+
+Import `useStep` hook from `sgds-react`
+
+```jsx
+import { useStep } from 'sgds-react';
+```
+
+### 2. `StepMetadata`
+
+`useStep` hook takes in an array of objects of type `StepMetadata`. Each `StepMetadata` controls each step of the Stepper in ascending order of its index position in the array.
+See [API](/docs/mdx-stepper--example#api) for `StepMetadata`
+
+- `component` controls the content to be rendered in each stage of the stepper. `component` can be a React component, HTML element, string etc.
+
+- `title` controls the content to be rendered for each Stepper process. `title` can be a React component, HTML element, string etc.
+
+- `stepHeader` determines the step detail of each step marker. `stepHeader` is a string
+
+When side-effects like updating store and states are required, specify them in `onNextStep`, `onPrevious` or `onArrived`.
+
+- `onNextStep` specifies side-effects before the next component is rendered. `onNextStep` has no effect on the last step object
+
+- `onPreviousStep` specifies any side-effects before previous component is rendered.
+
+- `onArrived` specifies any side-effects after the component is rendered
+
+`onNextStep`, `onPreviousStep` and `onArrived` are optional.
+
+When not specified, the default `onNextStep`, `onPreviousStep` runs OnDone() when triggered.
+
+```jsx
+import { useStep, StepMetadata, Stepper } from 'sgds-react'
+
+const ExampleStepper = () => {
+  const metadata : StepMetadata[] = [
+    {
+      component: ComponentOne,
+      title: 'Personal Details',
+      stepHeader: 'Personal Details',
+    },
+    {
+      component: ComponentTwo,
+      title: 'Address and Contact Information',
+      stepHeader: 'Address and Contact Information',
+      onNextStep: (onDone) => {
+        // Add your side effects here e.g. fetch API
+        onDone();
+      },
+      onPreviousStep: (onDone) => {
+        // Add your side effects here e.g. clear states
+        onDone();
+      },
+      onArrived: () =>{
+        // Add your side effects here
+        console.log('onArrived2')
+      }
+    },
+    {
+      component: ComponentThree,
+      title: 'Create project',
+      stepHeader: 'Review',
+      onPreviousStep: (onDone) => {
+        onDone();
+      },
+      onArrived: () => console.log('onArrived3'),
+    },
+  ];
+
+  const stepMethods = useStep(metadata)
+  ...
+}
+
+```
+
+### 3. `UseStepMethods`
+
+`useStep` hook generates the object of type `UseStepMethods`
+
+```jsx
+import { useStep, StepMetadata, Stepper, UseStepMethods } from 'sgds-react'
+
+const ExampleStepper = () => {
+  const metadata : StepMetadata[] = [...];
+
+  const stepMethods: UseStepMethods = useStep(metadata)
+
+  return(
+    <Stepper methods={stepMethods}>
+  )
+}
+
+```
+### 4. Integrate Stepper with other Components
+
+The Stepper Component only renders the stepHeader and step markers. `stepMethods` exposes methods to render the respective content per Step. 
+Destructure the returned object of `stepMethods` to access the various step methods
+
+```jsx
+import { useStep, StepMetadata, Stepper } from 'sgds-react'
+
+const ExampleStepper = () => {
+  const metadata : StepMetadata[] = [...];
+
+  const stepMethods = useStep(metadata)
+
+  const {
+      state,
+      stepsMetdata,
+      getTitle,
+      setStep,
+      nextStep,
+      prevStep,
+      getNextButtonTitle,
+      getBackButtonTitle,
+      getComponent,
+      reset,
+    } = stepMethods;
+
+  return(
+    <Stepper methods={stepMethods}>
+  )
+}
+```
+
+- `getNextButtonTitle` & `getBackButtonTitle` , `getTitle` render the titles of next & back button or component titles when required.
+
+- `getNextButtonTitle` returns 'Submit' instead of 'Next' on the last step
+
+- `prevStep`, `nextStep` performs the side-effects previously specified in `onPreviousStep` and `onNextStep`.
+
+- `setStep` accepts a step number argument and updates the currentStep state of Stepper.
+
+- `reset` resets the Stepper back to stage 1
+
+- `getComponent` renders the specified components for each step.
+
+  Refer to [API](/docs/mdx-stepper--example#api) for more details on each method
+
+```jsx
+...
+    const submit = () => {
+      alert('Form Submitted')
+      setSubmitted(true)
+  }
+
+  const {
+        state: stepState,
+        stepsMetdata,
+        getTitle,
+        setStep,
+        nextStep,
+        prevStep,
+        getNextButtonTitle,
+        getBackButtonTitle,
+        getComponent,
+        reset,
+      } = stepMethods;
+
+  return (
+    <>
+      <Stepper methods={stepMethods} />
+      <Form className="p-3">
+        <div>{getComponent()}</div>
+        <div className="d-flex justify-content-between">
+          <div>
+            {getBackButtonTitle() && (
+              <Button onClick={prevStep} variant="danger" className="me-3">
+                {getBackButtonTitle()}
+              </Button>
+            )}
+            <Button onClick={resetForm} variant="secondary">
+              Reset
+            </Button>
+          </div>
+          <div>
+            <Button onClick={stepsMetadata.isLastStep(stepState.currentStep) ? submit : nextStep}> {getNextButtonTitle()}</Button>
+            <Button
+              className="ms-3"
+              onClick={() => setStep(3)}
+              variant="warning"
+            >
+              Jump to last page
+            </Button>
+          </div>
+        </div>
+      </Form>
+    </>
+  );
+```
+
+## API
+
+### `<Stepper>`
+
+| Property  | Type             | Optional | Description                                                              |
+| --------- | ---------------- | -------- | ------------------------------------------------------------------------ |
+| `methods` | `UseStepMethods` | No       | Generate UseStepMethods by passing in `StepMetadata[]` to `useStep` hook |
+
+### `StepMetadata`
+
+| Property         | Type                                                  | Optional | Description                                                                                                                                                                                                                                                                                                                                                                                                                                                    |
+| ---------------- | ----------------------------------------------------- | -------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `component`      | `any`                                                 | No       | When set, it determines the return value of `getComponent` method of `UseStepMethods`                                                                                                                                                                                                                                                                                                                                                                          |
+| `title`          | `any`                                                 | No       | When set, it determines the return value of `getTitle` method of `UseStepMethods`                                                                                                                                                                                                                                                                                                                                                                              |
+| `stepHeader`     | `string`                                              | No       | When set, it determines the step detail of each step marker                                                                                                                                                                                                                                                                                                                                                                                                    |
+| `onNextStep`     | `Function` <br /> `(onDone: OnDone) => Promise<void>` | Yes      | Specifies side-effects before the next component is rendered. When set, it determines the side effects perform by `nextStep` of `UseStepMethods`. <br />It accepts an `OnDone` parameter which is use to promote to the next step of Stepper. It is recommended to use `OnDone` after all side-effects. <br /><br />**_TIP:_** In the last object of `StepMetadata`[] , `onNextStep` should be used to perform side effects for final submission like onSubmit |
+| `onPreviousStep` | `Function` <br />`(onDone: OnDone) => Promise<void>`  | Yes      | Specifies side-effects before the previous component is rendered. When set, it determines the side effects perform by `prevStep` of `UseStepMethods`. <br /> It accepts an `OnDone` parameter which is use to demote to the previous step of Stepper.It is recommended to use `OnDone` after all side-effects.<br /> <br />**_NOTE:_** `onPreviousStep` should not be used when stepper stage is at its first stage                                            |
+| `onArrived`      | `Function` <br />`() => Promise<void>`                | Yes      | Specifies side-effects after the component is rendered                                                                                                                                                                                                                                                                                                                                                                                                         |
+
+### `UseStepMethods`
+
+| Property             | Type                                                | Description                                                                                                                                          |
+| -------------------- | --------------------------------------------------- | ---------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `state`              | `StepperState`                                      | Returns the current state of Stepper. See [StepperState](/docs/mdx-stepper--example#stepperstate)                                                    |
+| `stepsMetadata`      | `WrappedStepsMetadata`                              | Returns class `WrappedStepsMetadata` with its methods. See [WrappedStepsMetadata](/docs/mdx-stepper--example#wrappedstepsmetadata-class)             |
+| `nextStep`           | `Function` <br /> `() => Promise<void>`             | The method to invoke when user proceeds to next step of Stepper. It performs the side-effects if specified in `onNextStep` of `StepMetadata`         |
+| `prevStep`           | `Function` <br /> `() => Promise<void>`             | The method to invoke when user proceeds to previous step of Stepper. It performs the side-effects if specified in `onPreviousStep` of `StepMetadata` |
+| `setStep`            | `Function` <br /> `(step: number) => Promise<void>` | When invoked, it changes the `currentStep` state of `StepperState` and jumps Stepper to the step number as specified in the parameter                |
+| `getTitle`           | `Function` <br /> `() => any`                       | When invoked, it returns the `title` value set in `StepMetadata`                                                                                     |
+| `getComponent`       | `Function` <br />`() => any`                        | When invoked, it returns the `component` value set in `StepMetadata`                                                                                 |
+| `getNextButtonTitle` | `Function` <br />`() => string`                     | When invoked, it returns `Next`. At last stage of Stepper, it returns `Submit`. It is meant to be used as a Button text                              |
+| `getBackButtonTitle` | `Function` <br />`() => string or null`             | When invoked, it returns `Back`. It is meant to be used as a Button text. <br /> <br />**_NOTE:_** Not to be used at first stage of Stepper          |
+| `reset`              | `Function` <br />`() => Promise<void>`              | When invoked, it resets the `currentStep` state of `StepperState` to 1                                                                               |
+
+### `StepperState`
+
+| Property      | Type     | Description                              |
+| ------------- | -------- | ---------------------------------------- |
+| `currentStep` | `number` | Store the current step the Stepper is in |
+
+### `WrappedStepsMetadata` Class
+
+| Property            | Type                                            | Description                                                                       |
+| ------------------- | ----------------------------------------------- | --------------------------------------------------------------------------------- |
+| `length`            | `Getter`                                        | Returns the length of WrappedStepMetadata[] or the number of steps of the Stepper |
+| `findByStep`        | `Method` <br />`(step: number) => StepMetadata` | Finds and return the WrappedStepMetadata of a particular step                     |
+| `isFirstStep`       | `Method` <br />`(step: number) => boolean`      | Checks if step passed in is the first step of Stepper                             |
+| `isLastStep`        | `Method` <br />`(step: number) => boolean`      | Checks if step passed in is the last step of Stepper                              |
+| `isWithinStepRange` | `Method` <br />`(step: number) => boolean`      | Checks if step passed is within the step range                                    |
+| `data`              | `Getter`                                        | Returns the WrappedStepMetadata[]                                                 |

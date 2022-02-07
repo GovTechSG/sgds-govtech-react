@@ -16,7 +16,6 @@ import { Form, Button } from '../../src/components/index';
       }, // not needed, enabling this will clash icon with default searchIcon
     },
     as: { table: { disable: true } },
-
   }}
 />
 
@@ -87,12 +86,6 @@ import { Form, Button } from 'sgds-react';
   </Button>
 </Form>;
 ```
-
-The `<Form.Control>` component directly renders the `<input>` or other specified component. If you need to access the value of an uncontrolled `<Form.Control>`,
-attach a ref to it as you would with an uncontrolled input, then call `ReactDOM.findDOMNode(ref)` to get the DOM node. You can then interact with that node as you would with any other uncontrolled input.
-
-If your application contains a large number of form groups, we recommend building a higher-level component encapsulating a complete field group that renders the label, the control, and any other necessary components.
-We don't provide this out-of-the-box, because the composition of those field groups is too specific to an individual application to admit a good one-size-fits-all solution.
 
 ## 2. Disabled forms
 
@@ -213,8 +206,6 @@ export const Template_Form_Select = () => {
   <option value="3">Three</option>
 </Form.Select>
 ```
-
-
 
 ## 5. Form Select Sizing
 
