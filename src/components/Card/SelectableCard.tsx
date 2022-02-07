@@ -13,14 +13,15 @@ type CardFormCheckProps = Omit<
   | 'label'
   | 'bsSwitchPrefix'
 > &
-  Omit<CardProps, 'dismissible' | 'dismiss' | 'variant'>;
+  Omit<CardProps, 'variant'>;
 
-export interface SelectableCardProps extends CardFormCheckProps {}
-
-const defaultProps : Partial<SelectableCardProps> ={
-  disabled: false, 
-  type: 'checkbox',
+export interface SelectableCardProps extends CardFormCheckProps {
 }
+
+const defaultProps: Partial<SelectableCardProps> = {
+  disabled: false,
+  type: 'checkbox',
+};
 const SelectableCard: React.FC<SelectableCardProps> = ({
   children,
   bg,
@@ -34,9 +35,6 @@ const SelectableCard: React.FC<SelectableCardProps> = ({
   const cardProps = { bg, text, border };
   const handleSelect = () => {
     formCheckRef?.current?.click();
-    return formCheckRef?.current?.checked
-      ? cardRef?.current?.focus()
-      : cardRef?.current?.blur();
   };
   return (
     <Card
@@ -44,19 +42,22 @@ const SelectableCard: React.FC<SelectableCardProps> = ({
       onClick={handleSelect}
       tabIndex={0}
       variant="card-action"
+      className={props.checked ? 'is-active' : undefined}
       {...cardProps}
     >
-      <FormCheck
-        ref={formCheckRef}
-        {...formCheckProps}
-        onClick={handleSelect}
-      ></FormCheck>
-      {children}
+      <Card.Body>
+        <div>{children}</div>
+        <FormCheck
+          ref={formCheckRef}
+          {...formCheckProps}
+          onClick={handleSelect}
+        ></FormCheck>
+      </Card.Body>
     </Card>
   );
 };
 
 SelectableCard.displayName = 'SelectableCard';
-SelectableCard.defaultProps = defaultProps
+SelectableCard.defaultProps = defaultProps;
 
 export default SelectableCard;

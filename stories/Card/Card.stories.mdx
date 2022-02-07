@@ -9,13 +9,7 @@ import { Card, Button, CardGroup, Row, Col } from '../../src/components/index';
   argTypes={{
     ...HIDDEN_COMMON_PROPS,
     ...CARD_COMMON_PROPS,
-    dismissible: {
-      description: 'Sets card to be dismissible with close button',
-    },
-    dismiss: {
-      description:
-        'Add-on side-effects when required during dismissal of Card. Does not override the default dismiss action ',
-    },
+    variant: {control: {disable: true}, description: 'Use on actionable cards like SelectableCard and Quantity Toggle Card'}
   }}
 />
 
@@ -282,33 +276,5 @@ Use `CardGroup` to group your `Card` components
         </Card.Body>
       </Card>
     </CardGroup>
-  </Story>
-</Canvas>
-
-## Dismiss Card
-
-Set `dismiss` prop to true for dismissible `Card`. By default, `Card` will be dismissed with no side-effects.
-
-<Canvas>
-  <Story name="Dismissible Card" args={{ dismissible: true }}>
-    {Template.bind({})}
-  </Story>
-</Canvas>
-
-To perform additional side-effects, pass them in via the `dismiss` prop as a Function.
-
-```jsx
-<SelectableCard
-  dismissable
-  dismiss={() => alert('dismissed!')}
-></SelectableCard>
-```
-
-<Canvas>
-  <Story
-    name="Dismissible Card with alert side-effect"
-    args={{ dismissible: true, dismiss: () => alert('dismissed!') }}
-  >
-    {Template.bind({})}
   </Story>
 </Canvas>

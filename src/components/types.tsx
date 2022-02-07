@@ -36,7 +36,7 @@ export type Color =
 
 export type Placement = import('@restart/ui/usePopper').Placement;
 export type TooltipPlacement = BasePlacement | "top-start" | "bottom-start"
-export type CardVariant = 'card-action'
+export type CardVariant = 'card-action' | 'card-action-quantity-toggle'
 
 export type AlignDirection = 'start' | 'end';
 

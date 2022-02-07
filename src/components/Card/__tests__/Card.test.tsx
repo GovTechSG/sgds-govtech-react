@@ -1,6 +1,6 @@
 import * as React from 'react';
 import Card from '../Card';
-import { fireEvent, render } from '@testing-library/react';
+import { render } from '@testing-library/react';
 
 describe('<Card>', () => {
     it('should have sgds prefix on wrapper', () => {
@@ -51,32 +51,5 @@ describe('<Card>', () => {
   it('Should have div as default component', () => {
     const { getByTestId } = render(<Card data-testid="default-test" />);
     expect(getByTestId('default-test').tagName).toEqual('DIV');
-  });
+  }); 
 });
-
-describe('Dismissible Card', () => {
-  
-  it('should have CloseButton', () => {
-    const {getByText} = render(<Card dismissible>Test</Card>)
-    expect(getByText('Test').querySelector('button')).toBeDefined()
-    expect(getByText('Test').querySelector('button')?.classList).toContain('btn-close')
-
-  })
-
-  it('onClick of Button Card should disappear from dom', () => {
-    const {getByText, queryByText} = render(<Card dismissible>Test</Card>)
-    const $closeBtn = getByText('Test').querySelector('button')
-    fireEvent.click($closeBtn as Element)
-
-      expect(queryByText('Test')).toBeNull() 
-  })
-  
-  it('when passed in onDismiss, onClick should trigger onDismiss', () => {
-    const onDismissMock = jest.fn()
-    const {getByText} = render(<Card dismissible dismiss={onDismissMock}>Test</Card>)
-    const $closeBtn = getByText('Test').querySelector('button')
-    fireEvent.click($closeBtn as Element)
-   expect(onDismissMock).toHaveBeenCalled()
-   
-  })
-})

@@ -23,37 +23,46 @@ import { CARD_COMMON_PROPS } from './argTypes';
     ...HIDDEN_COMMON_PROPS,
     ...CARD_COMMON_PROPS,
     disabled: {
-      description: 'Disables the FormCheck when true'
+      description: 'Disables the FormCheck when true',
     },
-    type: {description: 'The type of checkable'}
+    type: { description: 'The type of checkable' },
   }}
 />
 
 export const AppleBody = (
-  <Card.Body>
+  <>
+    <Card.Subtitle as="h6" className="text-muted">
+      <i className="bi bi-box"></i>Laptop
+    </Card.Subtitle>
     <Card.Title as="h4">
       Apple <i className="bi bi-apple"></i>
     </Card.Title>
     <Card.Text>Macbook Pro M1</Card.Text>
-  </Card.Body>
+  </>
 );
 
 export const MicrosoftBody = (
-  <Card.Body>
+  <>
+    <Card.Subtitle as="h6" className="text-muted">
+      <i className="bi bi-box"></i>Laptop
+    </Card.Subtitle>
     <Card.Title as="h4">
       Microsoft <i className="bi bi-microsoft"></i>
     </Card.Title>
     <Card.Text>Microsoft Surface Pro</Card.Text>
-  </Card.Body>
+  </>
 );
 
 export const AcerBody = (
-  <Card.Body>
+  <>
+    <Card.Subtitle as="h6" className="text-muted">
+      <i className="bi bi-box"></i>Laptop
+    </Card.Subtitle>
     <Card.Title as="h4">
       Acer <i className="bi bi-laptop"></i>
     </Card.Title>
     <Card.Text>Acer Aspire 5</Card.Text>
-  </Card.Body>
+  </>
 );
 
 export const ExampleTemplate = (args) => {
@@ -65,12 +74,12 @@ export const ExampleTemplate = (args) => {
   const handleDismiss = () => {
     //do side effects to handleDimiss
     setBrand('');
-    setQty(1)
+    setQty(1);
   };
   const handleSubmit = () => {
-    alert(`Order submitted: ${brand} laptop x${qty}`)
-    setBrand('')
-    setQty(1)
+    alert(`Order submitted: ${brand} laptop x${qty}`);
+    setBrand('');
+    setQty(1);
   };
   return (
     <Row>
@@ -80,8 +89,8 @@ export const ExampleTemplate = (args) => {
             name="test"
             type="radio"
             value="apple"
-            checked={brand === 'apple'}
             onChange={handleChange}
+            checked={brand === 'apple'}
           >
             {AppleBody}
           </SelectableCard>
@@ -89,8 +98,8 @@ export const ExampleTemplate = (args) => {
             name="test"
             type="radio"
             value="microsoft"
-            checked={brand === 'microsoft'}
             onChange={handleChange}
+            checked={brand === 'microsoft'}
           >
             {MicrosoftBody}
           </SelectableCard>
@@ -98,15 +107,15 @@ export const ExampleTemplate = (args) => {
             name="test"
             type="radio"
             value="acer"
-            checked={brand === 'acer'}
             onChange={handleChange}
+            checked={brand === 'acer'}
           >
             {AcerBody}
           </SelectableCard>
         </Form>
       </Col>
       <Col xs lg="4">
-        {brand &&  (
+        {brand && (
           <Card dismissible={true} dismiss={handleDismiss}>
             <Card.Body>
               <Card.Title as="h4">
@@ -171,7 +180,6 @@ The default SelectableCard is a checkbox.
 
 `SelectableCard` partially extends `FormCheckProps`, `CardProps` and extends their HTMLAttributes. The resulting props are as indicated in ArgsTable above.
 
-
 ### Types
 
 Use `type` prop : `radio` / `switch` / `checkbox` to change the `SelectableCard` input type
@@ -204,10 +212,18 @@ Click on the `SelectableCard` to choose your product to order
   <Story name="Usage Example">{ExampleTemplate.bind({})}</Story>
 </Canvas>
 
-### Shopping Cart Code 
+### Shopping Cart Code
+
 ```jsx
-import {SelectableCard, Form, Col, Row, QuantityToggle, Card} from 'sgds-react'
-import { useState } from 'react'
+import {
+  SelectableCard,
+  Form,
+  Col,
+  Row,
+  QuantityToggle,
+  Card,
+} from 'sgds-react';
+import { useState } from 'react';
 
 export const ShoppingCart = (args) => {
   const [brand, setBrand] = useState('');
@@ -218,12 +234,12 @@ export const ShoppingCart = (args) => {
   const handleDismiss = () => {
     //do side effects to handleDimiss
     setBrand('');
-    setQty(1)
+    setQty(1);
   };
   const handleSubmit = () => {
-    alert(`Order submitted: ${brand} laptop x${qty}`)
-    setBrand('')
-    setQty(1)
+    alert(`Order submitted: ${brand} laptop x${qty}`);
+    setBrand('');
+    setQty(1);
   };
   return (
     <Row>
@@ -259,7 +275,7 @@ export const ShoppingCart = (args) => {
         </Form>
       </Col>
       <Col xs lg="4">
-        {brand &&  (
+        {brand && (
           <Card dismissible={true} dismiss={handleDismiss}>
             <Card.Body>
               <Card.Title as="h4">

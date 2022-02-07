@@ -34,21 +34,22 @@ export const QuantityToggle: BsPrefixRefForwardingComponent<
     };
     return (
       <InputGroup size={size}>
-        <Button onClick={onMinus} {...buttonProps}>
-          -
+        <Button onClick={onMinus} {...buttonProps} >
+        <i className="bi bi-dash"></i>
         </Button>
         <FormControl
           {...props}
           disabled={disabled}
           ref={ref}
           type="number"
+          className="text-center"
           value={count}
           name="quantity"
           onChange={(e) => {
             setCount(parseInt(e.target.value));
           }}
         />
-        <Button onClick={onPlus} {...buttonProps}>+</Button>
+        <Button onClick={onPlus} {...buttonProps}><i className="bi bi-plus" ></i></Button>
       </InputGroup>
     );
   }

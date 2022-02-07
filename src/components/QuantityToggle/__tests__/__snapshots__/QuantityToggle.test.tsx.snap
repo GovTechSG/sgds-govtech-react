@@ -9,10 +9,12 @@ exports[`<QuantityToggle /> has default structure 1`] = `
       class="btn btn-primary sgds"
       type="button"
     >
-      -
+      <i
+        class="bi bi-dash"
+      />
     </button>
     <input
-      class="form-control"
+      class="text-center form-control"
       name="quantity"
       type="number"
       value="0"
@@ -21,7 +23,9 @@ exports[`<QuantityToggle /> has default structure 1`] = `
       class="btn btn-primary sgds"
       type="button"
     >
-      +
+      <i
+        class="bi bi-plus"
+      />
     </button>
   </div>
 </DocumentFragment>

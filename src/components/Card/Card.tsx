@@ -1,6 +1,5 @@
 import classNames from 'classnames';
 import * as React from 'react';
-import { useState } from 'react';
 import {
   useBootstrapPrefix,
   SGDSWrapper,
@@ -11,7 +10,6 @@ import CardImg from './CardImg';
 import CardHeader from './CardHeader';
 import { BsPrefixProps, BsPrefixRefForwardingComponent } from '../helpers';
 import { Color, Variant, CardVariant } from '../types';
-import { CloseButton } from '..';
 
 const DivStyledAsH6 = divWithClassName('h6');
 const CardBody = createWithBsPrefix('card-body');
@@ -28,6 +26,7 @@ const CardStretchedLink = createWithBsPrefix('card-link stretched-link', {
 const CardText = createWithBsPrefix('card-text', { Component: 'p' });
 const CardFooter = createWithBsPrefix('card-footer');
 const CardImgOverlay = createWithBsPrefix('card-img-overlay');
+const CardUnit =createWithBsPrefix('card-unit', {Component: 'div'})
 
 export interface CardProps
   extends BsPrefixProps,
@@ -36,8 +35,6 @@ export interface CardProps
   text?: Color;
   border?: Variant;
   variant?: CardVariant;
-  dismissible?: boolean;
-  dismiss?: Function; 
 }
 
 
@@ -51,8 +48,6 @@ export const Card: BsPrefixRefForwardingComponent<'div', CardProps> =
         text,
         border,
         children,
-        dismissible = false,
-        dismiss,
         // Need to define the default "as" during prop destructuring to be compatible with styled-components github.com/react-bootstrap/react-bootstrap/issues/3595
         as: Component = 'div',
         ...props
@@ -60,16 +55,7 @@ export const Card: BsPrefixRefForwardingComponent<'div', CardProps> =
       ref
     ) => {
       const prefix = useBootstrapPrefix(bsPrefix, 'card');
-      const [disappear, setDisappear] = useState(false);
-      const handleDismiss = () => {
-        if (dismiss){
-          dismiss()
-          setDisappear(!disappear)
-        } else
-        setDisappear(!disappear)
-      };
-      if (disappear) return null;
-      else
+
         return (
           <SGDSWrapper
             as={Component}
@@ -83,7 +69,6 @@ export const Card: BsPrefixRefForwardingComponent<'div', CardProps> =
               border && `border-${border}`
             )}
           >
-            {dismissible ? <CloseButton onClick={handleDismiss} /> : null}
             {children}
           </SGDSWrapper>
         );
@@ -103,4 +88,5 @@ export default Object.assign(Card, {
   Header: CardHeader,
   Footer: CardFooter,
   ImgOverlay: CardImgOverlay,
+  Unit: CardUnit
 });

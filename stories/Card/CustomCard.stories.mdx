@@ -4,7 +4,8 @@ import {
   Card,
   Row,
   Col,
-  QuantityToggle
+  QuantityToggle,
+  CloseButton,
 } from '../../src/components/index';
 import { useState } from 'react';
 import { CARD_COMMON_PROPS } from './argTypes';
@@ -19,30 +20,77 @@ import { CARD_COMMON_PROPS } from './argTypes';
 />
 
 export const QtyToggleTemplate = () => {
-  const [count, setCount] = useState(0)
-  return (
-    <Row>
-      <Col xs lg="4">
+  const [count, setCount] = useState(0);
+  const [disappear, setDisappear] = useState(false);
+  const handleDismiss = () => {
+    setDisappear(!disappear);
+  };
+  if (!disappear)
+    return (
+      <Row>
+        <Col xs lg="5">
           <Card>
             <Card.Body>
-              <Card.Title as="h4">
-                Basket <i className="bi bi-cart"></i>
-              </Card.Title>
+              <Row className="mb-3">
+                <div className="d-flex justify-content-between">
+                  <Card.Title as="h4">
+                    Basket <i className="bi bi-cart"></i>
+                  </Card.Title>
+                  <CloseButton onClick={handleDismiss} />
+                </div>
+              </Row>
               <Row>
                 <Col>
-                  <Card.Text>Item Brand: </Card.Text>
-                  <Card.Text>Qty: </Card.Text>
+                  <Card.Subtitle as="h6" className="text-muted">
+                    Item Brand
+                  </Card.Subtitle>
+                  <Card.Text>Apple </Card.Text>
                 </Col>
                 <Col>
-                  <Card.Text>Apple</Card.Text>
                   <QuantityToggle count={count} setCount={setCount} />
                 </Col>
               </Row>
             </Card.Body>
           </Card>
-      </Col>
-    </Row>
-  );
+        </Col>
+      </Row>
+    );
+  else return null;
+};
+
+export const QtyToggleVariantTemplate = () => {
+  const [count, setCount] = useState(0);
+  const [disappear, setDisappear] = useState(false);
+  const handleDismiss = () => {
+    setDisappear(!disappear);
+  };
+  if (!disappear)
+    return (
+      <Row>
+        <Col xs lg="5">
+          <Card variant="card-action-quantity-toggle">
+            <Card.Body>
+              <div>
+                <Card.Title as="h4">
+                  Basket <i className="bi bi-cart"></i>
+                </Card.Title>
+                <CloseButton onClick={handleDismiss} />
+              </div>
+              <div>
+                <Card.Unit>
+                  <Card.Subtitle as="h6" className="text-muted">
+                    Item Brand
+                  </Card.Subtitle>
+                  <Card.Subtitle as="h6">Apple</Card.Subtitle>
+                </Card.Unit>
+                <QuantityToggle count={count} setCount={setCount} />
+              </div>
+            </Card.Body>
+          </Card>
+        </Col>
+      </Row>
+    );
+  else return null;
 };
 
 # Custom Cards
@@ -51,19 +99,25 @@ Build your own custom Action Cards using various Components from `sgds-react` ba
 
 ## Quantity Toggle Card
 
-Quantity Toggle Card is build using `Card` and `QuantityToggle` Components. Use `Row` and `Col` to position your contents accordingly
+Build Quantity Toggle Card using `<Card/>` with attribute `variant="card-action-quantity-toggle"`.
 
-```jsx
-import { Card, QuantityToggle, Row, Col } from 'sgds-react'
-```
+To achieve the desired positioning , `Card.Body` should have two `div` children
 
-<Canvas>    
-    <Story name="Quantity Toggle Card">
-        {QtyToggleTemplate.bind({})}
-    </Story>
+- First div contains the `Card.Title` and `CloseButton` and
+- second div contains `Card.Unit` and `QuantityToggle`
+
+<Canvas>
+  <Story name="Quantity Toggle Card using variant">
+    {QtyToggleVariantTemplate.bind({})}
+  </Story>
 </Canvas>
 
+Or build your own Quantity Toggle Card without the used of the variant attribute. Use `Row` and `Col` to position your contents accordingly
 
+```jsx
+import { Card, QuantityToggle, Row, Col } from 'sgds-react';
+```
 
-
-
+<Canvas>
+  <Story name="Quantity Toggle Card">{QtyToggleTemplate.bind({})}</Story>
+</Canvas>
