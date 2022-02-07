@@ -1,5 +1,6 @@
 import * as React from 'react';
-
+import Dropdown from '../Dropdown/Dropdown';
+import FormControl from '../Form/FormControl'
 interface CalendarHeaderProps {
   displayDate: Date;
   minDate?: string;
@@ -23,15 +24,24 @@ const MONTH_LABELS = [
   'November',
   'December',
 ];
-
+const YEARS = (): number[] => {
+  const currentYear = new Date().getFullYear()
+  const yearsArray = []
+  const start = currentYear - 50
+  const end = currentYear + 50 
+  for(let i= start; i< end ; i++) {
+    yearsArray.push(i)
+  }
+  return yearsArray
+}
 const CalendarHeader: React.FC<CalendarHeaderProps> = ({
   monthLabels = MONTH_LABELS,
   previousButtonElement = '<',
   nextButtonElement = '>',
   ...props
 }) => {
-
-  const displayingMinMonth = () =>{
+  const [year, setYear] = React.useState(props.displayDate.getFullYear())
+  const displayingMinMonth = () => {
     if (!props.minDate) return false;
 
     const displayDate = new Date(props.displayDate);
@@ -40,32 +50,39 @@ const CalendarHeader: React.FC<CalendarHeaderProps> = ({
       minimumDate.getFullYear() == displayDate.getFullYear() &&
       minimumDate.getMonth() == displayDate.getMonth()
     );
-  }
+  };
 
   const displayingMaxMonth = () => {
     if (!props.maxDate) return false;
     const displayDate = new Date(props.displayDate);
     const maximumDate = new Date(props.maxDate);
-    console.log(maximumDate)
     return (
       maximumDate.getFullYear() == displayDate.getFullYear() &&
       maximumDate.getMonth() == displayDate.getMonth()
     );
-  }
+  };
 
   const handleClickPrevious = () => {
     const newDisplayDate = new Date(props.displayDate);
     newDisplayDate.setDate(1);
     newDisplayDate.setMonth(newDisplayDate.getMonth() - 1);
     props.onChange(newDisplayDate);
-  }
+  };
 
   const handleClickNext = () => {
     const newDisplayDate = new Date(props.displayDate);
     newDisplayDate.setDate(1);
     newDisplayDate.setMonth(newDisplayDate.getMonth() + 1);
     props.onChange(newDisplayDate);
-  }
+  };
+  const handleSelectYear = (key: string | null, e: React.SyntheticEvent<any>) => {
+    const newDate = props.displayDate
+    newDate.setFullYear(parseInt(key!))
+    console.log(newDate)
+    const selectedMonth = key && monthLabels[parseInt(key)]
+    props.onChange(newDate)
+    setYear(parseInt(key!))
+  };
   return (
     <div className="text-center d-flex justify-content-around">
       <div
@@ -75,10 +92,29 @@ const CalendarHeader: React.FC<CalendarHeaderProps> = ({
       >
         {displayingMinMonth() ? null : previousButtonElement}
       </div>
-      <span>
+        <span>
+        {monthLabels[props.displayDate.getMonth()]}{' '}
+      </span>
+      <Dropdown onSelect={handleSelectYear}>
+      <input value={year}/>
+        <Dropdown.Toggle variant="white">
+     
+        </Dropdown.Toggle>
+        <Dropdown.Menu >
+          {YEARS().map((yr: number, idx: number) => (
+            <Dropdown.Item
+            active={yr===year}
+              eventKey={yr}
+            >
+              {yr}
+            </Dropdown.Item>
+          ))}
+        </Dropdown.Menu>
+      </Dropdown>
+      {/* <span>
         {monthLabels[props.displayDate.getMonth()]}{' '}
         {props.displayDate.getFullYear()}
-      </span>
+      </span> */}
       <div
         className="text-muted pull-right"
         onClick={handleClickNext}
@@ -89,4 +125,4 @@ const CalendarHeader: React.FC<CalendarHeaderProps> = ({
     </div>
   );
 };
-export default CalendarHeader
+export default CalendarHeader;

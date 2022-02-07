@@ -197,7 +197,7 @@ import { Dropdown } from 'sgds-react';
 
 A callback fired when a menu item is selected
 
-`(eventKey: any, event: Object) => any` .
+`(eventKey:  string | null, event:  React.SyntheticEvent<any>) => any` .
 
 ### onToggle
 
@@ -223,7 +223,7 @@ export const onSelectToggleTemplate = () => {
   return (
     <div>
       <Dropdown onSelect={handleSelect} onToggle={handleToggle}>
-        <Dropdown.Toggle variant="white">Default Dropdown</Dropdown.Toggle>
+        <Dropdown.Toggle variant="white">{value ? value : 'Select me'}</Dropdown.Toggle>
         <Dropdown.Menu>
           <Dropdown.Item eventKey="apple">Apple</Dropdown.Item>
           <Dropdown.Item eventKey="orange">Orange</Dropdown.Item>

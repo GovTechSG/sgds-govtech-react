@@ -138,7 +138,7 @@ const Dropdown: BsPrefixRefForwardingComponent<'div', DropdownProps> =
       autoClose,
       ...props
     } = useUncontrolled(pProps, { show: 'onToggle' });
-
+    console.log(Component)
     const isInputGroup = useContext(InputGroupContext);
     const prefix = useBootstrapPrefix(bsPrefix, 'dropdown');
     const isRTL = useIsRTL();
