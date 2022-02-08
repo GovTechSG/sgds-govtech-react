@@ -31,7 +31,7 @@ export const Template = (args) => {
   return (
     <>
       <Form.Label>Phone Number</Form.Label>
-      <InputGroup className="mb-3">
+      <InputGroup {...args} className="mb-3">
         <InputGroup.Text id="basic-addon1">+65</InputGroup.Text>
         <Form.Control
           placeholder="Phone number"

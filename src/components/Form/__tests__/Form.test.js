@@ -1,5 +1,5 @@
 //React-testing-library 
-import { render, fireEvent, waitFor }  from '@testing-library/react';
+import { render }  from '@testing-library/react';
 import React from 'react';
 
 import Form from '../Form';
@@ -14,9 +14,9 @@ describe('<Form>', () => {
     );
 
     const form = getByTestId('test');
-    expect(form.tagName.toLowerCase().match('fieldset'));
+    expect(form.tagName.toLowerCase()).toEqual('fieldset');
     expect(form.classList.length).toEqual(1);
-    expect(form.classList.contains('my-form')).toBe.true;
+    expect(form.classList).toContain('my-form')
     expect(form.childElementCount).toEqual(1);
     expect(form.firstElementChild?.classList.length).toEqual(0);
   });

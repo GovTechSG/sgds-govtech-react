@@ -59,7 +59,7 @@
     "@testing-library/jest-dom": "^5.16.1",
     "@testing-library/react": "^12.1.2",
     "@types/enzyme": "^3.10.10",
-    "@types/react": "^17.0.37",
+    "@types/react": "^17.0.39",
     "@types/react-dom": "^17.0.11",
     "@types/react-transition-group": "^4.4.4",
     "@types/sinon": "^10.0.6",

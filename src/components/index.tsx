@@ -191,21 +191,22 @@ export { default as Stepper } from './Stepper/Stepper'
 export { default as useStep } from './Stepper/useStep'
 export type { OnDone, StepMetadata, State as StepperState, UseStepMethods} from './Stepper/useStep'
 
-// export { default as Tab } from './Tab';
-// export type { TabProps } from './Tab';
+// export { default as Tab } from './Tabs/Tab';
+// export type { TabProps } from './Tabs/Tab';
 
-// export { default as TabContainer } from './TabContainer';
-// export type { TabContainerProps } from './TabContainer';
+// export { default as TabContainer } from './Tabs/TabContainer';
+// export type { TabContainerProps } from './Tabs/TabContainer';
 
-// export { default as TabContent } from './TabContent';
-export { default as Table } from './Table/Table';
-export type { TableProps } from './Table/Table';
+// export { default as TabContent } from './Tabs/TabContent';
 
-// export { default as TabPane } from './TabPane';
-// export type { TabPaneProps } from './TabPane';
+// export { default as Table } from './Table/Table';
+// export type { TableProps } from './Table/Table';
 
-// export { default as Tabs } from './Tabs';
-// export type { TabsProps } from './Tabs';
+// export { default as TabPane } from './Tabs/TabPane';
+// export type { TabPaneProps } from './Tabs/TabPane';
+
+// export { default as Tabs } from './Tabs/Tabs';
+// export type { TabsProps } from './Tabs/Tabs';
 
 export { default as ThemeProvider } from './ThemeProvider/ThemeProvider';
 export type { ThemeProviderProps } from './ThemeProvider/ThemeProvider';

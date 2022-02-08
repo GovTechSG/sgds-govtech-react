@@ -2,7 +2,6 @@
 import { render, screen } from '@testing-library/react';
 import * as React from 'react';
 import FormCheck from '../FormCheck';
-import Switch from '../../Switch';
 
 describe('<FormCheck>', () => {
   it('should render correctly', () => {
@@ -64,109 +63,100 @@ describe('<FormCheck>', () => {
       expect(screen.getByRole('checkbox').classList.contains('is-invalid'));
     });
 
-    // it('should support ref forwarding', () => {
-    //   class Container extends React.Component {
-    //     render() {
-    //       return (
-    //         <FormCheck
-    //           ref={(ref) => {
-    //             this.input = ref;
-    //           }}
-    //         />
-    //       );
-    //     }
-    //   }
+    it('should support ref forwarding', () => {
+      let input;
+    class Container extends React.Component {
+      render() {
+        return (
+          <FormCheck
+            ref={(ref) => {
+              input = ref;
+            }}
+          />
+        );
+      }
+    }
+   render(<Container />)
+    expect(input.tagName).toEqual('INPUT')
+    });
+    
+    it('should not render bsPrefix if no label is specified', () => {
+      
+      const {container, asFragment} = render(
+        <FormCheck id="foo" name="foo" value="foo" type="radio" />,
+      );
+      expect(container.querySelector('.form-check')).toBeNull();
+      expect(asFragment()).toMatchSnapshot()
 
-    //   const instance = render(<Container />).instance();
+    });
+    it('should  render bsPrefix if  label is specified', () => {
+      const label = <div>Test Label</div>
+      const {container, asFragment} = render(
+        <FormCheck id="foo" name="foo" value="foo" type="radio" label={label} />,
+      );
+      expect(container.querySelector('.form-check')).not.toBeNull();
+      expect(asFragment()).toMatchSnapshot()
+    });
 
-    //   expect(instance.input.tagName).to.equal('INPUT');
-    // });
+    it('should support switches', () => {
+      const { container } = render(
+        <FormCheck type="switch" label="My label" id="switch-id" />,
+      );
+      expect(container.querySelector('div.form-check')).not.toBeNull()
+      expect(container.querySelector('div.form-switch')).not.toBeNull()
+      expect(container.querySelector('input[type="checkbox"].form-check-input')).not.toBeNull()
+      expect(container.querySelector('label.form-check-label')).not.toBeNull()
+    });
 
-  //   it('should not render bsPrefix if no label is specified', () => {
-  //     const wrapper = mount(
-  //       <FormCheck id="foo" name="foo" value="foo" type="radio" />,
-  //     );
-  //     expect(wrapper.find('.form-check').length).to.equal(0);
-  //   });
+    it('should support "as"', () => {
+      const Surrogate = ({ className = '', ...rest }) => (
+        <input className={`extraClass ${className}'`} {...rest} />
+      );
+      const { container } = render(<FormCheck as={Surrogate} />);
+      expect(container.querySelector('input.extraClass[type="checkbox"]')).not.toBeNull() 
+    });
 
-  //   it('should support switches', () => {
-  //     let wrapper = mount(
-  //       <FormCheck type="switch" label="My label" id="switch-id" />,
-  //     );
+    it('Should render valid feedback type prop properly', () => {
+      const { container } = render(
+        <FormCheck label="My label" feedbackType="valid" feedback="test" />,
+      );
+      expect(container.querySelector('.valid-feedback')).not.toBeNull() 
 
-  //     wrapper
-  //       .assertSingle('div.form-check')
-  //       .assertSingle('div.form-switch')
-  //       .assertSingle('input[type="checkbox"].form-check-input');
+      expect(container.querySelector('.valid-tooltip')).toBeNull() 
+    });
 
-  //     wrapper.assertSingle('label.form-check-label');
-  //     wrapper.unmount();
+    it('Should render invalid feedback properly', () => {
+      const {container } = render(
+        <FormCheck label="My label" feedbackType="invalid" feedback="test" />,
+      );
+      expect(container.querySelector('.invalid-feedback')).not.toBeNull()   
 
-  //     wrapper = mount(<Switch label="My label" id="switch-id2" />);
+      expect(container.querySelector('.invalid-tooltip')).toBeNull() 
+    });
 
-  //     wrapper
-  //       .assertSingle('div.form-check')
-  //       .assertSingle('div.form-switch')
-  //       .assertSingle('input[type="checkbox"].form-check-input');
+    it('Should render valid feedback tooltip properly', () => {
+      const { container } = render(
+        <FormCheck
+          label="My label"
+          feedbackType="valid"
+          feedback="test"
+          feedbackTooltip
+        />,
+      );
+      expect(container.querySelector('.valid-feedback')).toBeNull()   
+      expect(container.querySelector('.valid-tooltip')).not.toBeNull()   
+    });
 
-  //     wrapper.assertSingle('label.form-check-label');
-  //   });
-
-  //   it('should support "as"', () => {
-  //     const Surrogate = ({ className = '', ...rest }) => (
-  //       <input className={`extraClass ${className}'`} {...rest} />
-  //     );
-  //     const wrapper = mount(<FormCheck as={Surrogate} />);
-  //     wrapper.assertSingle('input.extraClass[type="checkbox"]');
-  //   });
-
-  //   it('Should render valid feedback properly', () => {
-  //     const wrapper = mount(
-  //       <FormCheck label="My label" feedbackType="valid" feedback="test" />,
-  //     );
-  //     const feedback = wrapper.find('Feedback');
-
-  //     expect(feedback.prop('type')).to.equal('valid');
-  //     expect(feedback.prop('tooltip')).to.be.false;
-  //   });
-
-  //   it('Should render invalid feedback properly', () => {
-  //     const wrapper = mount(
-  //       <FormCheck label="My label" feedbackType="invalid" feedback="test" />,
-  //     );
-  //     const feedback = wrapper.find('Feedback');
-
-  //     expect(feedback.prop('type')).to.equal('invalid');
-  //     expect(feedback.prop('tooltip')).to.be.false;
-  //   });
-
-  //   it('Should render valid feedback tooltip properly', () => {
-  //     const wrapper = mount(
-  //       <FormCheck
-  //         label="My label"
-  //         feedbackType="valid"
-  //         feedback="test"
-  //         feedbackTooltip
-  //       />,
-  //     );
-  //     const feedback = wrapper.find('Feedback');
-
-  //     expect(feedback.prop('type')).to.equal('valid');
-  //     expect(feedback.prop('tooltip')).to.be.true;
-  //   });
-
-  //   it('Should render invalid feedback tooltip properly', () => {
-  //     const wrapper = mount(
-  //       <FormCheck
-  //         label="My label"
-  //         feedbackType="invalid"
-  //         feedback="test"
-  //         feedbackTooltip
-  //       />,
-  //     );
-  //     const feedback = wrapper.find('Feedback');
-
-  //     expect(feedback.prop('type')).to.equal('invalid');
-  //     expect(feedback.prop('tooltip')).to.be.true;
-  //   });
+    it('Should render invalid feedback tooltip properly', () => {
+      const { container } = render(
+        <FormCheck
+          label="My label"
+          feedbackType="invalid"
+          feedback="test"
+          feedbackTooltip
+        />,
+      );
+      expect(container.querySelector('.invalid-feedback')).toBeNull()
+      expect(container.querySelector('.invalid-tooltip')).not.toBeNull()
+    });
 });
