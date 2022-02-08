@@ -2,7 +2,7 @@ import PropTypes from 'prop-types';
 import * as React from 'react';
 import classNames from 'classnames';
 
-export type CloseButtonVariant = 'white' | 'danger';
+export type CloseButtonVariant = 'white';
 
 export interface CloseButtonProps
   extends React.ButtonHTMLAttributes<HTMLButtonElement> {

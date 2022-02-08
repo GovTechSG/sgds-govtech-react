@@ -24,6 +24,7 @@ export const QuantityToggle: BsPrefixRefForwardingComponent<
   QuantityToggleProps
 > = React.forwardRef<HTMLInputElement, QuantityToggleProps>(
   ({ size, step = 1, disabled, variant, count, setCount, ...props }, ref) => {
+    if (count < 0 ) setCount(0)
     const buttonProps = { disabled, variant };
     const onPlus = () => {
       setCount(count + step);
@@ -48,6 +49,7 @@ export const QuantityToggle: BsPrefixRefForwardingComponent<
           onChange={(e) => {
             setCount(parseInt(e.target.value));
           }}
+          min={0}
         />
         <Button onClick={onPlus} {...buttonProps}><i className="bi bi-plus" ></i></Button>
       </InputGroup>

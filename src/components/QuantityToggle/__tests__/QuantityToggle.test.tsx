@@ -31,4 +31,14 @@ describe('<QuantityToggle />', () => {
         expect(mockSetCount).toHaveBeenCalledTimes(2)
 
     })
+    it('minimum value is 0', ()=> {
+        const App = () => {
+            const [count, setCount]  = React.useState(-1)
+            return (<QuantityToggle count={count} setCount={setCount}/>)
+        }
+        const { container } = render(<App/>)
+        const $input = container.querySelector('div')?.children[1]
+        expect($input).not.toHaveValue(-1) 
+        expect($input).toHaveValue(0) 
+    })
 })

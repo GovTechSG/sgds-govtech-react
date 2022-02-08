@@ -67,7 +67,8 @@ export const AcerBody = (
 
 export const ExampleTemplate = (args) => {
   const [brand, setBrand] = useState('');
-  const [qty, setQty] = useState(1);
+  const [qty, setQty] = useState(-2);
+  const [disappear, setDisappear] = useState(false);
   const handleChange = (e) => {
     setBrand(e.target.value);
   };
@@ -75,6 +76,7 @@ export const ExampleTemplate = (args) => {
     //do side effects to handleDimiss
     setBrand('');
     setQty(1);
+    setDisappear(!disappear);
   };
   const handleSubmit = () => {
     alert(`Order submitted: ${brand} laptop x${qty}`);
@@ -114,23 +116,25 @@ export const ExampleTemplate = (args) => {
           </SelectableCard>
         </Form>
       </Col>
-      <Col xs lg="4">
+      <Col xs lg="5">
         {brand && (
-          <Card dismissible={true} dismiss={handleDismiss}>
+          <Card variant="card-action-quantity-toggle">
             <Card.Body>
-              <Card.Title as="h4">
-                Basket <i className="bi bi-cart"></i>
-              </Card.Title>
-              <Row>
-                <Col>
-                  <Card.Text>Item Brand: </Card.Text>
-                  <Card.Text>Qty: </Card.Text>
-                </Col>
-                <Col>
-                  <Card.Text>{brand ? brand : '-'}</Card.Text>
-                  <QuantityToggle count={qty} setCount={setQty} />
-                </Col>
-              </Row>
+              <div>
+                <Card.Title as="h4">
+                  Basket <i className="bi bi-cart"></i>
+                </Card.Title>
+                <CloseButton onClick={handleDismiss} />
+              </div>
+              <div>
+                <Card.Unit>
+                  <Card.Subtitle as="h6" className="text-muted">
+                    Item Brand
+                  </Card.Subtitle>
+                  <Card.Subtitle as="h6">{brand}</Card.Subtitle>
+                </Card.Unit>
+                <QuantityToggle count={qty} setCount={setQty} />
+              </div>
             </Card.Body>
             <Button onClick={handleSubmit}>Submit</Button>
           </Card>
@@ -228,6 +232,7 @@ import { useState } from 'react';
 export const ShoppingCart = (args) => {
   const [brand, setBrand] = useState('');
   const [qty, setQty] = useState(1);
+  const [disappear, setDisappear] = useState(false);
   const handleChange = (e) => {
     setBrand(e.target.value);
   };
@@ -235,6 +240,7 @@ export const ShoppingCart = (args) => {
     //do side effects to handleDimiss
     setBrand('');
     setQty(1);
+    setDisappear(!disappear);
   };
   const handleSubmit = () => {
     alert(`Order submitted: ${brand} laptop x${qty}`);
@@ -276,21 +282,23 @@ export const ShoppingCart = (args) => {
       </Col>
       <Col xs lg="4">
         {brand && (
-          <Card dismissible={true} dismiss={handleDismiss}>
+           <Card variant="card-action-quantity-toggle">
             <Card.Body>
-              <Card.Title as="h4">
-                Basket <i className="bi bi-cart"></i>
-              </Card.Title>
-              <Row>
-                <Col>
-                  <Card.Text>Item Brand: </Card.Text>
-                  <Card.Text>Qty: </Card.Text>
-                </Col>
-                <Col>
-                  <Card.Text>{brand ? brand : '-'}</Card.Text>
-                  <QuantityToggle count={qty} setCount={setQty} />
-                </Col>
-              </Row>
+              <div>
+                <Card.Title as="h4">
+                  Basket <i className="bi bi-cart"></i>
+                </Card.Title>
+                <CloseButton onClick={handleDismiss} />
+              </div>
+              <div>
+                <Card.Unit>
+                  <Card.Subtitle as="h6" className="text-muted">
+                    Item Brand
+                  </Card.Subtitle>
+                  <Card.Subtitle as="h6">{brand}</Card.Subtitle>
+                </Card.Unit>
+                <QuantityToggle count={qty} setCount={setQty} />
+              </div>
             </Card.Body>
             <Button onClick={handleSubmit}>Submit</Button>
           </Card>

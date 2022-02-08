@@ -15,6 +15,7 @@ exports[`<QuantityToggle /> has default structure 1`] = `
     </button>
     <input
       class="text-center form-control"
+      min="0"
       name="quantity"
       type="number"
       value="0"
