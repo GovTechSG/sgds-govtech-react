@@ -1,38 +1,47 @@
-import { mount } from 'enzyme';
+
 
 import InputGroup from '../InputGroup';
+import { render, screen } from '@testing-library/react';
+import * as React  from 'react'
 
 describe('<InputGroup>', () => {
   it('Should have div as default component', () => {
-    // const wrapper = mount(<InputGroup />);
-    // expect(wrapper.find('div').length).to.equal(1);
+    const { getByTestId } = render(<InputGroup data-testid="test" />);
+
+    expect(getByTestId('test').tagName.toLowerCase()).toEqual('div');
   });
 
-//   it('Should render size correctly', () => {
-//     mount(<InputGroup size="sm" />).assertSingle('.input-group-sm');
-//   });
+  it('Should render size correctly', () => {
+    const { getByTestId } = render(<InputGroup size="sm" data-testid="test" />);
 
-//   it('Should render hasValidation correctly', () => {
-//     mount(<InputGroup hasValidation />).assertSingle('.has-validation');
-//   });
+    expect(getByTestId('test').classList).toContain('input-group-sm')
+  });
 
-//   describe('<Checkbox>', () => {
-//     it('Should forward props to underlying input element', () => {
-//       const name = 'foobar';
-//       const wrapper = mount(<InputGroup.Checkbox name={name} />);
-//       const input = wrapper.find('FormCheckInput');
-//       expect(input.length).to.equal(1);
-//       expect(input.prop('name')).to.equal(name);
-//     });
-//   });
+  it('Should render hasValidation correctly', () => {
+    const { getByTestId } = render(
+      <InputGroup hasValidation data-testid="test" />,
+    );
 
-//   describe('<Radio>', () => {
-//     it('Should forward props to underlying input element', () => {
-//       const name = 'foobar';
-//       const wrapper = mount(<InputGroup.Radio name={name} />);
-//       const input = wrapper.find('FormCheckInput');
-//       expect(input.length).to.equal(1);
-//       expect(input.prop('name')).to.equal(name);
-//     });
-//   });
+    expect(getByTestId('test').classList).toContain('has-validation')
+  });
+
+  describe('<Checkbox>', () => {
+    it('Should forward props to underlying input element', () => {
+      const name = 'foobar';
+
+      const { getByRole } = render(<InputGroup.Checkbox name={name} />);
+
+      expect(getByRole('checkbox')).toHaveAttribute('name', 'foobar')
+    });
+  });
+
+  describe('<Radio>', () => {
+    it('Should forward props to underlying input element', () => {
+      const name = 'foobar';
+
+      const { getByRole } = render(<InputGroup.Radio name={name} />);
+
+      expect(getByRole('radio')).toHaveAttribute('name', 'foobar')
+    });
+  });
 });
