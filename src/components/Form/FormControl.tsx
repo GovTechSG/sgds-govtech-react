@@ -162,7 +162,6 @@ const FormControl: BsPrefixRefForwardingComponent<'input', FormControlProps> =
               isInvalid && `is-invalid`,
               type === 'color' && `${bsPrefix}-color`
             )}
-            style={{ paddingRight: '40px' }}
           />
           {searchIcon == true ? (
             <span

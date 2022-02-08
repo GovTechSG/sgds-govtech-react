@@ -1,0 +1,33 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`<QuantityToggle /> has default structure 1`] = `
+<DocumentFragment>
+  <div
+    class="input-group input-group-sm"
+  >
+    <button
+      class="btn btn-primary sgds"
+      type="button"
+    >
+      <i
+        class="bi bi-dash"
+      />
+    </button>
+    <input
+      class="text-center form-control"
+      min="0"
+      name="quantity"
+      type="number"
+      value="0"
+    />
+    <button
+      class="btn btn-primary sgds"
+      type="button"
+    >
+      <i
+        class="bi bi-plus"
+      />
+    </button>
+  </div>
+</DocumentFragment>
+`;

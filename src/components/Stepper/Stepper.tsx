@@ -1,11 +1,11 @@
 import React from 'react';
 import { UseStepMethods, WrappedStepMetadata } from './useStep';
-
+import { SGDSWrapper } from '../ThemeProvider/ThemeProvider';
 function Stepper({ methods }: { methods: UseStepMethods }) {
   const { state, stepsMetadata, setStep } = methods;
   const getClass = (stepMetadata: WrappedStepMetadata) => {
     if (stepMetadata.step < state.currentStep) {
-      return 'is-completed stepper__item--clickable';
+      return 'is-completed is-clickable';
     }
     if (stepMetadata.step === state.currentStep) {
       return 'is-active';
@@ -17,30 +17,30 @@ function Stepper({ methods }: { methods: UseStepMethods }) {
       if (stepMetadata.step < state.currentStep) {
         return setStep(stepMetadata.step);
       }
-      return
+      return;
     };
   };
   return (
-    <div className="sgds-steps stepper">
-      {stepsMetadata.data.map((stepMetadata) => (
+    <SGDSWrapper className="stepper">
+      {stepsMetadata.data.map((stepMetadata: WrappedStepMetadata) => (
         <div
           data-testid="sgds-step"
-          className={`sgds-step-item stepper__item ${getClass(stepMetadata)}`}
+          className={`stepper-item ${getClass(stepMetadata)}`}
           onClick={back(stepMetadata)}
           key={stepMetadata.step}
         >
-          <div className="sgds-step-marker">{stepMetadata.step}</div>
-          <div className="sgds-step-details">
+          <div className="stepper-marker">{stepMetadata.step}</div>
+          <div className="stepper-detail">
             <p>
               <b>{stepMetadata.stepHeader}</b>
             </p>
           </div>
         </div>
       ))}
-    </div>
+    </SGDSWrapper>
   );
 }
 
-Stepper.displayName = 'Stepper'
+Stepper.displayName = 'Stepper';
 
 export default Stepper;

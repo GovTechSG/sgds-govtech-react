@@ -31,6 +31,7 @@ const CloseButton = React.forwardRef<HTMLButtonElement, CloseButtonProps>(
       ref={ref}
       type="button"
       className={classNames(
+        'btn',
         'btn-close',
         variant && `btn-close-${variant}`,
         className,
