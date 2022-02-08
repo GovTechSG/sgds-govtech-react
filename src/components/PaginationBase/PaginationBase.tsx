@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import * as React from 'react';
 
 import { useBootstrapPrefix, SGDSWrapper } from '../ThemeProvider/ThemeProvider';
-import PageItem, { Ellipsis, First, Last, Next, Prev } from '../PageItem';
+import PageItem, { Ellipsis, First, Last, Next, Prev } from './PageItem';
 import { BsPrefixProps } from '../helpers';
 
 type PaginationBaseSize = 'sm' | 'md' | 'lg';

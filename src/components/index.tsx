@@ -43,6 +43,8 @@ export type { CalendarProps } from './Calendar/Calendar'
 
 export { default as Card } from './Card/Card';
 export type { CardProps } from './Card/Card';
+export { default as SelectableCard } from './Card/SelectableCard'
+export type { SelectableCardProps } from './Card/SelectableCard'
 
 
 
@@ -156,8 +158,8 @@ export type { OverlayProps } from './Overlay/Overlay';
 export { default as OverlayTrigger } from './Overlay/OverlayTrigger';
 export type { OverlayTriggerProps } from './Overlay/OverlayTrigger';
 
-export { default as PageItem } from './PageItem';
-export type { PageItemProps } from './PageItem';
+export { default as PageItem } from './PaginationBase/PageItem';
+export type { PageItemProps } from './PaginationBase/PageItem';
 
 export { default as PaginationBase } from './PaginationBase/PaginationBase';
 export type { PaginationBaseProps } from './PaginationBase/PaginationBase';
@@ -177,6 +179,8 @@ export type { PaginationsProps } from './Paginations/Paginations';
 // export { default as ProgressBar } from './ProgressBar';
 // export type { ProgressBarProps } from './ProgressBar';
 
+export {default as QuantityToggle} from './QuantityToggle/QuantityToggle'
+export type { QuantityToggleProps } from './QuantityToggle/QuantityToggle'
 // export { default as Ratio } from './Ratio';
 // export type { RatioProps } from './Ratio';
 

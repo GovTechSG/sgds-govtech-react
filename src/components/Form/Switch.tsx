@@ -1,6 +1,6 @@
 import * as React from 'react';
-import FormCheck, { FormCheckProps } from './Form/FormCheck';
-import { BsPrefixRefForwardingComponent } from './helpers';
+import FormCheck, { FormCheckProps } from './FormCheck';
+import { BsPrefixRefForwardingComponent } from '../helpers';
 
 type SwitchProps = Omit<FormCheckProps, 'type'>;
 
@@ -15,3 +15,4 @@ export default Object.assign(Switch, {
   Input: FormCheck.Input,
   Label: FormCheck.Label,
 });
+
