@@ -199,8 +199,8 @@ export type { OnDone, StepMetadata, State as StepperState, UseStepMethods} from 
 
 // export { default as TabContent } from './Tabs/TabContent';
 
-// export { default as Table } from './Table/Table';
-// export type { TableProps } from './Table/Table';
+export { default as Table } from './Table/Table';
+export type { TableProps } from './Table/Table';
 
 // export { default as TabPane } from './Tabs/TabPane';
 // export type { TabPaneProps } from './Tabs/TabPane';

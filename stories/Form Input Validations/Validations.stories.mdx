@@ -10,11 +10,31 @@ import {
   yup,
 } from '../../src/components/index';
 
-<Meta title="MDX/Form-Input Validations" component={Form} />
+<Meta
+  title="MDX/Form-Input Validations"
+  component={Form}
+  argTypes={{
+    validated: {
+      description:
+        'Mark a form as having been validated. Setting it to `true` will toggle any validation styles on the forms elements.',
+      table: {
+        type: { summary: 'boolean' },
+        defaultValue: { summary: 'false' },
+      },
+    },
+    as: {
+    table: {
+      disable: true
+    }
+  }
+  }}
+/>
 
 # Form Validation
 
 Provide valuable, actionable feedback to your users with HTML5 form validation, via browser default behaviors or custom styles and JavaScript.
+
+As our components are built on top of `React-Bootstrap` library, do check out the detailed `Form` API references <a href="https://react-bootstrap.github.io/forms/overview/" target="_blank">here</a>.
 
 ## 1. Native HTML5 Form Validation
 
@@ -124,7 +144,7 @@ export const Template = (args) => {
 
 ```jsx
 import { useState } from 'react';
-import { Form, Button, Col, InputGroup, Row } from 'sgds-react';
+import { Form, Button, Col, InputGroup, Row } from 'sgds-govtech-react';
 
 const [validated, setValidated] = useState(false);
 const handleSubmit = (event) => {
@@ -384,7 +404,7 @@ export const Template2 = (args) => {
 
 ```jsx
 import { useState } from 'react';
-import { Form, Button, Col, InputGroup, Row } from 'sgds-react';
+import { Form, Button, Col, InputGroup, Row } from 'sgds-govtech-react';
 import { Formik } from 'formik';
 import { yup } from 'yup';
 
@@ -540,13 +560,13 @@ export const FormikExample = () => {
 
 ## 3. Input group validation
 
-For `<InputGroup>` validation, it requires the hasValidation prop. Use this when your input group contains both an input and feedback element.
+For `<InputGroup>` validation, it requires the `hasValidation` prop. Use this when your input group contains both an input and feedback element.
 
 <Canvas>
   <Story name="Input Group Validation">
     <InputGroup hasValidation>
       <InputGroup.Text>@</InputGroup.Text>
-      <Form.Control type="text" required isInvalid/>
+      <Form.Control type="text" required isInvalid />
       <Form.Control.Feedback type="invalid">
         Please choose a username.
       </Form.Control.Feedback>
@@ -555,13 +575,13 @@ For `<InputGroup>` validation, it requires the hasValidation prop. Use this when
 </Canvas>
 
 ```jsx
-import { InputGroup, Form} from 'sgds-react';
+import { InputGroup, Form } from 'sgds-govtech-react';
 
-  <InputGroup hasValidation>
-      <InputGroup.Text>@</InputGroup.Text>
-      <Form.Control type="text" required isInvalid/>
-      <Form.Control.Feedback type="invalid">
-        Please choose a username.
-      </Form.Control.Feedback>
-    </InputGroup>
+<InputGroup hasValidation>
+  <InputGroup.Text>@</InputGroup.Text>
+  <Form.Control type="text" required isInvalid />
+  <Form.Control.Feedback type="invalid">
+    Please choose a username.
+  </Form.Control.Feedback>
+</InputGroup>;
 ```
