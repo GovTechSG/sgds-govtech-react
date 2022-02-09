@@ -141,6 +141,7 @@ const FormCheck: BsPrefixRefForwardingComponent<'input', FormCheckProps> =
       },
       ref,
     ) => {
+
       bsPrefix = useBootstrapPrefix(bsPrefix, 'form-check');
       bsSwitchPrefix = useBootstrapPrefix(bsSwitchPrefix, 'form-switch');
 

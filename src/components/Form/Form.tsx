@@ -9,7 +9,7 @@ import FormLabel from './FormLabel';
 import FormRange from './FormRange';
 import FormSelect from './FormSelect';
 import FormText from './FormText';
-import Switch from '../Switch';
+import Switch from './Switch';
 import FloatingLabel from '../FloatingLabel';
 import { BsPrefixRefForwardingComponent, AsProp } from '../helpers';
 

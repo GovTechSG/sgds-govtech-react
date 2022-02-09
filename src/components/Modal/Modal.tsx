@@ -9,20 +9,27 @@ import useEventCallback from '@restart/hooks/useEventCallback';
 import useMergedRefs from '@restart/hooks/useMergedRefs';
 import useWillUnmount from '@restart/hooks/useWillUnmount';
 import transitionEnd from 'dom-helpers/transitionEnd';
-import PropTypes from 'prop-types';
 import * as React from 'react';
 import { useCallback, useMemo, useRef, useState } from 'react';
-import BaseModal, { ModalProps as BaseModalProps, ModalHandle } from '@restart/ui/Modal';
+import BaseModal, {
+  ModalProps as BaseModalProps,
+  ModalHandle,
+  ModalTransitionComponent,
+} from '@restart/ui/Modal';
 import { getSharedManager } from '../BootstrapModalManager/BootstrapModalManager';
-import Fade from '../Fade/Fade';
+import Fade, { FadeProps } from '../Fade/Fade';
 import ModalBody from './ModalBody';
 import ModalContext from './ModalContext';
-import ModalDialog, {ModalDialogProps} from './ModalDialog';
+import ModalDialog, { ModalDialogProps } from './ModalDialog';
 import ModalFooter from './ModalFooter';
 import ModalHeader from './ModalHeader';
 import ModalTitle from './ModalTitle';
 import { BsPrefixRefForwardingComponent } from '../helpers';
-import { useBootstrapPrefix, useIsRTL, SGDSWrapper } from '../ThemeProvider/ThemeProvider';
+import {
+  useBootstrapPrefix,
+  useIsRTL,
+  SGDSWrapper,
+} from '../ThemeProvider/ThemeProvider';
 
 export interface ModalProps
   extends Omit<
@@ -53,171 +60,6 @@ export interface ModalProps
   [other: string]: any;
 }
 
-const propTypes = {
-  /**
-   * @default 'modal'
-   */
-  bsPrefix: PropTypes.string,
-
-  /**
-   * Render a large, extra large or small modal.
-   * When not provided, the modal is rendered with medium (default) size.
-   * @type ('sm'|'lg'|'xl')
-   */
-  size: PropTypes.string,
-
-  /**
-   * Renders a fullscreen modal. Specifying a breakpoint will render the modal
-   * as fullscreen __below__ the breakpoint size.
-   *
-   * @type (true|'sm-down'|'md-down'|'lg-down'|'xl-down'|'xxl-down')
-   */
-  fullscreen: PropTypes.oneOfType([PropTypes.bool, PropTypes.string]),
-
-  /**
-   * vertically center the Dialog in the window
-   */
-  centered: PropTypes.bool,
-
-  /**
-   * Include a backdrop component. Specify 'static' for a backdrop that doesn't
-   * trigger an "onHide" when clicked.
-   */
-  backdrop: PropTypes.oneOf(['static', true, false]),
-
-  /**
-   * Add an optional extra class name to .modal-backdrop
-   * It could end up looking like class="modal-backdrop foo-modal-backdrop in".
-   */
-  backdropClassName: PropTypes.string,
-
-  /**
-   * Close the modal when escape key is pressed
-   */
-  keyboard: PropTypes.bool,
-
-  /**
-   * Allows scrolling the `<Modal.Body>` instead of the entire Modal when overflowing.
-   */
-  scrollable: PropTypes.bool,
-
-  /**
-   * Open and close the Modal with a slide and fade animation.
-   */
-  animation: PropTypes.bool,
-
-  /**
-   * A css class to apply to the Modal dialog DOM node.
-   */
-  dialogClassName: PropTypes.string,
-
-  /**
-   * Add an optional extra class name to .modal-content
-   */
-  contentClassName: PropTypes.string,
-
-  /**
-   * A Component type that provides the modal content Markup. This is a useful
-   * prop when you want to use your own styles and markup to create a custom
-   * modal component.
-   */
-  dialogAs: PropTypes.elementType,
-
-  /**
-   * When `true` The modal will automatically shift focus to itself when it
-   * opens, and replace it to the last focused element when it closes.
-   * Generally this should never be set to false as it makes the Modal less
-   * accessible to assistive technologies, like screen-readers.
-   */
-  autoFocus: PropTypes.bool,
-
-  /**
-   * When `true` The modal will prevent focus from leaving the Modal while
-   * open. Consider leaving the default value here, as it is necessary to make
-   * the Modal work well with assistive technologies, such as screen readers.
-   */
-  enforceFocus: PropTypes.bool,
-
-  /**
-   * When `true` The modal will restore focus to previously focused element once
-   * modal is hidden
-   */
-  restoreFocus: PropTypes.bool,
-
-  /**
-   * Options passed to focus function when `restoreFocus` is set to `true`
-   *
-   * @link  https://developer.mozilla.org/en-US/docs/Web/API/HTMLElement/focus#Parameters
-   */
-  restoreFocusOptions: PropTypes.shape({
-    preventScroll: PropTypes.bool,
-  }),
-
-  /**
-   * When `true` The modal will show itself.
-   */
-  show: PropTypes.bool,
-
-  /**
-   * A callback fired when the Modal is opening.
-   */
-  onShow: PropTypes.func,
-
-  /**
-   * A callback fired when the header closeButton or non-static backdrop is
-   * clicked. Required if either are specified.
-   */
-  onHide: PropTypes.func,
-
-  /**
-   * A callback fired when the escape key, if specified in `keyboard`, is pressed.
-   */
-  onEscapeKeyDown: PropTypes.func,
-
-  /**
-   * Callback fired before the Modal transitions in
-   */
-  onEnter: PropTypes.func,
-
-  /**
-   * Callback fired as the Modal begins to transition in
-   */
-  onEntering: PropTypes.func,
-
-  /**
-   * Callback fired after the Modal finishes transitioning in
-   */
-  onEntered: PropTypes.func,
-
-  /**
-   * Callback fired right before the Modal transitions out
-   */
-  onExit: PropTypes.func,
-
-  /**
-   * Callback fired as the Modal begins to transition out
-   */
-  onExiting: PropTypes.func,
-
-  /**
-   * Callback fired after the Modal finishes transitioning out
-   */
-  onExited: PropTypes.func,
-
-  /**
-   * A ModalManager instance used to track and manage the state of open
-   * Modals. Useful when customizing how modals interact within a container
-   */
-  manager: PropTypes.object,
-
-  /**
-   * @private
-   */
-  container: PropTypes.any,
-
-  'aria-labelledby': PropTypes.any,
-};
-
 const defaultProps = {
   show: false,
   backdrop: true,
@@ -229,13 +71,12 @@ const defaultProps = {
   dialogAs: ModalDialog,
 };
 
-//@ts-ignore
-function DialogTransition(props) {
+function DialogTransition(props: FadeProps) {
   return <Fade {...props} timeout={null} />;
 }
-//@ts-ignore
-function BackdropTransition(props) {
-  return <Fade {...props} timeout={null}/>;
+
+function BackdropTransition(props: FadeProps) {
+  return <Fade {...props} timeout={null} />;
 }
 
 /* eslint-enable no-use-before-define */
@@ -276,7 +117,7 @@ const Modal: BsPrefixRefForwardingComponent<'div', ModalProps> =
         manager: propsManager,
         ...props
       },
-      ref,
+      ref
     ) => {
       const [modalStyle, setStyle] = useState({});
       const [animateStaticModal, setAnimateStaticModal] = useState(false);
@@ -284,8 +125,11 @@ const Modal: BsPrefixRefForwardingComponent<'div', ModalProps> =
       const ignoreBackdropClickRef = useRef(false);
       const removeStaticModalAnimationRef = useRef<(() => void) | null>(null);
       const [modal, setModalRef] = useCallbackRef<ModalHandle>();
-    
-      const mergedRef = useMergedRefs<ModalHandle>(ref as React.MutableRefObject<ModalHandle>, setModalRef);
+
+      const mergedRef = useMergedRefs<ModalHandle>(
+        ref as React.MutableRefObject<ModalHandle>,
+        setModalRef
+      );
       const handleHide = useEventCallback(onHide);
       const isRTL = useIsRTL();
 
@@ -295,7 +139,7 @@ const Modal: BsPrefixRefForwardingComponent<'div', ModalProps> =
         () => ({
           onHide: handleHide,
         }),
-        [handleHide],
+        [handleHide]
       );
 
       function getModalManager() {
@@ -310,7 +154,8 @@ const Modal: BsPrefixRefForwardingComponent<'div', ModalProps> =
           getModalManager().getScrollbarWidth() > 0;
 
         const modalIsOverflowing =
-          node!.scrollHeight > ownerDocument(node as Element).documentElement.clientHeight;
+          node!.scrollHeight >
+          ownerDocument(node as Element).documentElement.clientHeight;
 
         setStyle({
           paddingRight:
@@ -359,11 +204,13 @@ const Modal: BsPrefixRefForwardingComponent<'div', ModalProps> =
           modal!.dialog as any,
           () => {
             setAnimateStaticModal(false);
-          },
+          }
         );
       };
 
-      const handleStaticBackdropClick = (e: React.MouseEvent<HTMLDivElement>) => {
+      const handleStaticBackdropClick = (
+        e: React.MouseEvent<HTMLDivElement>
+      ) => {
         if (e.target !== e.currentTarget) {
           return;
         }
@@ -427,11 +274,11 @@ const Modal: BsPrefixRefForwardingComponent<'div', ModalProps> =
             className={classNames(
               `${bsPrefix}-backdrop`,
               backdropClassName,
-              !animation && 'show',
+              !animation && 'show'
             )}
           />
         ),
-        [animation, backdropClassName, bsPrefix],
+        [animation, backdropClassName, bsPrefix]
       );
 
       const baseModalStyle = { ...style, ...modalStyle };
@@ -448,7 +295,7 @@ const Modal: BsPrefixRefForwardingComponent<'div', ModalProps> =
           className={classNames(
             className,
             bsPrefix,
-            animateStaticModal && `${bsPrefix}-static`,
+            animateStaticModal && `${bsPrefix}-static`
           )}
           onClick={backdrop ? handleClick : undefined}
           onMouseUp={handleMouseUp}
@@ -489,18 +336,25 @@ const Modal: BsPrefixRefForwardingComponent<'div', ModalProps> =
             onExiting={onExiting}
             onExited={handleExited}
             manager={getModalManager()}
-            transition={animation ? DialogTransition  : undefined}
-            backdropTransition={animation ? BackdropTransition  : undefined}
+            transition={
+              animation
+                ? (DialogTransition as ModalTransitionComponent)
+                : undefined
+            }
+            backdropTransition={
+              animation
+                ? (BackdropTransition as ModalTransitionComponent)
+                : undefined
+            }
             renderBackdrop={renderBackdrop}
             renderDialog={renderDialog}
           />
         </ModalContext.Provider>
       );
-    },
+    }
   );
 
 Modal.displayName = 'Modal';
-Modal.propTypes = propTypes;
 Modal.defaultProps = defaultProps;
 
 export default Object.assign(Modal, {

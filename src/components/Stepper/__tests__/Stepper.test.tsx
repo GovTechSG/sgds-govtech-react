@@ -127,40 +127,37 @@ describe('Stepper', () => {
     //outer div
     expect(container.tagName).toEqual('DIV');
     const $outerDiv = container.querySelectorAll('div')[0];
-    expect($outerDiv.classList).toContain('sgds-steps');
+    expect($outerDiv.classList).toContain('sgds');
     expect($outerDiv.classList).toContain('stepper');
 
     //3 child divs
     expect($outerDiv.children.length).toEqual(3);
     // 1st stepper
-    expect($outerDiv.children[0].classList).toContain('sgds-step-item');
-    expect($outerDiv.children[0].classList).toContain('stepper__item');
+    expect($outerDiv.children[0].classList).toContain('stepper-item');
     expect($outerDiv.children[0].classList).toContain('is-active');
     expect($outerDiv.children[0].classList).not.toContain('is-completed');
     expect($outerDiv.children[0].classList).not.toContain(
       'stepper__item--clickable'
     );
 
-    // 2nd stepper
-    expect($outerDiv.children[1].classList).toContain('sgds-step-item');
-    expect($outerDiv.children[1].classList).toContain('stepper__item');
+    // 2nd stepper 
+    expect($outerDiv.children[1].classList).toContain('stepper-item');
     expect($outerDiv.children[1].classList).not.toContain('is-active');
     expect($outerDiv.children[1].classList).not.toContain('is-completed');
     expect($outerDiv.children[1].classList).not.toContain(
-      'stepper__item--clickable'
+      'is-clickable'
     );
     // 3rd stepper
-    expect($outerDiv.children[2].classList).toContain('sgds-step-item');
-    expect($outerDiv.children[2].classList).toContain('stepper__item');
+    expect($outerDiv.children[2].classList).toContain('stepper-item');
     expect($outerDiv.children[2].classList).not.toContain('is-active');
     expect($outerDiv.children[2].classList).not.toContain('is-completed');
     expect($outerDiv.children[2].classList).not.toContain(
-      'stepper__item--clickable'
+      'is-clickable'
     );
 
     //step-marker and step details
-    expect(container.querySelectorAll('.sgds-step-marker').length).toEqual(3);
-    expect(container.querySelectorAll('.sgds-step-details').length).toEqual(3);
+    expect(container.querySelectorAll('.stepper-marker').length).toEqual(3);
+    expect(container.querySelectorAll('.stepper-detail').length).toEqual(3);
     expect(getByText('First Step')).toBeDefined();
     expect(getByText('1')).toBeDefined();
     expect(getByText('Second Step')).toBeDefined();
