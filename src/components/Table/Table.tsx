@@ -113,7 +113,7 @@ const Table = React.forwardRef<HTMLTableElement, TableProps>(
   },
 );
 
-// Table.displayName = 'Table';
+Table.displayName = 'Table';
 Table.propTypes = propTypes;
 
 export default Table;

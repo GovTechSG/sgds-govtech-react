@@ -5,21 +5,18 @@ import { Form, Button } from '../../src/components/index';
 <Meta
   title="MDX/Form"
   component={Form}
-  argTypes={{ 
-     validated: {
-      description: 'Mark a form as having been validated. Setting it to `true` will toggle any validation styles on the forms elements.',
+  argTypes={{
+    validated: {
+      description:
+        'Mark a form as having been validated. Setting it to `true` will toggle any validation styles on the forms elements.',
       table: {
         category: '<Form>',
         type: { summary: 'boolean' },
-        disable: true
+        disable: true,
       }, // not needed, enabling this will clash icon with default searchIcon
     },
-    onClick: { action: 'clicked' },
-    as: { table: { disable: true} },
-    searchIcon: {
-      description: 'A prop that allows toggling of searchIcon in `<FormControl>`'
-    },
-     }}
+    as: { table: { disable: true } },
+  }}
 />
 
 # Forms
@@ -28,6 +25,8 @@ Examples and usage guidelines for form control styles, layout options, and custo
 
 The `<Form.Control>` component renders a form control with Bootstrap styling. The `<Form.Group>` component wraps a form control with proper spacing,
 along with support for a label, help text, and validation state. To ensure accessibility, set controlId on `<FormGroup>`, and use `<FormLabel>` for the label.
+
+As our components are built on top of `React-Bootstrap` library, do check out the detailed `Form` API references <a href="https://react-bootstrap.github.io/forms/overview/" target="_blank">here</a>.
 
 ## 1. Basic Form
 
@@ -40,13 +39,16 @@ export const Template = (args) => {
     <Form onSubmit={onSubmit}>
       <Form.Group className="mb-3" controlId="formBasicEmail">
         <Form.Label>Email address</Form.Label>
-        <Form.Control htmlSize={5} type="email" placeholder="Enter email" searchIcon/>
         <Form.Text className="text-muted">
           We'll never share your email with anyone else.
         </Form.Text>
+        <Form.Control htmlSize={5} type="email" placeholder="Enter email" />
       </Form.Group>
       <Form.Group className="mb-3" controlId="formBasicPassword">
         <Form.Label>Password</Form.Label>
+        <Form.Text className="text-muted">
+          Password has to be a combination of alphanumeric.
+        </Form.Text>
         <Form.Control type="password" placeholder="Password" />
       </Form.Group>
       <Form.Group className="mb-3" controlId="formBasicCheckbox">
@@ -64,34 +66,28 @@ export const Template = (args) => {
 </Canvas>
 
 ```jsx
+import { Form, Button } from 'sgds-govtech-react';
+
 <Form onSubmit={onSubmit}>
-      <Form.Group className="mb-3" controlId="formBasicEmail">
-        <Form.Label>Email address</Form.Label>
-        <Form.Control htmlSize={5} type="email" placeholder="Enter email"/>
-        <Form.Text className="text-muted">
-          We'll never share your email with anyone else.
-        </Form.Text>
-      </Form.Group>
-      <Form.Group className="mb-3" controlId="formBasicPassword">
-        <Form.Label>Password</Form.Label>
-        <Form.Control type="password" placeholder="Password" />
-      </Form.Group>
-      <Form.Group className="mb-3" controlId="formBasicCheckbox">
-        <Form.Check type="checkbox" label="Check me out" />
-      </Form.Group>
-      <Button variant="primary" type="submit">
-        Submit
-      </Button>
-    </Form>
-````
-
-<ArgsTable story='Basic'/>
-
-The `<Form.Control>` component directly renders the `<input>` or other specified component. If you need to access the value of an uncontrolled `<Form.Control>`,
-attach a ref to it as you would with an uncontrolled input, then call `ReactDOM.findDOMNode(ref)` to get the DOM node. You can then interact with that node as you would with any other uncontrolled input.
-
-If your application contains a large number of form groups, we recommend building a higher-level component encapsulating a complete field group that renders the label, the control, and any other necessary components.
-We don't provide this out-of-the-box, because the composition of those field groups is too specific to an individual application to admit a good one-size-fits-all solution.
+  <Form.Group className="mb-3" controlId="formBasicEmail">
+    <Form.Label>Email address</Form.Label>
+    <Form.Control htmlSize={5} type="email" placeholder="Enter email" />
+    <Form.Text className="text-muted">
+      We'll never share your email with anyone else.
+    </Form.Text>
+  </Form.Group>
+  <Form.Group className="mb-3" controlId="formBasicPassword">
+    <Form.Label>Password</Form.Label>
+    <Form.Control type="password" placeholder="Password" />
+  </Form.Group>
+  <Form.Group className="mb-3" controlId="formBasicCheckbox">
+    <Form.Check type="checkbox" label="Check me out" />
+  </Form.Group>
+  <Button variant="primary" type="submit">
+    Submit
+  </Button>
+</Form>;
+```
 
 ## 2. Disabled forms
 
@@ -117,7 +113,15 @@ Add the `disabled` boolean attribute on an input to prevent user interactions an
   </Story>
 </Canvas>
 
-Add the `disabled` attribute to a `<fieldset>` to disable all the controls within.
+Browsers treat all native form controls (`<input>`, `<select>` and `<button>` elements) inside `<fieldset disabled>` as disabled, preventing both keyboard and mouse interactions on them.
+
+However, if your form also includes custom button-like elements such as `<a ... class="btn btn-*">`, these will only be given a style of `pointer-events: none`,
+meaning they are still focusable and operable using the keyboard. In this case, you must manually modify these controls by adding `tabindex="-1"` to prevent them
+from receiving focus and `aria-disabled="disabled"` to signal their state to assistive technologies.
+
+```jsx
+import { Form, Button } from 'sgds-govtech-react';
+
 <Canvas>
   <Story name="Disabled fieldset">
     <Form>
@@ -143,21 +147,116 @@ Add the `disabled` attribute to a `<fieldset>` to disable all the controls withi
       </fieldset>
     </Form>
   </Story>
-</Canvas>
+</Canvas>;
+```
 
+## 3. Form Text
 
-## 3. Search Icon Input
+Block-level help text in forms can be created using `<Form.Text>`. Inline help text can be flexibly implemented using any inline HTML element and utility classes like .text-muted.
 
-By default, `searchIcon` boolean attribute is set to `true` in input field. You may remove it by manually setting it to `false`.
+### **Associating help text with form controls**
+
+Help text should be explicitly associated with the form control it relates to using the `aria-describedby` attribute. This will ensure that assistive technologies—such as screen readers—will announce this help text when the user focuses or enters the control.
+Form text below inputs can be styled with `<Form.Text>`. This component includes `display: block` and adds some top margin for easy spacing from the inputs above.
+
+export const Template_Form_Text = (args) => {
+  return (
+    <>
+      <Form.Label htmlFor="inputPassword5">Password</Form.Label>
+      <Form.Text {...args} id="passwordHelpBlock" muted>
+        Your password must be 8-20 characters long, contain letters and numbers,
+        and must not contain spaces, special characters, or emoji.
+      </Form.Text>
+      <Form.Control
+        type="password"
+        id="inputPassword5"
+        aria-describedby="passwordHelpBlock"
+      />
+    </>
+  );
+};
 
 <Canvas>
-  <Story name="Input search icon">
+  <Story name="Form Text">{Template_Form_Text.bind({})}</Story>
+</Canvas>
+
+```jsx
+<>
+  <Form.Label htmlFor="inputPassword5">Password</Form.Label>
+  <Form.Text id="passwordHelpBlock" muted>
+    Your password must be 8-20 characters long, contain letters and numbers, and
+    must not contain spaces, special characters, or emoji.
+  </Form.Text>
+  <Form.Control
+    type="password"
+    id="inputPassword5"
+    aria-describedby="passwordHelpBlock"
+  />
+</>
+```
+
+## 4. Form Select
+
+Customize the native `<select>`s with custom CSS that changes the element’s initial appearance.
+
+export const Template_Form_Select = () => {
+  return (
+    <Form.Select aria-label="Default select example">
+      <option>Open this select menu</option>
+      <option value="1">One</option>
+      <option value="2">Two</option>
+      <option value="3">Three</option>
+    </Form.Select>
+  );
+};
+
+<Canvas>
+  <Story name="Form Select">{Template_Form_Select.bind({})}</Story>
+</Canvas>
+
+```jsx
+<Form.Select aria-label="Default select example">
+  <option>Open this select menu</option>
+  <option value="1">One</option>
+  <option value="2">Two</option>
+  <option value="3">Three</option>
+</Form.Select>
+```
+
+## 5. Form Select Sizing
+
+You may also choose from small and large custom selects to match our similarly sized text inputs.
+
+<Canvas>
+  <Story name="Sizing">
     <>
-      <Form.Group className="mb-3">
-        <Form.Label>Remove Search Icon</Form.Label>
-        <Form.Control placeholder="Remove search icon" searchIcon={false}/>
-      </Form.Group>
+      <Form.Select size="lg">
+        <option>Large select</option>
+      </Form.Select>
+      <br />
+      <Form.Select>
+        <option>Default select</option>
+      </Form.Select>
+      <br />
+      <Form.Select size="sm">
+        <option>Small select</option>
+      </Form.Select>
     </>
   </Story>
 </Canvas>
 
+```jsx
+<>
+  <Form.Select size="lg">
+    <option>Large select</option>
+  </Form.Select>
+
+  <Form.Select>
+    <option>Default select</option>
+  </Form.Select>
+
+  <Form.Select size="sm">
+    <option>Small select</option>
+  </Form.Select>
+</>
+```

@@ -1,0 +1,30 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`<Feedback> should render default error 1`] = `
+<DocumentFragment>
+  <div>
+    <input
+      class="form-control is-invalid"
+    />
+    <div
+      class="invalid-feedback"
+    >
+      Text
+    </div>
+  </div>
+</DocumentFragment>
+`;
+
+exports[`<Feedback> should render default success 1`] = `
+<DocumentFragment>
+  <div>
+    Test
+    <input
+      class="form-control is-valid"
+    />
+    <div
+      class="valid-feedback"
+    />
+  </div>
+</DocumentFragment>
+`;

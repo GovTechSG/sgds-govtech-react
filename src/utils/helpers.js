@@ -1,4 +1,5 @@
 export function shouldWarn(about) {
+  console.error.expected = []
   console.error.expected.push(about);
 }
 
