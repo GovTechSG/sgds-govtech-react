@@ -5,12 +5,26 @@ import Overlay from '../Overlay/Overlay';
 import OverlayTrigger from '../Overlay/OverlayTrigger';
 import TooltipBox from './TooltipBox';
 import CloseButton from '../CloseButton/CloseButton';
+import PropTypes from 'prop-types';
 
 export interface TooltipProps {
   placement: TooltipPlacement;
   type: 'hover' | 'click';
-  children: JSX.Element;
   content: string;
+  children: React.ReactNode;
+}
+const propTypes = {
+  placement : PropTypes.oneOf<TooltipPlacement>([
+    "top-start" ,
+     "bottom-start",
+     "top",
+     "bottom",
+     "left",
+     "right"
+  ]),
+  type: PropTypes.oneOf(["hover", "click"]),
+  content: PropTypes.string,
+  children : PropTypes.element,
 }
 const defaultProps: TooltipProps = {
   placement: 'top',
@@ -19,13 +33,13 @@ const defaultProps: TooltipProps = {
   content: '',
 };
 
-export const Tooltip = (props: TooltipProps = defaultProps): JSX.Element => {
-  const { type, placement, children, content } = props;
+export const Tooltip = (props = defaultProps): JSX.Element => {
+  const { type, placement, content, children } = props;
   const [show, setShow] = useState(false);
   const target = useRef(null);
   const clickToolTip = () => (
     <>
-      {React.cloneElement(children, {
+      {React.cloneElement(children as React.ReactElement, {
         onClick: () => setShow(!show),
         ref: target,
       })}
@@ -48,7 +62,7 @@ export const Tooltip = (props: TooltipProps = defaultProps): JSX.Element => {
       placement={placement}
       overlay={<TooltipBox>{content}</TooltipBox>}
     >
-      {React.cloneElement(children, {
+      {React.cloneElement(children as React.ReactElement, {
         onClick: () => setShow(!show),
         ref: target,
       })}
@@ -58,5 +72,5 @@ export const Tooltip = (props: TooltipProps = defaultProps): JSX.Element => {
 };
 
 Tooltip.defaultProps = defaultProps;
-
+Tooltip.propTypes = propTypes as any;
 export default Tooltip;

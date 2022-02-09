@@ -1,22 +1,50 @@
 import * as React from 'react';
-import FormCheck, { FormCheckProps } from '../Form/FormCheck';
+import FormCheck, { FormCheckType } from '../Form/FormCheck';
 import Card from './Card';
 import { CardProps } from '..';
-type CardFormCheckProps = Omit<
-  FormCheckProps,
-  | 'isValid'
-  | 'isInvalid'
-  | 'feedback'
-  | 'feedbackTooltip'
-  | 'feedbackType'
-  | 'inline'
-  | 'label'
-  | 'bsSwitchPrefix'
-> &
+import PropTypes from 'prop-types';
+
+type CardFormCheckProps = React.InputHTMLAttributes<HTMLInputElement> &
   Omit<CardProps, 'variant'>;
 
 export interface SelectableCardProps extends CardFormCheckProps {
+  disabled?: boolean;
+  type?: FormCheckType;
 }
+
+const propTypes = {
+  /**
+   * The type of checkable.
+   * @type {('radio' | 'checkbox' | 'switch')}
+   */
+  type: PropTypes.oneOf<FormCheckType>(['radio', 'checkbox', 'switch']),
+
+  /**
+   * Disables the control.
+   */
+  disabled: PropTypes.bool,
+
+  /**
+   * Sets card background
+   *
+   * @type {('primary'|'secondary'|'success'|'danger'|'warning'|'info'|'dark'|'light')}
+   */
+  bg: PropTypes.string,
+
+  /**
+   * Sets card text color
+   *
+   * @type {('primary'|'secondary'|'success'|'danger'|'warning'|'info'|'dark'|'light'|'white'|'muted')}
+   */
+  text: PropTypes.string,
+
+  /**
+   * Sets card border color
+   *
+   * @type {('primary'|'secondary'|'success'|'danger'|'warning'|'info'|'dark'|'light')}
+   */
+  border: PropTypes.string,
+};
 
 const defaultProps: Partial<SelectableCardProps> = {
   disabled: false,
@@ -36,13 +64,14 @@ const SelectableCard: React.FC<SelectableCardProps> = ({
   const handleSelect = () => {
     formCheckRef?.current?.click();
   };
+
   return (
     <Card
       ref={cardRef}
       onClick={handleSelect}
       tabIndex={0}
       variant="card-action"
-      className={props.checked ? 'is-active' : undefined}
+      className={formCheckRef.current?.checked && !props.disabled ? 'is-active' : undefined}
       {...cardProps}
     >
       <Card.Body>
@@ -59,5 +88,5 @@ const SelectableCard: React.FC<SelectableCardProps> = ({
 
 SelectableCard.displayName = 'SelectableCard';
 SelectableCard.defaultProps = defaultProps;
-
+SelectableCard.propTypes = propTypes as any;
 export default SelectableCard;

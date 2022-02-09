@@ -1,5 +1,6 @@
 import classNames from 'classnames';
 import * as React from 'react';
+import PropTypes from 'prop-types';
 
 import { useBootstrapPrefix } from '../ThemeProvider/ThemeProvider';
 import { BsPrefixProps, BsPrefixRefForwardingComponent } from '../helpers';
@@ -9,6 +10,22 @@ export interface CardImgProps
     React.ImgHTMLAttributes<HTMLImageElement> {
   variant?: 'top' | 'bottom';
 }
+const propTypes = {
+  /**
+   * @default 'card-img'
+   */
+  bsPrefix: PropTypes.string,
+
+  /**
+   * Defines image position inside
+   * the card.
+   *
+   * @type {('top'|'bottom')}
+   */
+  variant: PropTypes.oneOf(['top', 'bottom']),
+
+  as: PropTypes.elementType,
+};
 
 const CardImg: BsPrefixRefForwardingComponent<'img', CardImgProps> =
   React.forwardRef(
@@ -38,5 +55,6 @@ const CardImg: BsPrefixRefForwardingComponent<'img', CardImgProps> =
     },
   );
 CardImg.displayName = 'CardImg';
+CardImg.propTypes = propTypes;
 
 export default CardImg;
