@@ -1,0 +1,90 @@
+import { ArgsTable, Canvas, Meta, Story } from '@storybook/addon-docs';
+import { Toast } from '../../src/components/index';
+import { HIDDEN_COMMON_PROPS, VARIANT } from '../helpers';
+import { useState } from 'react';
+
+<Meta
+  title="MDX/Toast"
+  component={Toast}
+  argTypes={{
+    ...HIDDEN_COMMON_PROPS,
+    show: {
+      control: { disable: true },
+      description: 'When true, the toast will appear',
+    },
+    animation: {
+      description: 'When true, applies a CSS fade transition to the toast',
+    },
+    autohide: { description: 'When true, auto hides the toast after delay' },
+    delay: { description: 'The time (ms) before onClose() is triggered' },
+    onClose: {
+      description:
+        'Callback triggered once after delay. Use it to set `show` state to false to hide Toast',
+    },
+    transition: {
+      table: { defaultValue: { summary: `<ToastFade />` } },
+      description:
+        'A react-transition-group Transition component used to animate the Toast on dismissal.',
+    },
+    bg: {
+      description: 'Sets the background color of Toast. ',
+      options: VARIANT,
+      control: { type: 'select' },
+    },
+  }}
+/>
+
+export const Template = (args) => {
+  const [show, setShow] = useState(true);
+  return (
+    <Toast {...args} onClose={() => setShow(false)} show={show}>
+      <Toast.Header>
+        <i style={{ color: '#0A8217' }} className="bi bi-check-circle me-2"></i>
+        <strong className="me-auto">Title</strong>
+        <small>11 mins ago</small>
+      </Toast.Header>
+      <Toast.Body>This is a toast message.</Toast.Body>
+    </Toast>
+  );
+};
+
+# Toast
+
+Toast is a quick messaging notification that can be automatically dismiss after given amount of time
+
+<Canvas>
+  <Story name="Default Toast">{Template.bind({})}</Story>
+</Canvas>
+
+In the API table below, toggle autohide to true to see the `<Toast />` disappear in 5000 miliseconds
+
+## API
+
+<ArgsTable story="Default Toast" />
+
+## Auto-dismiss Toast
+
+To enable auto-dismis Toast, set `autohide` to true and define `onClose` callback to set `show` state to false 
+
+See code example
+
+<Canvas>
+  <Story name="Auto-dismiss">
+    {() => {
+      const [show, setShow] = useState(true);
+      return (
+        <Toast onClose={() => setShow(false)} show={show} autohide>
+          <Toast.Header>
+            <i
+              style={{ color: '#0A8217' }}
+              className="bi bi-check-circle me-2"
+            ></i>
+            <strong className="me-auto">Title</strong>
+            <small>11 mins ago</small>
+          </Toast.Header>
+          <Toast.Body>This is a toast message.</Toast.Body>
+        </Toast>
+      );
+    }}
+  </Story>
+</Canvas>

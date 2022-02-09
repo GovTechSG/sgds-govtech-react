@@ -8,7 +8,7 @@ import { TransitionComponent } from '@restart/ui/types';
 import ToastFade from './ToastFade';
 import ToastHeader from './ToastHeader';
 import ToastBody from './ToastBody';
-import { useBootstrapPrefix } from '../ThemeProvider/ThemeProvider';
+import { useBootstrapPrefix, SGDSWrapper } from '../ThemeProvider/ThemeProvider';
 import ToastContext from './ToastContext';
 import { BsPrefixProps, BsPrefixRefForwardingComponent } from '../helpers';
 import { Variant } from '../types';
@@ -122,7 +122,7 @@ const Toast: BsPrefixRefForwardingComponent<'div', ToastProps> =
       const hasAnimation = !!(Transition && animation);
 
       const toast = (
-        <div
+        <SGDSWrapper
           {...props}
           ref={ref}
           className={classNames(
