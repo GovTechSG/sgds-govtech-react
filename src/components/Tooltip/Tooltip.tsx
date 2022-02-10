@@ -10,7 +10,7 @@ import PropTypes from 'prop-types';
 export interface TooltipProps {
   placement: TooltipPlacement;
   type: 'hover' | 'click';
-  content: string;
+  content: string | JSX.Element;
   children: React.ReactNode;
 }
 const propTypes = {
@@ -23,7 +23,7 @@ const propTypes = {
      "right"
   ]),
   type: PropTypes.oneOf(["hover", "click"]),
-  content: PropTypes.string,
+  content: PropTypes.oneOfType([PropTypes.string, PropTypes.element]),
   children : PropTypes.element,
 }
 const defaultProps: TooltipProps = {
