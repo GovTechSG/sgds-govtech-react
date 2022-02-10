@@ -43,19 +43,11 @@ import { useState, useEffect } from 'react';
 
 export const Template = (args) => {
   const [show, setShow] = useState(true);
-  const [diff, setDiff] = useState(0);
-  useEffect(() => {
-    const interval = setInterval(() => {
-      setDiff(diff + 1);
-    }, 10000);
-    return () => clearInterval(interval);
-  }, [diff]);
   return (
     <Toast {...args} onClose={() => setShow(false)} show={show}>
       <Toast.Header>
         <i className="bi bi-check-circle me-2"></i>
         <strong className="me-auto">Title</strong>
-        <small>{diff} mins ago</small>
       </Toast.Header>
       <Toast.Body>This is a toast message.</Toast.Body>
     </Toast>
@@ -85,19 +77,11 @@ import { Toast } from '../../src/components/index';
 
 export const ToastTemplate = (args) => {
   const [show, setShow] = useState(true);
-  const [diff, setDiff] = useState(0);
-  useEffect(() => {
-    const interval = setInterval(() => {
-      setDiff(diff + 1);
-    }, 10000);
-    return () => clearInterval(interval);
-  }, [diff]);
   return (
     <Toast {...args} onClose={() => setShow(false)} show={show}>
       <Toast.Header>
         <i style={{ color: '#0A8217' }} className="bi bi-check-circle me-2"></i>
         <strong className="me-auto">Title</strong>
-        <small>{diff} mins ago</small>
       </Toast.Header>
       <Toast.Body>This is a toast message.</Toast.Body>
     </Toast>
@@ -121,7 +105,6 @@ See code example
             <Toast.Header>
               <i className="bi bi-check-circle me-2"></i>
               <strong className="me-auto">Title</strong>
-              <small>11 mins ago</small>
             </Toast.Header>
             <Toast.Body>This is a toast message.</Toast.Body>
           </Toast>
