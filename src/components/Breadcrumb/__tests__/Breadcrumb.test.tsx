@@ -40,9 +40,10 @@ describe('<Breadcrumb>', () => {
 
   it('Should have an aria-label in ol', () => {
     const { getByLabelText } = render(
-      <Breadcrumb className="custom-one custom-two" />,
+      <Breadcrumb />,
     );
     expect(getByLabelText('breadcrumb')).toBeDefined();
+    expect(getByLabelText('breadcrumb')).toHaveAttribute('aria-label', 'breadcrumb');
   });
 
   it('Should have nav as default component', () => {
@@ -50,4 +51,14 @@ describe('<Breadcrumb>', () => {
 
     expect(getByTestId('test').tagName.toLowerCase()).toEqual('nav');
   });
+  
+  it('should have added attribute in ol when listProps passed', () => {
+    const listProps = {
+      className: 'test',
+      foo: 'bar'
+    }
+    const { getByTestId } = render(<Breadcrumb listProps={listProps} data-testid="test" />);
+    expect(getByTestId('test').querySelector('ol')?.classList).toContain('test')
+    expect(getByTestId('test').querySelector('ol')).toHaveAttribute('foo', 'bar')  
+  })
 });
