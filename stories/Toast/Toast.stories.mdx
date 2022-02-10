@@ -1,0 +1,149 @@
+import { ArgsTable, Canvas, Meta, Story } from '@storybook/addon-docs';
+import { Toast, Button, ToastContainer } from '../../src/components/index';
+import { HIDDEN_COMMON_PROPS, VARIANT } from '../helpers';
+import { useState, useEffect } from 'react';
+
+<Meta
+  title="MDX/Toast"
+  component={Toast}
+  argTypes={{
+    ...HIDDEN_COMMON_PROPS,
+    show: {
+      control: { disable: true },
+      description: 'When true, the toast will appear',
+    },
+    animation: {
+      description: 'When true, applies a CSS fade transition to the toast',
+    },
+    autohide: { description: 'When true, auto hides the toast after delay' },
+    delay: { description: 'The time (ms) before onClose() is triggered' },
+    onClose: {
+      description:
+        'Callback triggered once after delay. Use it to set `show` state to false to hide Toast',
+    },
+    transition: {
+      table: { defaultValue: { summary: `<ToastFade />` } },
+      description:
+        'A react-transition-group Transition component used to animate the Toast on dismissal.',
+    },
+    bg: {
+      description: 'Sets the background color of Toast. ',
+      options: VARIANT,
+      control: { type: 'select' },
+    },
+    isSGDS: {
+      description: 'When set true, applies SGDS stylings',
+    },
+    status: {
+      description:
+        'Adds CSS styling to `<Toast />` based on the defined status',
+    },
+  }}
+/>
+
+export const Template = (args) => {
+  const [show, setShow] = useState(true);
+  return (
+    <Toast {...args} onClose={() => setShow(false)} show={show}>
+      <Toast.Header>
+        <i className="bi bi-check-circle me-2"></i>
+        <strong className="me-auto">Title</strong>
+      </Toast.Header>
+      <Toast.Body>This is a toast message.</Toast.Body>
+    </Toast>
+  );
+};
+
+# Toast
+
+`<Toast/>` is a quick messaging notification that can be automatically dismiss after given amount of time.
+
+It includes `<Toast.Header/>` ,` <Toast.Body/>`
+
+<Canvas>
+  <Story name="Default Toast">{Template.bind({})}</Story>
+</Canvas>
+
+## API
+
+<ArgsTable story="Default Toast" />
+
+For more details, refer to https://react-bootstrap.github.io/components/toasts/#toast-props
+
+#### Code Sample
+
+```jsx
+import { Toast } from '../../src/components/index';
+
+export const ToastTemplate = (args) => {
+  const [show, setShow] = useState(true);
+  return (
+    <Toast {...args} onClose={() => setShow(false)} show={show}>
+      <Toast.Header>
+        <i style={{ color: '#0A8217' }} className="bi bi-check-circle me-2"></i>
+        <strong className="me-auto">Title</strong>
+      </Toast.Header>
+      <Toast.Body>This is a toast message.</Toast.Body>
+    </Toast>
+  );
+};
+```
+
+## Auto-dismiss Toast
+
+To enable auto-dismiss Toast, set `autohide` to true and define `onClose` callback to set `show` state to false
+
+See code example
+
+<Canvas>
+  <Story name="Auto-dismiss">
+    {() => {
+      const [show, setShow] = useState(true);
+      return (
+        <>
+          <Toast onClose={() => setShow(false)} show={show} autohide>
+            <Toast.Header>
+              <i className="bi bi-check-circle me-2"></i>
+              <strong className="me-auto">Title</strong>
+            </Toast.Header>
+            <Toast.Body>This is a toast message.</Toast.Body>
+          </Toast>
+          {!show && <Button onClick={() => setShow(true)}>Show Toast</Button>}
+        </>
+      );
+    }}
+  </Story>
+</Canvas>
+
+# Styles
+
+## Bootstrap vs SGDS
+
+Default Toast uses SGDS Toast styling with not horizontal divider between Header and Body.
+
+To achieve Bootstrap's default Toast styling, toggle `isSGDS` prop to `false`
+
+<Canvas>
+  <Story name="SGDS Toast" args={{ isSGDS: true }}>
+    {Template.bind({})}
+  </Story>
+  <Story name="Bootstrap Toast" args={{ isSGDS: false }}>
+    {Template.bind({})}
+  </Story>
+</Canvas>
+
+## Success, Danger, Warning Toast
+
+Pass in `success`/ `danger`/ `warning ` value to prop `status` to achieve the respective styles
+
+<Canvas>
+  <Story name="Success Toast" args={{ status: 'success' }}>
+    {Template.bind({})}
+  </Story>
+  <Story name="Danger Toast" args={{ status: 'danger' }}>
+    {Template.bind({})}
+  </Story>
+  <Story name="Warning Toast" args={{ status: 'warning' }}>
+    {Template.bind({})}
+  </Story>
+</Canvas>

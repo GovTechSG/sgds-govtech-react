@@ -10,6 +10,7 @@ import CardImg from './CardImg';
 import CardHeader from './CardHeader';
 import { BsPrefixProps, BsPrefixRefForwardingComponent } from '../helpers';
 import { Color, Variant, CardVariant } from '../types';
+import PropTypes from 'prop-types';
 
 const DivStyledAsH6 = divWithClassName('h6');
 const CardBody = createWithBsPrefix('card-body');
@@ -36,6 +37,35 @@ export interface CardProps
   border?: Variant;
   variant?: CardVariant;
 }
+const propTypes = {
+  /**
+   * @default 'card'
+   */
+  bsPrefix: PropTypes.string,
+
+  /**
+   * Sets card background
+   *
+   * @type {('primary'|'secondary'|'success'|'danger'|'warning'|'info'|'dark'|'light')}
+   */
+  bg: PropTypes.string,
+
+  /**
+   * Sets card text color
+   *
+   * @type {('primary'|'secondary'|'success'|'danger'|'warning'|'info'|'dark'|'light'|'white'|'muted')}
+   */
+  text: PropTypes.string,
+
+  /**
+   * Sets card border color
+   *
+   * @type {('primary'|'secondary'|'success'|'danger'|'warning'|'info'|'dark'|'light')}
+   */
+  border: PropTypes.string,
+  as: PropTypes.elementType,
+  variant: PropTypes.oneOf<CardVariant>(['card-action' , 'card-action-quantity-toggle'])
+};
 
 
 export const Card: BsPrefixRefForwardingComponent<'div', CardProps> =
@@ -76,6 +106,7 @@ export const Card: BsPrefixRefForwardingComponent<'div', CardProps> =
   );
 
 Card.displayName = 'Card';
+Card.propTypes = propTypes;
 
 export default Object.assign(Card, {
   Img: CardImg,
