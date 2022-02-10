@@ -1,7 +1,7 @@
 import { ArgsTable, Canvas, Meta, Story } from '@storybook/addon-docs';
-import { Toast } from '../../src/components/index';
+import { Toast, Button, ToastContainer } from '../../src/components/index';
 import { HIDDEN_COMMON_PROPS, VARIANT } from '../helpers';
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 
 <Meta
   title="MDX/Toast"
@@ -31,17 +31,24 @@ import { useState } from 'react';
       options: VARIANT,
       control: { type: 'select' },
     },
+    isSGDS: {
+      description: 'When set true, applies SGDS stylings'
+    }
   }}
 />
 
 export const Template = (args) => {
   const [show, setShow] = useState(true);
+  const [diff, setDiff] = useState(0);
+  setInterval(() => {
+    setDiff(diff + 1);
+  }, 10000);
   return (
     <Toast {...args} onClose={() => setShow(false)} show={show}>
       <Toast.Header>
         <i style={{ color: '#0A8217' }} className="bi bi-check-circle me-2"></i>
         <strong className="me-auto">Title</strong>
-        <small>11 mins ago</small>
+        <small>{diff} mins ago</small>
       </Toast.Header>
       <Toast.Body>This is a toast message.</Toast.Body>
     </Toast>
@@ -50,21 +57,45 @@ export const Template = (args) => {
 
 # Toast
 
-Toast is a quick messaging notification that can be automatically dismiss after given amount of time
+`<Toast/>` is a quick messaging notification that can be automatically dismiss after given amount of time.
+
+It includes `<Toast.Header/>` ,` <Toast.Body/>`
 
 <Canvas>
   <Story name="Default Toast">{Template.bind({})}</Story>
 </Canvas>
 
-In the API table below, toggle autohide to true to see the `<Toast />` disappear in 5000 miliseconds
-
 ## API
 
 <ArgsTable story="Default Toast" />
 
+For more details, refer to https://react-bootstrap.github.io/components/toasts/#toast-props
+
+#### Code Sample
+```jsx
+import { Toast } from '../../src/components/index';
+
+export const ToastTemplate = (args) => {
+  const [show, setShow] = useState(true);
+  const [diff, setDiff] = useState(0);
+  setInterval(() => {
+    setDiff(diff + 1);
+  }, 10000);
+  return (
+    <Toast {...args} onClose={() => setShow(false)} show={show}>
+      <Toast.Header>
+        <i style={{ color: '#0A8217' }} className="bi bi-check-circle me-2"></i>
+        <strong className="me-auto">Title</strong>
+        <small>{diff} mins ago</small>
+      </Toast.Header>
+      <Toast.Body>This is a toast message.</Toast.Body>
+    </Toast>
+  );
+};
+```
 ## Auto-dismiss Toast
 
-To enable auto-dismis Toast, set `autohide` to true and define `onClose` callback to set `show` state to false 
+To enable auto-dismiss Toast, set `autohide` to true and define `onClose` callback to set `show` state to false
 
 See code example
 
@@ -73,18 +104,22 @@ See code example
     {() => {
       const [show, setShow] = useState(true);
       return (
-        <Toast onClose={() => setShow(false)} show={show} autohide>
-          <Toast.Header>
-            <i
-              style={{ color: '#0A8217' }}
-              className="bi bi-check-circle me-2"
-            ></i>
-            <strong className="me-auto">Title</strong>
-            <small>11 mins ago</small>
-          </Toast.Header>
-          <Toast.Body>This is a toast message.</Toast.Body>
-        </Toast>
+        <>
+          <Toast onClose={() => setShow(false)} show={show} autohide>
+            <Toast.Header>
+              <i
+                style={{ color: '#0A8217' }}
+                className="bi bi-check-circle me-2"
+              ></i>
+              <strong className="me-auto">Title</strong>
+              <small>11 mins ago</small>
+            </Toast.Header>
+            <Toast.Body>This is a toast message.</Toast.Body>
+          </Toast>
+          {!show && <Button onClick={() => setShow(true)}>Show Toast</Button>}
+        </>
       );
     }}
   </Story>
 </Canvas>
+

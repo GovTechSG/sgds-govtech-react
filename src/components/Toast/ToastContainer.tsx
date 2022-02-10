@@ -1,7 +1,7 @@
 import classNames from 'classnames';
 import PropTypes from 'prop-types';
 import * as React from 'react';
-import { useBootstrapPrefix } from '../ThemeProvider/ThemeProvider';
+import { useBootstrapPrefix, SGDSWrapper } from '../ThemeProvider/ThemeProvider';
 import { BsPrefixProps, BsPrefixRefForwardingComponent } from '../helpers';
 
 export type ToastPosition =
@@ -55,7 +55,7 @@ const positionClasses = {
   'bottom-end': 'bottom-0 end-0',
 };
 
-const ToastContainer: BsPrefixRefForwardingComponent<
+export const ToastContainer: BsPrefixRefForwardingComponent<
   'div',
   ToastContainerProps
 > = React.forwardRef<HTMLDivElement, ToastContainerProps>(
@@ -73,7 +73,7 @@ const ToastContainer: BsPrefixRefForwardingComponent<
     bsPrefix = useBootstrapPrefix(bsPrefix, 'toast-container');
 
     return (
-      <Component
+      <SGDSWrapper
         ref={ref}
         {...props}
         className={classNames(

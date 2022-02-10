@@ -32,6 +32,18 @@ describe('<Toast>', () => {
     expect(container.firstElementChild!.classList).toContain('toast')
   });
 
+  it('should have .sgds class by default ', () => {
+    const { container } = render(<Toast>Card</Toast>);
+    expect(container.firstElementChild!.classList).toContain('sgds')
+  })
+
+  it('isSGDS prop false should remove .sgds selector', () => {
+    const { container, rerender } = render(<Toast>Card</Toast>);
+    expect(container.firstElementChild!.classList).toContain('sgds')
+    rerender(<Toast isSGDS={false}>Card</Toast>)
+    expect(container.firstElementChild!.classList).not.toContain('sgds')
+
+  })
   it('should render an entire toast', () => {
     const { container } = render(
       <Toast>

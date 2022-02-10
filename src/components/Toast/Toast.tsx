@@ -8,7 +8,7 @@ import { TransitionComponent } from '@restart/ui/types';
 import ToastFade from './ToastFade';
 import ToastHeader from './ToastHeader';
 import ToastBody from './ToastBody';
-import { useBootstrapPrefix, SGDSWrapper } from '../ThemeProvider/ThemeProvider';
+import { useBootstrapPrefix } from '../ThemeProvider/ThemeProvider';
 import ToastContext from './ToastContext';
 import { BsPrefixProps, BsPrefixRefForwardingComponent } from '../helpers';
 import { Variant } from '../types';
@@ -23,6 +23,7 @@ export interface ToastProps
   show?: boolean;
   transition?: TransitionComponent;
   bg?: Variant;
+  isSGDS?: boolean;
 }
 
 const propTypes = {
@@ -67,6 +68,7 @@ const propTypes = {
    * @type {('primary'|'secondary'|'success'|'danger'|'warning'|'info'|'dark'|'light')}
    */
   bg: PropTypes.string,
+  isSGDS : PropTypes.bool
 };
 
 const Toast: BsPrefixRefForwardingComponent<'div', ToastProps> =
@@ -82,6 +84,7 @@ const Toast: BsPrefixRefForwardingComponent<'div', ToastProps> =
         autohide = false,
         onClose,
         bg,
+        isSGDS = true,
         ...props
       },
       ref,
@@ -122,7 +125,7 @@ const Toast: BsPrefixRefForwardingComponent<'div', ToastProps> =
       const hasAnimation = !!(Transition && animation);
 
       const toast = (
-        <SGDSWrapper
+        <div
           {...props}
           ref={ref}
           className={classNames(
@@ -130,6 +133,7 @@ const Toast: BsPrefixRefForwardingComponent<'div', ToastProps> =
             className,
             bg && `bg-${bg}`,
             !hasAnimation && (show ? 'show' : 'hide'),
+            isSGDS && 'sgds'
           )}
           role="alert"
           aria-live="assertive"
