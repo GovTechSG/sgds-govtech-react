@@ -33,6 +33,9 @@ import { useState, useEffect } from 'react';
     },
     isSGDS: {
       description: 'When set true, applies SGDS stylings'
+    },
+    status : {
+      description: 'Adds CSS styling to `<Toast />` based on the defined status'
     }
   }}
 />
@@ -123,3 +126,26 @@ See code example
   </Story>
 </Canvas>
 
+# Styles
+
+## Bootstrap vs SGDS 
+
+Default Toast uses SGDS Toast styling with not horizontal divider between Header and Body.
+
+To achieve Bootstrap's default Toast styling, toggle `isSGDS` prop to `false`
+
+<Canvas>
+  <Story name="SGDS Toast" args={{isSGDS: true}}>{Template.bind({})}</Story>
+  <Story name="Bootstrap Toast" args={{isSGDS: false}}>{Template.bind({})}</Story>
+</Canvas>
+
+## Success, Danger, Warning Toast
+
+Pass in `success`/ `danger`/ `warning ` value to prop `status` to achieve the respective styles 
+
+
+<Canvas>
+  <Story name="Success Toast" args={{status: 'success'}}>{Template.bind({})}</Story>
+  <Story name="Danger Toast" args={{status: 'danger'}}>{Template.bind({})}</Story>
+  <Story name="Warning Toast" args={{status: 'warning'}}>{Template.bind({})}</Story>
+</Canvas>

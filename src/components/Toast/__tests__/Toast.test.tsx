@@ -44,6 +44,21 @@ describe('<Toast>', () => {
     expect(container.firstElementChild!.classList).not.toContain('sgds')
 
   })
+  it('when status defined, should reflect in class', () => {
+    const { container, rerender } = render(<Toast>Card</Toast>);
+    expect(container.firstElementChild!.classList).not.toContain('danger')
+    expect(container.firstElementChild!.classList).not.toContain('sucess')
+    expect(container.firstElementChild!.classList).not.toContain('warning')
+    rerender(<Toast status="warning">Card</Toast>)
+    expect(container.firstElementChild!.classList).toContain('warning')
+
+    rerender(<Toast status="danger">Card</Toast>)
+    expect(container.firstElementChild!.classList).toContain('danger')
+    rerender(<Toast status="success">Card</Toast>)
+    expect(container.firstElementChild!.classList).toContain('success')
+
+
+  })
   it('should render an entire toast', () => {
     const { container } = render(
       <Toast>

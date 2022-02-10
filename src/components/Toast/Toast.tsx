@@ -24,6 +24,7 @@ export interface ToastProps
   transition?: TransitionComponent;
   bg?: Variant;
   isSGDS?: boolean;
+  status?: 'success' | 'warning' | 'danger'
 }
 
 const propTypes = {
@@ -68,7 +69,8 @@ const propTypes = {
    * @type {('primary'|'secondary'|'success'|'danger'|'warning'|'info'|'dark'|'light')}
    */
   bg: PropTypes.string,
-  isSGDS : PropTypes.bool
+  isSGDS : PropTypes.bool,
+  status: PropTypes.oneOf(['success' , 'warning' , 'danger'])
 };
 
 const Toast: BsPrefixRefForwardingComponent<'div', ToastProps> =
@@ -85,6 +87,7 @@ const Toast: BsPrefixRefForwardingComponent<'div', ToastProps> =
         onClose,
         bg,
         isSGDS = true,
+        status,
         ...props
       },
       ref,
@@ -133,7 +136,8 @@ const Toast: BsPrefixRefForwardingComponent<'div', ToastProps> =
             className,
             bg && `bg-${bg}`,
             !hasAnimation && (show ? 'show' : 'hide'),
-            isSGDS && 'sgds'
+            isSGDS && 'sgds',
+            status
           )}
           role="alert"
           aria-live="assertive"
