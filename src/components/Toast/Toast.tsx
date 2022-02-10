@@ -137,7 +137,7 @@ const Toast: BsPrefixRefForwardingComponent<'div', ToastProps> =
             bg && `bg-${bg}`,
             !hasAnimation && (show ? 'show' : 'hide'),
             isSGDS && 'sgds',
-            status
+            status && `is-${status}`
           )}
           role="alert"
           aria-live="assertive"

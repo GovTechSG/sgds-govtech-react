@@ -50,12 +50,12 @@ describe('<Toast>', () => {
     expect(container.firstElementChild!.classList).not.toContain('sucess')
     expect(container.firstElementChild!.classList).not.toContain('warning')
     rerender(<Toast status="warning">Card</Toast>)
-    expect(container.firstElementChild!.classList).toContain('warning')
+    expect(container.firstElementChild!.classList).toContain('is-warning')
 
     rerender(<Toast status="danger">Card</Toast>)
-    expect(container.firstElementChild!.classList).toContain('danger')
+    expect(container.firstElementChild!.classList).toContain('is-danger')
     rerender(<Toast status="success">Card</Toast>)
-    expect(container.firstElementChild!.classList).toContain('success')
+    expect(container.firstElementChild!.classList).toContain('is-success')
 
 
   })
