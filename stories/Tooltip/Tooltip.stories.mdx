@@ -23,7 +23,7 @@ import { HIDDEN_COMMON_PROPS } from '../helpers';
       description: 'Types of Tooltip include clickable and hoverable',
     },
     content: {
-      description: 'The text content to be displayed in the tooltip',
+      description: 'The content to be displayed in the tooltip',
     },
   }}
 />
@@ -51,7 +51,7 @@ The `Tooltip` component works as a wrapper around its target children element.
 
 <Canvas>
   <Story name="Default" args={{ content: 'This is a sample Tooltip' }}>
-    {defaultTooltip}
+    {defaultTooltip.bind({})}
   </Story>
 </Canvas>
 
@@ -111,7 +111,7 @@ The Tooltip can also be closed by clicking on the target element as well. Clicka
     name="Clickable"
     args={{ content: 'This is a sample Tooltip', type: 'click' }}
   >
-    {clickableTooltip}
+    {clickableTooltip.bind({})}
   </Story>
   <Story name="Clickable Components">
     <Tooltip content="This is a sample Tooltip" type="click">
@@ -125,11 +125,19 @@ The Tooltip can also be closed by clicking on the target element as well. Clicka
   </Story>
 </Canvas>
 
-## Tooltip with image content
-export const img = 
-    <img src="https://www.pngitem.com/pimgs/m/122-1228795_mr-poopybutthole-rick-and-morty-png-download-bill.png" width="100" height="100" />
+## Tooltip with `<img />`
+
+export const image = 
+    <img src="https://www.alliedpay.com/wp-content/uploads/2020/10/cvv-300x300.png" width="120" height="120" />
 
 <Canvas>
-  <Story name="Image content" args={{content: img}}>{defaultTooltip}</Story>
+  <Story name="Image content" args={{content: image}}>{defaultTooltip.bind({})}</Story>
 </Canvas>
 
+## Tooltip with `JSX.Element`
+
+export const jsx = (<div> <span>Enter your CVV</span> {image}</div>)
+
+<Canvas>
+  <Story name="JSX content" args={{content: jsx, type:"click"}}>{clickableTooltip.bind({})}</Story>
+</Canvas>
