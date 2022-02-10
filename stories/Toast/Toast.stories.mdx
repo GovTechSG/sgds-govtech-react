@@ -32,24 +32,28 @@ import { useState, useEffect } from 'react';
       control: { type: 'select' },
     },
     isSGDS: {
-      description: 'When set true, applies SGDS stylings'
+      description: 'When set true, applies SGDS stylings',
     },
-    status : {
-      description: 'Adds CSS styling to `<Toast />` based on the defined status'
-    }
+    status: {
+      description:
+        'Adds CSS styling to `<Toast />` based on the defined status',
+    },
   }}
 />
 
 export const Template = (args) => {
   const [show, setShow] = useState(true);
   const [diff, setDiff] = useState(0);
-  setInterval(() => {
-    setDiff(diff + 1);
-  }, 10000);
+  useEffect(() => {
+    const interval = setInterval(() => {
+      setDiff(diff + 1);
+    }, 10000);
+    return () => clearInterval(interval);
+  }, [diff]);
   return (
     <Toast {...args} onClose={() => setShow(false)} show={show}>
       <Toast.Header>
-        <i style={{ color: '#0A8217' }} className="bi bi-check-circle me-2"></i>
+        <i className="bi bi-check-circle me-2"></i>
         <strong className="me-auto">Title</strong>
         <small>{diff} mins ago</small>
       </Toast.Header>
@@ -75,15 +79,19 @@ It includes `<Toast.Header/>` ,` <Toast.Body/>`
 For more details, refer to https://react-bootstrap.github.io/components/toasts/#toast-props
 
 #### Code Sample
+
 ```jsx
 import { Toast } from '../../src/components/index';
 
 export const ToastTemplate = (args) => {
   const [show, setShow] = useState(true);
   const [diff, setDiff] = useState(0);
-  setInterval(() => {
-    setDiff(diff + 1);
-  }, 10000);
+  useEffect(() => {
+    const interval = setInterval(() => {
+      setDiff(diff + 1);
+    }, 10000);
+    return () => clearInterval(interval);
+  }, [diff]);
   return (
     <Toast {...args} onClose={() => setShow(false)} show={show}>
       <Toast.Header>
@@ -96,6 +104,7 @@ export const ToastTemplate = (args) => {
   );
 };
 ```
+
 ## Auto-dismiss Toast
 
 To enable auto-dismiss Toast, set `autohide` to true and define `onClose` callback to set `show` state to false
@@ -110,10 +119,7 @@ See code example
         <>
           <Toast onClose={() => setShow(false)} show={show} autohide>
             <Toast.Header>
-              <i
-                style={{ color: '#0A8217' }}
-                className="bi bi-check-circle me-2"
-              ></i>
+              <i className="bi bi-check-circle me-2"></i>
               <strong className="me-auto">Title</strong>
               <small>11 mins ago</small>
             </Toast.Header>
@@ -128,24 +134,33 @@ See code example
 
 # Styles
 
-## Bootstrap vs SGDS 
+## Bootstrap vs SGDS
 
 Default Toast uses SGDS Toast styling with not horizontal divider between Header and Body.
 
 To achieve Bootstrap's default Toast styling, toggle `isSGDS` prop to `false`
 
 <Canvas>
-  <Story name="SGDS Toast" args={{isSGDS: true}}>{Template.bind({})}</Story>
-  <Story name="Bootstrap Toast" args={{isSGDS: false}}>{Template.bind({})}</Story>
+  <Story name="SGDS Toast" args={{ isSGDS: true }}>
+    {Template.bind({})}
+  </Story>
+  <Story name="Bootstrap Toast" args={{ isSGDS: false }}>
+    {Template.bind({})}
+  </Story>
 </Canvas>
 
 ## Success, Danger, Warning Toast
 
-Pass in `success`/ `danger`/ `warning ` value to prop `status` to achieve the respective styles 
-
+Pass in `success`/ `danger`/ `warning ` value to prop `status` to achieve the respective styles
 
 <Canvas>
-  <Story name="Success Toast" args={{status: 'success'}}>{Template.bind({})}</Story>
-  <Story name="Danger Toast" args={{status: 'danger'}}>{Template.bind({})}</Story>
-  <Story name="Warning Toast" args={{status: 'warning'}}>{Template.bind({})}</Story>
+  <Story name="Success Toast" args={{ status: 'success' }}>
+    {Template.bind({})}
+  </Story>
+  <Story name="Danger Toast" args={{ status: 'danger' }}>
+    {Template.bind({})}
+  </Story>
+  <Story name="Warning Toast" args={{ status: 'warning' }}>
+    {Template.bind({})}
+  </Story>
 </Canvas>
