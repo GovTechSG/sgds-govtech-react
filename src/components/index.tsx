@@ -21,11 +21,11 @@ export type { AlertProps } from './Alert/Alert';
 // export { default as Badge } from './Badge';
 // export type { BadgeProps } from './Badge';
 
-// export { default as Breadcrumb } from './Breadcrumb';
-// export type { BreadcrumbProps } from './Breadcrumb';
+export { default as Breadcrumb } from './Breadcrumb/Breadcrumb';
+export type { BreadcrumbProps } from './Breadcrumb/Breadcrumb';
 
-// export { default as BreadcrumbItem } from './BreadcrumbItem';
-// export type { BreadcrumbItemProps } from './BreadcrumbItem';
+export { default as BreadcrumbItem } from './Breadcrumb/BreadcrumbItem';
+export type { BreadcrumbItemProps } from './Breadcrumb/BreadcrumbItem';
 
 export { default as Button } from './Button/Button';
 export type { ButtonProps } from './Button/Button';

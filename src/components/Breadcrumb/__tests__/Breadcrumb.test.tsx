@@ -4,6 +4,10 @@ import * as React from 'react';
 import Breadcrumb from '../Breadcrumb';
 
 describe('<Breadcrumb>', () => {
+  it('Should have sgds selector', () => {
+    const { container } = render(<Breadcrumb />);
+    expect(container.querySelector('nav')?.classList).toContain('sgds')
+  })
   it('Should apply id to the wrapper ol element', () => {
     const { container } = render(<Breadcrumb id="custom-id" />);
 

@@ -2,14 +2,17 @@ import classNames from 'classnames';
 import * as React from 'react';
 import PropTypes from 'prop-types';
 
-import { useBootstrapPrefix } from '../ThemeProvider/ThemeProvider';
+import {
+  useBootstrapPrefix,
+  SGDSWrapper,
+} from '../ThemeProvider/ThemeProvider';
 import BreadcrumbItem from './BreadcrumbItem';
 import { BsPrefixProps, BsPrefixRefForwardingComponent } from '../helpers';
 
 export interface BreadcrumbProps
   extends BsPrefixProps,
     React.HTMLAttributes<HTMLElement> {
-  label?: string;
+  ariaLabel?: string;
   listProps?: React.OlHTMLAttributes<HTMLOListElement>;
 }
 
@@ -23,7 +26,7 @@ const propTypes = {
    * ARIA label for the nav element
    * https://www.w3.org/TR/wai-aria-practices/#breadcrumb
    */
-  label: PropTypes.string,
+  ariaLabel: PropTypes.string,
 
   /**
    * Additional props passed as-is to the underlying `<ol>` element
@@ -34,11 +37,11 @@ const propTypes = {
 };
 
 const defaultProps = {
-  label: 'breadcrumb',
+  ariaLabel: 'breadcrumb',
   listProps: {},
 };
 
-const Breadcrumb: BsPrefixRefForwardingComponent<'nav', BreadcrumbProps> =
+export const Breadcrumb: BsPrefixRefForwardingComponent<'nav', BreadcrumbProps> =
   React.forwardRef<HTMLElement, BreadcrumbProps>(
     (
       {
@@ -46,18 +49,19 @@ const Breadcrumb: BsPrefixRefForwardingComponent<'nav', BreadcrumbProps> =
         className,
         listProps,
         children,
-        label,
+        ariaLabel,
         // Need to define the default "as" during prop destructuring to be compatible with styled-components github.com/react-bootstrap/react-bootstrap/issues/3595
-        as: Component = 'nav',
+        as = 'nav',
         ...props
       },
-      ref,
+      ref
     ) => {
       const prefix = useBootstrapPrefix(bsPrefix, 'breadcrumb');
 
       return (
-        <Component
-          aria-label={label}
+        <SGDSWrapper
+          as={as}
+          aria-label={ariaLabel}
           className={className}
           ref={ref}
           {...props}
@@ -68,9 +72,9 @@ const Breadcrumb: BsPrefixRefForwardingComponent<'nav', BreadcrumbProps> =
           >
             {children}
           </ol>
-        </Component>
+        </SGDSWrapper>
       );
-    },
+    }
   );
 
 Breadcrumb.displayName = 'Breadcrumb';

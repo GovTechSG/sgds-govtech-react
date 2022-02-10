@@ -1,0 +1,72 @@
+import { ArgsTable, Canvas, Meta, Story } from '@storybook/addon-docs';
+import { useState, useRef } from 'react';
+import { Breadcrumb } from '../../src/components/index';
+import { HIDDEN_COMMON_PROPS } from '../helpers';
+
+<Meta
+  title="MDX/Breadcrumb"
+  component={Breadcrumb}
+  argTypes={{
+    ...HIDDEN_COMMON_PROPS,
+    ariaLabel: { description: 'ARIA label for the nav element' },
+    listProps: {
+      description:
+        'An object which keys and value are passed down to `<ol />` as attribute name and value respectively.',
+    },
+  }}
+/>
+
+export const Template = (args) => {
+  return (
+    <Breadcrumb {...args}>
+      <Breadcrumb.Item href="https://www.designsystem.tech.gov.sg/">Home</Breadcrumb.Item>
+      <Breadcrumb.Item href="https://github.com/GovTechSG/sgds-govtech-react/">
+        Library
+      </Breadcrumb.Item>
+      <Breadcrumb.Item active>Data</Breadcrumb.Item>
+    </Breadcrumb>
+  );
+};
+
+# Breadcrumb
+
+`Breadcrumb` is built with `<nav />` as the highest order parent, with an `<ol/>` and accepts children `<Breadcrumb.Item>`
+
+<Canvas>
+  <Story name="Default">{Template.bind({})}</Story>
+</Canvas>
+
+## API
+
+<ArgsTable story="Default" />
+
+Please refer to https://react-bootstrap.github.io/components/breadcrumb/ for more detailed API documentation 
+
+## listProps
+
+Pass down attributes or css selectors via listProps object to `<ol />` of Breadcrumb.
+
+Use `className` key to pass down css selectors.
+
+```jsx
+const listProps = {
+  className: 'bg-warning',
+  disabled: true,
+};
+```
+export const listProps = {
+  className: 'bg-warning',
+  foo: 'bar',
+};
+
+<Canvas>
+  <Story name="linkProps" args={{ listProps }}>
+    {Template.bind({})}
+  </Story>
+</Canvas>
+
+
+## Active `<Breadcrumb.Item />`
+
+An `active` Breadcrumb Item is a `<span />`  instead of an `<a />`. It should not have `href`
+ Do not set both active and href attributes. `active` overrides `href` and span element is rendered instead of a .

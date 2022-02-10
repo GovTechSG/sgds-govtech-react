@@ -55,7 +55,7 @@ const defaultProps = {
   linkProps: {},
 };
 
-const BreadcrumbItem: BsPrefixRefForwardingComponent<
+export const BreadcrumbItem: BsPrefixRefForwardingComponent<
   'li',
   BreadcrumbItemProps
 > = React.forwardRef<HTMLElement, BreadcrumbItemProps>(
