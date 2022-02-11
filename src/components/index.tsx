@@ -169,8 +169,8 @@ export type { PaginationsProps } from './Paginations/Paginations';
 
 // export { default as PopoverHeader } from './PopoverHeader';
 // export { default as PopoverBody } from './PopoverBody';
-// export { default as ProgressBar } from './ProgressBar';
-// export type { ProgressBarProps } from './ProgressBar';
+export { default as ProgressBar } from './ProgressBar/ProgressBar';
+export type { ProgressBarProps } from './ProgressBar/ProgressBar';
 
 export {default as QuantityToggle} from './QuantityToggle/QuantityToggle'
 export type { QuantityToggleProps } from './QuantityToggle/QuantityToggle'
