@@ -61,12 +61,12 @@ export const Template = (args) => {
 It includes `<Toast.Header/>` ,` <Toast.Body/>`
 
 <Canvas>
-  <Story name="Default Toast">{Template.bind({})}</Story>
+  <Story name="Default">{Template.bind({})}</Story>
 </Canvas>
 
 ## API
 
-<ArgsTable story="Default Toast" />
+<ArgsTable story="Default" />
 
 For more details, refer to https://react-bootstrap.github.io/components/toasts/#toast-props
 
@@ -137,13 +137,13 @@ To achieve Bootstrap's default Toast styling, toggle `isSGDS` prop to `false`
 Pass in `success`/ `danger`/ `warning ` value to prop `status` to achieve the respective styles
 
 <Canvas>
-  <Story name="Success Toast" args={{ status: 'success' }}>
+  <Story name="Success" args={{ status: 'success' }}>
     {Template.bind({})}
   </Story>
-  <Story name="Danger Toast" args={{ status: 'danger' }}>
+  <Story name="Danger" args={{ status: 'danger' }}>
     {Template.bind({})}
   </Story>
-  <Story name="Warning Toast" args={{ status: 'warning' }}>
+  <Story name="Warning" args={{ status: 'warning' }}>
     {Template.bind({})}
   </Story>
 </Canvas>
