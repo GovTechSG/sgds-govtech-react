@@ -57,8 +57,8 @@ export type { CloseButtonProps } from './CloseButton/CloseButton';
 export { default as Col } from './Col';
 export type { ColProps } from './Col';
 
-export { default as Collapse } from './Collapse';
-export type { CollapseProps } from './Collapse';
+export { default as Collapse } from './Collapse/Collapse';
+export type { CollapseProps } from './Collapse/Collapse';
 
 export { default as Dropdown } from './Dropdown/Dropdown';
 export type { DropdownProps } from './Dropdown/Dropdown';
