@@ -15,10 +15,9 @@ describe('<CloseButton>', () => {
     );
   });
 
-  it('Should have class .btn-close and .btn', () => {
+  it('Should have class .btn-close', () => {
     const wrapper = mount(<CloseButton />);
     expect(wrapper.find('.btn-close')).toBeDefined();
-    expect(wrapper.find('.btn')).toBeDefined();
   });
 
   it('Should call onClick callback', (done) => {

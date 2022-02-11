@@ -1,7 +1,31 @@
 import React from 'react';
-import { UseStepMethods, WrappedStepMetadata } from './useStep';
+import {
+  UseStepMethods,
+  WrappedStepMetadata,
+  WrappedStepsMetadata,
+} from './useStep';
 import { SGDSWrapper } from '../ThemeProvider/ThemeProvider';
-function Stepper({ methods }: { methods: UseStepMethods }) {
+import PropTypes from 'prop-types';
+
+interface StepperProps {
+  methods: UseStepMethods;
+}
+
+const propTypes = {
+  methods: PropTypes.shape({
+    state: PropTypes.shape({ currentStep: PropTypes.number }),
+    stepsMetadata: PropTypes.instanceOf(WrappedStepsMetadata),
+    nextStep: PropTypes.func,
+    prevStep: PropTypes.func,
+    setStep: PropTypes.func,
+    getTitle: PropTypes.func,
+    getComponent: PropTypes.func,
+    getNextButtonTitle: PropTypes.func,
+    getBackButtonTitle: PropTypes.func,
+    reset: PropTypes.func,
+  }).isRequired,
+};
+const Stepper: React.FC<StepperProps> = ({ methods }) => {
   const { state, stepsMetadata, setStep } = methods;
   const getClass = (stepMetadata: WrappedStepMetadata) => {
     if (stepMetadata.step < state.currentStep) {
@@ -39,8 +63,9 @@ function Stepper({ methods }: { methods: UseStepMethods }) {
       ))}
     </SGDSWrapper>
   );
-}
+};
 
 Stepper.displayName = 'Stepper';
+Stepper.propTypes = propTypes as any;
 
 export default Stepper;

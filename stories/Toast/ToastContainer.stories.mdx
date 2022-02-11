@@ -1,0 +1,54 @@
+import { ArgsTable, Canvas, Meta, Story } from '@storybook/addon-docs';
+import { Toast, Button, ToastContainer } from '../../src/components/index';
+import { HIDDEN_COMMON_PROPS, VARIANT } from '../helpers';
+import { useState, useEffect } from 'react';
+
+
+<Meta
+  title="MDX/Toast/ToastContainer"
+  component={ToastContainer}
+  argTypes={{
+    ...HIDDEN_COMMON_PROPS,
+    position: {description : 'Position of toasts placed within the container.'}
+  }}
+/>
+
+# ToastContainer
+
+`<ToastContainer />`  is a wrapper for multiple `<Toast />` components. Defaults to stacking them vertically
+
+Change `position` to position the Toasts within the container
+
+export const ToastContainerTemplate = (args) => {
+  return (
+    <ToastContainer {...args}>
+      <Toast>
+        <Toast.Header>
+          <img src="holder.js/20x20?text=%20" className="rounded me-2" alt="" />
+          <strong className="me-auto">Bootstrap</strong>
+          <small className="text-muted">just now</small>
+        </Toast.Header>
+        <Toast.Body>See? Just like this.</Toast.Body>
+      </Toast>
+      <Toast>
+        <Toast.Header>
+          <img src="holder.js/20x20?text=%20" className="rounded me-2" alt="" />
+          <strong className="me-auto">Bootstrap</strong>
+          <small className="text-muted">2 seconds ago</small>
+        </Toast.Header>
+        <Toast.Body>Heads up, toasts will stack automatically</Toast.Body>
+      </Toast>
+    </ToastContainer>
+  );
+};
+
+
+<Canvas>
+  <Story  height="500px" name="ToastContainer">{ToastContainerTemplate.bind({})}</Story>
+</Canvas>
+
+## API
+
+<ArgsTable story="ToastContainer" />
+
+For more details, refer to https://react-bootstrap.github.io/components/toasts/#toast-container-props
