@@ -9,7 +9,7 @@ import * as React from 'react';
  *
  */
 function map<P = any>(
-  children,
+  children: React.ReactChild | React.ReactFragment | React.ReactPortal,
   func: (el: React.ReactElement<P>, index: number) => any,
 ) {
   let index = 0;
@@ -26,7 +26,7 @@ function map<P = any>(
  * leaf child with the index reflecting the position relative to "valid components".
  */
 function forEach<P = any>(
-  children,
+  children: React.ReactChild | React.ReactFragment | React.ReactPortal,
   func: (el: React.ReactElement<P>, index: number) => void,
 ) {
   let index = 0;

@@ -1,0 +1,104 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`<ProgressBar> Should have screen reader only label 1`] = `
+<DocumentFragment>
+  <div
+    class="progress sgds"
+    data-testid="test"
+  >
+    <div
+      aria-valuemax="10"
+      aria-valuemin="0"
+      aria-valuenow="5"
+      class="progress-bar bg-success"
+      role="progressbar"
+      style="width: 50%;"
+    >
+      <span
+        class="visually-hidden"
+      >
+        progress bar label
+      </span>
+    </div>
+  </div>
+</DocumentFragment>
+`;
+
+exports[`<ProgressBar> Should have screen reader only label that wraps a React component 1`] = `
+<DocumentFragment>
+  <div
+    class="progress sgds"
+    data-testid="test"
+  >
+    <div
+      aria-valuemax="10"
+      aria-valuemin="0"
+      aria-valuenow="5"
+      class="progress-bar"
+      role="progressbar"
+      style="width: 50%;"
+    >
+      <span
+        class="visually-hidden"
+      >
+        <strong
+          class="special-label"
+        >
+          My label
+        </strong>
+      </span>
+    </div>
+  </div>
+</DocumentFragment>
+`;
+
+exports[`<ProgressBar> Should render animated and striped children in stacked bar too 1`] = `
+<DocumentFragment>
+  <div
+    class="progress sgds"
+    data-testid="test"
+  >
+    <div
+      aria-valuemax="100"
+      aria-valuemin="0"
+      aria-valuenow="50"
+      class="progress-bar progress-bar-animated progress-bar-striped"
+      role="progressbar"
+      style="width: 50%;"
+    />
+    <div
+      aria-valuemax="100"
+      aria-valuemin="0"
+      aria-valuenow="30"
+      class="progress-bar progress-bar-striped"
+      role="progressbar"
+      style="width: 30%;"
+    />
+  </div>
+</DocumentFragment>
+`;
+
+exports[`<ProgressBar> allows only ProgressBar in children 1`] = `
+<DocumentFragment>
+  <div
+    class="progress sgds"
+  >
+    <div
+      aria-valuemax="100"
+      aria-valuemin="0"
+      class="progress-bar"
+      role="progressbar"
+    />
+    foo
+    <div>
+      asdf
+    </div>
+    <div
+      aria-valuemax="100"
+      aria-valuemin="0"
+      class="progress-bar"
+      role="progressbar"
+    />
+  </div>
+</DocumentFragment>
+`;
