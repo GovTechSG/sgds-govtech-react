@@ -3,7 +3,7 @@
 exports[`<ProgressBar> Should have screen reader only label 1`] = `
 <DocumentFragment>
   <div
-    class="progress"
+    class="progress sgds"
     data-testid="test"
   >
     <div
@@ -27,7 +27,7 @@ exports[`<ProgressBar> Should have screen reader only label 1`] = `
 exports[`<ProgressBar> Should have screen reader only label that wraps a React component 1`] = `
 <DocumentFragment>
   <div
-    class="progress"
+    class="progress sgds"
     data-testid="test"
   >
     <div
@@ -55,7 +55,7 @@ exports[`<ProgressBar> Should have screen reader only label that wraps a React c
 exports[`<ProgressBar> Should render animated and striped children in stacked bar too 1`] = `
 <DocumentFragment>
   <div
-    class="progress"
+    class="progress sgds"
     data-testid="test"
   >
     <div
@@ -81,7 +81,7 @@ exports[`<ProgressBar> Should render animated and striped children in stacked ba
 exports[`<ProgressBar> allows only ProgressBar in children 1`] = `
 <DocumentFragment>
   <div
-    class="progress"
+    class="progress sgds"
   >
     <div
       aria-valuemax="100"

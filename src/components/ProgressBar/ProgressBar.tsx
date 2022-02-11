@@ -3,7 +3,7 @@ import * as React from 'react';
 import { cloneElement } from 'react';
 import PropTypes from 'prop-types';
 
-import { useBootstrapPrefix } from '../ThemeProvider/ThemeProvider';
+import { useBootstrapPrefix, SGDSWrapper } from '../ThemeProvider/ThemeProvider';
 
 import { map } from '../ElementChildren';
 import { BsPrefixProps } from '../helpers';
@@ -205,7 +205,7 @@ const ProgressBar = React.forwardRef<HTMLDivElement, ProgressBarProps>(
     } = props;
 
     return (
-      <div
+      <SGDSWrapper
         ref={ref}
         {...wrapperProps}
         className={classNames(className, bsPrefix)}
@@ -226,7 +226,7 @@ const ProgressBar = React.forwardRef<HTMLDivElement, ProgressBarProps>(
               },
               ref,
             )}
-      </div>
+      </SGDSWrapper>
     );
   },
 );
