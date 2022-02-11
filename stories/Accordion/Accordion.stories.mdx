@@ -7,7 +7,7 @@ import { Accordion } from '../../src/components/index';
   component={Accordion}
   argTypes={{
     defaultActiveKey: {
-      description: 'The default active key that is expanded on start',
+      description: 'The default active key that sets an accordion item to be expanded on start, value should correspond to assigned `eventKey` prop.',
       table: {
         category: '<Accordion>',
         type: { summary: 'string' },
@@ -26,8 +26,9 @@ import { Accordion } from '../../src/components/index';
       table: {
         category: '<Accordion>',
         type: { summary: 'elementType' },
+        defaultValue: { summary: `'div'` },
       },
-      control: { disable: true },
+      control: { disable: true}
     },
     bsPrefix: { table: { disable: true } },
     eventKey: {
@@ -44,6 +45,7 @@ import { Accordion } from '../../src/components/index';
       table: {
         category: '<Accordion>',
         type: { summary: 'boolean' },
+        defaultValue: { summary: 'false' },
       },
     },
     onClick: {
@@ -56,6 +58,8 @@ import { Accordion } from '../../src/components/index';
 # Accordion
 
 Build vertically collapsing accordions in combination with the Collapse component.
+
+As our components are built on top of `React-Bootstrap` library, do check out the detailed `Accordion` API references <a href="https://react-bootstrap.github.io/components/accordion/" target="_blank">here</a>.
 
 ## 1. Basic Accordion
 
@@ -102,7 +106,7 @@ export const Template = (args) => (
 <ArgsTable story="Basic" />
 
 ```jsx
-import { Accordion } from 'sgds-react';
+import { Accordion } from 'sgds-govtech-react';
 
 
     <Accordion defaultActiveKey="0">
@@ -145,7 +149,7 @@ If you want your `Accordion` to start in a fully-collapsed state, then simply do
 <ArgsTable story="Fully Collapsed State" />
 
 ```jsx
-import { Accordion } from 'sgds-react';
+import { Accordion } from 'sgds-govtech-react';
 
     <Accordion>
       <Accordion.Item eventKey="0">
@@ -189,7 +193,7 @@ Add `flush` to remove the default background-color, some borders, and some round
 <ArgsTable story="Flush" />
 
 ```jsx
-import { Accordion } from 'sgds-react';
+import { Accordion } from 'sgds-govtech-react';
 
     <Accordion flush>
       <Accordion.Item eventKey="0">
