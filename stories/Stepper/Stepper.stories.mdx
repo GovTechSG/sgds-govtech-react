@@ -9,7 +9,7 @@ import {
 } from '../../src/components/index';
 import { useState } from 'react';
 
-<Meta title="MDX/Stepper" component={Stepper} />
+<Meta title="Components/Stepper" component={Stepper} />
 
 export const DefaultStepperTemplate = () => {
   const stepMethods = useStep([
@@ -297,7 +297,7 @@ import { useStep } from 'sgds-govtech-react';
 ### 2. `StepMetadata`
 
 `useStep` hook takes in an array of objects of type `StepMetadata`. Each `StepMetadata` controls each step of the Stepper in ascending order of its index position in the array.
-See [API](/docs/mdx-stepper--example#api) for `StepMetadata`
+See [API](/docs/Components-stepper--example#api) for `StepMetadata`
 
 - `component` controls the content to be rendered in each stage of the stepper. `component` can be a React component, HTML element, string etc.
 
@@ -423,7 +423,7 @@ const ExampleStepper = () => {
 
 - `getComponent` renders the specified components for each step.
 
-  Refer to [API](/docs/mdx-stepper--example#api) for more details on each method
+  Refer to [API](/docs/Components-stepper--example#api) for more details on each method
 
 ```jsx
 ...
@@ -500,8 +500,8 @@ const ExampleStepper = () => {
 
 | Property             | Type                                                | Description                                                                                                                                          |
 | -------------------- | --------------------------------------------------- | ---------------------------------------------------------------------------------------------------------------------------------------------------- |
-| `state`              | `StepperState`                                      | Returns the current state of Stepper. See [StepperState](/docs/mdx-stepper--example#stepperstate)                                                    |
-| `stepsMetadata`      | `WrappedStepsMetadata`                              | Returns class `WrappedStepsMetadata` with its methods. See [WrappedStepsMetadata](/docs/mdx-stepper--example#wrappedstepsmetadata-class)             |
+| `state`              | `StepperState`                                      | Returns the current state of Stepper. See [StepperState](/docs/Components-stepper--example#stepperstate)                                                    |
+| `stepsMetadata`      | `WrappedStepsMetadata`                              | Returns class `WrappedStepsMetadata` with its methods. See [WrappedStepsMetadata](/docs/Components-stepper--example#wrappedstepsmetadata-class)             |
 | `nextStep`           | `Function` <br /> `() => Promise<void>`             | The method to invoke when user proceeds to next step of Stepper. It performs the side-effects if specified in `onNextStep` of `StepMetadata`         |
 | `prevStep`           | `Function` <br /> `() => Promise<void>`             | The method to invoke when user proceeds to previous step of Stepper. It performs the side-effects if specified in `onPreviousStep` of `StepMetadata` |
 | `setStep`            | `Function` <br /> `(step: number) => Promise<void>` | When invoked, it changes the `currentStep` state of `StepperState` and jumps Stepper to the step number as specified in the parameter                |

@@ -3,7 +3,7 @@ import { ArgsTable, Canvas, Meta, Story } from '@storybook/addon-docs';
 import { Alert, Button } from '../../src/components/index';
 
 <Meta
-  title="MDX/Alert"
+  title="Components/Alert"
   component={Alert}
   parameters={{
     actions: {
@@ -18,9 +18,7 @@ import { Alert, Button } from '../../src/components/index';
         type: { summary: " 'primary' | 'secondary' | 'success' | 'danger' | 'warning' | 'info' | 'dark' | 'light'" },
         defaultValue: { summary: `'primary'` },
       },
-      control: {
-        type: 'select',
-        options: [
+      options: [
           'primary',
           'secondary',
           'success',
@@ -30,6 +28,8 @@ import { Alert, Button } from '../../src/components/index';
           'light',
           'dark',
         ],
+      control: {
+        type: 'select'
       },
     },
     dismissible: {
