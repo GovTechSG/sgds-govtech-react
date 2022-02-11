@@ -124,20 +124,3 @@ The Tooltip can also be closed by clicking on the target element as well. Clicka
     </Tooltip>
   </Story>
 </Canvas>
-
-## Tooltip with `<img />`
-
-export const image = 
-    <img src="https://www.alliedpay.com/wp-content/uploads/2020/10/cvv-300x300.png" width="120" height="120" />
-
-<Canvas>
-  <Story name="Image content" args={{content: image}}>{defaultTooltip.bind({})}</Story>
-</Canvas>
-
-## Tooltip with `JSX.Element`
-
-export const jsx = (<div> <span>Enter your CVV</span> {image}</div>)
-
-<Canvas>
-  <Story name="JSX content" args={{content: jsx, type:"click"}}>{clickableTooltip.bind({})}</Story>
-</Canvas>

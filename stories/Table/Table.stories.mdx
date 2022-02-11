@@ -19,7 +19,7 @@ import { Table } from '../../src/components/index';
     },
     striped: {
       description: 'Adds zebra-striping to any table row within the `<tbody>`.',
-        table: {
+      table: {
         defaultValue: { summary: 'false' },
       },
     },
@@ -32,13 +32,13 @@ import { Table } from '../../src/components/index';
     borderless: {
       description:
         'Removes all borders on the table and cells, including table header.',
-        table: {
+      table: {
         defaultValue: { summary: 'false' },
       },
     },
     hover: {
       description: 'Enable a hover state on table rows within a `<tbody>`.\n',
-        table: {
+      table: {
         defaultValue: { summary: 'false' },
       },
     },
@@ -103,13 +103,13 @@ export const Basic = (args) => {
 
 # Tables
 
-## 1. Basic
-
 Use the `striped`, `bordered` and `hover` props to customise the table.
 
 <Canvas>
   <Story name="Basic">{Basic.bind({})}</Story>
 </Canvas>
+
+## API
 
 <ArgsTable story="Basic" />
 
@@ -147,7 +147,7 @@ import { Table } from 'sgds-govtech-react';
 </Table>;
 ```
 
-## 2. Small Table
+## Small Table
 
 Use `size="sm"` to make tables compact by cutting cell padding in half.
 
@@ -160,330 +160,74 @@ Use `size="sm"` to make tables compact by cutting cell padding in half.
 ```jsx
 import { Table } from 'sgds-govtech-react';
 
-<Table size="sm">
-  <thead>
-    <tr>
-      <th>#</th>
-      <th>First Name</th>
-      <th>Last Name</th>
-      <th>Username</th>
-    </tr>
-  </thead>
-  <tbody>
-    <tr>
-      <td>1</td>
-      <td>Mark</td>
-      <td>Otto</td>
-      <td>@mdo</td>
-    </tr>
-    <tr>
-      <td>2</td>
-      <td>Jacob</td>
-      <td>Thornton</td>
-      <td>@fat</td>
-    </tr>
-    <tr>
-      <td>3</td>
-      <td colSpan={2}>Larry the Bird</td>
-      <td>@twitter</td>
-    </tr>
-  </tbody>
-</Table>;
+<Table size="sm">...</Table>;
 ```
 
-## 3. Striped Body
+## Striped Body
 
 Adds zebra-striping using `striped` to table row within the `<tbody>`.
 
 <Canvas>
-  <Story name="Striped body">
-    <Table striped>
-      <thead>
-        <tr>
-          <th>#</th>
-          <th>First Name</th>
-          <th>Last Name</th>
-          <th>Username</th>
-        </tr>
-      </thead>
-      <tbody>
-        <tr>
-          <td>1</td>
-          <td>Mark</td>
-          <td>Otto</td>
-          <td>@mdo</td>
-        </tr>
-        <tr>
-          <td>2</td>
-          <td>Jacob</td>
-          <td>Thornton</td>
-          <td>@fat</td>
-        </tr>
-        <tr>
-          <td>3</td>
-          <td colSpan={2}>Larry the Bird</td>
-          <td>@twitter</td>
-        </tr>
-      </tbody>
-    </Table>
-    ;
+  <Story name="Striped body" args={{ striped: true }}>
+    {Basic.bind({})}
   </Story>
 </Canvas>
 
 ```jsx
 import { Table } from 'sgds-govtech-react';
 
-<Table striped>
-  <thead>
-    <tr>
-      <th>#</th>
-      <th>First Name</th>
-      <th>Last Name</th>
-      <th>Username</th>
-    </tr>
-  </thead>
-  <tbody>
-    <tr>
-      <td>1</td>
-      <td>Mark</td>
-      <td>Otto</td>
-      <td>@mdo</td>
-    </tr>
-    <tr>
-      <td>2</td>
-      <td>Jacob</td>
-      <td>Thornton</td>
-      <td>@fat</td>
-    </tr>
-    <tr>
-      <td>3</td>
-      <td colSpan={2}>Larry the Bird</td>
-      <td>@twitter</td>
-    </tr>
-  </tbody>
-</Table>;
+<Table striped>...</Table>;
 ```
 
-## 4. Bordered Body
+## Bordered Body
 
 Use `bordered` to add borders on all sides of the table and cells.
 
 <Canvas>
-  <Story name="Bordered body">
-    <Table bordered>
-      <thead>
-        <tr>
-          <th>#</th>
-          <th>First Name</th>
-          <th>Last Name</th>
-          <th>Username</th>
-        </tr>
-      </thead>
-      <tbody>
-        <tr>
-          <td>1</td>
-          <td>Mark</td>
-          <td>Otto</td>
-          <td>@mdo</td>
-        </tr>
-        <tr>
-          <td>2</td>
-          <td>Jacob</td>
-          <td>Thornton</td>
-          <td>@fat</td>
-        </tr>
-        <tr>
-          <td>3</td>
-          <td colSpan={2}>Larry the Bird</td>
-          <td>@twitter</td>
-        </tr>
-      </tbody>
-    </Table>
-    ;
+  <Story name="Bordered body" args={{ bordered: true }}>
+    {Basic.bind({})}
   </Story>
 </Canvas>
 
 ```jsx
 import { Table } from 'sgds-govtech-react';
 
-<Table bordered>
-  <thead>
-    <tr>
-      <th>#</th>
-      <th>First Name</th>
-      <th>Last Name</th>
-      <th>Username</th>
-    </tr>
-  </thead>
-  <tbody>
-    <tr>
-      <td>1</td>
-      <td>Mark</td>
-      <td>Otto</td>
-      <td>@mdo</td>
-    </tr>
-    <tr>
-      <td>2</td>
-      <td>Jacob</td>
-      <td>Thornton</td>
-      <td>@fat</td>
-    </tr>
-    <tr>
-      <td>3</td>
-      <td colSpan={2}>Larry the Bird</td>
-      <td>@twitter</td>
-    </tr>
-  </tbody>
-</Table>;
+<Table bordered>...</Table>;
 ```
 
-## 5. Borderless Body
+## Borderless Body
 
 Add `borderless` to remove all borders on the table and cells, including table header.
 
 <Canvas>
-  <Story name="Borderless body">
-    <Table borderless>
-      <thead>
-        <tr>
-          <th>#</th>
-          <th>First Name</th>
-          <th>Last Name</th>
-          <th>Username</th>
-        </tr>
-      </thead>
-      <tbody>
-        <tr>
-          <td>1</td>
-          <td>Mark</td>
-          <td>Otto</td>
-          <td>@mdo</td>
-        </tr>
-        <tr>
-          <td>2</td>
-          <td>Jacob</td>
-          <td>Thornton</td>
-          <td>@fat</td>
-        </tr>
-        <tr>
-          <td>3</td>
-          <td colSpan={2}>Larry the Bird</td>
-          <td>@twitter</td>
-        </tr>
-      </tbody>
-    </Table>
-    ;
+  <Story name="Borderless body" args={{ borderless: true }}>
+    {Basic.bind({})}
   </Story>
 </Canvas>
 
 ```jsx
 import { Table } from 'sgds-govtech-react';
 
-<Table borderless>
-  <thead>
-    <tr>
-      <th>#</th>
-      <th>First Name</th>
-      <th>Last Name</th>
-      <th>Username</th>
-    </tr>
-  </thead>
-  <tbody>
-    <tr>
-      <td>1</td>
-      <td>Mark</td>
-      <td>Otto</td>
-      <td>@mdo</td>
-    </tr>
-    <tr>
-      <td>2</td>
-      <td>Jacob</td>
-      <td>Thornton</td>
-      <td>@fat</td>
-    </tr>
-    <tr>
-      <td>3</td>
-      <td colSpan={2}>Larry the Bird</td>
-      <td>@twitter</td>
-    </tr>
-  </tbody>
-</Table>;
+<Table borderless>...</Table>;
 ```
 
-## 6. Hovered Body
+## Hovered Body
 
 Use `hover` to enable a hover state on table rows within a `<tbody>`.
 
 <Canvas>
-  <Story name="Hovered body">
-    <Table hover>
-      <thead>
-        <tr>
-          <th>#</th>
-          <th>First Name</th>
-          <th>Last Name</th>
-          <th>Username</th>
-        </tr>
-      </thead>
-      <tbody>
-        <tr>
-          <td>1</td>
-          <td>Mark</td>
-          <td>Otto</td>
-          <td>@mdo</td>
-        </tr>
-        <tr>
-          <td>2</td>
-          <td>Jacob</td>
-          <td>Thornton</td>
-          <td>@fat</td>
-        </tr>
-        <tr>
-          <td>3</td>
-          <td colSpan={2}>Larry the Bird</td>
-          <td>@twitter</td>
-        </tr>
-      </tbody>
-    </Table>
-    ;
+  <Story name="Hovered body" args={{ hover: true }}>
+    {Basic.bind({})}
   </Story>
 </Canvas>
 
 ```jsx
 import { Table } from 'sgds-govtech-react';
 
-<Table hover>
-  <thead>
-    <tr>
-      <th>#</th>
-      <th>First Name</th>
-      <th>Last Name</th>
-      <th>Username</th>
-    </tr>
-  </thead>
-  <tbody>
-    <tr>
-      <td>1</td>
-      <td>Mark</td>
-      <td>Otto</td>
-      <td>@mdo</td>
-    </tr>
-    <tr>
-      <td>2</td>
-      <td>Jacob</td>
-      <td>Thornton</td>
-      <td>@fat</td>
-    </tr>
-    <tr>
-      <td>3</td>
-      <td colSpan={2}>Larry the Bird</td>
-      <td>@twitter</td>
-    </tr>
-  </tbody>
-</Table>;
+<Table hover>...</Table>;
 ```
 
-## 7. Dark Table
+## Dark Table
 
 Use `variant="dark"` to invert the colors of the table and get light text on a dark background.
 
@@ -496,38 +240,10 @@ Use `variant="dark"` to invert the colors of the table and get light text on a d
 ```jsx
 import { Table } from 'sgds-govtech-react';
 
-<Table variant="dark">
-  <thead>
-    <tr>
-      <th>#</th>
-      <th>First Name</th>
-      <th>Last Name</th>
-      <th>Username</th>
-    </tr>
-  </thead>
-  <tbody>
-    <tr>
-      <td>1</td>
-      <td>Mark</td>
-      <td>Otto</td>
-      <td>@mdo</td>
-    </tr>
-    <tr>
-      <td>2</td>
-      <td>Jacob</td>
-      <td>Thornton</td>
-      <td>@fat</td>
-    </tr>
-    <tr>
-      <td>3</td>
-      <td colSpan={2}>Larry the Bird</td>
-      <td>@twitter</td>
-    </tr>
-  </tbody>
-</Table>;
+<Table variant="dark">...</Table>;
 ```
 
-## 7. Responsive
+## Responsive
 
 Responsive tables allow tables to be scrolled horizontally with ease.
 
@@ -536,439 +252,82 @@ Responsive tables allow tables to be scrolled horizontally with ease.
 Across every breakpoint, use `responsive` for horizontally scrolling tables. Responsive tables are wrapped automatically in a `div`.
 The following example has 12 columns that are scrollable horizontally.
 
-export const A_Responsive = (args) => {
+export const TableContents = (repeat) => {
+  const generateTh = Array.from({ length: repeat }).map((_, index) => (
+    <th key={index}>Table heading</th>
+  ));
+  const generateTd = Array.from({ length: repeat }).map((_, index) => (
+    <td key={index}>Table cell {index}</td>
+  ));
   return (
     <>
-      <Table responsive>
-        <thead>
-          <tr>
-            <th>#</th>
-            {Array.from({ length: 12 }).map((_, index) => (
-              <th key={index}>Table heading</th>
-            ))}
-          </tr>
-        </thead>
-        <tbody>
-          <tr>
-            <td>1</td>
-            {Array.from({ length: 12 }).map((_, index) => (
-              <td key={index}>Table cell {index}</td>
-            ))}
-          </tr>
-          <tr>
-            <td>2</td>
-            {Array.from({ length: 12 }).map((_, index) => (
-              <td key={index}>Table cell {index}</td>
-            ))}
-          </tr>
-          <tr>
-            <td>3</td>
-            {Array.from({ length: 12 }).map((_, index) => (
-              <td key={index}>Table cell {index}</td>
-            ))}
-          </tr>
-        </tbody>
-      </Table>
+      <thead>
+        <tr>
+          <th>#</th>
+          {generateTh}
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>1</td>
+          {generateTd}
+        </tr>
+        <tr>
+          <td>2</td>
+          {generateTd}
+        </tr>
+        <tr>
+          <td>3</td>
+          {generateTd}
+        </tr>
+      </tbody>
     </>
   );
 };
 
+export const AlwaysResponsive = (args) => {
+  return <Table {...args}>{TableContents(12)}</Table>;
+};
+
 <Canvas>
-  <Story name="Responsive">{A_Responsive.bind({})}</Story>
+  <Story name="Responsive" args={{ responsive: true }}>
+    {AlwaysResponsive.bind({})}
+  </Story>
 </Canvas>
 
 ```jsx
 import { Table } from 'sgds-govtech-react';
 
-<Table responsive>
-  <thead>
-    <tr>
-      <th>#</th>
-      {Array.from({ length: 12 }).map((_, index) => (
-        <th key={index}>Table heading</th>
-      ))}
-    </tr>
-  </thead>
-  <tbody>
-    <tr>
-      <td>1</td>
-      {Array.from({ length: 12 }).map((_, index) => (
-        <td key={index}>Table cell {index}</td>
-      ))}
-    </tr>
-    <tr>
-      <td>2</td>
-      {Array.from({ length: 12 }).map((_, index) => (
-        <td key={index}>Table cell {index}</td>
-      ))}
-    </tr>
-    <tr>
-      <td>3</td>
-      {Array.from({ length: 12 }).map((_, index) => (
-        <td key={index}>Table cell {index}</td>
-      ))}
-    </tr>
-  </tbody>
-</Table>;
+<Table responsive>...</Table>;
 ```
 
-## 8. Breakpoint specific
+## Breakpoint specific
 
 Use `responsive="sm"`, `responsive="md"` , `responsive="lg"`, or `responsive="xl"` as needed to create responsive tables up to a particular breakpoint.
 From that breakpoint and up, the table will behave normally and not scroll horizontally.
 
-export const BP_Responsive = () => {
+export const BpResponsive = () => {
   return (
-    <>
-      <div>
-        <Table responsive="sm">
-          <thead>
-            <tr>
-              <th>#</th>
-              <th>Table heading</th>
-              <th>Table heading</th>
-              <th>Table heading</th>
-              <th>Table heading</th>
-              <th>Table heading</th>
-              <th>Table heading</th>
-            </tr>
-          </thead>
-          <tbody>
-            <tr>
-              <td>1</td>
-              <td>Table cell</td>
-              <td>Table cell</td>
-              <td>Table cell</td>
-              <td>Table cell</td>
-              <td>Table cell</td>
-              <td>Table cell</td>
-            </tr>
-            <tr>
-              <td>2</td>
-              <td>Table cell</td>
-              <td>Table cell</td>
-              <td>Table cell</td>
-              <td>Table cell</td>
-              <td>Table cell</td>
-              <td>Table cell</td>
-            </tr>
-            <tr>
-              <td>3</td>
-              <td>Table cell</td>
-              <td>Table cell</td>
-              <td>Table cell</td>
-              <td>Table cell</td>
-              <td>Table cell</td>
-              <td>Table cell</td>
-            </tr>
-          </tbody>
-        </Table>
-        <Table responsive="md">
-          <thead>
-            <tr>
-              <th>#</th>
-              <th>Table heading</th>
-              <th>Table heading</th>
-              <th>Table heading</th>
-              <th>Table heading</th>
-              <th>Table heading</th>
-              <th>Table heading</th>
-            </tr>
-          </thead>
-          <tbody>
-            <tr>
-              <td>1</td>
-              <td>Table cell</td>
-              <td>Table cell</td>
-              <td>Table cell</td>
-              <td>Table cell</td>
-              <td>Table cell</td>
-              <td>Table cell</td>
-            </tr>
-            <tr>
-              <td>2</td>
-              <td>Table cell</td>
-              <td>Table cell</td>
-              <td>Table cell</td>
-              <td>Table cell</td>
-              <td>Table cell</td>
-              <td>Table cell</td>
-            </tr>
-            <tr>
-              <td>3</td>
-              <td>Table cell</td>
-              <td>Table cell</td>
-              <td>Table cell</td>
-              <td>Table cell</td>
-              <td>Table cell</td>
-              <td>Table cell</td>
-            </tr>
-          </tbody>
-        </Table>
-        <Table responsive="lg">
-          <thead>
-            <tr>
-              <th>#</th>
-              <th>Table heading</th>
-              <th>Table heading</th>
-              <th>Table heading</th>
-              <th>Table heading</th>
-              <th>Table heading</th>
-              <th>Table heading</th>
-            </tr>
-          </thead>
-          <tbody>
-            <tr>
-              <td>1</td>
-              <td>Table cell</td>
-              <td>Table cell</td>
-              <td>Table cell</td>
-              <td>Table cell</td>
-              <td>Table cell</td>
-              <td>Table cell</td>
-            </tr>
-            <tr>
-              <td>2</td>
-              <td>Table cell</td>
-              <td>Table cell</td>
-              <td>Table cell</td>
-              <td>Table cell</td>
-              <td>Table cell</td>
-              <td>Table cell</td>
-            </tr>
-            <tr>
-              <td>3</td>
-              <td>Table cell</td>
-              <td>Table cell</td>
-              <td>Table cell</td>
-              <td>Table cell</td>
-              <td>Table cell</td>
-              <td>Table cell</td>
-            </tr>
-          </tbody>
-        </Table>
-        <Table responsive="xl">
-          <thead>
-            <tr>
-              <th>#</th>
-              <th>Table heading</th>
-              <th>Table heading</th>
-              <th>Table heading</th>
-              <th>Table heading</th>
-              <th>Table heading</th>
-              <th>Table heading</th>
-            </tr>
-          </thead>
-          <tbody>
-            <tr>
-              <td>1</td>
-              <td>Table cell</td>
-              <td>Table cell</td>
-              <td>Table cell</td>
-              <td>Table cell</td>
-              <td>Table cell</td>
-              <td>Table cell</td>
-            </tr>
-            <tr>
-              <td>2</td>
-              <td>Table cell</td>
-              <td>Table cell</td>
-              <td>Table cell</td>
-              <td>Table cell</td>
-              <td>Table cell</td>
-              <td>Table cell</td>
-            </tr>
-            <tr>
-              <td>3</td>
-              <td>Table cell</td>
-              <td>Table cell</td>
-              <td>Table cell</td>
-              <td>Table cell</td>
-              <td>Table cell</td>
-              <td>Table cell</td>
-            </tr>
-          </tbody>
-        </Table>
-      </div>
-    </>
+    <div>
+      <Table responsive="sm">{TableContents(6)}</Table>
+      <Table responsive="md">{TableContents(6)}</Table>
+      <Table responsive="lg">{TableContents(6)}</Table>
+      <Table responsive="xl">{TableContents(6)}</Table>
+    </div>
   );
 };
 
 <Canvas>
-  <Story name="Breakpoint Specific">{BP_Responsive.bind({})}</Story>
+  <Story name="Breakpoint Specific">{BpResponsive.bind({})}</Story>
 </Canvas>
 
 ```jsx
 import { Table } from 'sgds-govtech-react';
 
 <div>
-  <Table responsive="sm">
-    <thead>
-      <tr>
-        <th>#</th>
-        <th>Table heading</th>
-        <th>Table heading</th>
-        <th>Table heading</th>
-        <th>Table heading</th>
-        <th>Table heading</th>
-        <th>Table heading</th>
-      </tr>
-    </thead>
-    <tbody>
-      <tr>
-        <td>1</td>
-        <td>Table cell</td>
-        <td>Table cell</td>
-        <td>Table cell</td>
-        <td>Table cell</td>
-        <td>Table cell</td>
-        <td>Table cell</td>
-      </tr>
-      <tr>
-        <td>2</td>
-        <td>Table cell</td>
-        <td>Table cell</td>
-        <td>Table cell</td>
-        <td>Table cell</td>
-        <td>Table cell</td>
-        <td>Table cell</td>
-      </tr>
-      <tr>
-        <td>3</td>
-        <td>Table cell</td>
-        <td>Table cell</td>
-        <td>Table cell</td>
-        <td>Table cell</td>
-        <td>Table cell</td>
-        <td>Table cell</td>
-      </tr>
-    </tbody>
-  </Table>
-  <Table responsive="md">
-    <thead>
-      <tr>
-        <th>#</th>
-        <th>Table heading</th>
-        <th>Table heading</th>
-        <th>Table heading</th>
-        <th>Table heading</th>
-        <th>Table heading</th>
-        <th>Table heading</th>
-      </tr>
-    </thead>
-    <tbody>
-      <tr>
-        <td>1</td>
-        <td>Table cell</td>
-        <td>Table cell</td>
-        <td>Table cell</td>
-        <td>Table cell</td>
-        <td>Table cell</td>
-        <td>Table cell</td>
-      </tr>
-      <tr>
-        <td>2</td>
-        <td>Table cell</td>
-        <td>Table cell</td>
-        <td>Table cell</td>
-        <td>Table cell</td>
-        <td>Table cell</td>
-        <td>Table cell</td>
-      </tr>
-      <tr>
-        <td>3</td>
-        <td>Table cell</td>
-        <td>Table cell</td>
-        <td>Table cell</td>
-        <td>Table cell</td>
-        <td>Table cell</td>
-        <td>Table cell</td>
-      </tr>
-    </tbody>
-  </Table>
-  <Table responsive="lg">
-    <thead>
-      <tr>
-        <th>#</th>
-        <th>Table heading</th>
-        <th>Table heading</th>
-        <th>Table heading</th>
-        <th>Table heading</th>
-        <th>Table heading</th>
-        <th>Table heading</th>
-      </tr>
-    </thead>
-    <tbody>
-      <tr>
-        <td>1</td>
-        <td>Table cell</td>
-        <td>Table cell</td>
-        <td>Table cell</td>
-        <td>Table cell</td>
-        <td>Table cell</td>
-        <td>Table cell</td>
-      </tr>
-      <tr>
-        <td>2</td>
-        <td>Table cell</td>
-        <td>Table cell</td>
-        <td>Table cell</td>
-        <td>Table cell</td>
-        <td>Table cell</td>
-        <td>Table cell</td>
-      </tr>
-      <tr>
-        <td>3</td>
-        <td>Table cell</td>
-        <td>Table cell</td>
-        <td>Table cell</td>
-        <td>Table cell</td>
-        <td>Table cell</td>
-        <td>Table cell</td>
-      </tr>
-    </tbody>
-  </Table>
-  <Table responsive="xl">
-    <thead>
-      <tr>
-        <th>#</th>
-        <th>Table heading</th>
-        <th>Table heading</th>
-        <th>Table heading</th>
-        <th>Table heading</th>
-        <th>Table heading</th>
-        <th>Table heading</th>
-      </tr>
-    </thead>
-    <tbody>
-      <tr>
-        <td>1</td>
-        <td>Table cell</td>
-        <td>Table cell</td>
-        <td>Table cell</td>
-        <td>Table cell</td>
-        <td>Table cell</td>
-        <td>Table cell</td>
-      </tr>
-      <tr>
-        <td>2</td>
-        <td>Table cell</td>
-        <td>Table cell</td>
-        <td>Table cell</td>
-        <td>Table cell</td>
-        <td>Table cell</td>
-        <td>Table cell</td>
-      </tr>
-      <tr>
-        <td>3</td>
-        <td>Table cell</td>
-        <td>Table cell</td>
-        <td>Table cell</td>
-        <td>Table cell</td>
-        <td>Table cell</td>
-        <td>Table cell</td>
-      </tr>
-    </tbody>
-  </Table>
+  <Table responsive="sm">...</Table>
+  <Table responsive="md">...</Table>
+  <Table responsive="lg">...</Table>
+  <Table responsive="xl">...</Table>
 </div>;
 ```

@@ -222,7 +222,7 @@ The default SelectableCard is a checkbox.
 
 `SelectableCard` partially extends `FormCheckProps`, `CardProps` and extends their HTMLAttributes. The resulting props are as indicated in ArgsTable above.
 
-### Types
+## Types
 
 Use `type` prop : `radio` / `switch` / `checkbox` to change the `SelectableCard` input type
 
@@ -244,14 +244,14 @@ Use `type` prop : `radio` / `switch` / `checkbox` to change the `SelectableCard`
   </Story>
 </Canvas>
 
-### Active Card
+## Active Card
 
 When a `<SelectableCard />` is checked, its card borders are highlighted.
 
 **Note:** This feature occurs only when onChange is passed in with state updates. See demo and code example below
 
 <Canvas>
-  <Story name="Active Card">{ActiveBorderTemplate.bind({})}</Story>
+  <Story name="Active Borders">{ActiveBorderTemplate.bind({})}</Story>
 </Canvas>
 
 ```jsx
@@ -315,7 +315,7 @@ import {
   Row,
   QuantityToggle,
   Card,
-} from 'sgds-react';
+} from 'sgds-govtech-react';
 import { useState } from 'react';
 
 export const ShoppingCart = (args) => {

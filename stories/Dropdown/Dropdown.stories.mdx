@@ -48,7 +48,7 @@ export const Template = (args) => (
   </Dropdown>
 );
 
-## 1. Single button dropdowns
+##  Single button dropdowns
 
 The basic Dropdown is composed of a wrapping `Dropdown` and
 inner `<Dropdown.Menu>`, and `<Dropdown.Toggle>`. By
@@ -62,7 +62,7 @@ default the `<Dropdown.Toggle>` will render a
 <ArgsTable story="Basic" />
 
 ```jsx
-import { Dropdown } from 'sgds-react';
+import { Dropdown } from 'sgds-govtech-react';
 
 export const Dropdown = () => {
   return (
@@ -80,7 +80,7 @@ export const Dropdown = () => {
 };
 ```
 
-## 2. AutoClose
+## AutoClose
 
 By default, the dropdown menu is closed when selecting a menu item or clicking outside of the dropdown menu. This behaviour can be changed by using the `autoClose` property.
 
@@ -142,7 +142,7 @@ Notice how the dropdown is toggled in each scenario by clicking on the button.
 </Story>
 
 ```jsx
-import { Dropdown } from 'sgds-react';
+import { Dropdown } from 'sgds-govtech-react';
 
 // autoClose : true (default)
   <Dropdown>
@@ -193,7 +193,7 @@ import { Dropdown } from 'sgds-react';
   </Dropdown>
 ```
 
-## 3. Event Handlers
+##  Event Handlers
 
 ### onSelect
 
@@ -225,7 +225,7 @@ export const onSelectToggleTemplate = () => {
   return (
     <div>
       <Dropdown onSelect={handleSelect} onToggle={handleToggle}>
-        <Dropdown.Toggle variant="white">Default Dropdown</Dropdown.Toggle>
+        <Dropdown.Toggle variant="white">{ value ? value: "Default Dropdown"}</Dropdown.Toggle>
         <Dropdown.Menu>
           <Dropdown.Item eventKey="apple">Apple</Dropdown.Item>
           <Dropdown.Item eventKey="orange">Orange</Dropdown.Item>

@@ -26,12 +26,12 @@ export const defaultTemplate = (args) => <Button {...args}>Default</Button>;
 
 <ArgsTable story="Default" />
 
-## 1. Examples
+##  Variants
 
 Use any of the available button style types to quickly create a styled button. Just modify the `variant` prop.
 
 <Canvas>
-  <Story name="Basic">
+  <Story name="Variants">
     {[
       'primary',
       'secondary',
@@ -53,12 +53,12 @@ Use any of the available button style types to quickly create a styled button. J
 ```jsx
 // Example
 
-import { Button } from 'sgds-react';
+import { Button } from 'sgds-govtech-react';
 
 <Button variant="primary">Primary<Button>
 ```
 
-## 2. Outline buttons
+##  Outline buttons
 
 For a lighter touch, Buttons also come in `outline-*` variants with no background color.
 
@@ -79,15 +79,15 @@ For a lighter touch, Buttons also come in `outline-*` variants with no backgroun
 </Canvas>
 
 ```jsx
-import { Button } from 'sgds-react';
+import { Button } from 'sgds-govtech-react';
 
 <Button variant="outline-primary">Primary<Button>
 ```
 
-## 3. Button tags
+## Button tags
 
 Normally `<Button>` components will render a HTML `<button>` element. However you can render whatever you'd like, adding a href prop will automatically render an `<a/>` element.
-You can use the as prop to render whatever your heart desires. Sgds-React will take care of the proper ARIA roles for you.
+You can use the as prop to render whatever your heart desires. sgds-govtech-react will take care of the proper ARIA roles for you.
 
 <Canvas withSource="open">
   <Story name="Button tags">
@@ -100,7 +100,7 @@ You can use the as prop to render whatever your heart desires. Sgds-React will t
   </Story>
 </Canvas>
 
-## 4. Sizes
+##  Sizes
 
 Fancy larger or smaller buttons? Add `size="lg"`, `size="sm"` for additional sizes.
 
@@ -127,7 +127,7 @@ Fancy larger or smaller buttons? Add `size="lg"`, `size="sm"` for additional siz
   </Story>
 </Canvas>
 
-## 5. Block buttons
+## Block buttons
 
 Create responsive stacks of full-width, “block buttons” with a mix of our display and gap utilities.
 
@@ -144,7 +144,7 @@ Create responsive stacks of full-width, “block buttons” with a mix of our di
   </Story>
 </Canvas>
 
-## 6. Active state
+## Active state
 
 To set a button's active state simply set the component's `active` prop.
 
@@ -161,7 +161,7 @@ To set a button's active state simply set the component's `active` prop.
   </Story>
 </Canvas>
 
-## 7. Disabled state
+## Disabled state
 
 Make buttons look inactive by adding the `disabled` prop to.
 
@@ -183,9 +183,9 @@ Make buttons look inactive by adding the `disabled` prop to.
 
 Watch out! `<a>` elements don't naturally support a disabled attribute. In browsers that support it this is handled with a point-events: none style but not all browsers support it yet.
 
-Sgds-React will prevent any `onClick` handlers from firing regardless of the rendered element.
+sgds-govtech-react will prevent any `onClick` handlers from firing regardless of the rendered element.
 
-## 8. Button loading state
+## Button loading state
 
 When activating an asynchronous action from a button it is a good UX pattern to give the user feedback as to the loading state, this can easily be done by updating your `<Button />`s props from a state change like below.
 
@@ -249,7 +249,7 @@ function LoadingButton() {
 render(<LoadingButton />);
 ```
 
-## 9. Add icon as a child component
+## Add icon as a child component
 
 Add icon to `Button` as a children component
 

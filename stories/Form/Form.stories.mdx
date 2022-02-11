@@ -1,21 +1,13 @@
 import { ArgsTable, Canvas, Meta, Story } from '@storybook/addon-docs';
-
+import { HIDDEN_COMMON_PROPS } from '../helpers';
 import { Form, Button } from '../../src/components/index';
 
 <Meta
   title="MDX/Form"
   component={Form}
-  argTypes={{
-    validated: {
-      description:
-        'Mark a form as having been validated. Setting it to `true` will toggle any validation styles on the forms elements.',
-      table: {
-        category: '<Form>',
-        type: { summary: 'boolean' },
-        disable: true,
-      }, // not needed, enabling this will clash icon with default searchIcon
-    },
-    as: { table: { disable: true } },
+  argTypes ={{
+    ...HIDDEN_COMMON_PROPS,
+    validated : {description: 'Mark a form as having been validated. Setting it to true will toggle any validation styles on the forms elements.'}
   }}
 />
 
@@ -26,9 +18,8 @@ Examples and usage guidelines for form control styles, layout options, and custo
 The `<Form.Control>` component renders a form control with Bootstrap styling. The `<Form.Group>` component wraps a form control with proper spacing,
 along with support for a label, help text, and validation state. To ensure accessibility, set controlId on `<FormGroup>`, and use `<FormLabel>` for the label.
 
-As our components are built on top of `React-Bootstrap` library, do check out the detailed `Form` API references <a href="https://react-bootstrap.github.io/forms/overview/" target="_blank">here</a>.
 
-## 1. Basic Form
+##  Basic Form
 
 export const Template = (args) => {
   const onSubmit = (event) => {
@@ -36,7 +27,7 @@ export const Template = (args) => {
     console.log('submission prevented');
   };
   return (
-    <Form onSubmit={onSubmit}>
+    <Form onSubmit={onSubmit} {...args}>
       <Form.Group className="mb-3" controlId="formBasicEmail">
         <Form.Label>Email address</Form.Label>
         <Form.Text className="text-muted">
@@ -65,6 +56,13 @@ export const Template = (args) => {
   <Story name="Basic">{Template.bind({})}</Story>
 </Canvas>
 
+## API
+
+<ArgsTable story="Basic" />
+
+For more detailed API documentation on `Form`, reference <a href="https://react-bootstrap.github.io/forms/overview/" target="_blank">here</a>.
+
+### Code sample
 ```jsx
 import { Form, Button } from 'sgds-govtech-react';
 
@@ -89,7 +87,7 @@ import { Form, Button } from 'sgds-govtech-react';
 </Form>;
 ```
 
-## 2. Disabled forms
+##  Disabled forms
 
 Add the `disabled` boolean attribute on an input to prevent user interactions and make it appear lighter.
 
@@ -150,7 +148,7 @@ import { Form, Button } from 'sgds-govtech-react';
 </Canvas>;
 ```
 
-## 3. Form Text
+## ` <Form.Text />`
 
 Block-level help text in forms can be created using `<Form.Text>`. Inline help text can be flexibly implemented using any inline HTML element and utility classes like .text-muted.
 
@@ -195,7 +193,7 @@ export const Template_Form_Text = (args) => {
 </>
 ```
 
-## 4. Form Select
+## ` <Form.Select />`
 
 Customize the native `<select>`s with custom CSS that changes the element’s initial appearance.
 
@@ -223,12 +221,12 @@ export const Template_Form_Select = () => {
 </Form.Select>
 ```
 
-## 5. Form Select Sizing
+## Form Select Sizing
 
 You may also choose from small and large custom selects to match our similarly sized text inputs.
 
 <Canvas>
-  <Story name="Sizing">
+  <Story name="Form Select Sizing">
     <>
       <Form.Select size="lg">
         <option>Large select</option>

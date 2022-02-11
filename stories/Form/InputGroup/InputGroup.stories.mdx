@@ -1,6 +1,6 @@
 import { ArgsTable, Canvas, Meta, Story } from '@storybook/addon-docs';
 import { useState } from 'react';
-import { HIDDEN_COMMON_PROPS } from '../helpers';
+import { HIDDEN_COMMON_PROPS } from '../../helpers';
 import {
   InputGroup,
   Form,
@@ -8,10 +8,10 @@ import {
   DropdownButton,
   Dropdown,
   SplitButton,
-} from '../../src/components/index';
+} from '../../../src/components/index';
 
 <Meta
-  title="MDX/Input Group"
+  title="MDX/Form/Input Group"
   component={InputGroup}
   argTypes={{
     ...HIDDEN_COMMON_PROPS,
@@ -629,129 +629,6 @@ import {InputGroup, DropdownButton, Form}  from 'sgds-govtech-react';
 </InputGroup>
 ```
 
-<!-- ## 9. DropdownButton with Toggle Addons
-
-An extended use case of `<DropdownButton>` add-on that can be customized for toggling value using the useState hook.
-
-export const DropdownButtonToggle = (args) => {
-  const [allInputs, setAllInputs] = useState({
-    selectCurrency: 'USD',
-    selectEmail: '@gmail.com',
-  });
-  const currencySelectHandler = (e) => {
-    setAllInputs((prevState) => {
-      return {
-        ...prevState,
-        selectCurrency: e,
-      };
-    });
-  };
-  const emailSelectHandler = (e) => {
-    setAllInputs((prevState) => {
-      return { ...prevState, selectEmail: e };
-    });
-  };
-  return (
-    <>
-      <InputGroup className="mb-3">
-        <DropdownButton
-          variant="outline-secondary"
-          title={allInputs.selectCurrency}
-          id="input-group-dropdown-toggle-1"
-          onSelect={currencySelectHandler}
-        >
-          <Dropdown.Item eventKey="USD">USD</Dropdown.Item>
-          <Dropdown.Item eventKey="MYR">MYR</Dropdown.Item>
-          <Dropdown.Item eventKey="JPY">JPY</Dropdown.Item>
-          <Dropdown.Divider />
-          <Dropdown.Item eventKey="SGD">SGD</Dropdown.Item>
-        </DropdownButton>
-        <Form.Control aria-label="Text input with dropdown button toggle left addon" />
-      </InputGroup>
-      <InputGroup className="mb-3">
-        <Form.Control aria-label="Text input with dropdown button toggle right addon" />
-        <DropdownButton
-          variant="outline-secondary"
-          title={allInputs.selectEmail}
-          id="input-group-dropdown-toggle-2"
-          onSelect={emailSelectHandler}
-        >
-          <Dropdown.Item eventKey="@gmail.com">@gmail.com</Dropdown.Item>
-          <Dropdown.Item eventKey="@yahoo.com">@yahoo.com</Dropdown.Item>
-          <Dropdown.Item eventKey="@outlook.com">@outlook.com</Dropdown.Item>
-          <Dropdown.Divider />
-          <Dropdown.Item eventKey="@zoho.com">@zoho.com</Dropdown.Item>
-        </DropdownButton>
-      </InputGroup>
-    </>
-  );
-};
-
-<Story name="DropdownButton with Toggle Addons">
-  {DropdownButtonToggle.bind({})}
-</Story>
-
-```jsx
-import { useState } from 'react';
-import { Form, InputGroup, DropdownButton } from 'sgds-react';
-
-const [allInputs, setAllInputs] = useState({
-    selectCurrency: 'USD',
-    selectEmail: '@gmail.com',
-  });
-
-  const currencySelectHandler = (e) => {
-    setAllInputs((prevState) => {
-      return {
-      ...prevState,
-      selectCurrency: e
-      };
-    });
-  };
-
-  const emailSelectHandler = (e) => {
-    setAllInputs((prevState) => {
-      return {...prevState,
-      selectEmail: e
-      };
-    });
-  };
-
-// Currency toggle left add-on
-<InputGroup className="mb-3">
-  <DropdownButton
-     variant="outline-secondary"
-     title={allInputs.selectCurrency}
-     id="input-group-dropdown-toggle-1"
-     onSelect={currencySelectHandler}
-   >
-    <Dropdown.Item eventKey="USD">USD</Dropdown.Item>
-    <Dropdown.Item eventKey="MYR">MYR</Dropdown.Item>
-    <Dropdown.Item eventKey="JPY">JPY</Dropdown.Item>
-    <Dropdown.Divider />
-    <Dropdown.Item eventKey="SGD">SGD</Dropdown.Item>
-  </DropdownButton>
-  <Form.Control aria-label="Text input with dropdown button toggle left addon" />
-</InputGroup>
-
-// Email toggle right add-on
-<InputGroup className="mb-3">
-  <Form.Control aria-label="Text input with dropdown button toggle right addon" />
-  <DropdownButton
-    variant="outline-secondary"
-    title={allInputs.selectEmail}
-    id="input-group-dropdown-toggle-2"
-    onSelect={emailSelectHandler}
-  >
-    <Dropdown.Item eventKey="@gmail.com">@gmail.com</Dropdown.Item>
-    <Dropdown.Item eventKey="@yahoo.com">@yahoo.com</Dropdown.Item>
-    <Dropdown.Item eventKey="@outlook.com">@outlook.com</Dropdown.Item>
-    <Dropdown.Divider />
-    <Dropdown.Item eventKey="@zoho.com">@zoho.com</Dropdown.Item>
-  </DropdownButton>
-</InputGroup>
-``` -->
-
 ## 9. Segmented buttons
 
 Another variant is the `<SplitButton>` addon which is a dual-function menu button that offers a default action as well as the possibility of choosing a different action by selecting from a set of alternatives.
@@ -977,4 +854,32 @@ import { Form,InputGroup } from 'sgds-govtech-react';
       <option value="3">Three</option>
     </Form.Select>
   </InputGroup>
+```
+
+## 3. Input group validation
+
+For `<InputGroup>` validation, it requires the `hasValidation` prop. Use this when your input group contains both an input and feedback element.
+
+<Canvas>
+  <Story name="Input Group Validation">
+    <InputGroup hasValidation>
+      <InputGroup.Text>@</InputGroup.Text>
+      <Form.Control type="text" required isInvalid />
+      <Form.Control.Feedback type="invalid">
+        Please choose a username.
+      </Form.Control.Feedback>
+    </InputGroup>
+  </Story>
+</Canvas>
+
+```jsx
+import { InputGroup, Form } from 'sgds-govtech-react';
+
+<InputGroup hasValidation>
+  <InputGroup.Text>@</InputGroup.Text>
+  <Form.Control type="text" required isInvalid />
+  <Form.Control.Feedback type="invalid">
+    Please choose a username.
+  </Form.Control.Feedback>
+</InputGroup>;
 ```

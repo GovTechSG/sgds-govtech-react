@@ -57,7 +57,7 @@ import { Accordion } from '../../src/components/index';
 
 Build vertically collapsing accordions in combination with the Collapse component.
 
-## 1. Basic Accordion
+## Basic Accordion
 
 export const Template = (args) => (
   <Accordion {...args}>
@@ -99,10 +99,12 @@ export const Template = (args) => (
   </Story>
 </Canvas>
 
+## API 
+
 <ArgsTable story="Basic" />
 
 ```jsx
-import { Accordion } from 'sgds-react';
+import { Accordion } from 'sgds-govtech-react';
 
 
     <Accordion defaultActiveKey="0">
@@ -134,7 +136,7 @@ import { Accordion } from 'sgds-react';
 
 ```
 
-## 2. Fully Collapsed State
+##  Fully Collapsed State
 
 If you want your `Accordion` to start in a fully-collapsed state, then simply don't pass in a `defaultActiveKey` prop to `Accordion`.
 
@@ -145,7 +147,7 @@ If you want your `Accordion` to start in a fully-collapsed state, then simply do
 <ArgsTable story="Fully Collapsed State" />
 
 ```jsx
-import { Accordion } from 'sgds-react';
+import { Accordion } from 'sgds-govtech-react';
 
     <Accordion>
       <Accordion.Item eventKey="0">
@@ -176,7 +178,7 @@ import { Accordion } from 'sgds-react';
 
 ```
 
-## 3. Flush
+##  Flush
 
 Add `flush` to remove the default background-color, some borders, and some rounded corners to render accordions edge-to-edge with their parent container.
 
@@ -189,7 +191,7 @@ Add `flush` to remove the default background-color, some borders, and some round
 <ArgsTable story="Flush" />
 
 ```jsx
-import { Accordion } from 'sgds-react';
+import { Accordion } from 'sgds-govtech-react';
 
     <Accordion flush>
       <Accordion.Item eventKey="0">
