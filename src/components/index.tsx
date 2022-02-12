@@ -180,8 +180,12 @@ export type { QuantityToggleProps } from './QuantityToggle/QuantityToggle'
 export { default as Row } from './Row';
 export type { RowProps } from './Row';
 
+export { default as SideNav } from './SideNav/SideNav';
+export type { SideNavProps } from './SideNav/SideNav';
+
 // export { default as Spinner } from './Spinner';
 // export type { SpinnerProps } from './Spinner';
+
 
 
 export { default as SplitButton } from './SplitButton/SplitButton';

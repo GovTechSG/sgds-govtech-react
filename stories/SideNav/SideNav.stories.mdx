@@ -1,0 +1,36 @@
+import { ArgsTable, Canvas, Meta, Story } from '@storybook/addon-docs';
+
+import { SideNav, NavLink } from '../../src/components/index';
+
+<Meta title="Components/SideNav" component={SideNav} />
+
+export const Template = (args) => (
+  <SideNav {...args}>
+    <SideNav.Item eventKey="0">
+      <SideNav.Header>SideNav Item #1</SideNav.Header>
+      <SideNav.Body>
+        <SideNav.BodyItem>
+          <NavLink href="https://getbootstrap.com/docs/5.1/examples/sidebars/#">number one</NavLink>
+          <NavLink href="https://getbootstrap.com/docs/5.1/examples/sidebars/#">number one</NavLink>
+          <NavLink href="https://getbootstrap.com/docs/5.1/examples/sidebars/#">number one</NavLink>
+        </SideNav.BodyItem>
+      </SideNav.Body>
+    </SideNav.Item>
+    <SideNav.Item eventKey="1">
+      <SideNav.Header>SideNav Item #2</SideNav.Header>
+      <SideNav.Body>
+        <SideNav.BodyItem>
+          <NavLink>number two</NavLink>
+          <NavLink disabled>number two</NavLink>
+          <NavLink>number two</NavLink>
+          <NavLink>number two</NavLink>
+          <NavLink>number two</NavLink>
+        </SideNav.BodyItem>
+      </SideNav.Body>
+    </SideNav.Item>
+  </SideNav>
+);
+
+<Canvas>
+  <Story name="Basic">{Template.bind({})}</Story>
+</Canvas>

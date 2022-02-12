@@ -15,7 +15,7 @@ export interface GenericContextValue {
 export interface ComponentCollapseProps<T = GenericContextValue> extends BsPrefixProps, CollapseProps {
   eventKey: string;
   context : React.Context<T>;
-  defaultPrefix?: string;
+  defaultPrefix: string;
 }
 
 const propTypes = {
@@ -51,7 +51,7 @@ const ComponentCollapse: BsPrefixRefForwardingComponent<
       children,
       eventKey,
       context, 
-      defaultPrefix = "",
+      defaultPrefix,
       ...props
     },
     ref,

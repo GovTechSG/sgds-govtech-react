@@ -1,9 +1,9 @@
 import * as React from 'react';
 import PropTypes from 'prop-types';
-import AccordionContext from './AccordionContext';
+import SideNavContext from './SideNavContext';
 import { BsPrefixRefForwardingComponent } from '../helpers';
 import ComponentCollapse from '../Collapse/ComponentCollapse';
-export interface AccordionCollapseProps {
+export interface SideNavCollapseProps {
   eventKey: string;
 }
 
@@ -20,17 +20,17 @@ const propTypes = {
   children: PropTypes.element.isRequired,
 };
 
-const AccordionCollapse: BsPrefixRefForwardingComponent<
+const SideNavCollapse: BsPrefixRefForwardingComponent<
   'div',
-  AccordionCollapseProps
-> = React.forwardRef<HTMLDivElement, AccordionCollapseProps>(
+  SideNavCollapseProps
+> = React.forwardRef<HTMLDivElement, SideNavCollapseProps>(
   ({ eventKey, children, ...props }, ref) => {
     return (
       <ComponentCollapse
         eventKey={eventKey}
-        defaultPrefix='accordion-collapse'
+        defaultPrefix='sidenav-collapse'
         ref={ref}
-        context={AccordionContext}
+        context={SideNavContext}
         {...props}
       >
         <>{children}</>
@@ -40,7 +40,7 @@ const AccordionCollapse: BsPrefixRefForwardingComponent<
 );
 
 
-AccordionCollapse.propTypes = propTypes;
-AccordionCollapse.displayName = 'AccordionCollapse';
+SideNavCollapse.propTypes = propTypes;
+SideNavCollapse.displayName = 'SideNavCollapse';
 
-export default AccordionCollapse;
+export default SideNavCollapse;
