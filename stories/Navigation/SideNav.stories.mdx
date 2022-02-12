@@ -1,0 +1,17 @@
+import { ArgsTable, Canvas, Meta, Story } from '@storybook/addon-docs';
+import { Nav, Button, NavItem, NavLink } from '../../src/components/index';
+
+<Meta
+  title="Components/Nav"
+  component={Nav}
+/>
+
+export const Template = (args) => {
+  return (
+      <Nav> this is nav </Nav>
+  );
+};
+
+<Canvas>
+  <Story name="Default">{Template.bind({})}</Story>
+</Canvas>

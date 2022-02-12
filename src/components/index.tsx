@@ -121,8 +121,8 @@ export type { ModalDialogProps } from './Modal/ModalDialog';
 export { default as ModalFooter } from './Modal/ModalFooter';
 export { default as ModalTitle } from './Modal/ModalTitle';
 
-// export { default as Nav } from './Nav';
-// export type { NavProps } from './Nav';
+export { default as Nav } from './Nav/Nav';
+export type { NavProps } from './Nav/Nav';
 
 // export { default as Navbar } from './Navbar';
 // export type { NavbarProps } from './Navbar';
@@ -133,10 +133,10 @@ export { default as ModalTitle } from './Modal/ModalTitle';
 // export { default as NavDropdown } from './NavDropdown';
 // export type { NavDropdownProps } from './NavDropdown';
 
-// export { default as NavItem } from './NavItem';
+export { default as NavItem } from './Nav/NavItem';
 
-// export { default as NavLink } from './NavLink';
-// export type { NavLinkProps } from './NavLink';
+export { default as NavLink } from './Nav/NavLink';
+export type { NavLinkProps } from './Nav/NavLink';
 
 // export { default as Offcanvas } from './Offcanvas';
 // export type { OffcanvasProps } from './Offcanvas';
