@@ -1,14 +1,9 @@
-import classNames from 'classnames';
 import * as React from 'react';
-import { useContext } from 'react';
 import PropTypes from 'prop-types';
-import { Transition } from 'react-transition-group';
-import { useBootstrapPrefix } from '../ThemeProvider/ThemeProvider';
-import Collapse, { CollapseProps } from '../Collapse/Collapse';
 import AccordionContext from './AccordionContext';
-import { BsPrefixRefForwardingComponent, BsPrefixProps } from '../helpers';
+import { BsPrefixRefForwardingComponent } from '../helpers';
 import ComponentCollapse from '../Collapse/ComponentCollapse';
-export interface AccordionCollapseProps extends BsPrefixProps, CollapseProps {
+export interface AccordionCollapseProps {
   eventKey: string;
 }
 
@@ -25,42 +20,24 @@ const propTypes = {
   children: PropTypes.element.isRequired,
 };
 
-const AccordionCollapse2 = () => {
-  return (
-    <ComponentCollapse
-    eventKey= {eventKey}
-    />
-}
 const AccordionCollapse: BsPrefixRefForwardingComponent<
   'div',
   AccordionCollapseProps
-> = React.forwardRef<Transition<any>, AccordionCollapseProps>(
-  (
-    {
-      as: Component = 'div',
-      bsPrefix,
-      className,
-      children,
-      eventKey,
-      ...props
-    },
-    ref,
-  ) => {
-    const { activeEventKey } = useContext(AccordionContext);
-    bsPrefix = useBootstrapPrefix(bsPrefix, 'accordion-collapse');
-
+> = React.forwardRef<HTMLDivElement, AccordionCollapseProps>(
+  ({ eventKey, children, ...props }, ref) => {
     return (
-      <Collapse
+      <ComponentCollapse
+        eventKey={eventKey}
         ref={ref}
-        in={activeEventKey === eventKey}
+        context={AccordionContext}
         {...props}
-        className={classNames(className, bsPrefix)}
       >
-        <Component>{React.Children.only(children)}</Component>
-      </Collapse>
+        <>{children}</>
+      </ComponentCollapse>
     );
-  },
-) as any;
+  }
+);
+
 
 AccordionCollapse.propTypes = propTypes;
 AccordionCollapse.displayName = 'AccordionCollapse';

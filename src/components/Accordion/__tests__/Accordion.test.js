@@ -2,9 +2,7 @@ import { mount } from 'enzyme';
 import * as React from 'react';
 import Accordion from '../Accordion';
 import AccordionCollapse from '../AccordionCollapse';
-import Dropdown from '../../Dropdown/Dropdown';
 import sinon from 'sinon';
-import { act } from 'react-dom/test-utils';
 
 describe('<Accordion>', () => {
   it('should output a div', () => {

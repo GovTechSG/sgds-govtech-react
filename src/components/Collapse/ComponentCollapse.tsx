@@ -30,9 +30,9 @@ const propTypes = {
   /** Children prop should only contain a single child, and is enforced as such */
   children: PropTypes.element.isRequired,
   context: PropTypes.shape({
-      Provider: PropTypes.element, 
-      Consumer: PropTypes.element,
-      displayName: PropTypes.oneOf([PropTypes.string, undefined]),
+      Provider: PropTypes.elementType, 
+      Consumer: PropTypes.elementType,
+      displayName: PropTypes.oneOfType([PropTypes.string]),
   }).isRequired,
   defaultPrefix : PropTypes.string
 };
@@ -58,7 +58,6 @@ const ComponentCollapse: BsPrefixRefForwardingComponent<
   ) => {
     const { activeEventKey } = useContext(context);
     bsPrefix = useBootstrapPrefix(bsPrefix, defaultPrefix);
-
     return (
       <Collapse
         ref={ref}
@@ -70,7 +69,7 @@ const ComponentCollapse: BsPrefixRefForwardingComponent<
       </Collapse>
     );
   },
-) as any;
+)
 
 ComponentCollapse.propTypes = propTypes;
 ComponentCollapse.displayName = 'ComponentCollapse';
