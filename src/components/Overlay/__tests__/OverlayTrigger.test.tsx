@@ -155,7 +155,7 @@ describe('<OverlayTrigger>', () => {
       expect(callback).toBeCalledWith(false);
     });
   });
-
+//@ts-ignore
   it('Should show after mouseover trigger', async (done) => {
     const clock = sinon.useFakeTimers();
 
@@ -197,7 +197,7 @@ describe('<OverlayTrigger>', () => {
 
     expect(buttonElem.getAttribute('aria-describedby')).toBeNull();
   });
-
+//@ts-ignore
   it('Should set aria-describedby for tooltips if the state is show', async(done) => {
     const { getByTestId } = render(
       <OverlayTrigger trigger="click" overlay={<TemplateDiv />}>
@@ -349,6 +349,7 @@ describe('<OverlayTrigger>', () => {
       },
     ].forEach((testCase) => {
       describe(testCase.name, () => {
+        //@ts-ignore
         it('Should handle trigger without warnings', async(done) => {
           const { getByTestId } = render(
             <OverlayTrigger trigger="click" overlay={testCase.overlay}>
