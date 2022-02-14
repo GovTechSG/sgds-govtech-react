@@ -4,7 +4,7 @@ import { useState } from 'react';
 import { HIDDEN_COMMON_PROPS } from '../helpers';
 
 <Meta
-  title="MDX/Progress Bar"
+  title="Components/Progress Bar"
   component={ProgressBar}
   argTypes={{
     ...HIDDEN_COMMON_PROPS,
@@ -33,21 +33,20 @@ import { HIDDEN_COMMON_PROPS } from '../helpers';
 
 Provide up-to-date feedback on the progress of a workflow or action with simple yet flexible progress bars.
 
-## Example
-
-Default progress bar.
 
 export const Template = (args) => {
   return <ProgressBar {...args} />;
 };
 
 <Canvas>
-  <Story name="Example">{Template.bind({})}</Story>
+  <Story name="Default">{Template.bind({})}</Story>
 </Canvas>
 
-<ArgsTable story="Example" />
+## API
 
-## 2. Decrement / Increment
+<ArgsTable story="Default" />
+
+## Decrement / Increment
 
 Use the `min` to set base progress (default is 0), `now` to indicate the current value of progress and `max` to set the maximum progress (default is 100).
 
@@ -115,7 +114,7 @@ let decrementHandler = () => {
 </>;
 ```
 
-## 3. With label
+## With label
 
 Add a `label` prop to show a visible percentage. For low percentages, consider adding a min-width to ensure the label's text is fully visible.
 
@@ -136,7 +135,7 @@ const now = 60;
 <ProgressBar now={now} label={`${now}%`} />;
 ```
 
-## 4. Screenreader only label
+## Screenreader only label
 
 Add a `visuallyHidden` prop to hide the label visually.
 
@@ -159,7 +158,7 @@ const now = 60;
 <ProgressBar now={now} label={`${now}%`} visuallyHidden />;
 ```
 
-## 5. Contextual alternatives
+## Contextual alternatives
 
 Progress bars use some of the same button and alert classes for consistent styles.
 
@@ -185,7 +184,7 @@ import { ProgressBar } from 'sgds-govtech-react';
 </div>;
 ```
 
-## 6. Striped
+## Striped
 
 Uses a gradient to create a `striped` effect.
 
@@ -211,7 +210,7 @@ import { ProgressBar } from 'sgds-govtech-react';
 </div>;
 ```
 
-## 7. Animated
+## Animated
 
 Add `animated` prop to animate the stripes right to left.
 
@@ -227,7 +226,7 @@ import { ProgressBar } from 'sgds-govtech-react';
 <ProgressBar animated now={45} />;
 ```
 
-## 8. Stacked
+## Stacked
 
 Nest `<ProgressBar />`'s to stack them.
 

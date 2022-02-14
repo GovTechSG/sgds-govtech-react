@@ -4,24 +4,26 @@ import { Breadcrumb } from '../../src/components/index';
 import { HIDDEN_COMMON_PROPS } from '../helpers';
 
 <Meta
-  title="MDX/Breadcrumb"
+  title="Components/Breadcrumb"
   component={Breadcrumb}
   argTypes={{
     ...HIDDEN_COMMON_PROPS,
-    ariaLabel: { description: 'ARIA label for the nav element' },
+    ariaLabel: {
+      description: 'ARIA label for the nav element',
+      table: { category: '<Breadcrumb />' },
+    },
     listProps: {
       description:
         'An object which keys and value are passed down to `<ol />` as attribute name and value respectively.',
-    },
-  }}
+      table: { category: '<Breadcrumb />' },
+    }
+}}
 />
 
 export const Template = (args) => {
   return (
     <Breadcrumb {...args}>
-      <Breadcrumb.Item
-        href="https://www.designsystem.tech.gov.sg/"
-      >
+      <Breadcrumb.Item href="https://www.designsystem.tech.gov.sg/">
         Home
       </Breadcrumb.Item>
       <Breadcrumb.Item href="https://github.com/GovTechSG/sgds-govtech-react/">
@@ -44,7 +46,7 @@ export const Template = (args) => {
 
 <ArgsTable story="Default" />
 
-Please refer to https://react-bootstrap.github.io/components/breadcrumb/ for more detailed API documentation
+Please refer to https://react-bootstrap.github.io/components/breadcrumb/ for more detailed API documentation on `<Breadcrumb />` and `<Breadcrumb.Item />`
 
 ## listProps
 
@@ -65,7 +67,7 @@ export const listProps = {
 };
 
 <Canvas>
-  <Story name="Breadcrumb list styling" args={{ listProps }}>
+  <Story name="Style Breadcrumb" args={{ listProps }}>
     {Template.bind({})}
   </Story>
 </Canvas>
@@ -74,7 +76,6 @@ export const listProps = {
 
 Breadcrumb.Item is a li element with anchor element when it is inactive. It is built on top of @restart/ui Anchor Component
 
-
 ### Active `<Breadcrumb.Item />`
 
 An `active` Breadcrumb.Item does not have `<a />`. Hence, an active Breadcrumb.Item should not have `href` attribute.
@@ -82,19 +83,20 @@ Do not set both active and href attributes together. `active` prop overrides `hr
 
 ### linkProps
 
-`linkProps` object passes down attributes or css selectors to `<a />` of Breadcrumb.Item. `linkProps` only applies to anchor element. 
+`linkProps` object passes down attributes or css selectors to `<a />` of Breadcrumb.Item. `linkProps` only applies to anchor element.
 Hence if Breadcrumb.Item is active, i.e. it has no `<a />`, `linkProps` does not have any effect
 
 ```jsx
- const linkProps = {
-    className: 'text-primary bg-warning',
-    foo : 'bar'
-  };
+const linkProps = {
+  className: 'text-primary bg-warning',
+  foo: 'bar',
+};
 ```
+
 export const BreadcrumbItemTemplate = () => {
   const linkProps = {
     className: 'text-primary bg-warning',
-    foo : 'bar'
+    foo: 'bar',
   };
   return (
     <Breadcrumb>
@@ -113,7 +115,7 @@ export const BreadcrumbItemTemplate = () => {
 };
 
 <Canvas>
-  <Story name="Breadcrumb.Item link styling" args={{ listProps }}>
+  <Story name="Style BreadcrumbItem" args={{ listProps }}>
     {BreadcrumbItemTemplate.bind({})}
   </Story>
 </Canvas>

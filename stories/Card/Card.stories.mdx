@@ -4,7 +4,7 @@ import { CARD_COMMON_PROPS } from './argTypes';
 import { Card, Button, CardGroup, Row, Col } from '../../src/components/index';
 
 <Meta
-  title="MDX/Card/Informational Card"
+  title="Components/Card/Informational Card"
   component={Card}
   argTypes={{
     ...HIDDEN_COMMON_PROPS,
@@ -40,7 +40,7 @@ Cards can be used for headers and footers, a wide variety of content, contain co
 
 ## Base Card
 
-`Card` component consist of `Card.Img`, `Card.Body`, `Card.Link`, `Card.Title`, `Card.Subtitle`, `Card.Text`, `Card.Header`, `Card.Footer`, `Card.ImgOverlay`.
+`Card` component consist of sub-components : `Card.Img`, `Card.Body`, `Card.Link`, `Card.Title`, `Card.Subtitle`, `Card.Text`, `Card.Header`, `Card.Footer`, `Card.ImgOverlay`.
 
 <Canvas>
   <Story name="Base Card">{Template.bind({})}</Story>
@@ -58,7 +58,7 @@ Please refer to https://react-bootstrap.github.io/components/cards/#api for more
 Use `Card.Link` to add a link to your card. Wrap Card elements with `Card.Link` to add a hyperlink
 
 <Canvas>
-  <Story name="Default CTA">
+  <Story name="Call To Action">
     <Row>
       <Col xs lg="4">
         <Card>
@@ -158,7 +158,7 @@ Use `as` prop to change the default HTMLElement of Card sub-components when requ
 
 ## Add components as child elements of Card components
 
-Add sgds-react components like `Button` to Card as a child element or pass as props using `as` prop.
+Add sgds-govtech-react components like `Button` to Card as a child element or pass as props using `as` prop.
 
 Both method achieves the same outcome.
 
