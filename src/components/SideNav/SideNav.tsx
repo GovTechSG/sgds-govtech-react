@@ -5,7 +5,7 @@ import PropTypes from 'prop-types';
 import { SelectCallback } from '@restart/ui/types';
 import { useUncontrolled } from 'uncontrollable';
 import { useBootstrapPrefix, SGDSWrapper } from '../ThemeProvider/ThemeProvider';
-import SideNavBody from './SideNavBody';
+// import SideNavBody from './SideNavBody';
 import SideNavButton from './SideNavButton';
 import SideNavCollapse from './SideNavCollapse';
 import SideNavContext from './SideNavContext';
@@ -18,9 +18,7 @@ export interface SideNavProps
     BsPrefixProps {
   activeKey?: string;
   defaultActiveKey?: string;
-  onSelect?: SelectCallback;
-  flush?: boolean;
-  
+  onSelect?: SelectCallback;  
 }
 
 const propTypes = {
@@ -36,8 +34,6 @@ const propTypes = {
   /** The default active key that is expanded on start */
   defaultActiveKey: PropTypes.string,
 
-  /** Renders sidenav edge-to-edge with its parent container */
-  flush: PropTypes.bool,
 };
 
 const SideNav: BsPrefixRefForwardingComponent<'ul', SideNavProps> =
@@ -49,7 +45,6 @@ const SideNav: BsPrefixRefForwardingComponent<'ul', SideNavProps> =
       bsPrefix,
       className,
       onSelect,
-      flush,
       ...controlledProps
     } = useUncontrolled(props, {
       activeKey: 'onSelect',
@@ -70,7 +65,7 @@ const SideNav: BsPrefixRefForwardingComponent<'ul', SideNavProps> =
           as={Component}
           ref={ref}
           {...controlledProps}
-          className={classNames( className, prefix, flush && `${prefix}-flush`)}
+          className={classNames( className, prefix)}
         />
       </SideNavContext.Provider>
     );
@@ -84,7 +79,7 @@ export default Object.assign(SideNav, {
   Collapse: SideNavCollapse,
   Item: SideNavItem,
   Header: SideNavHeader,
-  Body: SideNavBody,
+  // Body: SideNavBody,
   BodyItem: SideNavBodyItem
 });
 

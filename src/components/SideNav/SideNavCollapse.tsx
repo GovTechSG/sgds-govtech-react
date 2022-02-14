@@ -3,8 +3,10 @@ import PropTypes from 'prop-types';
 import SideNavContext from './SideNavContext';
 import { BsPrefixRefForwardingComponent } from '../helpers';
 import ComponentCollapse from '../Collapse/ComponentCollapse';
+import { useContext } from 'react';
+import SideNavItemContext from './SideNavItemContext';
+
 export interface SideNavCollapseProps {
-  eventKey: string;
 }
 
 const propTypes = {
@@ -14,17 +16,19 @@ const propTypes = {
   /**
    * A key that corresponds to the toggler that triggers this collapse's expand or collapse.
    */
-  eventKey: PropTypes.string.isRequired,
+  // eventKey: PropTypes.string.isRequired, 
 
   /** Children prop should only contain a single child, and is enforced as such */
-  children: PropTypes.element.isRequired,
+  children: PropTypes.oneOfType([PropTypes.element, PropTypes.arrayOf(PropTypes.element)])
 };
 
 const SideNavCollapse: BsPrefixRefForwardingComponent<
   'div',
   SideNavCollapseProps
 > = React.forwardRef<HTMLDivElement, SideNavCollapseProps>(
-  ({ eventKey, children, ...props }, ref) => {
+  ({ children, ...props }, ref) => {
+    const { eventKey } = useContext(SideNavItemContext);
+
     return (
       <ComponentCollapse
         eventKey={eventKey}

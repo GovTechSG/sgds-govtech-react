@@ -1,9 +1,14 @@
+import classNames from 'classnames';
 import * as React from 'react';
+import { useContext } from 'react';
 import PropTypes from 'prop-types';
-import AccordionContext from './AccordionContext';
-import { BsPrefixRefForwardingComponent } from '../helpers';
-import ComponentCollapse from '../Collapse/ComponentCollapse';
-export interface AccordionCollapseProps {
+import { Transition } from 'react-transition-group';
+import { useBootstrapPrefix } from '../ThemeProvider/ThemeProvider';
+import Collapse, { CollapseProps } from '../Collapse/Collapse';
+import AccordionContext, { isAccordionItemSelected } from './AccordionContext';
+import { BsPrefixRefForwardingComponent, BsPrefixProps } from '../helpers';
+
+export interface AccordionCollapseProps extends BsPrefixProps, CollapseProps {
   eventKey: string;
 }
 
@@ -23,22 +28,33 @@ const propTypes = {
 const AccordionCollapse: BsPrefixRefForwardingComponent<
   'div',
   AccordionCollapseProps
-> = React.forwardRef<HTMLDivElement, AccordionCollapseProps>(
-  ({ eventKey, children, ...props }, ref) => {
-    return (
-      <ComponentCollapse
-        eventKey={eventKey}
-        defaultPrefix='accordion-collapse'
-        ref={ref}
-        context={AccordionContext}
-        {...props}
-      >
-        <>{children}</>
-      </ComponentCollapse>
-    );
-  }
-);
+> = React.forwardRef<Transition<any>, AccordionCollapseProps>(
+  (
+    {
+      as: Component = 'div',
+      bsPrefix,
+      className,
+      children,
+      eventKey,
+      ...props
+    },
+    ref,
+  ) => {
+    const { activeEventKey } = useContext(AccordionContext);
+    bsPrefix = useBootstrapPrefix(bsPrefix, 'accordion-collapse');
 
+    return (
+      <Collapse
+        ref={ref}
+        in={isAccordionItemSelected(activeEventKey, eventKey)}
+        {...props}
+        className={classNames(className, bsPrefix)}
+      >
+        <Component>{React.Children.only(children)}</Component>
+      </Collapse>
+    );
+  },
+) as any;
 
 AccordionCollapse.propTypes = propTypes;
 AccordionCollapse.displayName = 'AccordionCollapse';

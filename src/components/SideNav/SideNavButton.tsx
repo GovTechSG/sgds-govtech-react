@@ -5,13 +5,15 @@ import PropTypes from 'prop-types';
 import SideNavContext from './SideNavContext';
 import SideNavItemContext from './SideNavItemContext';
 import { BsPrefixProps, BsPrefixRefForwardingComponent } from '../helpers';
-import { useBootstrapPrefix } from '../ThemeProvider/ThemeProvider';
-
+// import { useBootstrapPrefix } from '../ThemeProvider/ThemeProvider';
+import Button from '../Button/Button';
 type EventHandler = React.EventHandler<React.SyntheticEvent>;
 
 export interface SideNavButtonProps
   extends React.ButtonHTMLAttributes<HTMLButtonElement>,
-    BsPrefixProps {}
+    BsPrefixProps {
+  href?: string;
+}
 
 const propTypes = {
   /** Set a custom element for this component */
@@ -22,11 +24,13 @@ const propTypes = {
 
   /** A callback function for when this component is clicked */
   onClick: PropTypes.func,
+  /** Providing a `href` will render an `<a>` element, _styled_ as a button. */
+  href: PropTypes.string,
 };
 
 export function useSideNavButton(
   eventKey: string,
-  onClick?: EventHandler,
+  onClick?: EventHandler
 ): EventHandler {
   const { activeEventKey, onSelect } = useContext(SideNavContext);
 
@@ -43,21 +47,22 @@ export function useSideNavButton(
 }
 
 const SideNavButton: BsPrefixRefForwardingComponent<
-  'div',
+  'button',
   SideNavButtonProps
 > = React.forwardRef<HTMLButtonElement, SideNavButtonProps>(
   (
     {
       // Need to define the default "as" during prop destructuring to be compatible with styled-components github.com/react-bootstrap/react-bootstrap/issues/3595
-      as: Component = 'button',
+      as: Component = Button,
       bsPrefix,
       className,
       onClick,
+      children,
       ...props
     },
-    ref,
+    ref
   ) => {
-    bsPrefix = useBootstrapPrefix(bsPrefix, 'sidenav-button');
+    // bsPrefix = useBootstrapPrefix(bsPrefix, 'sidenav-button');
     const { eventKey } = useContext(SideNavItemContext);
     const sideNavOnClick = useSideNavButton(eventKey, onClick);
     const { activeEventKey } = useContext(SideNavContext);
@@ -74,12 +79,14 @@ const SideNavButton: BsPrefixRefForwardingComponent<
         aria-expanded={eventKey === activeEventKey}
         className={classNames(
           className,
-          bsPrefix,
-          eventKey !== activeEventKey && 'collapsed',
+          eventKey !== activeEventKey && 'collapsed'
         )}
-      />
+      >
+        {children}
+        {!props.href && <i className="bi bi-chevron-down"></i>}
+      </Component>
     );
-  },
+  }
 );
 
 SideNavButton.propTypes = propTypes;

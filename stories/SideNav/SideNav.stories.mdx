@@ -7,26 +7,25 @@ import { SideNav, NavLink } from '../../src/components/index';
 export const Template = (args) => (
   <SideNav {...args}>
     <SideNav.Item eventKey="0">
-      <SideNav.Header>SideNav Item #1</SideNav.Header>
-      <SideNav.Body>
-        <SideNav.BodyItem>
+      <SideNav.Button>SideNav Item #1</SideNav.Button>
+      <SideNav.Collapse>
           <NavLink href="https://getbootstrap.com/docs/5.1/examples/sidebars/#">number one</NavLink>
           <NavLink href="https://getbootstrap.com/docs/5.1/examples/sidebars/#">number one</NavLink>
           <NavLink href="https://getbootstrap.com/docs/5.1/examples/sidebars/#">number one</NavLink>
-        </SideNav.BodyItem>
-      </SideNav.Body>
+      </SideNav.Collapse>
     </SideNav.Item>
     <SideNav.Item eventKey="1">
-      <SideNav.Header>SideNav Item #2</SideNav.Header>
-      <SideNav.Body>
-        <SideNav.BodyItem>
+      <SideNav.Button>SideNav Item #2</SideNav.Button>
+      <SideNav.Collapse>
           <NavLink>number two</NavLink>
           <NavLink disabled>number two</NavLink>
           <NavLink>number two</NavLink>
           <NavLink>number two</NavLink>
           <NavLink>number two</NavLink>
-        </SideNav.BodyItem>
-      </SideNav.Body>
+      </SideNav.Collapse>
+    </SideNav.Item>
+    <SideNav.Item eventKey="2">
+      <SideNav.Button href="https://getbootstrap.com/docs/5.1/examples/sidebars/#">SideNav Item #3</SideNav.Button>
     </SideNav.Item>
   </SideNav>
 );
