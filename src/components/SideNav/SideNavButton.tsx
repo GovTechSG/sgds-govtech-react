@@ -2,10 +2,9 @@ import * as React from 'react';
 import { useContext } from 'react';
 import classNames from 'classnames';
 import PropTypes from 'prop-types';
-import SideNavContext from './SideNavContext';
+import SideNavContext, {SideNavEventKey} from './SideNavContext';
 import SideNavItemContext from './SideNavItemContext';
 import { BsPrefixProps, BsPrefixRefForwardingComponent } from '../helpers';
-// import { useBootstrapPrefix } from '../ThemeProvider/ThemeProvider';
 import Button from '../Button/Button';
 type EventHandler = React.EventHandler<React.SyntheticEvent>;
 
@@ -32,17 +31,29 @@ export function useSideNavButton(
   eventKey: string,
   onClick?: EventHandler
 ): EventHandler {
-  const { activeEventKey, onSelect } = useContext(SideNavContext);
-
+  const { activeEventKey, onSelect, alwaysOpen } = useContext(SideNavContext);
   return (e) => {
     /*
       Compare the event key in context with the given event key.
       If they are the same, then collapse the component.
     */
-    const eventKeyPassed = eventKey === activeEventKey ? null : eventKey;
+    let eventKeyPassed: SideNavEventKey =
+      eventKey === activeEventKey ? null : eventKey;
+    if (alwaysOpen) {
+      if (Array.isArray(activeEventKey)) {
+        if (activeEventKey.includes(eventKey)) {
+          eventKeyPassed = activeEventKey.filter((k) => k !== eventKey);
+        } else {
+          eventKeyPassed = [...activeEventKey, eventKey];
+        }
+      } else {
+        // activeEventKey is undefined.
+        eventKeyPassed = [eventKey];
+      }
+    }
 
-    if (onSelect) onSelect(eventKeyPassed, e);
-    if (onClick) onClick(e);
+    onSelect?.(eventKeyPassed, e);
+    onClick?.(e);
   };
 }
 
@@ -62,7 +73,6 @@ const SideNavButton: BsPrefixRefForwardingComponent<
     },
     ref
   ) => {
-    // bsPrefix = useBootstrapPrefix(bsPrefix, 'sidenav-button');
     const { eventKey } = useContext(SideNavItemContext);
     const sideNavOnClick = useSideNavButton(eventKey, onClick);
     const { activeEventKey } = useContext(SideNavContext);

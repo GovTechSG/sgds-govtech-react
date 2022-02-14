@@ -1,13 +1,28 @@
 import * as React from 'react';
-// import { SelectCallback } from '@restart/ui/types';
-import { GenericContextValue } from '../Collapse/ComponentCollapse'
 
-export interface SideNavContext extends GenericContextValue{
-  // activeEventKey?: string;
-  // onSelect?: SelectCallback;
+export type SideNavEventKey = string | string[] | null | undefined;
+
+export declare type SideNavSelectCallback = (
+  eventKey: SideNavEventKey,
+  e: React.SyntheticEvent<unknown>,
+) => void;
+
+export interface SideNavContextValue {
+  activeEventKey?: SideNavEventKey;
+  onSelect?: SideNavSelectCallback;
+  alwaysOpen?: boolean;
 }
 
-const context = React.createContext<SideNavContext>({});
+export function isSideNavItemSelected(
+  activeEventKey: SideNavEventKey,
+  eventKey: string,
+): boolean {
+  return Array.isArray(activeEventKey)
+    ? activeEventKey.includes(eventKey)
+    : activeEventKey === eventKey;
+}
+
+const context = React.createContext<SideNavContextValue>({});
 context.displayName = 'SideNavContext';
 
 export default context;

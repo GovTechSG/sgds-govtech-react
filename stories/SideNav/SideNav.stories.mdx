@@ -9,27 +9,37 @@ export const Template = (args) => (
     <SideNav.Item eventKey="0">
       <SideNav.Button>SideNav Item #1</SideNav.Button>
       <SideNav.Collapse>
-          <NavLink href="https://getbootstrap.com/docs/5.1/examples/sidebars/#">number one</NavLink>
-          <NavLink href="https://getbootstrap.com/docs/5.1/examples/sidebars/#">number one</NavLink>
-          <NavLink href="https://getbootstrap.com/docs/5.1/examples/sidebars/#">number one</NavLink>
+        <NavLink href="#">
+          number one
+        </NavLink>
+        <NavLink href="#">
+          number one
+        </NavLink>
+        <NavLink href="#">
+          number one
+        </NavLink>
       </SideNav.Collapse>
     </SideNav.Item>
     <SideNav.Item eventKey="1">
       <SideNav.Button>SideNav Item #2</SideNav.Button>
       <SideNav.Collapse>
-          <NavLink>number two</NavLink>
-          <NavLink disabled>number two</NavLink>
-          <NavLink>number two</NavLink>
-          <NavLink>number two</NavLink>
-          <NavLink>number two</NavLink>
+        <NavLink>number two</NavLink>
+        <NavLink disabled>number two</NavLink>
+        <NavLink>number two</NavLink>
+        <NavLink>number two</NavLink>
+        <NavLink>number two</NavLink>
       </SideNav.Collapse>
     </SideNav.Item>
     <SideNav.Item eventKey="2">
-      <SideNav.Button href="https://getbootstrap.com/docs/5.1/examples/sidebars/#">SideNav Item #3</SideNav.Button>
+      <SideNav.Button href="#">
+        SideNav Item #3
+      </SideNav.Button>
     </SideNav.Item>
   </SideNav>
 );
 
 <Canvas>
-  <Story name="Basic">{Template.bind({})}</Story>
+  <Story name="Basic">
+    {Template.bind({})}
+  </Story>
 </Canvas>

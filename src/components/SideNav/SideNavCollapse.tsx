@@ -1,48 +1,53 @@
+import classNames from 'classnames';
 import * as React from 'react';
-import PropTypes from 'prop-types';
-import SideNavContext from './SideNavContext';
-import { BsPrefixRefForwardingComponent } from '../helpers';
-import ComponentCollapse from '../Collapse/ComponentCollapse';
 import { useContext } from 'react';
-import SideNavItemContext from './SideNavItemContext';
-
-export interface SideNavCollapseProps {
+import PropTypes from 'prop-types';
+import { Transition } from 'react-transition-group';
+import { useBootstrapPrefix } from '../ThemeProvider/ThemeProvider';
+import Collapse, { CollapseProps } from '../Collapse/Collapse';
+import SideNavContext, { isSideNavItemSelected } from './SideNavContext';
+import { BsPrefixRefForwardingComponent, BsPrefixProps } from '../helpers';
+import SideNavItemContext from './SideNavItemContext'
+export interface SideNavCollapseProps extends BsPrefixProps, CollapseProps {
 }
 
 const propTypes = {
   /** Set a custom element for this component */
   as: PropTypes.elementType,
 
-  /**
-   * A key that corresponds to the toggler that triggers this collapse's expand or collapse.
-   */
-  // eventKey: PropTypes.string.isRequired, 
-
   /** Children prop should only contain a single child, and is enforced as such */
-  children: PropTypes.oneOfType([PropTypes.element, PropTypes.arrayOf(PropTypes.element)])
+  children: PropTypes.oneOfType([PropTypes.element, PropTypes.arrayOf(PropTypes.element)]),
 };
 
 const SideNavCollapse: BsPrefixRefForwardingComponent<
   'div',
   SideNavCollapseProps
-> = React.forwardRef<HTMLDivElement, SideNavCollapseProps>(
-  ({ children, ...props }, ref) => {
+> = React.forwardRef<Transition<any>, SideNavCollapseProps>(
+  (
+    {
+      as: Component = 'div',
+      bsPrefix,
+      className,
+      children,
+      ...props
+    },
+    ref,
+  ) => {
+    const { activeEventKey } = useContext(SideNavContext);
     const { eventKey } = useContext(SideNavItemContext);
-
+    bsPrefix = useBootstrapPrefix(bsPrefix, 'sidenav-collapse');
     return (
-      <ComponentCollapse
-        eventKey={eventKey}
-        defaultPrefix='sidenav-collapse'
+      <Collapse
         ref={ref}
-        context={SideNavContext}
+        in={isSideNavItemSelected(activeEventKey, eventKey)}
         {...props}
+        className={classNames(className, bsPrefix)}
       >
-        <>{children}</>
-      </ComponentCollapse>
+        <Component><ul className="list-unstyled">{children}</ul></Component>
+      </Collapse>
     );
-  }
-);
-
+  },
+) as any;
 
 SideNavCollapse.propTypes = propTypes;
 SideNavCollapse.displayName = 'SideNavCollapse';
