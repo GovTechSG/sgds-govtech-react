@@ -155,8 +155,7 @@ describe('<OverlayTrigger>', () => {
       expect(callback).toBeCalledWith(false);
     });
   });
-//@ts-ignore
-  it('Should show after mouseover trigger', async (done) => {
+  it('Should show after mouseover trigger', async () => {
     const clock = sinon.useFakeTimers();
 
     const { getByTestId, queryByTestId } = render(
@@ -182,7 +181,6 @@ describe('<OverlayTrigger>', () => {
     await waitFor(() => expect(overlayElem).toBeNull());
 
     clock.restore();
-    done();
   });
 
   it('Should not set aria-describedby if the state is not show', () => {
@@ -197,8 +195,8 @@ describe('<OverlayTrigger>', () => {
 
     expect(buttonElem.getAttribute('aria-describedby')).toBeNull();
   });
-//@ts-ignore
-  it('Should set aria-describedby for tooltips if the state is show', async(done) => {
+
+  it('Should set aria-describedby for tooltips if the state is show', async() => {
     const { getByTestId } = render(
       <OverlayTrigger trigger="click" overlay={<TemplateDiv />}>
         <button type="button" data-testid="test-button">
@@ -216,13 +214,13 @@ describe('<OverlayTrigger>', () => {
         expect(buttonElem.getAttribute('aria-describedby')).toEqual(
           'test-tooltip'
         );
-        done();
     })
  
   });
 
   describe('trigger handlers', () => {
-    it('Should keep trigger handlers', (done) => {
+    it('Should keep trigger handlers', () => {
+      const mock = jest.fn()
       const { getByTestId } = render(
         <div>
           <OverlayTrigger
@@ -232,7 +230,7 @@ describe('<OverlayTrigger>', () => {
             <button
               type="button"
               data-testid="test-button"
-              onClick={() => done()}
+              onClick={mock}
             >
               button
             </button>
@@ -242,6 +240,7 @@ describe('<OverlayTrigger>', () => {
       );
       const buttonElem = getByTestId('test-button');
       fireEvent.click(buttonElem);
+      waitFor(() => expect(mock).toHaveBeenCalled())
     });
   });
 
@@ -349,8 +348,7 @@ describe('<OverlayTrigger>', () => {
       },
     ].forEach((testCase) => {
       describe(testCase.name, () => {
-        //@ts-ignore
-        it('Should handle trigger without warnings', async(done) => {
+        it('Should handle trigger without warnings', (done) => {
           const { getByTestId } = render(
             <OverlayTrigger trigger="click" overlay={testCase.overlay}>
               <button type="button" data-testid="test-button">
@@ -363,7 +361,7 @@ describe('<OverlayTrigger>', () => {
 
           // The use of Popper means that errors above will show up
           //  asynchronously.
-          await waitFor(()=>  setTimeout(done, 10))
+           waitFor(()=>  setTimeout(done, 10))
          
         });
       });
