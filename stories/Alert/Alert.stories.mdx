@@ -15,7 +15,10 @@ import { Alert, Button } from '../../src/components/index';
       description: 'Sets the background color for variants',
       table: {
         category: '<Alert>',
-        type: { summary: " 'primary' | 'secondary' | 'success' | 'danger' | 'warning' | 'info' | 'dark' | 'light'" },
+        type: {
+          summary:
+            " 'primary' | 'secondary' | 'success' | 'danger' | 'warning' | 'info' | 'dark' | 'light'",
+        },
         defaultValue: { summary: `'primary'` },
       },
       control: {
@@ -51,8 +54,7 @@ import { Alert, Button } from '../../src/components/index';
       },
     },
     onClose: {
-      description:
-        'controls *show* <br/> Callback fired when alert is closed.',
+      description: 'controls *show* <br/> Callback fired when alert is closed.',
       table: {
         category: '<Alert>',
         type: { summary: 'function' },
@@ -64,7 +66,7 @@ import { Alert, Button } from '../../src/components/index';
       table: {
         category: '<Alert.Heading> <Alert.Link>',
         type: { summary: 'elementType' },
-        defaultValue: { summary: '<DivStyledAsH4> <Anchor>'},
+        defaultValue: { summary: '<DivStyledAsH4> <Anchor>' },
       },
     },
   }}
@@ -74,12 +76,13 @@ import { Alert, Button } from '../../src/components/index';
 
 Provide contextual feedback messages for typical user actions with the handful of available and flexible alert messages.
 
-## 1. Examples
+## 1. Basic with Icon
 
-Alerts are available for any length of text, as well as an optional dismiss button. For proper styling, use one of the eight **variant**.
+Alerts are available for any length of text, as well as an optional dismiss button. For proper styling, use one of the eight **variant** colors provided.
+You may also choose to slot in your icons from any libraries to make your information clearer and user-friendly.
 
-<Canvas withSource="open">
-  <Story name="Basic">
+<Canvas>
+  <Story name="Basic with Icon">
     {[
       'primary',
       'secondary',
@@ -91,18 +94,39 @@ Alerts are available for any length of text, as well as an optional dismiss butt
       'dark',
     ].map((variant, idx) => (
       <Alert key={idx} variant={variant}>
-        This is a {variant} alert—check it out!
+        <i className="bi bi-exclamation-circle me-4"></i>This is a {variant} alert—check
+        it out!
       </Alert>
     ))}
     ;
   </Story>
 </Canvas>
 
+```jsx
+import { Alert } from 'sgds-govtech-react';
+
+[
+  'primary',
+  'secondary',
+  'success',
+  'danger',
+  'warning',
+  'info',
+  'light',
+  'dark',
+].map((variant, idx) => (
+  <Alert key={idx} variant={variant}>
+    <i className="bi bi-exclamation-circle me-4"></i>This is a {variant} alert—check
+    it out!
+  </Alert>
+));
+```
+
 ## 2. Links
 
 For links, use the `<Alert.Link>` component to provide matching colored links within any alert.
 
-<Canvas withSource="open">
+<Canvas>
   <Story name="Links">
     {[
       'primary',
@@ -115,22 +139,46 @@ For links, use the `<Alert.Link>` component to provide matching colored links wi
       'dark',
     ].map((variant, idx) => (
       <Alert key={idx} variant={variant}>
-        This is a {variant} alert with{' '}
-        <Alert.Link href="#">an example link</Alert.Link>. Give it a click if
-        you like.
+        <i className="bi bi-exclamation-circle me-4"></i>
+        <div>
+          This is a {variant} alert with{' '}
+          <Alert.Link href="#">an example link</Alert.Link>. Give it a click if
+          you like.
+        </div>
       </Alert>
     ))}
     ;
   </Story>
 </Canvas>
 
+```jsx
+import { Alert } from 'sgds-govtech-react';
+
+[
+  'primary',
+  'secondary',
+  'success',
+  'danger',
+  'warning',
+  'info',
+  'light',
+  'dark',
+].map((variant, idx) => (
+  <Alert key={idx} variant={variant}>
+    <i className="bi bi-exclamation-circle me-4"></i>This is a {variant} alert with{' '}
+    <Alert.Link href="#">an example link</Alert.Link>. Give it a click if you like.
+  </Alert>
+));
+```
+
 ## 3. Additional content
 
-Alerts can contain whatever content you like. Headers, paragraphs, dividers, go crazy
+Alerts can contain whatever content you like. Headers, paragraphs, dividers etc.
 
-<Canvas withSource="open">
+<Canvas>
   <Story name="Additional Content">
     <Alert variant="success">
+      <i className="bi bi-exclamation-circle me-4"></i>
       <Alert.Heading>Hey, nice to see you</Alert.Heading>
       <p>
         Aww yeah, you successfully read this important alert message. This
@@ -146,11 +194,35 @@ Alerts can contain whatever content you like. Headers, paragraphs, dividers, go 
   </Story>
 </Canvas>
 
+```jsx
+import { Alert } from 'sgds-govtech-react';
+
+<Alert variant="success">
+  <i className="bi bi-exclamation-circle me-4"></i>
+  <Alert.Heading>Hey, nice to see you</Alert.Heading>
+  <p>
+    Aww yeah, you successfully read this important alert message. This example
+    text is going to run a bit longer so that you can see how spacing within an
+    alert works with this kind of content.
+  </p>
+  <hr />
+  <p className="mb-0">
+    Whenever you need to, be sure to use margin utilities to keep things nice
+    and tidy.
+  </p>
+</Alert>;
+```
+
+## 4. Dismissible
+
+Add the `dismissible` prop to add a functioning dismiss button to the Alert.
+
 export const Template = (args) => {
   const [show, setShow] = useState(true);
   if (show) {
     return (
       <Alert {...args} onClose={() => setShow(false)}>
+        <i className="bi bi-exclamation-circle me-4"></i>
         <Alert.Heading>Oh snap! You got an error!</Alert.Heading>
         <p>
           Change this and that and try again. Duis mollis, est non commodo
@@ -162,10 +234,6 @@ export const Template = (args) => {
   }
   return <Button onClick={() => setShow(true)}>Show Alert</Button>;
 };
-
-## 4. Dismissible
-
-Add the `dismissible` prop to add a functioning dismiss button to the Alert.
 
 <Canvas>
   <Story
@@ -179,7 +247,7 @@ Add the `dismissible` prop to add a functioning dismiss button to the Alert.
 <ArgsTable story="Dismissible" />
 
 ```jsx
-import { Alert, Button } from 'sgds-react';
+import { Alert, Button } from 'sgds-govtech-react';
 
 export const Alert = () => {
   const [show, setShow] = useState(true);

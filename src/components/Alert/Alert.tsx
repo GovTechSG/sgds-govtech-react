@@ -137,6 +137,7 @@ const Alert = React.forwardRef<HTMLDivElement, AlertProps>(
             onClick={handleClose}
             aria-label={closeLabel}
             variant={closeVariant}
+            className={`btn-sm`}
           />
         )}
         {children}
