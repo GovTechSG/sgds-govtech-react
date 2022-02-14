@@ -3,7 +3,7 @@ import { ArgsTable, Canvas, Meta, Story } from '@storybook/addon-docs';
 import { Accordion } from '../../src/components/index';
 
 <Meta
-  title="MDX/Accordion"
+  title="Components/Accordion"
   component={Accordion}
   argTypes={{
     defaultActiveKey: {
@@ -103,6 +103,8 @@ export const Template = (args) => (
   </Story>
 </Canvas>
 
+## API 
+
 <ArgsTable story="Basic" />
 
 ```jsx
@@ -138,7 +140,7 @@ import { Accordion } from 'sgds-govtech-react';
 
 ```
 
-## 2. Fully Collapsed State
+##  Fully Collapsed State
 
 If you want your `Accordion` to start in a fully-collapsed state, then simply don't pass in a `defaultActiveKey` prop to `Accordion`.
 
@@ -180,7 +182,7 @@ import { Accordion } from 'sgds-govtech-react';
 
 ```
 
-## 3. Flush
+##  Flush
 
 Add `flush` to remove the default background-color, some borders, and some rounded corners to render accordions edge-to-edge with their parent container.
 

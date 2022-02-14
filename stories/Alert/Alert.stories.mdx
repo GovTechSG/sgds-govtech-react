@@ -3,7 +3,7 @@ import { ArgsTable, Canvas, Meta, Story } from '@storybook/addon-docs';
 import { Alert, Button } from '../../src/components/index';
 
 <Meta
-  title="MDX/Alert"
+  title="Components/Alert"
   component={Alert}
   parameters={{
     actions: {
@@ -17,22 +17,22 @@ import { Alert, Button } from '../../src/components/index';
         category: '<Alert>',
         type: {
           summary:
-            " 'primary' | 'secondary' | 'success' | 'danger' | 'warning' | 'info' | 'dark' | 'light'",
+            " 'primary' | 'secondary' | 'success' | 'danger' | 'warning' | 'info' | 'dark' | 'light' | dark",
         },
         defaultValue: { summary: `'primary'` },
       },
+      options: [
+        'primary',
+        'secondary',
+        'success',
+        'danger',
+        'warning',
+        'info',
+        'light',
+        'dark',
+      ],
       control: {
         type: 'select',
-        options: [
-          'primary',
-          'secondary',
-          'success',
-          'danger',
-          'warning',
-          'info',
-          'light',
-          'dark',
-        ],
       },
     },
     dismissible: {
@@ -71,6 +71,19 @@ import { Alert, Button } from '../../src/components/index';
     },
   }}
 />
+
+export const Template = (args) => {
+  const [show, setShow] = useState(true);
+  if (show) {
+    return (
+      <Alert {...args} onClose={() => setShow(false)}>
+        <i className="bi bi-info-circle flex-shrink-0 me-4"></i>
+        This is an Alert
+      </Alert>
+    );
+  }
+  return <Button onClick={() => setShow(true)}>Show Alert</Button>;
+};
 
 # Alerts
 
@@ -229,7 +242,7 @@ import { Alert } from 'sgds-govtech-react';
 
 Add the `dismissible` prop to add a functioning dismiss button to the Alert.
 
-export const Template = (args) => {
+export const Dismissible = (args) => {
   const [show, setShow] = useState(true);
   if (show) {
     return (
@@ -258,11 +271,9 @@ export const Template = (args) => {
     name="Dismissible"
     args={{ variant: 'primary', dismissible: true, show: true }}
   >
-    {Template.bind({})}
+    {Dismissible.bind({})}
   </Story>
 </Canvas>
-
-<ArgsTable story="Dismissible" />
 
 ```jsx
 import { Alert, Button } from 'sgds-govtech-react';
