@@ -5,20 +5,18 @@ import * as React from 'react';
 import { useContext } from 'react';
 import { useUncontrolled } from 'uncontrollable';
 import BaseNav, { NavProps as BaseNavProps } from '@restart/ui/Nav';
-import { EventKey } from '@restart/ui/types';
 import { useBootstrapPrefix } from '../ThemeProvider/ThemeProvider';
 import NavbarContext from './NavbarContext';
 import CardHeaderContext from '../Card/CardHeaderContext';
 import NavItem from './NavItem';
 import NavLink from './NavLink';
 import { BsPrefixProps, BsPrefixRefForwardingComponent } from '../helpers';
-import { SGDSWrapper } from '../ThemeProvider/ThemeProvider';
-import NavMenu from './NavMenu';
+import NavDropdown from './NavDropdown';
+
 export interface NavProps extends BsPrefixProps, BaseNavProps {
   navbarBsPrefix?: string;
   cardHeaderBsPrefix?: string;
   variant?: 'tabs' | 'pills';
-  defaultActiveKey?: EventKey;
   fill?: boolean;
   justify?: boolean;
   navbar?: boolean;
@@ -163,5 +161,6 @@ Nav.defaultProps = defaultProps;
 export default Object.assign(Nav, {
   Item: NavItem,
   Link: NavLink,
-  Menu: NavMenu
+  Menu: NavMenu,
+  Dropdown: NavDropdown
 });

@@ -11,7 +11,6 @@ import { BsPrefixRefForwardingComponent, BsPrefixProps } from '../helpers';
 export interface NavItemProps
   extends BsPrefixProps,
     React.HTMLAttributes<HTMLElement> {
-        hoverable? : boolean;
 }
 
 const propTypes = {
@@ -20,7 +19,6 @@ const propTypes = {
 
   /** @default 'accordion-item' */
   bsPrefix: PropTypes.string,
-  hoverable: PropTypes.bool
 };
 
 const NavItem: BsPrefixRefForwardingComponent<'li', NavItemProps> =
@@ -31,7 +29,6 @@ const NavItem: BsPrefixRefForwardingComponent<'li', NavItemProps> =
         as: Component = 'li',
         bsPrefix,
         className,
-        hoverable,
         children,
         ...props
       },
@@ -46,7 +43,6 @@ const NavItem: BsPrefixRefForwardingComponent<'li', NavItemProps> =
             className={classNames(className, bsPrefix)}
           >
               {children}
-              {hoverable && <i className="bi bi-chevron-down"></i>}
           </Component>
       );
     },

@@ -166,6 +166,11 @@ When `alwaysOpen` is true, `defaultActiveKey` prop becomes an array of active ke
 Control which SideNavItem should be open on first load by defining `defaultActiveKey` array with the `eventKey` and `alwaysOpen` is true
 
 > **_NOTE:_** : `defaultActiveKey` **must** be an array when used with `alwaysOpen: true`
+  ```jsx
+    <SideNav defaultActiveKey= {['0', '1']} alwaysOpen>
+    ...
+    </SideNav>
+  ```
 
 <Canvas>
   <Story
@@ -175,3 +180,4 @@ Control which SideNavItem should be open on first load by defining `defaultActiv
     {Template.bind({})}
   </Story>
 </Canvas>
+

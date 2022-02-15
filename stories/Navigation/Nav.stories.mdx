@@ -1,21 +1,38 @@
 import { ArgsTable, Canvas, Meta, Story } from '@storybook/addon-docs';
-import { Nav, Button, NavItem, NavLink } from '../../src/components/index';
+import {
+  Nav,
+  Button,
+  NavItem,
+  NavLink,
+  Dropdown,
+} from '../../src/components/index';
+import { useState } from 'react';
 
 <Meta title="Components/Nav" component={Nav} />
 
-export const Template = (args) => {
+export const Template = (args) => { 
   return (
     <Nav defaultActiveKey="/home" as="ul">
-      <Nav.Item hoverable>
-        <Nav.Menu>
+      <Nav.Item>
         <Nav.Link href="/home">Active</Nav.Link>
-        </Nav.Menu>
       </Nav.Item>
       <Nav.Item>
         <Nav.Link eventKey="link-1">Link</Nav.Link>
       </Nav.Item>
-      <Nav.Item >
-        <Nav.Link eventKey="link-2">Link</Nav.Link>
+      <Nav.Item>
+        <Nav.Dropdown
+          title="Dropdown"
+          id="nav-dropdown"
+          href="https://www.designsystem.tech.gov.sg/"
+        >
+          <Nav.Dropdown.Item eventKey="4.1">Action</Nav.Dropdown.Item>
+          <Nav.Dropdown.Item eventKey="4.2">Another action</Nav.Dropdown.Item>
+          <Nav.Dropdown.Item eventKey="4.3">
+            Something else here
+          </Nav.Dropdown.Item>
+          <Nav.Dropdown.Divider />
+          <Nav.Dropdown.Item eventKey="4.4">Separated link</Nav.Dropdown.Item>
+        </Nav.Dropdown>
       </Nav.Item>
     </Nav>
   );
