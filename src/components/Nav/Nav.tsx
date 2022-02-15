@@ -161,6 +161,5 @@ Nav.defaultProps = defaultProps;
 export default Object.assign(Nav, {
   Item: NavItem,
   Link: NavLink,
-  Menu: NavMenu,
   Dropdown: NavDropdown
 });
