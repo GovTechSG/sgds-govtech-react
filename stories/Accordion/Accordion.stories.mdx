@@ -7,10 +7,13 @@ import { Accordion } from '../../src/components/index';
   component={Accordion}
   argTypes={{
     defaultActiveKey: {
-      description: 'The default active key that sets an accordion item to be expanded on start, value should correspond to assigned `eventKey` prop.',
+      description:
+        'The default active key that sets an accordion item to be expanded on start, value should correspond to assigned `eventKey` prop.',
       table: {
         category: '<Accordion>',
-        type: { summary: 'string' },
+        type: {
+          summary: 'AccordionEventKey: string | string[] | null | undefined',
+        },
       },
     },
     activeKey: {
@@ -18,7 +21,9 @@ import { Accordion } from '../../src/components/index';
         'The current active key that corresponds to the currently expanded card',
       table: {
         category: '<Accordion>',
-        type: { summary: 'string' },
+        type: {
+          summary: 'AccordionEventKey: string | string[] | null | undefined',
+        },
       },
     },
     as: {
@@ -28,7 +33,7 @@ import { Accordion } from '../../src/components/index';
         type: { summary: 'elementType' },
         defaultValue: { summary: `'div'` },
       },
-      control: { disable: true}
+      control: { disable: true },
     },
     bsPrefix: { table: { disable: true } },
     eventKey: {

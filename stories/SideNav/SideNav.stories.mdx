@@ -1,23 +1,66 @@
 import { ArgsTable, Canvas, Meta, Story } from '@storybook/addon-docs';
-
+import { HIDDEN_COMMON_PROPS } from '../helpers';
 import { SideNav, NavLink } from '../../src/components/index';
 
-<Meta title="Components/SideNav" component={SideNav} />
+<Meta
+  title="Components/SideNav"
+  component={SideNav}
+  argTypes={{
+    ...HIDDEN_COMMON_PROPS,
+    alwaysOpen: {
+      table: { category: `<SideNav />` },
+      description:
+        'Allow sidenav items to stay open when another item is opened',
+    },
+    defaultActiveKey: {
+      description:
+        'The default active key that sets an sidenav item to be expanded on start, value should correspond to assigned `eventKey` prop.',
+      table: {
+        category: `<SideNav />`,
+        type: {
+          summary: 'SideNavEventKey: string | string[] | null | undefined',
+        },
+      },
+      control: { disable: true },
+    },
+    activeKey: {
+      description:
+        'The current active key that corresponds to the currently expanded item',
+      table: {
+        category: `<SideNav />`,
+        type: {
+          summary: 'SideNavEventKey: string | string[] | null | undefined',
+        },
+      },
+      control: { disable: true },
+    },
+    eventKey: {
+      description:
+        'A unique key used to control `SideNav.Item` collapse/expand. *Required* to apply **defaultActiveKey** & **activeKey**',
+      table: {
+        category: '<SideNav.Item>',
+        type: { summary: 'string' },
+      },
+    },
+    href: {
+      description:
+        'Providing a `href` will render an `<a>` element and remove toggle icon',
+      table: {
+        category: '<SideNav.Button>',
+        type: { summary: 'string' },
+      },
+    },
+  }}
+/>
 
 export const Template = (args) => (
   <SideNav {...args}>
     <SideNav.Item eventKey="0">
       <SideNav.Button>SideNav Item #1</SideNav.Button>
       <SideNav.Collapse>
-        <NavLink href="#">
-          number one
-        </NavLink>
-        <NavLink href="#">
-          number one
-        </NavLink>
-        <NavLink href="#">
-          number one
-        </NavLink>
+        <NavLink href="#">number one</NavLink>
+        <NavLink href="#">number one</NavLink>
+        <NavLink href="#">number one</NavLink>
       </SideNav.Collapse>
     </SideNav.Item>
     <SideNav.Item eventKey="1">
@@ -31,15 +74,104 @@ export const Template = (args) => (
       </SideNav.Collapse>
     </SideNav.Item>
     <SideNav.Item eventKey="2">
-      <SideNav.Button href="#">
-        SideNav Item #3
-      </SideNav.Button>
+      <SideNav.Button href="#">SideNav Item #3</SideNav.Button>
     </SideNav.Item>
   </SideNav>
 );
 
+# SideNav
+
+`<SideNav />` consist of subcomponents `<SideNav.Button />`, `<SideNav.Collapse>`, `<SideNav.Item />`
+
+The default `<SideNav />` is close. When other `<SideNav.Button />` is clicked on, all other opened items will collapse.
+
 <Canvas>
-  <Story name="Basic">
+  <Story name="Default">{Template.bind({})}</Story>
+</Canvas>
+
+## API
+
+<ArgsTable story="Default" />
+
+### Default SideNav - code sample
+
+```jsx
+import { SideNav } from 'sgds-govtech-react';
+
+export const DefaultSideNav = () => (
+  <SideNav>
+    <SideNav.Item eventKey="0">
+      <SideNav.Button>SideNav Item #1</SideNav.Button>
+      <SideNav.Collapse>
+        <NavLink href="#">number one</NavLink>
+        <NavLink href="#">number one</NavLink>
+        <NavLink href="#">number one</NavLink>
+      </SideNav.Collapse>
+    </SideNav.Item>
+    <SideNav.Item eventKey="1">
+      <SideNav.Button>SideNav Item #2</SideNav.Button>
+      <SideNav.Collapse>
+        <NavLink>number two</NavLink>
+        <NavLink disabled>number two</NavLink>
+        <NavLink>number two</NavLink>
+        <NavLink>number two</NavLink>
+        <NavLink>number two</NavLink>
+      </SideNav.Collapse>
+    </SideNav.Item>
+    <SideNav.Item eventKey="2">
+      <SideNav.Button href="#">SideNav Item #3</SideNav.Button>
+    </SideNav.Item>
+  </SideNav>
+);
+```
+
+### Usage Recommendation
+
+export const SingleLink = () => (
+  <SideNav>
+    <SideNav.Item eventKey="0">
+      <SideNav.Button href="#">SideNav Item #1</SideNav.Button>
+    </SideNav.Item>
+  </SideNav>
+);
+
+When the sidenav is a single link with no collapsible contents, use `<SideNav.Button />` like an anchor element by adding `href` prop
+
+<Canvas>
+  <Story name="Single Link">
+    {SingleLink.bind({})}
+  </Story>
+</Canvas>
+
+```jsx
+  <SideNav>
+    <SideNav.Item eventKey="0">
+      <SideNav.Button href="#">SideNav Item #1</SideNav.Button>
+    </SideNav.Item>
+  </SideNav>
+```
+
+## Always Open
+
+When `alwaysOpen` is true, `defaultActiveKey` prop becomes an array of active keys. The SideNavItem remains open even when the next SideNavItem is opened.
+
+<Canvas>
+  <Story name="Always Open" args={{ alwaysOpen: true }}>
+    {Template.bind({})}
+  </Story>
+</Canvas>
+
+### Opened Items on first load
+
+Control which SideNavItem should be open on first load by defining `defaultActiveKey` array with the `eventKey` and `alwaysOpen` is true
+
+> **_NOTE:_** : `defaultActiveKey` **must** be an array when used with `alwaysOpen: true`
+
+<Canvas>
+  <Story
+    name="First Load Open"
+    args={{ defaultActiveKey: ['0', '1'], alwaysOpen: false }}
+  >
     {Template.bind({})}
   </Story>
 </Canvas>
