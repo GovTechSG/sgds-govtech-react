@@ -18,8 +18,8 @@ export type { AlertProps } from './Alert/Alert';
 // export { default as Anchor } from './Anchor';
 // export type { AnchorProps } from './Anchor';
 
-// export { default as Badge } from './Badge';
-// export type { BadgeProps } from './Badge';
+export { Badge } from './Badge/Badge';
+export type { BadgeProps } from './Badge/Badge';
 
 export { default as Breadcrumb } from './Breadcrumb/Breadcrumb';
 export type { BreadcrumbProps } from './Breadcrumb/Breadcrumb';
