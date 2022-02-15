@@ -1,6 +1,6 @@
 import { render } from '@testing-library/react';
 import * as React from 'react';
-import Badge from './Badge';
+import  { Badge } from './Badge';
 
 describe('Badge', () => {
   it('Should render correctly', () => {
@@ -18,13 +18,14 @@ describe('Badge', () => {
   });
 
   it('should support custom `as`', () => {
-    const { getByTestId } = render(
+    const { getByTestId, asFragment  } = render(
       <Badge as="a" href="#" bg="primary" pill data-testid="test">
         Message
       </Badge>,
     );
 
     const badge = getByTestId('test');
+    expect(asFragment()).toMatchSnapshot();
     expect(badge.tagName.toLowerCase()).toEqual('a');
     expect(badge).toHaveAttribute('href', '#');
   });

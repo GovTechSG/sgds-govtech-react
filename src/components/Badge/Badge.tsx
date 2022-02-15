@@ -56,6 +56,7 @@ export const Badge: BsPrefixRefForwardingComponent<'span', BadgeProps> =
       const prefix = useBootstrapPrefix(bsPrefix, 'badge');
       return (
         <SGDSWrapper
+        as={Component}
           ref={ref}
           {...props}
           className={classNames(
