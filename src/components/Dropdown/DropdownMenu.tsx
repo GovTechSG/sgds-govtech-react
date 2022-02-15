@@ -30,6 +30,7 @@ export interface DropdownMenuProps
   rootCloseEvent?: 'click' | 'mousedown';
   popperConfig?: UseDropdownMenuOptions['popperConfig'];
   variant?: DropdownMenuVariant;
+  isNav?: boolean;
 }
 
 const propTypes = {
@@ -89,6 +90,7 @@ const propTypes = {
    * Omitting this will use the default light color.
    */
   variant: PropTypes.string,
+  isNav: PropTypes.bool
 };
 
 const defaultProps: Partial<DropdownMenuProps> = {
@@ -133,6 +135,7 @@ const DropdownMenu: BsPrefixRefForwardingComponent<'div', DropdownMenuProps> =
         as: Component = 'div',
         popperConfig,
         variant,
+        isNav,
         ...props
       },
       ref,
@@ -176,7 +179,7 @@ const DropdownMenu: BsPrefixRefForwardingComponent<'div', DropdownMenuProps> =
         rootCloseEvent,
         show: showProps,
         usePopper: !isNavbar && alignClasses.length === 0,
-        offset: [0, 10],
+        offset: !isNav ? [0, 10] : undefined,
         popperConfig,
         placement,
       });

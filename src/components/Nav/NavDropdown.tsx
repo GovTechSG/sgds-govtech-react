@@ -17,7 +17,7 @@ export interface NavDropdownProps extends Omit<DropdownProps, 'title'> {
   renderMenuOnMount?: boolean;
   rootCloseEvent?: 'click' | 'mousedown';
   menuVariant?: DropdownMenuVariant;
-  href: string;
+  href?: string;
 }
 
 const propTypes = {
@@ -121,6 +121,7 @@ const NavDropdown: BsPrefixRefForwardingComponent<'div', NavDropdownProps> =
             rootCloseEvent={rootCloseEvent}
             variant={menuVariant}
             onMouseLeave={hideDropdown}
+            isNav
           >
             {children}
           </Dropdown.Menu>

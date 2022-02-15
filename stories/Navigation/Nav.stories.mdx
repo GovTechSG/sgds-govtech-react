@@ -15,7 +15,7 @@ import { useState } from 'react';
 
 export const Template = (args) => {
   return (
-    <Nav as="ul" {...args}>
+    <Nav as="ul" {...args} activeKey="link-1">
       <Nav.Item>
         <Nav.Link href="/home">Active</Nav.Link>
       </Nav.Item>
@@ -23,7 +23,7 @@ export const Template = (args) => {
         <Nav.Link eventKey="link-1">Link</Nav.Link>
       </Nav.Item>
       <Nav.Item>
-        <Nav.Dropdown
+        <Nav.Dropdown 
           title="Dropdown"
           id="nav-dropdown"
           href="https://www.designsystem.tech.gov.sg/"
