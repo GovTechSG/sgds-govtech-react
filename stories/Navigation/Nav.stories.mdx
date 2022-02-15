@@ -5,14 +5,17 @@ import {
   NavItem,
   NavLink,
   Dropdown,
+  Container,
+  Row,
+  Col
 } from '../../src/components/index';
 import { useState } from 'react';
 
 <Meta title="Components/Nav" component={Nav} />
 
-export const Template = (args) => { 
+export const Template = (args) => {
   return (
-    <Nav defaultActiveKey="/home" as="ul">
+    <Nav as="ul" {...args}>
       <Nav.Item>
         <Nav.Link href="/home">Active</Nav.Link>
       </Nav.Item>
@@ -25,13 +28,33 @@ export const Template = (args) => {
           id="nav-dropdown"
           href="https://www.designsystem.tech.gov.sg/"
         >
-          <Nav.Dropdown.Item eventKey="4.1">Action</Nav.Dropdown.Item>
-          <Nav.Dropdown.Item eventKey="4.2">Another action</Nav.Dropdown.Item>
-          <Nav.Dropdown.Item eventKey="4.3">
-            Something else here
-          </Nav.Dropdown.Item>
-          <Nav.Dropdown.Divider />
-          <Nav.Dropdown.Item eventKey="4.4">Separated link</Nav.Dropdown.Item>
+            <Row>
+              <Col sm={8}>
+                <Nav.Dropdown.Item eventKey="4.1">Action</Nav.Dropdown.Item>
+              </Col>
+              <Col sm={4}>
+                <Nav.Dropdown.Item eventKey="4.2">
+                  Another action
+                </Nav.Dropdown.Item>
+              </Col>
+            </Row>
+            <Row>
+              <Col sm>
+                <Nav.Dropdown.Item eventKey="4.2">
+                  Another action
+                </Nav.Dropdown.Item>
+              </Col>
+              <Col sm>
+                <Nav.Dropdown.Item eventKey="4.3">
+                  Something else here
+                </Nav.Dropdown.Item>
+              </Col>
+              <Col sm>
+                <Nav.Dropdown.Item eventKey="4.4">
+                  Separated link
+                </Nav.Dropdown.Item>
+              </Col>
+            </Row>
         </Nav.Dropdown>
       </Nav.Item>
     </Nav>

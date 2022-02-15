@@ -97,6 +97,7 @@ const NavDropdown: BsPrefixRefForwardingComponent<'div', NavDropdownProps> =
         <Dropdown
           ref={ref}
           {...props}
+          // show={true}  
           show={show}
           onMouseEnter={showDropdown}
           onMouseLeave={hideDropdown}
@@ -119,7 +120,6 @@ const NavDropdown: BsPrefixRefForwardingComponent<'div', NavDropdownProps> =
             renderOnMount={renderMenuOnMount}
             rootCloseEvent={rootCloseEvent}
             variant={menuVariant}
-            show={props.show}
             onMouseLeave={hideDropdown}
           >
             {children}

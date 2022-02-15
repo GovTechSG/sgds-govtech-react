@@ -95,8 +95,8 @@ export type { FormTextProps } from './Form/FormText';
 export { default as FormSelect } from './Form/FormSelect';
 export type { FormSelectProps } from './Form/FormSelect';
 
-// export { default as Container } from './Container';
-// export type { ContainerProps } from './Container';
+export { default as Container } from './Container/Container';
+export type { ContainerProps } from './Container/Container';
 
 // export { default as Image } from './Image';
 // export type { ImageProps } from './Image';

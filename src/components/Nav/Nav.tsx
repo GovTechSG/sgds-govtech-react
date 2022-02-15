@@ -6,7 +6,7 @@ import { useContext } from 'react';
 import { useUncontrolled } from 'uncontrollable';
 import BaseNav, { NavProps as BaseNavProps } from '@restart/ui/Nav';
 import { useBootstrapPrefix } from '../ThemeProvider/ThemeProvider';
-import NavbarContext from './NavbarContext';
+import NavbarContext from '../Navbar/NavbarContext';
 import CardHeaderContext from '../Card/CardHeaderContext';
 import NavItem from './NavItem';
 import NavLink from './NavLink';
