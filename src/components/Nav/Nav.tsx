@@ -12,7 +12,8 @@ import CardHeaderContext from '../Card/CardHeaderContext';
 import NavItem from './NavItem';
 import NavLink from './NavLink';
 import { BsPrefixProps, BsPrefixRefForwardingComponent } from '../helpers';
-
+import { SGDSWrapper } from '../ThemeProvider/ThemeProvider';
+import NavMenu from './NavMenu';
 export interface NavProps extends BsPrefixProps, BaseNavProps {
   navbarBsPrefix?: string;
   cardHeaderBsPrefix?: string;
@@ -135,7 +136,7 @@ const Nav: BsPrefixRefForwardingComponent<'div', NavProps> = React.forwardRef<
   } else if (cardHeaderContext) {
     ({ cardHeaderBsPrefix } = cardHeaderContext);
   }
-
+  
   return (
     <BaseNav
       as={as}
@@ -149,7 +150,7 @@ const Nav: BsPrefixRefForwardingComponent<'div', NavProps> = React.forwardRef<
         [`${bsPrefix}-${variant}`]: !!variant,
         [`${bsPrefix}-fill`]: fill,
         [`${bsPrefix}-justified`]: justify,
-      })}
+      }, 'sgds')}
       {...props}
     />
   );
@@ -162,4 +163,5 @@ Nav.defaultProps = defaultProps;
 export default Object.assign(Nav, {
   Item: NavItem,
   Link: NavLink,
+  Menu: NavMenu
 });
