@@ -6,6 +6,7 @@ import SideNavContext, {SideNavEventKey} from './SideNavContext';
 import SideNavItemContext from './SideNavItemContext';
 import { BsPrefixProps, BsPrefixRefForwardingComponent } from '../helpers';
 import Button from '../Button/Button';
+import useMergedRefs from '@restart/hooks/useMergedRefs';
 
 type EventHandler = React.EventHandler<React.SyntheticEvent>;
 
@@ -30,7 +31,6 @@ const propTypes = {
 
 export function useSideNavButton(
   eventKey: string,
-  // linkKey: string | number,
   onClick?: EventHandler
 ): EventHandler {
   const { activeEventKey, onSelect, alwaysOpen } = useContext(SideNavContext);
@@ -55,7 +55,7 @@ export function useSideNavButton(
     }
 
 
-    onSelect?.(eventKeyPassed, /* linkKeyPassed, */ e);
+    onSelect?.(eventKeyPassed, e);
     onClick?.(e);
   
 
@@ -84,9 +84,11 @@ const SideNavButton: BsPrefixRefForwardingComponent<
       onClick,
       children,
       ...props
-    }
+    },
+    ref
   ) => {
     const btnRef = React.useRef<HTMLButtonElement>(null)
+    const mergedRef = useMergedRefs(ref as React.MutableRefObject<HTMLButtonElement>, btnRef)
     const { eventKey, activeLink } = useContext(SideNavItemContext);
     const sideNavOnClick = useSideNavButton(eventKey, onClick);
     const { activeEventKey } = useContext(SideNavContext);
@@ -101,7 +103,7 @@ const SideNavButton: BsPrefixRefForwardingComponent<
 
     return (
       <Component
-        ref={btnRef}
+        ref={mergedRef}
         variant={""}
         onClick={sideNavOnClick}
         {...props}

@@ -54,7 +54,7 @@ import { SideNav, NavLink } from '../../src/components/index';
 />
 
 export const Template = (args) => (
-  <SideNav {...args} activeNavLinkKey="test1">
+  <SideNav {...args} activeNavLinkKey="test5">
     <SideNav.Item eventKey="0" activeLinkKey="test1">
       <SideNav.Button>SideNav Item #1</SideNav.Button>
       <SideNav.Collapse>
@@ -63,7 +63,7 @@ export const Template = (args) => (
         <SideNav.Link eventKey="test2" href="#">number one</SideNav.Link>
       </SideNav.Collapse>
     </SideNav.Item>
-    <SideNav.Item eventKey="1" activeLinkKey={null} >
+    <SideNav.Item eventKey="1" activeLinkKey="test5">
       <SideNav.Button>SideNav Item #2</SideNav.Button>
       <SideNav.Collapse>
         <SideNav.Link eventKey="test3" >number two</SideNav.Link>
