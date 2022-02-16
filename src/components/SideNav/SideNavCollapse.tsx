@@ -10,7 +10,8 @@ import SideNavContext, {
 } from './SideNavContext';
 import { BsPrefixRefForwardingComponent, BsPrefixProps } from '../helpers';
 import SideNavItemContext from './SideNavItemContext';
-export interface SideNavCollapseProps extends BsPrefixProps, CollapseProps {}
+export interface SideNavCollapseProps extends BsPrefixProps, CollapseProps {
+}
 
 const propTypes = {
   /** Set a custom element for this component */

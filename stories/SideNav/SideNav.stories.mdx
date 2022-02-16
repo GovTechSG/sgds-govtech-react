@@ -130,8 +130,8 @@ export const Template = (args) => (
     </SideNav.Item>
   </SideNav>
 );
-export const SideNavLinkActiveTemplate = () => (
-  <SideNav activeNavLinkKey="nl-4">
+export const SideNavLinkActiveTemplate = (args) => (
+  <SideNav activeNavLinkKey="nl-4" {...args}>
     <SideNav.Item eventKey="0">
       <SideNav.Button>SideNav Item #1</SideNav.Button>
       <SideNav.Collapse>
@@ -332,6 +332,9 @@ See code example below:
     {SideNavLinkActiveTemplate.bind({})}
   </Story>
 </Canvas>
+
+**NOTE** Do not use `activeKey` or `defaultActiveKey` together with `activeNavLinkKey` on `SideNav` as it overrides the behaviour. 
+
 
 ## Customize - Add icons
 
