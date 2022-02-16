@@ -130,8 +130,8 @@ export type { NavProps } from './Nav/Nav';
 // export { default as NavbarBrand } from './NavbarBrand';
 // export type { NavbarBrandProps } from './NavbarBrand';
 
-// export { default as NavDropdown } from './NavDropdown';
-// export type { NavDropdownProps } from './NavDropdown';
+export { default as NavDropdown } from './Nav/NavDropdown';
+export type { NavDropdownProps } from './Nav/NavDropdown';
 
 export { default as NavItem } from './Nav/NavItem';
 

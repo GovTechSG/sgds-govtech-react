@@ -15,7 +15,7 @@ import InputGroupContext from '../InputGroup/InputGroupContext';
 import NavbarContext from '../NavbarContext';
 import useWrappedRefWithWarning from '../useWrappedRefWithWarning';
 import { BsPrefixProps, BsPrefixRefForwardingComponent } from '../helpers';
-import { AlignType, AlignDirection, alignPropType, Placement } from '../types';
+import { AlignType, AlignDirection, alignPropType, Placement, ResponsiveAlignProp } from '../types';
 
 export type DropdownMenuVariant = 'dark' | string;
 
@@ -158,8 +158,7 @@ const DropdownMenu: BsPrefixRefForwardingComponent<'div', DropdownMenuProps> =
           );
         
           if (keys.length) {
-            const brkPoint = keys[0];
-            //@ts-ignore
+            const brkPoint = keys[0] as keyof ResponsiveAlignProp;
             const direction: AlignDirection = align[brkPoint];
 
             // .dropdown-menu-end is required for responsively aligning

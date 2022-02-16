@@ -7,7 +7,7 @@ import {
   Dropdown,
   Container,
   Row,
-  Col
+  Col,
 } from '../../src/components/index';
 import { useState } from 'react';
 
@@ -15,48 +15,30 @@ import { useState } from 'react';
 
 export const Template = (args) => {
   return (
-    <Nav as="ul" {...args} activeKey="link-1">
+    <Nav>
       <Nav.Item>
         <Nav.Link href="/home">Active</Nav.Link>
       </Nav.Item>
       <Nav.Item>
-        <Nav.Link eventKey="link-1">Link</Nav.Link>
+        <Nav.Link eventKey="link-1">Link</Nav .Link>
       </Nav.Item>
-      <Nav.Item>
-        <Nav.Dropdown 
-          title="Dropdown"
-          id="nav-dropdown"
-          href="https://www.designsystem.tech.gov.sg/"
-        >
-            <Row>
-              <Col sm={8}>
-                <Nav.Dropdown.Item eventKey="4.1">Action</Nav.Dropdown.Item>
-              </Col>
-              <Col sm={4}>
-                <Nav.Dropdown.Item eventKey="4.2">
-                  Another action
-                </Nav.Dropdown.Item>
-              </Col>
-            </Row>
-            <Row>
-              <Col sm>
-                <Nav.Dropdown.Item eventKey="4.2">
-                  Another action
-                </Nav.Dropdown.Item>
-              </Col>
-              <Col sm>
-                <Nav.Dropdown.Item eventKey="4.3">
-                  Something else here
-                </Nav.Dropdown.Item>
-              </Col>
-              <Col sm>
-                <Nav.Dropdown.Item eventKey="4.4">
-                  Separated link
-                </Nav.Dropdown.Item>
-              </Col>
-            </Row>
-        </Nav.Dropdown>
-      </Nav.Item>
+      <Nav.Dropdown
+        title="Dropdown"
+        id="nav-dropdown"
+        href="https://www.designsystem.tech.gov.sg/"
+      >
+        <Container>
+          <Row>
+            <Col>Action 1</Col>
+            <Col>Another action 2</Col>
+            <Col>Another action 2</Col>
+          </Row>
+          <Row>
+            <Col>Another action</Col>
+            <Col>Another action</Col>
+          </Row>
+        </Container>
+      </Nav.Dropdown>
     </Nav>
   );
 };
