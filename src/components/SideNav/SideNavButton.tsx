@@ -63,12 +63,12 @@ export function useSideNavButton(
 }
 const setCollapseCSS = (activeEventKey: SideNavEventKey, eventKey : string) => {
   if (Array.isArray(activeEventKey)) {
-    return activeEventKey.includes(eventKey) ? 'collapse' : 'collapsed'
+    return !activeEventKey.includes(eventKey) && 'collapsed'
   }
   if (typeof activeEventKey === 'string'){
-    return activeEventKey === eventKey ? 'collapse' : 'collapsed'
+    return (activeEventKey !== eventKey ) && 'collapsed'
   }
-  return 
+  return 'collapsed'
 }
 
 const SideNavButton: BsPrefixRefForwardingComponent<
@@ -84,8 +84,7 @@ const SideNavButton: BsPrefixRefForwardingComponent<
       onClick,
       children,
       ...props
-    },
-    ref
+    }
   ) => {
     const btnRef = React.useRef<HTMLButtonElement>(null)
     const { eventKey, activeLink } = useContext(SideNavItemContext);

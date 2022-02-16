@@ -12,7 +12,7 @@ export interface SideNavItemProps
   extends BsPrefixProps,
     React.HTMLAttributes<HTMLElement> {
   eventKey: string;
-  activeLinkKey: string;
+  activeLinkKey?: string;
 }
 
 const propTypes = {

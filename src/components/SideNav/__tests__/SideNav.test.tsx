@@ -30,9 +30,13 @@ describe('<SideNav>', () => {
           </SideNav.Collapse>
         </SideNav.Item>
       </SideNav>
-    ); 
-    expect(container.querySelectorAll(".collapse")[0].classList).not.toContain('show');
-    expect(container.querySelectorAll(".collapse")[1].classList).not.toContain('show');
+    );
+    expect(container.querySelectorAll('.collapse')[0].classList).not.toContain(
+      'show'
+    );
+    expect(container.querySelectorAll('.collapse')[1].classList).not.toContain(
+      'show'
+    );
   });
   it('when defaultActiveKey = 0, only item 1 has .show', () => {
     const { container } = render(
@@ -49,9 +53,13 @@ describe('<SideNav>', () => {
         </SideNav.Item>
       </SideNav>
     );
-    expect(container.querySelectorAll(".collapse")[0].classList).toContain('show');
-    expect(container.querySelectorAll(".collapse")[1].classList).not.toContain('show');
-  }); 
+    expect(container.querySelectorAll('.collapse')[0].classList).toContain(
+      'show'
+    );
+    expect(container.querySelectorAll('.collapse')[1].classList).not.toContain(
+      'show'
+    );
+  });
   it('when defaultActiveKey = 1, only item 2 has .show', () => {
     const { container } = render(
       <SideNav defaultActiveKey="1">
@@ -67,8 +75,12 @@ describe('<SideNav>', () => {
         </SideNav.Item>
       </SideNav>
     );
-    expect(container.querySelectorAll(".collapse")[0].classList).not.toContain('show');
-    expect(container.querySelectorAll(".collapse")[1].classList).toContain('show');
+    expect(container.querySelectorAll('.collapse')[0].classList).not.toContain(
+      'show'
+    );
+    expect(container.querySelectorAll('.collapse')[1].classList).toContain(
+      'show'
+    );
   });
   it('activeKey overrides defaultActiveKey', () => {
     const { container } = render(
@@ -85,53 +97,69 @@ describe('<SideNav>', () => {
         </SideNav.Item>
       </SideNav>
     );
-    expect(container.querySelectorAll(".collapse")[0].classList).toContain('show');
-    expect(container.querySelectorAll(".collapse")[1].classList).not.toContain('show');
+    expect(container.querySelectorAll('.collapse')[0].classList).toContain(
+      'show'
+    );
+    expect(container.querySelectorAll('.collapse')[1].classList).not.toContain(
+      'show'
+    );
   });
 
-  it('.show changes when SideNavButton is clicked', async() => {
+  it('.show changes when SideNavButton is clicked', async () => {
     const { getByText, container } = render(
       <SideNav>
-          <SideNav.Item eventKey="0">
+        <SideNav.Item eventKey="0">
           <SideNav.Button>FirstItemBtn</SideNav.Button>
           <SideNav.Collapse>
             <NavLink>Item 1</NavLink>
           </SideNav.Collapse>
         </SideNav.Item>
         <SideNav.Item eventKey="1">
-        <SideNav.Button>SecondItemBtn</SideNav.Button>
+          <SideNav.Button>SecondItemBtn</SideNav.Button>
           <SideNav.Collapse>
             <NavLink>Item 2</NavLink>
           </SideNav.Collapse>
         </SideNav.Item>
       </SideNav>
     );
-    expect(container.querySelectorAll('.collapse')[0].classList).not.toContain('show')
-    expect(container.querySelectorAll('.collapse')[1].classList).not.toContain('show')
+    expect(container.querySelectorAll('.collapse')[0].classList).not.toContain(
+      'show'
+    );
+    expect(container.querySelectorAll('.collapse')[1].classList).not.toContain(
+      'show'
+    );
     expect(getByText('SecondItemBtn')).toBeDefined();
-    fireEvent.click(getByText('SecondItemBtn'))
+    fireEvent.click(getByText('SecondItemBtn'));
     await waitFor(() => {
-      expect(container.querySelectorAll('.collapse')[0].classList).not.toContain('show') 
-      expect(container.querySelectorAll('.collapse')[1].classList).toContain('show')
-    })
-    fireEvent.click(getByText('FirstItemBtn'))
-    await waitFor(() => { 
-      expect(container.querySelectorAll('.collapse')[0].classList).toContain('show') 
-      expect(container.querySelectorAll('.collapse')[1].classList).not.toContain('show')
-    })
+      expect(
+        container.querySelectorAll('.collapse')[0].classList
+      ).not.toContain('show');
+      expect(container.querySelectorAll('.collapse')[1].classList).toContain(
+        'show'
+      );
+    });
+    fireEvent.click(getByText('FirstItemBtn'));
+    await waitFor(() => {
+      expect(container.querySelectorAll('.collapse')[0].classList).toContain(
+        'show'
+      );
+      expect(
+        container.querySelectorAll('.collapse')[1].classList
+      ).not.toContain('show');
+    });
   });
 
-  it('when alwaysOpen set, default is closed, onclick the item remains open always', async() => {
+  it('when alwaysOpen set, default is closed, onclick the item remains open always', async () => {
     const { getByText, container } = render(
       <SideNav alwaysOpen>
-          <SideNav.Item eventKey="0">
+        <SideNav.Item eventKey="0">
           <SideNav.Button>FirstItemBtn</SideNav.Button>
           <SideNav.Collapse>
             <NavLink>Item 1</NavLink>
           </SideNav.Collapse>
         </SideNav.Item>
         <SideNav.Item eventKey="1">
-        <SideNav.Button>SecondItemBtn</SideNav.Button>
+          <SideNav.Button>SecondItemBtn</SideNav.Button>
           <SideNav.Collapse>
             <NavLink>Item 2</NavLink>
           </SideNav.Collapse>
@@ -139,32 +167,44 @@ describe('<SideNav>', () => {
       </SideNav>
     );
     //initially closed
-    expect(container.querySelectorAll('.collapse')[0].classList).not.toContain('show')
-    expect(container.querySelectorAll('.collapse')[1].classList).not.toContain('show')
+    expect(container.querySelectorAll('.collapse')[0].classList).not.toContain(
+      'show'
+    );
+    expect(container.querySelectorAll('.collapse')[1].classList).not.toContain(
+      'show'
+    );
 
-    fireEvent.click(getByText('FirstItemBtn'))
-    await waitFor(() => { 
-      expect(container.querySelectorAll('.collapse')[0].classList).toContain('show') 
-      expect(container.querySelectorAll('.collapse')[1].classList).not.toContain('show')
-    })
+    fireEvent.click(getByText('FirstItemBtn'));
+    await waitFor(() => {
+      expect(container.querySelectorAll('.collapse')[0].classList).toContain(
+        'show'
+      );
+      expect(
+        container.querySelectorAll('.collapse')[1].classList
+      ).not.toContain('show');
+    });
 
-    fireEvent.click(getByText('SecondItemBtn'))
-    await waitFor(() => { 
-      expect(container.querySelectorAll('.collapse')[0].classList).toContain('show') 
-      expect(container.querySelectorAll('.collapse')[1].classList).toContain('show')
-    })
-  })
-  it('on initial load make items open', async() => {
+    fireEvent.click(getByText('SecondItemBtn'));
+    await waitFor(() => {
+      expect(container.querySelectorAll('.collapse')[0].classList).toContain(
+        'show'
+      );
+      expect(container.querySelectorAll('.collapse')[1].classList).toContain(
+        'show'
+      );
+    });
+  });
+  it('on initial load make items open', async () => {
     const { getByText, container } = render(
-      <SideNav alwaysOpen defaultActiveKey={["0", "1"]}>
-          <SideNav.Item eventKey="0">
+      <SideNav alwaysOpen defaultActiveKey={['0', '1']}>
+        <SideNav.Item eventKey="0">
           <SideNav.Button>FirstItemBtn</SideNav.Button>
           <SideNav.Collapse>
             <NavLink>Item 1</NavLink>
           </SideNav.Collapse>
         </SideNav.Item>
         <SideNav.Item eventKey="1">
-        <SideNav.Button>SecondItemBtn</SideNav.Button>
+          <SideNav.Button>SecondItemBtn</SideNav.Button>
           <SideNav.Collapse>
             <NavLink>Item 2</NavLink>
           </SideNav.Collapse>
@@ -172,20 +212,31 @@ describe('<SideNav>', () => {
       </SideNav>
     );
     //initially open
-    expect(container.querySelectorAll('.collapse')[0].classList).toContain('show')
-    expect(container.querySelectorAll('.collapse')[1].classList).toContain('show')
+    expect(container.querySelectorAll('.collapse')[0].classList).toContain(
+      'show'
+    );
+    expect(container.querySelectorAll('.collapse')[1].classList).toContain(
+      'show'
+    );
 
-    fireEvent.click(getByText('FirstItemBtn'))
-    await waitFor(() => { 
-      expect(container.querySelectorAll('.collapse')[0].classList).not.toContain('show') 
-      expect(container.querySelectorAll('.collapse')[1].classList).toContain('show')
-    })
+    fireEvent.click(getByText('FirstItemBtn'));
+    await waitFor(() => {
+      expect(
+        container.querySelectorAll('.collapse')[0].classList
+      ).not.toContain('show');
+      expect(container.querySelectorAll('.collapse')[1].classList).toContain(
+        'show'
+      );
+    });
 
-    fireEvent.click(getByText('SecondItemBtn'))
-    await waitFor(() => { 
-      expect(container.querySelectorAll('.collapse')[0].classList).not.toContain('show') 
-      expect(container.querySelectorAll('.collapse')[1].classList).not.toContain('show')
-    })
-  })
+    fireEvent.click(getByText('SecondItemBtn'));
+    await waitFor(() => {
+      expect(
+        container.querySelectorAll('.collapse')[0].classList
+      ).not.toContain('show');
+      expect(
+        container.querySelectorAll('.collapse')[1].classList
+      ).not.toContain('show');
+    });
+  });
 });
-

@@ -3,21 +3,20 @@ import * as React from 'react';
 import { useMemo } from 'react';
 import PropTypes from 'prop-types';
 import { useUncontrolled } from 'uncontrollable';
-import { useBootstrapPrefix, SGDSWrapper } from '../ThemeProvider/ThemeProvider';
+import { useBootstrapPrefix } from '../ThemeProvider/ThemeProvider';
 import SideNavButton from './SideNavButton';
 import SideNavCollapse from './SideNavCollapse';
 import SideNavContext, {SideNavEventKey, SideNavSelectCallback} from './SideNavContext';
 import SideNavItem from './SideNavItem';
 import { BsPrefixProps, BsPrefixRefForwardingComponent } from '../helpers';
-import BaseNav, { NavProps as BaseNavProps } from '@restart/ui/Nav';
-import { EventKey } from '@restart/ui/esm/types';
+import BaseNav from '@restart/ui/Nav';
 import SideNavLink from './SideNavLink';
 
 export interface SideNavProps
   extends Omit<React.HTMLAttributes<HTMLElement>, 'onSelect'>,
     BsPrefixProps {
   activeKey?: SideNavEventKey;
-  activeNavLinkKey: string;
+  activeNavLinkKey?: string;
   defaultActiveKey?: SideNavEventKey;
   onSelect?: SideNavSelectCallback;  
   alwaysOpen?: boolean;
@@ -49,7 +48,7 @@ const SideNav: BsPrefixRefForwardingComponent<'ul', SideNavProps> =
       className,
       onSelect,
       alwaysOpen,
-      activeNavLinkKey,
+      activeNavLinkKey = "",
       ...controlledProps
     } = useUncontrolled(props, {
       activeKey: 'onSelect',

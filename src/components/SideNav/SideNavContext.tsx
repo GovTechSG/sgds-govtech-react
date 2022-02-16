@@ -11,7 +11,7 @@ export interface SideNavContextValue {
   activeEventKey?: SideNavEventKey;
   onSelect?: SideNavSelectCallback;
   alwaysOpen?: boolean;
-  activeLinkKey: string;
+  activeLinkKey?: string;
   setActiveNavLinkKey: React.Dispatch<React.SetStateAction<string>>
 }
 
