@@ -61,6 +61,15 @@ export function useSideNavButton(
 
   };
 }
+const setCollapseCSS = (activeEventKey: SideNavEventKey, eventKey : string) => {
+  if (Array.isArray(activeEventKey)) {
+    return activeEventKey.includes(eventKey) ? 'collapse' : 'collapsed'
+  }
+  if (typeof activeEventKey === 'string'){
+    return activeEventKey === eventKey ? 'collapse' : 'collapsed'
+  }
+  return 
+}
 
 const SideNavButton: BsPrefixRefForwardingComponent<
   'button',
@@ -94,12 +103,13 @@ const SideNavButton: BsPrefixRefForwardingComponent<
     return (
       <Component
         ref={btnRef}
+        variant={""}
         onClick={sideNavOnClick}
         {...props}
         aria-expanded={eventKey === activeEventKey}
         className={classNames(
           className,
-          eventKey !== activeEventKey && 'collapsed'
+          setCollapseCSS(activeEventKey, eventKey)
         )}
       >
         {children}
