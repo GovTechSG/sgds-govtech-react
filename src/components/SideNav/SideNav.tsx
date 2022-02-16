@@ -36,6 +36,8 @@ const propTypes = {
   defaultActiveKey:  PropTypes.oneOfType([PropTypes.string, PropTypes.array]),
  /** Allow accordion items to stay open when another item is opened */
  alwaysOpen: PropTypes.bool,
+   /** The current active NavLink that corresponds to the currently expanded card */
+ activeNavLinkKey: PropTypes.string
 };
 
 const SideNav: BsPrefixRefForwardingComponent<'ul', SideNavProps> =
