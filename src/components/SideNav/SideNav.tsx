@@ -9,10 +9,15 @@ import SideNavCollapse from './SideNavCollapse';
 import SideNavContext, {SideNavEventKey, SideNavSelectCallback} from './SideNavContext';
 import SideNavItem from './SideNavItem';
 import { BsPrefixProps, BsPrefixRefForwardingComponent } from '../helpers';
+import BaseNav, { NavProps as BaseNavProps } from '@restart/ui/Nav';
+import { EventKey } from '@restart/ui/esm/types';
+import SideNavLink from './SideNavLink';
+
 export interface SideNavProps
   extends Omit<React.HTMLAttributes<HTMLElement>, 'onSelect'>,
     BsPrefixProps {
   activeKey?: SideNavEventKey;
+  activeNavLinkKey: string;
   defaultActiveKey?: SideNavEventKey;
   onSelect?: SideNavSelectCallback;  
   alwaysOpen?: boolean;
@@ -44,28 +49,31 @@ const SideNav: BsPrefixRefForwardingComponent<'ul', SideNavProps> =
       className,
       onSelect,
       alwaysOpen,
+      activeNavLinkKey,
       ...controlledProps
     } = useUncontrolled(props, {
       activeKey: 'onSelect',
     });
-
+    const [activeLinkKey, setActiveNavLinkKey] = React.useState(activeNavLinkKey)
     const prefix = useBootstrapPrefix(bsPrefix, 'sidenav');
     const contextValue = useMemo(
       () => ({
         activeEventKey: activeKey,
         onSelect,
         alwaysOpen,
+        activeLinkKey,
+        setActiveNavLinkKey
       }),
-      [activeKey, onSelect, alwaysOpen],
+      [activeKey, onSelect, alwaysOpen, activeLinkKey],
     );
-
     return (
       <SideNavContext.Provider value={contextValue}>
-        <SGDSWrapper
+        <BaseNav
           as={Component}
           ref={ref}
+          activeKey={activeLinkKey}
           {...controlledProps}
-          className={classNames( className, prefix, 'list-unstyled')}
+          className={classNames( className, prefix, 'list-unstyled', 'sgds')}
         />
       </SideNavContext.Provider>
     );
@@ -78,6 +86,7 @@ export default Object.assign(SideNav, {
   Button: SideNavButton,
   Collapse: SideNavCollapse,
   Item: SideNavItem,
+  Link: SideNavLink
 });
 
 

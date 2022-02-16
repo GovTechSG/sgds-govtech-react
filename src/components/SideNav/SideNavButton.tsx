@@ -6,6 +6,7 @@ import SideNavContext, {SideNavEventKey} from './SideNavContext';
 import SideNavItemContext from './SideNavItemContext';
 import { BsPrefixProps, BsPrefixRefForwardingComponent } from '../helpers';
 import Button from '../Button/Button';
+
 type EventHandler = React.EventHandler<React.SyntheticEvent>;
 
 export interface SideNavButtonProps
@@ -29,6 +30,7 @@ const propTypes = {
 
 export function useSideNavButton(
   eventKey: string,
+  // linkKey: string | number,
   onClick?: EventHandler
 ): EventHandler {
   const { activeEventKey, onSelect, alwaysOpen } = useContext(SideNavContext);
@@ -52,8 +54,11 @@ export function useSideNavButton(
       }
     }
 
-    onSelect?.(eventKeyPassed, e);
+
+    onSelect?.(eventKeyPassed, /* linkKeyPassed, */ e);
     onClick?.(e);
+  
+
   };
 }
 
@@ -73,7 +78,8 @@ const SideNavButton: BsPrefixRefForwardingComponent<
     },
     ref
   ) => {
-    const { eventKey } = useContext(SideNavItemContext);
+    const btnRef = React.useRef<HTMLButtonElement>(null)
+    const { eventKey, activeLink } = useContext(SideNavItemContext);
     const sideNavOnClick = useSideNavButton(eventKey, onClick);
     const { activeEventKey } = useContext(SideNavContext);
 
@@ -81,9 +87,13 @@ const SideNavButton: BsPrefixRefForwardingComponent<
       props.type = 'button';
     }
 
+    React.useEffect(() => {
+      if(activeLink) btnRef.current?.click()
+    }, [])
+
     return (
       <Component
-        ref={ref}
+        ref={btnRef}
         onClick={sideNavOnClick}
         {...props}
         aria-expanded={eventKey === activeEventKey}

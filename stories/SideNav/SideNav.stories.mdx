@@ -54,23 +54,23 @@ import { SideNav, NavLink } from '../../src/components/index';
 />
 
 export const Template = (args) => (
-  <SideNav {...args}>
-    <SideNav.Item eventKey="0">
+  <SideNav {...args} activeNavLinkKey="test1">
+    <SideNav.Item eventKey="0" activeLinkKey="test1">
       <SideNav.Button>SideNav Item #1</SideNav.Button>
       <SideNav.Collapse>
-        <NavLink href="#">number one</NavLink>
-        <NavLink href="#">number one</NavLink>
-        <NavLink href="#">number one</NavLink>
+        <SideNav.Link eventKey="test" href="#">number one</SideNav.Link>
+        <SideNav.Link eventKey="test1"  href="#">number one</SideNav.Link>
+        <SideNav.Link eventKey="test2" href="#">number one</SideNav.Link>
       </SideNav.Collapse>
     </SideNav.Item>
-    <SideNav.Item eventKey="1">
+    <SideNav.Item eventKey="1"  >
       <SideNav.Button>SideNav Item #2</SideNav.Button>
       <SideNav.Collapse>
-        <NavLink>number two</NavLink>
-        <NavLink disabled>number two</NavLink>
-        <NavLink>number two</NavLink>
-        <NavLink>number two</NavLink>
-        <NavLink>number two</NavLink>
+        <SideNav.Link eventKey="test3" >number two</SideNav.Link>
+        <SideNav.Link disabled eventKey="test4" >number two</SideNav.Link>
+        <SideNav.Link eventKey="test5" >number two</SideNav.Link>
+        <SideNav.Link eventKey="test6" >number two</SideNav.Link>
+        <SideNav.Link eventKey="test7" >number two</SideNav.Link>
       </SideNav.Collapse>
     </SideNav.Item>
     <SideNav.Item eventKey="2">
@@ -138,17 +138,15 @@ export const SingleLink = () => (
 When the sidenav is a single link with no collapsible contents, use `<SideNav.Button />` like an anchor element by adding `href` prop
 
 <Canvas>
-  <Story name="Single Link">
-    {SingleLink.bind({})}
-  </Story>
+  <Story name="Single Link">{SingleLink.bind({})}</Story>
 </Canvas>
 
 ```jsx
-  <SideNav>
-    <SideNav.Item eventKey="0">
-      <SideNav.Button href="#">SideNav Item #1</SideNav.Button>
-    </SideNav.Item>
-  </SideNav>
+<SideNav>
+  <SideNav.Item eventKey="0">
+    <SideNav.Button href="#">SideNav Item #1</SideNav.Button>
+  </SideNav.Item>
+</SideNav>
 ```
 
 ## Always Open
@@ -166,11 +164,12 @@ When `alwaysOpen` is true, `defaultActiveKey` prop becomes an array of active ke
 Control which SideNavItem should be open on first load by defining `defaultActiveKey` array with the `eventKey` and `alwaysOpen` is true
 
 > **_NOTE:_** : `defaultActiveKey` **must** be an array when used with `alwaysOpen: true`
-  ```jsx
-    <SideNav defaultActiveKey= {['0', '1']} alwaysOpen>
-    ...
-    </SideNav>
-  ```
+
+```jsx
+<SideNav defaultActiveKey={['0', '1']} alwaysOpen>
+  ...
+</SideNav>
+```
 
 <Canvas>
   <Story
@@ -181,3 +180,32 @@ Control which SideNavItem should be open on first load by defining `defaultActiv
   </Story>
 </Canvas>
 
+## Customize - Add icons
+
+Customize by adding icons to your `<SideNav.Button/>`
+
+export const WithIcon = () => (
+  <SideNav>
+    <SideNav.Item eventKey="0">
+      <SideNav.Button href="#">
+        <i className="bi bi-apple"></i>
+        SideNav Item #1
+      </SideNav.Button>
+    </SideNav.Item>
+  </SideNav>
+);
+
+<Canvas>
+  <Story name="Add Icons">{WithIcon.bind({})}</Story>
+</Canvas>
+
+```jsx
+  <SideNav>
+    <SideNav.Item eventKey="0">
+      <SideNav.Button href="#">
+        <i className="bi bi-apple"></i>
+        SideNav Item #1
+      </SideNav.Button>
+    </SideNav.Item>
+  </SideNav>
+```
