@@ -100,4 +100,16 @@ describe('Tooltip', () => {
     const $Button = container.querySelector('.btn');
     expect($Button).toBeDefined();
   });
+  // it('content prop accepts a jsx.element', () => {
+  //   const content = <div>Testing</div>;
+  //   const { queryByText } = render(
+  //     <Tooltip content={content}>
+  //       <Button>Tooltip Content</Button>
+  //     </Tooltip>
+  //   );
+  //   waitFor(() => {
+  //     expect(queryByText('Testing')).not.toBeNull();
+  //     expect(queryByText('Testing')?.tagName).toEqual('DIV');
+  //   });
+  // });
 });

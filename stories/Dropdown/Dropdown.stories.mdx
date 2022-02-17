@@ -4,12 +4,12 @@ import { HIDDEN_COMMON_PROPS } from '../helpers';
 import { useState } from 'react';
 
 <Meta
-  title="MDX/Dropdown"
+  title="Components/Dropdown"
   component={Dropdown}
   argTypes={{
     ...HIDDEN_COMMON_PROPS,
     drop: {
-      table: {disable: true}
+      table: { disable: true },
     },
     align: {
       description: `Aligns the dropdown menu to the specified side of the Dropdown toggle`,
@@ -31,11 +31,15 @@ import { useState } from 'react';
 
 # Dropdowns
 
-Toggle contextual overlays for displaying lists of links
+Toggle contextual overlays for displaying lists of links.
+
+As our components are built on top of `React-Bootstrap` library, do check out the detailed `Dropdown` API references <a href="https://react-bootstrap.github.io/components/dropdowns/" target="_blank">here</a>.
 
 export const Template = (args) => (
   <Dropdown {...args}>
-    <Dropdown.Toggle variant="white">Dropdown Button</Dropdown.Toggle>
+    <Dropdown.Toggle>
+      Dropdown Button<i class="bi bi-chevron-down"></i>
+    </Dropdown.Toggle>
     <Dropdown.Menu>
       <Dropdown.Item href="#" eventKey="abc">
         Action
@@ -48,7 +52,7 @@ export const Template = (args) => (
   </Dropdown>
 );
 
-## 1. Single button dropdowns
+##  Single button dropdowns
 
 The basic Dropdown is composed of a wrapping `Dropdown` and
 inner `<Dropdown.Menu>`, and `<Dropdown.Toggle>`. By
@@ -57,17 +61,19 @@ default the `<Dropdown.Toggle>` will render a
 
 <Story name="Basic">{Template.bind({})}</Story>
 
-## API 
+## API
 
 <ArgsTable story="Basic" />
 
 ```jsx
-import { Dropdown } from 'sgds-react';
+import { Dropdown } from 'sgds-govtech-react';
 
 export const Dropdown = () => {
   return (
     <Dropdown>
-      <Dropdown.Toggle variant="white">Dropdown Button</Dropdown.Toggle>
+      <Dropdown.Toggle>
+        Dropdown Button<i class="bi bi-chevron-down"></i>
+      </Dropdown.Toggle>
       <Dropdown.Menu popperConfig={popperConfig}>
         <Dropdown.Item href="#">Action</Dropdown.Item>
         <Dropdown.Item href="#">Another action</Dropdown.Item>
@@ -80,7 +86,7 @@ export const Dropdown = () => {
 };
 ```
 
-## 2. AutoClose
+## AutoClose
 
 By default, the dropdown menu is closed when selecting a menu item or clicking outside of the dropdown menu. This behaviour can be changed by using the `autoClose` property.
 
@@ -89,65 +95,60 @@ By default, `autoClose` is set to the **default value true** and behaves like ex
 Notice how the dropdown is toggled in each scenario by clicking on the button.
 
 <Story name="AutoClose">
-  <Row>
-    <Col>
-      <Dropdown>
-        <Dropdown.Toggle variant="white" id="dropdown-autoclose-true">
-          Default Dropdown
-        </Dropdown.Toggle>
-        <Dropdown.Menu>
-          <Dropdown.Item href="#">Menu Item</Dropdown.Item>
-          <Dropdown.Item href="#">Menu Item</Dropdown.Item>
-          <Dropdown.Item href="#">Menu Item</Dropdown.Item>
-        </Dropdown.Menu>
-      </Dropdown>
-    </Col>
-    <Col>
-      <Dropdown autoClose="inside">
-        <Dropdown.Toggle variant="white" id="dropdown-autoclose-inside">
-          Click Inside To Close
-        </Dropdown.Toggle>
-        <Dropdown.Menu>
-          <Dropdown.Item href="#">Menu Item</Dropdown.Item>
-          <Dropdown.Item href="#">Menu Item</Dropdown.Item>
-          <Dropdown.Item href="#">Menu Item</Dropdown.Item>
-        </Dropdown.Menu>
-      </Dropdown>
-    </Col>
-    <Col>
-      <Dropdown autoClose="outside">
-        <Dropdown.Toggle variant="white" id="dropdown-autoclose-outside">
-          Clickable Outside To Close
-        </Dropdown.Toggle>
-        <Dropdown.Menu>
-          <Dropdown.Item href="#">Menu Item</Dropdown.Item>
-          <Dropdown.Item href="#">Menu Item</Dropdown.Item>
-          <Dropdown.Item href="#">Menu Item</Dropdown.Item>
-        </Dropdown.Menu>
-      </Dropdown>
-    </Col>
-    <Col>
-      <Dropdown autoClose={false}>
-        <Dropdown.Toggle variant="white" id="dropdown-autoclose-false">
-          Click Button to Close
-        </Dropdown.Toggle>
-        <Dropdown.Menu>
-          <Dropdown.Item href="#">Menu Item</Dropdown.Item>
-          <Dropdown.Item href="#">Menu Item</Dropdown.Item>
-          <Dropdown.Item href="#">Menu Item</Dropdown.Item>
-        </Dropdown.Menu>
-      </Dropdown>
-    </Col>
-  </Row>
+  <Dropdown className="mb-3">
+    <Dropdown.Toggle id="dropdown-autoclose-true">
+      Default Dropdown
+      <i class="bi bi-chevron-down"></i>
+    </Dropdown.Toggle>
+    <Dropdown.Menu>
+      <Dropdown.Item href="#">Menu Item</Dropdown.Item>
+      <Dropdown.Item href="#">Menu Item</Dropdown.Item>
+      <Dropdown.Item href="#">Menu Item</Dropdown.Item>
+    </Dropdown.Menu>
+  </Dropdown>
+  <Dropdown autoClose="inside" className="mb-3">
+    <Dropdown.Toggle id="dropdown-autoclose-inside">
+      Click Inside To Close
+      <i class="bi bi-chevron-down"></i>
+    </Dropdown.Toggle>
+    <Dropdown.Menu>
+      <Dropdown.Item href="#">Menu Item</Dropdown.Item>
+      <Dropdown.Item href="#">Menu Item</Dropdown.Item>
+      <Dropdown.Item href="#">Menu Item</Dropdown.Item>
+    </Dropdown.Menu>
+  </Dropdown>
+  <Dropdown autoClose="outside" className="mb-3">
+    <Dropdown.Toggle id="dropdown-autoclose-outside">
+      Clickable Outside To Close
+      <i class="bi bi-chevron-down"></i>
+    </Dropdown.Toggle>
+    <Dropdown.Menu>
+      <Dropdown.Item href="#">Menu Item</Dropdown.Item>
+      <Dropdown.Item href="#">Menu Item</Dropdown.Item>
+      <Dropdown.Item href="#">Menu Item</Dropdown.Item>
+    </Dropdown.Menu>
+  </Dropdown>
+  <Dropdown autoClose={false} className="mb-3">
+    <Dropdown.Toggle id="dropdown-autoclose-false">
+      Click Button to Close
+      <i class="bi bi-chevron-down"></i>
+    </Dropdown.Toggle>
+    <Dropdown.Menu>
+      <Dropdown.Item href="#">Menu Item</Dropdown.Item>
+      <Dropdown.Item href="#">Menu Item</Dropdown.Item>
+      <Dropdown.Item href="#">Menu Item</Dropdown.Item>
+    </Dropdown.Menu>
+  </Dropdown>
 </Story>
 
 ```jsx
-import { Dropdown } from 'sgds-react';
+import { Dropdown } from 'sgds-govtech-react';
 
 // autoClose : true (default)
   <Dropdown>
-    <Dropdown.Toggle variant="white">
+    <Dropdown.Toggle>
       Clickable Inside
+      <i class="bi bi-chevron-down"></i>
     </Dropdown.Toggle>
     <Dropdown.Menu popperConfig={popperConfig}>
       <Dropdown.Item href="#">Menu Item</Dropdown.Item>
@@ -158,8 +159,9 @@ import { Dropdown } from 'sgds-react';
 
 // autoClose : inside
   <Dropdown autoClose="inside">
-    <Dropdown.Toggle variant="white">
+    <Dropdown.Toggle>
       Clickable Inside
+      <i class="bi bi-chevron-down"></i>
     </Dropdown.Toggle>
     <Dropdown.Menu popperConfig={popperConfig}>
       <Dropdown.Item href="#">Menu Item</Dropdown.Item>
@@ -170,8 +172,9 @@ import { Dropdown } from 'sgds-react';
 
 // autoClose : outside
   <Dropdown autoClose="outside">
-    <Dropdown.Toggle variant="white">
+    <Dropdown.Toggle>
       Clickable Inside
+      <i class="bi bi-chevron-down"></i>
     </Dropdown.Toggle>
     <Dropdown.Menu popperConfig={popperConfig}>
       <Dropdown.Item href="#">Menu Item</Dropdown.Item>
@@ -182,8 +185,9 @@ import { Dropdown } from 'sgds-react';
 
 // autoClose : false
   <Dropdown autoClose={false}>
-    <Dropdown.Toggle variant="white">
+    <Dropdown.Toggle>
       Manual Close
+      <i class="bi bi-chevron-down"></i>
     </Dropdown.Toggle>
     <Dropdown.Menu popperConfig={popperConfig}>
       <Dropdown.Item href="#">Menu Item</Dropdown.Item>
@@ -193,7 +197,7 @@ import { Dropdown } from 'sgds-react';
   </Dropdown>
 ```
 
-## 3. Event Handlers
+##  Event Handlers
 
 ### onSelect
 
@@ -225,7 +229,9 @@ export const onSelectToggleTemplate = () => {
   return (
     <div>
       <Dropdown onSelect={handleSelect} onToggle={handleToggle}>
-        <Dropdown.Toggle variant="white">{value ? value : 'Select me'}</Dropdown.Toggle>
+        <Dropdown.Toggle>
+          Default Dropdown<i class="bi bi-chevron-down"></i>
+        </Dropdown.Toggle>
         <Dropdown.Menu>
           <Dropdown.Item eventKey="apple">Apple</Dropdown.Item>
           <Dropdown.Item eventKey="orange">Orange</Dropdown.Item>

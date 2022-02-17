@@ -4,7 +4,7 @@ import { Modal, Button, Row, Col } from '../../src/components/index';
 import { HIDDEN_COMMON_PROPS } from '../helpers';
 
 <Meta
-  title="MDX/Modal"
+  title="Components/Modal"
   component={Modal}
   argTypes={{
     ...HIDDEN_COMMON_PROPS,
@@ -46,8 +46,6 @@ import { HIDDEN_COMMON_PROPS } from '../helpers';
 
 # Modal
 
-Let's define a story for our `Modal` component
-
 export const NamedTemplate = (
   type = '',
   singleProp = {},
@@ -86,7 +84,7 @@ export const smallModal = NamedTemplate('Small').bind({});
 export const largeModal = NamedTemplate('Large').bind({});
 export const xLargeModal = NamedTemplate('Extra large').bind({});
 export const templateCode = `
-import { Modal, Button } from 'sgds-react';
+import { Modal, Button } from 'sgds-govtech-react';
  const DefaultModal = (args) => {
     const [show, setShow] = useState(false);
     const handleClose = () => setShow(false);
@@ -159,7 +157,6 @@ Sed pulvinar ipsum purus. Nullam eleifend scelerisque mauris, vitae consequat en
 `
 ).bind({});
 
-## Default state
 
 The `Modal` is hidden by default and appears with backdrop and animation on click. `Modal` component consists of
 `Modal.Title`, `Modal.Header`, `Modal.Body`, `Modal.Footer`, `Modal.Dialog`. Add children components to customize your `Modal`
@@ -219,7 +216,7 @@ You can specify a bootstrap large or small modal by using the size prop: `sm`, `
 </Canvas>
 
 ```jsx
-import { Modal } from 'sgds-react';
+import { Modal } from 'sgds-govtech-react';
 
 <Modal show={show} onHide={handleClose} size="sm">
   ...
@@ -247,7 +244,7 @@ You can use the fullscreen prop to make the modal fullscreen. Specifying a break
 </Story>
 
 ```jsx
-import { Modal } from 'sgds-react';
+import { Modal } from 'sgds-govtech-react';
 
 <Modal show={show} onHide={handleClose} fullscreen={true}>
   ...
@@ -274,7 +271,7 @@ You can apply custom css to the modal dialog div using the dialogClassName prop.
 <Story name="Custom css - dialogClassName">{customCssDialog}</Story>
 
 ```jsx
-import { Modal } from 'sgds-react';
+import { Modal } from 'sgds-govtech-react';
 
 <Modal show={show} onHide={handleClose} dialogClassName="text-primary">
   ...
@@ -288,7 +285,7 @@ Use contentPropClassName to add an optional extra classname to .modal-content. E
 <Story name="Custom CSS - contentPropClassName">{customCssContent}</Story>
 
 ```jsx
-import { Modal } from 'sgds-react';
+import { Modal } from 'sgds-govtech-react';
 
 <Modal show={show} onHide={handleClose} contentClassName="text-warning">
   ...
@@ -302,7 +299,7 @@ Add an optional extra class name to .modal-backdrop It could end up looking like
 <Story name="Custom CSS - backdropClassName">{customCssBg}</Story>
 
 ```jsx
-import { Modal } from 'sgds-react';
+import { Modal } from 'sgds-govtech-react';
 
 <Modal show={show} onHide={handleClose} backdropClassName="bg-primary">
   ...
@@ -316,7 +313,7 @@ A Modal can also be without an animation. For that set the `animation` prop to `
 <Story name="Animation">{noAnim}</Story>
 
 ```jsx
-import { Modal } from 'sgds-react';
+import { Modal } from 'sgds-govtech-react';
 
 <Modal show={show} onHide={handleClose} animation={false}>
   ...

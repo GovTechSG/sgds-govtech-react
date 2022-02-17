@@ -86,6 +86,7 @@ const DropdownToggle: DropdownToggleComponent = React.forwardRef(
           split && `${prefix}-split`,
           !!isInputGroup && dropdownContext?.show && 'show',
         )}
+        variant="outline-secondary"
         {...toggleProps}
         {...props}
       />

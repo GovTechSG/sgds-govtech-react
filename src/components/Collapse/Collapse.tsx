@@ -10,10 +10,10 @@ import Transition, {
   EXITING,
 } from 'react-transition-group/Transition';
 import { TransitionCallbacks } from '@restart/ui/types';
-import transitionEndListener from './transitionEndListener';
-import createChainedFunction from './createChainedFunction';
-import triggerBrowserReflow from './triggerBrowserReflow';
-import TransitionWrapper from './TransitionWrapper';
+import transitionEndListener from '../transitionEndListener';
+import createChainedFunction from '../createChainedFunction';
+import triggerBrowserReflow from '../triggerBrowserReflow';
+import TransitionWrapper from '../TransitionWrapper';
 
 type Dimension = 'height' | 'width';
 

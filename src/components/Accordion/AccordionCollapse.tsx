@@ -4,8 +4,8 @@ import { useContext } from 'react';
 import PropTypes from 'prop-types';
 import { Transition } from 'react-transition-group';
 import { useBootstrapPrefix } from '../ThemeProvider/ThemeProvider';
-import Collapse, { CollapseProps } from '../Collapse';
-import AccordionContext from './AccordionContext';
+import Collapse, { CollapseProps } from '../Collapse/Collapse';
+import AccordionContext, { isAccordionItemSelected } from './AccordionContext';
 import { BsPrefixRefForwardingComponent, BsPrefixProps } from '../helpers';
 
 export interface AccordionCollapseProps extends BsPrefixProps, CollapseProps {
@@ -46,7 +46,7 @@ const AccordionCollapse: BsPrefixRefForwardingComponent<
     return (
       <Collapse
         ref={ref}
-        in={activeEventKey === eventKey}
+        in={isAccordionItemSelected(activeEventKey, eventKey)}
         {...props}
         className={classNames(className, bsPrefix)}
       >

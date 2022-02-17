@@ -12,7 +12,7 @@ import {
 import { HIDDEN_COMMON_PROPS } from '../helpers';
 
 <Meta
-  title="MDX/Tooltip"
+  title="Components/Tooltip"
   component={Tooltip}
   argTypes={{
     ...HIDDEN_COMMON_PROPS,
@@ -23,7 +23,7 @@ import { HIDDEN_COMMON_PROPS } from '../helpers';
       description: 'Types of Tooltip include clickable and hoverable',
     },
     content: {
-      description: 'The text content to be displayed in the tooltip',
+      description: 'The content to be displayed in the tooltip',
     },
   }}
 />
@@ -51,7 +51,7 @@ The `Tooltip` component works as a wrapper around its target children element.
 
 <Canvas>
   <Story name="Default" args={{ content: 'This is a sample Tooltip' }}>
-    {defaultTooltip}
+    {defaultTooltip.bind({})}
   </Story>
 </Canvas>
 
@@ -111,7 +111,7 @@ The Tooltip can also be closed by clicking on the target element as well. Clicka
     name="Clickable"
     args={{ content: 'This is a sample Tooltip', type: 'click' }}
   >
-    {clickableTooltip}
+    {clickableTooltip.bind({})}
   </Story>
   <Story name="Clickable Components">
     <Tooltip content="This is a sample Tooltip" type="click">

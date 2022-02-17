@@ -17,7 +17,7 @@ import { useState, useRef, useEffect } from 'react';
 import { CARD_COMMON_PROPS } from './argTypes';
 
 <Meta
-  title="MDX/Card/Action Card/Selectable"
+  title="Components/Card/Action Card/Selectable"
   component={SelectableCard}
   argTypes={{
     ...HIDDEN_COMMON_PROPS,
@@ -26,6 +26,7 @@ import { CARD_COMMON_PROPS } from './argTypes';
       description: 'Disables the FormCheck when true',
     },
     type: { description: 'The type of checkable' },
+    onChange : {description: 'HTMLInputElement event handler to update states or any side effect actions'}
   }}
 />
 
@@ -64,7 +65,44 @@ export const AcerBody = (
     <Card.Text>Acer Aspire 5</Card.Text>
   </>
 );
-
+export const ActiveBorderTemplate = () => {
+  const [cart, setCard] = useState([]);
+  const handleChange = (e) => {
+    setCard([e.target.value, ...cart]);
+  };
+  return (
+    <Row>
+      <Col xs lg="4">
+        <Form>
+          <SelectableCard
+            name="test"
+            type="checkbox"
+            value="apple"
+            onChange={handleChange}
+          >
+            {AppleBody}
+          </SelectableCard>
+          <SelectableCard
+            name="test"
+            type="checkbox"
+            value="microsoft"
+            onChange={handleChange}
+          >
+            {MicrosoftBody}
+          </SelectableCard>
+          <SelectableCard
+            name="test"
+            type="checkbox"
+            value="acer"
+            onChange={handleChange}
+          >
+            {AcerBody}
+          </SelectableCard>
+        </Form>
+      </Col>
+    </Row>
+  );
+};
 export const ExampleTemplate = (args) => {
   const [brand, setBrand] = useState('');
   const [qty, setQty] = useState(-2);
@@ -184,7 +222,7 @@ The default SelectableCard is a checkbox.
 
 `SelectableCard` partially extends `FormCheckProps`, `CardProps` and extends their HTMLAttributes. The resulting props are as indicated in ArgsTable above.
 
-### Types
+## Types
 
 Use `type` prop : `radio` / `switch` / `checkbox` to change the `SelectableCard` input type
 
@@ -206,6 +244,57 @@ Use `type` prop : `radio` / `switch` / `checkbox` to change the `SelectableCard`
   </Story>
 </Canvas>
 
+## Active Card
+
+When a `<SelectableCard />` is checked, its card borders are highlighted.
+
+**Note:** This feature occurs only when onChange is passed in with state updates. See demo and code example below
+
+<Canvas>
+  <Story name="Active Borders">{ActiveBorderTemplate.bind({})}</Story>
+</Canvas>
+
+```jsx
+const ActiveBorderTemplate = () => {
+  const [cart, setCard] = useState([]);
+  const handleChange = (e) => {
+    setCard([e.target.value, ...cart]);
+  };
+  return (
+    <Row>
+      <Col xs lg="4">
+        <Form>
+          <SelectableCard
+            name="test"
+            type="checkbox"
+            value="apple"
+            onChange={handleChange}
+          >
+            {AppleBody}
+          </SelectableCard>
+          <SelectableCard
+            name="test"
+            type="checkbox"
+            value="microsoft"
+            onChange={handleChange}
+          >
+            {MicrosoftBody}
+          </SelectableCard>
+          <SelectableCard
+            name="test"
+            type="checkbox"
+            value="acer"
+            onChange={handleChange}
+          >
+            {AcerBody}
+          </SelectableCard>
+        </Form>
+      </Col>
+    </Row>
+  );
+};
+```
+
 ## Usage: Shopping Cart
 
 An example of the usage of the `<SelectableCard />` with a Custom Basket card with `<QuantityToggle />`
@@ -226,7 +315,7 @@ import {
   Row,
   QuantityToggle,
   Card,
-} from 'sgds-react';
+} from 'sgds-govtech-react';
 import { useState } from 'react';
 
 export const ShoppingCart = (args) => {
@@ -282,7 +371,7 @@ export const ShoppingCart = (args) => {
       </Col>
       <Col xs lg="4">
         {brand && (
-           <Card variant="card-action-quantity-toggle">
+          <Card variant="card-action-quantity-toggle">
             <Card.Body>
               <div>
                 <Card.Title as="h4">

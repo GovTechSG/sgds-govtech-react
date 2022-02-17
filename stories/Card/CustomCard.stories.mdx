@@ -11,7 +11,7 @@ import { useState } from 'react';
 import { CARD_COMMON_PROPS } from './argTypes';
 
 <Meta
-  title="MDX/Card/Action Card/Customize"
+  title="Components/Card/Action Card/Customize"
   component={Card}
   argTypes={{
     ...HIDDEN_COMMON_PROPS,
@@ -95,7 +95,7 @@ export const QtyToggleVariantTemplate = () => {
 
 # Custom Cards
 
-Build your own custom Action Cards using various Components from `sgds-react` based on your requirements
+Build your own custom Action Cards using various Components from `sgds-govtech-react` based on your requirements
 
 ## Quantity Toggle Card
 
@@ -110,14 +110,4 @@ To achieve the desired positioning , `Card.Body` should have two `div` children
   <Story name="Quantity Toggle Card using variant">
     {QtyToggleVariantTemplate.bind({})}
   </Story>
-</Canvas>
-
-Or build your own Quantity Toggle Card without the used of the variant attribute. Use `Row` and `Col` to position your contents accordingly
-
-```jsx
-import { Card, QuantityToggle, Row, Col } from 'sgds-react';
-```
-
-<Canvas>
-  <Story name="Quantity Toggle Card">{QtyToggleTemplate.bind({})}</Story>
 </Canvas>
