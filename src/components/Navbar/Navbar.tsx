@@ -5,7 +5,6 @@ import PropTypes from 'prop-types';
 import SelectableContext from '@restart/ui/SelectableContext';
 import { SelectCallback } from '@restart/ui/types';
 import { useUncontrolled } from 'uncontrollable';
-import { useMediaQuery } from 'react-responsive'
 
 import createWithBsPrefix from '../createWithBsPrefix';
 import NavbarBrand from './NavbarBrand';
@@ -168,14 +167,7 @@ const Navbar: BsPrefixRefForwardingComponent<'nav', NavbarProps> =
     } = useUncontrolled(props, {
       expanded: 'onToggle',
     });
-    const mediaQueries = {
-       sm : useMediaQuery({maxWidth: 992 - 1}),
-       md : useMediaQuery({maxWidth: 768 - 1}),
-       lg : useMediaQuery({maxWidth: 992 - 1}),
-       xl : useMediaQuery({maxWidth: 1200 - 1}),
-       xxl : useMediaQuery({maxWidth: 1400 - 1}),
-    }
-   
+
     const bsPrefix = useBootstrapPrefix(initialBsPrefix, 'navbar');
 
     const handleCollapse = useCallback<SelectCallback>(
@@ -196,17 +188,17 @@ const Navbar: BsPrefixRefForwardingComponent<'nav', NavbarProps> =
     }
     let expandClass = `${bsPrefix}-expand`;
     if (typeof expand === 'string') expandClass = `${expandClass}-${expand}`;
-    console.log((typeof expand === 'string') && mediaQueries[expand], 'test')
+  
     const navbarContext = useMemo<NavbarContextType>(
       () => ({
         onToggle: () => onToggle?.(!expanded),
         bsPrefix,
         expanded: !!expanded,
-        isHamburger: ((typeof expand === 'string') && mediaQueries[expand])
+        expand: expand
       }),
       [bsPrefix, expanded, onToggle]
     );
-    
+
     return (
       <NavbarContext.Provider value={navbarContext}>
         <SelectableContext.Provider value={handleCollapse}>

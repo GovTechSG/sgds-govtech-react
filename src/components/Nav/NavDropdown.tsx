@@ -2,6 +2,7 @@ import classNames from 'classnames';
 import * as React from 'react';
 import PropTypes from 'prop-types';
 import { useState, useContext } from 'react';
+import { useMediaQuery } from 'react-responsive'
 
 import { useBootstrapPrefix } from '../ThemeProvider/ThemeProvider';
 import Dropdown, { DropdownProps } from '../Dropdown/Dropdown';
@@ -87,8 +88,16 @@ const NavDropdown: BsPrefixRefForwardingComponent<'div', NavDropdownProps> =
     ) => {
       /* NavItem has no additional logic, it's purely presentational. Can set nav item class here to support "as" */
       const navbarContext = useContext(NavbarContext)
-      const isHam = navbarContext && navbarContext.isHamburger
-  
+      const expand = navbarContext && navbarContext.expand
+      const mediaQueries = {
+        sm : useMediaQuery({maxWidth: 992 - 1}),
+        md : useMediaQuery({maxWidth: 768 - 1}),
+        lg : useMediaQuery({maxWidth: 992 - 1}),
+        xl : useMediaQuery({maxWidth: 1200 - 1}),
+        xxl : useMediaQuery({maxWidth: 1400 - 1}),
+     }
+     const [isHam, setIsHam] = React.useState((typeof expand === 'string') && mediaQueries[expand])
+
       const navItemPrefix = useBootstrapPrefix(undefined, 'nav-item');
       const [show, setShow] = useState(false);
       const showDropdown = () => {
@@ -100,18 +109,33 @@ const NavDropdown: BsPrefixRefForwardingComponent<'div', NavDropdownProps> =
       const onToggle = () => {
         isHam ? setShow(!show) : undefined
       }
-      return (
+
+      const HoverDropdown = (childs: React.ReactNode) =>  (
         <Dropdown
           ref={ref}
           {...props}
-          // show={true} 
-          onToggle={onToggle} 
           show={show}
           onMouseEnter={showDropdown}
           onMouseLeave={hideDropdown}
           className={classNames(className, navItemPrefix)}
         >
-          <Dropdown.Toggle
+          {childs}
+        </Dropdown>
+      )
+      const ClickDropdown = (childs: React.ReactNode) =>  (
+        <Dropdown
+          ref={ref}
+          {...props}
+          onToggle={onToggle} 
+          show={show}
+          className={classNames(className, navItemPrefix)}
+        >
+          {childs}
+        </Dropdown>
+      )
+      const Childrens = (
+        <>
+        <Dropdown.Toggle
             id={id}
             eventKey={null}
             active={active}
@@ -133,8 +157,14 @@ const NavDropdown: BsPrefixRefForwardingComponent<'div', NavDropdownProps> =
           >
             {children}
           </Dropdown.Menu>
-        </Dropdown>
-      );
+        </>
+      )
+   
+      React.useEffect(() => {
+        setIsHam((typeof expand === 'string') && mediaQueries[expand])
+      }, [(typeof expand === 'string') && mediaQueries[expand]])
+
+      return isHam ? ClickDropdown(Childrens) : HoverDropdown(Childrens)
     },
   );
 

@@ -55,7 +55,7 @@ const NavbarToggle: BsPrefixRefForwardingComponent<
   ) => {
     bsPrefix = useBootstrapPrefix(bsPrefix, 'navbar-toggler');
 
-    const { onToggle, expanded, isHamburger } = useContext(NavbarContext) || {};
+    const { onToggle, expanded } = useContext(NavbarContext) || {};
 
     const handleClick = useEventCallback((e) => {
       if (onClick) onClick(e);
@@ -65,9 +65,6 @@ const NavbarToggle: BsPrefixRefForwardingComponent<
     if (Component === 'button') {
       (props as any).type = 'button';
     }
-    React.useEffect(() => {
-      console.log(isHamburger)
-    }, [isHamburger])
     return (
       <Component
         {...props}
