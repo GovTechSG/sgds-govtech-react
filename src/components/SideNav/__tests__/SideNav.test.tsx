@@ -242,7 +242,7 @@ describe('<SideNav>', () => {
 });
 
 describe('SideNav behaviour when there are active SideNavLink', () => {
-  it('on first load, second navitem should be expanded', () => {
+  it('on first load, second navitem should be expanded', async() => {
     const { container, getByText } = render(
       <SideNav activeNavLinkKey="nl-4">
         <SideNav.Item eventKey="0">
@@ -291,13 +291,13 @@ describe('SideNav behaviour when there are active SideNavLink', () => {
     //when clicked on button number4 navlink is no longer active
 
     fireEvent.click(getByText('SideNav Item #3'));
-    waitFor(() =>
+    await waitFor(() =>
       expect(getByText('number4').classList).not.toContain('active')
     );
 
     // click on first navitem
     fireEvent.click(getByText('SideNav Item #1'));
-    waitFor(() => {
+    await waitFor(() => {
       expect(container.querySelectorAll('.btn')[0].classList).not.toContain(
         'collapsed'
       );
@@ -306,6 +306,6 @@ describe('SideNav behaviour when there are active SideNavLink', () => {
     //click on navlink number 1
     fireEvent.click(getByText('number1'));
     //navlink 1 should be active
-    waitFor(() => expect(getByText('number1').classList).toContain('active'));
+    await waitFor(() => expect(getByText('number1').classList).toContain('active'));
   });
 });
