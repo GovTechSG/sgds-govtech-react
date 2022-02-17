@@ -7,4 +7,4 @@ describe("<SideNavItem>", () => {
         const {  container } = render(<SideNavItem eventKey="0"><>Item 1</></SideNavItem>)
         expect(container.querySelector('li.sidenav-item')).not.toBeNull()
     })
-})
+}) 

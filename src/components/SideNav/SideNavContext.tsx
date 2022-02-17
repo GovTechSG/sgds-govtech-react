@@ -11,6 +11,8 @@ export interface SideNavContextValue {
   activeEventKey?: SideNavEventKey;
   onSelect?: SideNavSelectCallback;
   alwaysOpen?: boolean;
+  activeLinkKey?: string;
+  setActiveNavLinkKey: React.Dispatch<React.SetStateAction<string>>
 }
 
 export function isSideNavItemSelected(
@@ -22,7 +24,10 @@ export function isSideNavItemSelected(
     : activeEventKey === eventKey;
 }
 
-const context = React.createContext<SideNavContextValue>({});
+const context = React.createContext<SideNavContextValue>({
+  activeLinkKey : '',
+  setActiveNavLinkKey: () => {}
+});
 context.displayName = 'SideNavContext';
 
 export default context;

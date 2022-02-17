@@ -12,6 +12,7 @@ export interface SideNavItemProps
   extends BsPrefixProps,
     React.HTMLAttributes<HTMLElement> {
   eventKey: string;
+  activeNavLinkKey?: string;
 }
 
 const propTypes = {
@@ -26,6 +27,7 @@ const propTypes = {
    * @required
    */
   eventKey: PropTypes.string.isRequired,
+  activeNavLinkKey: PropTypes.string
 };
 
 const SideNavItem: BsPrefixRefForwardingComponent<'li', SideNavItemProps> =
@@ -37,6 +39,7 @@ const SideNavItem: BsPrefixRefForwardingComponent<'li', SideNavItemProps> =
         bsPrefix,
         className,
         eventKey,
+        activeNavLinkKey,
         ...props
       },
       ref,
@@ -45,8 +48,9 @@ const SideNavItem: BsPrefixRefForwardingComponent<'li', SideNavItemProps> =
       const contextValue = useMemo<SideNavItemContextValue>(
         () => ({
           eventKey,
+          activeLink: activeNavLinkKey,
         }),
-        [eventKey],
+        [eventKey, activeNavLinkKey],
       );
 
       return (

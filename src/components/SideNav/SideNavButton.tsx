@@ -6,6 +6,8 @@ import SideNavContext, {SideNavEventKey} from './SideNavContext';
 import SideNavItemContext from './SideNavItemContext';
 import { BsPrefixProps, BsPrefixRefForwardingComponent } from '../helpers';
 import Button from '../Button/Button';
+import useMergedRefs from '@restart/hooks/useMergedRefs';
+
 type EventHandler = React.EventHandler<React.SyntheticEvent>;
 
 export interface SideNavButtonProps
@@ -29,10 +31,13 @@ const propTypes = {
 
 export function useSideNavButton(
   eventKey: string,
-  onClick?: EventHandler
+  isAnchor: boolean,
+  onClick?: EventHandler,
 ): EventHandler {
-  const { activeEventKey, onSelect, alwaysOpen } = useContext(SideNavContext);
+  const { activeEventKey, onSelect, alwaysOpen, setActiveNavLinkKey } = useContext(SideNavContext);
   return (e) => {
+    // if button is a <a/> when clicked reset activeNavLinkKey
+    if(isAnchor) setActiveNavLinkKey('')
     /*
       Compare the event key in context with the given event key.
       If they are the same, then collapse the component.
@@ -52,9 +57,21 @@ export function useSideNavButton(
       }
     }
 
+
     onSelect?.(eventKeyPassed, e);
     onClick?.(e);
+  
+
   };
+}
+const setCollapseCSS = (activeEventKey: SideNavEventKey, eventKey : string) => {
+  if (Array.isArray(activeEventKey)) {
+    return !activeEventKey.includes(eventKey) && 'collapsed'
+  }
+  if (typeof activeEventKey === 'string'){
+    return (activeEventKey !== eventKey ) && 'collapsed'
+  }
+  return 'collapsed'
 }
 
 const SideNavButton: BsPrefixRefForwardingComponent<
@@ -73,23 +90,30 @@ const SideNavButton: BsPrefixRefForwardingComponent<
     },
     ref
   ) => {
-    const { eventKey } = useContext(SideNavItemContext);
-    const sideNavOnClick = useSideNavButton(eventKey, onClick);
+    const btnRef = React.useRef<HTMLButtonElement>(null)
+    const mergedRef = useMergedRefs(ref as React.MutableRefObject<HTMLButtonElement>, btnRef)
+    const { eventKey, activeLink } = useContext(SideNavItemContext);
+    const sideNavOnClick = useSideNavButton(eventKey, !!props.href,onClick );
     const { activeEventKey } = useContext(SideNavContext);
 
     if (Component === 'button') {
       props.type = 'button';
     }
 
+    React.useEffect(() => {
+      if(activeLink) btnRef.current?.click()
+    }, [])
+
     return (
       <Component
-        ref={ref}
+        ref={mergedRef}
+        variant={""}
         onClick={sideNavOnClick}
         {...props}
         aria-expanded={eventKey === activeEventKey}
         className={classNames(
           className,
-          eventKey !== activeEventKey && 'collapsed'
+          setCollapseCSS(activeEventKey, eventKey)
         )}
       >
         {children}
