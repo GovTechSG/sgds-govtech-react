@@ -57,8 +57,8 @@ export type { CloseButtonProps } from './CloseButton/CloseButton';
 export { default as Col } from './Col';
 export type { ColProps } from './Col';
 
-export { default as Collapse } from './Collapse';
-export type { CollapseProps } from './Collapse';
+export { default as Collapse } from './Collapse/Collapse';
+export type { CollapseProps } from './Collapse/Collapse';
 
 export { default as Dropdown } from './Dropdown/Dropdown';
 export type { DropdownProps } from './Dropdown/Dropdown';
@@ -121,8 +121,8 @@ export type { ModalDialogProps } from './Modal/ModalDialog';
 export { default as ModalFooter } from './Modal/ModalFooter';
 export { default as ModalTitle } from './Modal/ModalTitle';
 
-// export { default as Nav } from './Nav';
-// export type { NavProps } from './Nav';
+export { default as Nav } from './Nav/Nav';
+export type { NavProps } from './Nav/Nav';
 
 // export { default as Navbar } from './Navbar';
 // export type { NavbarProps } from './Navbar';
@@ -133,10 +133,10 @@ export { default as ModalTitle } from './Modal/ModalTitle';
 // export { default as NavDropdown } from './NavDropdown';
 // export type { NavDropdownProps } from './NavDropdown';
 
-// export { default as NavItem } from './NavItem';
+export { default as NavItem } from './Nav/NavItem';
 
-// export { default as NavLink } from './NavLink';
-// export type { NavLinkProps } from './NavLink';
+export { default as NavLink } from './Nav/NavLink';
+export type { NavLinkProps } from './Nav/NavLink';
 
 // export { default as Offcanvas } from './Offcanvas';
 // export type { OffcanvasProps } from './Offcanvas';
@@ -180,8 +180,12 @@ export type { QuantityToggleProps } from './QuantityToggle/QuantityToggle'
 export { default as Row } from './Row';
 export type { RowProps } from './Row';
 
+export { default as SideNav } from './SideNav/SideNav';
+export type { SideNavProps } from './SideNav/SideNav';
+
 // export { default as Spinner } from './Spinner';
 // export type { SpinnerProps } from './Spinner';
+
 
 
 export { default as SplitButton } from './SplitButton/SplitButton';

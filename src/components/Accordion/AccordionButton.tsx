@@ -2,7 +2,7 @@ import * as React from 'react';
 import { useContext } from 'react';
 import classNames from 'classnames';
 import PropTypes from 'prop-types';
-import AccordionContext from './AccordionContext';
+import AccordionContext, {  AccordionEventKey } from './AccordionContext';
 import AccordionItemContext from './AccordionItemContext';
 import { BsPrefixProps, BsPrefixRefForwardingComponent } from '../helpers';
 import { useBootstrapPrefix } from '../ThemeProvider/ThemeProvider';
@@ -28,17 +28,30 @@ export function useAccordionButton(
   eventKey: string,
   onClick?: EventHandler,
 ): EventHandler {
-  const { activeEventKey, onSelect } = useContext(AccordionContext);
+  const { activeEventKey, onSelect, alwaysOpen } = useContext(AccordionContext);
 
   return (e) => {
     /*
       Compare the event key in context with the given event key.
       If they are the same, then collapse the component.
     */
-    const eventKeyPassed = eventKey === activeEventKey ? null : eventKey;
+    let eventKeyPassed: AccordionEventKey =
+      eventKey === activeEventKey ? null : eventKey;
+    if (alwaysOpen) {
+      if (Array.isArray(activeEventKey)) {
+        if (activeEventKey.includes(eventKey)) {
+          eventKeyPassed = activeEventKey.filter((k) => k !== eventKey);
+        } else {
+          eventKeyPassed = [...activeEventKey, eventKey];
+        }
+      } else {
+        // activeEventKey is undefined.
+        eventKeyPassed = [eventKey];
+      }
+    }
 
-    if (onSelect) onSelect(eventKeyPassed, e);
-    if (onClick) onClick(e);
+    onSelect?.(eventKeyPassed, e);
+    onClick?.(e);
   };
 }
 
