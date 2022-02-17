@@ -34,6 +34,7 @@ export interface NavbarProps
   onSelect?: SelectCallback;
   collapseOnSelect?: boolean;
   expanded?: boolean;
+  hasBorderBottom?: boolean;
 }
 
 const propTypes = {
@@ -139,6 +140,7 @@ const propTypes = {
    * @default 'navigation'
    */
   role: PropTypes.string,
+  hasBorderBottom: PropTypes.bool
 };
 
 const defaultProps = {
@@ -157,6 +159,7 @@ const Navbar: BsPrefixRefForwardingComponent<'nav', NavbarProps> =
       fixed,
       sticky,
       className,
+      hasBorderBottom,
       // Need to define the default "as" during prop destructuring to be compatible with styled-components github.com/react-bootstrap/react-bootstrap/issues/3595
       as: Component = 'nav',
       expanded,
@@ -213,7 +216,8 @@ const Navbar: BsPrefixRefForwardingComponent<'nav', NavbarProps> =
               variant && `${bsPrefix}-${variant}`,
               bg && `bg-${bg}`,
               sticky && `sticky-${sticky}`,
-              fixed && `fixed-${fixed}`
+              fixed && `fixed-${fixed}`,
+              hasBorderBottom && 'border-bottom'
             )}
           />
         </SelectableContext.Provider>

@@ -20,6 +20,7 @@ export interface NavDropdownProps extends Omit<DropdownProps, 'title'> {
   rootCloseEvent?: 'click' | 'mousedown';
   menuVariant?: DropdownMenuVariant;
   href?: string;
+  isMegaMenu?: boolean;
 }
 
 const propTypes = {
@@ -63,7 +64,8 @@ const propTypes = {
 
   /** @ignore */
   bsPrefix: PropTypes.string,
-  href: PropTypes.string
+  href: PropTypes.string,
+  isMegaMenu: PropTypes.bool,
 };
 
 const NavDropdown: BsPrefixRefForwardingComponent<'div', NavDropdownProps> =
@@ -82,6 +84,7 @@ const NavDropdown: BsPrefixRefForwardingComponent<'div', NavDropdownProps> =
         renderMenuOnMount,
         menuVariant,
         href,
+        isMegaMenu,
         ...props
       }: NavDropdownProps,
       ref,
@@ -109,7 +112,7 @@ const NavDropdown: BsPrefixRefForwardingComponent<'div', NavDropdownProps> =
       const onToggle = () => {
         isHam ? setShow(!show) : undefined
       }
-
+      const dropDownClass = classNames(className, navItemPrefix, isMegaMenu ? 'has-megamenu' : undefined)
       const HoverDropdown = (childs: React.ReactNode) =>  (
         <Dropdown
           ref={ref}
@@ -117,7 +120,8 @@ const NavDropdown: BsPrefixRefForwardingComponent<'div', NavDropdownProps> =
           show={show}
           onMouseEnter={showDropdown}
           onMouseLeave={hideDropdown}
-          className={classNames(className, navItemPrefix)}
+          className={dropDownClass}
+          
         >
           {childs}
         </Dropdown>
@@ -128,7 +132,7 @@ const NavDropdown: BsPrefixRefForwardingComponent<'div', NavDropdownProps> =
           {...props}
           onToggle={onToggle} 
           show={show}
-          className={classNames(className, navItemPrefix)}
+          className={dropDownClass}
         >
           {childs}
         </Dropdown>
@@ -154,6 +158,7 @@ const NavDropdown: BsPrefixRefForwardingComponent<'div', NavDropdownProps> =
             variant={menuVariant}
             onMouseLeave={hideDropdown}
             isNav
+            className={isMegaMenu ? 'mega-menu' : undefined}
           >
             {children}
           </Dropdown.Menu>
