@@ -1,13 +1,14 @@
 import classNames from 'classnames';
 import * as React from 'react';
 import PropTypes from 'prop-types';
-import { useState } from 'react';
+import { useState, useContext } from 'react';
 
 import { useBootstrapPrefix } from '../ThemeProvider/ThemeProvider';
 import Dropdown, { DropdownProps } from '../Dropdown/Dropdown';
 import { DropdownMenuVariant } from '../Dropdown/DropdownMenu';
 import NavLink from './NavLink';
 import { BsPrefixRefForwardingComponent } from '../helpers';
+import NavbarContext from '../Navbar/NavbarContext';
 
 export interface NavDropdownProps extends Omit<DropdownProps, 'title'> {
   title: React.ReactNode;
@@ -85,19 +86,26 @@ const NavDropdown: BsPrefixRefForwardingComponent<'div', NavDropdownProps> =
       ref,
     ) => {
       /* NavItem has no additional logic, it's purely presentational. Can set nav item class here to support "as" */
+      const navbarContext = useContext(NavbarContext)
+      const isHam = navbarContext && navbarContext.isHamburger
+  
       const navItemPrefix = useBootstrapPrefix(undefined, 'nav-item');
       const [show, setShow] = useState(false);
       const showDropdown = () => {
-        setShow(true);
+        !isHam ? setShow(true) : undefined;
       };
       const hideDropdown = () => {
-        setShow(false);
+        !isHam ? setShow(false) : undefined;
       };
+      const onToggle = () => {
+        isHam ? setShow(!show) : undefined
+      }
       return (
         <Dropdown
           ref={ref}
           {...props}
-          // show={true}  
+          // show={true} 
+          onToggle={onToggle} 
           show={show}
           onMouseEnter={showDropdown}
           onMouseLeave={hideDropdown}
@@ -110,7 +118,7 @@ const NavDropdown: BsPrefixRefForwardingComponent<'div', NavDropdownProps> =
             disabled={disabled} 
             childBsPrefix={bsPrefix}
             as={NavLink}
-            href={href}
+            href={isHam ? undefined: href}
           >
             {title}<i className="bi bi-chevron-down"></i>
           </Dropdown.Toggle>

@@ -124,11 +124,11 @@ export { default as ModalTitle } from './Modal/ModalTitle';
 export { default as Nav } from './Nav/Nav';
 export type { NavProps } from './Nav/Nav';
 
-// export { default as Navbar } from './Navbar';
-// export type { NavbarProps } from './Navbar';
+export { default as Navbar } from './Navbar/Navbar';
+export type { NavbarProps } from './Navbar/Navbar';
 
-// export { default as NavbarBrand } from './NavbarBrand';
-// export type { NavbarBrandProps } from './NavbarBrand';
+export { default as NavbarBrand } from './Navbar/NavbarBrand';
+export type { NavbarBrandProps } from './Navbar/NavbarBrand';
 
 export { default as NavDropdown } from './Nav/NavDropdown';
 export type { NavDropdownProps } from './Nav/NavDropdown';

@@ -12,7 +12,7 @@ import { SelectCallback } from '@restart/ui/types';
 import warning from 'warning';
 import DropdownContext, { DropDirection } from './DropdownContext';
 import InputGroupContext from '../InputGroup/InputGroupContext';
-import NavbarContext from '../NavbarContext';
+import NavbarContext from '../Navbar/NavbarContext';
 import useWrappedRefWithWarning from '../useWrappedRefWithWarning';
 import { BsPrefixProps, BsPrefixRefForwardingComponent } from '../helpers';
 import { AlignType, AlignDirection, alignPropType, Placement, ResponsiveAlignProp } from '../types';

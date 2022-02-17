@@ -5,6 +5,7 @@ export interface NavbarContextType {
   onToggle: () => void;
   bsPrefix?: string;
   expanded: boolean;
+  isHamburger: boolean;
 }
 
 const context = React.createContext<NavbarContextType | null>(null);

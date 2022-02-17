@@ -5,13 +5,17 @@ import PropTypes from 'prop-types';
 import SelectableContext from '@restart/ui/SelectableContext';
 import { SelectCallback } from '@restart/ui/types';
 import { useUncontrolled } from 'uncontrollable';
+import { useMediaQuery } from 'react-responsive'
 
 import createWithBsPrefix from '../createWithBsPrefix';
 import NavbarBrand from './NavbarBrand';
 import NavbarCollapse from './NavbarCollapse';
 import NavbarToggle from './NavbarToggle';
 // import NavbarOffcanvas from './NavbarOffcanvas';
-import { useBootstrapPrefix } from '../ThemeProvider/ThemeProvider';
+import {
+  useBootstrapPrefix,
+  SGDSWrapper,
+} from '../ThemeProvider/ThemeProvider';
 import NavbarContext, { NavbarContextType } from './NavbarContext';
 import { BsPrefixProps, BsPrefixRefForwardingComponent } from '../helpers';
 
@@ -164,7 +168,14 @@ const Navbar: BsPrefixRefForwardingComponent<'nav', NavbarProps> =
     } = useUncontrolled(props, {
       expanded: 'onToggle',
     });
-
+    const mediaQueries = {
+       sm : useMediaQuery({maxWidth: 992 - 1}),
+       md : useMediaQuery({maxWidth: 768 - 1}),
+       lg : useMediaQuery({maxWidth: 992 - 1}),
+       xl : useMediaQuery({maxWidth: 1200 - 1}),
+       xxl : useMediaQuery({maxWidth: 1400 - 1}),
+    }
+   
     const bsPrefix = useBootstrapPrefix(initialBsPrefix, 'navbar');
 
     const handleCollapse = useCallback<SelectCallback>(
@@ -174,7 +185,7 @@ const Navbar: BsPrefixRefForwardingComponent<'nav', NavbarProps> =
           onToggle?.(false);
         }
       },
-      [onSelect, collapseOnSelect, expanded, onToggle],
+      [onSelect, collapseOnSelect, expanded, onToggle]
     );
 
     // will result in some false positives but that seems better
@@ -185,20 +196,22 @@ const Navbar: BsPrefixRefForwardingComponent<'nav', NavbarProps> =
     }
     let expandClass = `${bsPrefix}-expand`;
     if (typeof expand === 'string') expandClass = `${expandClass}-${expand}`;
-
+    console.log((typeof expand === 'string') && mediaQueries[expand], 'test')
     const navbarContext = useMemo<NavbarContextType>(
       () => ({
         onToggle: () => onToggle?.(!expanded),
         bsPrefix,
         expanded: !!expanded,
+        isHamburger: ((typeof expand === 'string') && mediaQueries[expand])
       }),
-      [bsPrefix, expanded, onToggle],
+      [bsPrefix, expanded, onToggle]
     );
-
+    
     return (
       <NavbarContext.Provider value={navbarContext}>
         <SelectableContext.Provider value={handleCollapse}>
-          <Component
+          <SGDSWrapper
+            as={Component}
             ref={ref}
             {...controlledProps}
             className={classNames(
@@ -208,7 +221,7 @@ const Navbar: BsPrefixRefForwardingComponent<'nav', NavbarProps> =
               variant && `${bsPrefix}-${variant}`,
               bg && `bg-${bg}`,
               sticky && `sticky-${sticky}`,
-              fixed && `fixed-${fixed}`,
+              fixed && `fixed-${fixed}`
             )}
           />
         </SelectableContext.Provider>

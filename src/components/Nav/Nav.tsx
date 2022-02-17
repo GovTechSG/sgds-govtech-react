@@ -12,7 +12,7 @@ import NavItem from './NavItem';
 import NavLink from './NavLink';
 import { BsPrefixProps, BsPrefixRefForwardingComponent } from '../helpers';
 import NavDropdown from './NavDropdown';
-// import { EventKey } from '@restart/ui/types';
+import { EventKey } from '@restart/ui/types';
 
 export interface NavProps extends BsPrefixProps, BaseNavProps {
   navbarBsPrefix?: string;
@@ -22,7 +22,7 @@ export interface NavProps extends BsPrefixProps, BaseNavProps {
   justify?: boolean;
   navbar?: boolean;
   navbarScroll?: boolean;
-  // defaultActiveKey?: EventKey;
+  defaultActiveKey?: EventKey;
 }
 
 const propTypes = {
