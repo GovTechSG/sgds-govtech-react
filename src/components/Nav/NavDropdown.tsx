@@ -2,7 +2,7 @@ import classNames from 'classnames';
 import * as React from 'react';
 import PropTypes from 'prop-types';
 import { useState, useContext } from 'react';
-import { useMediaQuery } from 'react-responsive'
+import { useMediaQuery } from 'react-responsive';
 
 import { useBootstrapPrefix } from '../ThemeProvider/ThemeProvider';
 import Dropdown, { DropdownProps } from '../Dropdown/Dropdown';
@@ -10,6 +10,7 @@ import { DropdownMenuVariant } from '../Dropdown/DropdownMenu';
 import NavLink from './NavLink';
 import { BsPrefixRefForwardingComponent } from '../helpers';
 import NavbarContext from '../Navbar/NavbarContext';
+import { SM, MD, LG, XL, XXL } from '../../utils/constant';
 
 export interface NavDropdownProps extends Omit<DropdownProps, 'title'> {
   title: React.ReactNode;
@@ -87,19 +88,24 @@ const NavDropdown: BsPrefixRefForwardingComponent<'div', NavDropdownProps> =
         isMegaMenu,
         ...props
       }: NavDropdownProps,
-      ref,
+      ref
     ) => {
       /* NavItem has no additional logic, it's purely presentational. Can set nav item class here to support "as" */
-      const navbarContext = useContext(NavbarContext)
-      const expand = navbarContext && navbarContext.expand
-      const mediaQueries = {
-        sm : useMediaQuery({maxWidth: 992 - 1}),
-        md : useMediaQuery({maxWidth: 768 - 1}),
-        lg : useMediaQuery({maxWidth: 992 - 1}),
-        xl : useMediaQuery({maxWidth: 1200 - 1}),
-        xxl : useMediaQuery({maxWidth: 1400 - 1}),
-     }
-     const [isHam, setIsHam] = React.useState((typeof expand === 'string') && mediaQueries[expand])
+      const navbarContext = useContext(NavbarContext);
+      const expand = navbarContext && navbarContext.expand;
+      const defaultMediaQueries = {
+        sm: useMediaQuery({ maxWidth: SM - 1 }),
+        md: useMediaQuery({ maxWidth: MD - 1 }),
+        lg: useMediaQuery({ maxWidth: LG - 1 }),
+        xl: useMediaQuery({ maxWidth: XL - 1 }),
+        xxl: useMediaQuery({ maxWidth: XXL - 1 }),
+      };
+      const stringMediaQuery =
+        typeof expand === 'string' && defaultMediaQueries[expand];
+      const numberMediaQuery =
+        typeof expand === 'number' && useMediaQuery({ maxWidth: expand - 1 });
+
+      const [isHam, setIsHam] = React.useState(stringMediaQuery);
 
       const navItemPrefix = useBootstrapPrefix(undefined, 'nav-item');
       const [show, setShow] = useState(false);
@@ -110,10 +116,14 @@ const NavDropdown: BsPrefixRefForwardingComponent<'div', NavDropdownProps> =
         !isHam ? setShow(false) : undefined;
       };
       const onToggle = () => {
-        isHam ? setShow(!show) : undefined
-      }
-      const dropDownClass = classNames(className, navItemPrefix, isMegaMenu ? 'has-megamenu' : undefined)
-      const HoverDropdown = (childs: React.ReactNode) =>  (
+        isHam ? setShow(!show) : undefined;
+      };
+      const dropDownClass = classNames(
+        className,
+        navItemPrefix,
+        isMegaMenu ? 'has-megamenu' : undefined
+      );
+      const HoverDropdown = (childs: React.ReactNode) => (
         <Dropdown
           ref={ref}
           {...props}
@@ -121,34 +131,34 @@ const NavDropdown: BsPrefixRefForwardingComponent<'div', NavDropdownProps> =
           onMouseEnter={showDropdown}
           onMouseLeave={hideDropdown}
           className={dropDownClass}
-          
         >
           {childs}
         </Dropdown>
-      )
-      const ClickDropdown = (childs: React.ReactNode) =>  (
+      );
+      const ClickDropdown = (childs: React.ReactNode) => (
         <Dropdown
           ref={ref}
           {...props}
-          onToggle={onToggle} 
+          onToggle={onToggle}
           show={show}
           className={dropDownClass}
         >
           {childs}
         </Dropdown>
-      )
+      );
       const Childrens = (
         <>
-        <Dropdown.Toggle
+          <Dropdown.Toggle
             id={id}
             eventKey={null}
             active={active}
-            disabled={disabled} 
+            disabled={disabled}
             childBsPrefix={bsPrefix}
             as={NavLink}
-            href={isHam ? undefined: href}
+            href={isHam ? undefined : href}
           >
-            {title}<i className="bi bi-chevron-down"></i>
+            {title}
+            <i className="bi bi-chevron-down"></i>
           </Dropdown.Toggle>
 
           <Dropdown.Menu
@@ -163,14 +173,16 @@ const NavDropdown: BsPrefixRefForwardingComponent<'div', NavDropdownProps> =
             {children}
           </Dropdown.Menu>
         </>
-      )
-   
-      React.useEffect(() => {
-        setIsHam((typeof expand === 'string') && mediaQueries[expand])
-      }, [(typeof expand === 'string') && mediaQueries[expand]])
+      );
 
-      return isHam ? ClickDropdown(Childrens) : HoverDropdown(Childrens)
-    },
+      React.useEffect(() => {
+        // if (typeof expand === 'string') setIsHam(defaultMediaQueries[expand])
+        // if (typeof expand === 'number') setIsHam(customMQ)
+        setIsHam(stringMediaQuery || numberMediaQuery)
+      }, [stringMediaQuery, numberMediaQuery]);
+
+      return isHam ? ClickDropdown(Childrens) : HoverDropdown(Childrens);
+    }
   );
 
 NavDropdown.displayName = 'NavDropdown';

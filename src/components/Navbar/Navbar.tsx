@@ -17,7 +17,7 @@ import {
 } from '../ThemeProvider/ThemeProvider';
 import NavbarContext, { NavbarContextType } from './NavbarContext';
 import { BsPrefixProps, BsPrefixRefForwardingComponent } from '../helpers';
-
+import {Size} from '../types'
 const NavbarText = createWithBsPrefix('navbar-text', {
   Component: 'span',
 });
@@ -26,7 +26,7 @@ export interface NavbarProps
   extends BsPrefixProps,
     Omit<React.HTMLAttributes<HTMLElement>, 'onSelect'> {
   variant?: 'light' | 'dark';
-  expand?: boolean | 'sm' | 'md' | 'lg' | 'xl' | 'xxl';
+  expand?: boolean | Size | number
   bg?: string;
   fixed?: 'top' | 'bottom';
   sticky?: 'top';
@@ -54,7 +54,7 @@ const propTypes = {
    * The breakpoint, below which, the Navbar will collapse.
    * When `true` the Navbar will always be expanded regardless of screen size.
    */
-  expand: PropTypes.oneOf([false, true, 'sm', 'md', 'lg', 'xl', 'xxl'])
+  expand: PropTypes.oneOfType([PropTypes.bool, PropTypes.oneOf([ 'sm', 'md', 'lg', 'xl', 'xxl']), PropTypes.number])
     .isRequired,
 
   /**
