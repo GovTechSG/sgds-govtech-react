@@ -1,4 +1,4 @@
-import { fireEvent, render } from '@testing-library/react';
+import { fireEvent, render, waitFor } from '@testing-library/react';
 import * as React from 'react';
 import CardHeader from '../../Card/CardHeader';
 import Nav from '../Nav';
@@ -10,8 +10,8 @@ describe('<Nav>', () => {
   it('should have div as default component', () => {
     const { getByTestId } = render(<Nav data-testid="test" />);
     expect(getByTestId('test').tagName.toLowerCase()).toEqual('div');
-  });
-
+  }); 
+ 
   it('should set the correct item active', () => {
     const { getByTestId } = render(
       <Nav variant="pills" activeKey={1} data-testid="test">
@@ -134,7 +134,7 @@ describe('<Nav>', () => {
     const dropdownItem = getByTestId('test');
     fireEvent.click(dropdownItem);
 
-    expect(onSelectSpy).toHaveBeenCalledTimes(1);
+    waitFor(() => expect(onSelectSpy).toHaveBeenCalledTimes(1));
   });
 
   it('should set the correct item active by href', () => {

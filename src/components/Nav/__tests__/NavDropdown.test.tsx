@@ -1,4 +1,4 @@
-import { fireEvent, render, waitFor } from '@testing-library/react';
+import {  render, waitFor } from '@testing-library/react';
 import * as React from 'react';
 
 import DropdownItem from '../../Dropdown/DropdownItem';
@@ -15,17 +15,21 @@ describe('<NavDropdown>', () => {
         className="test-class"
         id="nav-test"
         data-testid="test"
+        show
       >
         <DropdownItem eventKey="1">DropdownItem 1 content</DropdownItem>
         <DropdownItem eventKey="2">DropdownItem 2 content</DropdownItem>
       </NavDropdown>
     );
     const navDropdownElem = getByTestId('test');
-    expect(navDropdownElem.classList).toContain('dropdown');
-    expect(navDropdownElem.classList).toContain('test-class');
-
-    expect(navDropdownElem.firstElementChild!.classList).toContain('nav-link');
-    expect(navDropdownElem.firstElementChild!.textContent!).toEqual('Title');
+    waitFor(() => {
+      expect(navDropdownElem.classList).toContain('dropdown');
+      expect(navDropdownElem.classList).toContain('test-class');
+  
+      expect(navDropdownElem.firstElementChild!.classList).toContain('nav-link');
+      expect(navDropdownElem.firstElementChild!.textContent!).toEqual('Title');
+    })
+    
   });
 
   it('renders active toggle', () => {
@@ -45,8 +49,8 @@ describe('<NavDropdown>', () => {
     expect(navDropdownElem.firstElementChild!.classList).toContain('active');
   });
 
-  it('should handle child active state', () => {
-    const { getByTestId, getByText } = render(
+  it('should handle child active state', async () => {
+    const {  getByText } = render(
       <Nav activeKey="2">
         <NavDropdown show id="test-id" title="title" data-testid="test">
           <DropdownItem eventKey="1">DropdownItem 1 content</DropdownItem>
@@ -55,12 +59,14 @@ describe('<NavDropdown>', () => {
         </NavDropdown>
       </Nav>
     );
-    fireEvent.mouseEnter(getByTestId('test'));
-    waitFor(() => {
-      expect(getByText('DropdownItem 2 content').classList).toContain('active')
-      expect(getByText('DropdownItem 1 content').classList).not.toContain('active') 
-      expect(getByText('DropdownItem 3 content').classList).not.toContain('active') 
-    }); 
+
+        expect(getByText('DropdownItem 2 content').classList).toContain('active');
+        expect(getByText('DropdownItem 1 content').classList).not.toContain(
+          'active'
+        );
+        expect(getByText('DropdownItem 3 content').classList).not.toContain(
+          'active'
+        );
   });
 
   it('should pass the id to the NavLink element', () => {
@@ -90,21 +96,17 @@ describe('<NavDropdown>', () => {
     expect(document.querySelector('.dropdown-menu-dark')!).not.toBeNull();
   });
 
-  it('sets data-bs-popper attribute on dropdown menu', () => {
-    const { getByTestId } = render(
+  it('sets data-bs-popper attribute on dropdown menu', async () => {
+     render(
       <Navbar>
-        <NavDropdown  id="test-id" title="title"  data-testid="test">
+        <NavDropdown show id="test-id" title="title" data-testid="test">
           <DropdownItem>Item 1</DropdownItem>
         </NavDropdown>
       </Navbar>
     );
-
-    fireEvent.mouseEnter(getByTestId('test'))
-    waitFor(() => {
       expect(
         document.querySelectorAll('.dropdown-menu[data-bs-popper="static"]')
           .length
       ).toEqual(1);
-    })
   });
 });

@@ -1,4 +1,4 @@
-import { fireEvent, render } from '@testing-library/react';
+import {  fireEvent, render, act} from '@testing-library/react';
 import Nav from '../../Nav/Nav';
 import Navbar from '../Navbar';
 import Container from '../../Container/Container';
@@ -298,9 +298,14 @@ describe('<Navbar>', () => {
   });
 });
 
+// const resizeWindow = (width: number) => {
+//   global.window.innerWidth = width;
+//   global.window.dispatchEvent(new Event('resize'));
+// };
+
 describe('navbar with navdropdown and expand prop changes', () => {
-  it ('when expand prop is a number value 700, >= 700 renders hoverable dropdown, < 700 renders clickable dropdown', () => {
-    const { container } = render(
+    it('when expand prop is a number value 700, screen width >= 700 renders hoverable dropdown, < 700 renders clickable dropdown', async () => {
+      const { container } = render(
       <Navbar expand={700}>
         <Container>
           <Navbar.Brand href="#home">React-Bootstrap</Navbar.Brand>
@@ -318,7 +323,9 @@ describe('navbar with navdropdown and expand prop changes', () => {
                 <NavDropdown.Item href="#action/3.2">
                   Another action
                 </NavDropdown.Item>
-                <NavDropdown.Item href="#action/3.3">Something</NavDropdown.Item>
+                <NavDropdown.Item href="#action/3.3">
+                  Something
+                </NavDropdown.Item>
                 <NavDropdown.Divider />
                 <NavDropdown.Item href="#action/3.4">
                   Separated link
@@ -327,8 +334,31 @@ describe('navbar with navdropdown and expand prop changes', () => {
             </Nav>
           </Navbar.Collapse>
         </Container>
-      </Navbar>
+      </Navbar>, 
     );
+    // when window size is 768 , dropdown is-hoverable
+    expect(
+      container.querySelector('.dropdown-toggle.nav-link')?.getAttribute('href')
+    ).toEqual('https://google.com');
+    expect(container.querySelector('.is-hoverable')).not.toBeNull();  
+
+    //when window size is 300 , dropdown is not hoverable
+   await act(async() =>{
+    Object.defineProperty(window, 'innerHeight', {
+      writable: true,
+      configurable: true,
+      value: 300,
+    });
+
+    window.dispatchEvent(new Event('resize'));
+   })
+   //TODO: test this responsiveness with another e2e test like cypress
+  // await waitFor(() =>{
+  //   expect(window.innerHeight).toBe(300)
+  //   expect(
+  //     container.querySelector('.dropdown-toggle.nav-link')?.getAttribute('href')
+  //   ).toEqual('https://google.com');
+  //   expect(container.querySelector('.is-hoverable')).toBeNull(); 
+  // })
   })
- 
 });

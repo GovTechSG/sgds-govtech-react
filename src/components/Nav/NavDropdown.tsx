@@ -1,7 +1,7 @@
 import classNames from 'classnames';
 import * as React from 'react';
 import PropTypes from 'prop-types';
-import { useState, useContext } from 'react';
+import { /* useState, */ useContext } from 'react';
 import { useMediaQuery } from 'react-responsive';
 
 import { useBootstrapPrefix } from '../ThemeProvider/ThemeProvider';
@@ -208,7 +208,7 @@ const NavDropdown: BsPrefixRefForwardingComponent<'div', NavDropdownProps> =
             rootCloseEvent={rootCloseEvent}
             variant={menuVariant}
             isNav
-            className={isMegaMenu ? 'mega-menu' : undefined}
+            // className={isMegaMenu ? 'mega-menu' : undefined}
           >
             {children}
           </Dropdown.Menu>
