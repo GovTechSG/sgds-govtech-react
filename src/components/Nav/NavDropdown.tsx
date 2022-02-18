@@ -108,8 +108,8 @@ const NavDropdown: BsPrefixRefForwardingComponent<'div', NavDropdownProps> =
       const [isHam, setIsHam] = React.useState(stringMediaQuery);
 
       const navItemPrefix = useBootstrapPrefix(undefined, 'nav-item');
-      const [show, setShow] = useState(false);
-      const showDropdown = () => {
+      // const [show, setShow] = useState(false);
+      /* const showDropdown = () => {
         !isHam ? setShow(true) : undefined;
       };
       const hideDropdown = () => {
@@ -117,13 +117,14 @@ const NavDropdown: BsPrefixRefForwardingComponent<'div', NavDropdownProps> =
       };
       const onToggle = () => {
         isHam ? setShow(!show) : undefined;
-      };
+      }; */
       const dropDownClass = classNames(
         className,
         navItemPrefix,
-        isMegaMenu ? 'has-megamenu' : undefined
+        isMegaMenu ? 'has-megamenu' : undefined,
+        isHam ? undefined : 'is-hoverable'
       );
-      const HoverDropdown = (childs: React.ReactNode) => (
+     /*  const HoverDropdown = (childs: React.ReactNode) => (
         <Dropdown
           ref={ref}
           {...props}
@@ -145,8 +146,8 @@ const NavDropdown: BsPrefixRefForwardingComponent<'div', NavDropdownProps> =
         >
           {childs}
         </Dropdown>
-      );
-      const Childrens = (
+      ); */
+   /*    const Childrens = (
         <>
           <Dropdown.Toggle
             id={id}
@@ -173,15 +174,46 @@ const NavDropdown: BsPrefixRefForwardingComponent<'div', NavDropdownProps> =
             {children}
           </Dropdown.Menu>
         </>
-      );
+      ); */
 
       React.useEffect(() => {
         // if (typeof expand === 'string') setIsHam(defaultMediaQueries[expand])
         // if (typeof expand === 'number') setIsHam(customMQ)
-        setIsHam(stringMediaQuery || numberMediaQuery)
+        setIsHam(stringMediaQuery || numberMediaQuery);
       }, [stringMediaQuery, numberMediaQuery]);
 
-      return isHam ? ClickDropdown(Childrens) : HoverDropdown(Childrens);
+      // return isHam ? ClickDropdown(Childrens) : HoverDropdown(Childrens);
+
+      return (
+        <Dropdown
+          ref={ref}
+          {...props}
+          className={dropDownClass}
+        >
+          <Dropdown.Toggle
+            id={id}
+            eventKey={null}
+            active={active}
+            disabled={disabled}
+            childBsPrefix={bsPrefix}
+            as={NavLink}
+            href={isHam ? undefined : href}
+          >
+            {title}
+            <i className="bi bi-chevron-down"></i>
+          </Dropdown.Toggle>
+          <Dropdown.Menu
+            role={menuRole}
+            renderOnMount={renderMenuOnMount}
+            rootCloseEvent={rootCloseEvent}
+            variant={menuVariant}
+            isNav
+            className={isMegaMenu ? 'mega-menu' : undefined}
+          >
+            {children}
+          </Dropdown.Menu>
+        </Dropdown>
+      );
     }
   );
 
