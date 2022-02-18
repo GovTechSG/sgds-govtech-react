@@ -10,26 +10,32 @@ import {
   Col,
 } from '../../src/components/index';
 import { useState } from 'react';
+import { HIDDEN_COMMON_PROPS } from '../helpers';
 
-<Meta title="Components/Navigation/Nav" component={Nav} />
+<Meta
+  title="Components/Navigation/Nav"
+  component={Nav}
+  argTypes={{
+    ...HIDDEN_COMMON_PROPS,
+  }}
+/>
 
 export const Template = (args) => {
   return (
-    <Nav>
+    <Nav {...args} activeKey="4.1">
       <Nav.Item>
-        <Nav.Link href="/home">Active</Nav.Link>
-      </Nav.Item>
-      <Nav.Item>
-        <Nav.Link eventKey="link-1">Link</Nav .Link>
+        <Nav.Link eventKey="link-1">Link</Nav.Link>
       </Nav.Item>
       <Nav.Dropdown
         title="Dropdown"
         id="nav-dropdown"
         href="https://www.designsystem.tech.gov.sg/"
       >
-      <Nav.Dropdown.Item eventKey="4.1">Action</Nav.Dropdown.Item>
+        <Nav.Dropdown.Item eventKey="4.1">Action</Nav.Dropdown.Item>
         <Nav.Dropdown.Item eventKey="4.2">Another action</Nav.Dropdown.Item>
-        <Nav.Dropdown.Item eventKey="4.3">Something else here</Nav.Dropdown.Item>
+        <Nav.Dropdown.Item eventKey="4.3">
+          Something else here
+        </Nav.Dropdown.Item>
         <Nav.Dropdown.Divider />
         <Nav.Dropdown.Item eventKey="4.4">Separated link</Nav.Dropdown.Item>
       </Nav.Dropdown>
@@ -55,6 +61,59 @@ export const Template = (args) => {
   );
 };
 
+# Nav
+
+`<Nav/>` is built on top of `@restart/ui` `Nav` component.
+
+In Nav, there are three kinds of children :
+
+1. Link : `<Nav.Item>`, `<Nav.Link/>`
+2. Hoverable Dropdown : `<Nav.Dropdown>` , `<Nav.Dropdown.Item />` , `<Nav.Dropdown.Divider/>`, `<Nav.Dropdown.ItemText/>`
+3. Hoverable Dropdown - megamenu : `<Nav.Dropdown>` , `<Nav.Dropdown.Item />` , `<Nav.Dropdown.Divider/>`, `<Nav.Dropdown.ItemText/>`
+
+See example of all three types below;
+
 <Canvas>
   <Story name="Default">{Template.bind({})}</Story>
 </Canvas>
+
+## API
+
+<ArgsTable story="Default" />
+
+```jsx
+<Nav {...args}>
+  <Nav.Item>
+    <Nav.Link eventKey="link-1">Link</Nav.Link>
+  </Nav.Item>
+  <Nav.Dropdown
+    title="Dropdown"
+    id="nav-dropdown"
+    href="https://www.designsystem.tech.gov.sg/"
+  >
+    <Nav.Dropdown.Item eventKey="4.1">Action</Nav.Dropdown.Item>
+    <Nav.Dropdown.Item eventKey="4.2">Another action</Nav.Dropdown.Item>
+    <Nav.Dropdown.Item eventKey="4.3">Something else here</Nav.Dropdown.Item>
+    <Nav.Dropdown.Divider />
+    <Nav.Dropdown.Item eventKey="4.4">Separated link</Nav.Dropdown.Item>
+  </Nav.Dropdown>
+  <Nav.Dropdown
+    isMegaMenu
+    title="Megamenu"
+    id="nav-dropdown"
+    href="https://www.designsystem.tech.gov.sg/"
+  >
+    <Container>
+      <Row>
+        <Col>Action 1</Col>
+        <Col>Another action 2</Col>
+        <Col>Another action 2</Col>
+      </Row>
+      <Row>
+        <Col>Another action</Col>
+        <Col>Another action</Col>
+      </Row>
+    </Container>
+  </Nav.Dropdown>
+</Nav>
+```

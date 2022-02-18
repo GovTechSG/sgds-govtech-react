@@ -7,7 +7,7 @@ import { useUncontrolled } from 'uncontrollable';
 import BaseNav, { NavProps as BaseNavProps } from '@restart/ui/Nav';
 import { useBootstrapPrefix } from '../ThemeProvider/ThemeProvider';
 import NavbarContext from '../Navbar/NavbarContext';
-import CardHeaderContext from '../Card/CardHeaderContext';
+// import CardHeaderContext from '../Card/CardHeaderContext';
 import NavItem from './NavItem';
 import NavLink from './NavLink';
 import { BsPrefixProps, BsPrefixRefForwardingComponent } from '../helpers';
@@ -16,11 +16,11 @@ import { EventKey } from '@restart/ui/types';
 
 export interface NavProps extends BsPrefixProps, BaseNavProps {
   navbarBsPrefix?: string;
-  cardHeaderBsPrefix?: string;
+  // cardHeaderBsPrefix?: string;
   variant?: 'tabs' | 'pills';
   fill?: boolean;
   justify?: boolean;
-  navbar?: boolean;
+  // navbar?: boolean;
   navbarScroll?: boolean;
   defaultActiveKey?: EventKey;
 }
@@ -34,14 +34,14 @@ const propTypes = {
   /** @private */
   navbarBsPrefix: PropTypes.string,
   /** @private */
-  cardHeaderBsPrefix: PropTypes.string,
+  // cardHeaderBsPrefix: PropTypes.string,
 
   /**
    * The visual variant of the nav items.
    *
    * @type {('tabs'|'pills')}
    */
-  variant: PropTypes.string,
+  // variant: PropTypes.string,
 
   /**
    * Marks the NavItem with a matching `eventKey` (or `href` if present) as active.
@@ -86,7 +86,7 @@ const propTypes = {
    * Apply styling an alignment for use in a Navbar. This prop will be set
    * automatically when the Nav is used inside a Navbar.
    */
-  navbar: PropTypes.bool,
+  // navbar: PropTypes.bool,
 
   /**
    * Enable vertical scrolling within the toggleable contents of a collapsed Navbar.
@@ -104,17 +104,17 @@ const defaultProps = {
   fill: false,
 };
 
-const Nav: BsPrefixRefForwardingComponent<'div', NavProps> = React.forwardRef<
+const Nav: BsPrefixRefForwardingComponent<'ul', NavProps> = React.forwardRef<
   HTMLElement,
   NavProps
 >((uncontrolledProps, ref) => {
   const {
-    as = 'div',
+    as = 'ul',
     bsPrefix: initialBsPrefix,
-    variant,
+    // variant,
     fill,
     justify,
-    navbar,
+    // navbar,
     navbarScroll,
     className,
     activeKey,
@@ -124,18 +124,19 @@ const Nav: BsPrefixRefForwardingComponent<'div', NavProps> = React.forwardRef<
   const bsPrefix = useBootstrapPrefix(initialBsPrefix, 'nav');
 
   let navbarBsPrefix;
-  let cardHeaderBsPrefix;
+  // let cardHeaderBsPrefix;
   let isNavbar = false;
 
   const navbarContext = useContext(NavbarContext);
-  const cardHeaderContext = useContext(CardHeaderContext);
+  // const cardHeaderContext = useContext(CardHeaderContext);
 
   if (navbarContext) {
     navbarBsPrefix = navbarContext.bsPrefix;
-    isNavbar = navbar == null ? true : navbar;
-  } else if (cardHeaderContext) {
+    // isNavbar = navbar == null ? true : navbar;
+    isNavbar = true
+  } /* else if (cardHeaderContext) {
     ({ cardHeaderBsPrefix } = cardHeaderContext);
-  }
+  } */
   
   return (
     <BaseNav
@@ -146,11 +147,12 @@ const Nav: BsPrefixRefForwardingComponent<'div', NavProps> = React.forwardRef<
         [bsPrefix]: !isNavbar,
         [`${navbarBsPrefix}-nav`]: isNavbar,
         [`${navbarBsPrefix}-nav-scroll`]: isNavbar && navbarScroll,
-        [`${cardHeaderBsPrefix}-${variant}`]: !!cardHeaderBsPrefix,
-        [`${bsPrefix}-${variant}`]: !!variant,
+        // [`${cardHeaderBsPrefix}-${variant}`]: !!cardHeaderBsPrefix,
+        // [`${bsPrefix}-${variant}`]: !!variant,
         [`${bsPrefix}-fill`]: fill,
         [`${bsPrefix}-justified`]: justify,
-      }, 'sgds')}
+        ['sgds'] : !isNavbar
+      })}
       {...props}
     />
   );

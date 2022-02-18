@@ -1,4 +1,4 @@
-import {  render, waitFor } from '@testing-library/react';
+import { render, waitFor } from '@testing-library/react';
 import * as React from 'react';
 
 import DropdownItem from '../../Dropdown/DropdownItem';
@@ -23,13 +23,15 @@ describe('<NavDropdown>', () => {
     );
     const navDropdownElem = getByTestId('test');
     waitFor(() => {
+      expect(navDropdownElem.tagName).toEqual('LI');
       expect(navDropdownElem.classList).toContain('dropdown');
       expect(navDropdownElem.classList).toContain('test-class');
-  
-      expect(navDropdownElem.firstElementChild!.classList).toContain('nav-link');
+
+      expect(navDropdownElem.firstElementChild!.classList).toContain(
+        'nav-link'
+      );
       expect(navDropdownElem.firstElementChild!.textContent!).toEqual('Title');
-    })
-    
+    });
   });
 
   it('renders active toggle', () => {
@@ -50,7 +52,7 @@ describe('<NavDropdown>', () => {
   });
 
   it('should handle child active state', async () => {
-    const {  getByText } = render(
+    const { getByText } = render(
       <Nav activeKey="2">
         <NavDropdown show id="test-id" title="title" data-testid="test">
           <DropdownItem eventKey="1">DropdownItem 1 content</DropdownItem>
@@ -60,13 +62,13 @@ describe('<NavDropdown>', () => {
       </Nav>
     );
 
-        expect(getByText('DropdownItem 2 content').classList).toContain('active');
-        expect(getByText('DropdownItem 1 content').classList).not.toContain(
-          'active'
-        );
-        expect(getByText('DropdownItem 3 content').classList).not.toContain(
-          'active'
-        );
+    expect(getByText('DropdownItem 2 content').classList).toContain('active');
+    expect(getByText('DropdownItem 1 content').classList).not.toContain(
+      'active'
+    );
+    expect(getByText('DropdownItem 3 content').classList).not.toContain(
+      'active'
+    );
   });
 
   it('should pass the id to the NavLink element', () => {
@@ -97,16 +99,31 @@ describe('<NavDropdown>', () => {
   });
 
   it('sets data-bs-popper attribute on dropdown menu', async () => {
-     render(
+    render(
       <Navbar>
         <NavDropdown show id="test-id" title="title" data-testid="test">
           <DropdownItem>Item 1</DropdownItem>
         </NavDropdown>
       </Navbar>
     );
-      expect(
-        document.querySelectorAll('.dropdown-menu[data-bs-popper="static"]')
-          .length
-      ).toEqual(1);
+    expect(
+      document.querySelectorAll('.dropdown-menu[data-bs-popper="static"]')
+        .length
+    ).toEqual(1);
+  });
+  it('should have .has-megamenu when isMegaMenu is true ', () => {
+    const { getByTestId, container } = render(
+      <NavDropdown
+        isMegaMenu
+        show
+        id="test-id"
+        title="title"
+        data-testid="test"
+      >
+        <DropdownItem>Item 1</DropdownItem>
+      </NavDropdown>
+    );
+    expect(getByTestId('test').classList).toContain('has-megamenu');
+    expect(container.querySelector('.dropdown-menu')?.classList).toContain('mega-menu') 
   });
 });

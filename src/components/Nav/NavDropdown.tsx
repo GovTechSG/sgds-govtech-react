@@ -69,7 +69,7 @@ const propTypes = {
   isMegaMenu: PropTypes.bool,
 };
 
-const NavDropdown: BsPrefixRefForwardingComponent<'div', NavDropdownProps> =
+const NavDropdown: BsPrefixRefForwardingComponent<'li', NavDropdownProps> =
   React.forwardRef(
     (
       {
@@ -187,8 +187,9 @@ const NavDropdown: BsPrefixRefForwardingComponent<'div', NavDropdownProps> =
       return (
         <Dropdown
           ref={ref}
+          as="li"
           {...props}
-          className={dropDownClass}
+          className={dropDownClass} 
         >
           <Dropdown.Toggle
             id={id}
@@ -197,7 +198,7 @@ const NavDropdown: BsPrefixRefForwardingComponent<'div', NavDropdownProps> =
             disabled={disabled}
             childBsPrefix={bsPrefix}
             as={NavLink}
-            href={isHam ? undefined : href}
+            // href={isHam ? undefined : href}
           >
             {title}
             <i className="bi bi-chevron-down"></i>
@@ -208,7 +209,7 @@ const NavDropdown: BsPrefixRefForwardingComponent<'div', NavDropdownProps> =
             rootCloseEvent={rootCloseEvent}
             variant={menuVariant}
             isNav
-            // className={isMegaMenu ? 'mega-menu' : undefined}
+            className={isMegaMenu ? 'mega-menu' : undefined}
           >
             {children}
           </Dropdown.Menu>
