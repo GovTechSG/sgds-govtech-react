@@ -2,7 +2,7 @@ import classNames from 'classnames';
 import PropTypes from 'prop-types';
 
 import * as React from 'react';
-import { useContext } from 'react';
+import { useContext, useMemo } from 'react';
 import { useUncontrolled } from 'uncontrollable';
 import BaseNav, { NavProps as BaseNavProps } from '@restart/ui/Nav';
 import { useBootstrapPrefix } from '../ThemeProvider/ThemeProvider';
@@ -13,9 +13,10 @@ import NavLink from './NavLink';
 import { BsPrefixProps, BsPrefixRefForwardingComponent } from '../helpers';
 import NavDropdown from './NavDropdown';
 import { EventKey } from '@restart/ui/types';
+import NavContext from './NavContext';
 
 export interface NavProps extends BsPrefixProps, BaseNavProps {
-  navbarBsPrefix?: string;
+  // navbarBsPrefix?: string;
   // cardHeaderBsPrefix?: string;
   variant?: 'tabs' | 'pills';
   fill?: boolean;
@@ -32,7 +33,7 @@ const propTypes = {
   bsPrefix: PropTypes.string,
 
   /** @private */
-  navbarBsPrefix: PropTypes.string,
+  // navbarBsPrefix: PropTypes.string,
   /** @private */
   // cardHeaderBsPrefix: PropTypes.string,
 
@@ -122,7 +123,12 @@ const Nav: BsPrefixRefForwardingComponent<'ul', NavProps> = React.forwardRef<
   } = useUncontrolled(uncontrolledProps, { activeKey: 'onSelect' });
 
   const bsPrefix = useBootstrapPrefix(initialBsPrefix, 'nav');
-
+  const contextValue = useMemo(
+    () => ({
+      activeKey
+    }),
+    [activeKey]
+  )
   let navbarBsPrefix;
   // let cardHeaderBsPrefix;
   let isNavbar = false;
@@ -139,6 +145,7 @@ const Nav: BsPrefixRefForwardingComponent<'ul', NavProps> = React.forwardRef<
   } */
   
   return (
+    <NavContext.Provider value={contextValue}>
     <BaseNav
       as={as}
       ref={ref}
@@ -155,6 +162,7 @@ const Nav: BsPrefixRefForwardingComponent<'ul', NavProps> = React.forwardRef<
       })}
       {...props}
     />
+    </NavContext.Provider>
   );
 });
 

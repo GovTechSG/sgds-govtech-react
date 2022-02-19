@@ -1,0 +1,100 @@
+import { ArgsTable, Canvas, Meta, Story } from '@storybook/addon-docs';
+import {
+  Nav,
+  Button,
+  NavItem,
+  NavLink,
+  Dropdown,
+  Container,
+  Row,
+  Col,
+} from '../../src/components/index';
+import { useState } from 'react';
+import { HIDDEN_COMMON_PROPS } from '../helpers';
+
+<Meta
+  title="Components/Navigation/Nav/NavDropdown"
+  component={Nav.Dropdown}
+  argTypes={{
+    ...HIDDEN_COMMON_PROPS,
+    title: {
+      description: 'The content of the DropdownToggle.',
+    },
+    disabled: {
+      description: 'Disables the DropdownToggle NavLink',
+    },
+    active: {
+      description: 'Style the DropdownToggle NavLink as active',
+    },
+    menuRole: {
+      description: ' An ARIA accessible role applied to the Menu component',
+    },
+    renderMenuOnMount: {
+      description:
+        'Whether to render the dropdown menu in the DOM before the first time it is shown',
+    },
+    rootCloseEvent: {
+      table: {
+        type: {
+          summary: 'click | mousedown',
+        },
+      },
+      description:
+        'Which event when fired outside the component will cause it to be closed.',
+    },
+    menuVariant: {
+      table: {
+        type: {
+          summary: 'dark',
+        },
+      },
+      description:
+        'Menu color variant. Omitting this will default to light color',
+    },
+    href: {
+        description: 'Assigned to DropdownToggle of NavDropdown. Only applicable when NavDropdown hovers to open menu'
+    },
+    isMegaMenu: {
+        description: 'When true, stylings of dropdown menu changes to mega menu'
+    }
+  }}
+/>
+
+export const Template = (args) => {
+  return (
+    <Nav activeKey="4.1">
+      <Nav.Dropdown
+        {...args}
+        title="NavDropdown"
+        id="nav-dropdown"
+        href="https://www.designsystem.tech.gov.sg/"
+        activeItemKey="4.1"
+      >
+        <Nav.Dropdown.Item eventKey="4.1">Action</Nav.Dropdown.Item>
+        <Nav.Dropdown.Item eventKey="4.2">Another action</Nav.Dropdown.Item>
+        <Nav.Dropdown.Item eventKey="4.3">
+          Something else here
+        </Nav.Dropdown.Item>
+        <Nav.Dropdown.Divider />
+        <Nav.Dropdown.Item eventKey="4.4">Separated link</Nav.Dropdown.Item>
+      </Nav.Dropdown>
+    </Nav>
+  );
+};
+
+# NavDropdown
+
+NavDropdown is one of the types of children for `Nav` component. 
+
+By default, the menu opens by mouse hovering over the toggle and it is a single-columned menu like the `<Dropdown/>`.
+
+It consists of subcomponents: `<Nav.Dropdown.Item>`, `<Nav.Dropdown.ItemText>`, `<Nav.Dropdown.Divider>`,`<Nav.Dropdown.Header>`,  
+NavDropdown and its subcomponents are build from `<Dropdown />` and their APIS can be referenced from `<Dropdown />`
+
+<Canvas>
+  <Story height="250px" name="Default">{Template.bind({})}</Story>
+</Canvas>
+
+## API
+
+<ArgsTable story="Default" />

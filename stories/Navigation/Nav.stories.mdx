@@ -13,10 +13,43 @@ import { useState } from 'react';
 import { HIDDEN_COMMON_PROPS } from '../helpers';
 
 <Meta
-  title="Components/Navigation/Nav"
+  title="Components/Navigation/Nav/Nav"
   component={Nav}
   argTypes={{
     ...HIDDEN_COMMON_PROPS,
+    onSelect: {
+      table: {
+        category: `<Nav />`,
+      },
+    },
+    fill: {
+      table: {
+        category: `<Nav />`,
+      },
+      description:
+        'Have all NavItems proportionately fill all available width.',
+    },
+    justify: {
+      table: {
+        category: `<Nav />`,
+      },
+      description: 'Have all NavItems evenly fill all available width.',
+    },
+    navbarScroll: {
+      description:
+        'When used with Navbar, enables vertical scrolling within the toggleable contents of a collapsed Navbar.',
+      table: {
+        category: `<Nav />`,
+      },
+    },
+    activeKey: {
+      description:
+        'Marks the NavItem with a matching eventKey (or href if present) as active.',
+      table: {
+        category: `<Nav />`,
+      },
+      control: { disable: true },
+    },
   }}
 />
 
@@ -47,13 +80,26 @@ export const Template = (args) => {
       >
         <Container>
           <Row>
-            <Col>Action 1</Col>
-            <Col>Another action 2</Col>
-            <Col>Another action 2</Col>
+            <Col>
+              <Nav.Dropdown.Item eventKey="5.1">Action</Nav.Dropdown.Item>
+            </Col>
+            <Col>
+              <Nav.Dropdown.Item eventKey="5.2">Action</Nav.Dropdown.Item>
+            </Col>
+            <Col>
+              <Nav.Dropdown.Item eventKey="5.3">Action</Nav.Dropdown.Item>
+            </Col>
           </Row>
           <Row>
-            <Col>Another action</Col>
-            <Col>Another action</Col>
+            <Col>
+              <Nav.Dropdown.Item eventKey="5.4">Action</Nav.Dropdown.Item>
+            </Col>
+            <Col>
+              <Nav.Dropdown.Item eventKey="5.5">Action</Nav.Dropdown.Item>
+            </Col>
+            <Col>
+              <Nav.Dropdown.Item eventKey="5.6">Action</Nav.Dropdown.Item>
+            </Col>
           </Row>
         </Container>
       </Nav.Dropdown>
@@ -74,15 +120,22 @@ In Nav, there are three kinds of children :
 See example of all three types below;
 
 <Canvas>
-  <Story name="Default">{Template.bind({})}</Story>
+  <Story height="300px" name="Default">
+    {Template.bind({})}
+  </Story>
 </Canvas>
 
 ## API
 
 <ArgsTable story="Default" />
 
+Reference API for [NavItem](https://react-bootstrap.github.io/components/navs/#nav-item-props) ,
+[NavLink](https://react-bootstrap.github.io/components/navs/#nav-link-props)
+and
+[NavDropdown](/docs/components-navigation-nav-navdropdown--default-story)
+
 ```jsx
-<Nav {...args}>
+<Nav>
   <Nav.Item>
     <Nav.Link eventKey="link-1">Link</Nav.Link>
   </Nav.Item>
@@ -105,15 +158,40 @@ See example of all three types below;
   >
     <Container>
       <Row>
-        <Col>Action 1</Col>
-        <Col>Another action 2</Col>
-        <Col>Another action 2</Col>
+        <Col>
+          <Nav.Dropdown.Item eventKey="5.1">Action</Nav.Dropdown.Item>
+        </Col>
+        <Col>
+          <Nav.Dropdown.Item eventKey="5.2">Action</Nav.Dropdown.Item>
+        </Col>
+        <Col>
+          <Nav.Dropdown.Item eventKey="5.3">Action</Nav.Dropdown.Item>
+        </Col>
       </Row>
       <Row>
-        <Col>Another action</Col>
-        <Col>Another action</Col>
+        <Col>
+          <Nav.Dropdown.Item eventKey="5.4">Action</Nav.Dropdown.Item>
+        </Col>
+        <Col>
+          <Nav.Dropdown.Item eventKey="5.5">Action</Nav.Dropdown.Item>
+        </Col>
+        <Col>
+          <Nav.Dropdown.Item eventKey="5.6">Action</Nav.Dropdown.Item>
+        </Col>
       </Row>
     </Container>
   </Nav.Dropdown>
 </Nav>
 ```
+
+## On first load
+
+Usually on first load, the navigated item should appear active to the users.
+
+Use `activeKey` prop to set the active item
+
+<Canvas>
+  <Story height="250px" name="Active Key" args={{ activeKey: 'link-1' }}>
+    {Template.bind({})}
+  </Story>
+</Canvas>

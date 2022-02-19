@@ -11,6 +11,7 @@ import NavLink from './NavLink';
 import { BsPrefixRefForwardingComponent } from '../helpers';
 import NavbarContext from '../Navbar/NavbarContext';
 import { SM, MD, LG, XL, XXL } from '../../utils/constant';
+import NavContext from './NavContext';
 
 export interface NavDropdownProps extends Omit<DropdownProps, 'title'> {
   title: React.ReactNode;
@@ -22,6 +23,7 @@ export interface NavDropdownProps extends Omit<DropdownProps, 'title'> {
   menuVariant?: DropdownMenuVariant;
   href?: string;
   isMegaMenu?: boolean;
+  activeItemKey?: string;
 }
 
 const propTypes = {
@@ -86,12 +88,14 @@ const NavDropdown: BsPrefixRefForwardingComponent<'li', NavDropdownProps> =
         menuVariant,
         href,
         isMegaMenu,
+        activeItemKey,
         ...props
       }: NavDropdownProps,
       ref
     ) => {
       /* NavItem has no additional logic, it's purely presentational. Can set nav item class here to support "as" */
       const navbarContext = useContext(NavbarContext);
+      const navContext = useContext(NavContext)
       const expand = navbarContext && navbarContext.expand;
       const defaultMediaQueries = {
         sm: useMediaQuery({ maxWidth: SM - 1 }),
@@ -108,6 +112,11 @@ const NavDropdown: BsPrefixRefForwardingComponent<'li', NavDropdownProps> =
       const [isHam, setIsHam] = React.useState(stringMediaQuery);
 
       const navItemPrefix = useBootstrapPrefix(undefined, 'nav-item');
+
+      const computeActive = navContext?.activeKey === activeItemKey 
+      console.log( navContext?.activeKey)
+
+   
       // const [show, setShow] = useState(false);
       /* const showDropdown = () => {
         !isHam ? setShow(true) : undefined;
@@ -194,7 +203,7 @@ const NavDropdown: BsPrefixRefForwardingComponent<'li', NavDropdownProps> =
           <Dropdown.Toggle
             id={id}
             eventKey={null}
-            active={active}
+            active={active || computeActive}
             disabled={disabled}
             childBsPrefix={bsPrefix}
             as={NavLink}
