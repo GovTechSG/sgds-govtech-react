@@ -3,7 +3,10 @@ import { EventKey } from '@restart/ui/types';
 
 interface NavContextType {
   role?: string; // used by NavLink to determine it's role
-  activeKey?: EventKey ;
+  activeKey?: EventKey;
+  setActiveKey?: React.Dispatch<
+    React.SetStateAction<EventKey | undefined>
+  >;
   getControlledId?: (key: EventKey | null) => string;
   getControllerId?: (key: EventKey | null) => string;
 }

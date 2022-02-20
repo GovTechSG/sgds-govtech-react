@@ -12,6 +12,8 @@ import { BsPrefixRefForwardingComponent } from '../helpers';
 import NavbarContext from '../Navbar/NavbarContext';
 import { SM, MD, LG, XL, XXL } from '../../utils/constant';
 import NavContext from './NavContext';
+import NavDropdownItem from './NavDropdownItem';
+import { EventKey } from '@restart/ui/esm/types';
 
 export interface NavDropdownProps extends Omit<DropdownProps, 'title'> {
   title: React.ReactNode;
@@ -23,7 +25,7 @@ export interface NavDropdownProps extends Omit<DropdownProps, 'title'> {
   menuVariant?: DropdownMenuVariant;
   href?: string;
   isMegaMenu?: boolean;
-  activeItemKey?: string;
+  eventKey?: EventKey;
 }
 
 const propTypes = {
@@ -88,7 +90,7 @@ const NavDropdown: BsPrefixRefForwardingComponent<'li', NavDropdownProps> =
         menuVariant,
         href,
         isMegaMenu,
-        activeItemKey,
+        eventKey,
         ...props
       }: NavDropdownProps,
       ref
@@ -113,10 +115,11 @@ const NavDropdown: BsPrefixRefForwardingComponent<'li', NavDropdownProps> =
 
       const navItemPrefix = useBootstrapPrefix(undefined, 'nav-item');
 
-      const computeActive = navContext?.activeKey === activeItemKey 
-      console.log( navContext?.activeKey)
-
-   
+      // const computeActive = navContext?.activeKey === activeItemKey 
+      const computeActive = navContext?.activeKey === eventKey 
+      const handleClick = () => {
+        if (href && navContext?.setActiveKey) navContext.setActiveKey(eventKey) 
+      }
       // const [show, setShow] = useState(false);
       /* const showDropdown = () => {
         !isHam ? setShow(true) : undefined;
@@ -207,6 +210,7 @@ const NavDropdown: BsPrefixRefForwardingComponent<'li', NavDropdownProps> =
             disabled={disabled}
             childBsPrefix={bsPrefix}
             as={NavLink}
+            // onClick={handleClick}
             // href={isHam ? undefined : href}
           >
             {title}
@@ -231,7 +235,7 @@ NavDropdown.displayName = 'NavDropdown';
 NavDropdown.propTypes = propTypes;
 
 export default Object.assign(NavDropdown, {
-  Item: Dropdown.Item,
+  Item: /* Dropdown.Item, */ NavDropdownItem,
   ItemText: Dropdown.ItemText,
   Divider: Dropdown.Divider,
   Header: Dropdown.Header,

@@ -1,7 +1,7 @@
 import { render, waitFor } from '@testing-library/react';
 import * as React from 'react';
 
-import DropdownItem from '../../Dropdown/DropdownItem';
+import NavDropdownItem from '../NavDropdownItem';
 import Nav from '../Nav';
 import Navbar from '../../Navbar/Navbar';
 import NavDropdown from '../NavDropdown';
@@ -16,9 +16,10 @@ describe('<NavDropdown>', () => {
         id="nav-test"
         data-testid="test"
         show
+        eventKey="1" 
       >
-        <DropdownItem eventKey="1">DropdownItem 1 content</DropdownItem>
-        <DropdownItem eventKey="2">DropdownItem 2 content</DropdownItem>
+        <NavDropdownItem of="1"  eventKey="1">NavDropdownItem 1 content</NavDropdownItem>
+        <NavDropdownItem of="1"  eventKey="2">NavDropdownItem 2 content</NavDropdownItem>
       </NavDropdown>
     );
     const navDropdownElem = getByTestId('test');
@@ -42,9 +43,10 @@ describe('<NavDropdown>', () => {
         title="Title"
         id="nav-test"
         data-testid="test"
+        eventKey="1"
       >
-        <DropdownItem eventKey="1">DropdownItem 1 content</DropdownItem>
-        <DropdownItem eventKey="2">DropdownItem 2 content</DropdownItem>
+        <NavDropdownItem of="1" eventKey="1">NavDropdownItem of="1" 1 content</NavDropdownItem>
+        <NavDropdownItem of="1"  eventKey="2">NavDropdownItem of="1" 2 content</NavDropdownItem>
       </NavDropdown>
     );
     const navDropdownElem = getByTestId('test');
@@ -54,27 +56,27 @@ describe('<NavDropdown>', () => {
   it('should handle child active state', async () => {
     const { getByText } = render(
       <Nav activeKey="2">
-        <NavDropdown show id="test-id" title="title" data-testid="test">
-          <DropdownItem eventKey="1">DropdownItem 1 content</DropdownItem>
-          <DropdownItem eventKey="2">DropdownItem 2 content</DropdownItem>
-          <DropdownItem eventKey="3">DropdownItem 3 content</DropdownItem>
+        <NavDropdown     eventKey="1" show id="test-id" title="title" data-testid="test">
+          <NavDropdownItem of="1"  eventKey="1">NavDropdownItem 1 content</NavDropdownItem>
+          <NavDropdownItem of="1" eventKey="2">NavDropdownItem 2 content</NavDropdownItem>
+          <NavDropdownItem of="1"  eventKey="3">NavDropdownItem 3 content</NavDropdownItem>
         </NavDropdown>
       </Nav>
     );
 
-    expect(getByText('DropdownItem 2 content').classList).toContain('active');
-    expect(getByText('DropdownItem 1 content').classList).not.toContain(
+    expect(getByText('NavDropdownItem 2 content').classList).toContain('active');
+    expect(getByText('NavDropdownItem 1 content').classList).not.toContain(
       'active'
     );
-    expect(getByText('DropdownItem 3 content').classList).not.toContain(
+    expect(getByText('NavDropdownItem 3 content').classList).not.toContain(
       'active'
     );
   });
 
   it('should pass the id to the NavLink element', () => {
     const { getByTestId } = render(
-      <NavDropdown id="test-id" title="title" data-testid="test">
-        <DropdownItem eventKey="1">DropdownItem 1 content</DropdownItem>
+      <NavDropdown eventKey="1" id="test-id" title="title" data-testid="test">
+        <NavDropdownItem of="1" eventKey="1">NavDropdownItem 1 content</NavDropdownItem>
       </NavDropdown>
     );
     expect(getByTestId('test').firstElementChild!.id).toEqual('test-id');
@@ -82,8 +84,8 @@ describe('<NavDropdown>', () => {
 
   it('should support as as prop', () => {
     const { getByTestId } = render(
-      <NavDropdown as="li" id="test-id" title="title" data-testid="test">
-        <DropdownItem eventKey="1">Item 1</DropdownItem>
+      <NavDropdown eventKey="1" as="li" id="test-id" title="title" data-testid="test">
+        <NavDropdownItem of="1" eventKey="1">Item 1</NavDropdownItem>
       </NavDropdown>
     );
     expect(getByTestId('test').tagName.toLowerCase()).toEqual('li');
@@ -91,8 +93,8 @@ describe('<NavDropdown>', () => {
 
   it('passes menuVariant to dropdown menu', () => {
     render(
-      <NavDropdown renderMenuOnMount title="blah" menuVariant="dark" id="test">
-        <DropdownItem>Item 1</DropdownItem>
+      <NavDropdown eventKey="1" renderMenuOnMount title="blah" menuVariant="dark" id="test">
+        <NavDropdownItem of="1">Item 1</NavDropdownItem>
       </NavDropdown>
     );
     expect(document.querySelector('.dropdown-menu-dark')!).not.toBeNull();
@@ -101,8 +103,8 @@ describe('<NavDropdown>', () => {
   it('sets data-bs-popper attribute on dropdown menu', async () => {
     render(
       <Navbar>
-        <NavDropdown show id="test-id" title="title" data-testid="test">
-          <DropdownItem>Item 1</DropdownItem>
+        <NavDropdown eventKey="1" show id="test-id" title="title" data-testid="test">
+          <NavDropdownItem of="1">Item 1</NavDropdownItem>
         </NavDropdown>
       </Navbar>
     );
@@ -114,13 +116,14 @@ describe('<NavDropdown>', () => {
   it('should have .has-megamenu when isMegaMenu is true ', () => {
     const { getByTestId, container } = render(
       <NavDropdown
+      eventKey="1"
         isMegaMenu
         show
         id="test-id"
         title="title"
         data-testid="test"
       >
-        <DropdownItem>Item 1</DropdownItem>
+        <NavDropdownItem of="1">Item 1</NavDropdownItem>
       </NavDropdown>
     );
     expect(getByTestId('test').classList).toContain('has-megamenu');

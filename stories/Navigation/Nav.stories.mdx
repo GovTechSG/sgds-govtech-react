@@ -54,51 +54,72 @@ import { HIDDEN_COMMON_PROPS } from '../helpers';
 />
 
 export const Template = (args) => {
+    const [activeK, setActiveK] = React.useState(undefined)
   return (
-    <Nav {...args} activeKey="4.1">
+    <Nav {...args} defaultActiveKey="5" activeKey={activeK} setActiveKey={setActiveK} >
       <Nav.Item>
         <Nav.Link eventKey="link-1">Link</Nav.Link>
       </Nav.Item>
       <Nav.Dropdown
+        eventKey="4"
         title="Dropdown"
         id="nav-dropdown"
-        href="https://www.designsystem.tech.gov.sg/"
+        href="#"
       >
-        <Nav.Dropdown.Item eventKey="4.1">Action</Nav.Dropdown.Item>
-        <Nav.Dropdown.Item eventKey="4.2">Another action</Nav.Dropdown.Item>
-        <Nav.Dropdown.Item eventKey="4.3">
+        <Nav.Dropdown.Item of="4" eventKey="4.1">
+         Action
+        </Nav.Dropdown.Item>
+        <Nav.Dropdown.Item of="4" eventKey="4.2">
+          Another action
+        </Nav.Dropdown.Item>
+        <Nav.Dropdown.Item of="4" eventKey="4.3">
           Something else here
         </Nav.Dropdown.Item>
         <Nav.Dropdown.Divider />
-        <Nav.Dropdown.Item eventKey="4.4">Separated link</Nav.Dropdown.Item>
+        <Nav.Dropdown.Item of="4" eventKey="4.4">
+          Separated link
+        </Nav.Dropdown.Item>
       </Nav.Dropdown>
       <Nav.Dropdown
+        eventKey="5"
         isMegaMenu
         title="Megamenu"
-        id="nav-dropdown"
-        href="https://www.designsystem.tech.gov.sg/"
+        id="nav-mega"
+        href="#"
       >
         <Container>
           <Row>
             <Col>
-              <Nav.Dropdown.Item eventKey="5.1">Action</Nav.Dropdown.Item>
+              <Nav.Dropdown.Item of="5" eventKey="5.1">
+                Action
+              </Nav.Dropdown.Item>
             </Col>
             <Col>
-              <Nav.Dropdown.Item eventKey="5.2">Action</Nav.Dropdown.Item>
+              <Nav.Dropdown.Item of="5" eventKey="5.2">
+                Action
+              </Nav.Dropdown.Item>
             </Col>
             <Col>
-              <Nav.Dropdown.Item eventKey="5.3">Action</Nav.Dropdown.Item>
+              <Nav.Dropdown.Item of="5" eventKey="5.3">
+                Action
+              </Nav.Dropdown.Item>
             </Col>
           </Row>
           <Row>
             <Col>
-              <Nav.Dropdown.Item eventKey="5.4">Action</Nav.Dropdown.Item>
+              <Nav.Dropdown.Item of="5" eventKey="5.4">
+                Action
+              </Nav.Dropdown.Item>
             </Col>
             <Col>
-              <Nav.Dropdown.Item eventKey="5.5">Action</Nav.Dropdown.Item>
+              <Nav.Dropdown.Item of="5" eventKey="5.5">
+                Action
+              </Nav.Dropdown.Item>
             </Col>
             <Col>
-              <Nav.Dropdown.Item eventKey="5.6">Action</Nav.Dropdown.Item>
+              <Nav.Dropdown.Item of="5" eventKey="5.6">
+                Action
+              </Nav.Dropdown.Item>
             </Col>
           </Row>
         </Container>

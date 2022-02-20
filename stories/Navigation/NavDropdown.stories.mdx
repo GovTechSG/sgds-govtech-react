@@ -70,13 +70,13 @@ export const Template = (args) => {
         href="https://www.designsystem.tech.gov.sg/"
         activeItemKey="4.1"
       >
-        <Nav.Dropdown.Item eventKey="4.1">Action</Nav.Dropdown.Item>
-        <Nav.Dropdown.Item eventKey="4.2">Another action</Nav.Dropdown.Item>
-        <Nav.Dropdown.Item eventKey="4.3">
+        <Nav.Dropdown.Item of="nav-dropdown" eventKey="4.1">Action</Nav.Dropdown.Item>
+        <Nav.Dropdown.Item  of="nav-dropdown" eventKey="4.2">Another action</Nav.Dropdown.Item>
+        <Nav.Dropdown.Item of="nav-dropdown" eventKey="4.3">
           Something else here
         </Nav.Dropdown.Item>
         <Nav.Dropdown.Divider />
-        <Nav.Dropdown.Item eventKey="4.4">Separated link</Nav.Dropdown.Item>
+        <Nav.Dropdown.Item of="nav-dropdown" eventKey="4.4">Separated link</Nav.Dropdown.Item>
       </Nav.Dropdown>
     </Nav>
   );
