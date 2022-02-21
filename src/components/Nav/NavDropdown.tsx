@@ -110,16 +110,12 @@ const NavDropdown: BsPrefixRefForwardingComponent<'li', NavDropdownProps> =
         typeof expand === 'string' && defaultMediaQueries[expand];
       const numberMediaQuery =
         typeof expand === 'number' && useMediaQuery({ maxWidth: expand - 1 });
-      console.log(numberMediaQuery)
       const [isHam, setIsHam] = React.useState(stringMediaQuery);
 
       const navItemPrefix = useBootstrapPrefix(undefined, 'nav-item');
 
       // const computeActive = navContext?.activeKey === activeItemKey
-      const computeActive = navContext?.activeKey === eventKey;
-      /*  const handleClick = () => {
-        if (href && navContext?.setActiveKey) navContext.setActiveKey(eventKey) 
-      } */
+      const computeActive = eventKey ? navContext?.activeKey === eventKey : undefined;
       // const [show, setShow] = useState(false);
       /* const showDropdown = () => {
         !isHam ? setShow(true) : undefined;
@@ -205,8 +201,7 @@ const NavDropdown: BsPrefixRefForwardingComponent<'li', NavDropdownProps> =
             disabled={disabled}
             childBsPrefix={bsPrefix}
             as={NavLink}
-            // onClick={handleClick}
-            // href={isHam ? undefined : href}
+            href={isHam ? undefined : href}
           >
             {title}
             <i className="bi bi-chevron-down"></i>

@@ -49,7 +49,7 @@ Create a fixed navbar along the top or bottom of the screen, that scrolls with t
   }}
 />
 
-export const Test = (brandName) => {
+export const Template = (brandName) => {
   return (args) => {
     return (
       <Navbar {...args}>
@@ -85,14 +85,14 @@ export const Test = (brandName) => {
   };
 };
 
-export const Default = Test('Navbar.Brand');
-export const AlwaysExpanded = Test('Always Expanded');
-export const AlwaysCollapsed = Test('Always Collapsed');
-export const BreakpointSm = Test('Breakpoint-sm');
-export const BreakpointMd = Test('Breakpoint-md');
-export const BreakpointLg = Test('Breakpoint-lg');
-export const BreakpointXl = Test('Breakpoint-xl');
-export const BreakpointXxl = Test('Breakpoint-xxl');
+export const Default = Template('Navbar.Brand');
+export const AlwaysExpanded = Template('Always Expanded');
+export const AlwaysCollapsed = Template('Always Collapsed');
+export const BreakpointSm = Template('Breakpoint-sm');
+export const BreakpointMd = Template('Breakpoint-md');
+export const BreakpointLg = Template('Breakpoint-lg');
+export const BreakpointXl = Template('Breakpoint-xl');
+export const BreakpointXxl = Template('Breakpoint-xxl');
 
 # Navbar
 

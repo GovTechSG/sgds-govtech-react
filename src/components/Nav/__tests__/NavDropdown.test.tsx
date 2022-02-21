@@ -1,7 +1,6 @@
 import { render, waitFor } from '@testing-library/react';
 import * as React from 'react';
 
-import NavDropdownItem from '../NavDropdownItem';
 import Nav from '../Nav';
 import Navbar from '../../Navbar/Navbar';
 import NavDropdown from '../NavDropdown';
@@ -18,8 +17,8 @@ describe('<NavDropdown>', () => {
         show
         eventKey="1" 
       >
-        <NavDropdownItem of="1"  eventKey="1">NavDropdownItem 1 content</NavDropdownItem>
-        <NavDropdownItem of="1"  eventKey="2">NavDropdownItem 2 content</NavDropdownItem>
+        <Nav.Dropdown.Item of="1"  eventKey="1">NavDropdownItem 1 content</Nav.Dropdown.Item>
+        <Nav.Dropdown.Item of="1"  eventKey="2">NavDropdownItem 2 content</Nav.Dropdown.Item>
       </NavDropdown>
     );
     const navDropdownElem = getByTestId('test');
@@ -45,8 +44,8 @@ describe('<NavDropdown>', () => {
         data-testid="test"
         eventKey="1"
       >
-        <NavDropdownItem of="1" eventKey="1">NavDropdownItem of="1" 1 content</NavDropdownItem>
-        <NavDropdownItem of="1"  eventKey="2">NavDropdownItem of="1" 2 content</NavDropdownItem>
+        <Nav.Dropdown.Item of="1" eventKey="1">NavDropdownItem of="1" 1 content</Nav.Dropdown.Item>
+        <Nav.Dropdown.Item of="1"  eventKey="2">NavDropdownItem of="1" 2 content</Nav.Dropdown.Item>
       </NavDropdown>
     );
     const navDropdownElem = getByTestId('test');
@@ -57,9 +56,9 @@ describe('<NavDropdown>', () => {
     const { getByText } = render(
       <Nav activeKey="2">
         <NavDropdown     eventKey="1" show id="test-id" title="title" data-testid="test">
-          <NavDropdownItem of="1"  eventKey="1">NavDropdownItem 1 content</NavDropdownItem>
-          <NavDropdownItem of="1" eventKey="2">NavDropdownItem 2 content</NavDropdownItem>
-          <NavDropdownItem of="1"  eventKey="3">NavDropdownItem 3 content</NavDropdownItem>
+          <Nav.Dropdown.Item of="1"  eventKey="1">NavDropdownItem 1 content</Nav.Dropdown.Item>
+          <Nav.Dropdown.Item of="1" eventKey="2">NavDropdownItem 2 content</Nav.Dropdown.Item>
+          <Nav.Dropdown.Item of="1"  eventKey="3">NavDropdownItem 3 content</Nav.Dropdown.Item>
         </NavDropdown>
       </Nav>
     );
@@ -76,7 +75,7 @@ describe('<NavDropdown>', () => {
   it('should pass the id to the NavLink element', () => {
     const { getByTestId } = render(
       <NavDropdown eventKey="1" id="test-id" title="title" data-testid="test">
-        <NavDropdownItem of="1" eventKey="1">NavDropdownItem 1 content</NavDropdownItem>
+        <Nav.Dropdown.Item of="1" eventKey="1">NavDropdownItem 1 content</Nav.Dropdown.Item>
       </NavDropdown>
     );
     expect(getByTestId('test').firstElementChild!.id).toEqual('test-id');
@@ -85,7 +84,7 @@ describe('<NavDropdown>', () => {
   it('should support as as prop', () => {
     const { getByTestId } = render(
       <NavDropdown eventKey="1" as="li" id="test-id" title="title" data-testid="test">
-        <NavDropdownItem of="1" eventKey="1">Item 1</NavDropdownItem>
+        <Nav.Dropdown.Item of="1" eventKey="1">Item 1</Nav.Dropdown.Item>
       </NavDropdown>
     );
     expect(getByTestId('test').tagName.toLowerCase()).toEqual('li');
@@ -94,7 +93,7 @@ describe('<NavDropdown>', () => {
   it('passes menuVariant to dropdown menu', () => {
     render(
       <NavDropdown eventKey="1" renderMenuOnMount title="blah" menuVariant="dark" id="test">
-        <NavDropdownItem of="1">Item 1</NavDropdownItem>
+        <Nav.Dropdown.Item of="1">Item 1</Nav.Dropdown.Item>
       </NavDropdown>
     );
     expect(document.querySelector('.dropdown-menu-dark')!).not.toBeNull();
@@ -104,7 +103,7 @@ describe('<NavDropdown>', () => {
     render(
       <Navbar>
         <NavDropdown eventKey="1" show id="test-id" title="title" data-testid="test">
-          <NavDropdownItem of="1">Item 1</NavDropdownItem>
+          <Nav.Dropdown.Item of="1">Item 1</Nav.Dropdown.Item>
         </NavDropdown>
       </Navbar>
     );
@@ -123,7 +122,7 @@ describe('<NavDropdown>', () => {
         title="title"
         data-testid="test"
       >
-        <NavDropdownItem of="1">Item 1</NavDropdownItem>
+        <Nav.Dropdown.Item of="1">Item 1</Nav.Dropdown.Item>
       </NavDropdown>
     );
     expect(getByTestId('test').classList).toContain('has-megamenu');

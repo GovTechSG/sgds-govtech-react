@@ -1,6 +1,5 @@
 import classNames from 'classnames';
 import PropTypes from 'prop-types';
-import NavContext from './NavContext';
 
 import * as React from 'react';
 import Anchor from '@restart/ui/Anchor';
@@ -75,7 +74,7 @@ const NavLink: BsPrefixRefForwardingComponent<'a', NavLinkProps> =
         active,
         ...props,
       });
-      const navContext = React.useContext(NavContext);
+      // const navContext = React.useContext(NavContext);
 
       // const handleClick = (e: React.MouseEvent<HTMLElement, MouseEvent>) => {
       //   navContext?.setActiveKey && navContext.setActiveKey(eventKey)
