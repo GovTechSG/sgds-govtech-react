@@ -1,5 +1,8 @@
+import Button from '@restart/ui/esm/Button';
 import * as React from 'react';
 import Dropdown from '../Dropdown/Dropdown';
+import { useContext } from 'react';
+import DatePickerContext from './DatePickerContext'
 interface CalendarHeaderProps {
   displayDate: Date;
   minDate?: string;
@@ -41,6 +44,7 @@ const CalendarHeader: React.FC<CalendarHeaderProps> = ({
   years = YEARS(),
   ...props
 }) => {
+  const {view, setView} = useContext(DatePickerContext)
   const [year, setYear] = React.useState(props.displayDate.getFullYear())
   const displayingMinMonth = () => {
     if (!props.minDate) return false;
@@ -82,6 +86,26 @@ const CalendarHeader: React.FC<CalendarHeaderProps> = ({
     props.onChange(newDate)
     setYear(parseInt(key!))
   };
+  const [header, setHeader] = React.useState(`${monthLabels[props.displayDate.getMonth()]} ${year}`)
+
+  const changeView = () => {
+    switch(view){
+      case 'day': 
+        setView('month')
+        setHeader(`${year}`)
+        break;
+      case 'month': 
+        setView('year')
+        break;
+      case 'year': 
+        break;
+    }
+  }
+  const renderHeader = () => {
+    if(view=== 'day') return `${monthLabels[props.displayDate.getMonth()]} ${year}`
+    if (view === 'month') return `${year}`
+    if (view === 'year') return `${year - 5} - ${year + 6}`
+  }
   return (
     <div className="text-center d-flex justify-content-around">
       <div
@@ -91,10 +115,10 @@ const CalendarHeader: React.FC<CalendarHeaderProps> = ({
       >
         {displayingMinMonth() ? null : previousButtonElement}
       </div>
-        <span>
-        {monthLabels[props.displayDate.getMonth()]}{' '}
-      </span>
-      <Dropdown onSelect={handleSelectYear}>
+        <Button onClick={changeView}>
+          {renderHeader()}
+      </Button>
+   {/*    <Dropdown onSelect={handleSelectYear}>
         <Dropdown.Toggle variant="white" >
           {year}
         </Dropdown.Toggle>
@@ -109,7 +133,7 @@ const CalendarHeader: React.FC<CalendarHeaderProps> = ({
             </Dropdown.Item>
           ))}
         </Dropdown.Menu>
-      </Dropdown>
+      </Dropdown> */}
       <div
         className="text-muted pull-right"
         onClick={handleClickNext}

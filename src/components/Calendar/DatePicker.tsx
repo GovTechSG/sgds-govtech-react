@@ -5,8 +5,11 @@ import Overlay from '../Overlay/Overlay';
 import Popover from '../Popover/Popover';
 import Calendar from './BSCalendar';
 import CalendarHeader from './CalendarHeader';
-import { useState, useRef } from 'react';
+import { useState, useRef, useMemo } from 'react';
 import { Placement } from '../types';
+import DatePickerContext, { CalendarView } from './DatePickerContext';
+import MonthView from './MonthView';
+import YearView from './YearView';
 
 export interface DatePickerProps {
   defaultValue: string;
@@ -78,6 +81,14 @@ export const DatePicker: React.FC<DatePickerProps> = ({
     separator: '/',
   };
   const [state, setState] = useState(initialState);
+  const [view, setView] = useState<CalendarView>('day');
+  const contextValue = useMemo(
+    () => ({
+      view,
+      setView,
+    }),
+    [view]
+  );
   const onChangeMonth = (newDisplayDate: Date) => {
     setState({ ...state, displayDate: newDisplayDate });
   };
@@ -242,21 +253,21 @@ export const DatePicker: React.FC<DatePickerProps> = ({
     //   inputValue: inputValue,
     // });
   };
-    const handleHide = () => {
-      if (state.inputFocused) {
-        return;
-      }
-      setState({
-        ...state,
-        focused: false,
-      });
-      // if (props.onBlur) {
-      //   const event = document.createEvent('CustomEvent');
-      //   event.initEvent('Change Date', true, false);
-      //   ReactDOM?.findDOMNode(this.refs.hiddenInput)?.dispatchEvent(event);
-      //   this.props.onBlur(event);
-      // }
-    };
+  const handleHide = () => {
+    if (state.inputFocused) {
+      return;
+    }
+    setState({
+      ...state,
+      focused: false,
+    });
+    // if (props.onBlur) {
+    //   const event = document.createEvent('CustomEvent');
+    //   event.initEvent('Change Date', true, false);
+    //   ReactDOM?.findDOMNode(this.refs.hiddenInput)?.dispatchEvent(event);
+    //   this.props.onBlur(event);
+    // }
+  };
   //triggered only when clicking dates
   const makeInputValueString = (date: Date) => {
     const month = date.getMonth() + 1;
@@ -402,29 +413,51 @@ export const DatePicker: React.FC<DatePickerProps> = ({
       // noValidate={props.noValidate}
     />
   );
+
+  const BodyContent = (): JSX.Element => {
+    if (view === 'month') return <MonthView displayDate={state.displayDate} />;
+    if (view === 'year') return <YearView displayDate={state.displayDate} />
+    return (
+      <Calendar
+        cellPadding={props.cellPadding}
+        selectedDate={state.selectedDate}
+        displayDate={state.displayDate}
+        changeDate={onChangeDate}
+        weekStartsOn={props.weekStartsOn}
+        showTodayButton={props.showTodayButton}
+        todayButtonLabel={props.todayButtonLabel}
+        minDate={props.minDate}
+        maxDate={props.maxDate}
+        roundedCorners={props.roundedCorners}
+        showWeeks={props.showWeeks}
+      />
+    );
+  };
   return (
-    <InputGroup
-      //@ts-ignore
-      // ref="inputGroup"
-      //   bsClass={this.props.showClearButton ? this.props.bsClass : ''}
-      //   bsSize={this.props.bsSize}
-      id={props.id ? `${props.id}_group` : undefined}
-    >
-      <div ref={overlayRef}>{control}</div>
-    
-      <Overlay
-        rootClose={true}
-        onHide={handleHide}
-        show={state.focused}
-        target={formControlRef.current}
-        placement={calendarPlacement}
-        container={overlayRef}
-        transition={false}
+    <DatePickerContext.Provider value={contextValue}>
+      <InputGroup
+        //@ts-ignore
+        // ref="inputGroup"
+        //   bsClass={this.props.showClearButton ? this.props.bsClass : ''}
+        //   bsSize={this.props.bsSize}
+        id={props.id ? `${props.id}_group` : undefined}
       >
-        <Popover id={`date-picker-popover`}>
-          <Popover.Header>{calendarHeader}</Popover.Header>
-          <Popover.Body>
-            <Calendar
+        <div ref={overlayRef}>{control}</div>
+
+        <Overlay
+          rootClose={true}
+          onHide={handleHide}
+          show={state.focused}
+          target={formControlRef.current}
+          placement={calendarPlacement}
+          container={overlayRef}
+          transition={false}
+        >
+          <Popover id={`date-picker-popover`}>
+            <Popover.Header>{calendarHeader}</Popover.Header>
+            <Popover.Body>
+              {BodyContent()}
+              {/*  <Calendar
               cellPadding={props.cellPadding}
               selectedDate={state.selectedDate}
               displayDate={state.displayDate}
@@ -436,12 +469,13 @@ export const DatePicker: React.FC<DatePickerProps> = ({
               maxDate={props.maxDate}
               roundedCorners={props.roundedCorners}
               showWeeks={props.showWeeks}
-            />
-          </Popover.Body>
-        </Popover>
-      </Overlay>
-      {props.children}
-    </InputGroup>
+            /> */}
+            </Popover.Body>
+          </Popover>
+        </Overlay>
+        {props.children}
+      </InputGroup>
+    </DatePickerContext.Provider>
   );
 };
 export default DatePicker;
