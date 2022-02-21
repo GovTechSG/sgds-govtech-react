@@ -12,7 +12,6 @@ import { BsPrefixRefForwardingComponent } from '../helpers';
 import NavbarContext from '../Navbar/NavbarContext';
 import { SM, MD, LG, XL, XXL } from '../../utils/constant';
 import NavContext from './NavContext';
-import NavDropdownItem from './NavDropdownItem';
 import { EventKey } from '@restart/ui/esm/types';
 
 export interface NavDropdownProps extends Omit<DropdownProps, 'title'> {
@@ -97,7 +96,7 @@ const NavDropdown: BsPrefixRefForwardingComponent<'li', NavDropdownProps> =
     ) => {
       /* NavItem has no additional logic, it's purely presentational. Can set nav item class here to support "as" */
       const navbarContext = useContext(NavbarContext);
-      const navContext = useContext(NavContext)
+      const navContext = useContext(NavContext);
       const expand = navbarContext && navbarContext.expand;
       const defaultMediaQueries = {
         sm: useMediaQuery({ maxWidth: SM - 1 }),
@@ -115,11 +114,11 @@ const NavDropdown: BsPrefixRefForwardingComponent<'li', NavDropdownProps> =
 
       const navItemPrefix = useBootstrapPrefix(undefined, 'nav-item');
 
-      // const computeActive = navContext?.activeKey === activeItemKey 
-      const computeActive = navContext?.activeKey === eventKey 
-      const handleClick = () => {
+      // const computeActive = navContext?.activeKey === activeItemKey
+      const computeActive = navContext?.activeKey === eventKey;
+      /*  const handleClick = () => {
         if (href && navContext?.setActiveKey) navContext.setActiveKey(eventKey) 
-      }
+      } */
       // const [show, setShow] = useState(false);
       /* const showDropdown = () => {
         !isHam ? setShow(true) : undefined;
@@ -136,7 +135,7 @@ const NavDropdown: BsPrefixRefForwardingComponent<'li', NavDropdownProps> =
         isMegaMenu ? 'has-megamenu' : undefined,
         isHam ? undefined : 'is-hoverable'
       );
-     /*  const HoverDropdown = (childs: React.ReactNode) => (
+      /*  const HoverDropdown = (childs: React.ReactNode) => (
         <Dropdown
           ref={ref}
           {...props}
@@ -159,7 +158,7 @@ const NavDropdown: BsPrefixRefForwardingComponent<'li', NavDropdownProps> =
           {childs}
         </Dropdown>
       ); */
-   /*    const Childrens = (
+      /*    const Childrens = (
         <>
           <Dropdown.Toggle
             id={id}
@@ -197,12 +196,7 @@ const NavDropdown: BsPrefixRefForwardingComponent<'li', NavDropdownProps> =
       // return isHam ? ClickDropdown(Childrens) : HoverDropdown(Childrens);
 
       return (
-        <Dropdown
-          ref={ref}
-          as="li"
-          {...props}
-          className={dropDownClass} 
-        >
+        <Dropdown ref={ref} as="li" {...props} className={dropDownClass}>
           <Dropdown.Toggle
             id={id}
             eventKey={null}
@@ -235,7 +229,7 @@ NavDropdown.displayName = 'NavDropdown';
 NavDropdown.propTypes = propTypes;
 
 export default Object.assign(NavDropdown, {
-  Item: /* Dropdown.Item, */ NavDropdownItem,
+  Item: Dropdown.Item,
   ItemText: Dropdown.ItemText,
   Divider: Dropdown.Divider,
   Header: Dropdown.Header,

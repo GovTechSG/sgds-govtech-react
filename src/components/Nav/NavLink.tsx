@@ -64,7 +64,7 @@ const NavLink: BsPrefixRefForwardingComponent<'a', NavLinkProps> =
         as: Component = Anchor,
         active,
         eventKey,
-        onClick, 
+        // onClick, 
         ...props
       },
       ref,
@@ -77,22 +77,22 @@ const NavLink: BsPrefixRefForwardingComponent<'a', NavLinkProps> =
       });
       const navContext = React.useContext(NavContext);
 
-      const handleClick = (e: React.MouseEvent<HTMLElement, MouseEvent>) => {
-        navContext?.setActiveKey && navContext.setActiveKey(eventKey)
-        if (onClick) onClick(e)
-      }
-      const computeActive = navContext?.activeKey === eventKey
+      // const handleClick = (e: React.MouseEvent<HTMLElement, MouseEvent>) => {
+      //   navContext?.setActiveKey && navContext.setActiveKey(eventKey)
+      //   if (onClick) onClick(e)
+      // }
+      // const computeActive = navContext?.activeKey === eventKey
       return (
         <Component
           {...props}
-          {...navItemProps}
+          {...navItemProps} 
           ref={ref}
-          onClick={handleClick}
+          // onClick={handleClick}
           className={classNames(
             className,
             bsPrefix,
             props.disabled && 'disabled',
-            (meta.isActive || computeActive) && 'active',
+            (meta.isActive /* || computeActive */) && 'active',
           )}
         />
       );

@@ -24,7 +24,6 @@ export interface NavProps extends BsPrefixProps, BaseNavProps {
   // navbar?: boolean;
   navbarScroll?: boolean;
   defaultActiveKey?: EventKey;
-  setActiveKey?: React.Dispatch<React.SetStateAction<EventKey | undefined>>
 }
 
 const propTypes = {
@@ -121,7 +120,6 @@ const Nav: BsPrefixRefForwardingComponent<'ul', NavProps> = React.forwardRef<
     navbarScroll,
     className,
     activeKey,
-    setActiveKey,
     ...props
   } = useUncontrolled(uncontrolledProps, { activeKey: 'onSelect' });
 
@@ -130,7 +128,6 @@ const Nav: BsPrefixRefForwardingComponent<'ul', NavProps> = React.forwardRef<
   const contextValue = useMemo(
     () => ({
       activeKey,
-      setActiveKey
     }),
     [activeKey]
   )

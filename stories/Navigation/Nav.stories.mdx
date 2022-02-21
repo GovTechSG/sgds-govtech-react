@@ -50,33 +50,54 @@ import { HIDDEN_COMMON_PROPS } from '../helpers';
       },
       control: { disable: true },
     },
+    setActiveKey: {
+      description: 'Sets the current active nav item in NavContext',
+    },
   }}
 />
 
 export const Template = (args) => {
-    const [activeK, setActiveK] = React.useState(undefined)
+  const [activeK, setActiveK] = React.useState('4');
+  const handleClick = (ek) => {
+    setActiveK(ek);
+  };
   return (
-    <Nav {...args} defaultActiveKey="5" activeKey={activeK} setActiveKey={setActiveK} >
+    <Nav {...args} defaultActiveKey="5" activeKey={activeK}>
       <Nav.Item>
-        <Nav.Link eventKey="link-1">Link</Nav.Link>
+        <Nav.Link onClick={() => handleClick('link-1')} eventKey="link-1">
+          Link
+        </Nav.Link>
       </Nav.Item>
       <Nav.Dropdown
         eventKey="4"
         title="Dropdown"
         id="nav-dropdown"
         href="#"
+        onClick={() => handleClick('4')}
       >
-        <Nav.Dropdown.Item of="4" eventKey="4.1">
-         Action
+        <Nav.Dropdown.Item
+          onClick={() => handleClick('4')}
+          eventKey="4.1"
+        >
+          Action
         </Nav.Dropdown.Item>
-        <Nav.Dropdown.Item of="4" eventKey="4.2">
+        <Nav.Dropdown.Item
+          onClick={() => handleClick('4')}
+          eventKey="4.2"
+        >
           Another action
         </Nav.Dropdown.Item>
-        <Nav.Dropdown.Item of="4" eventKey="4.3">
+        <Nav.Dropdown.Item
+          onClick={() => handleClick('4')}
+          eventKey="4.3"
+        >
           Something else here
         </Nav.Dropdown.Item>
         <Nav.Dropdown.Divider />
-        <Nav.Dropdown.Item of="4" eventKey="4.4">
+        <Nav.Dropdown.Item
+          onClick={() => handleClick('4')}
+          eventKey="4.4"
+        >
           Separated link
         </Nav.Dropdown.Item>
       </Nav.Dropdown>
@@ -86,38 +107,57 @@ export const Template = (args) => {
         title="Megamenu"
         id="nav-mega"
         href="#"
+        onClick={() => handleClick('5')}
       >
         <Container>
           <Row>
             <Col>
-              <Nav.Dropdown.Item of="5" eventKey="5.1">
+              <Nav.Dropdown.Item
+                onClick={() => handleClick('5')}
+                eventKey="5.1"
+              >
                 Action
               </Nav.Dropdown.Item>
             </Col>
             <Col>
-              <Nav.Dropdown.Item of="5" eventKey="5.2">
+              <Nav.Dropdown.Item
+                onClick={() => handleClick('5')}
+                eventKey="5.2"
+              >
                 Action
               </Nav.Dropdown.Item>
             </Col>
             <Col>
-              <Nav.Dropdown.Item of="5" eventKey="5.3">
+              <Nav.Dropdown.Item
+                onClick={() => handleClick('5')}
+                eventKey="5.3"
+              >
                 Action
               </Nav.Dropdown.Item>
             </Col>
           </Row>
           <Row>
             <Col>
-              <Nav.Dropdown.Item of="5" eventKey="5.4">
+              <Nav.Dropdown.Item
+                onClick={() => handleClick('5')}
+                eventKey="5.4"
+              >
                 Action
               </Nav.Dropdown.Item>
             </Col>
             <Col>
-              <Nav.Dropdown.Item of="5" eventKey="5.5">
+              <Nav.Dropdown.Item
+                onClick={() => handleClick('5')}
+                eventKey="5.5"
+              >
                 Action
               </Nav.Dropdown.Item>
             </Col>
             <Col>
-              <Nav.Dropdown.Item of="5" eventKey="5.6">
+              <Nav.Dropdown.Item
+                onClick={() => handleClick('5')}
+                eventKey="5.6"
+              >
                 Action
               </Nav.Dropdown.Item>
             </Col>
