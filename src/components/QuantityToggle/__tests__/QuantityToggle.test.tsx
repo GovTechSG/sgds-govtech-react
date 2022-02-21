@@ -4,7 +4,7 @@ import {  fireEvent, render } from '@testing-library/react';
 
 describe('<QuantityToggle />', () => {
     it('has default structure', () => {
-        const mockSetCount = jest.fn()
+        const mockSetCount = jest.fn() 
         const {asFragment, container } = render(<QuantityToggle count={0} setCount={mockSetCount}/>)
 
         expect(asFragment()).toMatchSnapshot() 

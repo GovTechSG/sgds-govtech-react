@@ -1,7 +1,7 @@
 import classNames from 'classnames';
 import * as React from 'react';
 import PropTypes from 'prop-types';
-import { /* useState, */ useContext } from 'react';
+import { useContext } from 'react';
 import { useMediaQuery } from 'react-responsive';
 
 import { useBootstrapPrefix } from '../ThemeProvider/ThemeProvider';
