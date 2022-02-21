@@ -39,6 +39,13 @@ Create a fixed navbar along the top or bottom of the screen, that scrolls with t
       },
       description: `The breakpoint, below which, the Navbar will collapse. When true the Navbar will always be expanded regardless of screen size.`,
     },
+    bg: {
+      description: 'Sets the background color of navbar',
+    },
+    variant: {
+      description:
+        'The general visual variant a the Navbar. Use in combination with the bg prop, background-color utilities, or your own background styles.',
+    },
   }}
 />
 
@@ -99,16 +106,18 @@ export const BreakpointXxl = Test('Breakpoint-xxl');
 
 <ArgsTable story="Default" />
 
+For more detailed API documentation , refer to https://react-bootstrap.github.io/components/navbar/#navbar-props
+
 ## Dropdown in expanded navbar vs Dropdown in collapsed navbar
 
 Dropdown in fully expanded navbar will be hoverable by default.
 
 When navbar is collapsed, Dropdown will not be hoverable, but clickable to support mobile versions.
 
-Pass in boolean , `sm`, `md`, `lg`, `xl`, `xxl` to `expand` prop to apply the breakpoint. 
+Pass in boolean , `sm`, `md`, `lg`, `xl`, `xxl` to `expand` prop to apply the breakpoint.
 The sizes applies the defined breakpoint styles from sgds. e.g. `.navbar-expand-sm`, `.navbar-expand-md`
 
-If you are overriding the default sgds css breakpoints, i.e. not using `sm`, `md` ... `xxl` to control the breakpoint, 
+If you are overriding the default sgds css breakpoints, i.e. not using `sm`, `md` ... `xxl` to control the breakpoint,
 Pass in ` ` as a `number` value which depicts which viewport width (px) that you have defined as breakpoint in your customs css mediaquery.
 With this value, the navbar will convert the dropdown from hoverable to clickable when screen size changes.
 
