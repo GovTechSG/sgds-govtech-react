@@ -56,13 +56,16 @@ import { HIDDEN_COMMON_PROPS } from '../helpers';
     },
     isMegaMenu: {
         description: 'When true, stylings of dropdown menu changes to mega menu'
+    },
+    eventKey: {
+      description: 'Uniquely identifies the NavDropdown amongst its siblings, used to determine and control the active state of the parent Nav'
     }
   }}
 />
 
 export const Template = (args) => {
   return (
-    <Nav activeKey="4.1">
+    <Nav {...args}>
       <Nav.Dropdown
         {...args}
         title="NavDropdown"
@@ -70,13 +73,53 @@ export const Template = (args) => {
         href="https://www.designsystem.tech.gov.sg/"
         activeItemKey="4.1"
       >
-        <Nav.Dropdown.Item of="nav-dropdown" eventKey="4.1">Action</Nav.Dropdown.Item>
-        <Nav.Dropdown.Item  of="nav-dropdown" eventKey="4.2">Another action</Nav.Dropdown.Item>
+        <Nav.Dropdown.Item of="nav-dropdown" eventKey="4.1">
+          Action
+        </Nav.Dropdown.Item>
+        <Nav.Dropdown.Item of="nav-dropdown" eventKey="4.2">
+          Another action
+        </Nav.Dropdown.Item>
         <Nav.Dropdown.Item of="nav-dropdown" eventKey="4.3">
           Something else here
         </Nav.Dropdown.Item>
         <Nav.Dropdown.Divider />
-        <Nav.Dropdown.Item of="nav-dropdown" eventKey="4.4">Separated link</Nav.Dropdown.Item>
+        <Nav.Dropdown.Item of="nav-dropdown" eventKey="4.4">
+          Separated link
+        </Nav.Dropdown.Item>
+      </Nav.Dropdown>
+    </Nav>
+  );
+};
+
+
+export const Megamenu = () => {
+  return (
+    <Nav>
+      <Nav.Dropdown eventKey="5" isMegaMenu title="Megamenu" href="#">
+        <Container>
+          <Row>
+            <Col>
+              <Nav.Dropdown.Item eventKey="5.1">Action</Nav.Dropdown.Item>
+            </Col>
+            <Col>
+              <Nav.Dropdown.Item eventKey="5.2">Action</Nav.Dropdown.Item>
+            </Col>
+            <Col>
+              <Nav.Dropdown.Item eventKey="5.3">Action</Nav.Dropdown.Item>
+            </Col>
+          </Row>
+          <Row>
+            <Col>
+              <Nav.Dropdown.Item eventKey="5.4">Action</Nav.Dropdown.Item>
+            </Col>
+            <Col>
+              <Nav.Dropdown.Item eventKey="5.5">Action</Nav.Dropdown.Item>
+            </Col>
+            <Col>
+              <Nav.Dropdown.Item eventKey="5.6">Action</Nav.Dropdown.Item>
+            </Col>
+          </Row>
+        </Container>
       </Nav.Dropdown>
     </Nav>
   );
@@ -84,17 +127,33 @@ export const Template = (args) => {
 
 # NavDropdown
 
-NavDropdown is one of the types of children for `Nav` component. 
+NavDropdown is one of the types of children for `Nav` component.
 
 By default, the menu opens by mouse hovering over the toggle and it is a single-columned menu like the `<Dropdown/>`.
 
+onClick of the Dropdown Toggle will redirect the page if `href` is present.
+  
 It consists of subcomponents: `<Nav.Dropdown.Item>`, `<Nav.Dropdown.ItemText>`, `<Nav.Dropdown.Divider>`,`<Nav.Dropdown.Header>`,  
 NavDropdown and its subcomponents are build from `<Dropdown />` and their APIS can be referenced from `<Dropdown />`
 
 <Canvas>
-  <Story height="250px" name="Default">{Template.bind({})}</Story>
+  <Story height="250px" name="Default">
+    {Template.bind({})}
+  </Story>
 </Canvas>
 
 ## API
 
 <ArgsTable story="Default" />
+
+## MegaMenu Dropdown
+
+Pass in `isMegaMenu`: `true` and create your own layout using.
+
+In this example, `<Container />`, `<Row />` and `<Col />` are used to customise a layout for megamenu
+
+<Canvas>
+  <Story height="250px" name="Megamenu">
+    {Megamenu.bind({})}
+  </Story>
+</Canvas>

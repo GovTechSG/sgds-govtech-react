@@ -70,6 +70,7 @@ const propTypes = {
   bsPrefix: PropTypes.string,
   href: PropTypes.string,
   isMegaMenu: PropTypes.bool,
+  eventKey: PropTypes.oneOfType([PropTypes.string, PropTypes.number])
 };
 
 const NavDropdown: BsPrefixRefForwardingComponent<'li', NavDropdownProps> =
@@ -109,7 +110,7 @@ const NavDropdown: BsPrefixRefForwardingComponent<'li', NavDropdownProps> =
         typeof expand === 'string' && defaultMediaQueries[expand];
       const numberMediaQuery =
         typeof expand === 'number' && useMediaQuery({ maxWidth: expand - 1 });
-
+      console.log(numberMediaQuery)
       const [isHam, setIsHam] = React.useState(stringMediaQuery);
 
       const navItemPrefix = useBootstrapPrefix(undefined, 'nav-item');
