@@ -3,6 +3,7 @@ import * as React from 'react';
 import { BsPrefixRefForwardingComponent } from '../helpers';
 import SideNavContext from './SideNavContext';
 import PropTypes from 'prop-types';
+import classNames from 'classnames';
 
 export interface SideNavLinkProps extends Omit<NavLinkProps, 'eventKey'> {
   eventKey: string;
@@ -14,17 +15,13 @@ const propTypes = {
 const SideNavLink: BsPrefixRefForwardingComponent<'a', SideNavLinkProps> =
   React.forwardRef<HTMLAnchorElement, SideNavLinkProps>(
     ({ eventKey, ...props }, ref) => {
-      const { setActiveNavLinkKey } = React.useContext(SideNavContext);
-
-      const handleClick = () => {
-        setActiveNavLinkKey(eventKey);
-      };
+      const {  activeLinkKey } = React.useContext(SideNavContext);
       return (
         <NavLink
           {...props}
           ref={ref}
           eventKey={eventKey}
-          onClick={handleClick}
+          className={classNames( activeLinkKey === eventKey && 'active' )}
         />
       );
     }

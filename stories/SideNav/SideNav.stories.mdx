@@ -1,0 +1,455 @@
+import { ArgsTable, Canvas, Meta, Story } from '@storybook/addon-docs';
+import { HIDDEN_COMMON_PROPS } from '../helpers';
+import { SideNav, NavLink } from '../../src/components/index';
+import { useState } from 'react';
+
+<Meta
+  title="Components/SideNav"
+  component={SideNav}
+  argTypes={{
+    ...HIDDEN_COMMON_PROPS,
+    alwaysOpen: {
+      table: { category: `<SideNav />` },
+      description:
+        'Allow sidenav items to stay open when another item is opened',
+    },
+    defaultActiveKey: {
+      description:
+        'The default active key that sets an sidenav item to be expanded on start, value should correspond to assigned `eventKey` prop.',
+      table: {
+        category: `<SideNav />`,
+        type: {
+          summary: 'SideNavEventKey: string | string[] | null | undefined',
+        },
+      },
+      control: { disable: true },
+    },
+    activeKey: {
+      description:
+        'The current active key that corresponds to the currently expanded item',
+      table: {
+        category: `<SideNav />`,
+        type: {
+          summary: 'SideNavEventKey: string | string[] | null | undefined',
+        },
+      },
+      control: { disable: true },
+    },
+    activeNavLinkKey: {
+      description:
+        'The current active SideNavLink. Its value should point to one of the `eventKey` value of SideNavLink',
+      table: {
+        category: `<SideNav />`,
+        type: {
+          summary: 'string',
+        },
+      },
+      control: { disable: true },
+    },
+    eventKey: {
+      description:
+        'A unique key used to control `SideNav.Item` collapse/expand. *Required* to apply **defaultActiveKey** & **activeKey**',
+      table: {
+        category: '<SideNav.Item />',
+        type: { summary: 'string' },
+      },
+      type: { required: true },
+    },
+    href: {
+      description:
+        'Providing a `href` will render an `<a>` element and remove toggle icon',
+      table: {
+        category: '<SideNav.Button />',
+        type: { summary: 'string' },
+      },
+    },
+    as: {
+      description: 'Set a custom element for this component',
+      table: {
+        category: '<SideNav.Collapse />',
+        type: { summary: 'Element' },
+      },
+      control: { disable: true },
+    },
+    children: {
+      table: {
+        category: '<SideNav.Collapse />',
+        type: { summary: 'Element' },
+      },
+    },
+  }}
+/>
+
+export const Template = (args) => {
+  return (
+    <SideNav {...args}>
+      <SideNav.Item eventKey="0">
+        <SideNav.Button>SideNav Item #1</SideNav.Button>
+        <SideNav.Collapse>
+          <>
+            <SideNav.Link eventKey="nl-1" href="#">
+              number one
+            </SideNav.Link>
+            <SideNav.Link eventKey="nl-2" href="#">
+              number one
+            </SideNav.Link>
+            <SideNav.Link eventKey="nl-3" href="#">
+              number one
+            </SideNav.Link>
+          </>
+        </SideNav.Collapse>
+      </SideNav.Item>
+      <SideNav.Item eventKey="1">
+        <SideNav.Button>SideNav Item #2</SideNav.Button>
+        <SideNav.Collapse>
+          <>
+            <SideNav.Link eventKey="nl-4">number two</SideNav.Link>
+            <SideNav.Link eventKey="nl-6">number two</SideNav.Link>
+            <SideNav.Link eventKey="nl-7">number two</SideNav.Link>
+            <SideNav.Link eventKey="nl-8">number two</SideNav.Link>
+          </>
+        </SideNav.Collapse>
+      </SideNav.Item>
+      <SideNav.Item eventKey="2">
+        <SideNav.Button href="#">SideNav Item #3</SideNav.Button>
+      </SideNav.Item>
+    </SideNav>
+  );
+};
+
+export const ActiveKeyTemplate = (initialAK, initialALK) => {
+  return () => {
+    const [activeKey, setActiveKey] = useState(initialAK);
+    const [activeLinkKey, setActiveLinkKey] = useState(initialALK);
+    const clickLink = (key) => {
+      setActiveLinkKey(key);
+    };
+    const clickButton = (key) => {
+      activeKey === key ? setActiveKey('') : setActiveKey(key);
+    };
+    const clickButtonLink = (key) => {
+      setActiveLinkKey('');
+      clickButton(key);
+    };
+    return (
+      <SideNav activeNavLinkKey={activeLinkKey} activeKey={activeKey}>
+        <SideNav.Item eventKey="0">
+          <SideNav.Button onClick={() => clickButton('0')}>
+            SideNav Item #1
+          </SideNav.Button>
+          <SideNav.Collapse>
+            <>
+              <SideNav.Link
+                eventKey="nl-1"
+                href="#"
+                onClick={() => clickLink('nl-1')}
+              >
+                number one
+              </SideNav.Link>
+              <SideNav.Link
+                eventKey="nl-2"
+                href="#"
+                onClick={() => clickLink('nl-2')}
+              >
+                number one
+              </SideNav.Link>
+              <SideNav.Link
+                eventKey="nl-3"
+                href="#"
+                onClick={() => clickLink('nl-3')}
+              >
+                number one
+              </SideNav.Link>
+            </>
+          </SideNav.Collapse>
+        </SideNav.Item>
+        <SideNav.Item eventKey="1">
+          <SideNav.Button onClick={() => clickButton('1')}>
+            SideNav Item #2
+          </SideNav.Button>
+          <SideNav.Collapse>
+            <>
+              {['one', 'two', 'three', 'four'].map((e, i) => (
+                <SideNav.Link
+                  key={i}
+                  eventKey={`${e}-${i}`}
+                  onClick={() => clickLink(`${e}-${i}`)}
+                >
+                  number {e}
+                </SideNav.Link>
+              ))}
+            </>
+          </SideNav.Collapse>
+        </SideNav.Item>
+        <SideNav.Item eventKey="2">
+          <SideNav.Button onClick={() => clickButtonLink('2')} href="#">
+            SideNav Item #3
+          </SideNav.Button>
+        </SideNav.Item>
+      </SideNav>
+    );
+  };
+};
+const ManageActiveState = ActiveKeyTemplate('', '');
+const ActiveLink = ActiveKeyTemplate('0', 'nl-2');
+
+# SideNav
+
+`<SideNav />` consist of subcomponents `<SideNav.Button />`, `<SideNav.Collapse>`, `<SideNav.Item />`
+
+The default `<SideNav />` is close. When other `<SideNav.Button />` is clicked on, all other opened items will collapse.
+
+<Canvas>
+  <Story name="Default">{Template.bind({})}</Story>
+</Canvas>
+
+## API
+
+<ArgsTable story="Default" />
+
+### Default SideNav - code sample
+
+```jsx
+import { SideNav } from 'sgds-govtech-react';
+
+export const DefaultSideNav = () => {
+  return (
+    <SideNav>
+      <SideNav.Item eventKey="0">
+        <SideNav.Button>SideNav Item #1</SideNav.Button>
+        <SideNav.Collapse>
+          <>
+            <SideNav.Link eventKey="nl-1" href="#">
+              number one
+            </SideNav.Link>
+            <SideNav.Link eventKey="nl-2" href="#">
+              number one
+            </SideNav.Link>
+            <SideNav.Link eventKey="nl-3" href="#">
+              number one
+            </SideNav.Link>
+          </>
+        </SideNav.Collapse>
+      </SideNav.Item>
+      <SideNav.Item eventKey="1">
+        <SideNav.Button>SideNav Item #2</SideNav.Button>
+        <SideNav.Collapse>
+          <>
+            <SideNav.Link eventKey="nl-4">number two</SideNav.Link>
+            <SideNav.Link eventKey="nl-6">number two</SideNav.Link>
+            <SideNav.Link eventKey="nl-7">number two</SideNav.Link>
+            <SideNav.Link eventKey="nl-8">number two</SideNav.Link>
+          </>
+        </SideNav.Collapse>
+      </SideNav.Item>
+      <SideNav.Item eventKey="2">
+        <SideNav.Button href="#">SideNav Item #3</SideNav.Button>
+      </SideNav.Item>
+    </SideNav>
+  );
+};
+```
+
+### Usage Recommendation
+
+export const SingleLink = () => (
+  <SideNav>
+    <SideNav.Item eventKey="0">
+      <SideNav.Button href="#">SideNav Item #1</SideNav.Button>
+    </SideNav.Item>
+  </SideNav>
+);
+
+When the sidenav is a single link with no collapsible contents, use `<SideNav.Button />` like an anchor element by adding `href` prop
+
+<Canvas>
+  <Story name="Single Link">{SingleLink.bind({})}</Story>
+</Canvas>
+
+```jsx
+<SideNav>
+  <SideNav.Item eventKey="0">
+    <SideNav.Button href="#">SideNav Item #1</SideNav.Button>
+  </SideNav.Item>
+</SideNav>
+```
+
+## Always Open
+
+When `alwaysOpen` is true, `defaultActiveKey` prop becomes an array of active keys. The SideNavItem remains open even when the next SideNavItem is opened.
+
+<Canvas>
+  <Story name="Always Open" args={{ alwaysOpen: true }}>
+    {Template.bind({})}
+  </Story>
+</Canvas>
+
+## Manage `activeKey` with useState
+
+To control the active states of both SideNavLinks and SideNavItems and keep track of them,
+use React useState hook and onClick handler on `<SideNavButton/>` and `<SideNavLink/>`to update state.
+Doing so, adds the .active class state to the element which gives it the active visual.
+
+<Canvas>
+  <Story name="Manage the active keys ">{ManageActiveState.bind({})}</Story>
+</Canvas>
+
+```jsx
+export const ManageActiveKeyTemplate = (args) => {
+  const [activeKey, setActiveKey] = useState('');
+  const [activeLinkKey, setActiveLinkKey] = useState('');
+  const clickLink = (key) => {
+    setActiveLinkKey(key);
+  };
+  const clickButton = (key) => {
+    activeKey === key ? setActiveKey('') : setActiveKey(key);
+  };
+  const clickButtonLink = (key) => {
+    setActiveLinkKey('');
+    clickButton(key);
+  };
+  return (
+    <SideNav {...args} activeNavLinkKey={activeLinkKey} activeKey={activeKey}>
+      <SideNav.Item eventKey="0">
+        <SideNav.Button onClick={() => clickButton('0')}>
+          SideNav Item #1
+        </SideNav.Button>
+        <SideNav.Collapse>
+          <>
+            <SideNav.Link
+              eventKey="nl-1"
+              href="#"
+              onClick={() => clickLink('nl-1')}
+            >
+              number one
+            </SideNav.Link>
+            <SideNav.Link
+              eventKey="nl-2"
+              href="#"
+              onClick={() => clickLink('nl-2')}
+            >
+              number one
+            </SideNav.Link>
+            <SideNav.Link
+              eventKey="nl-3"
+              href="#"
+              onClick={() => clickLink('nl-3')}
+            >
+              number one
+            </SideNav.Link>
+          </>
+        </SideNav.Collapse>
+      </SideNav.Item>
+      <SideNav.Item eventKey="1">
+        <SideNav.Button onClick={() => clickButton('1')}>
+          SideNav Item #2
+        </SideNav.Button>
+        <SideNav.Collapse>
+          <>
+            {['one', 'two', 'three', 'four'].map((e, i) => (
+              <SideNav.Link
+                eventKey={`${e}-${i}`}
+                onClick={() => clickLink(`${e}-${i}`)}
+              >
+                number {e}
+              </SideNav.Link>
+            ))}
+          </>
+        </SideNav.Collapse>
+      </SideNav.Item>
+      <SideNav.Item eventKey="2">
+        <SideNav.Button onClick={() => clickButtonLink('2')} href="#">
+          SideNav Item #3
+        </SideNav.Button>
+      </SideNav.Item>
+    </SideNav>
+  );
+};
+```
+
+If `alwaysOpen` is true, `activeKey` prop should be an array.
+
+```jsx
+const [activeKey, setActiveKey] = useState([]);
+const handleClick = (eventKey) => {
+  if (activeKey.includes(eventKey)) {
+    // when opened SideNavItem is clicked to close
+    setActiveKey(active.filter((e) => e !== eventKey));
+    //when closed SideNavItem is clicked to open
+  } else setActiveKey([eventKey, ...active]);
+};
+```
+
+## Opened Items on first load
+
+There are a few scenarios where one would require the SideNav.Item to be expanded on first load.
+
+1. The basic requirement that menus are expanded on first load
+
+2. There is an active SideNavLink and the corresponding SideNav.Item that nests the active SideNavLink should be expanded
+
+### Scenario 1 : `SideNav.Item` are expanded on first load
+
+Control which SideNavItem should be open on first load by defining `defaultActiveKey` or `activeKey` array with the `eventKey` and `alwaysOpen` is true
+
+> **_NOTE:_** : `defaultActiveKey` **must** be an array when used with `alwaysOpen: true`
+
+```jsx
+<SideNav defaultActiveKey={['0', '1']} alwaysOpen>
+  <SideNav.Item eventKey="0">
+    <SideNav.Button>SideNav Item #1</SideNav.Button>
+    ...
+  </SideNav.Item>
+  <SideNav.Item eventKey="1">...</SideNav.Item>
+  <SideNav.Item eventKey="2">...</SideNav.Item>
+</SideNav>
+```
+
+<Canvas>
+  <Story
+    name="First Load Open"
+    args={{ defaultActiveKey: ['0', '1'], alwaysOpen: true }}
+  >
+    {Template.bind({})}
+  </Story>
+</Canvas>
+
+### Scenario 2: `SideNav.Item` that nests the active `SideNavLink` should be expanded on first load
+
+It is required to pass a unique `eventKey` to every `<SideNav.Link />`.
+
+Use React setState hook to control initial `activeKey` and `activeNavLinkKey` and pass it to `<SideNav />`
+
+<Canvas>
+  <Story name="Open when SideNavLink is active">{ActiveLink.bind({})}</Story>
+</Canvas>
+
+## Customize - Add icons
+
+Customize by adding icons to your `<SideNav.Button/>`
+
+export const WithIcon = () => (
+  <SideNav>
+    <SideNav.Item eventKey="0">
+      <SideNav.Button href="#">
+        <i className="bi bi-apple"></i>
+        SideNav Item #1
+      </SideNav.Button>
+    </SideNav.Item>
+  </SideNav>
+);
+
+<Canvas>
+  <Story name="Add Icons">{WithIcon.bind({})}</Story>
+</Canvas>
+
+```jsx
+<SideNav>
+  <SideNav.Item eventKey="0">
+    <SideNav.Button href="#">
+      <i className="bi bi-apple"></i>
+      SideNav Item #1
+    </SideNav.Button>
+  </SideNav.Item>
+</SideNav>
+```
