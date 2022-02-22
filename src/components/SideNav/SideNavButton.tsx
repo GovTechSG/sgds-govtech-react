@@ -31,13 +31,11 @@ const propTypes = {
 
 export function useSideNavButton(
   eventKey: string,
-  isAnchor: boolean,
   onClick?: EventHandler,
 ): EventHandler {
-  const { activeEventKey, onSelect, alwaysOpen, setActiveNavLinkKey } = useContext(SideNavContext);
+  const { activeEventKey, onSelect, alwaysOpen } = useContext(SideNavContext);
   return (e) => {
-    // if button is a <a/> when clicked reset activeNavLinkKey
-    if(isAnchor) setActiveNavLinkKey('')
+
     /*
       Compare the event key in context with the given event key.
       If they are the same, then collapse the component.
@@ -92,17 +90,14 @@ const SideNavButton: BsPrefixRefForwardingComponent<
   ) => {
     const btnRef = React.useRef<HTMLButtonElement>(null)
     const mergedRef = useMergedRefs(ref as React.MutableRefObject<HTMLButtonElement>, btnRef)
-    const { eventKey, activeLink } = useContext(SideNavItemContext);
-    const sideNavOnClick = useSideNavButton(eventKey, !!props.href,onClick );
+    const { eventKey } = useContext(SideNavItemContext);
+    const sideNavOnClick = useSideNavButton(eventKey,onClick );
     const { activeEventKey } = useContext(SideNavContext);
 
     if (Component === 'button') {
       props.type = 'button';
     }
 
-    React.useEffect(() => {
-      if(activeLink) btnRef.current?.click()
-    }, [])
 
     return (
       <Component

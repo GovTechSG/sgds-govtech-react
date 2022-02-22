@@ -2,6 +2,7 @@ import * as React from 'react';
 import { fireEvent, render, waitFor } from '@testing-library/react';
 import SideNav from '../SideNav';
 import NavLink from '../../Nav/NavLink';
+import { useState } from 'react';
 describe('<SideNav>', () => {
   it('should output default structure', () => {
     const { getByText } = render(<SideNav>SideNav</SideNav>);
@@ -241,71 +242,112 @@ describe('<SideNav>', () => {
   });
 });
 
+const Component = () => {
+  const [activeKey, setActiveKey] = useState('1');
+  const [activeLinkKey, setActiveLinkKey] = useState('two-1');
+  const clickLink = (key: string) => {
+    setActiveLinkKey(key);
+  };
+  const clickButton = (key: string) => {
+    activeKey === key ? setActiveKey('') : setActiveKey(key);
+  };
+  const clickButtonLink = (key:string) => {
+    setActiveLinkKey("")
+    clickButton(key)
+  }
+  return (
+    <SideNav activeNavLinkKey={activeLinkKey} activeKey={activeKey}>
+      <SideNav.Item eventKey="0">
+        <SideNav.Button onClick={() => clickButton('0')}>
+          SideNav Item #1
+        </SideNav.Button>
+        <SideNav.Collapse>
+          <>
+            <SideNav.Link
+              eventKey="nl-1"
+              href="#"
+              onClick={() => clickLink('nl-1')}
+            >
+              number1
+            </SideNav.Link>
+            <SideNav.Link
+              eventKey="nl-2"
+              href="#"
+              onClick={() => clickLink('nl-2')}
+            >
+              number one
+            </SideNav.Link>
+            <SideNav.Link
+              eventKey="nl-3"
+              href="#"
+              onClick={() => clickLink('nl-3')}
+            >
+              number one
+            </SideNav.Link>
+          </>
+        </SideNav.Collapse>
+      </SideNav.Item>
+      <SideNav.Item eventKey="1">
+        <SideNav.Button onClick={() => clickButton('1')}>
+          SideNav Item #2
+        </SideNav.Button>
+        <SideNav.Collapse>
+          <>
+            {['one', 'two', 'three', 'four'].map((e, i) => (
+              <SideNav.Link
+                key={i}
+                eventKey={`${e}-${i}`}
+                onClick={() => clickLink(`${e}-${i}`)}
+              >
+                number {e}
+              </SideNav.Link>
+            ))}
+          </>
+        </SideNav.Collapse>
+      </SideNav.Item>
+      <SideNav.Item eventKey="2">
+        <SideNav.Button onClick={() => clickButtonLink("2")}
+          href="#">
+          SideNav Item #3
+        </SideNav.Button>
+      </SideNav.Item>
+    </SideNav>
+  );
+};
+
 describe('SideNav behaviour when there are active SideNavLink', () => {
-  it('on first load, second navitem should be expanded', async() => {
-    const { container, getByText } = render(
-      <SideNav activeNavLinkKey="nl-4">
-        <SideNav.Item eventKey="0">
-          <SideNav.Button>SideNav Item #1</SideNav.Button>
-          <SideNav.Collapse>
-            <>
-              <SideNav.Link eventKey="nl-1" href="#">
-                number1
-              </SideNav.Link>
-              <SideNav.Link eventKey="nl-2" href="#">
-                number2
-              </SideNav.Link>
-              <SideNav.Link eventKey="nl-3" href="#">
-                number3
-              </SideNav.Link>
-            </>
-          </SideNav.Collapse>
-        </SideNav.Item>
-        <SideNav.Item eventKey="1" activeNavLinkKey="nl-4">
-          <SideNav.Button>SideNav Item #2</SideNav.Button>
-          <SideNav.Collapse>
-            <>
-              <SideNav.Link eventKey="nl-4">number4</SideNav.Link>
-              <SideNav.Link eventKey="nl-5">number5</SideNav.Link>
-              <SideNav.Link eventKey="nl-6">number6</SideNav.Link>
-              <SideNav.Link eventKey="nl-7">number7</SideNav.Link>
-              <SideNav.Link eventKey="nl-8">number8</SideNav.Link>
-            </>
-          </SideNav.Collapse>
-        </SideNav.Item>
-        <SideNav.Item eventKey="2">
-          <SideNav.Button href="#">SideNav Item #3</SideNav.Button>
-        </SideNav.Item>
-      </SideNav>
-    );
+  it('on first load, second navitem should be expanded', async () => {
+    const { container, getByText } = render(<Component />);
     // second nav item is open and first nav item is closed
-    expect(container.querySelectorAll('.collapse').length).toEqual(1);
+    expect(container.querySelectorAll('.show').length).toEqual(1);
     expect(container.querySelectorAll('.btn')[1].classList).not.toContain(
-      'collapsed'
+      'collapsed' 
     );
     expect(container.querySelectorAll('.btn')[0].classList).toContain(
       'collapsed'
     );
-    expect(getByText('number4').classList).toContain('active');
+    expect(getByText('number two').classList).toContain('active'); 
 
     //when clicked on button number4 navlink is no longer active
 
     fireEvent.click(getByText('SideNav Item #3'));
-    await waitFor(() =>
-      expect(getByText('number4').classList).not.toContain('active')
+    await waitFor(() => 
+      expect(getByText('number two').classList).not.toContain('active') 
     );
 
     // click on first navitem
     fireEvent.click(getByText('SideNav Item #1'));
-    await waitFor(() => {
+    await waitFor(() => { 
       expect(container.querySelectorAll('.btn')[0].classList).not.toContain(
         'collapsed'
       );
       expect(getByText('number1').classList).not.toContain('active');
-    });
+    }); 
     //click on navlink number 1
     fireEvent.click(getByText('number1'));
     //navlink 1 should be active
-    await waitFor(() => expect(getByText('number1').classList).toContain('active'));
+    await waitFor(() =>
+      expect(getByText('number1').classList).toContain('active')
+    );
   });
 });
