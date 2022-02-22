@@ -3,7 +3,7 @@ import FormControl from '../Form/FormControl';
 import InputGroup from '../InputGroup/InputGroup';
 import Overlay from '../Overlay/Overlay';
 import Popover from '../Popover/Popover';
-import Calendar from './BSCalendar';
+import Calendar from './Calendar';
 import CalendarHeader from './CalendarHeader';
 import { useState, useRef, useMemo } from 'react';
 import { Placement } from '../types';
@@ -386,7 +386,7 @@ export const DatePicker: React.FC<DatePickerProps> = ({
     onKeyDown: handleKeyDown,
     value: state.inputValue,
     required: props.required,
-    placeholder: state.focused ? dateFormat : state.placeholder,
+    placeholder:  "" /* state.focused ? dateFormat : state.placeholder */,
     ref: formControlRef,
     disabled: props.disabled,
     onFocus: handleFocus,
@@ -436,14 +436,16 @@ export const DatePicker: React.FC<DatePickerProps> = ({
   return (
     <DatePickerContext.Provider value={contextValue}>
       <InputGroup
+      variant="has-icon"
         //@ts-ignore
         // ref="inputGroup"
         //   bsClass={this.props.showClearButton ? this.props.bsClass : ''}
         //   bsSize={this.props.bsSize}
         id={props.id ? `${props.id}_group` : undefined}
-      >
-        <div ref={overlayRef}>{control}</div>
+      >     
 
+        <div ref={overlayRef} >{control} </div>
+        <i className="bi bi-calendar form-control-icon"></i>
         <Overlay
           rootClose={true}
           onHide={handleHide}

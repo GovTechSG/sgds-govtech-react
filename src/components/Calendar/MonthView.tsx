@@ -1,9 +1,7 @@
 import classNames from 'classnames';
 import * as React from 'react';
-import Button from '../Button/Button';
-import Col from '../Col';
 import DatePickerContext from './DatePickerContext'
-import { useState, useContext } from 'react';
+import { useContext } from 'react';
 import { CalendarState } from './DatePicker';
 export interface MonthViewProps extends React.HTMLAttributes<HTMLElement> {
   displayDate: Date;
@@ -53,7 +51,7 @@ export const MonthView = React.forwardRef<HTMLDivElement, MonthViewProps>(
         </div>
       </div>
     );
-  }
+  }   
 );
 
 export default MonthView;
