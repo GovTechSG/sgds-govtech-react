@@ -140,11 +140,11 @@ export const DatePicker: React.FC<DatePickerProps> = ({
       props.onChange('', '');
     }
   };
-  const escapeRegex = (str: string) => {
-    return String(str).replace(new RegExp(`[^0-9${SEPARATOR}]`), '');
-  };
+  // const escapeRegex = (str: string) => {
+  //   return String(str).replace(new RegExp(`[^0-9${SEPARATOR}]`), '');
+  // };
   const handleBadInput = (originalValue: string) => {
-    const parts = originalValue.replace(new RegExp(`[^0-9${escapeRegex(SEPARATOR)}]`), '')
+    const parts = originalValue.replace(new RegExp(`[^0-9${SEPARATOR}]`), '')
       .split(SEPARATOR);
     if (dateFormat.match(/MM.DD.YYYY/) || dateFormat.match(/DD.MM.YYYY/)) {
       if (parts[0] && parts[0].length > 2) {
