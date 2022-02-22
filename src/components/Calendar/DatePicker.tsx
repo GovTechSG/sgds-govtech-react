@@ -139,7 +139,8 @@ export const DatePicker: React.FC<DatePickerProps> = ({
     }
   };
   const escapeRegex = (str: string) => {
-    return String(str).replace(new RegExp(`[^0-9${state.separator}]`), '');
+    const string = str
+    return String(string).replace(new RegExp(`[^0-9${state.separator}]`), '');
   };
   const handleBadInput = (originalValue: string) => {
     const parts = escapeRegex(originalValue)
