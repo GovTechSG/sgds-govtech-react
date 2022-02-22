@@ -49,6 +49,7 @@ export interface DatePickerProps {
   children: JSX.Element | JSX.Element[];
   onInvalid: Function;
   noValidate: boolean;
+  multiSelection?: boolean;
 }
 
 export interface CalendarState {
@@ -66,6 +67,7 @@ export const DatePicker: React.FC<DatePickerProps> = ({
   value = new Date().toISOString(),
   dateFormat = 'DD/MM/YYYY',
   calendarPlacement = 'bottom',
+  multiSelection = false,
   ...props
 }) => {
   const formControlRef = useRef(null);
@@ -462,19 +464,6 @@ export const DatePicker: React.FC<DatePickerProps> = ({
             <Popover.Header>{calendarHeader}</Popover.Header>
             <Popover.Body>
               {BodyContent()}
-              {/*  <Calendar
-              cellPadding={props.cellPadding}
-              selectedDate={state.selectedDate}
-              displayDate={state.displayDate}
-              changeDate={onChangeDate}
-              weekStartsOn={props.weekStartsOn}
-              showTodayButton={props.showTodayButton}
-              todayButtonLabel={props.todayButtonLabel}
-              minDate={props.minDate}
-              maxDate={props.maxDate}
-              roundedCorners={props.roundedCorners}
-              showWeeks={props.showWeeks}
-            /> */}
             </Popover.Body>
           </Popover>
         </Overlay>
