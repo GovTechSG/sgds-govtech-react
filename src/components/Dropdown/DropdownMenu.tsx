@@ -120,7 +120,7 @@ export function getDropdownMenuPlacement(
   return placement;
 }
 
-const DropdownMenu: BsPrefixRefForwardingComponent<'div', DropdownMenuProps> =
+const DropdownMenu: BsPrefixRefForwardingComponent<'ul', DropdownMenuProps> =
   React.forwardRef<HTMLElement, DropdownMenuProps>(
     (
       {
@@ -132,7 +132,7 @@ const DropdownMenu: BsPrefixRefForwardingComponent<'div', DropdownMenuProps> =
         show: showProps,
         renderOnMount,
         // Need to define the default "as" during prop destructuring to be compatible with styled-components github.com/react-bootstrap/react-bootstrap/issues/3595
-        as: Component = 'div',
+        as: Component = 'ul',
         popperConfig,
         variant,
         isNav,
