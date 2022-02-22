@@ -20,7 +20,6 @@ const propTypes = {
   /** Children prop should only contain a single child, and is enforced as such */
   children: PropTypes.oneOfType([
     PropTypes.element,
-    PropTypes.arrayOf(PropTypes.element),
   ]),
 };
 
@@ -42,7 +41,7 @@ const SideNavCollapse: BsPrefixRefForwardingComponent<
         className={classNames(className, bsPrefix)}
       >
         <Component>
-          <ul className="list-unstyled">{children}</ul>
+          <ul className="list-unstyled">{React.Children.only(children)}</ul>
         </Component>
       </Collapse>
     );
