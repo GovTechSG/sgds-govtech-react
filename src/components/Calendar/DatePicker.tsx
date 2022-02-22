@@ -60,9 +60,9 @@ export interface CalendarState {
   focused: boolean;
   inputFocused: boolean;
   placeholder: string;
-  separator: string;
+  // separator: string;
 }
-
+const SEPARATOR = '/'
 export const DatePicker: React.FC<DatePickerProps> = ({
   value = new Date().toISOString(),
   dateFormat = 'DD/MM/YYYY',
@@ -80,7 +80,7 @@ export const DatePicker: React.FC<DatePickerProps> = ({
     focused: false,
     inputFocused: false,
     placeholder: dateFormat,
-    separator: '/',
+    // separator: '/',
   };
   const [state, setState] = useState(initialState);
   const [view, setView] = useState<CalendarView>('day');
@@ -141,12 +141,11 @@ export const DatePicker: React.FC<DatePickerProps> = ({
     }
   };
   const escapeRegex = (str: string) => {
-    const string = str
-    return String(string).replace(new RegExp(`[^0-9${state.separator}]`), '');
+    return String(str).replace(new RegExp(`[^0-9${SEPARATOR}]`), '');
   };
   const handleBadInput = (originalValue: string) => {
-    const parts = escapeRegex(originalValue)
-      .split(state.separator);
+    const parts = originalValue.replace(new RegExp(`[^0-9${escapeRegex(SEPARATOR)}]`), '')
+      .split(SEPARATOR);
     if (dateFormat.match(/MM.DD.YYYY/) || dateFormat.match(/DD.MM.YYYY/)) {
       if (parts[0] && parts[0].length > 2) {
         parts[1] = parts[0].slice(2) + (parts[1] || '');
@@ -174,7 +173,7 @@ export const DatePicker: React.FC<DatePickerProps> = ({
     }
     setState({
       ...state,
-      inputValue: parts.join(state.separator),
+      inputValue: parts.join(SEPARATOR),
     });
   };
 
@@ -182,7 +181,7 @@ export const DatePicker: React.FC<DatePickerProps> = ({
     //@ts-ignore
     const originalValue = formControlRef.current.value;
     const inputValue = originalValue
-      .replace(/(-|\/\/)/g, state.separator)
+      .replace(/(-|\/\/)/g, SEPARATOR)
       .slice(0, 10);
     if (!inputValue) {
       clear();
@@ -279,7 +278,7 @@ export const DatePicker: React.FC<DatePickerProps> = ({
     const day = date.getDate();
 
     //this method is executed during intialState setup... handle a missing state properly
-    const separator = state.separator;
+    const separator = SEPARATOR;
     if (dateFormat.match(/MM.DD.YYYY/)) {
       return (
         (month > 9 ? month : `0${month}`) +
@@ -610,7 +609,7 @@ export default DatePicker;
 //     state.focused = false;
 //     state.inputFocused = false;
 //     state.placeholder = this.props.placeholder || this.props.dateFormat;
-//     state.separator = this.props.dateFormat.match(/[^A-Z]/)[0];
+//     SEPARATOR = this.props.dateFormat.match(/[^A-Z]/)[0];
 //     return state;
 //   },
 
@@ -764,7 +763,7 @@ export default DatePicker;
 
 //     //this method is executed during intialState setup... handle a missing state properly
 //     const separator = this.state
-//       ? this.state.separator
+//       ? this.SEPARATOR
 //       : this.props.dateFormat.match(/[^A-Z]/)[0];
 //     if (this.props.dateFormat.match(/MM.DD.YYYY/)) {
 //       return (
@@ -795,8 +794,8 @@ export default DatePicker;
 
 //   handleBadInput(originalValue: string) {
 //     const parts = originalValue
-//       .replace(new RegExp(`[^0-9${this.state.separator}]`), '')
-//       .split(this.state.separator);
+//       .replace(new RegExp(`[^0-9${this.SEPARATOR}]`), '')
+//       .split(this.SEPARATOR);
 //     if (
 //       this.props.dateFormat.match(/MM.DD.YYYY/) ||
 //       this.props.dateFormat.match(/DD.MM.YYYY/)
@@ -826,7 +825,7 @@ export default DatePicker;
 //       }
 //     }
 //     this.setState({
-//       inputValue: parts.join(this.state.separator),
+//       inputValue: parts.join(this.SEPARATOR),
 //     });
 //   },
 
@@ -834,7 +833,7 @@ export default DatePicker;
 //     //@ts-ignore
 //     const originalValue = ReactDOM.findDOMNode(this.refs.input)?.value;
 //     const inputValue = originalValue
-//       .replace(/(-|\/\/)/g, this.state.separator)
+//       .replace(/(-|\/\/)/g, this.SEPARATOR)
 //       .slice(0, 10);
 
 //     if (!inputValue) {
