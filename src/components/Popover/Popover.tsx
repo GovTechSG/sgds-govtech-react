@@ -17,6 +17,7 @@ export interface PopoverProps
   body?: boolean;
   popper?: any;
   show?: boolean;
+  hasArrow?: boolean;
 }
 
 const propTypes = {
@@ -76,8 +77,8 @@ const propTypes = {
 
   /** @private */
   show: PropTypes.bool,
+  hasArrow: PropTypes.bool,
 };
-
 
 const defaultProps: Partial<PopoverProps> = {
   placement: 'right',
@@ -93,11 +94,12 @@ const Popover = React.forwardRef<HTMLDivElement, PopoverProps>(
       children,
       body,
       arrowProps,
+      hasArrow = false,
       popper: _,
       show: _1,
       ...props
     },
-    ref,
+    ref
   ) => {
     const decoratedBsPrefix = useBootstrapPrefix(bsPrefix, 'popover');
     const isRTL = useIsRTL();
@@ -113,15 +115,15 @@ const Popover = React.forwardRef<HTMLDivElement, PopoverProps>(
         className={classNames(
           className,
           decoratedBsPrefix,
-          primaryPlacement && `bs-popover-${bsDirection}`,
+          primaryPlacement && `bs-popover-${bsDirection}`
         )}
         {...props}
       >
-        <div className="popover-arrow" {...arrowProps} />
-        {body ? <PopoverBody>{children}</PopoverBody> : children}
+        {hasArrow && <div className="popover-arrow" {...arrowProps} />}
+        <> {children}</>
       </div>
     );
-  },
+  }
 );
 
 Popover.defaultProps = defaultProps;

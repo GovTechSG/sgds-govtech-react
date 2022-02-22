@@ -51,7 +51,7 @@ export interface DatePickerProps {
   noValidate: boolean;
 }
 
-interface CalendarState {
+export interface CalendarState {
   value: string;
   displayDate: Date;
   selectedDate: Date;
@@ -415,8 +415,8 @@ export const DatePicker: React.FC<DatePickerProps> = ({
   );
 
   const BodyContent = (): JSX.Element => {
-    if (view === 'month') return <MonthView displayDate={state.displayDate} />;
-    if (view === 'year') return <YearView displayDate={state.displayDate} />
+    if (view === 'month') return <MonthView displayDate={state.displayDate}  state={state} setState={setState}/>;
+    if (view === 'year') return <YearView displayDate={state.displayDate}  state={state} setState={setState} />
     return (
       <Calendar
         cellPadding={props.cellPadding}
