@@ -70,7 +70,7 @@ const propTypes = {
   bsPrefix: PropTypes.string,
   href: PropTypes.string,
   isMegaMenu: PropTypes.bool,
-  eventKey: PropTypes.oneOfType([PropTypes.string, PropTypes.number])
+  eventKey: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
 };
 
 const NavDropdown: BsPrefixRefForwardingComponent<'li', NavDropdownProps> =
@@ -106,6 +106,7 @@ const NavDropdown: BsPrefixRefForwardingComponent<'li', NavDropdownProps> =
         xl: useMediaQuery({ maxWidth: XL - 1 }),
         xxl: useMediaQuery({ maxWidth: XXL - 1 }),
       };
+      const noMediaQuery = typeof expand === 'boolean';
       const stringMediaQuery =
         typeof expand === 'string' && defaultMediaQueries[expand];
       const numberMediaQuery =
@@ -115,7 +116,9 @@ const NavDropdown: BsPrefixRefForwardingComponent<'li', NavDropdownProps> =
       const navItemPrefix = useBootstrapPrefix(undefined, 'nav-item');
 
       // const computeActive = navContext?.activeKey === activeItemKey
-      const computeActive = eventKey ? navContext?.activeKey === eventKey : undefined;
+      const computeActive = eventKey
+        ? navContext?.activeKey === eventKey
+        : undefined;
       // const [show, setShow] = useState(false);
       /* const showDropdown = () => {
         !isHam ? setShow(true) : undefined;
@@ -187,7 +190,9 @@ const NavDropdown: BsPrefixRefForwardingComponent<'li', NavDropdownProps> =
       React.useEffect(() => {
         // if (typeof expand === 'string') setIsHam(defaultMediaQueries[expand])
         // if (typeof expand === 'number') setIsHam(customMQ)
-        setIsHam(stringMediaQuery || numberMediaQuery);
+        if (noMediaQuery) setIsHam(!expand);
+        else setIsHam(stringMediaQuery || numberMediaQuery);
+        console.log(isHam);
       }, [stringMediaQuery, numberMediaQuery]);
 
       // return isHam ? ClickDropdown(Childrens) : HoverDropdown(Childrens);
