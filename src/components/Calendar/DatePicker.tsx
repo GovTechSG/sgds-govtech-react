@@ -62,7 +62,7 @@ export interface CalendarState {
   placeholder: string;
   // separator: string;
 }
-const SEPARATOR = '/'
+const SEPARATOR = '/';
 export const DatePicker: React.FC<DatePickerProps> = ({
   value = new Date().toISOString(),
   dateFormat = 'DD/MM/YYYY',
@@ -140,11 +140,9 @@ export const DatePicker: React.FC<DatePickerProps> = ({
       props.onChange('', '');
     }
   };
-  // const escapeRegex = (str: string) => {
-  //   return String(str).replace(new RegExp(`[^0-9${SEPARATOR}]`), '');
-  // };
   const handleBadInput = (originalValue: string) => {
-    const parts = originalValue.replace(new RegExp(`[^0-9${SEPARATOR}]`), '')
+    const parts = originalValue
+      .replace(new RegExp(`[^0-9${SEPARATOR}]`), '')
       .split(SEPARATOR);
     if (dateFormat.match(/MM.DD.YYYY/) || dateFormat.match(/DD.MM.YYYY/)) {
       if (parts[0] && parts[0].length > 2) {
@@ -390,7 +388,7 @@ export const DatePicker: React.FC<DatePickerProps> = ({
     onKeyDown: handleKeyDown,
     value: state.inputValue,
     required: props.required,
-    placeholder:  "" /* state.focused ? dateFormat : state.placeholder */,
+    placeholder: '' /* state.focused ? dateFormat : state.placeholder */,
     ref: formControlRef,
     disabled: props.disabled,
     onFocus: handleFocus,
@@ -419,8 +417,22 @@ export const DatePicker: React.FC<DatePickerProps> = ({
   );
 
   const BodyContent = (): JSX.Element => {
-    if (view === 'month') return <MonthView displayDate={state.displayDate}  state={state} setState={setState}/>;
-    if (view === 'year') return <YearView displayDate={state.displayDate}  state={state} setState={setState} />
+    if (view === 'month')
+      return (
+        <MonthView
+          displayDate={state.displayDate}
+          state={state}
+          setState={setState}
+        />
+      );
+    if (view === 'year')
+      return (
+        <YearView
+          displayDate={state.displayDate}
+          state={state}
+          setState={setState}
+        />
+      );
     return (
       <Calendar
         cellPadding={props.cellPadding}
@@ -440,15 +452,14 @@ export const DatePicker: React.FC<DatePickerProps> = ({
   return (
     <DatePickerContext.Provider value={contextValue}>
       <InputGroup
-      variant="has-icon"
+        variant="has-icon"
         //@ts-ignore
         // ref="inputGroup"
         //   bsClass={this.props.showClearButton ? this.props.bsClass : ''}
         //   bsSize={this.props.bsSize}
         id={props.id ? `${props.id}_group` : undefined}
-      >     
-
-        <div ref={overlayRef} >{control} </div>
+      >
+        <div ref={overlayRef}> {control} </div>
         <i className="bi bi-calendar form-control-icon"></i>
         <Overlay
           rootClose={true}
@@ -457,15 +468,14 @@ export const DatePicker: React.FC<DatePickerProps> = ({
           target={formControlRef.current}
           placement={calendarPlacement}
           container={overlayRef}
-          transition={false}
+          transition={true}
         >
           <Popover id={`date-picker-popover`}>
             <Popover.Header>{calendarHeader}</Popover.Header>
-            <Popover.Body>
-              {BodyContent()}
-            </Popover.Body>
+            <Popover.Body>{BodyContent()}</Popover.Body>
           </Popover>
         </Overlay>
+
         {props.children}
       </InputGroup>
     </DatePickerContext.Provider>
