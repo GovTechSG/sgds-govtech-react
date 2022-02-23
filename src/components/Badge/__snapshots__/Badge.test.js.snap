@@ -1,0 +1,13 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Badge should support custom \`as\` 1`] = `
+<DocumentFragment>
+  <a
+    class="badge rounded-pill bg-primary sgds"
+    data-testid="test"
+    href="#"
+  >
+    Message
+  </a>
+</DocumentFragment>
+`;
