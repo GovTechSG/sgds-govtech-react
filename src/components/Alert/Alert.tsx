@@ -1,8 +1,6 @@
 import classNames from 'classnames';
 import * as React from 'react';
 import PropTypes from 'prop-types';
-//@ts-ignore
-import { elementType } from 'prop-types-extra';
 import { useUncontrolled } from 'uncontrollable';
 import useEventCallback from '@restart/hooks/useEventCallback';
 import Anchor from '@restart/ui/Anchor';
@@ -84,7 +82,7 @@ const propTypes = {
    * `false` to disable. A custom `react-transition-group` Transition can also
    * be provided.
    */
-  transition: PropTypes.oneOfType([PropTypes.bool, elementType]),
+  transition: PropTypes.oneOfType([PropTypes.bool, PropTypes.elementType]),
 };
 
 const defaultProps = {
@@ -156,7 +154,7 @@ const Alert = React.forwardRef<HTMLDivElement, AlertProps>(
 
 Alert.displayName = 'Alert';
 Alert.defaultProps = defaultProps;
-Alert.propTypes = propTypes;
+Alert.propTypes = propTypes as any;
 
 export default Object.assign(Alert, {
   Link: AlertLink,

@@ -1,6 +1,6 @@
 {
   // see https://www.typescriptlang.org/tsconfig to better understand tsconfigs
-  "include": ["src", "types", "test/AccordionTest"],
+  "include": ["src", "types", "test/AccordionTest", "test/ModalTest", "test/InputGroupTest", "test/FormTest", "test/FadeTest", "test/DropdownTest", "test/CollapseTest", "test/CloseButtonTest", "test/CardTest", "test/ButtonTest", "test/BreadcrumbTest", "test/BootstrapModalManagerTest", "test/BadgeTest", "test/AlertTest"],
   "compilerOptions": {
     "target": "ES2017",
     "module": "esnext",

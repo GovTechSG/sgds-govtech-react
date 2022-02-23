@@ -8,10 +8,10 @@ import CloseButton from '../CloseButton/CloseButton';
 import PropTypes from 'prop-types';
 
 export interface TooltipProps {
-  placement: TooltipPlacement;
-  type: 'hover' | 'click';
+  placement?: TooltipPlacement;
+  type?: 'hover' | 'click';
   content: string;
-  children: React.ReactNode;
+  children?: React.ReactNode;
 }
 const propTypes = {
   placement : PropTypes.oneOf<TooltipPlacement>([
@@ -23,7 +23,7 @@ const propTypes = {
      "right"
   ]),
   type: PropTypes.oneOf(["hover", "click"]),
-  content: PropTypes.oneOfType([PropTypes.string]),
+  content: PropTypes.oneOfType([PropTypes.string]).isRequired,
   children : PropTypes.element,
 }
 const defaultProps: TooltipProps = {

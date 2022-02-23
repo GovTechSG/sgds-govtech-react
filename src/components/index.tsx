@@ -246,13 +246,3 @@ export type { TooltipBoxProps } from './Tooltip/TooltipBox';
 
 export { default as Tooltip } from './Tooltip/Tooltip';
 export type { TooltipProps } from './Tooltip/Tooltip';
-
-
-import * as yup from 'yup';
-import * as formik from 'formik';
-
-
-export {
-  yup,
-  formik
-}
