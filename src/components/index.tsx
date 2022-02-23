@@ -78,10 +78,10 @@ export type { FormControlProps } from './Form/FormControl';
 export { default as FormCheck } from './Form/FormCheck';
 export type { FormCheckProps } from './Form/FormCheck';
 
-export { default as FormFloating } from './Form/FormFloating';
+// export { default as FormFloating } from './Form/FormFloating';
 
-export { default as FloatingLabel } from './FloatingLabel';
-export type { FloatingLabelProps } from './FloatingLabel';
+// export { default as FloatingLabel } from './FloatingLabel';
+// export type { FloatingLabelProps } from './FloatingLabel';
 
 export { default as FormGroup } from './Form/FormGroup';
 export type { FormGroupProps } from './Form/FormGroup';

@@ -1,9 +1,9 @@
 import { fireEvent, render, waitFor } from '@testing-library/react';
 import * as React from 'react';
-import Accordion from '../Accordion';
-import AccordionCollapse from '../AccordionCollapse';
-import Dropdown from '../../Dropdown/Dropdown';
-import Nav from '../../Nav/Nav';
+import Accordion from '../../src/components/Accordion/Accordion';
+import AccordionCollapse from '../../src/components/Accordion/AccordionCollapse';
+import Dropdown from '../../src/components/Dropdown/Dropdown';
+import Nav from '../../src/components/Nav/Nav';
 
 describe('<Accordion>', () => {
   it('should output a div', () => {
