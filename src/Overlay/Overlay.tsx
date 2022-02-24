@@ -6,7 +6,7 @@ import BaseOverlay, {
   OverlayArrowProps,
 } from '@restart/ui/Overlay';
 import useMergedRefs from '@restart/hooks/useMergedRefs';
-import useOverlayOffset from '../../utils/hooks/useOverlayOffset';
+import useOverlayOffset from './useOverlayOffset';
 import Fade from '../Fade/Fade';
 import { TransitionType } from '../helpers';
 import { Placement, RootCloseEvent } from '../types';

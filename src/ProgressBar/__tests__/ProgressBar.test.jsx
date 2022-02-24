@@ -1,6 +1,6 @@
 import { render } from '@testing-library/react';
 import ProgressBar from '../ProgressBar';
-import { shouldWarn } from '../../../utils/helpers.js';
+import { shouldWarn } from '../../utils/helpers.js';
 import * as React from 'react';
 
 describe('<ProgressBar>', () => {

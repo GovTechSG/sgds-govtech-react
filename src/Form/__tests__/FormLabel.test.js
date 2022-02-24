@@ -4,7 +4,7 @@ import FormLabel from '../FormLabel';
 import FormGroup from '../FormGroup';
 
 
-import { shouldWarn } from '../../../utils/helpers';
+import { shouldWarn } from '../../utils/helpers';
 
 
 describe('<FormLabel>', () => {

@@ -1,5 +1,5 @@
 import getScrollbarSize from 'dom-helpers/scrollbarSize';
-import { injectCss } from '../../../utils/helpers';
+import { injectCss } from '../../utils/helpers';
 import BootstrapModalManager, {
   getSharedManager,
 } from '../BootstrapModalManager'; 

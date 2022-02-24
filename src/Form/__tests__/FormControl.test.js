@@ -4,7 +4,7 @@ import { render } from '@testing-library/react';
 import FormControl from '../FormControl';
 import FormGroup from '../FormGroup';
 
-import { shouldWarn } from '../../../utils/helpers';
+import { shouldWarn } from '../../utils/helpers';
 
 describe('<FormControl>', () => {
   it('should render correctly', () => {

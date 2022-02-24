@@ -1,8 +1,8 @@
 import { useMemo, useRef } from 'react';
 import hasClass from 'dom-helpers/hasClass';
 import { Options } from '@restart/ui/usePopper';
-import { useBootstrapPrefix } from '../../components/ThemeProvider/ThemeProvider';
-import Popover from '../../components/Popover/Popover';
+import { useBootstrapPrefix } from '../ThemeProvider/ThemeProvider';
+import Popover from '../Popover/Popover';
 
 // This is meant for internal use.
 // This applies a custom offset to the overlay if it's a popover.
