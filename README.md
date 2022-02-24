@@ -1,4 +1,30 @@
-# TSDX React w/ Storybook User Guide
+# sgds-govtech-react
+
+React components powered by [Singapore Government Design System](https://www.designsystem.gov.sg)
+
+React Documentation can be found [here](https://govtechsg.github.io/sgds-govtech-react) - [https://govtechsg.github.io/sgds-govtech-react](https://2-0-0-dev.dg2jutx9gylat.amplifyapp.com)
+
+
+## Installation
+
+      npm install sgds-govtech@2.0.0
+
+## Importing Components
+
+
+  
+## Stylesheets
+sgsds-govtech-react is not ship with any included CSS. Apply `sgds-govtech` styles by installing the module or CDN 
+
+
+      npm install sgds-govtech@2.0.0
+
+  #### Using CSS 
+
+     import 'bootstrap/dist/css/bootstrap.min.css';
+
+
+
 
 Congrats! You just saved yourself hours of work by bootstrapping this project with TSDX. Let’s get you oriented with what’s here and how to use it.
 
