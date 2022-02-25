@@ -1,7 +1,7 @@
 {
-  "version": "0.3.7",
+  "version": "0.5.3",
   "license": "MIT",
-  "main": "build/index.js",
+  "main": "build/main.js",
   "typings": "build/index.d.ts",
   "files": [
     "build"
@@ -78,8 +78,10 @@
     "react-dom": "^17.0.2",
     "react-is": "^17.0.2",
     "rollup": "^2.68.0",
+    "rollup-plugin-copy": "^3.4.0",
     "rollup-plugin-peer-deps-external": "^2.2.4",
     "rollup-plugin-rename": "^1.0.1",
+    "rollup-plugin-terser": "^7.0.2",
     "rollup-plugin-typescript2": "^0.31.2",
     "sgds-govtech": "^2.0.0",
     "sinon": "^12.0.1",
@@ -111,7 +113,7 @@
       "__DEV__": true
     },
     "setupFilesAfterEnv": [
-      "<rootDir>src/setupTests.ts"
+      "<rootDir>src/tests/setupTests.ts"
     ],
     "testMatch": [
       "**/__tests__/**/*.[jt]s?(x)",
