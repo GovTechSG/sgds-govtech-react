@@ -8,29 +8,56 @@ import { terser } from 'rollup-plugin-terser';
 const packageJson = require('./package.json');
 import { getFiles, getFolders } from './scripts/buildUtils';
 import copy from 'rollup-plugin-copy'
+import path, { relative } from 'path';
 
+
+// export default [
+//   {
+//     input: ['src/index.ts'],
+//     output: [
+//       {
+//         dir: 'dist',
+//         format: 'esm',
+//         sourcemap: true,
+//         exports: 'named',
+//         preserveModules: true,
+//       },
+//     ],
+//     plugins: [
+//       peerDepsExternal(),
+//       resolve(),
+//       commonjs(),
+//       typescript({
+//         tsconfig: './tsconfig.json',
+//         declaration: true,
+//         declarationDir: 'dist',
+//       }),
+//       terser()
+//     ],
+//     external: ['react', 'react-dom'],
+//   }
+// ];
 const extensions = ['.js', '.ts', '.jsx', '.tsx'];
 const inputArray = [ ...getFiles('./src/components', extensions)]
-
+const plugins =  [
+    peerDepsExternal(),
+    resolve(),
+    commonjs(),
+    typescript({
+      tsconfig: './tsconfig.json',
+      useTsconfigDeclarationDir: true,
+    }),
+    terser()
+  ]
 const folderBuilds = getFolders('./src/components').map(folder=> {
   return {
     input: `src/components/${folder}/index.ts`, 
     output: {
-      file: `build/${folder}.es.js`,
+      file: `dist/${folder}.js`,
       sourcemap: true,
       exports: 'named',
     },
-    plugins: [
-      peerDepsExternal(),
-      resolve(),
-      commonjs(),
-      typescript({
-        tsconfig: './tsconfig.json',
-        declaration: true,
-        declarationDir: 'build',
-      }),
-      terser()
-    ],
+    plugins,
     external: ['react', 'react-dom'],
   }
 })
@@ -41,23 +68,13 @@ export default [
     input: ['src/index.ts'],
     output: [
       {
-        file: 'build/index.es.js',
+        file: packageJson.module,
         format: 'esm',
         sourcemap: true,
         exports: 'named',
       },
     ],
-    plugins: [
-      peerDepsExternal(),
-      resolve(),
-      commonjs(),
-      typescript({
-        tsconfig: './tsconfig.json',
-        declaration: true,
-        declarationDir: 'build',
-      }),
-      terser()
-    ],
+    plugins,
     external: ['react', 'react-dom'],
   },
   ...folderBuilds,
@@ -71,17 +88,7 @@ export default [
         exports: 'named',
       },
     ],
-    plugins: [
-      peerDepsExternal(),
-      resolve(),
-      commonjs(),
-      typescript({
-        tsconfig: './tsconfig.json',
-        declaration: true,
-        declarationDir: 'build',
-      }),
-      terser(),
-    ],
+    plugins,
     external: ['react', 'react-dom'],
   },
 ];

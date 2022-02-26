@@ -1,10 +1,10 @@
 {
-  "version": "0.5.3",
+  "version": "0.6.6",
   "license": "MIT",
-  "main": "build/main.js",
-  "typings": "build/index.d.ts",
+  "main": "dist/main.js",
+  "typings": "dist/index.d.ts",
   "files": [
-    "build"
+    "dist"
   ],
   "engines": {
     "node": ">=10"
@@ -17,7 +17,8 @@
     "size": "size-limit",
     "analyze": "size-limit --why",
     "storybook": "start-storybook -p 6006 --no-manager-cache",
-    "build-storybook": "build-storybook"
+    "build-storybook": "build-storybook",
+    "post:build": "node ./scripts/frankBuild.js"
   },
   "peerDependencies": {
     "react": ">=16.8.0",
@@ -36,7 +37,7 @@
   },
   "name": "clk-bs",
   "author": "GovTech",
-  "module": "build/index.es.js",
+  "module": "dist/index.js",
   "size-limit": [
     {
       "path": "dist/react-dev-2.0.cjs.production.min.js",
