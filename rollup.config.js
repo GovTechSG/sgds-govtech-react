@@ -38,7 +38,7 @@ import path, { relative } from 'path';
 //   }
 // ];
 const extensions = ['.js', '.ts', '.jsx', '.tsx'];
-const inputArray = [ ...getFiles('./src/components', extensions)]
+// const inputArray = [ ...getFiles('./src/components', extensions)]
 const plugins =  [
     peerDepsExternal(),
     resolve(),
@@ -49,11 +49,11 @@ const plugins =  [
     }),
     terser()
   ]
-const folderBuilds = getFolders('./src/components').map(folder=> {
+const folderBuilds = getFolders('./src').map(folder=> {
   return {
-    input: `src/components/${folder}/index.ts`, 
+    input: `src/${folder}/index.ts`, 
     output: {
-      file: `dist/${folder}.js`,
+      file: `dist/${folder}/index.js`,
       sourcemap: true,
       exports: 'named',
     },

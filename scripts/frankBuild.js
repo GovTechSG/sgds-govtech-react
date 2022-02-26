@@ -13,22 +13,21 @@ async function createPackageFile() {
     resolve(packagePath, './package.json'),
     'utf8'
   );
-  const { scripts, devDependencies, ...packageOthers } = JSON.parse(
-    packageData
-  );
+  const { scripts, devDependencies, files, ...packageOthers } =
+    JSON.parse(packageData);
   const packageName = packageOthers.name;
   const newPackageData = {
     ...packageOthers,
     private: false,
     typings: './index.d.ts',
-    main: './index.cjs.js',
+    main: './main.js',
     module: './index.js',
   };
 
-//   if (packageName === 'clk-bs') {
-//     delete newPackageData.main;
-//     delete newPackageData.module;
-//   }
+  //   if (packageName === 'clk-bs') {
+  //     delete newPackageData.main;
+  //     delete newPackageData.module;
+  //   }
   const targetPath = resolve(distPath, './package.json');
 
   await writeJson(targetPath, newPackageData);
