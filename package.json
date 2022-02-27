@@ -1,11 +1,26 @@
 {
-  "version": "0.1.0",
+  "name": "@govtechsg/sgds-govtech-react",
+  "description": "Design System unites Singapore Government digital services around a common visual language and user experience",
+  "author": "GovTechSG",
+  "homepage": "https://github.com/GovTechSG/sgds-govtech-react/",
+  "bugs": "https://github.com/GovTechSG/sgds-govtech-react/issues",
+  "contributors": [
+    {
+      "name": "clukhei",
+      "url": "https://github.com/clukhei"
+    },
+    {
+      "name": "Haphizi",
+      "url": "https://github.com/haphizi"
+    }
+  ],
+  "module": "dist/sgds-govtech-react.esm.js",
+  "version": "2.0.0",
   "license": "MIT",
   "main": "dist/index.js",
   "typings": "dist/index.d.ts",
   "files": [
-    "dist",
-    "src"
+    "dist"
   ],
   "engines": {
     "node": ">=10"
@@ -22,7 +37,7 @@
     "build-storybook": "build-storybook"
   },
   "peerDependencies": {
-    "react": ">=16"
+    "react": ">=17"
   },
   "husky": {
     "hooks": {
@@ -35,19 +50,8 @@
     "singleQuote": true,
     "trailingComma": "es5"
   },
-  "name": "react-dev-2.0",
-  "author": "GovTech",
-  "module": "dist/react-dev-2.0.esm.js",
-  "size-limit": [
-    {
-      "path": "dist/react-dev-2.0.cjs.production.min.js",
-      "limit": "10 KB"
-    },
-    {
-      "path": "dist/react-dev-2.0.esm.js",
-      "limit": "10 KB"
-    }
-  ],
+
+
   "devDependencies": {
     "@babel/core": "^7.16.5",
     "@size-limit/preset-small-lib": "^7.0.4",
