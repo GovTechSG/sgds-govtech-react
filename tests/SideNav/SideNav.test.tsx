@@ -1,7 +1,7 @@
 import * as React from 'react';
 import { fireEvent, render, waitFor } from '@testing-library/react';
-import SideNav from '../SideNav';
-import NavLink from '../../Nav/NavLink';
+import  { SideNav } from '../../src/SideNav';
+import { NavLink } from '../../src/Nav';
 import { useState } from 'react';
 describe('<SideNav>', () => {
   it('should output default structure', () => {

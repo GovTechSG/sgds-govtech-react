@@ -1,7 +1,7 @@
 import * as React from 'react';
 import { mount } from 'enzyme';
-import { SGDSWrapper } from '../../components/ThemeProvider/ThemeProvider';
-import Button from '../../components/Button/Button';
+import {Button} from '../../src/Button';
+import { SGDSWrapper } from '../../src/ThemeProvider/ThemeProvider';
 
 describe('<Button>', () => {
   it('should have sgds prefix on wrapper', () => {

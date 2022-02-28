@@ -1,5 +1,5 @@
 import * as React from 'react';
-import SelectableCard from '../SelectableCard';
+import {SelectableCard} from '../../src';;
 import { fireEvent, render, waitFor } from '@testing-library/react';
 
 describe('<ActionCard>', () => {

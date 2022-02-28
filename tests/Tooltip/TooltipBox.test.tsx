@@ -1,5 +1,5 @@
 import { render } from '@testing-library/react';
-import TooltipBox from '../TooltipBox';
+import  { TooltipBox } from '../../src/Tooltip';
 import * as React from 'react';
 
 describe('TooltipBox', () => {

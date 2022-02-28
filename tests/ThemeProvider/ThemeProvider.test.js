@@ -1,7 +1,7 @@
 import * as React from 'react';
 import { mount } from 'enzyme';
-import ThemeProvider, { createBootstrapComponent, SGDSWrapper } from '../../components/ThemeProvider/ThemeProvider';
-import Button from '../../components/Button/Button';
+import ThemeProvider, { createBootstrapComponent, SGDSWrapper } from '../../src/ThemeProvider/ThemeProvider';
+import  { Button } from '../../src/Button';
 
 describe('<ThemeProvider>', () => {
   const Foo = createBootstrapComponent(

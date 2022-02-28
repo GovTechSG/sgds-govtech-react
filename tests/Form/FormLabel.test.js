@@ -1,10 +1,8 @@
 import * as React from 'react';
 import { render } from '@testing-library/react';
-import FormLabel from '../FormLabel';
-import FormGroup from '../FormGroup';
+import { FormGroup, FormLabel} from '../../src';
 
-
-import { shouldWarn } from '../utils/helpers';
+import { shouldWarn } from '../helpers';
 
 
 describe('<FormLabel>', () => {

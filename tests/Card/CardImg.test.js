@@ -1,6 +1,6 @@
 import { mount } from 'enzyme';
 import * as React from 'react'
-import CardImg from '../../components/Card/CardImg';
+import {CardImg} from '../../src';
 
 describe('<CardImg>', () => {
   it('should output an img', () => {

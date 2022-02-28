@@ -1,8 +1,8 @@
 import getScrollbarSize from 'dom-helpers/scrollbarSize';
-import { injectCss } from '../../utils/helpers';
+import { injectCss } from '../helpers';
 import BootstrapModalManager, {
-  getSharedManager,
-} from '../../components/Modal/BootstrapModalManager'; 
+  getSharedManager
+} from '../../src/Modal/BootstrapModalManager'; 
 
 const createModal = () => ({ dialog: null, backdrop: null });
 

@@ -1,7 +1,7 @@
 import * as React from 'react';
 import { mount } from 'enzyme';
 
-import Alert from '../../components/Alert/Alert';
+import {Alert} from '../../src';
 
 describe('<Alert>', () => {
   it('Should output a alert with message', () => {

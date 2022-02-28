@@ -1,5 +1,5 @@
 import { fireEvent, render } from '@testing-library/react';
-import AccordionButton from '../AccordionButton';
+import {AccordionButton} from '../../src';
 import * as React from 'react';
 
 describe('<AccordionButton>', () => {

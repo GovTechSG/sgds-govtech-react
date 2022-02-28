@@ -1,7 +1,7 @@
 import { mount } from 'enzyme';
 import * as React from 'react';
-import CloseButton from '../../CloseButton/CloseButton'
-import Modal from '../Modal';
+import { CloseButton } from '../../src/CloseButton'
+import { Modal } from '../../src/Modal';
 import sinon from "sinon";
 
 describe('Modal.Header', () => {

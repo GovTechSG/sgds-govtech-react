@@ -1,7 +1,7 @@
 import { mount } from 'enzyme';
 import * as React from 'react';
 
-import Modal from '../Modal';
+import { Modal } from '../../src/Modal';
 
 describe('Modal.Body', () => {
   it('uses "div" by default', () => {

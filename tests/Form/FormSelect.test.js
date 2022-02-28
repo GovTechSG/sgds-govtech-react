@@ -1,7 +1,6 @@
 import { render } from '@testing-library/react';
 import * as React from 'react';
-import FormSelect from '../FormSelect';
-import FormGroup from '../FormGroup';
+import {FormSelect, FormGroup} from '../../src';
 
 describe('<FormSelect>', () => {
   it('should render correctly', () => {

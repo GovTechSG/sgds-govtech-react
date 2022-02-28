@@ -1,5 +1,5 @@
 import * as React from 'react';
-import QuantityToggle from '../../components/QuantityToggle/QuantityToggle'
+import { QuantityToggle } from '../../src/QuantityToggle/QuantityToggle'
 import {  fireEvent, render } from '@testing-library/react';
 
 describe('<QuantityToggle />', () => {

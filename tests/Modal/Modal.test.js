@@ -2,9 +2,9 @@ import { mount } from 'enzyme';
 import * as React from 'react';
 import ModalManager from '@restart/ui/ModalManager';
 import { act } from 'react-dom/test-utils';
-import Modal from '../Modal';
+import { Modal } from '../../src/Modal';
 import sinon from 'sinon';
-import { SGDSWrapper } from '../../ThemeProvider/ThemeProvider';
+import { SGDSWrapper } from '../../src/ThemeProvider/ThemeProvider';
 
 describe('<Modal>', () => {
   afterEach(() => {

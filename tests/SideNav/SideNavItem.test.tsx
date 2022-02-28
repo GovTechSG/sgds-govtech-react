@@ -1,5 +1,5 @@
 import * as React from 'react';
-import SideNavItem from '../SideNavItem';
+import SideNavItem from '../../src/SideNav/SideNavItem';
 import {  render } from '@testing-library/react';
 
 describe("<SideNavItem>", () => {

@@ -1,11 +1,11 @@
 import { render, fireEvent } from '@testing-library/react';
-import DropdownToggle from '../DropdownToggle';
+import {Dropdown} from '../../src/Dropdown';
 import * as React from 'react';
 
-describe('<DropdownToggle>', () => {
+describe('<Dropdown.Toggle>', () => {
   it('renders toggle button', () => {
     const { getByText } = render(
-      <DropdownToggle id="test-id">herpa derpa</DropdownToggle>
+      <Dropdown.Toggle id="test-id">herpa derpa</Dropdown.Toggle>
     );
 
     const toggle = getByText('herpa derpa');
@@ -18,9 +18,9 @@ describe('<DropdownToggle>', () => {
 
   it('renders children', () => {
     const { getByText } = render(
-      <DropdownToggle id="test-id">
+      <Dropdown.Toggle id="test-id">
         <h3>herpa derpa</h3>
-      </DropdownToggle>
+      </Dropdown.Toggle>
     );
 
     expect(getByText('herpa derpa')).toBeInTheDocument();
@@ -30,7 +30,7 @@ describe('<DropdownToggle>', () => {
     const onClickSpy = jest.fn();
 
     const { container } = render(
-      <DropdownToggle
+      <Dropdown.Toggle
         id="test-id"
         title="click forwards"
         onClick={onClickSpy}
@@ -42,13 +42,13 @@ describe('<DropdownToggle>', () => {
   });
 
   it('forwards id', () => {
-    const { container } = render(<DropdownToggle id="testid" />);
+    const { container } = render(<Dropdown.Toggle id="testid" />);
     expect(container.firstElementChild!.id).toEqual('testid');
   });
 
   it('does not forward bsPrefix', () => {
     const { container } = render(
-      <DropdownToggle
+      <Dropdown.Toggle
         bsPrefix="my-custom-bsPrefix"
         title="bsClass"
         id="test-id"

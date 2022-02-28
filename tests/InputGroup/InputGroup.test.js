@@ -1,4 +1,4 @@
-import InputGroup from '../../components/InputGroup/InputGroup';
+import {InputGroup} from '../../src';
 import { render } from '@testing-library/react';
 import * as React  from 'react'
 

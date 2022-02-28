@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { Paginations } from '../../components/Paginations/Paginations';
+import { Paginations } from '../../src/Paginations';
 // import PaginationBase from '../../PaginationBase/PaginationBase';
 
 

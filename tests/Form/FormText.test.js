@@ -1,6 +1,6 @@
 import { render } from '@testing-library/react';
 import * as React from 'react';
-import FormText from '../FormText';
+import {FormText} from '../../src';
 
 describe('<FormText>', () => {
   it('should render correctly', () => {

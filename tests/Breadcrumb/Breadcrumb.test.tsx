@@ -1,7 +1,7 @@
 import { render } from '@testing-library/react';
 import * as React from 'react';
 
-import Breadcrumb from '../Breadcrumb';
+import {Breadcrumb} from '../../src';
 
 describe('<Breadcrumb>', () => {
   it('Should have sgds selector', () => {

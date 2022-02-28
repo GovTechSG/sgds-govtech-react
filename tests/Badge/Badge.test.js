@@ -1,6 +1,6 @@
 import { render } from '@testing-library/react';
 import * as React from 'react';
-import  { Badge } from '../../components/Badge/Badge';
+import  { Badge } from '../../src';
 
 describe('Badge', () => {
   it('Should render correctly', () => {

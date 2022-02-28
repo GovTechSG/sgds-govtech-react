@@ -2,7 +2,7 @@ import * as React from 'react';
 import { Transition } from 'react-transition-group';
 import { render, RenderResult } from '@testing-library/react';
 
-import Collapse, { CollapseProps } from '../../components/Collapse/Collapse';
+import { Collapse,  CollapseProps } from '../../src';
 
 describe('<Collapse>', () => {
   class Component extends React.Component<

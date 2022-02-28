@@ -1,5 +1,5 @@
 import * as React from 'react';
-import Card from '../Card';
+import {Card} from '../../src';;
 import { render } from '@testing-library/react';
 
 describe('<Card>', () => {

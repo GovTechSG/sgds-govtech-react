@@ -1,7 +1,7 @@
 import * as React from 'react';
 import { mount } from 'enzyme';
 
-import Fade from '../../components/Fade/Fade';
+import {Fade} from '../../src';
 
 describe('Fade', () => {
   let Component, wrapper;

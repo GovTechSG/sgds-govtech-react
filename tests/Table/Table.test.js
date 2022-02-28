@@ -1,6 +1,6 @@
 import { mount } from 'enzyme';
 import * as React from 'react';
-import Table from '../../components/Table/Table';
+import { Table } from '../../src/Table';
 
 describe('Table', () => {
   it('Should be a table', () => {

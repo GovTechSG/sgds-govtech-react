@@ -5,9 +5,9 @@ import {
   waitFor,
   waitForElementToBeRemoved,
 } from '@testing-library/react';
-import Tooltip from '../../components/Tooltip/Tooltip';
+import { Tooltip } from '../../src/Tooltip';
 import * as React from 'react';
-import Button from '../../components/Button/Button';
+import Button from '../../src/Button/Button';
 
 describe('Tooltip', () => {
   it('default Tooltip should appear on hover', async () => {

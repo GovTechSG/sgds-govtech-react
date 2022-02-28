@@ -1,6 +1,6 @@
 import * as React from 'react';
 import { render } from '@testing-library/react';
-import Toast from '../Toast';
+import { Toast } from '../../src/Toast';
 
 describe('Toast.Body', () => {
   it('will pass all props to the created div and renders its children', () => {

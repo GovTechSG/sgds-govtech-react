@@ -1,16 +1,16 @@
 import { render } from '@testing-library/react';
-import DropdownItem from '../DropdownItem';
-import DropdownMenu, { getDropdownMenuPlacement } from '../DropdownMenu';
+import {Dropdown} from '../../src' 
+import DropdownMenu, { getDropdownMenuPlacement } from '../../src/Dropdown/DropdownMenu';
 import * as React from 'react';
 
 describe('<Dropdown.Menu>', () => {
   it('renders div with dropdown-menu class', () => {
     const { container } = render(
       <DropdownMenu show>
-        <DropdownItem eventKey="1">Item 1</DropdownItem>
-        <DropdownItem eventKey="2">Item 2</DropdownItem>
-        <DropdownItem eventKey="3">Item 3</DropdownItem>
-        <DropdownItem eventKey="4">Item 4</DropdownItem>
+        <Dropdown.Item eventKey="1">Item 1</Dropdown.Item>
+        <Dropdown.Item eventKey="2">Item 2</Dropdown.Item>
+        <Dropdown.Item eventKey="3">Item 3</Dropdown.Item>
+        <Dropdown.Item eventKey="4">Item 4</Dropdown.Item>
       </DropdownMenu>,
     );
 
@@ -20,7 +20,7 @@ describe('<Dropdown.Menu>', () => {
   it('Should pass props to dropdown', () => {
     const { container } = render(
       <DropdownMenu show className="new-fancy-class">
-        <DropdownItem eventKey="1">DropdownItem 1 content</DropdownItem>
+        <Dropdown.Item eventKey="1">Dropdown.Item 1 content</Dropdown.Item>
       </DropdownMenu>,
     );
 
@@ -30,7 +30,7 @@ describe('<Dropdown.Menu>', () => {
   it('applies align="end"', () => {
     const { container } = render(
       <DropdownMenu show align="end">
-        <DropdownItem>Item</DropdownItem>
+        <Dropdown.Item>Item</Dropdown.Item>
       </DropdownMenu>,
     );
 
@@ -40,7 +40,7 @@ describe('<Dropdown.Menu>', () => {
   it('renders on mount with prop', () => {
     const { container } = render(
       <DropdownMenu renderOnMount>
-        <DropdownItem>Item</DropdownItem>
+        <Dropdown.Item>Item</Dropdown.Item>
       </DropdownMenu>,
     );
 
@@ -50,7 +50,7 @@ describe('<Dropdown.Menu>', () => {
   it('does not add any extra classes when align="start"', () => {
     const { container } = render(
       <DropdownMenu show align="start">
-        <DropdownItem>Item</DropdownItem>
+        <Dropdown.Item>Item</Dropdown.Item>
       </DropdownMenu>,
     );
 
@@ -60,7 +60,7 @@ describe('<Dropdown.Menu>', () => {
   it('adds responsive start alignment classes', () => {
     const { container } = render(
       <DropdownMenu show align={{ lg: 'start' }}>
-        <DropdownItem>Item</DropdownItem>
+        <Dropdown.Item>Item</Dropdown.Item>
       </DropdownMenu>,
     );
   expect(container.firstElementChild!.classList).toContain('dropdown-menu-end')
@@ -70,7 +70,7 @@ describe('<Dropdown.Menu>', () => {
   it('adds responsive end alignment classes', () => {
     const { container } = render(
       <DropdownMenu show align={{ lg: 'end' }}>
-        <DropdownItem>Item</DropdownItem>
+        <Dropdown.Item>Item</Dropdown.Item>
       </DropdownMenu>,
     );
 
@@ -81,7 +81,7 @@ describe('<Dropdown.Menu>', () => {
   it('should render variant', () => {
     const { container } = render(
       <DropdownMenu show variant="dark">
-        <DropdownItem>Item</DropdownItem>
+        <Dropdown.Item>Item</Dropdown.Item>
       </DropdownMenu>,
     );
 

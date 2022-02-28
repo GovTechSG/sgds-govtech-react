@@ -3,10 +3,10 @@ import {
    render,
    waitFor,
 } from '@testing-library/react';
-import Button from '../../components/Button/Button';
-import Alert from '../../components/Alert/Alert';
-import Stepper from '../../components/Stepper/Stepper';
-import useStep, { OnDone } from '../../components/Stepper/useStep';
+import { Button } from '../../src/Button';
+import { Alert } from '../../src/Alert';
+import { Stepper } from '../../src/Stepper';
+import { useStep , OnDone } from '../../src/Stepper';
 import * as React from 'react';
 
 const MinimalMockStepper = () => {

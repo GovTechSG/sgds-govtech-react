@@ -1,9 +1,8 @@
 //React-testing-library
 import { render, screen } from '@testing-library/react';
 import * as React from 'react';
+import {FormControl, FormGroup} from '../../src';
 
-import FormControl from '../FormControl';
-import FormGroup from '../FormGroup';
 
 describe('<Feedback>', () => {
   it('should render default success', () => {

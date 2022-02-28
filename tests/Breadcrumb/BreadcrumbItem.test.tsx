@@ -1,9 +1,7 @@
 import { render, fireEvent } from '@testing-library/react';
 import * as React from 'react';
 
-
-import Breadcrumb from '../../components/Breadcrumb/Breadcrumb';
-import Button from '../../components/Button/Button';
+import {Breadcrumb , Button} from '../../src';
 
 describe('<Breadcrumb.Item>', () => {
   it('Should render `a` as inner element when is not active', () => {

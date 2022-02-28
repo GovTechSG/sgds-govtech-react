@@ -1,5 +1,5 @@
 import { render } from '@testing-library/react';
-import ToastContainer, { ToastPosition } from '../../components/Toast/ToastContainer';
+import { ToastContainer, ToastPosition } from '../../src/Toast/ToastContainer';
 import * as React from 'react';
 
 const expectedClasses: Record<ToastPosition, Array<string>> = {

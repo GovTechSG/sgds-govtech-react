@@ -1,7 +1,7 @@
 import { fireEvent, render } from '@testing-library/react';
 import * as React from 'react';
 
-import Toast from '../Toast';
+import { Toast } from '../../src/Toast';
 
 const getToast = ({
   delay = 500,

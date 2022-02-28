@@ -1,7 +1,7 @@
 //React-testing-library
 import { render, screen } from '@testing-library/react';
 import * as React from 'react';
-import FormCheck from '../FormCheck';
+import {FormCheck} from '../../src';
 
 describe('<FormCheck>', () => {
   it('should render correctly', () => {

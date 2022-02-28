@@ -1,8 +1,7 @@
 import { render, fireEvent } from '@testing-library/react';
 import * as React from 'react';
 
-import Button from '../../components/Button/Button';
-import Dropdown from '../../components/Dropdown/Dropdown';
+import {Button, Dropdown} from '../../src';
  
 describe('<Dropdown.Item>', () => {
   it('renders divider', () => {

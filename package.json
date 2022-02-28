@@ -114,7 +114,7 @@
       "__DEV__": true
     },
     "setupFilesAfterEnv": [
-      "<rootDir>src/tests/setupTests.ts"
+      "./tests/setupTests.ts"
     ],
     "testMatch": [
       "**/__tests__/**/*.[jt]s?(x)",

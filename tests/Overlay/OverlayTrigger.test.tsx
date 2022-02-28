@@ -2,8 +2,8 @@ import PropTypes from 'prop-types';
 import * as React from 'react';
 import { render, fireEvent, waitFor, act } from '@testing-library/react';
 import sinon from 'sinon';
-import OverlayTrigger from '../OverlayTrigger';
-import TooltipBox from '../../Tooltip/TooltipBox';
+import {OverlayTrigger} from '../../src/Overlay';
+import {TooltipBox} from '../../src/Tooltip';
  
 describe('<OverlayTrigger>', () => {
   // Swallow extra props.

@@ -1,7 +1,7 @@
 import { render } from '@testing-library/react';
 import * as React from 'react';
 
-import Toast from '../Toast';
+import  { Toast } from '../../src/Toast';
 
 describe('Toast.Header', () => {
   it('will pass all props to the created div and renders its children', () => {

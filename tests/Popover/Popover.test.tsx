@@ -1,6 +1,6 @@
 import { render } from '@testing-library/react';
 import * as React from 'react';
-import Popover from '../../components/Popover/Popover';
+import { Popover } from '../../src/Popover';
 
 describe('Popover', () => {
   it('Should output a popover title and content', () => {

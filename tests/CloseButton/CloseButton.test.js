@@ -1,6 +1,6 @@
 import { mount } from 'enzyme';
 import * as React from 'react';
-import CloseButton from '../../components/CloseButton/CloseButton';
+import {CloseButton} from '../../src';
 
 describe('<CloseButton>', () => {
   it('Should output a button', () => {

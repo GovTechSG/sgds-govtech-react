@@ -1,7 +1,7 @@
 import * as React from 'react';
 import {  render, waitFor } from '@testing-library/react';
-import Overlay from '../../components/Overlay/Overlay';
-import TooltipBox from '../../components/Tooltip/TooltipBox' 
+import { Overlay } from '../../src/Overlay';
+import  { TooltipBox } from '../../src/Tooltip' 
 
 describe('<Overlay>', () => {
   it('should forward ref to the overlay', () => {

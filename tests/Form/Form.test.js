@@ -2,8 +2,7 @@
 import { render }  from '@testing-library/react';
 import React from 'react';
 
-import Form from '../../components/Form/Form';
-import FormGroup from '../../components/Form/FormGroup';
+import {Form, FormGroup} from '../../src';
 
 describe('<Form>', () => {
   it('should support custom `as`', () => {

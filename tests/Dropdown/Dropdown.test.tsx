@@ -1,9 +1,8 @@
 import { render, fireEvent, waitFor } from '@testing-library/react';
 import * as React from 'react';
 
-import Dropdown from '../Dropdown';
-import { DropDirection } from '../DropdownContext';
-import InputGroup from '../../InputGroup/InputGroup';
+import {Dropdown, InputGroup} from '../../src';
+import {DropDirection} from '../../src/Dropdown/DropdownContext'
 
 describe('<Dropdown>', () => {
   const dropdownChildren = [

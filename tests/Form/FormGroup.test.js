@@ -1,6 +1,6 @@
-import FormControl from '../FormControl';
-import FormLabel from '../FormLabel';
-import FormGroup from '../FormGroup';
+
+import {FormControl, FormGroup, FormLabel} from '../../src';
+
 import { render } from '@testing-library/react';
 import * as React from 'react';
 

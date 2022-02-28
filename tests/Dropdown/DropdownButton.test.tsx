@@ -1,25 +1,25 @@
 import { render, fireEvent, waitFor } from '@testing-library/react';
-import DropdownButton from '../DropdownButton';
-import DropdownItem from '../DropdownItem';
+import {DropdownButton, Dropdown} from '../../src';
+
 import * as React from 'react';
 
 describe('<DropdownButton>', () => {
   it('renders a toggle with the title prop', () => {
     const { getByTestId } = render(
       <DropdownButton title="Simple Dropdown" data-testid="test-id">
-        <DropdownItem>Item 1</DropdownItem>
-        <DropdownItem>Item 2</DropdownItem>
-        <DropdownItem>Item 3</DropdownItem>
-        <DropdownItem>Item 4</DropdownItem>
+        <Dropdown.Item>Item 1</Dropdown.Item>
+        <Dropdown.Item>Item 2</Dropdown.Item>
+        <Dropdown.Item>Item 3</Dropdown.Item>
+        <Dropdown.Item>Item 4</Dropdown.Item>
       </DropdownButton>
     );
     expect(getByTestId('test-id').textContent!).toEqual('Simple Dropdown');
   });
 
-  it('renders single DropdownItem child', async () => {
+  it('renders single Dropdown.Item child', async () => {
     const { getByText, getByRole } = render(
       <DropdownButton defaultShow title="Single child" menuRole="menu">
-        <DropdownItem>Item 1</DropdownItem>
+        <Dropdown.Item>Item 1</Dropdown.Item>
       </DropdownButton>
     );
     await waitFor(() => expect(getByRole('menu')).toBeInTheDocument());
@@ -30,7 +30,7 @@ describe('<DropdownButton>', () => {
   it('forwards align="end" to the Dropdown', async () => {
     const { container, getByRole } = render(
       <DropdownButton defaultShow align="end" title="blah" menuRole="menu">
-        <DropdownItem>Item 1</DropdownItem>
+        <Dropdown.Item>Item 1</Dropdown.Item>
       </DropdownButton>
     );
     await waitFor(() => expect(getByRole('menu')).toBeInTheDocument());
@@ -47,7 +47,7 @@ describe('<DropdownButton>', () => {
         variant="success"
         data-testid="test-id"
       >
-        <DropdownItem>Item 1</DropdownItem>
+        <Dropdown.Item>Item 1</Dropdown.Item>
       </DropdownButton>
     );
 
@@ -64,7 +64,7 @@ describe('<DropdownButton>', () => {
         menuVariant="dark"
         menuRole="menu"
       >
-        <DropdownItem>Item 1</DropdownItem>
+        <Dropdown.Item>Item 1</Dropdown.Item>
       </DropdownButton>
     );
     await waitFor(() => expect(getByRole('menu')).toBeInTheDocument());
@@ -73,7 +73,7 @@ describe('<DropdownButton>', () => {
     expect(menu!.classList).toContain('dropdown-menu-dark');
   });
 
-  it('forwards onSelect handler to DropdownItems', async () => {
+  it('forwards onSelect handler to Dropdown.Items', async () => {
     const onSelectSpy = jest.fn();
 
     const { getByTestId, getByRole } = render(
@@ -83,15 +83,15 @@ describe('<DropdownButton>', () => {
         menuRole="menu"
         onSelect={onSelectSpy}
       >
-        <DropdownItem eventKey="1" data-testid="key1">
+        <Dropdown.Item eventKey="1" data-testid="key1">
           Item 1
-        </DropdownItem>
-        <DropdownItem eventKey="2" data-testid="key2">
+        </Dropdown.Item>
+        <Dropdown.Item eventKey="2" data-testid="key2">
           Item 2
-        </DropdownItem>
-        <DropdownItem eventKey="3" data-testid="key3">
+        </Dropdown.Item>
+        <Dropdown.Item eventKey="3" data-testid="key3">
           Item 3
-        </DropdownItem>
+        </Dropdown.Item>
       </DropdownButton>
     );
     await waitFor(() => expect(getByRole('menu')).toBeInTheDocument());
@@ -121,9 +121,9 @@ describe('<DropdownButton>', () => {
         data-testid="test-id"
         menuRole="menu"
       >
-        <DropdownItem eventKey="1" data-testid="key1">
+        <Dropdown.Item eventKey="1" data-testid="key1">
           Item 1
-        </DropdownItem>
+        </Dropdown.Item>
       </DropdownButton>
     );
     await waitFor(() => expect(getByRole('menu')).toBeInTheDocument());
@@ -140,8 +140,8 @@ describe('<DropdownButton>', () => {
   it('Should pass disabled to button', () => {
     const { container } = render(
       <DropdownButton disabled title="Title">
-        <DropdownItem eventKey="1">Item 1</DropdownItem>
-        <DropdownItem eventKey="2">Item 2</DropdownItem>
+        <Dropdown.Item eventKey="1">Item 1</Dropdown.Item>
+        <Dropdown.Item eventKey="2">Item 2</Dropdown.Item>
       </DropdownButton>
     );
 
@@ -151,7 +151,7 @@ describe('<DropdownButton>', () => {
   it('should pass bsPrefix to the button', () => {
     const { getByTestId } = render(
       <DropdownButton title="title" data-testid="test-id" bsPrefix="my-button">
-        <DropdownItem eventKey="1">Item 1</DropdownItem>
+        <Dropdown.Item eventKey="1">Item 1</Dropdown.Item>
       </DropdownButton>
     );
 
