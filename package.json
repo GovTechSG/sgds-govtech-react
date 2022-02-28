@@ -1,5 +1,21 @@
 {
-  "version": "0.1.0",
+  "name": "@govtechsg/sgds-govtech-react",
+  "description": "Design System unites Singapore Government digital services around a common visual language and user experience",
+  "author": "GovTechSG",
+  "homepage": "https://github.com/GovTechSG/sgds-govtech-react/",
+  "bugs": "https://github.com/GovTechSG/sgds-govtech-react/issues",
+  "contributors": [
+    {
+      "name": "clukhei",
+      "url": "https://github.com/clukhei"
+    },
+    {
+      "name": "Haphizi",
+      "url": "https://github.com/haphizi"
+    }
+  ],
+  "module": "dist/index.js",
+  "version": "2.0.0",
   "license": "MIT",
   "main": "dist/main.js",
   "typings": "dist/index.d.ts",
@@ -33,9 +49,6 @@
     "singleQuote": true,
     "trailingComma": "es5"
   },
-  "name": "sgds-govtech-react",
-  "author": "GovTech",
-  "module": "dist/index.js",
   "size-limit": [
     {
       "path": "dist/main.js",
