@@ -18,6 +18,7 @@ module.exports = {
     '@storybook/addon-a11y',
     '@storybook/addon-storysource',
     'storybook-dark-mode',
+    '@storybook/addon-docs'
   ],
   // https://storybook.js.org/docs/react/configure/typescript#mainjs-configuration
   typescript: {
