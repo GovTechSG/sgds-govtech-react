@@ -13,9 +13,8 @@ async function createPackageFile() {
     resolve(packagePath, './package.json'),
     'utf8'
   );
-  const { scripts, devDependencies, files, ...packageOthers } =
+  const { scripts, devDependencies, ...packageOthers } =
     JSON.parse(packageData);
-  const packageName = packageOthers.name;
   const newPackageData = {
     ...packageOthers,
     private: false,
@@ -24,10 +23,6 @@ async function createPackageFile() {
     module: './index.js',
   };
 
-  //   if (packageName === 'clk-bs') {
-  //     delete newPackageData.main;
-  //     delete newPackageData.module;
-  //   }
   const targetPath = resolve(distPath, './package.json');
 
   await writeJson(targetPath, newPackageData);

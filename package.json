@@ -1,24 +1,22 @@
 {
-  "version": "0.7.0",
+  "version": "0.1.0",
   "license": "MIT",
   "main": "dist/main.js",
   "typings": "dist/index.d.ts",
-  "files": [
-    "dist"
-  ],
   "engines": {
     "node": ">=10"
   },
   "scripts": {
     "start": "tsdx watch",
-    "build": "rollup -c",
+    "build": "npm run rollup && npm run post:build",
+    "post:build": "node ./scripts/frankBuild.js",
+    "rollup": "rm -rf dist && rollup -c",
     "test": "jest --passWithNoTests",
     "lint": "tsdx lint",
     "size": "size-limit",
     "analyze": "size-limit --why",
     "storybook": "start-storybook -p 6006 --no-manager-cache",
-    "build-storybook": "build-storybook",
-    "post:build": "node ./scripts/frankBuild.js"
+    "build-storybook": "build-storybook"
   },
   "peerDependencies": {
     "react": ">=16.8.0",
@@ -35,17 +33,17 @@
     "singleQuote": true,
     "trailingComma": "es5"
   },
-  "name": "clk-bs",
+  "name": "sgds-govtech-react",
   "author": "GovTech",
   "module": "dist/index.js",
   "size-limit": [
     {
-      "path": "dist/react-dev-2.0.cjs.production.min.js",
-      "limit": "10 KB"
+      "path": "dist/main.js",
+      "limit": "100 KB"
     },
     {
-      "path": "dist/react-dev-2.0.esm.js",
-      "limit": "10 KB"
+      "path": "dist/index.js",
+      "limit": "100 KB"
     }
   ],
   "devDependencies": {
@@ -103,28 +101,5 @@
     "classnames": "^2.3.1",
     "invariant": "^2.2.4",
     "react-transition-group": "^4.4.2"
-  },
-  "jest": {
-    "transform": {
-      "^.+\\.tsx?$": "ts-jest",
-      "^.+\\.jsx?$": "babel-jest"
-    },
-    "testEnvironment": "jsdom",
-    "globals": {
-      "__DEV__": true
-    },
-    "setupFilesAfterEnv": [
-      "./tests/setupTests.ts"
-    ],
-    "testMatch": [
-      "**/__tests__/**/*.[jt]s?(x)",
-      "**/?(*.)+(spec|test).[tj]s?(x)"
-    ],
-    "collectCoverage": true,
-    "collectCoverageFrom": [
-      "src/**/*.{ts,tsx}",
-      "!**/node_modules/**"
-    ],
-    "coverageDirectory": "./coverage/"
   }
 }

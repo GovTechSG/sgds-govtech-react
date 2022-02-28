@@ -26,6 +26,5 @@ export const getFiles = (entry, extensions = [], excludeExtensions = []) => {
       fileNames.push(path);
     }
   });
-  // console.log(fileNames)
   return fileNames;
 };
