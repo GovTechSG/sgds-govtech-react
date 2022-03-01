@@ -112,10 +112,10 @@ Please see the main `tsdx` [optimizations docs](https://github.com/palmerhq/tsdx
 
 ```js
 // ./types/index.d.ts
-declare var __DEV__: boolean;
+declare var __IS_DEV__: boolean;
 
 // inside your code...
-if (__DEV__) {
+if (__IS_DEV__) {
   console.log('foo');
 }
 ```

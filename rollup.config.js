@@ -3,45 +3,19 @@ import resolve from '@rollup/plugin-node-resolve';
 import commonjs from '@rollup/plugin-commonjs';
 import typescript from 'rollup-plugin-typescript2';
 import replace from '@rollup/plugin-replace';
-import rename from 'rollup-plugin-rename';
 import { terser } from 'rollup-plugin-terser';
 const packageJson = require('./package.json');
-import { getFiles, getFolders } from './scripts/buildUtils';
-import copy from 'rollup-plugin-copy'
-import path, { relative } from 'path';
+import { getFolders } from './scripts/buildUtils';
 
 
-// export default [
-//   {
-//     input: ['src/index.ts'],
-//     output: [
-//       {
-//         dir: 'dist',
-//         format: 'esm',
-//         sourcemap: true,
-//         exports: 'named',
-//         preserveModules: true,
-//       },
-//     ],
-//     plugins: [
-//       peerDepsExternal(),
-//       resolve(),
-//       commonjs(),
-//       typescript({
-//         tsconfig: './tsconfig.json',
-//         declaration: true,
-//         declarationDir: 'dist',
-//       }),
-//       terser()
-//     ],
-//     external: ['react', 'react-dom'],
-//   }
-// ];
 const extensions = ['.js', '.ts', '.jsx', '.tsx'];
 // const inputArray = [ ...getFiles('./src/components', extensions)]
 const plugins =  [
     peerDepsExternal(),
     resolve(),
+    replace({
+      __IS_DEV__: process.env.NODE_ENV === 'development'
+    }),
     commonjs(),
     typescript({
       tsconfig: './tsconfig.json',
