@@ -16,5 +16,5 @@ jobs:
       - run: npm ci
       - run: npm run build
       - run: npm publish --tag alpha.0 ./dist 
-        with:
-          github_token: ${{ secrets.NPM_TOKEN }}
+        env:
+          GITHUB_TOKEN: ${{ secrets.NPM_TOKEN }}
