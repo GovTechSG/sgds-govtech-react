@@ -1,5 +1,5 @@
 import { ArgsTable, Canvas, Meta, Story } from '@storybook/addon-docs';
-import { Badge } from '../../src/components/index';
+import { Badge } from '../../src';
 
 <Meta
   title="Components/Badge"
@@ -89,26 +89,26 @@ export const Template = (args) => {
 <ArgsTable story="Badge" />
 
 ```jsx
-import { Badge } from 'sgds-govtech-react';
+import { Badge } from '@govtechsg/sgds-govtech-react';
 
 <div>
   <h1>
-    Example heading <Badge {...args}>New</Badge>
+    Example heading <Badge>New</Badge>
   </h1>
   <h2>
-    Example heading <Badge {...args}>New</Badge>
+    Example heading <Badge>New</Badge>
   </h2>
   <h3>
-    Example heading <Badge {...args}>New</Badge>
+    Example heading <Badge>New</Badge>
   </h3>
   <h4>
-    Example heading <Badge {...args}>New</Badge>
+    Example heading <Badge>New</Badge>
   </h4>
   <h5>
-    Example heading <Badge {...args}>New</Badge>
+    Example heading <Badge>New</Badge>
   </h5>
   <h6>
-    Example heading <Badge {...args}>New</Badge>
+    Example heading <Badge>New</Badge>
   </h6>
 </div>;
 ```
@@ -136,7 +136,7 @@ Add any of the below mentioned modifier classes to change the appearance of a ba
 </Canvas>
 
 ```jsx
-import { Badge } from 'sgds-govtech-react';
+import { Badge } from '@govtechsg/sgds-govtech-react';
 
 <div>
   <Badge bg="primary">Primary</Badge> <Badge bg="secondary">Secondary</Badge>{' '}
@@ -188,7 +188,7 @@ You may also use the pill modifier class to make badges more rounded (with a lar
 </Canvas>
 
 ```jsx
-import { Badge } from 'sgds-govtech-react';
+import { Badge } from '@govtechsg/sgds-govtech-react';
 
 <div>
   <Badge pill bg="primary">
