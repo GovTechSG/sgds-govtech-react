@@ -1,9 +1,9 @@
-name: Deploy to github pages
+name: Publish
 
 on:
   push:
     branches:
-      - master
+      - 2.0.0-dev
 
 jobs:
   pages:
@@ -14,9 +14,7 @@ jobs:
         with:
           node-version: '12'
       - run: npm ci
-      - run: npm run build:storybook
-      - name: Deploy to pages
-        uses: peaceiris/actions-gh-pages@v3
+      - run: npm run build
+      - run: npm publish --tag alpha.0 ./dist 
         with:
-          github_token: ${{ secrets.GITHUB_TOKEN }}
-          publish_dir: ./storybook-build
+          github_token: ${{ secrets.NPM_TOKEN }}
