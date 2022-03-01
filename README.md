@@ -4,7 +4,9 @@ React components powered by [Singapore Government Design System](https://www.des
 
 `@govtechsg/sgds-govtech-react` take references from `react-boostrap` 
 
-## Version
+## Version Compatibility
+
+See the below table on which version of `@govtech/sgds-govtech` you should be using in your project.
 
 | @govtechsg/sgds-govtech version | @govtechsg/sgds-govtech-react version |
 | ------------------------------- | ------------------------------------- |
