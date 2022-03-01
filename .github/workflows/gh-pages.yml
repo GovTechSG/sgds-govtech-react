@@ -15,6 +15,6 @@ jobs:
           node-version: '12'
       - run: npm ci
       - run: npm run build
-      - run: npm publish --tag alpha.0 ./dist 
+      - run: npm publish --tag alpha.0 ./dist --access public
         env:
           GITHUB_TOKEN: ${{ secrets.NPM_TOKEN }}
