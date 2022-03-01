@@ -73,12 +73,12 @@ For more details, refer to https://react-bootstrap.github.io/components/toasts/#
 #### Code Sample
 
 ```jsx
-import { Toast } from '../../src/index';
+import { Toast } from '@govtechsg/sgds-govtech-react';
 
 export const ToastTemplate = (args) => {
   const [show, setShow] = useState(true);
   return (
-    <Toast {...args} onClose={() => setShow(false)} show={show}>
+    <Toast onClose={() => setShow(false)} show={show}>
       <Toast.Header>
         <i style={{ color: '#0A8217' }} className="bi bi-check-circle me-2"></i>
         <strong className="me-auto">Title</strong>
