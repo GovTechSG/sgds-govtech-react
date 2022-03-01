@@ -2,27 +2,49 @@
 
 React components powered by [Singapore Government Design System](https://www.designsystem.gov.sg)
 
-React Documentation can be found [here](https://govtechsg.github.io/sgds-govtech-react) - [https://govtechsg.github.io/sgds-govtech-react](https://2-0-0-dev.dg2jutx9gylat.amplifyapp.com)
-
 
 ## Installation
+`sgsds-govtech-react` is not ship with any included CSS.  Apply `sgds-govtech@2.0.0` styles by installing the module or using CDN 
 
-      npm install sgds-govtech@2.0.0
+```js
+
+      npm install sgds-govtech-react@1.0.0 sgds-govtech@2.0.0
+
+```
 
 ## Importing Components
+You should import individual components like: sgds-govtech-react/Button rather than the entire library. Doing so pulls in only the specific components that you use, which can significantly reduce the amount of code you end up sending to the client.
+
+```js
+import {Button} from 'sgds-govtech-react/Button';
+
+// or less ideally
+import { Button } from 'sgds-govtech-react';
+```
 
 
-  
 ## Stylesheets
-sgsds-govtech-react is not ship with any included CSS. Apply `sgds-govtech` styles by installing the module or CDN 
+  #### Using CSS / SASS
 
+```js
+// App.js
+// import CSS or
+import 'bootstrap/dist/css/bootstrap.min.css';
+// import SASS
+import "sgds-govtech/sgds/sass/sgds.scss";
 
-      npm install sgds-govtech@2.0.0
+```
+  #### Using CDN 
 
-  #### Using CSS 
+  ```js
 
-     import 'bootstrap/dist/css/bootstrap.min.css';
+ //index.html 
+<link href='https://v2dev.designsystem.gov.sg/css/sgds.css' rel='stylesheet' type='text/css'/>
+  
+//index.css
+@import url('https://v2dev.designsystem.gov.sg/css/sgds.css');
 
+  ```
 
 
 
