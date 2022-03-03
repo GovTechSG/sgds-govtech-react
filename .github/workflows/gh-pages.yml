@@ -9,8 +9,6 @@ jobs:
   publish:    
     runs-on: ubuntu-latest
     steps:
-      - name: Build and Publish
-        if: steps.check.outputs.changed == 'true'
       - uses: actions/checkout@v2
       - uses: actions/setup-node@v1
         with:
