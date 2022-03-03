@@ -1,6 +1,6 @@
 import { ArgsTable, Canvas, Meta, Story } from '@storybook/addon-docs';
 import { HIDDEN_COMMON_PROPS } from '../helpers';
-import { SideNav, NavLink } from '../../src/components/index';
+import { SideNav, NavLink } from '../../src/index';
 import { useState } from 'react';
 
 <Meta
@@ -210,7 +210,7 @@ The default `<SideNav />` is close. When other `<SideNav.Button />` is clicked o
 ### Default SideNav - code sample
 
 ```jsx
-import { SideNav } from 'sgds-govtech-react';
+import { SideNav } from '@govtechsg/sgds-govtech-react';
 
 export const DefaultSideNav = () => {
   return (
