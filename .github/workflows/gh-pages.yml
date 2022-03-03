@@ -10,23 +10,23 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Version Check
-        uses: EndBug/version-check@v2.1.0
+      - uses: EndBug/version-check@v2.1.0
         id: check
       - name: Version update detected
         if: steps.check.outputs.changed == 'true'
-        run: 'echo "Version change! -> ${{ steps.check.outputs.type }}"'
+      - run: 'echo "Version change! -> ${{ steps.check.outputs.type }}"'
   build:    
     runs-on: ubuntu-latest
     steps:
       - name: Build and Publish
         if: steps.check.outputs.changed == 'true'
-        uses: actions/checkout@v2
-        uses: actions/setup-node@v1
+      - uses: actions/checkout@v2
+      - uses: actions/setup-node@v1
         with:
             node-version: 12
             registry-url: 'https://registry.npmjs.org'
-        run: npm ci
-        run: npm run build
-        run: npm publish --tag alpha.0 ./dist
+      - run: npm ci
+      - run: npm run build
+      - run: npm publish --tag alpha.0 ./dist
         env:
           NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
