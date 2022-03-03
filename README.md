@@ -2,7 +2,7 @@
 
 React components powered by [Singapore Government Design System](https://www.designsystem.gov.sg)
 
-`@govtechsg/sgds-govtech-react` take references from `react-boostrap` 
+`@govtechsg/sgds-govtech-react` take references from [react-boostrap](https://react-bootstrap.github.io/) 
 
 ## Version Compatibility
 
@@ -45,9 +45,9 @@ import { Button } from '@govtechsg/sgds-govtech-react';
 ```js
 // In your entry point
 // import CSS or
-import '@govtechsg/sgds-govtech/css/sgds.scss';
+import '@govtechsg/sgds-govtech/sgds/sgds.css';
 // import SASS
-import '@govtechsg/sgds-govtech/sgds/sass/sgds.scss';
+import '@govtechsg/sgds-govtech/sgds/sgds.scss';
 ```
 
 #### Using CDN
@@ -83,7 +83,7 @@ $secondary: #ff8c00;
 $warning: rgb(134, 37, 37);
 
 // Import all of sgds
-@import '~sgds-govtech/sgds/sass/sgds.scss';
+@import '@govtechsg/sgds-govtech/sgds/sgds.scss';
 ```
 
 Then, in your app:
