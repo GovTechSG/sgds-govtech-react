@@ -38,7 +38,7 @@ As our components are built on top of `React-Bootstrap` library, do check out th
 export const Template = (args) => (
   <Dropdown {...args}>
     <Dropdown.Toggle>
-      Dropdown Button<i class="bi bi-chevron-down"></i>
+      Dropdown Button<i className="bi bi-chevron-down"></i>
     </Dropdown.Toggle>
     <Dropdown.Menu>
       <Dropdown.Item href="#" eventKey="abc">
@@ -72,7 +72,7 @@ export const Dropdown = () => {
   return (
     <Dropdown>
       <Dropdown.Toggle>
-        Dropdown Button<i class="bi bi-chevron-down"></i>
+        Dropdown Button<i className="bi bi-chevron-down"></i>
       </Dropdown.Toggle>
       <Dropdown.Menu popperConfig={popperConfig}>
         <Dropdown.Item href="#">Action</Dropdown.Item>
@@ -98,7 +98,7 @@ Notice how the dropdown is toggled in each scenario by clicking on the button.
   <Dropdown className="mb-3">
     <Dropdown.Toggle id="dropdown-autoclose-true">
       Default Dropdown
-      <i class="bi bi-chevron-down"></i>
+      <i className="bi bi-chevron-down"></i>
     </Dropdown.Toggle>
     <Dropdown.Menu>
       <Dropdown.Item href="#">Menu Item</Dropdown.Item>
@@ -109,7 +109,7 @@ Notice how the dropdown is toggled in each scenario by clicking on the button.
   <Dropdown autoClose="inside" className="mb-3">
     <Dropdown.Toggle id="dropdown-autoclose-inside">
       Click Inside To Close
-      <i class="bi bi-chevron-down"></i>
+      <i className="bi bi-chevron-down"></i>
     </Dropdown.Toggle>
     <Dropdown.Menu>
       <Dropdown.Item href="#">Menu Item</Dropdown.Item>
@@ -120,7 +120,7 @@ Notice how the dropdown is toggled in each scenario by clicking on the button.
   <Dropdown autoClose="outside" className="mb-3">
     <Dropdown.Toggle id="dropdown-autoclose-outside">
       Clickable Outside To Close
-      <i class="bi bi-chevron-down"></i>
+      <i className="bi bi-chevron-down"></i>
     </Dropdown.Toggle>
     <Dropdown.Menu>
       <Dropdown.Item href="#">Menu Item</Dropdown.Item>
@@ -131,7 +131,7 @@ Notice how the dropdown is toggled in each scenario by clicking on the button.
   <Dropdown autoClose={false} className="mb-3">
     <Dropdown.Toggle id="dropdown-autoclose-false">
       Click Button to Close
-      <i class="bi bi-chevron-down"></i>
+      <i className="bi bi-chevron-down"></i>
     </Dropdown.Toggle>
     <Dropdown.Menu>
       <Dropdown.Item href="#">Menu Item</Dropdown.Item>
@@ -148,7 +148,7 @@ import { Dropdown } from '@govtechsg/sgds-govtech-react';
   <Dropdown>
     <Dropdown.Toggle>
       Clickable Inside
-      <i class="bi bi-chevron-down"></i>
+      <i className="bi bi-chevron-down"></i>
     </Dropdown.Toggle>
     <Dropdown.Menu popperConfig={popperConfig}>
       <Dropdown.Item href="#">Menu Item</Dropdown.Item>
@@ -161,7 +161,7 @@ import { Dropdown } from '@govtechsg/sgds-govtech-react';
   <Dropdown autoClose="inside">
     <Dropdown.Toggle>
       Clickable Inside
-      <i class="bi bi-chevron-down"></i>
+      <i className="bi bi-chevron-down"></i>
     </Dropdown.Toggle>
     <Dropdown.Menu popperConfig={popperConfig}>
       <Dropdown.Item href="#">Menu Item</Dropdown.Item>
@@ -174,7 +174,7 @@ import { Dropdown } from '@govtechsg/sgds-govtech-react';
   <Dropdown autoClose="outside">
     <Dropdown.Toggle>
       Clickable Inside
-      <i class="bi bi-chevron-down"></i>
+      <i className="bi bi-chevron-down"></i>
     </Dropdown.Toggle>
     <Dropdown.Menu popperConfig={popperConfig}>
       <Dropdown.Item href="#">Menu Item</Dropdown.Item>
@@ -187,7 +187,7 @@ import { Dropdown } from '@govtechsg/sgds-govtech-react';
   <Dropdown autoClose={false}>
     <Dropdown.Toggle>
       Manual Close
-      <i class="bi bi-chevron-down"></i>
+      <i className="bi bi-chevron-down"></i>
     </Dropdown.Toggle>
     <Dropdown.Menu popperConfig={popperConfig}>
       <Dropdown.Item href="#">Menu Item</Dropdown.Item>
@@ -230,7 +230,7 @@ export const onSelectToggleTemplate = () => {
     <div>
       <Dropdown onSelect={handleSelect} onToggle={handleToggle}>
         <Dropdown.Toggle>
-          Default Dropdown<i class="bi bi-chevron-down"></i>
+          Default Dropdown<i className="bi bi-chevron-down"></i>
         </Dropdown.Toggle>
         <Dropdown.Menu>
           <Dropdown.Item eventKey="apple">Apple</Dropdown.Item>

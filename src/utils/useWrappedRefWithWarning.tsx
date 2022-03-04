@@ -4,7 +4,7 @@ import useMergedRefs from '@restart/hooks/useMergedRefs';
 
 export default function useWrappedRefWithWarning(ref:any, componentName:any) {
   // @ts-ignore
-  if (!__DEV__) return ref;
+  if (!__IS_DEV__) return ref;
 
   // eslint-disable-next-line react-hooks/rules-of-hooks
   const warningRef = useCallback(

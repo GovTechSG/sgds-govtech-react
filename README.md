@@ -55,10 +55,10 @@ import '@govtechsg/sgds-govtech/sgds/sgds.scss';
 ```js
 
 //index.html
-<link href='https://v2dev.designsystem.gov.sg/css/sgds.css' rel='stylesheet' type='text/css'/>
+<link href='https://v2dev.designsystem.gov.sg/sgds/sgds.css' rel='stylesheet' type='text/css'/>
 
 //index.css
-@import url('https://v2dev.designsystem.gov.sg/css/sgds.css');
+@import url('https://v2dev.designsystem.gov.sg/sgds/sgds.css');
 
 ```
 
