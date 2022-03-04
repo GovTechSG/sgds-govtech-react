@@ -35,40 +35,6 @@ describe('<Nav>', () => {
     expect(navLinks[0].classList).toContain('active');
     expect(navLinks[1].classList).not.toContain('active');
   });
-  // OBSOLETE IN SGDS
-  // it('should add variant class', () => {
-  //   const { getByTestId } = render(
-  //     <Nav variant="tabs" data-testid="test">
-  //       <Nav.Link eventKey={1}>Pill 1 content</Nav.Link>
-  //       <Nav.Link eventKey={2}>Pill 2 content</Nav.Link>
-  //     </Nav>
-  //   );
-  //   const navElem = getByTestId('test');
-  //   expect(navElem.classList).toContain('nav-tabs');
-  //   expect(navElem.classList).toContain('nav');
-  // });
-
-  it('should add justified class', () => {
-    const { getByTestId } = render(
-      <Nav justify data-testid="test">
-        <Nav.Link eventKey={1}>Pill 1 content</Nav.Link>
-        <Nav.Link eventKey={2}>Pill 2 content</Nav.Link>
-      </Nav>
-    );
-    const navElem = getByTestId('test');
-    expect(navElem.classList).toContain('nav-justified');
-  });
-
-  it('should add fill class', () => {
-    const { getByTestId } = render(
-      <Nav fill data-testid="test">
-        <Nav.Link eventKey={1}>Pill 1 content</Nav.Link>
-        <Nav.Link eventKey={2}>Pill 2 content</Nav.Link>
-      </Nav>
-    );
-    const navElem = getByTestId('test');
-    expect(navElem.classList).toContain('nav-fill');
-  });
 
   it('should be navbar aware', () => {
     const { getByTestId } = render(

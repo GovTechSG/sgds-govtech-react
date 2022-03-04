@@ -8,6 +8,7 @@ import {
   Container,
   Row,
   Col,
+  Navbar,
 } from '../../src';
 import { useState } from 'react';
 import { HIDDEN_COMMON_PROPS } from '../helpers';
@@ -51,89 +52,83 @@ import { HIDDEN_COMMON_PROPS } from '../helpers';
       description:
         'Menu color variant. Omitting this will default to light color',
     },
-    href: {
-        description: 'Assigned to DropdownToggle of NavDropdown. Only applicable when NavDropdown hovers to open menu'
-    },
     isMegaMenu: {
-        description: 'When true, stylings of dropdown menu changes to mega menu'
+      description: 'When true, stylings of dropdown menu changes to mega menu',
     },
     eventKey: {
-      description: 'Uniquely identifies the NavDropdown amongst its siblings, used to determine and control the active state of the parent Nav'
-    }
+      description:
+        'Uniquely identifies the NavDropdown amongst its siblings, used to determine and control the active state of the parent Nav',
+    },
   }}
 />
 
 export const Template = (args) => {
   return (
-    <Nav {...args}>
-      <Nav.Dropdown
-        {...args}
-        title="NavDropdown"
-        id="nav-dropdown"
-        href="https://www.designsystem.tech.gov.sg/"
-      >
-        <Nav.Dropdown.Item of="nav-dropdown" eventKey="4.1">
-          Action
-        </Nav.Dropdown.Item>
-        <Nav.Dropdown.Item of="nav-dropdown" eventKey="4.2">
-          Another action
-        </Nav.Dropdown.Item>
-        <Nav.Dropdown.Item of="nav-dropdown" eventKey="4.3">
-          Something else here
-        </Nav.Dropdown.Item>
-        <Nav.Dropdown.Divider />
-        <Nav.Dropdown.Item of="nav-dropdown" eventKey="4.4">
-          Separated link
-        </Nav.Dropdown.Item>
-      </Nav.Dropdown>
-    </Nav>
+    <Navbar>
+      <Nav>
+        <Nav.Dropdown {...args} title="NavDropdown" id="nav-dropdown">
+          <Nav.Dropdown.Item of="nav-dropdown" eventKey="4.1">
+            Action
+          </Nav.Dropdown.Item>
+          <Nav.Dropdown.Item of="nav-dropdown" eventKey="4.2">
+            Another action
+          </Nav.Dropdown.Item>
+          <Nav.Dropdown.Item of="nav-dropdown" eventKey="4.3">
+            Something else here
+          </Nav.Dropdown.Item>
+          <Nav.Dropdown.Divider />
+          <Nav.Dropdown.Item of="nav-dropdown" eventKey="4.4">
+            Separated link
+          </Nav.Dropdown.Item>
+        </Nav.Dropdown>
+      </Nav>
+    </Navbar>
   );
 };
 
-
 export const Megamenu = () => {
   return (
-    <Nav>
-      <Nav.Dropdown eventKey="5" isMegaMenu title="Megamenu" href="#">
-        <Container>
-          <Row>
-            <Col>
-              <Nav.Dropdown.Item eventKey="5.1">Action</Nav.Dropdown.Item>
-            </Col>
-            <Col>
-              <Nav.Dropdown.Item eventKey="5.2">Action</Nav.Dropdown.Item>
-            </Col>
-            <Col>
-              <Nav.Dropdown.Item eventKey="5.3">Action</Nav.Dropdown.Item>
-            </Col>
-          </Row>
-          <Row>
-            <Col>
-              <Nav.Dropdown.Item eventKey="5.4">Action</Nav.Dropdown.Item>
-            </Col>
-            <Col>
-              <Nav.Dropdown.Item eventKey="5.5">Action</Nav.Dropdown.Item>
-            </Col>
-            <Col>
-              <Nav.Dropdown.Item eventKey="5.6">Action</Nav.Dropdown.Item>
-            </Col>
-          </Row>
-        </Container>
-      </Nav.Dropdown>
-    </Nav>
+    <Navbar>
+      <Nav>
+        <Nav.Dropdown eventKey="5" isMegaMenu title="Megamenu">
+          <Container>
+            <Row>
+              <Col>
+                <Nav.Dropdown.Item eventKey="5.1">Action</Nav.Dropdown.Item>
+              </Col>
+              <Col>
+                <Nav.Dropdown.Item eventKey="5.2">Action</Nav.Dropdown.Item>
+              </Col>
+              <Col>
+                <Nav.Dropdown.Item eventKey="5.3">Action</Nav.Dropdown.Item>
+              </Col>
+            </Row>
+            <Row>
+              <Col>
+                <Nav.Dropdown.Item eventKey="5.4">Action</Nav.Dropdown.Item>
+              </Col>
+              <Col>
+                <Nav.Dropdown.Item eventKey="5.5">Action</Nav.Dropdown.Item>
+              </Col>
+              <Col>
+                <Nav.Dropdown.Item eventKey="5.6">Action</Nav.Dropdown.Item>
+              </Col>
+            </Row>
+          </Container>
+        </Nav.Dropdown>
+      </Nav>
+    </Navbar>
   );
 };
 
 # NavDropdown
 
-NavDropdown is one of the types of children for `Nav` component.
+NavDropdown is one of the types of children for `Nav` and `Navbar` component.
 
-By default, the menu opens by mouse hovering over the toggle and it is a single-columned menu like the `<Dropdown/>`.
-
-onClick of the Dropdown Toggle will redirect the page if `href` is present.
-  
 It consists of subcomponents: `<Nav.Dropdown.Item>`, `<Nav.Dropdown.ItemText>`, `<Nav.Dropdown.Divider>`,`<Nav.Dropdown.Header>`,  
 NavDropdown and its subcomponents are build from `<Dropdown />` and their APIS can be referenced from `<Dropdown />`
+
+**NOTE** NavDropdown has to be the child of both `Nav` and `Navbar` for SGDS stylings to be applicable. See code sample
 
 <Canvas>
   <Story height="250px" name="Default">
@@ -145,14 +140,60 @@ NavDropdown and its subcomponents are build from `<Dropdown />` and their APIS c
 
 <ArgsTable story="Default" />
 
+## Code Sample
+
 ## MegaMenu Dropdown
 
-Pass in `isMegaMenu`: `true` and create your own layout using.
+Pass in `isMegaMenu`: `true` and create your own layout using [bootstrap's layout](https://getbootstrap.com/docs/5.0/layout/containers/)
 
-In this example, `<Container />`, `<Row />` and `<Col />` are used to customise a layout for megamenu
+In this example, `<Container />`, `<Row />` and `<Col />` are used to customise a layout for megamenu. See [Navbar's megamenu](/docs/components-navigation-navbar--default-story)
+for alternative layout.
 
 <Canvas>
   <Story height="250px" name="Megamenu">
     {Megamenu.bind({})}
   </Story>
 </Canvas>
+
+```jsx
+import { Nav } from '@govtechsg/sgds-govtech-react/Nav';
+import { Navbar } from '@govtechsg/sgds-govtech-react/Navbar';
+import { Container } from '@govtechsg/sgds-govtech-react/Container';
+import { Col } from '@govtechsg/sgds-govtech-react/Row';
+import { Row } from '@govtechsg/sgds-govtech-react/Col';
+
+const Megamenu = () => {
+  return (
+    <Navbar>
+      <Nav>
+        <Nav.Dropdown eventKey="5" isMegaMenu title="Megamenu">
+          <Container>
+            <Row>
+              <Col>
+                <Nav.Dropdown.Item eventKey="5.1">Action</Nav.Dropdown.Item>
+              </Col>
+              <Col>
+                <Nav.Dropdown.Item eventKey="5.2">Action</Nav.Dropdown.Item>
+              </Col>
+              <Col>
+                <Nav.Dropdown.Item eventKey="5.3">Action</Nav.Dropdown.Item>
+              </Col>
+            </Row>
+            <Row>
+              <Col>
+                <Nav.Dropdown.Item eventKey="5.4">Action</Nav.Dropdown.Item>
+              </Col>
+              <Col>
+                <Nav.Dropdown.Item eventKey="5.5">Action</Nav.Dropdown.Item>
+              </Col>
+              <Col>
+                <Nav.Dropdown.Item eventKey="5.6">Action</Nav.Dropdown.Item>
+              </Col>
+            </Row>
+          </Container>
+        </Nav.Dropdown>
+      </Nav>
+    </Navbar>
+  );
+};
+```

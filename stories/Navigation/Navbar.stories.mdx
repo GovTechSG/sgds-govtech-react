@@ -1,10 +1,5 @@
 import { ArgsTable, Canvas, Meta, Story } from '@storybook/addon-docs';
-import {
-  Navbar,
-  Nav,
-  NavDropdown,
-  Container,
-} from '../../src';
+import { Navbar, Nav, NavDropdown, Container, Row, Col } from '../../src';
 import { useState } from 'react';
 import { HIDDEN_COMMON_PROPS } from '../helpers';
 
@@ -24,6 +19,10 @@ import { HIDDEN_COMMON_PROPS } from '../helpers';
         'When true and in hamburger state, the Navbar collapses on selection of its items',
     },
     sticky: {
+      control: {
+        type: 'select',
+      },
+      options: ['top'],
       description: `Position the navbar at the top of the viewport, but only after scrolling past it. A convenience prop for the sticky-top positioning class.  Not supported in <= IE11 and other older browsers without a polyfill`,
     },
     fixed: {
@@ -31,10 +30,11 @@ import { HIDDEN_COMMON_PROPS } from '../helpers';
 Create a fixed navbar along the top or bottom of the screen, that scrolls with the page. A convenience prop for the fixed-* positioning classes.`,
     },
     expand: {
+      control: { type: 'select' },
+      options: [true, false, 'sm', 'md', 'lg', 'xl', 'xxl'],
       table: {
         type: {
-          summary:
-            'boolean | "sm" | "md" | "lg" | "xl" | "xxl" | number (only for custom css)',
+          summary: 'boolean | "sm" | "md" | "lg" | "xl" | "xxl"',
         },
       },
       description: `The breakpoint, below which, the Navbar will collapse. When true the Navbar will always be expanded regardless of screen size.`,
@@ -42,50 +42,179 @@ Create a fixed navbar along the top or bottom of the screen, that scrolls with t
     bg: {
       description: 'Sets the background color of navbar',
     },
-    variant: {
-      description:
-        'The general visual variant a the Navbar. Use in combination with the bg prop, background-color utilities, or your own background styles.',
-    },
   }}
 />
 
-export const Template = (brandName) => {
+export const Template = (brandName, additionalChild) => {
   return (args) => {
+    const [active, setActive] = useState('home');
+    const clickNavbarItem = (eventKey) => {
+      setActive(eventKey);
+    };
     return (
       <Navbar {...args}>
-        <Container>
-          <Navbar.Brand href="#">{brandName}</Navbar.Brand>
-          <Navbar.Toggle aria-controls="basic-navbar-nav" />
-          <Navbar.Collapse id="basic-navbar-nav">
-            <Nav className="me-auto" navbarScroll>
-              <Nav.Link href="#">Home</Nav.Link>
-              <Nav.Link href="#">Link</Nav.Link>
-              <NavDropdown
-                title="Dropdown"
-                id="basic-nav-dropdown"
-                href="https://google.com"
+        <Navbar.Brand href="#">{brandName}</Navbar.Brand>
+        <Navbar.Toggle aria-controls="basic-navbar-nav" />
+        <Navbar.Collapse id="basic-navbar-nav">
+          <Nav className="me-auto" navbarScroll activeKey={active}>
+            <Nav.Item>
+              <Nav.Link
+                href="#"
+                eventKey="home"
+                onClick={() => clickNavbarItem('home')}
               >
-                <NavDropdown.Item href="#action/3.1">Action</NavDropdown.Item>
-                <NavDropdown.Item href="#action/3.2">
-                  Another action
-                </NavDropdown.Item>
-                <NavDropdown.Item href="#action/3.3">
-                  Something
-                </NavDropdown.Item>
-                <NavDropdown.Divider />
-                <NavDropdown.Item href="#action/3.4">
-                  Separated link
-                </NavDropdown.Item>
-              </NavDropdown>
-            </Nav>
-          </Navbar.Collapse>
-        </Container>
+                Home
+              </Nav.Link>
+            </Nav.Item>
+            <Nav.Item>
+              <Nav.Link
+                href="#"
+                eventKey="link"
+                onClick={() => clickNavbarItem('link')}
+              >
+                Link
+              </Nav.Link>
+            </Nav.Item>
+            <NavDropdown
+              title="Dropdown"
+              id="basic-nav-dropdown"
+              href="https://google.com"
+              eventKey="firstDropdown"
+              onClick={() => clickNavbarItem('firstDropdown')}
+            >
+              <NavDropdown.Item
+                href="#action/3.1"
+                onClick={() => clickNavbarItem('firstDropdown')}
+              >
+                Action
+              </NavDropdown.Item>
+              <NavDropdown.Item
+                href="#action/3.2"
+                onClick={() => clickNavbarItem('firstDropdown')}
+              >
+                Another action
+              </NavDropdown.Item>
+              <NavDropdown.Item
+                href="#action/3.3"
+                onClick={() => clickNavbarItem('firstDropdown')}
+              >
+                Something
+              </NavDropdown.Item>
+              <NavDropdown.Divider />
+              <NavDropdown.Item
+                href="#action/3.4"
+                onClick={() => clickNavbarItem('firstDropdown')}
+              >
+                Separated link
+              </NavDropdown.Item>
+            </NavDropdown>
+            <Nav.Dropdown
+              eventKey="5"
+              isMegaMenu
+              title="Megamenu"
+              href="#"
+              eventKey="mega"
+              onClick={() => clickNavbarItem('mega')}
+            >
+              <Container fluid>
+                <Row className="p-4">
+                  <Col>
+                    <p>
+                      <strong>
+                        Co-create innovative digital solutions with the
+                        Government
+                      </strong>
+                    </p>
+                    <p>
+                      Discover events, blogs, open-source technologies and other
+                      collaboration opportunities
+                    </p>
+                  </Col>
+                  <Col>
+                    <NavDropdown.Item
+                      href="#"
+                      onClick={() => clickNavbarItem('mega')}
+                    >
+                      Features
+                    </NavDropdown.Item>
+                    <NavDropdown.Item
+                      href="#"
+                      onClick={() => clickNavbarItem('mega')}
+                    >
+                      Features
+                    </NavDropdown.Item>
+                    <NavDropdown.Item
+                      href="#"
+                      onClick={() => clickNavbarItem('mega')}
+                    >
+                      Features
+                    </NavDropdown.Item>
+                  </Col>
+                  <Col>
+                    <NavDropdown.Item
+                      href="#"
+                      onClick={() => clickNavbarItem('mega')}
+                    >
+                      Features
+                    </NavDropdown.Item>
+                    <NavDropdown.Item
+                      href="#"
+                      onClick={() => clickNavbarItem('mega')}
+                    >
+                      Features
+                    </NavDropdown.Item>
+                    <NavDropdown.Item
+                      href="#"
+                      onClick={() => clickNavbarItem('mega')}
+                    >
+                      Features
+                    </NavDropdown.Item>
+                  </Col>
+                  <Col>
+                    <NavDropdown.Item
+                      href="#"
+                      onClick={() => clickNavbarItem('mega')}
+                    >
+                      Features
+                    </NavDropdown.Item>
+                    <NavDropdown.Item href="#">Features</NavDropdown.Item>
+                    <NavDropdown.Item
+                      href="#"
+                      onClick={() => clickNavbarItem('mega')}
+                    >
+                      Features
+                    </NavDropdown.Item>
+                  </Col>
+                </Row>
+              </Container>
+            </Nav.Dropdown>
+          </Nav>
+          <>{additionalChild}</>
+        </Navbar.Collapse>
       </Navbar>
     );
   };
 };
 
-export const Default = Template('Navbar.Brand');
+export const Img = (
+  <img
+    src="https://www.developer.tech.gov.sg/assets/img/logo_color.svg"
+    alt="Home"
+  />
+);
+
+export const AdditionalDropdown = (
+  <Nav>
+    <NavDropdown title="Additional Dropdown" align="end" eventKey="addition">
+      <NavDropdown.Item href="#action/3.1">Action</NavDropdown.Item>
+      <NavDropdown.Item href="#action/3.1">Action</NavDropdown.Item>
+      <NavDropdown.Divider />
+      <NavDropdown.Item href="#action/3.1">Action</NavDropdown.Item>
+    </NavDropdown>
+  </Nav>
+);
+
+export const Default = Template(Img);
 export const AlwaysExpanded = Template('Always Expanded');
 export const AlwaysCollapsed = Template('Always Collapsed');
 export const BreakpointSm = Template('Breakpoint-sm');
@@ -93,11 +222,14 @@ export const BreakpointMd = Template('Breakpoint-md');
 export const BreakpointLg = Template('Breakpoint-lg');
 export const BreakpointXl = Template('Breakpoint-xl');
 export const BreakpointXxl = Template('Breakpoint-xxl');
+export const AdditionalChild = Template('Additional Nav', AdditionalDropdown);
 
 # Navbar
 
+`<Navbar />` is a `<nav />` element, collapsible on breakpoint. It consist of subcomponents `<Navbar.Brand/>`, `<Navbar.Collapse/>`, `<Navbar.Toggle/>`
+
 <Canvas>
-  <Story name="Default" height="250px">
+  <Story name="Default" height="500px">
     {Default.bind({})}
   </Story>
 </Canvas>
@@ -108,21 +240,169 @@ export const BreakpointXxl = Template('Breakpoint-xxl');
 
 For more detailed API documentation , refer to https://react-bootstrap.github.io/components/navbar/#navbar-props
 
-## Dropdown in expanded navbar vs Dropdown in collapsed navbar
+## Code Sample
 
-Dropdown in fully expanded navbar will be hoverable by default.
+```jsx
+import { Navbar } from '@govtechsg/sgds-govtech-react/Navbar';
+import { Nav, NavDropdown } from '@govtechsg/sgds-govtech-react/Nav';
+import { Container } from '@govtechsg/sgds-govtech-react/Container';
+import { Row } from '@govtechsg/sgds-govtech-react/Row';
+import { Col } from '@govtechsg/sgds-govtech-react/Col';
 
-When navbar is collapsed, Dropdown will not be hoverable, but clickable to support mobile versions.
+export const NavbarTemplate = (brandName) => {
+  const [active, setActive] = useState('home');
+  const clickNavbarItem = (eventKey) => {
+    setActive(eventKey);
+  };
+  return (
+    <Navbar>
+      <Navbar.Brand href="#">{brandName}</Navbar.Brand>
+      <Navbar.Toggle aria-controls="basic-navbar-nav" />
+      <Navbar.Collapse id="basic-navbar-nav">
+        <Nav className="me-auto" navbarScroll activeKey={active}>
+          <Nav.Item>
+            <Nav.Link
+              href="#"
+              eventKey="home"
+              onClick={() => clickNavbarItem('home')}
+            >
+              Home
+            </Nav.Link>
+          </Nav.Item>
+          <Nav.Item>
+            <Nav.Link
+              href="#"
+              eventKey="link"
+              onClick={() => clickNavbarItem('link')}
+            >
+              Link
+            </Nav.Link>
+          </Nav.Item>
+          <NavDropdown
+            title="Dropdown"
+            id="basic-nav-dropdown"
+            href="https://google.com"
+            eventKey="firstDropdown"
+            onClick={() => clickNavbarItem('firstDropdown')}
+          >
+            <NavDropdown.Item
+              href="#action/3.1"
+              onClick={() => clickNavbarItem('firstDropdown')}
+            >
+              Action
+            </NavDropdown.Item>
+            <NavDropdown.Item
+              href="#action/3.2"
+              onClick={() => clickNavbarItem('firstDropdown')}
+            >
+              Another action
+            </NavDropdown.Item>
+            <NavDropdown.Item
+              href="#action/3.3"
+              onClick={() => clickNavbarItem('firstDropdown')}
+            >
+              Something
+            </NavDropdown.Item>
+            <NavDropdown.Divider />
+            <NavDropdown.Item
+              href="#action/3.4"
+              onClick={() => clickNavbarItem('firstDropdown')}
+            >
+              Separated link
+            </NavDropdown.Item>
+          </NavDropdown>
+          <Nav.Dropdown
+            eventKey="5"
+            isMegaMenu
+            title="Megamenu"
+            href="#"
+            eventKey="mega"
+            onClick={() => clickNavbarItem('mega')}
+          >
+            <Container fluid>
+              <Row className="p-4">
+                <Col>
+                  <p>
+                    <strong>
+                      Co-create innovative digital solutions with the Government
+                    </strong>
+                  </p>
+                  <p>
+                    Discover events, blogs, open-source technologies and other
+                    collaboration opportunities
+                  </p>
+                </Col>
+                <Col>
+                  <NavDropdown.Item
+                    href="#"
+                    onClick={() => clickNavbarItem('mega')}
+                  >
+                    Features
+                  </NavDropdown.Item>
+                  <NavDropdown.Item
+                    href="#"
+                    onClick={() => clickNavbarItem('mega')}
+                  >
+                    Features
+                  </NavDropdown.Item>
+                  <NavDropdown.Item
+                    href="#"
+                    onClick={() => clickNavbarItem('mega')}
+                  >
+                    Features
+                  </NavDropdown.Item>
+                </Col>
+                <Col>
+                  <NavDropdown.Item
+                    href="#"
+                    onClick={() => clickNavbarItem('mega')}
+                  >
+                    Features
+                  </NavDropdown.Item>
+                  <NavDropdown.Item
+                    href="#"
+                    onClick={() => clickNavbarItem('mega')}
+                  >
+                    Features
+                  </NavDropdown.Item>
+                  <NavDropdown.Item
+                    href="#"
+                    onClick={() => clickNavbarItem('mega')}
+                  >
+                    Features
+                  </NavDropdown.Item>
+                </Col>
+                <Col>
+                  <NavDropdown.Item
+                    href="#"
+                    onClick={() => clickNavbarItem('mega')}
+                  >
+                    Features
+                  </NavDropdown.Item>
+                  <NavDropdown.Item href="#">Features</NavDropdown.Item>
+                  <NavDropdown.Item
+                    href="#"
+                    onClick={() => clickNavbarItem('mega')}
+                  >
+                    Features
+                  </NavDropdown.Item>
+                </Col>
+              </Row>
+            </Container>
+          </Nav.Dropdown>
+        </Nav>
+      </Navbar.Collapse>
+    </Navbar>
+  );
+};
+```
+
+## Collapsible
+
+Navbar is collapsible to accomodate to mobile versions. When collapsed, a collapsed menu hamburger toggle will be present.
 
 Pass in boolean , `sm`, `md`, `lg`, `xl`, `xxl` to `expand` prop to apply the breakpoint.
 The sizes applies the defined breakpoint styles from sgds. e.g. `.navbar-expand-sm`, `.navbar-expand-md`
-
-If you are overriding the default sgds css breakpoints, i.e. not using `sm`, `md` ... `xxl` to control the breakpoint,
-Pass in ` ` as a `number` value which depicts which viewport width (px) that you have defined as breakpoint in your customs css mediaquery.
-With this value, the navbar will convert the dropdown from hoverable to clickable when screen size changes.
-
-**NOTE** : This component does not directly control the breakpoint value, the CSS is directly controlling it.
-Do not rely on `expand` prop to change the breakpoint value size. The breakpoint value size can only be changed with custom mediaqueries
 
 ```jsx
 <Navbar expand={true}/>
@@ -173,3 +453,34 @@ Do not rely on `expand` prop to change the breakpoint value size. The breakpoint
     {BreakpointXxl.bind({})}
   </Story>
 </Canvas>
+
+## Add Nav to Navbar
+
+Add multiple Navs under Navbar. When collapsed, the additional Dropdown is also included in the collapsed Navbar
+
+<Canvas>
+  <Story name="Add Nav to Navbar" args={{ expand: 'lg' }}>
+    {AdditionalChild.bind({})}
+  </Story>
+</Canvas>
+
+```jsx
+<Navbar>
+  <Navbar.Brand href="#">{brandName}</Navbar.Brand>
+  <Navbar.Toggle aria-controls="basic-navbar-nav" />
+  <Navbar.Collapse id="basic-navbar-nav">
+    <Nav className="me-auto" navbarScroll activeKey={active}>
+     ...
+    </Nav>
+    //additional nav
+    <Nav>
+      <NavDropdown title="Additional Dropdown" align="end" eventKey="addition">
+        <NavDropdown.Item href="#action/3.1">Action</NavDropdown.Item>
+        <NavDropdown.Item href="#action/3.1">Action</NavDropdown.Item>
+        <NavDropdown.Divider />
+        <NavDropdown.Item href="#action/3.1">Action</NavDropdown.Item>
+      </NavDropdown>
+    </Nav>
+  </Navbar.Collapse>
+</Navbar>
+```

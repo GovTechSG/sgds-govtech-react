@@ -1,10 +1,7 @@
-import { fireEvent, render, act } from '@testing-library/react';
-import {Nav} from '../../src/Nav';
-import {Navbar} from '../../src/Navbar';
-import {Container} from '../../src/Container';
-import {NavDropdown} from '../../src/Nav';
+import { fireEvent, render } from '@testing-library/react';
+import { Nav } from '../../src/Nav';
+import { Navbar } from '../../src/Navbar';
 import * as React from 'react';
-import { Size } from '../../src/utils/types';
 
 describe('<Navbar>', () => {
   it('Should create nav element', () => {
@@ -36,13 +33,6 @@ describe('<Navbar>', () => {
     );
     const navbarElem = getBySecondTestId('test2');
     expect(navbarElem.classList).toContain('fixed-bottom');
-  });
-
-  it('Should variant=dark', () => {
-    const { getByTestId } = render(
-      <Navbar variant="dark" data-testid="test" />
-    );
-    expect(getByTestId('test').classList).toContain('navbar-dark');
   });
 
   it('Should override role attribute', () => {
@@ -296,89 +286,5 @@ describe('<Navbar>', () => {
     expect(getByTestId('test').classList).not.toContain('border-bottom');
     rerender(<Navbar hasBorderBottom data-testid="test" />);
     expect(getByTestId('test').classList).toContain('border-bottom');
-  });
-});
-
-// const resizeWindow = (width: number) => {
-//   global.window.innerWidth = width;
-//   global.window.dispatchEvent(new Event('resize'));
-// };
-
-const CompositeComponent = (expand: number | boolean | Size) => (
-  <Navbar expand={expand}>
-    <Container>
-      <Navbar.Brand href="#home">React-Bootstrap</Navbar.Brand>
-      <Navbar.Toggle aria-controls="basic-navbar-nav" />
-      <Navbar.Collapse id="basic-navbar-nav">
-        <Nav className="me-auto">
-          <Nav.Link href="#home">Home</Nav.Link>
-          <Nav.Link href="#link">Link</Nav.Link>
-          <NavDropdown
-            title="Dropdown"
-            id="basic-nav-dropdown"
-            href="https://google.com"
-            eventKey="1"
-          >
-            <NavDropdown.Item of="1" href="#action/3.1">
-              Action
-            </NavDropdown.Item>
-            <NavDropdown.Item of="1" href="#action/3.2">
-              Another action
-            </NavDropdown.Item>
-            <NavDropdown.Item of="1" href="#action/3.3">
-              Something
-            </NavDropdown.Item>
-            <NavDropdown.Divider />
-            <NavDropdown.Item of="1" href="#action/3.4">
-              Separated link
-            </NavDropdown.Item>
-          </NavDropdown>
-        </Nav>
-      </Navbar.Collapse>
-    </Container>
-  </Navbar>
-);
-
-describe('navbar with navdropdown and expand prop changes', () => {
-  it('when expand prop is a number value 700, screen width >= 700 renders hoverable dropdown, < 700 renders clickable dropdown', async () => {
-    const { container } = render(CompositeComponent(700));
-    // when window size is 768 , dropdown is-hoverable
-    expect(
-      container.querySelector('.dropdown-toggle.nav-link')?.getAttribute('href')
-    ).toEqual('https://google.com');
-    expect(container.querySelector('.is-hoverable')).not.toBeNull();
-
-    //when window size is 300 , dropdown is not hoverable
-    await act(async () => {
-      Object.defineProperty(window, 'innerHeight', {
-        writable: true,
-        configurable: true,
-        value: 300,
-      });
-
-      window.dispatchEvent(new Event('resize'));
-    });
-    //TODO: test this responsiveness with another e2e test like cypress
-    // await waitFor(() =>{
-    //   expect(window.innerHeight).toBe(300)
-    //   expect(
-    //     container.querySelector('.dropdown-toggle.nav-link')?.getAttribute('href')
-    //   ).toEqual('https://google.com');
-    //   expect(container.querySelector('.is-hoverable')).toBeNull();
-    // })
-  });
-
-  it('when expand prop is true dropdown has href', () => {
-    const { container } = render(CompositeComponent(true));
-
-    expect(
-      container.querySelector('.dropdown-toggle.nav-link')?.getAttribute('href')
-    ).toEqual('https://google.com');
-  });
-  it('when expand prop is false dropdown has no href', () => {
-    const { container } = render(CompositeComponent(false));
-    expect(
-      container.querySelector('.dropdown-toggle.nav-link')
-    ).not.toHaveAttribute('href');
   });
 });

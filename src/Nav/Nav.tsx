@@ -7,21 +7,18 @@ import { useUncontrolled } from 'uncontrollable';
 import BaseNav, { NavProps as BaseNavProps } from '@restart/ui/Nav';
 import { useBootstrapPrefix } from '../ThemeProvider/ThemeProvider';
 import NavbarContext from '../Navbar/NavbarContext';
-// import CardHeaderContext from '../Card/CardHeaderContext';
 import NavItem from './NavItem';
 import NavLink from './NavLink';
 import NavDropdown from './NavDropdown';
 import { EventKey } from '@restart/ui/types';
 import NavContext from './NavContext';
-import { BsPrefixProps, BsPrefixRefForwardingComponent } from '../utils/helpers';
+import {
+  BsPrefixProps,
+  BsPrefixRefForwardingComponent,
+} from '../utils/helpers';
 
 export interface NavProps extends BsPrefixProps, BaseNavProps {
-  // navbarBsPrefix?: string;
-  // cardHeaderBsPrefix?: string;
   variant?: 'tabs' | 'pills';
-  fill?: boolean;
-  justify?: boolean;
-  // navbar?: boolean;
   navbarScroll?: boolean;
   defaultActiveKey?: EventKey;
 }
@@ -48,18 +45,6 @@ const propTypes = {
    * Marks the NavItem with a matching `eventKey` (or `href` if present) as active.
    */
   activeKey: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
-
-  /**
-   * Have all `NavItem`s proportionately fill all available width.
-   */
-  fill: PropTypes.bool,
-
-  /**
-   * Have all `NavItem`s evenly fill all available width.
-   *
-   * @type {boolean}
-   */
-  justify: PropTypes.bool,
 
   /**
    * A callback fired when a NavItem is selected.
@@ -98,12 +83,6 @@ const propTypes = {
 
   /** @private */
   onKeyDown: PropTypes.func,
-  setActiveKey: PropTypes.func
-};
-
-const defaultProps = {
-  justify: false,
-  fill: false,
 };
 
 const Nav: BsPrefixRefForwardingComponent<'ul', NavProps> = React.forwardRef<
@@ -113,10 +92,6 @@ const Nav: BsPrefixRefForwardingComponent<'ul', NavProps> = React.forwardRef<
   const {
     as = 'ul',
     bsPrefix: initialBsPrefix,
-    // variant,
-    fill,
-    justify,
-    // navbar,
     navbarScroll,
     className,
     activeKey,
@@ -124,56 +99,45 @@ const Nav: BsPrefixRefForwardingComponent<'ul', NavProps> = React.forwardRef<
   } = useUncontrolled(uncontrolledProps, { activeKey: 'onSelect' });
 
   const bsPrefix = useBootstrapPrefix(initialBsPrefix, 'nav');
-  // const [activeK, setActiveK] = React.useState(activeKey)
   const contextValue = useMemo(
     () => ({
       activeKey,
     }),
     [activeKey]
-  )
+  );
   let navbarBsPrefix;
-  // let cardHeaderBsPrefix;
   let isNavbar = false;
 
   const navbarContext = useContext(NavbarContext);
-  // const cardHeaderContext = useContext(CardHeaderContext);
 
   if (navbarContext) {
     navbarBsPrefix = navbarContext.bsPrefix;
-    // isNavbar = navbar == null ? true : navbar;
-    isNavbar = true
-  } /* else if (cardHeaderContext) {
-    ({ cardHeaderBsPrefix } = cardHeaderContext);
-  } */
-  
+    isNavbar = true;
+  }
+
   return (
     <NavContext.Provider value={contextValue}>
-    <BaseNav
-      as={as}
-      ref={ref}
-      activeKey={activeKey}
-      className={classNames(className, {
-        [bsPrefix]: !isNavbar,
-        [`${navbarBsPrefix}-nav`]: isNavbar,
-        [`${navbarBsPrefix}-nav-scroll`]: isNavbar && navbarScroll,
-        // [`${cardHeaderBsPrefix}-${variant}`]: !!cardHeaderBsPrefix,
-        // [`${bsPrefix}-${variant}`]: !!variant,
-        [`${bsPrefix}-fill`]: fill,
-        [`${bsPrefix}-justified`]: justify,
-        ['sgds'] : !isNavbar
-      })}
-      {...props}
-    />
+      <BaseNav
+        as={as}
+        ref={ref}
+        activeKey={activeKey}
+        className={classNames(className, {
+          [bsPrefix]: !isNavbar,
+          [`${navbarBsPrefix}-nav`]: isNavbar,
+          [`${navbarBsPrefix}-nav-scroll`]: isNavbar && navbarScroll,
+          ['sgds']: !isNavbar,
+        })}
+        {...props}
+      />
     </NavContext.Provider>
   );
 });
 
 Nav.displayName = 'Nav';
 Nav.propTypes = propTypes;
-Nav.defaultProps = defaultProps;
 
 export default Object.assign(Nav, {
   Item: NavItem,
   Link: NavLink,
-  Dropdown: NavDropdown
+  Dropdown: NavDropdown,
 });

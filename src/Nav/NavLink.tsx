@@ -9,7 +9,10 @@ import {
 } from '@restart/ui/NavItem';
 import { makeEventKey } from '@restart/ui/SelectableContext';
 import { useBootstrapPrefix } from '../ThemeProvider/ThemeProvider';
-import { BsPrefixProps, BsPrefixRefForwardingComponent } from '../utils/helpers';
+import {
+  BsPrefixProps,
+  BsPrefixRefForwardingComponent,
+} from '../utils/helpers';
 
 export interface NavLinkProps
   extends BsPrefixProps,
@@ -63,10 +66,10 @@ const NavLink: BsPrefixRefForwardingComponent<'a', NavLinkProps> =
         as: Component = Anchor,
         active,
         eventKey,
-        // onClick, 
+        // onClick,
         ...props
       },
-      ref,
+      ref
     ) => {
       bsPrefix = useBootstrapPrefix(bsPrefix, 'nav-link');
       const [navItemProps, meta] = useNavItem({
@@ -74,28 +77,20 @@ const NavLink: BsPrefixRefForwardingComponent<'a', NavLinkProps> =
         active,
         ...props,
       });
-      // const navContext = React.useContext(NavContext);
-
-      // const handleClick = (e: React.MouseEvent<HTMLElement, MouseEvent>) => {
-      //   navContext?.setActiveKey && navContext.setActiveKey(eventKey)
-      //   if (onClick) onClick(e)
-      // }
-      // const computeActive = navContext?.activeKey === eventKey
       return (
         <Component
           {...props}
-          {...navItemProps} 
+          {...navItemProps}
           ref={ref}
-          // onClick={handleClick}
           className={classNames(
             className,
             bsPrefix,
             props.disabled && 'disabled',
-            (meta.isActive /* || computeActive */) && 'active',
+            meta.isActive && 'active'
           )}
         />
       );
-    },
+    }
   );
 
 NavLink.displayName = 'NavLink';

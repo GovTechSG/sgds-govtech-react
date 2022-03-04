@@ -2,15 +2,12 @@ import classNames from 'classnames';
 import * as React from 'react';
 import PropTypes from 'prop-types';
 import { useContext } from 'react';
-import { useMediaQuery } from 'react-responsive';
 
 import { useBootstrapPrefix } from '../ThemeProvider/ThemeProvider';
 import Dropdown, { DropdownProps } from '../Dropdown/Dropdown';
 import { DropdownMenuVariant } from '../Dropdown/DropdownMenu';
 import NavLink from './NavLink';
 import { BsPrefixRefForwardingComponent } from '../utils/helpers';
-import NavbarContext from '../Navbar/NavbarContext';
-import { SM, MD, LG, XL, XXL } from '../utils/constant';
 import NavContext from './NavContext';
 import { EventKey } from '@restart/ui/esm/types';
 
@@ -22,7 +19,6 @@ export interface NavDropdownProps extends Omit<DropdownProps, 'title'> {
   renderMenuOnMount?: boolean;
   rootCloseEvent?: 'click' | 'mousedown';
   menuVariant?: DropdownMenuVariant;
-  href?: string;
   isMegaMenu?: boolean;
   eventKey?: EventKey;
 }
@@ -68,7 +64,6 @@ const propTypes = {
 
   /** @ignore */
   bsPrefix: PropTypes.string,
-  href: PropTypes.string,
   isMegaMenu: PropTypes.bool,
   eventKey: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
 };
@@ -88,125 +83,37 @@ const NavDropdown: BsPrefixRefForwardingComponent<'li', NavDropdownProps> =
         active,
         renderMenuOnMount,
         menuVariant,
-        href,
         isMegaMenu,
         eventKey,
+        align,
         ...props
       }: NavDropdownProps,
       ref
     ) => {
       /* NavItem has no additional logic, it's purely presentational. Can set nav item class here to support "as" */
-      const navbarContext = useContext(NavbarContext);
       const navContext = useContext(NavContext);
-      const expand = navbarContext && navbarContext.expand;
-      const defaultMediaQueries = {
-        sm: useMediaQuery({ maxWidth: SM - 1 }),
-        md: useMediaQuery({ maxWidth: MD - 1 }),
-        lg: useMediaQuery({ maxWidth: LG - 1 }),
-        xl: useMediaQuery({ maxWidth: XL - 1 }),
-        xxl: useMediaQuery({ maxWidth: XXL - 1 }),
-      };
-      const noMediaQuery = typeof expand === 'boolean';
-      const stringMediaQuery =
-        typeof expand === 'string' && defaultMediaQueries[expand];
-      const numberMediaQuery =
-        typeof expand === 'number' && useMediaQuery({ maxWidth: expand - 1 });
-      const [isHam, setIsHam] = React.useState(stringMediaQuery);
-
       const navItemPrefix = useBootstrapPrefix(undefined, 'nav-item');
 
-      // const computeActive = navContext?.activeKey === activeItemKey
-      const computeActive = eventKey
-        ? navContext?.activeKey === eventKey
-        : undefined;
-      // const [show, setShow] = useState(false);
-      /* const showDropdown = () => {
-        !isHam ? setShow(true) : undefined;
-      };
-      const hideDropdown = () => {
-        !isHam ? setShow(false) : undefined;
-      };
-      const onToggle = () => {
-        isHam ? setShow(!show) : undefined;
-      }; */
       const dropDownClass = classNames(
         className,
         navItemPrefix,
-        isMegaMenu ? 'has-megamenu' : undefined,
-        isHam ? undefined : 'is-hoverable'
+        isMegaMenu ? 'has-megamenu' : undefined
       );
-      /*  const HoverDropdown = (childs: React.ReactNode) => (
-        <Dropdown
-          ref={ref}
-          {...props}
-          show={show}
-          onMouseEnter={showDropdown}
-          onMouseLeave={hideDropdown}
-          className={dropDownClass}
-        >
-          {childs}
-        </Dropdown>
-      );
-      const ClickDropdown = (childs: React.ReactNode) => (
-        <Dropdown
-          ref={ref}
-          {...props}
-          onToggle={onToggle}
-          show={show}
-          className={dropDownClass}
-        >
-          {childs}
-        </Dropdown>
-      ); */
-      /*    const Childrens = (
-        <>
-          <Dropdown.Toggle
-            id={id}
-            eventKey={null}
-            active={active}
-            disabled={disabled}
-            childBsPrefix={bsPrefix}
-            as={NavLink}
-            href={isHam ? undefined : href}
-          >
-            {title}
-            <i className="bi bi-chevron-down"></i>
-          </Dropdown.Toggle>
-
-          <Dropdown.Menu
-            role={menuRole}
-            renderOnMount={renderMenuOnMount}
-            rootCloseEvent={rootCloseEvent}
-            variant={menuVariant}
-            onMouseLeave={hideDropdown}
-            isNav
-            className={isMegaMenu ? 'mega-menu' : undefined}
-          >
-            {children}
-          </Dropdown.Menu>
-        </>
-      ); */
-
-      React.useEffect(() => {
-        // if (typeof expand === 'string') setIsHam(defaultMediaQueries[expand])
-        // if (typeof expand === 'number') setIsHam(customMQ)
-        if (noMediaQuery) setIsHam(!expand);
-        else setIsHam(stringMediaQuery || numberMediaQuery);
-        console.log(isHam);
-      }, [stringMediaQuery, numberMediaQuery]);
-
-      // return isHam ? ClickDropdown(Childrens) : HoverDropdown(Childrens);
-
       return (
-        <Dropdown ref={ref} as="li" {...props} className={dropDownClass}>
+        <Dropdown
+          ref={ref}
+          as="div"
+          {...props}
+          className={dropDownClass}
+          align={align}
+        >
           <Dropdown.Toggle
             id={id}
             eventKey={null}
-            active={active || computeActive}
+            active={active || navContext?.activeKey === eventKey}
             disabled={disabled}
             childBsPrefix={bsPrefix}
             as={NavLink}
-            href={isHam ? undefined : href}
           >
             {title}
             <i className="bi bi-chevron-down"></i>
@@ -217,6 +124,8 @@ const NavDropdown: BsPrefixRefForwardingComponent<'li', NavDropdownProps> =
             rootCloseEvent={rootCloseEvent}
             variant={menuVariant}
             isNav
+            align={align}
+            as={isMegaMenu ? 'div' : undefined}
             className={isMegaMenu ? 'mega-menu' : undefined}
           >
             {children}

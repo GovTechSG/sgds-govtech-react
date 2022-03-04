@@ -25,8 +25,7 @@ const NavbarText = createWithBsPrefix('navbar-text', {
 export interface NavbarProps
   extends BsPrefixProps,
     Omit<React.HTMLAttributes<HTMLElement>, 'onSelect'> {
-  variant?: 'light' | 'dark';
-  expand?: boolean | Size | number
+  expand?: boolean | Size;
   bg?: string;
   fixed?: 'top' | 'bottom';
   sticky?: 'top';
@@ -40,21 +39,11 @@ export interface NavbarProps
 const propTypes = {
   /** @default 'navbar' */
   bsPrefix: PropTypes.string,
-
-  /**
-   * The general visual variant a the Navbar.
-   * Use in combination with the `bg` prop, `background-color` utilities,
-   * or your own background styles.
-   *
-   * @type {('light'|'dark')}
-   */
-  variant: PropTypes.string,
-
   /**
    * The breakpoint, below which, the Navbar will collapse.
    * When `true` the Navbar will always be expanded regardless of screen size.
    */
-  expand: PropTypes.oneOfType([PropTypes.bool, PropTypes.oneOf([ 'sm', 'md', 'lg', 'xl', 'xxl']), PropTypes.number])
+  expand: PropTypes.oneOfType([PropTypes.bool, PropTypes.oneOf([ 'sm', 'md', 'lg', 'xl', 'xxl'])])
     .isRequired,
 
   /**
@@ -145,7 +134,6 @@ const propTypes = {
 
 const defaultProps = {
   expand: true,
-  variant: 'light' as const,
   collapseOnSelect: false,
 };
 
@@ -154,7 +142,6 @@ const Navbar: BsPrefixRefForwardingComponent<'nav', NavbarProps> =
     const {
       bsPrefix: initialBsPrefix,
       expand,
-      variant,
       bg,
       fixed,
       sticky,
@@ -196,8 +183,7 @@ const Navbar: BsPrefixRefForwardingComponent<'nav', NavbarProps> =
       () => ({
         onToggle: () => onToggle?.(!expanded),
         bsPrefix,
-        expanded: !!expanded,
-        expand: expand
+        expanded: !!expanded
       }),
       [bsPrefix, expanded, onToggle]
     );
@@ -213,7 +199,7 @@ const Navbar: BsPrefixRefForwardingComponent<'nav', NavbarProps> =
               className,
               bsPrefix,
               expand && expandClass,
-              variant && `${bsPrefix}-${variant}`,
+              'navbar-light',
               bg && `bg-${bg}`,
               sticky && `sticky-${sticky}`,
               fixed && `fixed-${fixed}`,
