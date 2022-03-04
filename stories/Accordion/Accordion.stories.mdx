@@ -1,6 +1,6 @@
 import { ArgsTable, Canvas, Meta, Story } from '@storybook/addon-docs';
 
-import { Accordion } from '../../src/components/index';
+import { Accordion } from '../../src';
 
 <Meta
   title="Components/Accordion"
@@ -120,7 +120,7 @@ export const Template = (args) => (
 <ArgsTable story="Basic" />
 
 ```jsx
-import { Accordion } from 'sgds-govtech-react';
+import { Accordion } from '@govtechsg/sgds-govtech-react';
 
 <Accordion defaultActiveKey="0">
   <Accordion.Item eventKey="0">
@@ -161,7 +161,7 @@ If you want your `Accordion` to start in a fully-collapsed state, then simply do
 <ArgsTable story="Fully Collapsed State" />
 
 ```jsx
-import { Accordion } from 'sgds-govtech-react';
+import { Accordion } from '@govtechsg/sgds-govtech-react';
 
 <Accordion>
   <Accordion.Item eventKey="0">
@@ -204,7 +204,7 @@ Add `flush` to remove the default background-color, some borders, and some round
 <ArgsTable story="Flush" />
 
 ```jsx
-import { Accordion } from 'sgds-govtech-react';
+import { Accordion } from '@govtechsg/sgds-govtech-react';
 
 <Accordion flush>
   <Accordion.Item eventKey="0">

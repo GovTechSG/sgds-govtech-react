@@ -8,7 +8,7 @@ import {
   DropdownButton,
   Dropdown,
   SplitButton,
-} from '../../../src/components/index';
+} from '../../../src/index';
 
 <Meta
   title="Components/Form/Input Group"
@@ -56,7 +56,7 @@ export const Template = (args) => {
 
 ```jsx
 // Phone number Example
-import { InputGroup, Form } from 'sgds-govtech-react';
+import { InputGroup, Form } from '@govtechsg/sgds-govtech-react';
 
 <Form.Label>Phone Number</Form.Label>
   <InputGroup className="mb-3">
@@ -164,7 +164,7 @@ Users may choose to attach an icon within the`<Form.Control>` input. By default,
 </Canvas>
 
 ```jsx
-import { Form, InputGroup } from 'sgds-govtech-react';
+import { Form, InputGroup } from '@govtechsg/sgds-govtech-react';
 
 
 // Without <InputGroup.Text> left addon
@@ -294,7 +294,7 @@ By default, form input elements will be set to medium size. Add `size="sm"` for 
 </Canvas>
 
 ```jsx
-import { Form, InputGroup } from 'sgds-govtech-react';
+import { Form, InputGroup } from '@govtechsg/sgds-govtech-react';
 
 <InputGroup size="sm" className="mb-3">
   <InputGroup.Text id="inputGroup-sizing-sm">Small</InputGroup.Text>
@@ -322,7 +322,7 @@ Use the `InputGroup.Radio` or `InputGroup.Checkbox` to add options to an input g
 </Canvas>
 
 ```jsx
-import { Form, InputGroup } from 'sgds-govtech-react';
+import { Form, InputGroup } from '@govtechsg/sgds-govtech-react';
 
 // InputGroup Checkbox Example
 <InputGroup className="mb-3">
@@ -352,7 +352,7 @@ While multiple inputs are supported visually, validation styles are only availab
 </Canvas>
 
 ```jsx
-import { Form, InputGroup } from 'sgds-govtech-react';
+import { Form, InputGroup } from '@govtechsg/sgds-govtech-react';
 
 <InputGroup className="mb-3">
   <InputGroup.Text>First and last name</InputGroup.Text>
@@ -383,7 +383,7 @@ Multiple add-ons are supported and can be mixed with checkbox and radio input ve
 </Canvas>
 
 ```jsx
-import { Form, InputGroup } from 'sgds-govtech-react';
+import { Form, InputGroup } from '@govtechsg/sgds-govtech-react';
 
   <InputGroup className="mb-3">
     <InputGroup.Text>$</InputGroup.Text>
@@ -442,7 +442,7 @@ Multiple button add-ons can also be aligned within an `<InputGroup>` for customi
 
 ```jsx
 import { useState } from 'react';
-import { Form, InputGroup, Button } from 'sgds-govtech-react';
+import { Form, InputGroup, Button } from '@govtechsg/sgds-govtech-react';
 
 // Single button left add-on
   <InputGroup className="mb-3">
@@ -557,7 +557,7 @@ To allow dropdown add-ons, simply import a `DropdownButton` component to use it 
 </Story>
 
 ```jsx
-import {InputGroup, DropdownButton, Form}  from 'sgds-govtech-react';
+import {InputGroup, DropdownButton, Form}  from '@govtechsg/sgds-govtech-react';
 
 // DropdownButton left add-on
 <InputGroup className="mb-3">
@@ -668,7 +668,7 @@ Another variant is the `<SplitButton>` addon which is a dual-function menu butto
 </Story>
 
 ```jsx
-import { SplitButton, InputGroup, Form } from 'sgds-govtech-react';
+import { SplitButton, InputGroup, Form } from '@govtechsg/sgds-govtech-react';
 
 <>
   <InputGroup className="mb-3">
@@ -754,7 +754,7 @@ export const SplitButtonToggle = (args) => {
 </Story>
 
 ```jsx
-import { InputGroup, SplitButton, Form } from 'sgds-govtech-react';
+import { InputGroup, SplitButton, Form } from '@govtechsg/sgds-govtech-react';
 
 const [renderText, setRenderText] = useState('');
 const renderTextClickHandler = (e) => {
@@ -825,7 +825,7 @@ Use the `<Form.Select>` as the native select tag within the input group.
 </Story>
 
 ```jsx
-import { Form,InputGroup } from 'sgds-govtech-react';
+import { Form,InputGroup } from '@govtechsg/sgds-govtech-react';
 
 // Form select left addon
   <InputGroup className="mb-3">
@@ -873,7 +873,7 @@ For `<InputGroup>` validation, it requires the `hasValidation` prop. Use this wh
 </Canvas>
 
 ```jsx
-import { InputGroup, Form } from 'sgds-govtech-react';
+import { InputGroup, Form } from '@govtechsg/sgds-govtech-react';
 
 <InputGroup hasValidation>
   <InputGroup.Text>@</InputGroup.Text>

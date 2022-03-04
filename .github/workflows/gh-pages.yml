@@ -1,22 +1,25 @@
-name: Deploy to github pages
+name: Publish
 
 on:
   push:
     branches:
-      - master
+      - 2.0.0-dev
 
 jobs:
-  pages:
+  publish:    
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2
       - uses: actions/setup-node@v1
         with:
-          node-version: '12'
+          node-version: 12
+          registry-url: 'https://registry.npmjs.org'
       - run: npm ci
-      - run: npm run build:storybook
-      - name: Deploy to pages
-        uses: peaceiris/actions-gh-pages@v3
-        with:
-          github_token: ${{ secrets.GITHUB_TOKEN }}
-          publish_dir: ./storybook-build
+      - run: npm run build
+      - name: Version Check
+        uses: EndBug/version-check@v2.1.0
+        id: check
+      - run: npm publish --tag alpha.0 ./dist
+        if: steps.check.outputs.changed == 'true'
+        env:
+          NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}

@@ -1,6 +1,6 @@
 import { ArgsTable, Canvas, Meta, Story } from '@storybook/addon-docs';
 import { HIDDEN_COMMON_PROPS } from '../helpers';
-import { Form, Button } from '../../src/components/index';
+import { Form, Button } from '../../src/index';
 
 <Meta
   title="Components/Form"
@@ -64,7 +64,7 @@ For more detailed API documentation on `Form`, reference <a href="https://react-
 
 ### Code sample
 ```jsx
-import { Form, Button } from 'sgds-govtech-react';
+import { Form, Button } from '@govtechsg/sgds-govtech-react';
 
 <Form onSubmit={onSubmit}>
   <Form.Group className="mb-3" controlId="formBasicEmail">
@@ -118,7 +118,7 @@ meaning they are still focusable and operable using the keyboard. In this case, 
 from receiving focus and `aria-disabled="disabled"` to signal their state to assistive technologies.
 
 ```jsx
-import { Form, Button } from 'sgds-govtech-react';
+import { Form, Button } from '@govtechsg/sgds-govtech-react';
 
 <Canvas>
   <Story name="Disabled fieldset">

@@ -1,6 +1,6 @@
 import { ArgsTable, Canvas, Meta, Story } from '@storybook/addon-docs';
 import { useState, useRef } from 'react';
-import { Breadcrumb } from '../../src/components/index';
+import { Breadcrumb } from '../../src/index';
 import { HIDDEN_COMMON_PROPS } from '../helpers';
 
 <Meta
@@ -26,7 +26,7 @@ export const Template = (args) => {
       <Breadcrumb.Item href="https://www.designsystem.tech.gov.sg/">
         Home
       </Breadcrumb.Item>
-      <Breadcrumb.Item href="https://github.com/GovTechSG/sgds-govtech-react/">
+      <Breadcrumb.Item href="https://github.com/GovTechSG/@govtechsg/sgds-govtech-react/">
         Library
       </Breadcrumb.Item>
       <Breadcrumb.Item active>Data</Breadcrumb.Item>
@@ -106,7 +106,7 @@ export const BreadcrumbItemTemplate = () => {
       >
         Home
       </Breadcrumb.Item>
-      <Breadcrumb.Item href="https://github.com/GovTechSG/sgds-govtech-react/">
+      <Breadcrumb.Item href="https://github.com/GovTechSG/@govtechsg/sgds-govtech-react/">
         Library
       </Breadcrumb.Item>
       <Breadcrumb.Item active>Data</Breadcrumb.Item>

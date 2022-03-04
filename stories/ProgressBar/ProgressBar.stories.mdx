@@ -1,5 +1,5 @@
 import { ArgsTable, Canvas, Meta, Story } from '@storybook/addon-docs';
-import { ProgressBar, Button } from '../../src/components/index';
+import { ProgressBar, Button } from '../../src/index';
 import { useState } from 'react';
 import { HIDDEN_COMMON_PROPS } from '../helpers';
 
@@ -13,16 +13,16 @@ import { HIDDEN_COMMON_PROPS } from '../helpers';
     max: { description: 'Maximum value progress can reach' },
     label: {
       description: 'Show label that represents visual percentage. Eg. 60%',
-      control: { disable:  true }
+      control: { disable: true },
     },
     visuallyHidden: { description: 'Hides the label visually.' },
     striped: { description: 'Uses a gradient to create a striped effect.' },
     animated: { description: 'Animate the stripes from right to left' },
     variant: {
       description: 'Sets the background class of the progress bar.',
+      options: ['success', 'danger', 'warning', 'info', 'undefined'],
       control: {
         type: 'select',
-        options: ['success', 'danger', 'warning', 'info', 'undefined'],
       },
     },
     isChild: { description: 'Allows toggling display of progress bar.' },
@@ -32,7 +32,6 @@ import { HIDDEN_COMMON_PROPS } from '../helpers';
 # Progress bars
 
 Provide up-to-date feedback on the progress of a workflow or action with simple yet flexible progress bars.
-
 
 export const Template = (args) => {
   return <ProgressBar {...args} />;
@@ -85,7 +84,7 @@ export const Template_Decrement_Increment = (args) => {
 </Canvas>
 
 ```jsx
-import { ProgressBar, Button } from 'sgds-govtech-react';
+import { ProgressBar, Button } from '@govtechsg/sgds-govtech-react';
 import { useState } from 'react';
 
 const current = 20;
@@ -128,7 +127,7 @@ export const Template_With_Label = (args) => {
 </Canvas>
 
 ```jsx
-import { ProgressBar } from 'sgds-govtech-react';
+import { ProgressBar } from '@govtechsg/sgds-govtech-react';
 
 const now = 60;
 
@@ -151,7 +150,7 @@ export const Template_With_Sr_Label = (args) => {
 </Canvas>
 
 ```jsx
-import { ProgressBar } from 'sgds-govtech-react';
+import { ProgressBar } from '@govtechsg/sgds-govtech-react';
 
 const now = 60;
 
@@ -174,7 +173,7 @@ Progress bars use some of the same button and alert classes for consistent style
 </Canvas>
 
 ```jsx
-import { ProgressBar } from 'sgds-govtech-react';
+import { ProgressBar } from '@govtechsg/sgds-govtech-react';
 
 <div>
   <ProgressBar variant="success" now={40} />
@@ -200,7 +199,7 @@ Uses a gradient to create a `striped` effect.
 </Canvas>
 
 ```jsx
-import { ProgressBar } from 'sgds-govtech-react';
+import { ProgressBar } from '@govtechsg/sgds-govtech-react';
 
 <div>
   <ProgressBar striped variant="success" now={40} />
@@ -221,7 +220,7 @@ Add `animated` prop to animate the stripes right to left.
 </Canvas>
 
 ```jsx
-import { ProgressBar } from 'sgds-govtech-react';
+import { ProgressBar } from '@govtechsg/sgds-govtech-react';
 
 <ProgressBar animated now={45} />;
 ```
@@ -241,7 +240,7 @@ Nest `<ProgressBar />`'s to stack them.
 </Canvas>
 
 ```jsx
-import { ProgressBar } from 'sgds-govtech-react';
+import { ProgressBar } from '@govtechsg/sgds-govtech-react';
 
 <ProgressBar>
   <ProgressBar striped variant="success" now={35} key={1} />

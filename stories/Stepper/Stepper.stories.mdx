@@ -6,7 +6,7 @@ import {
   useStep,
   Row,
   Col,
-} from '../../src/components/index';
+} from '../../src/index';
 import { useState } from 'react';
 
 <Meta title="Components/Stepper" component={Stepper} />
@@ -288,10 +288,10 @@ Try out the Stepper Component below with build-in Forms and Buttons
 
 `<Stepper /> ` takes in a `methods` prop of type `UseStepMethods` which can be generated from a custom hook `useStep`.
 
-Import `useStep` hook from `sgds-govtech-react`
+Import `useStep` hook from `@govtechsg/sgds-govtech-react`
 
 ```jsx
-import { useStep } from 'sgds-govtech-react';
+import { useStep } from '@govtechsg/sgds-govtech-react';
 ```
 
 ### 2. `StepMetadata`
@@ -318,7 +318,7 @@ When side-effects like updating store and states are required, specify them in `
 When not specified, the default `onNextStep`, `onPreviousStep` runs OnDone() when triggered.
 
 ```jsx
-import { useStep, StepMetadata, Stepper } from 'sgds-govtech-react'
+import { useStep, StepMetadata, Stepper } from '@govtechsg/sgds-govtech-react'
 
 const ExampleStepper = () => {
   const metadata : StepMetadata[] = [
@@ -366,7 +366,7 @@ const ExampleStepper = () => {
 `useStep` hook generates the object of type `UseStepMethods`
 
 ```jsx
-import { useStep, StepMetadata, Stepper, UseStepMethods } from 'sgds-govtech-react'
+import { useStep, StepMetadata, Stepper, UseStepMethods } from '@govtechsg/sgds-govtech-react'
 
 const ExampleStepper = () => {
   const metadata : StepMetadata[] = [...];
@@ -385,7 +385,7 @@ The Stepper Component only renders the stepHeader and step markers. `stepMethods
 Destructure the returned object of `stepMethods` to access the various step methods
 
 ```jsx
-import { useStep, StepMetadata, Stepper } from 'sgds-govtech-react'
+import { useStep, StepMetadata, Stepper } from '@govtechsg/sgds-govtech-react'
 
 const ExampleStepper = () => {
   const metadata : StepMetadata[] = [...];
