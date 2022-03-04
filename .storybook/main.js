@@ -3,7 +3,7 @@ module.exports = {
   webpackFinal: async (config) => {
     config.plugins.push(
       new webpack.DefinePlugin({
-        __DEV__: process.env.NODE_ENV === 'development',
+        __IS_DEV__: process.env.NODE_ENV === 'development',
       })
     );
     return config;
