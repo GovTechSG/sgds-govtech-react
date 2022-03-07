@@ -54,6 +54,9 @@ export const Calendar = React.forwardRef<HTMLTableElement, CalendarProps>(
     },
     ref
   ) => {
+    const hoverWithRangeMode = () => {
+      // const day = e.currentTarget.getAttribute('data-day')!;
+    }
     const handleClick = (e: React.MouseEvent<HTMLTableCellElement>) => {
       const day = e.currentTarget.getAttribute('data-day')!;
       const newSelectedDate = setTimeToNoon(props.displayDate!);
@@ -133,6 +136,7 @@ export const Calendar = React.forwardRef<HTMLTableElement, CalendarProps>(
               onClick={clickHandler}
               style={style}
               className={className}
+              onMouseEnter = {hoverWithRangeMode}
             >
               {day}
             </td>
