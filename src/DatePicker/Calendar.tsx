@@ -13,6 +13,7 @@ interface CalendarProps extends React.HTMLAttributes<HTMLTableElement> {
   todayButtonLabel: string;
   roundedCorners: boolean;
   showWeeks: boolean;
+  mode: 'single' | 'range';
 }
 // const MAX_DATE = '2021-05-19T12:00:00.000Z';
 // const MIN_DATE = '2020-05-19T12:00:00.000Z';

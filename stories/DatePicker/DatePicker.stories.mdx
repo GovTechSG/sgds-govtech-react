@@ -19,3 +19,8 @@ export const DatePickerTemplate = (args) => {
 <Canvas>
   <Story name="Default">{DatePickerTemplate.bind({})}</Story>
 </Canvas>
+
+
+<Canvas>
+  <Story name="Multi-Selection Date" args={{multiSelection: true, mode: 'range'}}>{DatePickerTemplate.bind({})}</Story>
+</Canvas>

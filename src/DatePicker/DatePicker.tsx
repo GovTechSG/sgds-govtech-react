@@ -11,6 +11,10 @@ import DatePickerContext, { CalendarView } from './DatePickerContext';
 import MonthView from './MonthView';
 import YearView from './YearView';
 
+export interface MultiSelectionValue {
+  start: string;
+  end: string;
+}
 export interface DatePickerProps {
   defaultValue: string;
   value: string;
@@ -24,7 +28,7 @@ export interface DatePickerProps {
   placeholder: string;
   dayLabels: string[];
   monthLabels: string[];
-  onChange: (value: string, formattedValue: string) => {};
+  onChange: (value: string | MultiSelectionValue, formattedValue: string) => {};
   onClear: Function;
   onBlur: Function;
   onFocus: Function;
@@ -49,11 +53,11 @@ export interface DatePickerProps {
   children: JSX.Element | JSX.Element[];
   onInvalid: Function;
   noValidate: boolean;
-  multiSelection?: boolean;
+  mode?: 'single' | 'range' 
 }
 
 export interface CalendarState {
-  value: string;
+  value: string | MultiSelectionValue;
   displayDate: Date;
   selectedDate: Date;
   inputValue: string;
@@ -68,13 +72,13 @@ export const DatePicker: React.FC<DatePickerProps> = ({
   value = new Date().toISOString(),
   dateFormat = 'DD/MM/YYYY',
   calendarPlacement = 'bottom',
-  multiSelection = false,
+  mode = 'single',
   ...props
 }) => {
   const formControlRef = useRef(null);
   const overlayRef = useRef(null);
   const initialState: CalendarState = {
-    value: value,
+    value: (mode === 'range') ? { start: '', end: '' } : value,
     displayDate: new Date(),
     selectedDate: new Date(),
     inputValue: '',
@@ -305,15 +309,50 @@ export const DatePicker: React.FC<DatePickerProps> = ({
     }
   };
   const onChangeDate = (newSelectedDate: Date) => {
-    const inputValue = makeInputValueString(newSelectedDate);
+    let conditionalValue: string | MultiSelectionValue;
+    let inputValue: string = state.inputValue;
+    let focused: boolean = state.focused;
+    if (mode === 'range') {
+      conditionalValue = state.value as MultiSelectionValue;
+      const { start, end } = conditionalValue;
+      if ((!start && !end) || (start && end)) {
+        conditionalValue.start = newSelectedDate.toISOString();
+        conditionalValue.end = '';
+        inputValue = `${makeInputValueString(newSelectedDate)}`;
+        focused = true;
+      }
+      if (start && !end) {
+        // if selected end date is before selected start date --> swap
+        if (new Date(start).getTime() > newSelectedDate.getTime()) {
+          conditionalValue.end = start;
+          conditionalValue.start = newSelectedDate.toISOString();
+          inputValue = `${makeInputValueString(newSelectedDate)} - ${
+            state.inputValue
+          }`;
+        } else {
+          conditionalValue.end = newSelectedDate.toISOString();
+          inputValue = `${state.inputValue} - ${makeInputValueString(
+            newSelectedDate
+          )}`;
+        }
+
+        focused = false;
+      }
+    } else {
+      conditionalValue = newSelectedDate.toISOString();
+      inputValue = makeInputValueString(newSelectedDate);
+      focused = false;
+    }
+
     setState({
       ...state,
       inputValue: inputValue,
       selectedDate: newSelectedDate,
       displayDate: newSelectedDate,
-      value: newSelectedDate.toISOString(),
-      focused: false,
+      value: conditionalValue,
+      focused: focused,
     });
+    console.log(state.value);
     // if (props.onBlur) {
     //   const event = document.createEvent('CustomEvent');
     //   event.initEvent('Change Date', true, false);
@@ -447,6 +486,7 @@ export const DatePicker: React.FC<DatePickerProps> = ({
         maxDate={props.maxDate}
         roundedCorners={props.roundedCorners}
         showWeeks={props.showWeeks}
+        mode={mode}
       />
     );
   };
@@ -482,5 +522,5 @@ export const DatePicker: React.FC<DatePickerProps> = ({
     </DatePickerContext.Provider>
   );
 };
-DatePicker.displayName = 'DatePicker'
+DatePicker.displayName = 'DatePicker';
 export default DatePicker;
