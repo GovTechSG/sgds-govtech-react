@@ -40,158 +40,161 @@ Create a fixed navbar along the top or bottom of the screen, that scrolls with t
       description: `The breakpoint, below which, the Navbar will collapse. When true the Navbar will always be expanded regardless of screen size.`,
     },
     bg: {
-      description: 'Sets the background color of navbar',
+      description: 'Sets the background color of navbar. See [bootstrap colors](https://getbootstrap.com/docs/5.0/utilities/colors/) for possible options',
     },
   }}
 />
 
-export const Template = (brandName, additionalChild) => {
+export const Template = (brandName, additionalChild, pageContent) => {
   return (args) => {
     const [active, setActive] = useState('home');
     const clickNavbarItem = (eventKey) => {
       setActive(eventKey);
     };
     return (
-      <Navbar {...args}>
-        <Navbar.Brand href="#">{brandName}</Navbar.Brand>
-        <Navbar.Toggle aria-controls="basic-navbar-nav" />
-        <Navbar.Collapse id="basic-navbar-nav">
-          <Nav className="me-auto" navbarScroll activeKey={active}>
-            <Nav.Item>
-              <Nav.Link
+      <>
+        <Navbar {...args}>
+          <Navbar.Brand href="#">{brandName}</Navbar.Brand>
+          <Navbar.Toggle aria-controls="basic-navbar-nav" />
+          <Navbar.Collapse id="basic-navbar-nav">
+            <Nav className="me-auto" navbarScroll activeKey={active}>
+              <Nav.Item>
+                <Nav.Link
+                  href="#"
+                  eventKey="home"
+                  onClick={() => clickNavbarItem('home')}
+                >
+                  Home
+                </Nav.Link>
+              </Nav.Item>
+              <Nav.Item>
+                <Nav.Link
+                  href="#"
+                  eventKey="link"
+                  onClick={() => clickNavbarItem('link')}
+                >
+                  Link
+                </Nav.Link>
+              </Nav.Item>
+              <NavDropdown
+                title="Dropdown"
+                id="basic-nav-dropdown"
+                href="https://google.com"
+                eventKey="firstDropdown"
+                onClick={() => clickNavbarItem('firstDropdown')}
+              >
+                <NavDropdown.Item
+                  href="#action/3.1"
+                  onClick={() => clickNavbarItem('firstDropdown')}
+                >
+                  Action
+                </NavDropdown.Item>
+                <NavDropdown.Item
+                  href="#action/3.2"
+                  onClick={() => clickNavbarItem('firstDropdown')}
+                >
+                  Another action
+                </NavDropdown.Item>
+                <NavDropdown.Item
+                  href="#action/3.3"
+                  onClick={() => clickNavbarItem('firstDropdown')}
+                >
+                  Something
+                </NavDropdown.Item>
+                <NavDropdown.Divider />
+                <NavDropdown.Item
+                  href="#action/3.4"
+                  onClick={() => clickNavbarItem('firstDropdown')}
+                >
+                  Separated link
+                </NavDropdown.Item>
+              </NavDropdown>
+              <Nav.Dropdown
+                eventKey="5"
+                isMegaMenu
+                title="Megamenu"
                 href="#"
-                eventKey="home"
-                onClick={() => clickNavbarItem('home')}
+                eventKey="mega"
+                onClick={() => clickNavbarItem('mega')}
               >
-                Home
-              </Nav.Link>
-            </Nav.Item>
-            <Nav.Item>
-              <Nav.Link
-                href="#"
-                eventKey="link"
-                onClick={() => clickNavbarItem('link')}
-              >
-                Link
-              </Nav.Link>
-            </Nav.Item>
-            <NavDropdown
-              title="Dropdown"
-              id="basic-nav-dropdown"
-              href="https://google.com"
-              eventKey="firstDropdown"
-              onClick={() => clickNavbarItem('firstDropdown')}
-            >
-              <NavDropdown.Item
-                href="#action/3.1"
-                onClick={() => clickNavbarItem('firstDropdown')}
-              >
-                Action
-              </NavDropdown.Item>
-              <NavDropdown.Item
-                href="#action/3.2"
-                onClick={() => clickNavbarItem('firstDropdown')}
-              >
-                Another action
-              </NavDropdown.Item>
-              <NavDropdown.Item
-                href="#action/3.3"
-                onClick={() => clickNavbarItem('firstDropdown')}
-              >
-                Something
-              </NavDropdown.Item>
-              <NavDropdown.Divider />
-              <NavDropdown.Item
-                href="#action/3.4"
-                onClick={() => clickNavbarItem('firstDropdown')}
-              >
-                Separated link
-              </NavDropdown.Item>
-            </NavDropdown>
-            <Nav.Dropdown
-              eventKey="5"
-              isMegaMenu
-              title="Megamenu"
-              href="#"
-              eventKey="mega"
-              onClick={() => clickNavbarItem('mega')}
-            >
-              <Container fluid>
-                <Row className="p-4">
-                  <Col>
-                    <p>
-                      <strong>
-                        Co-create innovative digital solutions with the
-                        Government
-                      </strong>
-                    </p>
-                    <p>
-                      Discover events, blogs, open-source technologies and other
-                      collaboration opportunities
-                    </p>
-                  </Col>
-                  <Col>
-                    <NavDropdown.Item
-                      href="#"
-                      onClick={() => clickNavbarItem('mega')}
-                    >
-                      Features
-                    </NavDropdown.Item>
-                    <NavDropdown.Item
-                      href="#"
-                      onClick={() => clickNavbarItem('mega')}
-                    >
-                      Features
-                    </NavDropdown.Item>
-                    <NavDropdown.Item
-                      href="#"
-                      onClick={() => clickNavbarItem('mega')}
-                    >
-                      Features
-                    </NavDropdown.Item>
-                  </Col>
-                  <Col>
-                    <NavDropdown.Item
-                      href="#"
-                      onClick={() => clickNavbarItem('mega')}
-                    >
-                      Features
-                    </NavDropdown.Item>
-                    <NavDropdown.Item
-                      href="#"
-                      onClick={() => clickNavbarItem('mega')}
-                    >
-                      Features
-                    </NavDropdown.Item>
-                    <NavDropdown.Item
-                      href="#"
-                      onClick={() => clickNavbarItem('mega')}
-                    >
-                      Features
-                    </NavDropdown.Item>
-                  </Col>
-                  <Col>
-                    <NavDropdown.Item
-                      href="#"
-                      onClick={() => clickNavbarItem('mega')}
-                    >
-                      Features
-                    </NavDropdown.Item>
-                    <NavDropdown.Item href="#">Features</NavDropdown.Item>
-                    <NavDropdown.Item
-                      href="#"
-                      onClick={() => clickNavbarItem('mega')}
-                    >
-                      Features
-                    </NavDropdown.Item>
-                  </Col>
-                </Row>
-              </Container>
-            </Nav.Dropdown>
-          </Nav>
-          <>{additionalChild}</>
-        </Navbar.Collapse>
-      </Navbar>
+                <Container fluid>
+                  <Row className="p-4">
+                    <Col>
+                      <p>
+                        <strong>
+                          Co-create innovative digital solutions with the
+                          Government
+                        </strong>
+                      </p>
+                      <p>
+                        Discover events, blogs, open-source technologies and
+                        other collaboration opportunities
+                      </p>
+                    </Col>
+                    <Col>
+                      <NavDropdown.Item
+                        href="#"
+                        onClick={() => clickNavbarItem('mega')}
+                      >
+                        Features
+                      </NavDropdown.Item>
+                      <NavDropdown.Item
+                        href="#"
+                        onClick={() => clickNavbarItem('mega')}
+                      >
+                        Features
+                      </NavDropdown.Item>
+                      <NavDropdown.Item
+                        href="#"
+                        onClick={() => clickNavbarItem('mega')}
+                      >
+                        Features
+                      </NavDropdown.Item>
+                    </Col>
+                    <Col>
+                      <NavDropdown.Item
+                        href="#"
+                        onClick={() => clickNavbarItem('mega')}
+                      >
+                        Features
+                      </NavDropdown.Item>
+                      <NavDropdown.Item
+                        href="#"
+                        onClick={() => clickNavbarItem('mega')}
+                      >
+                        Features
+                      </NavDropdown.Item>
+                      <NavDropdown.Item
+                        href="#"
+                        onClick={() => clickNavbarItem('mega')}
+                      >
+                        Features
+                      </NavDropdown.Item>
+                    </Col>
+                    <Col>
+                      <NavDropdown.Item
+                        href="#"
+                        onClick={() => clickNavbarItem('mega')}
+                      >
+                        Features
+                      </NavDropdown.Item>
+                      <NavDropdown.Item href="#">Features</NavDropdown.Item>
+                      <NavDropdown.Item
+                        href="#"
+                        onClick={() => clickNavbarItem('mega')}
+                      >
+                        Features
+                      </NavDropdown.Item>
+                    </Col>
+                  </Row>
+                </Container>
+              </Nav.Dropdown>
+            </Nav>
+            <>{additionalChild}</>
+          </Navbar.Collapse>
+        </Navbar>
+        {pageContent}
+      </>
     );
   };
 };
@@ -213,7 +216,51 @@ export const AdditionalDropdown = (
     </NavDropdown>
   </Nav>
 );
-
+export const textContent = (
+  <span>
+    Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aliquam iaculis
+    lectus arcu, sed pharetra purus ultrices et. Proin est erat, vulputate vel
+    est non, congue tincidunt massa. Proin consequat leo id mauris porta, id
+    faucibus erat vehicula. Fusce auctor, turpis ac congue molestie, neque felis
+    hendrerit libero, non bibendum odio eros sit amet leo. Phasellus faucibus
+    urna in scelerisque pharetra. Proin non pretium libero. Mauris ultrices
+    tempor odio. Integer vitae ex ac erat condimentum congue non sit amet lorem.
+    Cras pellentesque consectetur faucibus. Suspendisse potenti. Donec sem urna,
+    tempor non metus quis, venenatis efficitur dui. Nullam id placerat mauris.
+    Vestibulum nec massa faucibus, malesuada purus in, pretium ex. Aenean tellus
+    felis, pellentesque a ultricies sed, posuere ut magna. Aliquam erat
+    volutpat. Integer orci leo, placerat eget nulla faucibus, venenatis viverra
+    dolor. Maecenas eget est sed orci porta elementum non sit amet nunc. Nam
+    sapien mauris, laoreet id dictum sit amet, bibendum id magna. In a libero
+    non sem facilisis venenatis vitae sit amet sapien. Mauris sodales felis id
+    commodo rhoncus. In egestas ac sem ut blandit. Curabitur est felis,
+    efficitur sit amet congue id, convallis sed leo. Aliquam vel dignissim
+    mauris, vel viverra nisl. Nulla maximus ac leo ut pellentesque. Etiam a
+    consectetur magna. Suspendisse pellentesque eleifend tincidunt. Nam posuere
+    congue libero vitae suscipit. Duis faucibus ante tristique enim placerat,
+    vitae porttitor nunc vulputate. Nam convallis ultricies dolor eget auctor.
+    Sed cursus eros velit, eu sollicitudin lacus finibus id. Nulla varius ante
+    orci, malesuada aliquam nibh convallis vitae. Proin diam urna, convallis ut
+    tincidunt ornare, dignissim eu justo. Sed enim nisl, aliquam et placerat et,
+    tristique ac elit. Sed condimentum orci diam, ut fringilla risus scelerisque
+    nec. Duis sit amet egestas justo, nec tincidunt arcu. Etiam varius, mi vitae
+    mollis dictum, massa eros feugiat tortor, a ultricies nibh ante vitae lacus.
+    Praesent semper augue in augue venenatis, eget tincidunt urna condimentum.
+    Nulla vitae velit blandit, elementum lorem interdum, faucibus neque. Duis
+    eget ultricies nunc, et feugiat ex. Nullam et tellus vel eros molestie
+    luctus in nec nisi. Nam faucibus nisl eu commodo ullamcorper. Quisque a
+    imperdiet neque, non sollicitudin nunc. Etiam pellentesque felis sed lectus
+    mollis, at vulputate felis laoreet. Vivamus porttitor felis a placerat
+    tempus. Cras id justo id magna dignissim vehicula fringilla ac lectus.
+    Vivamus nisl enim, imperdiet sit amet fermentum eget, pellentesque sit amet
+    lorem. Maecenas luctus magna egestas, dictum ipsum a, commodo lorem. Donec
+    lacinia eget ex sit amet fringilla.
+    <br />
+    <br />
+    <br />
+    <br />
+  </span>
+);
 export const Default = Template(Img);
 export const AlwaysExpanded = Template('Always Expanded');
 export const AlwaysCollapsed = Template('Always Collapsed');
@@ -223,15 +270,14 @@ export const BreakpointLg = Template('Breakpoint-lg');
 export const BreakpointXl = Template('Breakpoint-xl');
 export const BreakpointXxl = Template('Breakpoint-xxl');
 export const AdditionalChild = Template('Additional Nav', AdditionalDropdown);
+export const PageContent = Template('Sticky Top Nav', null, textContent);
 
 # Navbar
 
 `<Navbar />` is a `<nav />` element, collapsible on breakpoint. It consist of subcomponents `<Navbar.Brand/>`, `<Navbar.Collapse/>`, `<Navbar.Toggle/>`
 
 <Canvas>
-  <Story name="Default" height="500px">
-    {Default.bind({})}
-  </Story>
+  <Story name="Default">{Default.bind({})}</Story>
 </Canvas>
 
 ## API
@@ -470,7 +516,7 @@ Add multiple Navs under Navbar. When collapsed, the additional Dropdown is also 
   <Navbar.Toggle aria-controls="basic-navbar-nav" />
   <Navbar.Collapse id="basic-navbar-nav">
     <Nav className="me-auto" navbarScroll activeKey={active}>
-     ...
+      ...
     </Nav>
     //additional nav
     <Nav>
@@ -484,3 +530,23 @@ Add multiple Navs under Navbar. When collapsed, the additional Dropdown is also 
   </Navbar.Collapse>
 </Navbar>
 ```
+
+## Sticky Nav
+
+Use `sticky` prop , setting value as `top` to make navbar stick to top of viewport when scrolling through page
+
+View example in Canvas Mode to see sticky Nav
+
+```jsx
+<Navbar sticky='top' bg='white'>
+  ...
+<Navbar>
+```
+
+<Canvas>
+  <Story name="Sticky Nav" args={{ sticky: 'top', bg: 'white' }}>
+    {PageContent.bind({})}
+  </Story>
+</Canvas>
+
+
