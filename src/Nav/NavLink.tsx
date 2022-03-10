@@ -9,7 +9,10 @@ import {
 } from '@restart/ui/NavItem';
 import { makeEventKey } from '@restart/ui/SelectableContext';
 import { useBootstrapPrefix } from '../ThemeProvider/ThemeProvider';
-import { BsPrefixProps, BsPrefixRefForwardingComponent } from '../utils/helpers';
+import {
+  BsPrefixProps,
+  BsPrefixRefForwardingComponent,
+} from '../utils/helpers';
 
 export interface NavLinkProps
   extends BsPrefixProps,
@@ -63,9 +66,10 @@ const NavLink: BsPrefixRefForwardingComponent<'a', NavLinkProps> =
         as: Component = Anchor,
         active,
         eventKey,
+        // onClick,
         ...props
       },
-      ref,
+      ref
     ) => {
       bsPrefix = useBootstrapPrefix(bsPrefix, 'nav-link');
       const [navItemProps, meta] = useNavItem({
@@ -73,7 +77,6 @@ const NavLink: BsPrefixRefForwardingComponent<'a', NavLinkProps> =
         active,
         ...props,
       });
-
       return (
         <Component
           {...props}
@@ -83,11 +86,11 @@ const NavLink: BsPrefixRefForwardingComponent<'a', NavLinkProps> =
             className,
             bsPrefix,
             props.disabled && 'disabled',
-            meta.isActive && 'active',
+            meta.isActive && 'active'
           )}
         />
       );
-    },
+    }
   );
 
 NavLink.displayName = 'NavLink';

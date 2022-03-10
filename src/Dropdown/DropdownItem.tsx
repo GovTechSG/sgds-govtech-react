@@ -6,7 +6,10 @@ import BaseDropdownItem, {
   DropdownItemProps as BaseDropdownItemProps,
 } from '@restart/ui/DropdownItem';
 import Anchor from '@restart/ui/Anchor';
-import { BsPrefixProps, BsPrefixRefForwardingComponent } from '../utils/helpers';
+import {
+  BsPrefixProps,
+  BsPrefixRefForwardingComponent,
+} from '../utils/helpers';
 
 export interface DropdownItemProps
   extends BaseDropdownItemProps,
@@ -59,9 +62,9 @@ const DropdownItem: BsPrefixRefForwardingComponent<
       as: Component = Anchor,
       ...props
     },
-    ref,
+    ref
   ) => {
-    const prefix = 'dropdown-item'
+    const prefix = 'dropdown-item';
     const [dropdownItemProps, meta] = useDropdownItem({
       key: eventKey,
       href: props.href,
@@ -71,19 +74,21 @@ const DropdownItem: BsPrefixRefForwardingComponent<
     });
 
     return (
-      <Component
-        {...props}
-        {...dropdownItemProps}
-        ref={ref}
-        className={classNames(
-          className,
-          prefix,
-          meta.isActive && 'active',
-          disabled && 'disabled',
-        )}
-      />
+      <li>
+        <Component
+          {...props}
+          {...dropdownItemProps}
+          ref={ref}
+          className={classNames(
+            className,
+            prefix,
+            meta.isActive && 'active',
+            disabled && 'disabled'
+          )}
+        />
+      </li>
     );
-  },
+  }
 );
 
 DropdownItem.displayName = 'DropdownItem';

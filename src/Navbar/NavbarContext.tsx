@@ -1,5 +1,4 @@
 import * as React from 'react';
-
 // TODO: check
 export interface NavbarContextType {
   onToggle: () => void;

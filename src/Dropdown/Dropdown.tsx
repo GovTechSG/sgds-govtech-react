@@ -121,7 +121,7 @@ const defaultProps: Partial<DropdownProps> = {
   focusFirstItemOnShow: 'keyboard',
 };
 
-const Dropdown: BsPrefixRefForwardingComponent<'div', DropdownProps> =
+const Dropdown: BsPrefixRefForwardingComponent<'div' , DropdownProps> =
   React.forwardRef<HTMLElement, DropdownProps>((pProps, ref) => {
     const {
       bsPrefix,

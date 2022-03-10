@@ -3,3 +3,5 @@ export type { DropdownProps } from './Dropdown';
 
 export { default as DropdownButton } from './DropdownButton';
 export type { DropdownButtonProps } from './DropdownButton';
+
+export type {DropdownMenuProps} from './DropdownMenu'

@@ -57,3 +57,4 @@ export function getOverlayDirection(placement: string, isRTL?: boolean) {
   }
   return bsDirection;
 }
+

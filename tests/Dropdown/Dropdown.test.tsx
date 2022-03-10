@@ -10,7 +10,7 @@ describe('<Dropdown>', () => {
       Child Title
     </Dropdown.Toggle>,
     <Dropdown.Menu data-testid="menu" key="menu">
-      <Dropdown.Item data-testid="item1">Item 1</Dropdown.Item>
+      <Dropdown.Item data-testid="item1">Item 1</Dropdown.Item> 
       <Dropdown.Item>Item 2</Dropdown.Item>
       <Dropdown.Item>Item 3</Dropdown.Item>
       <Dropdown.Item>Item 4</Dropdown.Item>
@@ -20,7 +20,7 @@ describe('<Dropdown>', () => {
   const simpleDropdown = <Dropdown>{dropdownChildren}</Dropdown>;
 
   it('renders div with dropdown class', () => {
-    const { container } = render(simpleDropdown);
+    const { container } = render(simpleDropdown); 
     expect(container.firstElementChild?.classList).toContain('dropdown');
   });
   const direction: DropDirection[] = ['up', 'end'];

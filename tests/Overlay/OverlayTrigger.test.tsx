@@ -2,9 +2,9 @@ import PropTypes from 'prop-types';
 import * as React from 'react';
 import { render, fireEvent, waitFor, act } from '@testing-library/react';
 import sinon from 'sinon';
-import {OverlayTrigger} from '../../src/Overlay';
-import {TooltipBox} from '../../src/Tooltip';
- 
+import { OverlayTrigger } from '../../src/Overlay';
+import { TooltipBox } from '../../src/Tooltip';
+
 describe('<OverlayTrigger>', () => {
   // Swallow extra props.
   const TemplateDiv = React.forwardRef(
@@ -83,7 +83,7 @@ describe('<OverlayTrigger>', () => {
     fireEvent.click(buttonElem);
 
     overlayElem = queryByTestId('test-overlay');
-    expect(overlayElem).not.toBeNull();
+    waitFor(() => expect(overlayElem).not.toBeNull());
   });
 
   it('Should show the tooltip when transitions are disabled', () => {
@@ -109,9 +109,11 @@ describe('<OverlayTrigger>', () => {
     fireEvent.focus(buttonElem);
 
     overlayElem = queryByTestId('test-overlay');
-    expect(overlayElem).not.toBeNull();
+    waitFor(() => {
+      expect(overlayElem).not.toBeNull();
 
-    expect(overlayElem!.classList).toContain('show');
+      expect(overlayElem!.classList).toContain('show');
+    });
   });
 
   it('Should call OverlayTrigger onClick prop to child', async () => {
@@ -196,7 +198,7 @@ describe('<OverlayTrigger>', () => {
     expect(buttonElem.getAttribute('aria-describedby')).toBeNull();
   });
 
-  it('Should set aria-describedby for tooltips if the state is show', async() => {
+  it('Should set aria-describedby for tooltips if the state is show', async () => {
     const { getByTestId } = render(
       <OverlayTrigger trigger="click" overlay={<TemplateDiv />}>
         <button type="button" data-testid="test-button">
@@ -210,28 +212,23 @@ describe('<OverlayTrigger>', () => {
     buttonElem = getByTestId('test-button');
 
     // aria-describedby gets assigned after a slight delay
-    await waitFor(()=> {
-        expect(buttonElem.getAttribute('aria-describedby')).toEqual(
-          'test-tooltip'
-        );
-    })
- 
+    await waitFor(() => {
+      expect(buttonElem.getAttribute('aria-describedby')).toEqual(
+        'test-tooltip'
+      );
+    });
   });
 
   describe('trigger handlers', () => {
     it('Should keep trigger handlers', () => {
-      const mock = jest.fn()
+      const mock = jest.fn();
       const { getByTestId } = render(
         <div>
           <OverlayTrigger
             trigger="click"
             overlay={<TemplateDiv>test</TemplateDiv>}
           >
-            <button
-              type="button"
-              data-testid="test-button"
-              onClick={mock}
-            >
+            <button type="button" data-testid="test-button" onClick={mock}>
               button
             </button>
           </OverlayTrigger>
@@ -240,7 +237,7 @@ describe('<OverlayTrigger>', () => {
       );
       const buttonElem = getByTestId('test-button');
       fireEvent.click(buttonElem);
-      waitFor(() => expect(mock).toHaveBeenCalled())
+      waitFor(() => expect(mock).toHaveBeenCalled());
     });
   });
 
@@ -259,8 +256,10 @@ describe('<OverlayTrigger>', () => {
     fireEvent.click(buttonElem);
 
     const overlayElem = queryByTestId('test-overlay');
-    expect(overlayElem).not.toBeNull();
-    expect(overlayElem!.classList).toContain('test-overlay');
+    waitFor(() => {
+      expect(overlayElem).not.toBeNull();
+      expect(overlayElem!.classList).toContain('test-overlay');
+    });
   });
 
   it('Should pass transition callbacks to Transition', (done) => {
@@ -295,7 +294,7 @@ describe('<OverlayTrigger>', () => {
     fireEvent.click(buttonElem);
   });
 
-  it('Should forward requested context', async() => {
+  it('Should forward requested context', async () => {
     const contextTypes = {
       key: PropTypes.string,
     };
@@ -332,8 +331,7 @@ describe('<OverlayTrigger>', () => {
     const { getByTestId } = render(<ContextHolder />);
     const buttonElem = getByTestId('test-button');
     fireEvent.click(buttonElem);
-    await waitFor(()=> expect(contextSpy).toBeCalledWith('value'))
-    
+    await waitFor(() => expect(contextSpy).toBeCalledWith('value'));
   });
 
   describe('overlay types', () => {
@@ -361,8 +359,7 @@ describe('<OverlayTrigger>', () => {
 
           // The use of Popper means that errors above will show up
           //  asynchronously.
-           waitFor(()=>  setTimeout(done, 10))
-         
+          waitFor(() => setTimeout(done, 10));
         });
       });
     });
@@ -382,7 +379,7 @@ describe('<OverlayTrigger>', () => {
       },
     ].forEach((testCase) => {
       describe(testCase.label, () => {
-        it('Should have correct show state', async() => {
+        it('Should have correct show state', async () => {
           const { getByTestId } = render(
             <OverlayTrigger
               overlay={<TemplateDiv>test</TemplateDiv>}
@@ -397,7 +394,9 @@ describe('<OverlayTrigger>', () => {
           const buttonElem = getByTestId('test-button');
           fireEvent.click(buttonElem);
           const overlayElem = getByTestId('test-overlay');
-          expect(overlayElem.classList).toContain('show');
+          await waitFor(() => {
+            expect(overlayElem.classList).toContain('show');
+          });
 
           // Need to click this way for it to propagate to document element.
           await act(async () => {
@@ -409,7 +408,7 @@ describe('<OverlayTrigger>', () => {
     });
 
     describe('clicking on trigger to hide', () => {
-      it('should hide after clicking on trigger', () => {
+      it('should hide after clicking on trigger', async () => {
         const { getByTestId } = render(
           <OverlayTrigger
             overlay={<TemplateDiv>test</TemplateDiv>}
@@ -425,12 +424,14 @@ describe('<OverlayTrigger>', () => {
         fireEvent.click(buttonElem);
 
         let overlayElem = getByTestId('test-overlay');
-        expect(overlayElem.classList).toContain('show');
+        await waitFor(() => expect(overlayElem.classList).toContain('show'));
 
         // Need to click this way for it to propagate to document element.
         fireEvent.click(buttonElem);
         overlayElem = getByTestId('test-overlay');
-        expect(overlayElem.classList).not.toContain('show');
+        await waitFor(() =>
+          expect(overlayElem.classList).not.toContain('show')
+        );
       });
     });
 
@@ -489,7 +490,7 @@ describe('<OverlayTrigger>', () => {
         fireEvent.click(toBeReplacedElem);
 
         const replacedElem = getByTestId('test-replaced');
-        expect(replacedElem.classList).toContain('show');
+        waitFor(() => expect(replacedElem.classList).toContain('show'));
       });
     });
   });
