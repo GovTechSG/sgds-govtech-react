@@ -14,18 +14,18 @@ export interface TooltipProps {
   children: React.ReactNode;
 }
 const propTypes = {
-  placement : PropTypes.oneOf<TooltipPlacement>([
-    "top-start" ,
-     "bottom-start",
-     "top",
-     "bottom",
-     "left",
-     "right"
+  placement: PropTypes.oneOf<TooltipPlacement>([
+    'top-start',
+    'bottom-start',
+    'top',
+    'bottom',
+    'left',
+    'right',
   ]),
-  type: PropTypes.oneOf(["hover", "click"]),
+  type: PropTypes.oneOf(['hover', 'click']),
   content: PropTypes.oneOfType([PropTypes.string]),
-  children : PropTypes.element,
-}
+  children: PropTypes.element,
+};
 const defaultProps: TooltipProps = {
   placement: 'top',
   type: 'hover',
@@ -60,7 +60,7 @@ export const Tooltip = (props = defaultProps): JSX.Element => {
   const hoverTooltip = () => (
     <OverlayTrigger
       placement={placement}
-      overlay={<TooltipBox>{content}</TooltipBox>}
+      overlay={<TooltipBox {...props}>{content}</TooltipBox>}
     >
       {React.cloneElement(children as React.ReactElement, {
         onClick: () => setShow(!show),

@@ -35,8 +35,8 @@ describe('<DropdownButton>', () => {
     );
     await waitFor(() => expect(getByRole('menu')).toBeInTheDocument());
 
-    const menu = container.querySelector('div[x-placement]');
-    expect(menu!.classList).toContain('dropdown-menu-end');
+    const menu = container.querySelector('ul[x-placement]');
+    expect(menu!.classList).toContain('dropdown-menu-end'); 
   });
 
   it('passes variant and size to the toggle', () => {
@@ -69,7 +69,7 @@ describe('<DropdownButton>', () => {
     );
     await waitFor(() => expect(getByRole('menu')).toBeInTheDocument());
 
-    const menu = container.querySelector('div[x-placement]');
+    const menu = container.querySelector('ul[x-placement]');
     expect(menu!.classList).toContain('dropdown-menu-dark');
   });
 
@@ -133,7 +133,7 @@ describe('<DropdownButton>', () => {
     await waitFor(() =>
       expect(onSelectSpy).toHaveBeenCalledWith(false, expect.anything())
     );
-    const menu = container.querySelector('div[x-placement]');
+    const menu = container.querySelector('ul[x-placement]');
     expect(menu).not.toBeNull();
   });
 

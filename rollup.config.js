@@ -7,9 +7,6 @@ import { terser } from 'rollup-plugin-terser';
 const packageJson = require('./package.json');
 import { getFolders } from './scripts/buildUtils';
 
-
-const extensions = ['.js', '.ts', '.jsx', '.tsx'];
-// const inputArray = [ ...getFiles('./src/components', extensions)]
 const plugins =  [
     peerDepsExternal(),
     resolve(),

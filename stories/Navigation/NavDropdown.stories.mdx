@@ -1,0 +1,199 @@
+import { ArgsTable, Canvas, Meta, Story } from '@storybook/addon-docs';
+import {
+  Nav,
+  Button,
+  NavItem,
+  NavLink,
+  Dropdown,
+  Container,
+  Row,
+  Col,
+  Navbar,
+} from '../../src';
+import { useState } from 'react';
+import { HIDDEN_COMMON_PROPS } from '../helpers';
+
+<Meta
+  title="Components/Navigation/Nav/NavDropdown"
+  component={Nav.Dropdown}
+  argTypes={{
+    ...HIDDEN_COMMON_PROPS,
+    title: {
+      description: 'The content of the DropdownToggle.',
+    },
+    disabled: {
+      description: 'Disables the DropdownToggle NavLink',
+    },
+    active: {
+      description: 'Style the DropdownToggle NavLink as active',
+    },
+    menuRole: {
+      description: ' An ARIA accessible role applied to the Menu component',
+    },
+    renderMenuOnMount: {
+      description:
+        'Whether to render the dropdown menu in the DOM before the first time it is shown',
+    },
+    rootCloseEvent: {
+      table: {
+        type: {
+          summary: 'click | mousedown',
+        },
+      },
+      description:
+        'Which event when fired outside the component will cause it to be closed.',
+    },
+    menuVariant: {
+      table: {
+        type: {
+          summary: 'dark',
+        },
+      },
+      description:
+        'Menu color variant. Omitting this will default to light color',
+    },
+    isMegaMenu: {
+      description: 'When true, stylings of dropdown menu changes to mega menu',
+    },
+    eventKey: {
+      description:
+        'Uniquely identifies the NavDropdown amongst its siblings, used to determine and control the active state of the parent Nav',
+    },
+  }}
+/>
+
+export const Template = (args) => {
+  return (
+    <Navbar>
+      <Nav>
+        <Nav.Dropdown {...args} title="NavDropdown" id="nav-dropdown">
+          <Nav.Dropdown.Item of="nav-dropdown" eventKey="4.1">
+            Action
+          </Nav.Dropdown.Item>
+          <Nav.Dropdown.Item of="nav-dropdown" eventKey="4.2">
+            Another action
+          </Nav.Dropdown.Item>
+          <Nav.Dropdown.Item of="nav-dropdown" eventKey="4.3">
+            Something else here
+          </Nav.Dropdown.Item>
+          <Nav.Dropdown.Divider />
+          <Nav.Dropdown.Item of="nav-dropdown" eventKey="4.4">
+            Separated link
+          </Nav.Dropdown.Item>
+        </Nav.Dropdown>
+      </Nav>
+    </Navbar>
+  );
+};
+
+export const Megamenu = () => {
+  return (
+    <Navbar>
+      <Nav>
+        <Nav.Dropdown eventKey="5" isMegaMenu title="Megamenu">
+          <Container>
+            <Row>
+              <Col>
+                <Nav.Dropdown.Item eventKey="5.1">Action</Nav.Dropdown.Item>
+              </Col>
+              <Col>
+                <Nav.Dropdown.Item eventKey="5.2">Action</Nav.Dropdown.Item>
+              </Col>
+              <Col>
+                <Nav.Dropdown.Item eventKey="5.3">Action</Nav.Dropdown.Item>
+              </Col>
+            </Row>
+            <Row>
+              <Col>
+                <Nav.Dropdown.Item eventKey="5.4">Action</Nav.Dropdown.Item>
+              </Col>
+              <Col>
+                <Nav.Dropdown.Item eventKey="5.5">Action</Nav.Dropdown.Item>
+              </Col>
+              <Col>
+                <Nav.Dropdown.Item eventKey="5.6">Action</Nav.Dropdown.Item>
+              </Col>
+            </Row>
+          </Container>
+        </Nav.Dropdown>
+      </Nav>
+    </Navbar>
+  );
+};
+
+# NavDropdown
+
+NavDropdown is one of the types of children for `Nav` and `Navbar` component.
+
+It consists of subcomponents: `<Nav.Dropdown.Item>`, `<Nav.Dropdown.ItemText>`, `<Nav.Dropdown.Divider>`,`<Nav.Dropdown.Header>`,  
+NavDropdown and its subcomponents are build from `<Dropdown />` and their APIS can be referenced from `<Dropdown />`
+
+**NOTE** NavDropdown has to be the child of both `Nav` and `Navbar` for SGDS stylings to be applicable. See code sample
+
+<Canvas>
+  <Story height="250px" name="Default">
+    {Template.bind({})}
+  </Story>
+</Canvas>
+
+## API
+
+<ArgsTable story="Default" />
+
+## Code Sample
+
+## MegaMenu Dropdown
+
+Pass in `isMegaMenu`: `true` and create your own layout using [bootstrap's layout](https://getbootstrap.com/docs/5.0/layout/containers/)
+
+In this example, `<Container />`, `<Row />` and `<Col />` are used to customise a layout for megamenu. See [Navbar's megamenu](/docs/components-navigation-navbar--default-story)
+for alternative layout.
+
+<Canvas>
+  <Story height="250px" name="Megamenu">
+    {Megamenu.bind({})}
+  </Story>
+</Canvas>
+
+```jsx
+import { Nav } from '@govtechsg/sgds-govtech-react/Nav';
+import { Navbar } from '@govtechsg/sgds-govtech-react/Navbar';
+import { Container } from '@govtechsg/sgds-govtech-react/Container';
+import { Col } from '@govtechsg/sgds-govtech-react/Row';
+import { Row } from '@govtechsg/sgds-govtech-react/Col';
+
+const Megamenu = () => {
+  return (
+    <Navbar>
+      <Nav>
+        <Nav.Dropdown eventKey="5" isMegaMenu title="Megamenu">
+          <Container>
+            <Row>
+              <Col>
+                <Nav.Dropdown.Item eventKey="5.1">Action</Nav.Dropdown.Item>
+              </Col>
+              <Col>
+                <Nav.Dropdown.Item eventKey="5.2">Action</Nav.Dropdown.Item>
+              </Col>
+              <Col>
+                <Nav.Dropdown.Item eventKey="5.3">Action</Nav.Dropdown.Item>
+              </Col>
+            </Row>
+            <Row>
+              <Col>
+                <Nav.Dropdown.Item eventKey="5.4">Action</Nav.Dropdown.Item>
+              </Col>
+              <Col>
+                <Nav.Dropdown.Item eventKey="5.5">Action</Nav.Dropdown.Item>
+              </Col>
+              <Col>
+                <Nav.Dropdown.Item eventKey="5.6">Action</Nav.Dropdown.Item>
+              </Col>
+            </Row>
+          </Container>
+        </Nav.Dropdown>
+      </Nav>
+    </Navbar>
+  );
+};
+```

@@ -12,10 +12,10 @@ import { SelectCallback } from '@restart/ui/types';
 import warning from 'warning';
 import DropdownContext, { DropDirection } from './DropdownContext';
 import InputGroupContext from '../InputGroup/InputGroupContext';
-import NavbarContext from '../Nav/NavbarContext';
+import NavbarContext from '../Navbar/NavbarContext';
+import { AlignType, AlignDirection, alignPropType, Placement, ResponsiveAlignProp } from '../utils/types';
 import useWrappedRefWithWarning from '../utils/useWrappedRefWithWarning';
 import { BsPrefixProps, BsPrefixRefForwardingComponent } from '../utils/helpers';
-import { AlignType, AlignDirection, alignPropType, Placement } from '../utils/types';
 
 export type DropdownMenuVariant = 'dark' | string;
 
@@ -30,6 +30,7 @@ export interface DropdownMenuProps
   rootCloseEvent?: 'click' | 'mousedown';
   popperConfig?: UseDropdownMenuOptions['popperConfig'];
   variant?: DropdownMenuVariant;
+  isNav?: boolean;
 }
 
 const propTypes = {
@@ -89,6 +90,7 @@ const propTypes = {
    * Omitting this will use the default light color.
    */
   variant: PropTypes.string,
+  isNav: PropTypes.bool
 };
 
 const defaultProps: Partial<DropdownMenuProps> = {
@@ -118,7 +120,7 @@ export function getDropdownMenuPlacement(
   return placement;
 }
 
-const DropdownMenu: BsPrefixRefForwardingComponent<'div', DropdownMenuProps> =
+const DropdownMenu: BsPrefixRefForwardingComponent<'ul', DropdownMenuProps> =
   React.forwardRef<HTMLElement, DropdownMenuProps>(
     (
       {
@@ -130,9 +132,10 @@ const DropdownMenu: BsPrefixRefForwardingComponent<'div', DropdownMenuProps> =
         show: showProps,
         renderOnMount,
         // Need to define the default "as" during prop destructuring to be compatible with styled-components github.com/react-bootstrap/react-bootstrap/issues/3595
-        as: Component = 'div',
+        as: Component = 'ul',
         popperConfig,
         variant,
+        isNav,
         ...props
       },
       ref,
@@ -155,8 +158,7 @@ const DropdownMenu: BsPrefixRefForwardingComponent<'div', DropdownMenuProps> =
           );
         
           if (keys.length) {
-            const brkPoint = keys[0];
-            //@ts-ignore
+            const brkPoint = keys[0] as keyof ResponsiveAlignProp;
             const direction: AlignDirection = align[brkPoint];
 
             // .dropdown-menu-end is required for responsively aligning
@@ -176,7 +178,7 @@ const DropdownMenu: BsPrefixRefForwardingComponent<'div', DropdownMenuProps> =
         rootCloseEvent,
         show: showProps,
         usePopper: !isNavbar && alignClasses.length === 0,
-        offset: [0, 10],
+        offset: !isNav ? [0, 10] : undefined,
         popperConfig,
         placement,
       });

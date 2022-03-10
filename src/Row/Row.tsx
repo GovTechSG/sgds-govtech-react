@@ -134,7 +134,6 @@ const Row: BsPrefixRefForwardingComponent<'div', RowProps> = React.forwardRef<
 
       if (cols != null) classes.push(`${sizePrefix}${infix}-${cols}`);
     });
-
     return (
       <Component
         ref={ref}

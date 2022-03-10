@@ -45,8 +45,8 @@ describe('Popover', () => {
     expect(popoverElem.classList).toContain('popover');
     expect(popoverElem.classList).toContain('bs-popover-end');
 
-    expect(popoverHeaderElem.classList).toContain('popover-header') 
-    expect(popoverArrowElem.classList).toContain('popover-arrow');
-    expect(popoverBodyElem.classList).toContain('popover-body'); 
-  })
+    expect(popoverArrowElem.classList).toContain('popover-arrow'); 
+    expect(popoverHeaderElem.classList).toContain('popover-header');
+    expect(popoverBodyElem.classList).toContain('popover-body');
+  });
 });
