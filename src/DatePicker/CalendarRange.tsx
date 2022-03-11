@@ -2,21 +2,19 @@ import * as React from 'react';
 interface CalendarProps extends React.HTMLAttributes<HTMLTableElement> {
   selectedDate: Date[];
   displayDate: Date;
-  // minDate?: string;
-  // maxDate?: string;
+  minDate?: string;
+  maxDate?: string;
   changeDate: (date: Date) => void;
   dayLabels?: string[];
   cellPadding: string;
   weekStartsOn: number;
+  roundedCorners: boolean;
+  showWeeks: boolean;
   mode: 'single' | 'range';
 }
-// const MAX_DATE = '2021-05-19T12:00:00.000Z';
-// const MIN_DATE = '2020-05-19T12:00:00.000Z';
+
 const DAY_LABELS = ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'];
-// const defaultProps = {
-//   dayLabels : ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'],
-//   cellPadding: '5px',
-// };
+
 const daysInMonth = [31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31];
 
 const setTimeToNoon = (date: Date) => {
@@ -26,30 +24,46 @@ const setTimeToNoon = (date: Date) => {
   date.setMilliseconds(0);
   return date;
 };
-
+const getWeekNumber = (date: Date) => {
+  const target = new Date(date.valueOf());
+  const dayNr = (date.getDay() + 6) % 7;
+  target.setDate(target.getDate() - dayNr + 3);
+  const firstThursday = target.valueOf();
+  target.setMonth(0, 1);
+  if (target.getDay() !== 4) {
+    target.setMonth(0, 1 + ((4 - target.getDay() + 7) % 7));
+  }
+  return 1 + Math.ceil((firstThursday - target.valueOf()) / 604800000);
+};
 export const Calendar = React.forwardRef<HTMLTableElement, CalendarProps>(
   (
     {
       dayLabels = DAY_LABELS,
       cellPadding = '5px',
+      showWeeks = false,
+      roundedCorners = false,
       ...props
     },
     ref
   ) => {
+    const hoverWithRangeMode = () => {
+      // const day = e.currentTarget.getAttribute('data-day')!;
+    }
     const handleClick = (e: React.MouseEvent<HTMLTableCellElement>) => {
       const day = e.currentTarget.getAttribute('data-day')!;
       const newSelectedDate = setTimeToNoon(props.displayDate!);
       newSelectedDate.setDate(parseInt(day));
       props.changeDate(newSelectedDate);
     };
+ 
     const currentDate = setTimeToNoon(new Date());
-    const selectedDates = props.selectedDate.map(d => setTimeToNoon(d))
-    // const minimumDate = props.minDate
-    //   ? setTimeToNoon(new Date(props.minDate))
-    //   : null;
-    // const maximumDate = props.maxDate
-    //   ? setTimeToNoon(new Date(props.maxDate))
-    //   : null;
+    const selectedDate = setTimeToNoon(props.selectedDate[0]);
+    const minimumDate = props.minDate
+      ? setTimeToNoon(new Date(props.minDate))
+      : null;
+    const maximumDate = props.maxDate
+      ? setTimeToNoon(new Date(props.maxDate))
+      : null;
     const year = props.displayDate.getFullYear();
     const month = props.displayDate.getMonth();
     const firstDay = new Date(year, month, 1);
@@ -61,9 +75,8 @@ export const Calendar = React.forwardRef<HTMLTableElement, CalendarProps>(
           ? 6
           : firstDay.getDay() - 1
         : firstDay.getDay();
-  console.log({startingDay})
+  
     let monthLength = daysInMonth[month];
-    console.log({monthLength})
     if (month == 1) {
       if ((year % 4 == 0 && year % 100 != 0) || year % 400 == 0) {
         monthLength = 29;
@@ -78,37 +91,29 @@ export const Calendar = React.forwardRef<HTMLTableElement, CalendarProps>(
         if (day <= monthLength && (i > 0 || j >= startingDay)) {
           let className = undefined;
           const date = new Date(year, month, day, 12, 0, 0, 0).toISOString();
-          // const beforeMinDate =
-          //   minimumDate &&
-          //   Date.parse(date) < Date.parse(minimumDate.toISOString());
-          // const afterMinDate =
-          //   maximumDate &&
-          //   Date.parse(date) > Date.parse(maximumDate.toISOString());
+          const beforeMinDate =
+            minimumDate &&
+            Date.parse(date) < Date.parse(minimumDate.toISOString());
+          const afterMinDate =
+            maximumDate &&
+            Date.parse(date) > Date.parse(maximumDate.toISOString());
   
           let clickHandler: React.MouseEventHandler | undefined = handleClick;
           const style = {
             cursor: 'pointer',
             padding: cellPadding,
-            borderRadius: 50,
+            borderRadius: roundedCorners ? 5 : 0,
           };
   
-          /* if (beforeMinDate || afterMinDate) {
+          if (beforeMinDate || afterMinDate) {
             className = 'text-muted';
             clickHandler = undefined;
             style.cursor = 'default';
-          } else */ 
-          selectedDates.forEach(d => {
-            if (Date.parse(date) === Date.parse(d.toISOString())) {
-              className = 'bg-primary'
-            }
-          })
-         /*  if (
-            Date.parse(date) === Date.parse(selectedDates!.toISOString())
+          } else if (
+            Date.parse(date) === Date.parse(selectedDate!.toISOString())
           ) {
-            console.log('sily')
             className = 'bg-primary';
-          } else  */if (Date.parse(date) === Date.parse(currentDate.toISOString())) {
-            //if selected Date is not current Date
+          } else if (Date.parse(date) === Date.parse(currentDate.toISOString())) {
             className = 'text-primary';
           }
   
@@ -119,6 +124,7 @@ export const Calendar = React.forwardRef<HTMLTableElement, CalendarProps>(
               onClick={clickHandler}
               style={style}
               className={className}
+              onMouseEnter = {hoverWithRangeMode}
             >
               {day}
             </td>
@@ -129,6 +135,24 @@ export const Calendar = React.forwardRef<HTMLTableElement, CalendarProps>(
         }
       }
   
+      if (showWeeks) {
+        const weekNum = getWeekNumber(
+          new Date(year, month, day - 1, 12, 0, 0, 0)
+        );
+        week.unshift(
+          <td
+            key={7}
+            style={{
+              padding: cellPadding,
+              fontSize: '0.8em',
+              color: 'darkgrey',
+            }}
+            className="text-muted"
+          >
+            {weekNum}
+          </td>
+        );
+      }
   
       weeks.push(<tr key={i}>{week}</tr>);
       if (day > monthLength) {
@@ -136,10 +160,14 @@ export const Calendar = React.forwardRef<HTMLTableElement, CalendarProps>(
       }
     }
   
+    const weekColumn = showWeeks ? (
+      <td className="text-muted current-week" style={{ padding: cellPadding }} />
+    ) : null;
     return (
       <table className="text-center" ref={ref} >
         <thead>
           <tr>
+            {weekColumn}
             {dayLabels.map((label: string, index: number) => {
               return (
                 <td

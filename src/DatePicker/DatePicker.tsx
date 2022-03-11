@@ -21,8 +21,8 @@ export interface DatePickerProps {
   required: boolean;
   className: string;
   style: object;
-  minDate?: string;
-  maxDate?: string;
+  // minDate?: string;
+  // maxDate?: string;
   cellPadding: string;
   autoComplete: string;
   placeholder: string;
@@ -41,30 +41,23 @@ export interface DatePickerProps {
   nextButtonElement: string | JSX.Element;
   calendarPlacement: Placement | undefined;
   dateFormat: string; // 'MM/DD/YYYY'; 'DD/MM/YYYY'; 'YYYY/MM/DD'; 'DD-MM-YYYY'
-  calendarContainer: JSX.Element;
   id: string;
   name: string;
-  showTodayButton: boolean;
-  todayButtonLabel: string;
-  instanceCount: number;
   customControl: JSX.Element;
-  roundedCorners: boolean;
-  showWeeks: boolean;
   children: JSX.Element | JSX.Element[];
   onInvalid: Function;
   noValidate: boolean;
-  mode?: 'single' | 'range' 
+  mode?: 'single' | 'range';
 }
 
 export interface CalendarState {
   value: string | MultiSelectionValue;
   displayDate: Date;
-  selectedDate: Date;
+  selectedDate: Date[];
   inputValue: string;
   focused: boolean;
   inputFocused: boolean;
   placeholder: string;
-  // separator: string;
 }
 const SEPARATOR = '/';
 
@@ -75,12 +68,13 @@ export const DatePicker: React.FC<DatePickerProps> = ({
   mode = 'single',
   ...props
 }) => {
+  const isRange = (mode === 'range')
   const formControlRef = useRef(null);
   const overlayRef = useRef(null);
   const initialState: CalendarState = {
-    value: (mode === 'range') ? { start: '', end: '' } : value,
+    value: mode === 'range' ? { start: '', end: '' } : value,
     displayDate: new Date(),
-    selectedDate: new Date(),
+    selectedDate: [],
     inputValue: '',
     focused: false,
     inputFocused: false,
@@ -245,7 +239,7 @@ export const DatePicker: React.FC<DatePickerProps> = ({
       setState({
         ...state,
         inputValue: inputValue,
-        selectedDate: selectedDate,
+        selectedDate: [...state.selectedDate, selectedDate],
         displayDate: selectedDate,
         value: selectedDate.toISOString(),
       });
@@ -308,51 +302,64 @@ export const DatePicker: React.FC<DatePickerProps> = ({
       );
     }
   };
-  const onChangeDate = (newSelectedDate: Date) => {
-    let conditionalValue: string | MultiSelectionValue;
+
+  const onChangeDateSingle = (newSelectedDate: Date) => {
+    const inputValue = makeInputValueString(newSelectedDate);
+    setState({
+      ...state,
+      inputValue: inputValue,
+      selectedDate: [newSelectedDate],
+      displayDate: newSelectedDate,
+      value: newSelectedDate.toISOString(),
+      focused: false,
+    });
+  };
+  const onChangeDateRange = (newSelectedDate: Date) => {
+    let conditionalValue = state.value as MultiSelectionValue;
     let inputValue: string = state.inputValue;
     let focused: boolean = state.focused;
-    if (mode === 'range') {
-      conditionalValue = state.value as MultiSelectionValue;
-      const { start, end } = conditionalValue;
-      if ((!start && !end) || (start && end)) {
+    const { start, end } = conditionalValue;
+    if ((!start && !end) || (start && end)) {
+      conditionalValue.start = newSelectedDate.toISOString();
+      conditionalValue.end = '';
+      inputValue = `${makeInputValueString(newSelectedDate)}`;
+      focused = true;
+    }
+    if (start && !end) {
+      // if selected end date is before selected start date --> swap
+      if (new Date(start).getTime() > newSelectedDate.getTime()) {
+        conditionalValue.end = start;
         conditionalValue.start = newSelectedDate.toISOString();
-        conditionalValue.end = '';
-        inputValue = `${makeInputValueString(newSelectedDate)}`;
-        focused = true;
+        inputValue = `${makeInputValueString(newSelectedDate)} - ${
+          state.inputValue
+        }`;
+      } else {
+        conditionalValue.end = newSelectedDate.toISOString();
+        inputValue = `${state.inputValue} - ${makeInputValueString(
+          newSelectedDate
+        )}`;
       }
-      if (start && !end) {
-        // if selected end date is before selected start date --> swap
-        if (new Date(start).getTime() > newSelectedDate.getTime()) {
-          conditionalValue.end = start;
-          conditionalValue.start = newSelectedDate.toISOString();
-          inputValue = `${makeInputValueString(newSelectedDate)} - ${
-            state.inputValue
-          }`;
-        } else {
-          conditionalValue.end = newSelectedDate.toISOString();
-          inputValue = `${state.inputValue} - ${makeInputValueString(
-            newSelectedDate
-          )}`;
-        }
-
-        focused = false;
-      }
-    } else {
-      conditionalValue = newSelectedDate.toISOString();
-      inputValue = makeInputValueString(newSelectedDate);
       focused = false;
+    }
+
+    let computeSelectedDate = [];
+    const { start: s, end: e } = state.value as MultiSelectionValue;
+    if (s && e) {
+      computeSelectedDate[0] = new Date(s);
+      computeSelectedDate[1] = new Date(e);
+    }
+    if (s && !e) {
+      computeSelectedDate[0] = new Date(s);
     }
 
     setState({
       ...state,
       inputValue: inputValue,
-      selectedDate: newSelectedDate,
+      selectedDate: computeSelectedDate,
       displayDate: newSelectedDate,
       value: conditionalValue,
       focused: focused,
     });
-    console.log(state.value);
     // if (props.onBlur) {
     //   const event = document.createEvent('CustomEvent');
     //   event.initEvent('Change Date', true, false);
@@ -364,52 +371,6 @@ export const DatePicker: React.FC<DatePickerProps> = ({
       props.onChange(newSelectedDate.toISOString(), inputValue);
     }
   };
-  //which value should it track. prop.value or state.value
-  // useEffect(() => {
-  //   setState({
-  //     ...state,
-  //     ...makeDateValues(value),
-  //   });
-  // }, [value]);
-
-  // const makeDateValues = (isoString: string) => {
-  //   let displayDate;
-  //   const selectedDate = isoString ? new Date(`${isoString.slice(0, 10)}T12:00:00.000Z`) : null;
-  //   const minDate =
-  //     props.minDate && new Date(`${props.minDate.slice(0, 10)}T12:00:00.000Z`);
-
-  //   const maxDate =
-  //     props.maxDate && new Date(`${props.maxDate.slice(0, 10)}T12:00:00.000Z`);
-
-  //   const inputValue = isoString ? makeInputValueString(selectedDate!) : '';
-  //   if (selectedDate) {
-  //     displayDate = new Date(selectedDate);
-  //   } else {
-  //     const today = new Date(
-  //       `${new Date().toISOString().slice(0, 10)}T12:00:00.000Z`
-  //     );
-  //     if (
-  //       minDate &&
-  //       Date.parse(minDate.toString()) >= Date.parse(today.toString())
-  //     ) {
-  //       displayDate = minDate;
-  //     } else if (
-  //       maxDate &&
-  //       Date.parse(maxDate.toString()) <= Date.parse(today.toString())
-  //     ) {
-  //       displayDate = maxDate;
-  //     } else {
-  //       displayDate = today;
-  //     }
-  //   }
-
-  //   return {
-  //     value: selectedDate ? selectedDate.toISOString() : '',
-  //     displayDate: displayDate,
-  //     ...(selectedDate && {selectedDate}),
-  //     inputValue: inputValue,
-  //   };
-  // };
 
   const calendarHeader = (
     <CalendarHeader
@@ -417,8 +378,8 @@ export const DatePicker: React.FC<DatePickerProps> = ({
       previousButtonElement={props.previousButtonElement}
       nextButtonElement={props.nextButtonElement}
       displayDate={state.displayDate as Date}
-      minDate={props.minDate}
-      maxDate={props.maxDate}
+      // minDate={props.minDate}
+      // maxDate={props.maxDate}
       onChange={onChangeMonth}
       monthLabels={props.monthLabels}
     />
@@ -478,14 +439,10 @@ export const DatePicker: React.FC<DatePickerProps> = ({
         cellPadding={props.cellPadding}
         selectedDate={state.selectedDate}
         displayDate={state.displayDate}
-        changeDate={onChangeDate}
+        changeDate={isRange ? onChangeDateRange : onChangeDateSingle}
         weekStartsOn={props.weekStartsOn}
-        showTodayButton={props.showTodayButton}
-        todayButtonLabel={props.todayButtonLabel}
-        minDate={props.minDate}
-        maxDate={props.maxDate}
-        roundedCorners={props.roundedCorners}
-        showWeeks={props.showWeeks}
+        // minDate={props.minDate}
+        // maxDate={props.maxDate}
         mode={mode}
       />
     );
