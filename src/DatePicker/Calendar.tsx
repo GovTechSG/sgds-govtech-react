@@ -20,11 +20,12 @@ const DAY_LABELS = ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'];
 const daysInMonth = [31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31];
 
 const setTimeToNoon = (date: Date) => {
-  date.setHours(12);
-  date.setMinutes(0);
-  date.setSeconds(0);
-  date.setMilliseconds(0);
-  return date;
+  const newDate = new Date(date)
+  newDate.setHours(12);
+  newDate.setMinutes(0);
+  newDate.setSeconds(0);
+  newDate.setMilliseconds(0);
+  return newDate;
 };
 
 export const Calendar = React.forwardRef<HTMLTableElement, CalendarProps>(
@@ -38,7 +39,8 @@ export const Calendar = React.forwardRef<HTMLTableElement, CalendarProps>(
   ) => {
     const handleClick = (e: React.MouseEvent<HTMLTableCellElement>) => {
       const day = e.currentTarget.getAttribute('data-day')!;
-      const newSelectedDate = setTimeToNoon(props.displayDate!);
+      const displayDateClone = new Date(props.displayDate)
+      const newSelectedDate = setTimeToNoon(displayDateClone);
       newSelectedDate.setDate(parseInt(day));
       props.changeDate(newSelectedDate);
     };
@@ -61,9 +63,7 @@ export const Calendar = React.forwardRef<HTMLTableElement, CalendarProps>(
           ? 6
           : firstDay.getDay() - 1
         : firstDay.getDay();
-  console.log({startingDay})
     let monthLength = daysInMonth[month];
-    console.log({monthLength})
     if (month == 1) {
       if ((year % 4 == 0 && year % 100 != 0) || year % 400 == 0) {
         monthLength = 29;
@@ -97,21 +97,27 @@ export const Calendar = React.forwardRef<HTMLTableElement, CalendarProps>(
             clickHandler = undefined;
             style.cursor = 'default';
           } else */ 
-          selectedDates.forEach(d => {
-            if (Date.parse(date) === Date.parse(d.toISOString())) {
-              className = 'bg-primary'
-            }
-          })
-         /*  if (
-            Date.parse(date) === Date.parse(selectedDates!.toISOString())
-          ) {
-            console.log('sily')
-            className = 'bg-primary';
-          } else  */if (Date.parse(date) === Date.parse(currentDate.toISOString())) {
+
+          if (Date.parse(date) === Date.parse(currentDate.toISOString())) {
             //if selected Date is not current Date
             className = 'text-primary';
           }
-  
+          if (selectedDates.length > 0) {
+            selectedDates.forEach(d => {
+              // console.log({d})
+              if (Date.parse(date) === Date.parse(d.toISOString())) {
+                className = 'bg-primary'
+              }
+            })
+            if (
+              Date.parse(date) === Date.parse(selectedDates[0]!.toISOString())
+            ) {
+              className = 'bg-primary';
+            } 
+
+          }
+      
+        
           week.push(
             <td
               key={j}

@@ -16,17 +16,18 @@ export interface YearViewProps extends React.HTMLAttributes<HTMLElement> {
 export const YearView = React.forwardRef<HTMLDivElement, YearViewProps>(
   ({ displayDate,state, setState, ...props }, ref) => {
     const {setView}  = useContext(DatePickerContext)
-      console.log(displayDate.getFullYear())
       const displayYear = displayDate.getFullYear()
       const startLimit = displayYear - 5
       const endLimit = displayYear + 6
       const yearArray = []
 
       const handleClickYear = (year: number) => {
+        const newDisplayDate = new Date(state.displayDate)
+        newDisplayDate.setFullYear(year)
         setView('month')
         setState({
           ...state,
-          displayDate: new Date(state.displayDate.setFullYear(year))
+          displayDate: newDisplayDate
         })
       }
       for(let i = startLimit; i<endLimit + 1; i++){

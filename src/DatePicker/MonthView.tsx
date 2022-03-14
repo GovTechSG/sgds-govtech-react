@@ -31,10 +31,12 @@ export const MonthView = React.forwardRef<HTMLDivElement, MonthViewProps>(
     const {setView}  = useContext(DatePickerContext)
 
     const handleClickMonth = (month: number) => {
+      const newDisplayDate = new Date(state.displayDate)
+      newDisplayDate.setMonth(month)
       setView('day')
       setState({
         ...state,
-        displayDate: new Date(state.displayDate.setMonth(month))
+        displayDate: newDisplayDate
       })
     }
     return (
