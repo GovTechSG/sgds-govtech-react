@@ -2,8 +2,8 @@ import * as React from 'react';
 interface CalendarProps extends React.HTMLAttributes<HTMLTableElement> {
   selectedDate: Date[];
   displayDate: Date;
-  // minDate?: string;
-  // maxDate?: string;
+  minDate?: string;
+  maxDate?: string;
   changeDate: (date: Date) => void;
   dayLabels?: string[];
   cellPadding: string;
@@ -46,12 +46,12 @@ export const Calendar = React.forwardRef<HTMLTableElement, CalendarProps>(
     };
     const currentDate = setTimeToNoon(new Date());
     const selectedDates = props.selectedDate.map(d => setTimeToNoon(d))
-    // const minimumDate = props.minDate
-    //   ? setTimeToNoon(new Date(props.minDate))
-    //   : null;
-    // const maximumDate = props.maxDate
-    //   ? setTimeToNoon(new Date(props.maxDate))
-    //   : null;
+    const minimumDate = props.minDate
+      ? setTimeToNoon(new Date(props.minDate))
+      : null;
+    const maximumDate = props.maxDate
+      ? setTimeToNoon(new Date(props.maxDate))
+      : null;
     const year = props.displayDate.getFullYear();
     const month = props.displayDate.getMonth();
     const firstDay = new Date(year, month, 1);
@@ -78,12 +78,12 @@ export const Calendar = React.forwardRef<HTMLTableElement, CalendarProps>(
         if (day <= monthLength && (i > 0 || j >= startingDay)) {
           let className = undefined;
           const date = new Date(year, month, day, 12, 0, 0, 0).toISOString();
-          // const beforeMinDate =
-          //   minimumDate &&
-          //   Date.parse(date) < Date.parse(minimumDate.toISOString());
-          // const afterMinDate =
-          //   maximumDate &&
-          //   Date.parse(date) > Date.parse(maximumDate.toISOString());
+          const beforeMinDate =
+            minimumDate &&
+            Date.parse(date) < Date.parse(minimumDate.toISOString());
+          const afterMinDate =
+            maximumDate &&
+            Date.parse(date) > Date.parse(maximumDate.toISOString());
   
           let clickHandler: React.MouseEventHandler | undefined = handleClick;
           const style = {
@@ -92,11 +92,11 @@ export const Calendar = React.forwardRef<HTMLTableElement, CalendarProps>(
             borderRadius: 50,
           };
   
-          /* if (beforeMinDate || afterMinDate) {
+          if (beforeMinDate || afterMinDate) {
             className = 'text-muted';
             clickHandler = undefined;
             style.cursor = 'default';
-          } else */ 
+          } 
 
           if (Date.parse(date) === Date.parse(currentDate.toISOString())) {
             //if selected Date is not current Date

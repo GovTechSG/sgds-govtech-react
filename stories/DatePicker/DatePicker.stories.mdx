@@ -5,13 +5,15 @@ import { useState } from 'react';
 <Meta title="Components/DatePicker" component={DatePicker} />
 
 export const DatePickerTemplate = (args) => {
-  const [value, setValue] = useState(new Date().toISOString());
-  const handleChange = (value, formattedValue) => {
-    setValue({ value, formattedValue });
+  const [value, setValue] = useState(new Date());
+  const handleChange = (value) => {
+    setValue(value);
   };
+  const minDate = new Date(2020, 10, 11).toISOString()
+  const maxDate = new Date(2020, 10, 13).toISOString()
   return (
       <div style={{width: '500px'}}>
-        <DatePicker value={value} onChange={handleChange} {...args}/>
+        <DatePicker  value={value} onChange={handleChange} {...args}/>
       </div>
   );
 };
@@ -22,5 +24,5 @@ export const DatePickerTemplate = (args) => {
 
 
 <Canvas>
-  <Story name="Multi-Selection Date" args={{multiSelection: true, mode: 'range'}}>{DatePickerTemplate.bind({})}</Story>
+  <Story name="Multi-Selection Date" args={{multiSelection: true, mode: 'range', dateFormat: 'MM/DD/YYYY'}}>{DatePickerTemplate.bind({})}</Story>
 </Canvas>

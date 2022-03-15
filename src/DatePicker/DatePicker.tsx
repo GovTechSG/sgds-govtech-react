@@ -17,7 +17,7 @@ export interface MultiSelectionValue {
 }
 export interface DatePickerProps {
   defaultValue: string;
-  // value: string;
+  value: Date | MultiSelectionValue;
   required: boolean;
   className: string;
   style: object;
@@ -28,7 +28,7 @@ export interface DatePickerProps {
   placeholder: string;
   dayLabels: string[];
   monthLabels: string[];
-  onChange: (value: string | MultiSelectionValue, formattedValue: string) => {};
+  onChange: (value: Date | MultiSelectionValue) => {};
   onClear: Function;
   onBlur: Function;
   onFocus: Function;
@@ -40,7 +40,7 @@ export interface DatePickerProps {
   previousButtonElement: string | JSX.Element;
   nextButtonElement: string | JSX.Element;
   calendarPlacement: Placement | undefined;
-  dateFormat: string; // 'MM/DD/YYYY'; 'DD/MM/YYYY'; 'YYYY/MM/DD'; 'DD-MM-YYYY'
+  dateFormat: string; // 'MM/DD/YYYY'; 'DD/MM/YYYY'; 'YYYY/MM/DD'; 
   id: string;
   name: string;
   customControl: JSX.Element;
@@ -51,11 +51,10 @@ export interface DatePickerProps {
 }
 
 export interface CalendarState {
-  // value: string | MultiSelectionValue;
   displayDate: Date;
   selectedDate: Date[];
-  inputValue: Date | MultiSelectionValue | undefined;
-  input: string;
+  value: Date | MultiSelectionValue | undefined;
+  input1: string;
   input2: string;
   focused: boolean;
   inputFocused: boolean;
@@ -64,8 +63,44 @@ export interface CalendarState {
 }
 const SEPARATOR = '/';
 
+const arrangeInputValue = (inputValue: MultiSelectionValue) => {
+  const { start, end } = inputValue;
+  if (moment(start).isBefore(end)) return inputValue;
+  else return { start: end, end: start };
+};
+
+const handleBadInput = (originalValue: string, dateFormat: string) => {
+  const parts = originalValue
+    .replace(new RegExp(`[^0-9${SEPARATOR}]`), '')
+    .split(SEPARATOR);
+  if (dateFormat.match(/MM.DD.YYYY/) || dateFormat.match(/DD.MM.YYYY/)) {
+    if (parts[0] && parts[0].length > 2) {
+      parts[1] = parts[0].slice(2) + (parts[1] || '');
+      parts[0] = parts[0].slice(0, 2);
+    }
+    if (parts[1] && parts[1].length > 2) {
+      parts[2] = parts[1].slice(2) + (parts[2] || '');
+      parts[1] = parts[1].slice(0, 2);
+    }
+    if (parts[2]) {
+      parts[2] = parts[2].slice(0, 4);
+    }
+  } else {
+    if (parts[0] && parts[0].length > 4) {
+      parts[1] = parts[0].slice(4) + (parts[1] || '');
+      parts[0] = parts[0].slice(0, 4);
+    }
+    if (parts[1] && parts[1].length > 2) {
+      parts[2] = parts[1].slice(2) + (parts[2] || '');
+      parts[1] = parts[1].slice(0, 2);
+    }
+    if (parts[2]) {
+      parts[2] = parts[2].slice(0, 2);
+    }
+  }
+  return parts.join(SEPARATOR);
+};
 export const DatePicker: React.FC<DatePickerProps> = ({
-  // value = new Date().toISOString(),
   dateFormat = 'DD/MM/YYYY',
   calendarPlacement = 'bottom',
   mode = 'single',
@@ -75,18 +110,16 @@ export const DatePicker: React.FC<DatePickerProps> = ({
   const formControlRef = useRef<HTMLInputElement>(null);
   const overlayRef = useRef(null);
   const initialState: CalendarState = {
-    // value: mode === 'range' ? { start: '', end: '' } : value,
     displayDate: new Date(),
     selectedDate: [],
-    inputValue:
+    value:
       mode === 'range' ? { start: undefined, end: undefined } : undefined,
     focused: false,
     inputFocused: false,
     placeholder: dateFormat,
-    input: '',
+    input1: '',
     input2: '',
     invalid: false,
-    // separator: '/',
   };
   const [state, setState] = useState(initialState);
   const [view, setView] = useState<CalendarView>('day');
@@ -104,12 +137,6 @@ export const DatePicker: React.FC<DatePickerProps> = ({
     if (e.key === 'Tab' && state.inputFocused) {
       setState({ ...state, focused: false });
 
-      // if (props.onBlur) {
-      //   const event = document.createEvent('CustomEvent');
-      //   event.initEvent('Change Date', true, false);
-      //   ReactDOM.findDOMNode(this.refs.hiddenInput)?.dispatchEvent(event);
-      //   this.props.onBlur(event);
-      // }
     }
   };
   const handleFocus = () => {
@@ -118,16 +145,9 @@ export const DatePicker: React.FC<DatePickerProps> = ({
     }
     setState({
       ...state,
-      // selectedDate: [],
       inputFocused: true,
       focused: true,
     });
-    // if (props.onFocus) {
-    //   const event = document.createEvent('CustomEvent');
-    //   event.initEvent('Change Date', true, false);
-    //   ReactDOM.findDOMNode(this.refs.hiddenInput)?.dispatchEvent(event);
-    //   props.onFocus(event);
-    // }
   };
 
   const handleBlur = () => {
@@ -144,53 +164,21 @@ export const DatePicker: React.FC<DatePickerProps> = ({
     }
 
     if (props.onChange) {
-      props.onChange('', '');
+      props.onChange({});
     }
   };
-  const handleBadInput = (originalValue: string) => {
-    const parts = originalValue
-      .replace(new RegExp(`[^0-9${SEPARATOR}]`), '')
-      .split(SEPARATOR);
-    console.log({ parts });
-    if (dateFormat.match(/MM.DD.YYYY/) || dateFormat.match(/DD.MM.YYYY/)) {
-      if (parts[0] && parts[0].length > 2) {
-        parts[1] = parts[0].slice(2) + (parts[1] || '');
-        parts[0] = parts[0].slice(0, 2);
-      }
-      if (parts[1] && parts[1].length > 2) {
-        parts[2] = parts[1].slice(2) + (parts[2] || '');
-        parts[1] = parts[1].slice(0, 2);
-      }
-      if (parts[2]) {
-        parts[2] = parts[2].slice(0, 4);
-      }
-    } else {
-      if (parts[0] && parts[0].length > 4) {
-        parts[1] = parts[0].slice(4) + (parts[1] || '');
-        parts[0] = parts[0].slice(0, 4);
-      }
-      if (parts[1] && parts[1].length > 2) {
-        parts[2] = parts[1].slice(2) + (parts[2] || '');
-        parts[1] = parts[1].slice(0, 2);
-      }
-      if (parts[2]) {
-        parts[2] = parts[2].slice(0, 2);
-      }
-    }
-    return parts.join(SEPARATOR);
-  };
+ 
   const handleInputChange = () => {
     const originalValue = formControlRef.current?.value;
 
-    if (isRange && (state.inputValue as MultiSelectionValue).start) {
+    if (isRange && (state.value as MultiSelectionValue).start) {
       const input = originalValue!
         .replace(/(-|\/\/)/g, SEPARATOR)
         .slice(13, 23);
       processInput(input, 'input2');
     } else {
       const input = originalValue!.replace(/(-|\/\/)/g, SEPARATOR).slice(0, 10);
-      processInput(input, 'input');
-     
+      processInput(input, 'input1');
     }
   };
   const processInput = (input: string, stateName: string) => {
@@ -202,9 +190,21 @@ export const DatePicker: React.FC<DatePickerProps> = ({
     let month: string = '';
     let day: string = '';
     let year: string = '';
-    if (dateFormat.match(/DD.MM.YYYY/)) {
+    if (dateFormat.match(/MM.DD.YYYY/)) {
+      if (!input.match(/[0-1][0-9].[0-3][0-9].[1-2][0-9][0-9][0-9]/)) {
+        const fixedInput = handleBadInput(input, dateFormat);
+        setState({
+          ...state,
+          [stateName]: fixedInput as string,
+        });
+      }
+
+      month = input.slice(0, 2).replace(/[^0-9]/g, '');
+      day = input.slice(3, 5).replace(/[^0-9]/g, '');
+      year = input.slice(6, 10).replace(/[^0-9]/g, '');
+    } else if (dateFormat.match(/DD.MM.YYYY/)) {
       if (!input.match(/[0-3][0-9].[0-1][0-9].[1-2][0-9][0-9][0-9]/)) {
-        const fixedInput = handleBadInput(input);
+        const fixedInput = handleBadInput(input, dateFormat);
         setState({
           ...state,
           [stateName]: fixedInput as string,
@@ -214,12 +214,25 @@ export const DatePicker: React.FC<DatePickerProps> = ({
       day = input.slice(0, 2).replace(/[^0-9]/g, '');
       month = input.slice(3, 5).replace(/[^0-9]/g, '');
       year = input.slice(6, 10).replace(/[^0-9]/g, '');
+    } else {
+      if (!input.match(/[1-2][0-9][0-9][0-9].[0-1][0-9].[0-3][0-9]/)) {
+        const fixedInput = handleBadInput(input, dateFormat);
+        setState({
+          ...state,
+          [stateName]: fixedInput as string,
+        });
+      }
+
+      year = input.slice(0, 4).replace(/[^0-9]/g, '');
+      month = input.slice(5, 7).replace(/[^0-9]/g, '');
+      day = input.slice(8, 10).replace(/[^0-9]/g, '');
     }
+
     const monthInteger = parseInt(month, 10);
     const dayInteger = parseInt(day, 10);
     const yearInteger = parseInt(year, 10);
     if (monthInteger > 12 || dayInteger > 31) {
-      const fixedInput = handleBadInput(input);
+      const fixedInput = handleBadInput(input, dateFormat);
       setState({
         ...state,
         [stateName]: fixedInput as string,
@@ -248,26 +261,28 @@ export const DatePicker: React.FC<DatePickerProps> = ({
       if (momentDate.isValid()) {
         const selectedDate = momentDate.toDate();
         const inputValue =
-          stateName === 'input'
+          stateName === 'input1'
             ? { start: selectedDate, end: undefined }
-            : { ...state.inputValue, end: selectedDate };
+            : { ...state.value, end: selectedDate };
 
         setState({
           ...state,
-          inputValue: isRange ? inputValue : selectedDate,
+          value: isRange ? arrangeInputValue(inputValue) : selectedDate,
           [stateName]: input,
           selectedDate: [...state.selectedDate, selectedDate],
           displayDate: selectedDate,
-          invalid: !momentDate.isValid()
+          invalid: !momentDate.isValid(),
         });
         if (props.onChange) {
-          props.onChange(selectedDate.toISOString(), input);
+          props.onChange(
+            isRange ? arrangeInputValue(inputValue) : selectedDate
+          );
         }
       } else {
         setState({
           ...state,
           [stateName]: input,
-          invalid: true ,
+          invalid: true,
         });
       }
     }
@@ -281,12 +296,6 @@ export const DatePicker: React.FC<DatePickerProps> = ({
       ...state,
       focused: false,
     });
-    // if (props.onBlur) {
-    //   const event = document.createEvent('CustomEvent');
-    //   event.initEvent('Change Date', true, false);
-    //   ReactDOM?.findDOMNode(this.refs.hiddenInput)?.dispatchEvent(event);
-    //   this.props.onBlur(event);
-    // }
   };
   //triggered only when clicking dates
   const makeInputValueString = (date: Date) => {
@@ -325,19 +334,22 @@ export const DatePicker: React.FC<DatePickerProps> = ({
   const onChangeDateSingle = (newSelectedDate: Date) => {
     setState({
       ...state,
-      inputValue: newSelectedDate,
-      input: makeInputValueString(newSelectedDate),
+      value: newSelectedDate,
+      input1: makeInputValueString(newSelectedDate),
       selectedDate: [newSelectedDate],
       displayDate: newSelectedDate,
       focused: false,
     });
+    if (props.onChange) {
+      props.onChange(newSelectedDate);
+    }
   };
 
   const onChangeDateRange = (newSelectedDate: Date) => {
     let selectedDates = state.selectedDate;
-    let conditionalValue = state.inputValue as MultiSelectionValue;
+    let conditionalValue = state.value as MultiSelectionValue;
     let focused: boolean = state.focused;
-    let inputStart: string = state.input;
+    let inputStart: string = state.input1;
     let inputEnd: string = state.input2;
     const { start, end } = conditionalValue;
     if ((!start && !end) || (start && end)) {
@@ -347,7 +359,7 @@ export const DatePicker: React.FC<DatePickerProps> = ({
           newSelectedDate;
       conditionalValue.end = undefined;
       inputStart = makeInputValueString(newSelectedDate);
-      inputEnd = ''
+      inputEnd = '';
       focused = true;
     }
     if (start && !end) {
@@ -355,7 +367,7 @@ export const DatePicker: React.FC<DatePickerProps> = ({
       if (new Date(start).getTime() > newSelectedDate.getTime()) {
         conditionalValue.end = start;
         conditionalValue.start = newSelectedDate;
-        inputEnd = state.input;
+        inputEnd = state.input1;
         inputStart = makeInputValueString(newSelectedDate);
       } else {
         conditionalValue.end = newSelectedDate;
@@ -366,28 +378,21 @@ export const DatePicker: React.FC<DatePickerProps> = ({
     }
     setState({
       ...state,
-      inputValue: conditionalValue,
-      input: inputStart,
+      value: conditionalValue,
+      input1: inputStart,
       input2: inputEnd,
       selectedDate: selectedDates,
       displayDate: newSelectedDate,
       focused: focused,
     });
-    // if (props.onBlur) {
-    //   const event = document.createEvent('CustomEvent');
-    //   event.initEvent('Change Date', true, false);
-    //   ReactDOM.findDOMNode(this.refs.hiddenInput)?.dispatchEvent(event);
-    //   props.onBlur(event);
-    // }
 
-    // if (props.onChange) {
-    //   props.onChange(newSelectedDate.toISOString(), inputValue);
-    // }
+    if (props.onChange) {
+      props.onChange(conditionalValue);
+    }
   };
 
   const calendarHeader = (
     <CalendarHeader
-      //@ts-ignore
       previousButtonElement={props.previousButtonElement}
       nextButtonElement={props.nextButtonElement}
       displayDate={state.displayDate as Date}
@@ -400,22 +405,17 @@ export const DatePicker: React.FC<DatePickerProps> = ({
 
   const computeValue = () => {
     if (isRange) {
-      const {start } = state.inputValue as MultiSelectionValue
-      const separator = start
-        ? ' - '
-        : '';
-        // const startInputMoment = start && moment(state.input, 'DD/MM/YYYY')
-        // const endInputMoment = end && moment(state.input2, 'DD/MM/YYYY')
-        // return startInputMoment?.isBefore(endInputMoment) ? state.input + separator + state.input2 : state.input2 + separator + state.input
-      return state.input + separator + state.input2;
+      const { start } = state.value as MultiSelectionValue;
+      const separator = start ? ' - ' : '';
+      return state.input1 + separator + state.input2;
     }
-    return state.input;
+    return state.input1;
   };
   const controlProps = {
     onKeyDown: handleKeyDown,
-    value: computeValue() /* computeInputValue() */,
+    value: computeValue(),
     required: props.required,
-    placeholder: '' /* state.focused ? dateFormat : state.placeholder */,
+    placeholder: '',
     ref: formControlRef,
     disabled: props.disabled,
     onFocus: handleFocus,
@@ -433,15 +433,7 @@ export const DatePicker: React.FC<DatePickerProps> = ({
       noValidate: props.noValidate,
     })
   ) : (
-    <FormControl
-      //@ts-ignore
-      // ref="input"
-      type="text"
-      autoFocus={props.autoFocus}
-      {...controlProps}
-      // onInvalid={props.onInvalid}
-      // noValidate={props.noValidate}
-    />
+    <FormControl type="text" autoFocus={props.autoFocus} {...controlProps} />
   );
 
   const BodyContent = (): JSX.Element => {
@@ -468,8 +460,8 @@ export const DatePicker: React.FC<DatePickerProps> = ({
         displayDate={state.displayDate}
         changeDate={isRange ? onChangeDateRange : onChangeDateSingle}
         weekStartsOn={props.weekStartsOn}
-        // minDate={props.minDate}
-        // maxDate={props.maxDate}
+        minDate={props.minDate}
+        maxDate={props.maxDate}
         mode={mode}
       />
     );
@@ -478,10 +470,6 @@ export const DatePicker: React.FC<DatePickerProps> = ({
     <DatePickerContext.Provider value={contextValue}>
       <InputGroup
         variant="has-icon"
-        //@ts-ignore
-        // ref="inputGroup"
-        //   bsClass={this.props.showClearButton ? this.props.bsClass : ''}
-        //   bsSize={this.props.bsSize}
         id={props.id ? `${props.id}_group` : undefined}
       >
         <div ref={overlayRef}> {control} </div>
