@@ -19,7 +19,7 @@ jobs:
       # - name: Version Check
       #   uses: EndBug/version-check@v2.1.0
       #   id: check
-      - run: npm publish --tag alpha.1 ./dist
+      - run: npm publish --tag alpha ./dist
         # if: steps.check.outputs.changed == 'true'
         env:
           NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
