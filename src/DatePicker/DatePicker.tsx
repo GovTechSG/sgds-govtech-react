@@ -8,9 +8,9 @@ import CalendarHeader from './CalendarHeader';
 import { useState, useRef, useMemo } from 'react';
 import { Placement } from '../utils/types';
 import DatePickerContext, { CalendarView } from './DatePickerContext';
+import { Button } from '../Button';
 import MonthView from './MonthView';
 import YearView from './YearView';
-import {isExists, isAfter, isBefore, isEqual} from 'date-fns'
 export interface MultiSelectionValue {
   start?: Date;
   end?: Date;
@@ -45,84 +45,12 @@ export interface CalendarState {
   displayDate: Date;
   selectedDate: Date[];
   value: Date | MultiSelectionValue | undefined;
-  input1: string;
-  input2: string;
   focused: boolean;
   inputFocused: boolean;
   placeholder: string;
   invalid: boolean;
 }
 const SEPARATOR = '/';
-
-const arrangeInputValue = (inputValue: MultiSelectionValue) => {
-  const { start, end } = inputValue;
-  if (!end) return inputValue
-  if (isBefore(start!, end)) return inputValue 
-    else return {start: end, end: start}
-};
-
-const handleBadInput = (originalValue: string, dateFormat: string) => {
-  const parts = originalValue
-    .replace(new RegExp(`[^0-9${SEPARATOR}]`), '')
-    .split(SEPARATOR);
-  if (dateFormat.match(/MM.DD.YYYY/) || dateFormat.match(/DD.MM.YYYY/)) {
-    if (parts[0] && parts[0].length > 2) {
-      parts[1] = parts[0].slice(2) + (parts[1] || '');
-      parts[0] = parts[0].slice(0, 2);
-    }
-    if (parts[1] && parts[1].length > 2) {
-      parts[2] = parts[1].slice(2) + (parts[2] || '');
-      parts[1] = parts[1].slice(0, 2);
-    }
-    if (parts[2]) {
-      parts[2] = parts[2].slice(0, 4);
-    }
-  } else {
-    if (parts[0] && parts[0].length > 4) {
-      parts[1] = parts[0].slice(4) + (parts[1] || '');
-      parts[0] = parts[0].slice(0, 4);
-    }
-    if (parts[1] && parts[1].length > 2) {
-      parts[2] = parts[1].slice(2) + (parts[2] || '');
-      parts[1] = parts[1].slice(0, 2);
-    }
-    if (parts[2]) {
-      parts[2] = parts[2].slice(0, 2);
-    }
-  }
-  return parts.join(SEPARATOR);
-};
-
-const validateSelectedDate = (
-  inputType: string,
-  selectedDate: Date,
-  minDate? : string, 
-  maxDate?: string
-) => {
-  if (minDate && maxDate) {
-    if (inputType === 'input1') {
-      return isEqual(new Date(minDate), selectedDate) || isBefore(new Date(minDate), selectedDate)
-      // return moment(minDate).isSameOrBefore(selectedDate);
-    }
-    if (inputType === 'input2') {
-      return isEqual(new Date(maxDate), selectedDate) || isAfter(new Date(maxDate), selectedDate)
-
-      // return moment(maxDate).isSameOrAfter(selectedDate);
-    }
-  }
-  if (minDate && !maxDate) {
-    return  isEqual(new Date(minDate), selectedDate) || isBefore(new Date(minDate), selectedDate)
-      // return moment(minDate).isSameOrBefore(selectedDate);
-    
-  }
-  if (!minDate && maxDate) {
-    return isEqual(new Date(maxDate), selectedDate) || isAfter(new Date(maxDate), selectedDate)
-
-      // return moment(maxDate).isSameOrAfter(selectedDate);
-  }
-  return true;
-};
-
 
 export const DatePicker: React.FC<DatePickerProps> = ({
   dateFormat = 'DD/MM/YYYY',
@@ -139,9 +67,7 @@ export const DatePicker: React.FC<DatePickerProps> = ({
     value: mode === 'range' ? { start: undefined, end: undefined } : undefined,
     focused: false,
     inputFocused: false,
-    placeholder: dateFormat,
-    input1: '',
-    input2: '',
+    placeholder: props.placeholder,
     invalid: false,
   };
   const [state, setState] = useState(initialState);
@@ -190,129 +116,6 @@ export const DatePicker: React.FC<DatePickerProps> = ({
     }
   };
 
-  // const handleInputChange = (e:React.ChangeEventHandler<HTMLInputElement>) => {
-  //   const originalValue = formControlRef.current?.value;
-  //   if (isRange &&  (state.value as MultiSelectionValue).start) {
-  //     const input = originalValue!
-  //       .replace(/(-|\/\/)/g, SEPARATOR)
-  //       .slice(13, 23);
-  //     processInput(input, 'input2');
-  //   } else {
-  //     const input = originalValue!.replace(/(-|\/\/)/g, SEPARATOR).slice(0, 10);
-  //     processInput(input, 'input1');
-  //   }
-  // };
-  const processInput = (input: string, stateName: string) => {
-    // console.log(input)
-    // if (!input) {
-      
-    //   console.log('here')
-    //   clear();
-    //   return;
-    // }
-
-    let month: string = '';
-    let day: string = '';
-    let year: string = '';
-    if (dateFormat.match(/MM.DD.YYYY/)) {
-      if (!input.match(/[0-1][0-9].[0-3][0-9].[1-2][0-9][0-9][0-9]/)) {
-        const fixedInput = handleBadInput(input, dateFormat);
-        setState({
-          ...state,
-          [stateName]: fixedInput as string,
-        });
-      }
-
-      month = input.slice(0, 2).replace(/[^0-9]/g, '');
-      day = input.slice(3, 5).replace(/[^0-9]/g, '');
-      year = input.slice(6, 10).replace(/[^0-9]/g, '');
-    } else if (dateFormat.match(/DD.MM.YYYY/)) {
-      if (!input.match(/[0-3][0-9].[0-1][0-9].[1-2][0-9][0-9][0-9]/)) {
-        const fixedInput = handleBadInput(input, dateFormat);
-        setState({
-          ...state,
-          [stateName]: fixedInput as string,
-        });
-      }
-
-      day = input.slice(0, 2).replace(/[^0-9]/g, '');
-      month = input.slice(3, 5).replace(/[^0-9]/g, '');
-      year = input.slice(6, 10).replace(/[^0-9]/g, '');
-    } else {
-      if (!input.match(/[1-2][0-9][0-9][0-9].[0-1][0-9].[0-3][0-9]/)) {
-        const fixedInput = handleBadInput(input, dateFormat);
-        setState({
-          ...state,
-          [stateName]: fixedInput as string,
-        });
-      }
-
-      year = input.slice(0, 4).replace(/[^0-9]/g, '');
-      month = input.slice(5, 7).replace(/[^0-9]/g, '');
-      day = input.slice(8, 10).replace(/[^0-9]/g, '');
-    }
-
-    const monthInteger = parseInt(month, 10);
-    const dayInteger = parseInt(day, 10);
-    const yearInteger = parseInt(year, 10);
-    if (monthInteger > 12 || dayInteger > 31) {
-      const fixedInput = handleBadInput(input, dateFormat);
-      setState({
-        ...state,
-        [stateName]: fixedInput as string,
-        invalid: true,
-      });
-    }
-
-    if (
-      !isNaN(monthInteger) &&
-      !isNaN(dayInteger) &&
-      !isNaN(yearInteger) &&
-      monthInteger <= 12 &&
-      dayInteger <= 31 &&
-      yearInteger > 999
-    ) {
-      const isValidDate = isExists(yearInteger, monthInteger -1, dayInteger)
-      const selectedDate = new Date(
-        yearInteger,
-        monthInteger - 1,
-        dayInteger,
-        12,
-        0,
-        0,
-        0,
-      );
-
-      if (isValidDate && validateSelectedDate(stateName, selectedDate, props.minDate, props.maxDate)) {
-    
-        const inputValue =
-          stateName === 'input1'
-            ? { start: selectedDate, end: undefined }
-            : { ...state.value, end: selectedDate };
-
-        setState({
-          ...state,
-          value: isRange ? arrangeInputValue(inputValue) : selectedDate,
-          [stateName]: input,
-          selectedDate: [...state.selectedDate, selectedDate],
-          displayDate: selectedDate,
-          invalid: !isValidDate,
-        });
-        if (props.onChange) {
-          props.onChange(
-            isRange ? arrangeInputValue(inputValue) : selectedDate
-          );
-        }
-      } else {
-        setState({
-          ...state,
-          [stateName]: input,
-          invalid: true,
-        });
-      }
-    }
-  };
-
   const handleHide = () => {
     if (state.inputFocused) {
       return;
@@ -323,7 +126,8 @@ export const DatePicker: React.FC<DatePickerProps> = ({
     });
   };
   //triggered only when clicking dates
-  const makeInputValueString = (date: Date) => {
+  const makeInputValueString = (date?: Date) => {
+    if (date === undefined) return ''
     const month = date.getMonth() + 1;
     const day = date.getDate();
 
@@ -360,7 +164,6 @@ export const DatePicker: React.FC<DatePickerProps> = ({
     setState({
       ...state,
       value: newSelectedDate,
-      input1: makeInputValueString(newSelectedDate),
       selectedDate: [newSelectedDate],
       displayDate: newSelectedDate,
       focused: false,
@@ -374,8 +177,6 @@ export const DatePicker: React.FC<DatePickerProps> = ({
     let selectedDates = state.selectedDate;
     let conditionalValue = state.value as MultiSelectionValue;
     let focused: boolean = state.focused;
-    let inputStart: string = state.input1;
-    let inputEnd: string = state.input2;
     const { start, end } = conditionalValue;
     if ((!start && !end) || (start && end)) {
       conditionalValue.start =
@@ -383,8 +184,6 @@ export const DatePicker: React.FC<DatePickerProps> = ({
         selectedDates[1] =
           newSelectedDate;
       conditionalValue.end = undefined;
-      inputStart = makeInputValueString(newSelectedDate);
-      inputEnd = '';
       focused = true;
     }
     if (start && !end) {
@@ -392,11 +191,8 @@ export const DatePicker: React.FC<DatePickerProps> = ({
       if (new Date(start).getTime() > newSelectedDate.getTime()) {
         conditionalValue.end = start;
         conditionalValue.start = newSelectedDate;
-        inputEnd = state.input1;
-        inputStart = makeInputValueString(newSelectedDate);
       } else {
         conditionalValue.end = newSelectedDate;
-        inputEnd = makeInputValueString(newSelectedDate);
       }
       selectedDates[1] = newSelectedDate;
       focused = false;
@@ -404,8 +200,6 @@ export const DatePicker: React.FC<DatePickerProps> = ({
     setState({
       ...state,
       value: conditionalValue,
-      input1: inputStart,
-      input2: inputEnd,
       selectedDate: selectedDates,
       displayDate: newSelectedDate,
       focused: focused,
@@ -426,22 +220,22 @@ export const DatePicker: React.FC<DatePickerProps> = ({
 
   const computeValue = () => {
     if (isRange) {
-      const { start } = state.value as MultiSelectionValue;
+      const { start, end } = state.value as MultiSelectionValue;
       const separator = start ? ' - ' : '';
-      return state.input1 + separator + state.input2;
+      return makeInputValueString(start) + separator + makeInputValueString(end);
     }
-    return state.input1;
+    return makeInputValueString(state.value as Date);
   };
   const controlProps = {
     onKeyDown: handleKeyDown,
     value: computeValue(),
     required: props.required,
-    placeholder: '',
+    placeholder: props.placeholder,
     ref: formControlRef,
     disabled: props.disabled,
     onFocus: handleFocus,
     onBlur: handleBlur,
-    // onChange: handleInputChange,
+    readOnly: true,
     className: props.className,
     style: props.style,
     isInvalid: state.invalid,
@@ -449,7 +243,6 @@ export const DatePicker: React.FC<DatePickerProps> = ({
   const control = (
     <FormControl type="text" autoFocus={props.autoFocus} {...controlProps} />
   );
-
 
   const BodyContent = (): JSX.Element => {
     if (view === 'month')
@@ -468,20 +261,20 @@ export const DatePicker: React.FC<DatePickerProps> = ({
           setState={setState}
         />
       );
-      const computeSelectedDate = () => {
-        let selectedDate: Date[] =[]
-        if (isRange) {
-          const {start, end}  = state.value as MultiSelectionValue
-          if (start) selectedDate.push(start)
-          if (end) selectedDate.push(end)
+    const computeSelectedDate = () => {
+      let selectedDate: Date[] = [];
+      if (isRange) {
+        const { start, end } = state.value as MultiSelectionValue;
+        if (start) selectedDate.push(start);
+        if (end) selectedDate.push(end);
 
-          return selectedDate
-        } else {
-          if (state.value) selectedDate.push(state.value as Date)
-          
-          return selectedDate
-        }
+        return selectedDate;
+      } else {
+        if (state.value) selectedDate.push(state.value as Date);
+
+        return selectedDate;
       }
+    };
     return (
       <Calendar
         selectedDate={computeSelectedDate()}
@@ -500,6 +293,9 @@ export const DatePicker: React.FC<DatePickerProps> = ({
         id={props.id ? `${props.id}_group` : undefined}
       >
         <div ref={overlayRef}> {control}</div>
+        <Button onClick={clear}>
+          <i className="bi bi-x"></i>
+        </Button>
         <i className="bi bi-calendar form-control-icon"></i>
         <Overlay
           rootClose={true}
