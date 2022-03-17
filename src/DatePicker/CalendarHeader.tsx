@@ -3,13 +3,8 @@ import { useContext } from 'react';
 import DatePickerContext from './DatePickerContext';
 interface CalendarHeaderProps {
   displayDate: Date;
-  minDate?: string;
-  maxDate?: string;
   onChange: (date: Date) => void;
   monthLabels: string[];
-  previousButtonElement: string | JSX.Element;
-  nextButtonElement: string | JSX.Element;
-  years?: number[];
 }
 const MONTH_LABELS = [
   'January',
@@ -25,56 +20,24 @@ const MONTH_LABELS = [
   'November',
   'December',
 ];
-const YEARS = (): number[] => {
-  const currentYear = new Date().getFullYear();
-  const yearsArray = [];
-  const start = currentYear - 50;
-  const end = currentYear + 50;
-  for (let i = start; i < end; i++) {
-    yearsArray.push(i);
-  }
-  return yearsArray;
-};
+
 const CalendarHeader: React.FC<CalendarHeaderProps> = ({
   monthLabels = MONTH_LABELS,
-  previousButtonElement = '<',
-  nextButtonElement = '>',
-  years = YEARS(),
   ...props
 }) => {
   const { view, setView } = useContext(DatePickerContext);
-  const displayingMinMonth = () => {
-    if (!props.minDate) return false;
-
-    const displayDate = new Date(props.displayDate);
-    const minimumDate = new Date(props.minDate);
-    return (
-      minimumDate.getFullYear() == displayDate.getFullYear() &&
-      minimumDate.getMonth() == displayDate.getMonth()
-    );
-  };
-
-  const displayingMaxMonth = () => {
-    if (!props.maxDate) return false;
-    const displayDate = new Date(props.displayDate);
-    const maximumDate = new Date(props.maxDate);
-    return (
-      maximumDate.getFullYear() == displayDate.getFullYear() &&
-      maximumDate.getMonth() == displayDate.getMonth()
-    );
-  };
 
   const handleClickPrevious = () => {
     const newDisplayDate = new Date(props.displayDate);
     newDisplayDate.setDate(1);
-    if(view === 'month'){
-      newDisplayDate.setFullYear(newDisplayDate.getFullYear() - 1)
-      props.onChange(newDisplayDate)
+    if (view === 'month') {
+      newDisplayDate.setFullYear(newDisplayDate.getFullYear() - 1);
+      props.onChange(newDisplayDate);
     }
 
-    if(view === 'year'){
-      newDisplayDate.setFullYear(newDisplayDate.getFullYear() - 10)
-      props.onChange(newDisplayDate)
+    if (view === 'year') {
+      newDisplayDate.setFullYear(newDisplayDate.getFullYear() - 10);
+      props.onChange(newDisplayDate);
     }
 
     newDisplayDate.setMonth(newDisplayDate.getMonth() - 1);
@@ -85,14 +48,14 @@ const CalendarHeader: React.FC<CalendarHeaderProps> = ({
     const newDisplayDate = new Date(props.displayDate);
     newDisplayDate.setDate(1);
 
-    if(view === 'month') {
-      newDisplayDate.setFullYear(newDisplayDate.getFullYear() + 1)
-      props.onChange(newDisplayDate)
+    if (view === 'month') {
+      newDisplayDate.setFullYear(newDisplayDate.getFullYear() + 1);
+      props.onChange(newDisplayDate);
     }
 
-    if(view === 'year'){
-      newDisplayDate.setFullYear(newDisplayDate.getFullYear() + 10)
-      props.onChange(newDisplayDate)
+    if (view === 'year') {
+      newDisplayDate.setFullYear(newDisplayDate.getFullYear() + 10);
+      props.onChange(newDisplayDate);
     }
 
     newDisplayDate.setMonth(newDisplayDate.getMonth() + 1);
@@ -113,8 +76,13 @@ const CalendarHeader: React.FC<CalendarHeaderProps> = ({
   };
   const renderHeader = () => {
     if (view === 'month') return `${props.displayDate.getFullYear()}`;
-    if (view === 'year') return `${props.displayDate.getFullYear() - 5} - ${props.displayDate.getFullYear() + 6}`;
-    return `${monthLabels[props.displayDate.getMonth()]} ${props.displayDate.getFullYear()}`;
+    if (view === 'year')
+      return `${props.displayDate.getFullYear() - 5} - ${
+        props.displayDate.getFullYear() + 6
+      }`;
+    return `${
+      monthLabels[props.displayDate.getMonth()]
+    } ${props.displayDate.getFullYear()}`;
   };
   return (
     <div className="text-center d-flex justify-content-around">
@@ -123,7 +91,7 @@ const CalendarHeader: React.FC<CalendarHeaderProps> = ({
         onClick={handleClickPrevious}
         style={{ cursor: 'pointer' }}
       >
-        {displayingMinMonth() ? null : previousButtonElement}
+        <i className="bi bi-chevron-left"></i>
       </div>
       <button onClick={changeView} disabled={view === 'year'}>
         {renderHeader()}
@@ -133,7 +101,7 @@ const CalendarHeader: React.FC<CalendarHeaderProps> = ({
         onClick={handleClickNext}
         style={{ cursor: 'pointer' }}
       >
-        {displayingMaxMonth() ? null : nextButtonElement}
+        <i className="bi bi-chevron-right"></i>
       </div>
     </div>
   );

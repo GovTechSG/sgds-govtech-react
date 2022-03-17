@@ -10,7 +10,7 @@ import { Placement } from '../utils/types';
 import DatePickerContext, { CalendarView } from './DatePickerContext';
 import MonthView from './MonthView';
 import YearView from './YearView';
-import moment from 'moment';
+import {isExists, isAfter, isBefore, isEqual} from 'date-fns'
 export interface MultiSelectionValue {
   start?: Date;
   end?: Date;
@@ -21,10 +21,9 @@ export interface DatePickerProps {
   required: boolean;
   className: string;
   style: object;
-  // minDate?: string;
-  // maxDate?: string;
-  cellPadding: string;
-  autoComplete: string;
+  minDate?: string;
+  maxDate?: string;
+  displayDate?: Date;
   placeholder: string;
   dayLabels: string[];
   monthLabels: string[];
@@ -34,18 +33,10 @@ export interface DatePickerProps {
   onFocus: Function;
   autoFocus: boolean;
   disabled: boolean;
-  weekStartsOn: number;
-  clearButtonElement: string | JSX.Element;
-  showClearButton: boolean;
-  previousButtonElement: string | JSX.Element;
-  nextButtonElement: string | JSX.Element;
   calendarPlacement: Placement | undefined;
-  dateFormat: string; // 'MM/DD/YYYY'; 'DD/MM/YYYY'; 'YYYY/MM/DD'; 
+  dateFormat: 'MM/DD/YYYY' | 'DD/MM/YYYY' | 'YYYY/MM/DD';
   id: string;
   name: string;
-  customControl: JSX.Element;
-  children: JSX.Element | JSX.Element[];
-  onInvalid: Function;
   noValidate: boolean;
   mode?: 'single' | 'range';
 }
@@ -65,8 +56,9 @@ const SEPARATOR = '/';
 
 const arrangeInputValue = (inputValue: MultiSelectionValue) => {
   const { start, end } = inputValue;
-  if (moment(start).isBefore(end)) return inputValue;
-  else return { start: end, end: start };
+  if (!end) return inputValue
+  if (isBefore(start!, end)) return inputValue 
+    else return {start: end, end: start}
 };
 
 const handleBadInput = (originalValue: string, dateFormat: string) => {
@@ -100,6 +92,38 @@ const handleBadInput = (originalValue: string, dateFormat: string) => {
   }
   return parts.join(SEPARATOR);
 };
+
+const validateSelectedDate = (
+  inputType: string,
+  selectedDate: Date,
+  minDate? : string, 
+  maxDate?: string
+) => {
+  if (minDate && maxDate) {
+    if (inputType === 'input1') {
+      return isEqual(new Date(minDate), selectedDate) || isBefore(new Date(minDate), selectedDate)
+      // return moment(minDate).isSameOrBefore(selectedDate);
+    }
+    if (inputType === 'input2') {
+      return isEqual(new Date(maxDate), selectedDate) || isAfter(new Date(maxDate), selectedDate)
+
+      // return moment(maxDate).isSameOrAfter(selectedDate);
+    }
+  }
+  if (minDate && !maxDate) {
+    return  isEqual(new Date(minDate), selectedDate) || isBefore(new Date(minDate), selectedDate)
+      // return moment(minDate).isSameOrBefore(selectedDate);
+    
+  }
+  if (!minDate && maxDate) {
+    return isEqual(new Date(maxDate), selectedDate) || isAfter(new Date(maxDate), selectedDate)
+
+      // return moment(maxDate).isSameOrAfter(selectedDate);
+  }
+  return true;
+};
+
+
 export const DatePicker: React.FC<DatePickerProps> = ({
   dateFormat = 'DD/MM/YYYY',
   calendarPlacement = 'bottom',
@@ -110,10 +134,9 @@ export const DatePicker: React.FC<DatePickerProps> = ({
   const formControlRef = useRef<HTMLInputElement>(null);
   const overlayRef = useRef(null);
   const initialState: CalendarState = {
-    displayDate: new Date(),
+    displayDate: props.displayDate ?? new Date(),
     selectedDate: [],
-    value:
-      mode === 'range' ? { start: undefined, end: undefined } : undefined,
+    value: mode === 'range' ? { start: undefined, end: undefined } : undefined,
     focused: false,
     inputFocused: false,
     placeholder: dateFormat,
@@ -136,7 +159,6 @@ export const DatePicker: React.FC<DatePickerProps> = ({
   const handleKeyDown = (e: React.KeyboardEvent) => {
     if (e.key === 'Tab' && state.inputFocused) {
       setState({ ...state, focused: false });
-
     }
   };
   const handleFocus = () => {
@@ -167,25 +189,27 @@ export const DatePicker: React.FC<DatePickerProps> = ({
       props.onChange({});
     }
   };
- 
-  const handleInputChange = () => {
-    const originalValue = formControlRef.current?.value;
 
-    if (isRange && (state.value as MultiSelectionValue).start) {
-      const input = originalValue!
-        .replace(/(-|\/\/)/g, SEPARATOR)
-        .slice(13, 23);
-      processInput(input, 'input2');
-    } else {
-      const input = originalValue!.replace(/(-|\/\/)/g, SEPARATOR).slice(0, 10);
-      processInput(input, 'input1');
-    }
-  };
+  // const handleInputChange = (e:React.ChangeEventHandler<HTMLInputElement>) => {
+  //   const originalValue = formControlRef.current?.value;
+  //   if (isRange &&  (state.value as MultiSelectionValue).start) {
+  //     const input = originalValue!
+  //       .replace(/(-|\/\/)/g, SEPARATOR)
+  //       .slice(13, 23);
+  //     processInput(input, 'input2');
+  //   } else {
+  //     const input = originalValue!.replace(/(-|\/\/)/g, SEPARATOR).slice(0, 10);
+  //     processInput(input, 'input1');
+  //   }
+  // };
   const processInput = (input: string, stateName: string) => {
-    if (!input) {
-      clear();
-      return;
-    }
+    // console.log(input)
+    // if (!input) {
+      
+    //   console.log('here')
+    //   clear();
+    //   return;
+    // }
 
     let month: string = '';
     let day: string = '';
@@ -248,7 +272,8 @@ export const DatePicker: React.FC<DatePickerProps> = ({
       dayInteger <= 31 &&
       yearInteger > 999
     ) {
-      const momentDate = moment([
+      const isValidDate = isExists(yearInteger, monthInteger -1, dayInteger)
+      const selectedDate = new Date(
         yearInteger,
         monthInteger - 1,
         dayInteger,
@@ -256,10 +281,10 @@ export const DatePicker: React.FC<DatePickerProps> = ({
         0,
         0,
         0,
-      ]);
+      );
 
-      if (momentDate.isValid()) {
-        const selectedDate = momentDate.toDate();
+      if (isValidDate && validateSelectedDate(stateName, selectedDate, props.minDate, props.maxDate)) {
+    
         const inputValue =
           stateName === 'input1'
             ? { start: selectedDate, end: undefined }
@@ -271,7 +296,7 @@ export const DatePicker: React.FC<DatePickerProps> = ({
           [stateName]: input,
           selectedDate: [...state.selectedDate, selectedDate],
           displayDate: selectedDate,
-          invalid: !momentDate.isValid(),
+          invalid: !isValidDate,
         });
         if (props.onChange) {
           props.onChange(
@@ -393,11 +418,7 @@ export const DatePicker: React.FC<DatePickerProps> = ({
 
   const calendarHeader = (
     <CalendarHeader
-      previousButtonElement={props.previousButtonElement}
-      nextButtonElement={props.nextButtonElement}
       displayDate={state.displayDate as Date}
-      // minDate={props.minDate}
-      // maxDate={props.maxDate}
       onChange={onChangeMonth}
       monthLabels={props.monthLabels}
     />
@@ -420,21 +441,15 @@ export const DatePicker: React.FC<DatePickerProps> = ({
     disabled: props.disabled,
     onFocus: handleFocus,
     onBlur: handleBlur,
-    onChange: handleInputChange,
+    // onChange: handleInputChange,
     className: props.className,
     style: props.style,
-    autoComplete: props.autoComplete,
     isInvalid: state.invalid,
   };
-  const control = props.customControl ? (
-    React.cloneElement(props.customControl, {
-      ...controlProps,
-      onInvalid: props.onInvalid,
-      noValidate: props.noValidate,
-    })
-  ) : (
+  const control = (
     <FormControl type="text" autoFocus={props.autoFocus} {...controlProps} />
   );
+
 
   const BodyContent = (): JSX.Element => {
     if (view === 'month')
@@ -453,13 +468,25 @@ export const DatePicker: React.FC<DatePickerProps> = ({
           setState={setState}
         />
       );
+      const computeSelectedDate = () => {
+        let selectedDate: Date[] =[]
+        if (isRange) {
+          const {start, end}  = state.value as MultiSelectionValue
+          if (start) selectedDate.push(start)
+          if (end) selectedDate.push(end)
+
+          return selectedDate
+        } else {
+          if (state.value) selectedDate.push(state.value as Date)
+          
+          return selectedDate
+        }
+      }
     return (
       <Calendar
-        cellPadding={props.cellPadding}
-        selectedDate={state.selectedDate}
+        selectedDate={computeSelectedDate()}
         displayDate={state.displayDate}
         changeDate={isRange ? onChangeDateRange : onChangeDateSingle}
-        weekStartsOn={props.weekStartsOn}
         minDate={props.minDate}
         maxDate={props.maxDate}
         mode={mode}
@@ -472,7 +499,7 @@ export const DatePicker: React.FC<DatePickerProps> = ({
         variant="has-icon"
         id={props.id ? `${props.id}_group` : undefined}
       >
-        <div ref={overlayRef}> {control} </div>
+        <div ref={overlayRef}> {control}</div>
         <i className="bi bi-calendar form-control-icon"></i>
         <Overlay
           rootClose={true}
@@ -488,8 +515,6 @@ export const DatePicker: React.FC<DatePickerProps> = ({
             <Popover.Body>{BodyContent()}</Popover.Body>
           </Popover>
         </Overlay>
-
-        {props.children}
       </InputGroup>
     </DatePickerContext.Provider>
   );

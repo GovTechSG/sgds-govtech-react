@@ -6,17 +6,11 @@ interface CalendarProps extends React.HTMLAttributes<HTMLTableElement> {
   maxDate?: string;
   changeDate: (date: Date) => void;
   dayLabels?: string[];
-  cellPadding: string;
-  weekStartsOn: number;
   mode: 'single' | 'range';
 }
-// const MAX_DATE = '2021-05-19T12:00:00.000Z';
-// const MIN_DATE = '2020-05-19T12:00:00.000Z';
+const CELL_PADDING = '5px'
 const DAY_LABELS = ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'];
-// const defaultProps = {
-//   dayLabels : ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'],
-//   cellPadding: '5px',
-// };
+''
 const daysInMonth = [31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31];
 
 const setTimeToNoon = (date: Date) => {
@@ -32,7 +26,6 @@ export const Calendar = React.forwardRef<HTMLTableElement, CalendarProps>(
   (
     {
       dayLabels = DAY_LABELS,
-      cellPadding = '5px',
       ...props
     },
     ref
@@ -55,14 +48,7 @@ export const Calendar = React.forwardRef<HTMLTableElement, CalendarProps>(
     const year = props.displayDate.getFullYear();
     const month = props.displayDate.getMonth();
     const firstDay = new Date(year, month, 1);
-    const startingDay =
-      props.weekStartsOn > 1
-        ? firstDay.getDay() - props.weekStartsOn + 7
-        : props.weekStartsOn === 1
-        ? firstDay.getDay() === 0
-          ? 6
-          : firstDay.getDay() - 1
-        : firstDay.getDay();
+    const startingDay = firstDay.getDay();
     let monthLength = daysInMonth[month];
     if (month == 1) {
       if ((year % 4 == 0 && year % 100 != 0) || year % 400 == 0) {
@@ -88,7 +74,7 @@ export const Calendar = React.forwardRef<HTMLTableElement, CalendarProps>(
           let clickHandler: React.MouseEventHandler | undefined = handleClick;
           const style = {
             cursor: 'pointer',
-            padding: cellPadding,
+            padding: CELL_PADDING,
             borderRadius: 50,
           };
   
@@ -151,7 +137,7 @@ export const Calendar = React.forwardRef<HTMLTableElement, CalendarProps>(
                 <td
                   key={index}
                   className="text-muted"
-                  style={{ padding: cellPadding }}
+                  style={{ padding: CELL_PADDING }}
                 >
                   <small>{label}</small>
                 </td>
