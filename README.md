@@ -20,10 +20,10 @@ See the below table on which version of `@govtech/sgds-govtech` you should be us
 
 ```js
 
-npm install @govtechsg/sgds-govtech-react@1.0.0
+npm install @govtechsg/sgds-govtech-react@alpha
 
 //not required if using cdn
-npm install @govtechsg/sgds-govtech@2.0.0 bootstrap-icons
+npm install @govtechsg/sgds-govtech@alpha bootstrap-icons
 
 ```
 
