@@ -11,12 +11,12 @@ import DatePickerContext, { CalendarView } from './DatePickerContext';
 import { Button } from '../Button';
 import MonthView from './MonthView';
 import YearView from './YearView';
+
 export interface MultiSelectionValue {
   start?: Date;
   end?: Date;
 }
 export interface DatePickerProps {
-  defaultValue: string;
   value: Date | MultiSelectionValue;
   required: boolean;
   className: string;
@@ -36,7 +36,6 @@ export interface DatePickerProps {
   calendarPlacement: Placement | undefined;
   dateFormat: 'MM/DD/YYYY' | 'DD/MM/YYYY' | 'YYYY/MM/DD';
   id: string;
-  name: string;
   noValidate: boolean;
   mode?: 'single' | 'range';
 }
@@ -47,7 +46,6 @@ export interface CalendarState {
   value: Date | MultiSelectionValue | undefined;
   focused: boolean;
   inputFocused: boolean;
-  placeholder: string;
   invalid: boolean;
 }
 const SEPARATOR = '/';
@@ -67,7 +65,6 @@ export const DatePicker: React.FC<DatePickerProps> = ({
     value: mode === 'range' ? { start: undefined, end: undefined } : undefined,
     focused: false,
     inputFocused: false,
-    placeholder: props.placeholder,
     invalid: false,
   };
   const [state, setState] = useState(initialState);
@@ -96,6 +93,9 @@ export const DatePicker: React.FC<DatePickerProps> = ({
       inputFocused: true,
       focused: true,
     });
+    if (props.onFocus) {
+      props.onFocus()
+    }
   };
 
   const handleBlur = () => {
@@ -103,6 +103,9 @@ export const DatePicker: React.FC<DatePickerProps> = ({
       ...state,
       inputFocused: false,
     });
+    if (props.onBlur) {
+      props.onBlur()
+    }
   };
   const clear = () => {
     if (props.onClear) {
@@ -226,11 +229,12 @@ export const DatePicker: React.FC<DatePickerProps> = ({
     }
     return makeInputValueString(state.value as Date);
   };
+  const defaultPlaceHolder = isRange ? `${dateFormat.toLowerCase()} - ${dateFormat.toLowerCase()}` : `${dateFormat.toLowerCase()}`
   const controlProps = {
     onKeyDown: handleKeyDown,
     value: computeValue(),
     required: props.required,
-    placeholder: props.placeholder,
+    placeholder: props.placeholder || defaultPlaceHolder ,
     ref: formControlRef,
     disabled: props.disabled,
     onFocus: handleFocus,
@@ -290,10 +294,10 @@ export const DatePicker: React.FC<DatePickerProps> = ({
     <DatePickerContext.Provider value={contextValue}>
       <InputGroup
         variant="has-icon"
-        id={props.id ? `${props.id}_group` : undefined}
+        id={props.id}
       >
         <div ref={overlayRef}> {control}</div>
-        <Button onClick={clear}>
+        <Button onClick={clear} disabled={props.disabled}>
           <i className="bi bi-x"></i>
         </Button>
         <i className="bi bi-calendar form-control-icon"></i>
@@ -306,7 +310,7 @@ export const DatePicker: React.FC<DatePickerProps> = ({
           container={overlayRef}
           transition={true}
         >
-          <Popover id={`date-picker-popover`}>
+          <Popover>
             <Popover.Header>{calendarHeader}</Popover.Header>
             <Popover.Body>{BodyContent()}</Popover.Body>
           </Popover>

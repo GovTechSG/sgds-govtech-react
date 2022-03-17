@@ -1,26 +1,27 @@
 import { ArgsTable, Canvas, Meta, Story } from '@storybook/addon-docs';
 import { DatePicker, Row, Col } from '../../src/index';
-import { useState } from 'react';
+import { useState, useRef } from 'react';
 
 <Meta title="Components/DatePicker" component={DatePicker} />
 
 export const DatePickerTemplate = (args) => {
   const [value, setValue] = useState(new Date());
+  const ref = useRef()
   const handleChange = (value) => {
+        console.log(ref.current)
     setValue(value);
-    console.log(value)
   };
   const minDate = new Date(2020, 10, 11, 12, 0,0,0).toISOString()
   const maxDate = new Date(2020, 10, 13, 12,0, 0, 0).toISOString()
   return (
       <div style={{width: '500px'}}>
-        <DatePicker value={value} onChange={handleChange} {...args} />
+        <DatePicker value={value} onChange={handleChange} ref={ref} {...args} />
       </div>
   );
 };
 
 <Canvas>
-  <Story name="Default"args={{placeholder: 'dd/mm/yyyy'}}>{DatePickerTemplate.bind({})}</Story>
+  <Story name="Default"args={{placeholder: 'D/mm/yyyy', disabled: true}}>{DatePickerTemplate.bind({})}</Story>
 </Canvas>
 
 

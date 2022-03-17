@@ -8,37 +8,40 @@ interface CalendarProps extends React.HTMLAttributes<HTMLTableElement> {
   dayLabels?: string[];
   mode: 'single' | 'range';
 }
-const CELL_PADDING = '5px'
+const CELL_PADDING = '5px';
 const DAY_LABELS = ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'];
-''
 const daysInMonth = [31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31];
 
 const setTimeToNoon = (date: Date) => {
-  const newDate = new Date(date)
+  const newDate = new Date(date);
   newDate.setHours(12);
   newDate.setMinutes(0);
   newDate.setSeconds(0);
   newDate.setMilliseconds(0);
   return newDate;
 };
-
+const generateIncrementDays = (start: Date, end: Date) => {
+  let arr = [];
+  for (let dt = start; dt <= end; dt.setDate(dt.getDate() + 1)) {
+    arr.push(new Date(dt));
+  }
+  return arr;
+};
 export const Calendar = React.forwardRef<HTMLTableElement, CalendarProps>(
-  (
-    {
-      dayLabels = DAY_LABELS,
-      ...props
-    },
-    ref
-  ) => {
+  ({ dayLabels = DAY_LABELS, ...props }, ref) => {
     const handleClick = (e: React.MouseEvent<HTMLTableCellElement>) => {
       const day = e.currentTarget.getAttribute('data-day')!;
-      const displayDateClone = new Date(props.displayDate)
+      const displayDateClone = new Date(props.displayDate);
       const newSelectedDate = setTimeToNoon(displayDateClone);
       newSelectedDate.setDate(parseInt(day));
       props.changeDate(newSelectedDate);
     };
     const currentDate = setTimeToNoon(new Date());
-    const selectedDates = props.selectedDate.map(d => setTimeToNoon(d))
+    const selectedDates = props.selectedDate.map((d) => setTimeToNoon(d));
+    const rangeSelectedDates = generateIncrementDays(
+      new Date(selectedDates[0]),
+      new Date(selectedDates[1])
+    );
     const minimumDate = props.minDate
       ? setTimeToNoon(new Date(props.minDate))
       : null;
@@ -55,7 +58,7 @@ export const Calendar = React.forwardRef<HTMLTableElement, CalendarProps>(
         monthLength = 29;
       }
     }
-  
+
     const weeks = [];
     let day = 1;
     for (let i = 0; i < 9; i++) {
@@ -70,40 +73,37 @@ export const Calendar = React.forwardRef<HTMLTableElement, CalendarProps>(
           const afterMinDate =
             maximumDate &&
             Date.parse(date) > Date.parse(maximumDate.toISOString());
-  
+
           let clickHandler: React.MouseEventHandler | undefined = handleClick;
           const style = {
             cursor: 'pointer',
             padding: CELL_PADDING,
             borderRadius: 50,
           };
-  
+
           if (beforeMinDate || afterMinDate) {
             className = 'text-muted';
             clickHandler = undefined;
             style.cursor = 'default';
-          } 
+          }
 
           if (Date.parse(date) === Date.parse(currentDate.toISOString())) {
             //if selected Date is not current Date
             className = 'text-primary';
           }
           if (selectedDates.length > 0) {
-            selectedDates.forEach(d => {
-              // console.log({d})
+            rangeSelectedDates.forEach((d) => {
               if (Date.parse(date) === Date.parse(d.toISOString())) {
-                className = 'bg-primary'
+                className = 'bg-primary';
               }
-            })
+            });
             if (
               Date.parse(date) === Date.parse(selectedDates[0]!.toISOString())
             ) {
               className = 'bg-primary';
-            } 
-
+            }
           }
-      
-        
+
           week.push(
             <td
               key={j}
@@ -120,16 +120,15 @@ export const Calendar = React.forwardRef<HTMLTableElement, CalendarProps>(
           week.push(<td key={j} />);
         }
       }
-  
-  
+
       weeks.push(<tr key={i}>{week}</tr>);
       if (day > monthLength) {
         break;
       }
     }
-  
+
     return (
-      <table className="text-center" ref={ref} >
+      <table className="text-center" ref={ref}>
         <thead>
           <tr>
             {dayLabels.map((label: string, index: number) => {
