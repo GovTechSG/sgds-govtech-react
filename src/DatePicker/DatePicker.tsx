@@ -11,58 +11,108 @@ import DatePickerContext, { CalendarView } from './DatePickerContext';
 import { Button } from '../Button';
 import MonthView from './MonthView';
 import YearView from './YearView';
+import PropTypes from 'prop-types';
+import { BsPrefixRefForwardingComponent } from '../utils/helpers';
 
-export interface MultiSelectionValue {
+export interface RangeSelectionValue {
   start?: Date;
   end?: Date;
 }
 export interface DatePickerProps {
-  value: Date | MultiSelectionValue;
-  required: boolean;
-  className: string;
-  style: object;
+  value?: Date | RangeSelectionValue;
+  required?: boolean;
+  className?: string;
+  style?: object;
   minDate?: string;
   maxDate?: string;
   displayDate?: Date;
-  placeholder: string;
-  dayLabels: string[];
-  monthLabels: string[];
-  onChange: (value: Date | MultiSelectionValue) => {};
-  onClear: Function;
-  onBlur: Function;
-  onFocus: Function;
-  autoFocus: boolean;
-  disabled: boolean;
-  calendarPlacement: Placement | undefined;
-  dateFormat: 'MM/DD/YYYY' | 'DD/MM/YYYY' | 'YYYY/MM/DD';
-  id: string;
-  noValidate: boolean;
+  placeholder?: string;
+  dayLabels?: string[];
+  monthLabels?: string[];
+  onChange?: (value: Date | RangeSelectionValue) => {};
+  onClear?: Function;
+  onBlur?: Function;
+  onFocus?: Function;
+  autoFocus?: boolean;
+  disabled?: boolean;
+  calendarPlacement?: Placement | undefined;
+  dateFormat?: 'MM/DD/YYYY' | 'DD/MM/YYYY' | 'YYYY/MM/DD';
+  id?: string;
   mode?: 'single' | 'range';
 }
 
-export interface CalendarState {
+const propTypes = {
+  value: PropTypes.oneOfType([PropTypes.instanceOf(Date), PropTypes.shape({start: PropTypes.instanceOf(Date), end: PropTypes.instanceOf(Date)})]),
+  required: PropTypes.bool,
+  className: PropTypes.string,
+  style: PropTypes.object,
+  minDate: PropTypes.string,
+  maxDate: PropTypes.string,
+  displayDate: PropTypes.instanceOf(Date),
+  placeholder: PropTypes.string,
+  dayLabels: PropTypes.arrayOf(PropTypes.string),
+  monthLabels: PropTypes.arrayOf(PropTypes.string),
+  onChange: PropTypes.func,
+  onClear: PropTypes.func,
+  onBlur: PropTypes.func,
+  onFocus: PropTypes.func,
+  autoFocus: PropTypes.bool,
+  disabled: PropTypes.bool,
+  calendarPlacement:PropTypes.oneOf<Placement>([
+    'auto-start',
+    'auto',
+    'auto-end',
+    'top-start',
+    'top',
+    'top-end',
+    'right-start',
+    'right',
+    'right-end',
+    'bottom-end',
+    'bottom',
+    'bottom-start',
+    'left-end',
+    'left',
+    'left-start',
+  ]),
+  /**
+   * dateFormat variants
+   *
+   * @type {('MM/DD/YYYY'|'DD/MM/YYYY'|'YYYY/MM/DD')}
+   */
+  dateFormat:  PropTypes.string,
+  id:  PropTypes.string,
+  /**
+   * mode variants
+   *
+   * @type {('single'|'range')}
+   */
+  mode: PropTypes.string,
+}
+export interface DatePickerState {
   displayDate: Date;
   selectedDate: Date[];
-  value: Date | MultiSelectionValue | undefined;
+  value: Date | RangeSelectionValue | undefined;
   focused: boolean;
   inputFocused: boolean;
   invalid: boolean;
 }
 const SEPARATOR = '/';
 
-export const DatePicker: React.FC<DatePickerProps> = ({
+export const DatePicker: BsPrefixRefForwardingComponent<'div', DatePickerProps> =
+React.forwardRef<HTMLDivElement,DatePickerProps>(({
   dateFormat = 'DD/MM/YYYY',
   calendarPlacement = 'bottom',
   mode = 'single',
   ...props
-}) => {
+}, ref) => {
   const isRange = mode === 'range';
   const formControlRef = useRef<HTMLInputElement>(null);
   const overlayRef = useRef(null);
-  const initialState: CalendarState = {
+  const initialState: DatePickerState = {
     displayDate: props.displayDate ?? new Date(),
     selectedDate: [],
-    value: mode === 'range' ? { start: undefined, end: undefined } : undefined,
+    value: props.value ?? ( mode === 'range' ? { start: undefined, end: undefined } : undefined),
     focused: false,
     inputFocused: false,
     invalid: false,
@@ -178,7 +228,7 @@ export const DatePicker: React.FC<DatePickerProps> = ({
 
   const onChangeDateRange = (newSelectedDate: Date) => {
     let selectedDates = state.selectedDate;
-    let conditionalValue = state.value as MultiSelectionValue;
+    let conditionalValue = state.value as RangeSelectionValue;
     let focused: boolean = state.focused;
     const { start, end } = conditionalValue;
     if ((!start && !end) || (start && end)) {
@@ -223,7 +273,7 @@ export const DatePicker: React.FC<DatePickerProps> = ({
 
   const computeValue = () => {
     if (isRange) {
-      const { start, end } = state.value as MultiSelectionValue;
+      const { start, end } = state.value as RangeSelectionValue;
       const separator = start ? ' - ' : '';
       return makeInputValueString(start) + separator + makeInputValueString(end);
     }
@@ -268,7 +318,7 @@ export const DatePicker: React.FC<DatePickerProps> = ({
     const computeSelectedDate = () => {
       let selectedDate: Date[] = [];
       if (isRange) {
-        const { start, end } = state.value as MultiSelectionValue;
+        const { start, end } = state.value as RangeSelectionValue;
         if (start) selectedDate.push(start);
         if (end) selectedDate.push(end);
 
@@ -295,6 +345,7 @@ export const DatePicker: React.FC<DatePickerProps> = ({
       <InputGroup
         variant="has-icon"
         id={props.id}
+        ref={ref}
       >
         <div ref={overlayRef}> {control}</div>
         <Button onClick={clear} disabled={props.disabled}>
@@ -318,6 +369,7 @@ export const DatePicker: React.FC<DatePickerProps> = ({
       </InputGroup>
     </DatePickerContext.Provider>
   );
-};
+})
 DatePicker.displayName = 'DatePicker';
+DatePicker.propTypes = propTypes as any
 export default DatePicker;

@@ -3,12 +3,12 @@ import * as React from 'react';
 import { useContext } from 'react';
 
 import DatePickerContext from './DatePickerContext';
-import { CalendarState } from './DatePicker';
+import { DatePickerState } from './DatePicker';
 
 export interface YearViewProps extends React.HTMLAttributes<HTMLElement> {
   displayDate: Date;
-  state: CalendarState;
-  setState: React.Dispatch<React.SetStateAction<CalendarState>>;
+  state: DatePickerState;
+  setState: React.Dispatch<React.SetStateAction<DatePickerState>>;
 }
 
 export const YearView = React.forwardRef<HTMLDivElement, YearViewProps>(

@@ -4,15 +4,16 @@ import { useState, useRef } from 'react';
 import { argTypes } from './argTypes';
 
 <Meta
-  title="Components/DatePicker"
+  title="Components/DatePickerRange"
   component={DatePicker}
-  argTypes={{
-    ...argTypes,
+  argTypes={{ 
+     ...argTypes
   }}
 />
 
-export const DatePickerTemplate = (args) => {
-  const [value, setValue] = useState(new Date());
+export const DatePickerRangeTemplate = (args) => {
+  const initial = { start: new Date(), end: new Date() };
+  const [value, setValue] = useState(initial);
   const handleChange = (value) => {
     setValue(value);
     console.log(value);
@@ -27,11 +28,11 @@ export const DatePickerTemplate = (args) => {
 };
 
 <Canvas>
-  <Story name="Default" args={{}} height="400px">
-    {DatePickerTemplate.bind({})}
+  <Story
+    name="Multi-Selection Date"
+    args={{mode: 'range' }}
+    height={{'500px'}}
+  >
+    {DatePickerRangeTemplate.bind({})}
   </Story>
 </Canvas>
-
-## API
-
-<ArgsTable story="Default" />

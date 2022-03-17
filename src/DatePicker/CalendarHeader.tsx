@@ -4,7 +4,7 @@ import DatePickerContext from './DatePickerContext';
 interface CalendarHeaderProps {
   displayDate: Date;
   onChange: (date: Date) => void;
-  monthLabels: string[];
+  monthLabels?: string[];
 }
 const MONTH_LABELS = [
   'January',

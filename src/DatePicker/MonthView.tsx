@@ -2,11 +2,11 @@ import classNames from 'classnames';
 import * as React from 'react';
 import DatePickerContext from './DatePickerContext'
 import { useContext } from 'react';
-import { CalendarState } from './DatePicker';
+import { DatePickerState } from './DatePicker';
 export interface MonthViewProps extends React.HTMLAttributes<HTMLElement> {
   displayDate: Date;
-  state: CalendarState;
-  setState: React.Dispatch<React.SetStateAction<CalendarState>>
+  state: DatePickerState;
+  setState: React.Dispatch<React.SetStateAction<DatePickerState>>
 }
 
 const MONTH_LABELS = [
