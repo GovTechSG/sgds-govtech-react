@@ -14,6 +14,7 @@ import YearView from './YearView';
 import PropTypes from 'prop-types';
 import { BsPrefixRefForwardingComponent } from '../utils/helpers';
 import useMergedRefs from '@restart/hooks/useMergedRefs';
+import warning from 'warning';
 
 export type DateFormat = 'MM/DD/YYYY' | 'DD/MM/YYYY' | 'YYYY/MM/DD';
 export interface RangeSelectionValue {
@@ -24,13 +25,10 @@ export interface DatePickerProps {
   initialValue?: Date | RangeSelectionValue;
   required?: boolean;
   className?: string;
-  style?: object;
   minDate?: string;
   maxDate?: string;
   displayDate?: Date;
   placeholder?: string;
-  dayLabels?: string[];
-  monthLabels?: string[];
   onChangeDate?: (value: Date | RangeSelectionValue | undefined) => {};
   onClear?: Function;
   onBlur?: React.FocusEventHandler<HTMLInputElement>;
@@ -44,7 +42,7 @@ export interface DatePickerProps {
 }
 
 const propTypes = {
-  value: PropTypes.oneOfType([
+  initialValue: PropTypes.oneOfType([
     PropTypes.instanceOf(Date),
     PropTypes.shape({
       start: PropTypes.instanceOf(Date),
@@ -53,13 +51,10 @@ const propTypes = {
   ]),
   required: PropTypes.bool,
   className: PropTypes.string,
-  style: PropTypes.object,
   minDate: PropTypes.string,
   maxDate: PropTypes.string,
   displayDate: PropTypes.instanceOf(Date),
   placeholder: PropTypes.string,
-  dayLabels: PropTypes.arrayOf(PropTypes.string),
-  monthLabels: PropTypes.arrayOf(PropTypes.string),
   onChange: PropTypes.func,
   onClear: PropTypes.func,
   onBlur: PropTypes.func,
@@ -110,6 +105,7 @@ const defaultProps: Partial<DatePickerProps> = {
   dateFormat: 'DD/MM/YYYY',
   calendarPlacement: 'bottom',
   mode: 'single',
+  displayDate : new Date(),
 };
 
 export const DatePicker: BsPrefixRefForwardingComponent<
@@ -121,6 +117,7 @@ export const DatePicker: BsPrefixRefForwardingComponent<
       dateFormat = 'DD/MM/YYYY',
       calendarPlacement = 'bottom',
       mode = 'single',
+      displayDate = new Date(),
       ...props
     },
     ref
@@ -132,11 +129,12 @@ export const DatePicker: BsPrefixRefForwardingComponent<
       formControlRef
     );
     const overlayRef = useRef(null);
+    
     const initialState: DatePickerState = {
-      displayDate: props.displayDate ?? new Date(),
+      displayDate: displayDate,
       selectedDate: [],
       value:
-        props.initialValue ??
+      props.initialValue ??
         (mode === 'range' ? { start: undefined, end: undefined } : undefined),
       focused: false,
       inputFocused: false,
@@ -185,6 +183,7 @@ export const DatePicker: BsPrefixRefForwardingComponent<
     const clear = () => {
       setState({
         ...initialState,
+        displayDate: new Date(),
         value:
           isRange? { start: undefined, end: undefined } : undefined,
       });
@@ -294,7 +293,6 @@ export const DatePicker: BsPrefixRefForwardingComponent<
       <CalendarHeader
         displayDate={state.displayDate as Date}
         onChange={onChangeMonth}
-        monthLabels={props.monthLabels}
       />
     );
 
@@ -322,7 +320,6 @@ export const DatePicker: BsPrefixRefForwardingComponent<
       onBlur: handleBlur,
       readOnly: true,
       className: props.className,
-      style: props.style,
       isInvalid: state.invalid,
     };
     const control = (
@@ -371,6 +368,23 @@ export const DatePicker: BsPrefixRefForwardingComponent<
         />
       );
     };
+    const warningCondition = () => {
+      const displayDateStr = makeInputValueString(displayDate)
+      if (isRange) {
+        const {start, end} = props.initialValue as RangeSelectionValue
+        return makeInputValueString(start) === displayDateStr || makeInputValueString(end) === displayDateStr
+      } else {
+        const initialValue = props.initialValue as Date
+        return makeInputValueString(initialValue) === displayDateStr
+      }
+    }
+    if(props.initialValue){
+      warning(
+        warningCondition(),
+         'When `initialValue` prop is defined, `displayDate` prop must be of same value. For Datepicker in range mode, `displayDate` prop must be of same value as either `start` or `end`'
+       );
+    }
+ // add warning for end date is earlier than start date
     return (
       <DatePickerContext.Provider value={contextValue}>
         <InputGroup variant="has-icon" id={props.id}>

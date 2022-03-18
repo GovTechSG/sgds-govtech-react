@@ -5,7 +5,6 @@ interface CalendarProps extends React.HTMLAttributes<HTMLTableElement> {
   minDate?: string;
   maxDate?: string;
   changeDate: (date: Date) => void;
-  dayLabels?: string[];
   mode: 'single' | 'range';
 }
 const CELL_PADDING = '5px';
@@ -28,7 +27,7 @@ const generateIncrementDays = (start: Date, end: Date) => {
   return arr;
 };
 export const Calendar = React.forwardRef<HTMLTableElement, CalendarProps>(
-  ({ dayLabels = DAY_LABELS, ...props }, ref) => {
+  (props, ref) => {
     const handleClick = (e: React.MouseEvent<HTMLTableCellElement>) => {
       const day = e.currentTarget.getAttribute('data-day')!;
       const displayDateClone = new Date(props.displayDate);
@@ -131,7 +130,7 @@ export const Calendar = React.forwardRef<HTMLTableElement, CalendarProps>(
       <table className="text-center" ref={ref}>
         <thead>
           <tr>
-            {dayLabels.map((label: string, index: number) => {
+            {DAY_LABELS.map((label: string, index: number) => {
               return (
                 <td
                   key={index}

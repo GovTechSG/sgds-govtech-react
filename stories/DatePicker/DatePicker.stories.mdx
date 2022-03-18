@@ -21,7 +21,7 @@ export const DatePickerTemplate = (args) => {
   const maxDate = new Date(2020, 10, 13, 12, 0, 0, 0).toISOString();
   return (
       <DatePicker
-      initialValue={date}
+      displayDate={date}
       onChangeDate={handleChange}
         {...args}
         ref={ref}

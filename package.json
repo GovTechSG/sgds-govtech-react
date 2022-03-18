@@ -114,6 +114,7 @@
     "@types/react-transition-group": "^4.4.4",
     "classnames": "^2.3.1",
     "invariant": "^2.2.4",
-    "react-transition-group": "^4.4.2"
+    "react-transition-group": "^4.4.2",
+    "warning": "^4.0.3"
   }
 }

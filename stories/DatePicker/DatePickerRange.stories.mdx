@@ -12,18 +12,16 @@ import { argTypes } from './argTypes';
 />
 
 export const DatePickerRangeTemplate = (args) => {
-  const initial = { start: new Date(), end: new Date() };
+  const initial = { start: new Date(2020,1,1), end: new Date(2020,1,1) };
   const [value, setValue] = useState(initial);
-  const ref = React.createRef()
   const handleChange = (value) => {
     setValue(value);
-    console.log(value);
   };
   const minDate = new Date(2020, 10, 11, 12, 0, 0, 0).toISOString();
   const maxDate = new Date(2020, 10, 13, 12, 0, 0, 0).toISOString();
   return (
     <div style={{ width: '500px' }}>
-      <DatePicker value={value} onChange={handleChange} {...args} />
+      <DatePicker initialValue={value} displayDate={new Date()} onChange={handleChange} {...args} />
     </div>
   );
 };

@@ -4,7 +4,6 @@ import DatePickerContext from './DatePickerContext';
 interface CalendarHeaderProps {
   displayDate: Date;
   onChange: (date: Date) => void;
-  monthLabels?: string[];
 }
 const MONTH_LABELS = [
   'January',
@@ -22,7 +21,6 @@ const MONTH_LABELS = [
 ];
 
 const CalendarHeader: React.FC<CalendarHeaderProps> = ({
-  monthLabels = MONTH_LABELS,
   ...props
 }) => {
   const { view, setView } = useContext(DatePickerContext);
@@ -81,7 +79,7 @@ const CalendarHeader: React.FC<CalendarHeaderProps> = ({
         props.displayDate.getFullYear() + 6
       }`;
     return `${
-      monthLabels[props.displayDate.getMonth()]
+      MONTH_LABELS[props.displayDate.getMonth()]
     } ${props.displayDate.getFullYear()}`;
   };
   return (
