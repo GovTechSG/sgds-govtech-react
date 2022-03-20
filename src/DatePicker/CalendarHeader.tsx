@@ -5,7 +5,7 @@ interface CalendarHeaderProps {
   displayDate: Date;
   onChange: (date: Date) => void;
 }
-const MONTH_LABELS = [
+export const MONTH_LABELS = [
   'January',
   'February',
   'March',
@@ -20,9 +20,7 @@ const MONTH_LABELS = [
   'December',
 ];
 
-const CalendarHeader: React.FC<CalendarHeaderProps> = ({
-  ...props
-}) => {
+const CalendarHeader: React.FC<CalendarHeaderProps> = ({ ...props }) => {
   const { view, setView } = useContext(DatePickerContext);
 
   const handleClickPrevious = () => {
@@ -30,16 +28,14 @@ const CalendarHeader: React.FC<CalendarHeaderProps> = ({
     newDisplayDate.setDate(1);
     if (view === 'month') {
       newDisplayDate.setFullYear(newDisplayDate.getFullYear() - 1);
-      props.onChange(newDisplayDate);
-    }
-
-    if (view === 'year') {
+      return props.onChange(newDisplayDate);
+    } else if (view === 'year') {
       newDisplayDate.setFullYear(newDisplayDate.getFullYear() - 10);
-      props.onChange(newDisplayDate);
+      return props.onChange(newDisplayDate);
+    } else {
+      newDisplayDate.setMonth(newDisplayDate.getMonth() - 1);
+      return props.onChange(newDisplayDate);
     }
-
-    newDisplayDate.setMonth(newDisplayDate.getMonth() - 1);
-    props.onChange(newDisplayDate);
   };
 
   const handleClickNext = () => {
@@ -48,16 +44,14 @@ const CalendarHeader: React.FC<CalendarHeaderProps> = ({
 
     if (view === 'month') {
       newDisplayDate.setFullYear(newDisplayDate.getFullYear() + 1);
-      props.onChange(newDisplayDate);
-    }
-
-    if (view === 'year') {
+      return props.onChange(newDisplayDate);
+    } else if (view === 'year') {
       newDisplayDate.setFullYear(newDisplayDate.getFullYear() + 10);
-      props.onChange(newDisplayDate);
+      return props.onChange(newDisplayDate);
+    } else {
+      newDisplayDate.setMonth(newDisplayDate.getMonth() + 1);
+      return props.onChange(newDisplayDate);
     }
-
-    newDisplayDate.setMonth(newDisplayDate.getMonth() + 1);
-    props.onChange(newDisplayDate);
   };
 
   const changeView = () => {
@@ -73,7 +67,10 @@ const CalendarHeader: React.FC<CalendarHeaderProps> = ({
     }
   };
   const renderHeader = () => {
-    if (view === 'month') return `${props.displayDate.getFullYear()}`;
+    if (view === 'month') {
+      // console.log(props.displayDate)
+      return `${props.displayDate.getFullYear()}`;
+    }
     if (view === 'year')
       return `${props.displayDate.getFullYear() - 5} - ${
         props.displayDate.getFullYear() + 6
@@ -84,23 +81,13 @@ const CalendarHeader: React.FC<CalendarHeaderProps> = ({
   };
   return (
     <div className="text-center d-flex justify-content-around">
-      <div
-        className="text-muted pull-left"
-        onClick={handleClickPrevious}
-        style={{ cursor: 'pointer' }}
-      >
-        <i className="bi bi-chevron-left"></i>
-      </div>
+      <i className="bi bi-chevron-left" onClick={handleClickPrevious}></i>
+
       <button onClick={changeView} disabled={view === 'year'}>
         {renderHeader()}
       </button>
-      <div
-        className="text-muted pull-right"
-        onClick={handleClickNext}
-        style={{ cursor: 'pointer' }}
-      >
-        <i className="bi bi-chevron-right"></i>
-      </div>
+
+      <i className="bi bi-chevron-right" onClick={handleClickNext}></i>
     </div>
   );
 };

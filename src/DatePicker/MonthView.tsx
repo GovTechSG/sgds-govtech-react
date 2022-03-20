@@ -1,15 +1,12 @@
 import classNames from 'classnames';
 import * as React from 'react';
-import DatePickerContext from './DatePickerContext'
-import { useContext } from 'react';
-import { DatePickerState } from './DatePicker';
+
 export interface MonthViewProps extends React.HTMLAttributes<HTMLElement> {
+  onClickMonth : Function;
   displayDate: Date;
-  state: DatePickerState;
-  setState: React.Dispatch<React.SetStateAction<DatePickerState>>
 }
 
-const MONTH_LABELS = [
+export const MONTH_LABELS = [
   'Jan',
   'Feb',
   'Mar',
@@ -25,19 +22,9 @@ const MONTH_LABELS = [
 ];
 
 export const MonthView = React.forwardRef<HTMLDivElement, MonthViewProps>(
-  ({ displayDate, state, setState, ...props }, ref) => {
+  ({ displayDate, onClickMonth, ...props }, ref) => {
     const displayMonth = MONTH_LABELS[displayDate.getMonth()];
-    const {setView}  = useContext(DatePickerContext)
 
-    const handleClickMonth = (month: number) => {
-      const newDisplayDate = new Date(state.displayDate)
-      newDisplayDate.setMonth(month)
-      setView('day')
-      setState({
-        ...state,
-        displayDate: newDisplayDate
-      })
-    }
     return (
       <div className="container text-center" ref={ref} {...props}>
         <div className="row">
@@ -46,7 +33,7 @@ export const MonthView = React.forwardRef<HTMLDivElement, MonthViewProps>(
               className={classNames(displayMonth === m  && 'active', 'col-4')}
               key={m}
             >
-              <button onClick={() =>handleClickMonth(idx)}>{m}</button>
+              <button onClick={() =>onClickMonth(idx)}>{m}</button>
             </div>
           ))}
         </div>

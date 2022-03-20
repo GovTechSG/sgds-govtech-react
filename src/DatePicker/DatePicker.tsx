@@ -327,20 +327,36 @@ export const DatePicker: BsPrefixRefForwardingComponent<
     );
 
     const BodyContent = (): JSX.Element => {
+      const onClickMonth = (month: number) => {
+        const newDisplayDate = new Date(state.displayDate)
+        newDisplayDate.setMonth(month)
+        setView('day')
+        setState({
+          ...state,
+          displayDate: newDisplayDate
+        })
+      }
+      const onClickYear = (year: number) => {
+        const newDisplayDate = new Date(state.displayDate);
+        newDisplayDate.setFullYear(year);
+        setView('month');
+        setState({
+          ...state,
+          displayDate: newDisplayDate,
+        });
+      }
       if (view === 'month')
         return (
           <MonthView
+          onClickMonth={onClickMonth}
             displayDate={state.displayDate}
-            state={state}
-            setState={setState}
           />
         );
       if (view === 'year')
         return (
           <YearView
             displayDate={state.displayDate}
-            state={state}
-            setState={setState}
+            onClickYear={onClickYear}
           />
         );
       const computeSelectedDate = () => {
