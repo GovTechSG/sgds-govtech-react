@@ -8,10 +8,10 @@ interface CalendarProps extends React.HTMLAttributes<HTMLTableElement> {
   mode: 'single' | 'range';
 }
 const CELL_PADDING = '5px';
-const DAY_LABELS = ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'];
-const daysInMonth = [31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31];
+export const DAY_LABELS = ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'];
+export const daysInMonth = [31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31];
 
-const setTimeToNoon = (date: Date) => {
+export const setTimeToNoon = (date: Date) => {
   const newDate = new Date(date);
   newDate.setHours(12);
   newDate.setMinutes(0);
@@ -19,10 +19,16 @@ const setTimeToNoon = (date: Date) => {
   newDate.setMilliseconds(0);
   return newDate;
 };
-const generateIncrementDays = (start: Date, end: Date) => {
+export const generateIncrementDays = (start: Date, end: Date) => {
   let arr = [];
-  for (let dt = start; dt <= end; dt.setDate(dt.getDate() + 1)) {
-    arr.push(new Date(dt));
+  if (start.getTime() < end.getTime()){
+    for (let dt = start; dt <= end; dt.setDate(dt.getDate() + 1)) {
+      arr.push(new Date(dt));
+    }
+  } else {
+    for (let dt = end; dt <= start; dt.setDate(dt.getDate() + 1)) {
+      arr.push(new Date(dt));
+    }
   }
   return arr;
 };
@@ -134,7 +140,6 @@ export const Calendar = React.forwardRef<HTMLTableElement, CalendarProps>(
               return (
                 <td
                   key={index}
-                  className="text-muted"
                   style={{ padding: CELL_PADDING }}
                 >
                   <small>{label}</small>
