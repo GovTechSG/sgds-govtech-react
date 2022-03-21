@@ -1,0 +1,78 @@
+import { useState } from 'react';
+import { ArgsTable, Canvas, Meta, Story } from '@storybook/addon-docs';
+import { Button } from '../../src/Button/Button';
+import { FileUpload } from '../../src/FileUpload/FileUpload';
+import { Form } from '../../src/Form/index';
+import { HIDDEN_COMMON_PROPS } from '../helpers';
+
+<Meta
+  title="Components/File Upload"
+  component={FileUpload}
+  argTypes={{
+    ...HIDDEN_COMMON_PROPS,
+    href: { table: { disable: true } },
+    active: { table: { disable: true } },
+    variant: {
+      description:
+        'Sets the color variant. Refer to Button component for color variations',
+    },
+    size: { description: 'Sets the size for the button' },
+    target: { table: { disable: true } },
+    rel: { table: { disable: true } },
+    key: { table: { disable: true } },
+    validated: { table: { disable: true } },
+    fileObj: {
+      description: 'Expose the FileList object for uploading, preview etc',
+      control: { disable: true },
+    },
+    controlId: { description: 'Sets a unique id to the file input, required.' },
+  }}
+/>
+
+# File Upload
+
+`File Upload` is the process of publishing information (web pages, text, pictures, video, etc.) to a remote server. It allows uploading of a single or multiple files at any one time.
+
+export const Template = (args) => {
+  const [selectedFile, setSelectedFile] = useState(null);
+  const getFileObj = (data) => {
+    setSelectedFile({ data });
+  };
+  return (
+    <>
+      <Form>
+        <FileUpload {...args} controlId="fileupload1" fileObj={getFileObj}>
+          <i className="bi bi-upload me-2"></i>Choose a file
+        </FileUpload>
+      </Form>
+    </>
+  );
+};
+
+<Canvas>
+  <Story name="Default">{Template.bind({})}</Story>
+</Canvas>
+
+## API
+
+<ArgsTable story="Default" />
+
+```jsx
+import { useState } from 'react';
+import { FileUpload, Form } from '@govtechsg/sgds-govtech-react';
+
+const [selectedFile, setSelectedFile] = useState(null);
+const getFileObj = (data) => {
+  setSelectedFile({ data });
+};
+
+return (
+  <>
+    <Form>
+      <FileUpload controlId="fileupload1" fileObj={getFileObj}>
+        <i className="bi bi-upload me-2"></i>Choose a file
+      </FileUpload>
+    </Form>
+  </>
+);
+```
