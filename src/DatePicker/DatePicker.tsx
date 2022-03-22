@@ -6,7 +6,6 @@ import Popover from '../Popover/Popover';
 import Calendar from './Calendar';
 import CalendarHeader from './CalendarHeader';
 import { useState, useRef, useMemo } from 'react';
-import { Placement } from '../utils/types';
 import DatePickerContext, { CalendarView } from './DatePickerContext';
 import { Button } from '../Button';
 import MonthView from './MonthView';
@@ -16,10 +15,11 @@ import { BsPrefixRefForwardingComponent } from '../utils/helpers';
 import useMergedRefs from '@restart/hooks/useMergedRefs';
 import warning from 'warning';
 
+export type CalendarPlacement = 'top' | 'bottom';
 export type DateFormat = 'MM/DD/YYYY' | 'DD/MM/YYYY' | 'YYYY/MM/DD';
 export interface RangeSelectionValue {
-  start?: Date;
-  end?: Date;
+  start: Date | undefined;
+  end: Date | undefined;
 }
 export interface DatePickerProps {
   initialValue?: Date | RangeSelectionValue;
@@ -29,16 +29,17 @@ export interface DatePickerProps {
   maxDate?: string;
   displayDate?: Date;
   placeholder?: string;
-  onChangeDate?: (value: Date | RangeSelectionValue | undefined) => {};
+  onChangeDate?: (value: Date | RangeSelectionValue | undefined) => void;
   onClear?: Function;
   onBlur?: React.FocusEventHandler<HTMLInputElement>;
   onFocus?: React.FocusEventHandler<HTMLInputElement>;
   autoFocus?: boolean;
   disabled?: boolean;
-  calendarPlacement?: Placement | undefined;
+  calendarPlacement?: CalendarPlacement | undefined;
   dateFormat?: DateFormat;
   id?: string;
   mode?: 'single' | 'range';
+  flip?: boolean;
 }
 
 const propTypes = {
@@ -55,29 +56,13 @@ const propTypes = {
   maxDate: PropTypes.string,
   displayDate: PropTypes.instanceOf(Date),
   placeholder: PropTypes.string,
-  onChange: PropTypes.func,
+  onChangeDate: PropTypes.func,
   onClear: PropTypes.func,
   onBlur: PropTypes.func,
   onFocus: PropTypes.func,
   autoFocus: PropTypes.bool,
   disabled: PropTypes.bool,
-  calendarPlacement: PropTypes.oneOf<Placement>([
-    'auto-start',
-    'auto',
-    'auto-end',
-    'top-start',
-    'top',
-    'top-end',
-    'right-start',
-    'right',
-    'right-end',
-    'bottom-end',
-    'bottom',
-    'bottom-start',
-    'left-end',
-    'left',
-    'left-start',
-  ]),
+  calendarPlacement: PropTypes.oneOf<CalendarPlacement>(['top', 'bottom']),
   /**
    * dateFormat variants
    *
@@ -91,6 +76,7 @@ const propTypes = {
    * @type {('single'|'range')}
    */
   mode: PropTypes.string,
+  flip: PropTypes.bool,
 };
 export interface DatePickerState {
   displayDate: Date;
@@ -101,11 +87,49 @@ export interface DatePickerState {
   invalid: boolean;
 }
 const SEPARATOR = '/';
+export const makeInputValueString = (
+  date: Date | undefined,
+  dateFormat: DateFormat
+) => {
+  if (date === undefined) return '';
+  const month = date.getMonth() + 1;
+  const day = date.getDate();
+
+  //this method is executed during intialState setup... handle a missing state properly
+  const separator = SEPARATOR;
+  if (dateFormat.match(/MM.DD.YYYY/)) {
+    return (
+      (month > 9 ? month : `0${month}`) +
+      separator +
+      (day > 9 ? day : `0${day}`) +
+      separator +
+      date.getFullYear()
+    );
+  } else if (dateFormat.match(/DD.MM.YYYY/)) {
+    return (
+      (day > 9 ? day : `0${day}`) +
+      separator +
+      (month > 9 ? month : `0${month}`) +
+      separator +
+      date.getFullYear()
+    );
+  } else {
+    return (
+      date.getFullYear() +
+      separator +
+      (month > 9 ? month : `0${month}`) +
+      separator +
+      (day > 9 ? day : `0${day}`)
+    );
+  }
+};
+
 const defaultProps: Partial<DatePickerProps> = {
   dateFormat: 'DD/MM/YYYY',
   calendarPlacement: 'bottom',
   mode: 'single',
-  displayDate : new Date(),
+  displayDate: new Date(),
+  flip: true,
 };
 
 export const DatePicker: BsPrefixRefForwardingComponent<
@@ -118,6 +142,7 @@ export const DatePicker: BsPrefixRefForwardingComponent<
       calendarPlacement = 'bottom',
       mode = 'single',
       displayDate = new Date(),
+      flip = true,
       ...props
     },
     ref
@@ -129,12 +154,12 @@ export const DatePicker: BsPrefixRefForwardingComponent<
       formControlRef
     );
     const overlayRef = useRef(null);
-    
+
     const initialState: DatePickerState = {
       displayDate: displayDate,
       selectedDate: [],
       value:
-      props.initialValue ??
+        props.initialValue ??
         (mode === 'range' ? { start: undefined, end: undefined } : undefined),
       focused: false,
       inputFocused: false,
@@ -184,14 +209,15 @@ export const DatePicker: BsPrefixRefForwardingComponent<
       setState({
         ...initialState,
         displayDate: new Date(),
-        value:
-          isRange? { start: undefined, end: undefined } : undefined,
+        value: isRange ? { start: undefined, end: undefined } : undefined,
       });
       if (props.onClear) {
         props.onClear();
       }
-      if (props.onChangeDate){
-        props.onChangeDate(isRange ? { start: undefined, end: undefined } : undefined)
+      if (props.onChangeDate) {
+        props.onChangeDate(
+          isRange ? { start: undefined, end: undefined } : undefined
+        );
       }
     };
 
@@ -205,39 +231,6 @@ export const DatePicker: BsPrefixRefForwardingComponent<
       });
     };
     //triggered only when clicking dates
-    const makeInputValueString = (date?: Date) => {
-      if (date === undefined) return '';
-      const month = date.getMonth() + 1;
-      const day = date.getDate();
-
-      //this method is executed during intialState setup... handle a missing state properly
-      const separator = SEPARATOR;
-      if (dateFormat.match(/MM.DD.YYYY/)) {
-        return (
-          (month > 9 ? month : `0${month}`) +
-          separator +
-          (day > 9 ? day : `0${day}`) +
-          separator +
-          date.getFullYear()
-        );
-      } else if (dateFormat.match(/DD.MM.YYYY/)) {
-        return (
-          (day > 9 ? day : `0${day}`) +
-          separator +
-          (month > 9 ? month : `0${month}`) +
-          separator +
-          date.getFullYear()
-        );
-      } else {
-        return (
-          date.getFullYear() +
-          separator +
-          (month > 9 ? month : `0${month}`) +
-          separator +
-          (day > 9 ? day : `0${day}`)
-        );
-      }
-    };
 
     const onChangeDateSingle = (newSelectedDate: Date) => {
       setState({
@@ -301,10 +294,12 @@ export const DatePicker: BsPrefixRefForwardingComponent<
         const { start, end } = state.value as RangeSelectionValue;
         const separator = start ? ' - ' : '';
         return (
-          makeInputValueString(start) + separator + makeInputValueString(end)
+          makeInputValueString(start, dateFormat) +
+          separator +
+          makeInputValueString(end, dateFormat)
         );
       }
-      return makeInputValueString(state.value as Date);
+      return makeInputValueString(state.value as Date, dateFormat);
     };
     const defaultPlaceHolder = isRange
       ? `${dateFormat.toLowerCase()} - ${dateFormat.toLowerCase()}`
@@ -328,14 +323,14 @@ export const DatePicker: BsPrefixRefForwardingComponent<
 
     const BodyContent = (): JSX.Element => {
       const onClickMonth = (month: number) => {
-        const newDisplayDate = new Date(state.displayDate)
-        newDisplayDate.setMonth(month)
-        setView('day')
+        const newDisplayDate = new Date(state.displayDate);
+        newDisplayDate.setMonth(month);
+        setView('day');
         setState({
           ...state,
-          displayDate: newDisplayDate
-        })
-      }
+          displayDate: newDisplayDate,
+        });
+      };
       const onClickYear = (year: number) => {
         const newDisplayDate = new Date(state.displayDate);
         newDisplayDate.setFullYear(year);
@@ -344,20 +339,17 @@ export const DatePicker: BsPrefixRefForwardingComponent<
           ...state,
           displayDate: newDisplayDate,
         });
-      }
+      };
       if (view === 'month')
         return (
           <MonthView
-          onClickMonth={onClickMonth}
+            onClickMonth={onClickMonth}
             displayDate={state.displayDate}
           />
         );
       if (view === 'year')
         return (
-          <YearView
-            displayDate={state.displayDate}
-            onClickYear={onClickYear}
-          />
+          <YearView displayDate={state.displayDate} onClickYear={onClickYear} />
         );
       const computeSelectedDate = () => {
         let selectedDate: Date[] = [];
@@ -385,22 +377,31 @@ export const DatePicker: BsPrefixRefForwardingComponent<
       );
     };
     const warningCondition = () => {
-      const displayDateStr = makeInputValueString(displayDate)
+      const displayDateStr = makeInputValueString(displayDate, dateFormat);
       if (isRange) {
-        const {start, end} = props.initialValue as RangeSelectionValue
-        return makeInputValueString(start) === displayDateStr || makeInputValueString(end) === displayDateStr
+        const { start, end } = props.initialValue as RangeSelectionValue;
+        return (
+          makeInputValueString(start, dateFormat) === displayDateStr ||
+          makeInputValueString(end, dateFormat) === displayDateStr
+        );
       } else {
-        const initialValue = props.initialValue as Date
-        return makeInputValueString(initialValue) === displayDateStr
+        const initialValue = props.initialValue as Date;
+        return (
+          makeInputValueString(initialValue, dateFormat) === displayDateStr
+        );
       }
-    }
-    if(props.initialValue){
+    };
+    if (props.initialValue) {
       warning(
         warningCondition(),
-         'When `initialValue` prop is defined, `displayDate` prop must be of same value. For Datepicker in range mode, `displayDate` prop must be of same value as either `start` or `end`'
-       );
+        'In DatePicker `single` mode, `initialValue` is `Date` type and `displayDate` prop must be of same value. In range mode, `initialValue` should be of object {start: Date, end: Date} and `displayDate` prop must be of same value as either `start` or `end`'
+      );
+      if(isRange){
+        const { start, end } = props.initialValue as RangeSelectionValue;
+        start && end && warning(start.getTime() <= end.getTime(), '`end` Date cannot be earlier than `start` Date')
+      }
     }
- // add warning for end date is earlier than start date
+    // add warning for end date is earlier than start date
     return (
       <DatePickerContext.Provider value={contextValue}>
         <InputGroup variant="has-icon" id={props.id}>
@@ -417,6 +418,7 @@ export const DatePicker: BsPrefixRefForwardingComponent<
             placement={calendarPlacement}
             container={overlayRef}
             transition={true}
+            flip={flip}
           >
             <Popover>
               <Popover.Header>{calendarHeader}</Popover.Header>

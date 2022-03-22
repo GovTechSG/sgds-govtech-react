@@ -190,13 +190,13 @@ exports[`Single mode Calendar should have the default html structure 1`] = `
           20
         </td>
         <td
-          class="text-primary"
           data-day="21"
           style="cursor: pointer; padding: 5px; border-radius: 50px;"
         >
           21
         </td>
         <td
+          class="text-primary"
           data-day="22"
           style="cursor: pointer; padding: 5px; border-radius: 50px;"
         >

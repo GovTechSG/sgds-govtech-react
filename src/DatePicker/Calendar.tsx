@@ -85,16 +85,14 @@ export const Calendar = React.forwardRef<HTMLTableElement, CalendarProps>(
             padding: CELL_PADDING,
             borderRadius: 50,
           };
-
+          if (Date.parse(date) === Date.parse(currentDate.toISOString())) {
+            //if selected Date is not current Date
+            className = 'text-primary';
+          }
           if (beforeMinDate || afterMinDate) {
             className = 'text-muted';
             clickHandler = undefined;
             style.cursor = 'default';
-          }
-
-          if (Date.parse(date) === Date.parse(currentDate.toISOString())) {
-            //if selected Date is not current Date
-            className = 'text-primary';
           }
           if (selectedDates.length > 0) {
             rangeSelectedDates.forEach((d) => {

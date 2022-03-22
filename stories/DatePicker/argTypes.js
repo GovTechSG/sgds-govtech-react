@@ -32,6 +32,14 @@ export const argTypes = {
     onClear: {
         description: 'Clear callback function'
     }, 
+    onChangeDate: {
+        description: 'The onChange handler for DatePicker', 
+        table: {
+            type: {
+                summary: '(value: Date | RangeSelectionValue | undefined) => void'
+            }
+        }
+    },
     placeholder: {
         description: 'Placeholder text on input control. Default differs depending on mode',
         table: {
@@ -51,5 +59,8 @@ export const argTypes = {
     },
     className: {
         description: 'Class name passed to the FormControl input element'
+    },
+    flip: {
+        description: 'When true, flips Calendar Overlay when placement does not fit'
     }
 }
