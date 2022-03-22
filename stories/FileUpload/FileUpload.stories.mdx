@@ -38,6 +38,7 @@ export const Template = (args) => {
   const getFileObj = (data) => {
     setSelectedFile({ data });
   };
+  console.log(selectedFile);
   return (
     <>
       <Form>
@@ -65,6 +66,8 @@ const [selectedFile, setSelectedFile] = useState(null);
 const getFileObj = (data) => {
   setSelectedFile({ data });
 };
+
+console.log(selectedFile);
 
 return (
   <>
