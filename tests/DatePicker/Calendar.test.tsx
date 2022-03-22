@@ -278,3 +278,47 @@ describe('Single mode Calendar', () => {
     });
   });
 });
+
+describe('Range Calendar', () => {
+  const mode = 'range';
+  it('when two diff date selected, it reflects bg-primary on the ranges', () => {
+    const displayDate = new Date(2022, 2, 21);
+    const selectedDate = [new Date(2022, 2, 18), new Date(2022, 2, 20)];
+    const mockChangeDate = jest.fn();
+    const { container, getByText } = render(
+      <Calendar
+        changeDate={mockChangeDate}
+        mode={mode}
+        displayDate={displayDate}
+        selectedDate={selectedDate}
+      />
+    );
+    expect(container.querySelectorAll('.bg-primary').length).toEqual(3);
+    [18, 19, 20].forEach((day) => {
+      expect(getByText(day).classList).toContain('bg-primary');
+    });
+    [1,5,6,21,24,27].forEach((day) => {
+        expect(getByText(day).classList).not.toContain('bg-primary')
+    })
+  });
+  it('the sequence of selectedDates should not matter', () => {
+    const displayDate = new Date(2022, 2, 21);
+    const selectedDate = [new Date(2022, 2, 20), new Date(2022, 2, 18)];
+    const mockChangeDate = jest.fn();
+    const { container, getByText } = render(
+      <Calendar
+        changeDate={mockChangeDate}
+        mode={mode}
+        displayDate={displayDate}
+        selectedDate={selectedDate}
+      />
+    );
+    expect(container.querySelectorAll('.bg-primary').length).toEqual(3);
+    [18, 19, 20].forEach((day) => {
+      expect(getByText(day).classList).toContain('bg-primary');
+    });
+    [1,5,6,21,24,27].forEach((day) => {
+        expect(getByText(day).classList).not.toContain('bg-primary')
+    })
+  });
+});
