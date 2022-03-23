@@ -78,7 +78,7 @@ const propTypes = {
   mode: PropTypes.string,
   flip: PropTypes.bool,
 };
-export interface DatePickerState {
+ interface DatePickerState {
   displayDate: Date;
   selectedDate: Date[];
   value: Date | RangeSelectionValue | undefined;

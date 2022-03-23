@@ -19,57 +19,181 @@ export const DatePickerTemplate = (args) => {
   };
   const minDate = new Date(2020, 10, 11, 12, 0, 0, 0).toISOString();
   const maxDate = new Date(2020, 10, 13, 12, 0, 0, 0).toISOString();
-  return (
-    <>
-    <br/>
-    <br/>
-    <br/>
-    <br/>
-    <br/>
-    <br/>
-    <br/>
-    <br/>
-    <br/>
-    <br/>
-    <br/>
-    <br/>
-    <br/>
-    <br/>
-    <DatePicker
-      displayDate={date}
-      onChangeDate={handleChange}
-      initialValue={date}
-      dateFormat="YYYY/MM/DD"
-      {...args}
-      ref={ref}
-    />    
-    <br/>
-    <br/>
-    <br/>
-    <br/>
-    <br/>
-    <br/>
-    <br/>
-    <br/>
-    <br/>
-    <br/>
-    <br/>
-    <br/>
-    <br/>
-    <br/>
-    <br/>
-    </>
-  );
+  return <DatePicker {...args} />;
 };
 
-<Story name="Default" args={{}} height="400px">
-  {DatePickerTemplate.bind({})}
-</Story>
+# DatePicker
+
+The `DatePicker` Component is built using `InputGroup`, `FormControl`, `Overlay`, `Popover` and `Button` components.
+By default, the Calendar points to current date and input has no value. The `FormControl` is a read-only input and users can only pick dates using the Calendar.
+
+<Canvas>
+  <Story name="Default" args={{}} height="380px">
+    {DatePickerTemplate.bind({})}
+  </Story>
+</Canvas>
 
 ## API
 
 <ArgsTable story="Default" />
 
-<Story name="Test" args={{ calendarPlacement: 'bottom' }} height="400px">
+## Range-Selection DatePicker
+
+When `mode=range` , DatePicker allows a selection of two dates, start and end.
+
+<Canvas>
+  <Story name="Range Selection" args={{ mode: 'range' }} height="380px">
+    {DatePickerTemplate.bind({})}
+  </Story>
+</Canvas>
+
+## Flip
+
+By default, the Popover component of DatePicker flips top and bottom depending on the space at the current placement. Turn it off, by setting `flip=false`
+
+<Story name="Flip" args={{ mode: 'range' }}>
   {DatePickerTemplate.bind({})}
 </Story>
+
+## Setting the initialValue on first load
+
+### single mode
+
+Use the `initialValue` prop to set the initial value of input on first load.
+When `initialValue` is defined, it has to be equal to the value of `displayDate`, else a console error will appear.
+By default, `displayDate` is the current date. If your `initialValue` does not equal to current Date, pass in `displayDate` with its value equals to `initialValue`
+
+```jsx
+import {DatePicker} from '@govtechsg/sgds-govtech-react/DatePicker'
+
+//initialValue: Date;
+
+<DatePicker
+  initialValue={new Date('2020-01-01')}
+  displayDate={new Date('2020-01-01')}
+/>;
+```
+
+### range mode
+
+For DatePicker in `range` mode.
+
+1. The initialValue prop is of type `RangeSelectionValue`.
+2. `displayDate` should either be equals to `initialValue.start` or `initialValue.end`.
+3. `initialValue.start` should be earlier in time than `initialValue.end`
+
+A console error will appear if either one of these conditions are not met.
+
+```jsx
+
+// interface RangeSelectionValue {
+//   start: Date | undefined;
+//   end: Date | undefined;
+// }
+// initialValue: RangeSelectionValue;
+
+import {DatePicker, RangeSelectionValue} from '@govtechsg/sgds-govtech-react/DatePicker'
+
+<DatePicker
+  initialValue={{ start: new Date('2020-01-01'), end: new Date('2020-01-04') }}
+  displayDate={new Date('2020-01-01')}
+  mode="range"
+/>;
+```
+
+<Canvas>
+  <Story
+    name="Initial Value for Single"
+    args={{
+      initialValue: new Date('2020-01-01'),
+      displayDate: new Date('2020-01-01'),
+    }}
+    height="380px"
+  >
+    {DatePickerTemplate.bind({})}
+  </Story>
+  <Story
+    name="Initial Value for Multi"
+    args={{
+      initialValue: {
+        start: new Date('2020-01-01'),
+        end: new Date('2020-01-04'),
+      },
+      displayDate: new Date('2020-01-01'),
+      mode: 'range',
+    }}
+    height="380px"
+  >
+    {DatePickerTemplate.bind({})}
+  </Story>
+</Canvas>
+
+## Callback Functions
+
+### onFocus, onBlur , onClear, onChangeDate
+
+`onFocus` , `onBlur` , `onClear`, `onChangeDate` of the input, perform a callback.
+
+<Canvas>
+  <Story
+    name="onFocus"
+    args={{ onFocus: () => alert('focused!'), placeholder: 'focus me' }}
+    height="380px"
+  >
+    {DatePickerTemplate.bind({})}
+  </Story>
+  <Story
+    name="onBlur"
+    args={{ onBlur: () => alert('blurred!'), placeholder: 'blur me' }}
+    height="380px"
+  >
+    {DatePickerTemplate.bind({})}
+  </Story>
+  <Story
+    name="onClear"
+    args={{ onClear: () => alert('cleared!'), placeholder: 'clear me' }}
+    height="380px"
+  >
+    {DatePickerTemplate.bind({})}
+  </Story>
+  <Story
+    name="onChangeDate"
+    args={{
+      onChangeDate: (date) => alert(`selected ${date.toISOString()}`),
+      placeholder: 'choose a date',
+    }}
+    height="380px"
+  >
+    {DatePickerTemplate.bind({})}
+  </Story>
+  <Story
+    name="onChangeDate Range"
+    args={{
+      mode: 'range',
+      onChangeDate: ({ start, end }) =>
+        alert(
+          `selected start: ${start.toISOString()}, end: ${end.toISOString()}`
+        ),
+      placeholder: 'choose two dates',
+    }}
+    height="380px"
+  >
+    {DatePickerTemplate.bind({})}
+  </Story>
+</Canvas>
+
+```jsx
+//onFocus
+<DatePicker onFocus={() => alert('focused!')} />
+  //onBlur
+<DatePicker onBlur={() => alert('blurred!')} />
+  //onClear
+<DatePicker onClear={() => alert('cleared!')} />
+    //onChangeDate single mode
+<DatePicker onChangeDate={(date) => alert(`selected ${date.toISOString()}`)} />
+    //onChangeDate range mode
+<DatePicker onChangeDate={({ start, end }) =>
+        alert(
+          `selected start: ${start.toISOString()}, end: ${end.toISOString()}`
+        )} />
+```

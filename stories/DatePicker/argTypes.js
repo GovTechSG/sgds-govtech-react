@@ -62,5 +62,8 @@ export const argTypes = {
     },
     flip: {
         description: 'When true, flips Calendar Overlay when placement does not fit'
+    }, 
+    id: {
+        description: 'Forwards the id to InputGroup of DatePicker'
     }
 }

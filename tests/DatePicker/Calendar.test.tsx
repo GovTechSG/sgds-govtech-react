@@ -81,7 +81,7 @@ describe('Single mode Calendar', () => {
     const displayDate = new Date(2022, 2, 21);
     const selectedDate = [new Date(2022, 2, 18)];
     const mockChangeDate = jest.fn();
-    const { container, asFragment, getByText } = render(
+    const { container, getByText } = render(
       <Calendar
         changeDate={mockChangeDate}
         mode={mode}
@@ -89,7 +89,6 @@ describe('Single mode Calendar', () => {
         selectedDate={selectedDate}
       />
     );
-    expect(asFragment()).toMatchSnapshot();
     expect(container.querySelector('table.text-center')).toBeInTheDocument();
     DAY_LABELS.forEach((day) => {
       expect(getByText(day)).toBeInTheDocument();

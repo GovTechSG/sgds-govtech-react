@@ -6,6 +6,20 @@ import {
 } from '../../src/DatePicker/DatePicker';
 import { MONTH_LABELS } from '../../src/DatePicker/CalendarHeader';
 
+describe('makeInputValueString', () => {
+  it('takes in undefined value, returns empty string', () => {
+    const arrange = makeInputValueString(undefined, 'DD/MM/YYYY')
+    expect(arrange).toEqual('')
+  })
+  it('takes in Date value, returns string Date in the given format', () => {
+    const arrange = makeInputValueString(new Date("2020-01-01"), 'DD/MM/YYYY')
+    expect(arrange).toEqual('01/01/2020')
+    const arrange1 = makeInputValueString(new Date("2020-01-01"), 'YYYY/MM/DD')
+    expect(arrange1).toEqual('2020/01/01')
+    const arrange2 = makeInputValueString(new Date("2020-09-23"), 'MM/DD/YYYY')
+    expect(arrange2).toEqual('09/23/2020')
+  })
+})
 describe('DatePicker', () => {
   it('has the default html structure', async () => {
     const { container, asFragment, getByText } = render(<DatePicker />);
