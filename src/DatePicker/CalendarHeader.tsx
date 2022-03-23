@@ -68,7 +68,6 @@ const CalendarHeader: React.FC<CalendarHeaderProps> = ({ ...props }) => {
   };
   const renderHeader = () => {
     if (view === 'month') {
-      // console.log(props.displayDate)
       return `${props.displayDate.getFullYear()}`;
     }
     if (view === 'year')
