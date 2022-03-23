@@ -255,3 +255,4 @@ export * from './Tooltip'
 // export type { TooltipProps } from './Tooltip/Tooltip';
 
 
+export * from './Typeahead'
