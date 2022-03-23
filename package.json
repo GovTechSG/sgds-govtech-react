@@ -15,7 +15,7 @@
     }
   ],
   "module": "dist/index.js",
-  "version": "1.0.0",
+  "version": "1.0.0-alpha.1",
   "license": "MIT",
   "main": "dist/main.js",
   "typings": "dist/index.d.ts",

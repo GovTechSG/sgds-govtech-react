@@ -20,10 +20,10 @@ See the below table on which version of `@govtech/sgds-govtech` you should be us
 
 ```js
 
-npm install @govtechsg/sgds-govtech-react@1.0.0
+npm install @govtechsg/sgds-govtech-react@alpha
 
 //not required if using cdn
-npm install @govtechsg/sgds-govtech@2.0.0 bootstrap-icons
+npm install @govtechsg/sgds-govtech@alpha bootstrap-icons
 
 ```
 
@@ -69,7 +69,7 @@ import '@govtechsg/sgds-govtech/sgds/sgds.scss';
 If you want to modify SGDS's base styling, you can import the Sass source (your project needs to support Sass compilation) and [override SGDS's sass variables](https://www.designsystem.tech.gov.sg/docs/customise-sgds/).
 
 ```
-npm install @govtechsg/sgds-govtech
+npm install @govtechsg/sgds-govtech@alpha
 ```
 
 For example, importing sgds in your own sass file:
