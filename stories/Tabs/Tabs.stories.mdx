@@ -11,27 +11,34 @@ export const Template = (args) => {
       id="uncontrolled-tab-example"
       className="mb-3"
     >
-      <Tab eventKey="home" title="Home">
+      <Tab
+        eventKey="home"
+        title={
+          <>
+            <i className="bi bi-arrow-up-right-square"></i>Home
+          </>
+        }
+      >
         Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod
         tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim
         veniam, quis nostrud exercitation ullamco
       </Tab>
       <Tab eventKey="profile" title="Profile">
-        Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod
-        tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim
-        veniam, quis nostrud exercitation ullamco
+        Contrary to popular belief, Lorem Ipsum is not simply random text. It
+        has roots in a piece of classical Latin literature from 45 BC, making it
+        over 2000 years old. Richard McClintock, a Latin professor at
+        Hampden-Sydney College in Virginia, looked up one of the more obscure
+        Latin words, consectetur, from a Lorem Ipsum
       </Tab>
-      <Tab eventKey="contact" title="Contact" disabled>
-        Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod
-        tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim
-        veniam, quis nostrud exercitation ullamco
-      </Tab>
+      <Tab eventKey="contact" title="Contact" disabled></Tab>
     </Tabs>
   );
 };
 
-## API
-
 <Canvas>
   <Story name="Default">{Template.bind({})}</Story>
 </Canvas>
+
+## API
+
+<ArgsTable story="Default" />

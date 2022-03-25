@@ -15,7 +15,7 @@ import { TransitionType } from '../utils/helpers';
 export interface TabsProps
   extends Omit<BaseTabsProps, 'transition'>,
     Omit<React.HTMLAttributes<HTMLElement>, 'onSelect'> {
-  variant?: 'tabs' | 'pills';
+  // variant?: 'tabs' | 'pills';
   transition?: TransitionType;
 }
 
@@ -33,9 +33,9 @@ const propTypes = {
   /**
    * Navigation style
    *
-   * @type {('tabs'| 'pills')}
-   */
-  variant: PropTypes.string,
+  //  * @type {('tabs'| 'pills')}
+  //  */
+  // variant: PropTypes.string,
 
   /**
    * Sets a default animation strategy for all children `<TabPane>`s.<tbcont
@@ -85,7 +85,7 @@ const propTypes = {
 };
 
 const defaultProps = {
-  variant: 'tabs',
+  // variant: 'tabs',
   mountOnEnter: false,
   unmountOnExit: false,
 };
