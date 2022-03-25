@@ -1,36 +1,75 @@
 import * as React from 'react';
-import { default as Form, FormProps } from '../Form/Form';
+import { default as Form } from '../Form/Form';
+import { FormGroupProps } from '../Form/FormGroup';
 import { Button, ButtonProps } from '../Button/Button';
-import { useState, useRef } from 'react';
+import { useRef } from 'react';
 import { ButtonVariant } from '../utils/types';
+import { SGDSWrapper } from '../ThemeProvider/ThemeProvider';
+import PropTypes from 'prop-types';
 
-type FileUpload = ButtonProps & FormProps;
+type FileUpload = ButtonProps & FormGroupProps;
 export interface FileUploadProps extends FileUpload {
   variant?: ButtonVariant;
   size?: 'sm' | 'lg';
   controlId: string;
-  fileObj: any;
+  onChangeFile: (data: FileList) => void;
+  selectedFile: FileList;
   disabled?: boolean;
 }
 
+const propTypes = {
+  /**
+   * One or more button variant combinations
+   *
+   * buttons may be one of a variety of visual variants such as:
+   *
+   * `'primary', 'secondary', 'success', 'danger', 'warning', 'info', 'dark', 'light', 'link'`
+   *
+   * as well as "outline" versions (prefixed by 'outline-*')
+   *
+   * `'outline-primary', 'outline-secondary', 'outline-success', 'outline-danger', 'outline-warning', 'outline-info', 'outline-dark', 'outline-light'`
+   */
+  variant: PropTypes.string,
+
+  /**
+   * Specifies a large or small button.
+   *
+   * @type ('sm'|'lg')
+   */
+  size: PropTypes.oneOf(['sm', 'lg']),
+
+  /**
+   * Disables the Button, preventing mouse events,
+   * even if the underlying component is an `<a>` element
+   */
+  disabled: PropTypes.bool,
+
+  controlId: PropTypes.string.isRequired,
+
+  onChangeFile: PropTypes.func.isRequired,
+
+  selectedFile: PropTypes.object.isRequired,
+};
+
 const defaultProps = {
   variant: 'primary',
-  active: false,
   disabled: false,
 };
 
 export const FileUpload: React.FC<FileUploadProps> = ({
-  variant,
-  size,
   controlId,
-  fileObj,
+  variant,
+  onChangeFile,
+  selectedFile,
   disabled,
+  size,
   children,
 }) => {
-  const inputRef = useRef() as React.MutableRefObject<HTMLInputElement>;
-  const [uploadedFile, setUploadedFile] = useState<string[]>([]);
+  const inputRef = useRef<HTMLInputElement>(null);
+  const fileNames = Object.entries(selectedFile).map((e) => e[1].name);
+
   let data: string[] = [];
-  const handleDisplayFileDetails = (e: React.ChangeEvent<HTMLInputElement>) => {
+  const inputOnChangeHandler = (e: React.ChangeEvent<HTMLInputElement>) => {
     let fileList = e.target.files as FileList;
     //instead if using event object, instantiate a new dataTransfer obj to standardize with removeFile() data obj
     var dt = new DataTransfer();
@@ -38,17 +77,18 @@ export const FileUpload: React.FC<FileUploadProps> = ({
       data.push(fileList[i].name);
       dt.items.add(fileList[i]);
     }
-    setUploadedFile(data);
-    fileObj(dt.files);
+    onChangeFile(dt.files);
   };
   const handleUpload = () => {
     inputRef?.current?.click();
   };
-
-  const removeFile = (index: number) => {
-    var attachments = (document.getElementById(controlId!) as HTMLInputElement)!
-      .files as FileList; // <-- reference your file input here
-    var fileBuffer = new DataTransfer();
+  // console.log(selectedFile);
+  // console.log(fileNames);
+  const removeFileHandler = (index: number) => {
+    const attachments = (document.getElementById(
+      controlId!
+    ) as HTMLInputElement)!.files as FileList; // <-- reference your file input here
+    let fileBuffer = new DataTransfer();
     // append the file list to an array iteratively
     for (let i = 0; i < attachments.length; i++) {
       // Exclude file in specified index
@@ -64,30 +104,37 @@ export const FileUpload: React.FC<FileUploadProps> = ({
     for (let i = 0; i < newFileList!.length; i++) {
       data.push(newFileList![i].name);
     }
-    setUploadedFile(data);
-    fileObj(fileBuffer.files);
+    onChangeFile(fileBuffer.files);
   };
 
-  const listItems = uploadedFile.map((item, index) => {
+  const listItems = fileNames.map((item, index) => {
     return (
-      <li key={index}>
+      <li
+        key={index}
+        className="fileupload-list-item"
+        style={{ display: 'flex' }}
+      >
         <i
-          className="bi bi-check me-2"
-          style={{ color: 'green', fontSize: '24px' }}
+          className="bi bi-check me-2 check-icon"
+          style={{ color: 'green', fontSize: '1em' }}
         ></i>
         <span
+          className="filename"
           style={{
             color: 'blue',
             textDecoration: 'underline',
-            fontWeight: '500',
+            fontWeight: '400',
+            whiteSpace: 'nowrap',
+            overflow: 'hidden',
+            textOverflow: 'ellipsis',
           }}
         >
           {item}
         </span>
         <i
-          className="bi bi-x-circle ms-2"
-          style={{ color: 'red', fontSize: '24px' }}
-          onClick={() => removeFile(index)}
+          className="bi bi-x-circle ms-2 x-circle-icon"
+          style={{ color: 'red', fontSize: '1em' }}
+          onClick={() => removeFileHandler(index)}
         ></i>
       </li>
     );
@@ -95,9 +142,9 @@ export const FileUpload: React.FC<FileUploadProps> = ({
 
   return (
     <>
-      <Form.Group controlId={controlId} className="mb-3">
+      <Form.Group controlId={controlId} className="">
         <Form.Control
-          onChange={handleDisplayFileDetails}
+          onChange={inputOnChangeHandler}
           ref={inputRef}
           type="file"
           multiple
@@ -112,10 +159,17 @@ export const FileUpload: React.FC<FileUploadProps> = ({
           {children}
         </Button>
       </Form.Group>
-      <ul style={{ listStyle: 'none', paddingLeft: '0' }}>{listItems}</ul>
+      <SGDSWrapper
+        as="ul"
+        className="fileupload-list"
+        style={{ listStyle: 'none', paddingLeft: '0' }}
+      >
+        {listItems}
+      </SGDSWrapper>
     </>
   );
 };
 
 FileUpload.displayName = 'FileUpload';
+FileUpload.propTypes = propTypes;
 FileUpload.defaultProps = defaultProps;
