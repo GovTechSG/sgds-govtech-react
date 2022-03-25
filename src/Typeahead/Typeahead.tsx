@@ -1,48 +1,33 @@
 import DropdownMenu from '../Dropdown/DropdownMenu';
 import * as React from 'react';
-import FormControl from '../Form/FormControl';
+import FormControl, { FormControlProps } from '../Form/FormControl';
 import InputGroup from '../InputGroup/InputGroup';
 import Overlay from '../Overlay/Overlay';
 import { useState, useRef } from 'react';
 import PropTypes from 'prop-types';
 import { BsPrefixRefForwardingComponent } from '../utils/helpers';
 import useMergedRefs from '@restart/hooks/useMergedRefs';
+import DropdownItem from '../Dropdown/DropdownItem';
+import { Dropdown } from '..';
 
 export type MenuPlacement = 'top' | 'bottom';
-export type DateFormat = 'MM/DD/YYYY' | 'DD/MM/YYYY' | 'YYYY/MM/DD';
-export interface RangeSelectionValue {
-  start: Date | undefined;
-  end: Date | undefined;
-}
-export interface TypeaheadProps {
+
+export interface TypeaheadProps extends Omit<FormControlProps, 'type'> {
   initialValue?: string;
-  className?: string;
-  placeholder?: string;
-  onClear?: Function;
-  onBlur?: React.FocusEventHandler<HTMLInputElement>;
-  onFocus?: React.FocusEventHandler<HTMLInputElement>;
-  autoFocus?: boolean;
-  disabled?: boolean;
   menuPlacement?: MenuPlacement | undefined;
-  id?: string;
   flip?: boolean;
+  menuList: string[];
+  onChangeValue: (val: string) => void;
 }
 
 const propTypes = {
-  initialValue: PropTypes.oneOfType([
-    PropTypes.instanceOf(Date),
-    PropTypes.shape({
-      start: PropTypes.instanceOf(Date),
-      end: PropTypes.instanceOf(Date),
-    }),
-  ]),
-  required: PropTypes.bool,
+  initialValue: PropTypes.string,
   className: PropTypes.string,
   minDate: PropTypes.string,
   maxDate: PropTypes.string,
   displayDate: PropTypes.instanceOf(Date),
   placeholder: PropTypes.string,
-  onChangeDate: PropTypes.func,
+  onChangeValue: PropTypes.func,
   onClear: PropTypes.func,
   onBlur: PropTypes.func,
   onFocus: PropTypes.func,
@@ -69,6 +54,7 @@ interface TypeaheadState {
   focused: boolean;
   inputFocused: boolean;
   invalid: boolean;
+  menuList: string[];
 }
 
 const defaultProps: Partial<TypeaheadProps> = {
@@ -83,7 +69,13 @@ export const Typeahead: BsPrefixRefForwardingComponent<
   (
     {
       menuPlacement = 'bottom',
+      menuList,
       flip = true,
+      onChange,
+      onFocus,
+      onBlur,
+      onChangeValue,
+      onKeyDown,
       ...props
     },
     ref
@@ -96,20 +88,21 @@ export const Typeahead: BsPrefixRefForwardingComponent<
     const overlayRef = useRef(null);
 
     const initialState: TypeaheadState = {
-      value: '',
       focused: false,
+      value: '',
       inputFocused: false,
       invalid: false,
+      menuList,
     };
     const [state, setState] = useState(initialState);
 
     const handleKeyDown = (e: React.KeyboardEvent) => {
       if (e.key === 'Tab' && state.inputFocused) {
-        setState({ ...state, focused: false });
+        setState({ ...state, inputFocused: false });
       }
     };
     const handleFocus = (event: React.FocusEvent<HTMLInputElement>) => {
-      if (state.focused === true) {
+      if (state.inputFocused === true) {
         return;
       }
       setState({
@@ -117,8 +110,8 @@ export const Typeahead: BsPrefixRefForwardingComponent<
         inputFocused: true,
         focused: true,
       });
-      if (props.onFocus) {
-        props.onFocus(event);
+      if (onFocus) {
+        onFocus(event);
       }
     };
 
@@ -127,21 +120,13 @@ export const Typeahead: BsPrefixRefForwardingComponent<
         ...state,
         inputFocused: false,
       });
-      if (props.onBlur) {
-        props.onBlur(event);
+      if (onBlur) {
+        onBlur(event);
       }
     };
-    const clear = () => {
-      setState({
-        ...initialState,
-      });
-      if (props.onClear) {
-        props.onClear();
-      }
-    };
-
     const handleHide = () => {
-      if (state.inputFocused) {
+      console.log('hiude')
+      if (state.focused) {
         return;
       }
       setState({
@@ -149,44 +134,69 @@ export const Typeahead: BsPrefixRefForwardingComponent<
         focused: false,
       });
     };
-    const onChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-        setState({...state, value: e.currentTarget.value})
-    }
+    const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+      const filterMenuList = menuList.filter((n) => {
+        const nLowerCase = n.toLowerCase();
+        const valueLower = e.currentTarget.value.toLowerCase();
+        // return nLowerCase.includes(valueLower)
+        return nLowerCase.startsWith(valueLower);
+      });
+      setState({
+        ...state,
+        value: e.currentTarget.value,
+        menuList: filterMenuList,
+      });
+      if (onChange) onChange(e);
+      if (onChangeValue) onChangeValue(e.currentTarget.value);
+    };
     //triggered only when clicking dates
-
     const controlProps = {
-      onChange,
+      onChange: handleChange,
       onKeyDown: handleKeyDown,
       value: state.value,
-      placeholder: props.placeholder,
       ref: inputRef,
-      disabled: props.disabled,
       onFocus: handleFocus,
       onBlur: handleBlur,
-      className: props.className,
       isInvalid: state.invalid,
+      ...props,
     };
-    // const control = (
-    //   <FormControl type="text" autoFocus={props.autoFocus} {...controlProps} />
-    // );
+
+    const handleClickItem = (e: React.MouseEvent<HTMLLIElement>) => {
+      if (onChangeValue) onChangeValue(e.currentTarget.textContent!);
+
+      setState({ ...state, value: e.currentTarget.textContent as string, focused: false});
+
+    };
 
     return (
       <InputGroup>
-        <div ref={overlayRef} style={{width: '100vw'}}> 
-        <FormControl type="text" autoFocus={props.autoFocus} {...controlProps} />
+        <div ref={overlayRef}>
+          <FormControl type="text" {...controlProps} />
         </div>
-        <Overlay
-          rootClose={true}
-          onHide={handleHide}
-          show={state.focused}
-          target={formControlRef.current}
-          placement={menuPlacement}
-          container={overlayRef}
-          transition={true}
-          flip={flip}
-        >
-          <DropdownMenu>test</DropdownMenu>
-        </Overlay>
+        {state.menuList.length > 0 && (
+          <Overlay
+            rootClose={true}
+            onHide={handleHide}
+            show={state.focused}
+            target={formControlRef.current}
+            placement={menuPlacement}
+            container={overlayRef}
+            transition={true}
+            flip={flip}
+          >
+            {({ arrowProps, ...props }) => (
+              <Dropdown {...props} >
+                <DropdownMenu role="menu" >
+                  {state.menuList.map((country) => (
+                    <DropdownItem key={country} onClick={handleClickItem}>
+                      {country}
+                    </DropdownItem>
+                  ))}
+                </DropdownMenu>
+              </Dropdown>
+            )}
+          </Overlay>
+        )}
       </InputGroup>
     );
   }
