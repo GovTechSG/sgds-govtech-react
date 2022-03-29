@@ -1,7 +1,56 @@
 import { ArgsTable, Canvas, Meta, Story } from '@storybook/addon-docs';
 import { Tabs, Tab } from '../../src';
 
-<Meta title="Components/Tabs" component={Tabs} />
+<Meta
+  title="Components/Tabs"
+  component={Tabs}
+  argTypes={{
+    activeKey: {
+      description:
+        'controlled by: onSelect, initial prop: defaultActiveKey \n\nMark the Tab with a matching eventKey as active.',
+      control: { disable: true },
+      table: {
+        type: { summary: 'string | number' },
+      },
+    },
+    defaultActiveKey: {
+      description: 'The default active key that is selected on start',
+      control: { disable: true },
+      table: {
+        type: { summary: 'string | number' },
+      },
+    },
+    additionalTitle: {
+      description:
+        'Prop can be used to display additional content when using `variant="info-tabs"`',
+      control: { disable: true },
+    },
+    id: {
+      description:
+        'HTML id attribute, required if no `generateChildId` prop is specified.',
+      table: {
+        type: { summary: 'string' },
+      },
+    },
+    icon: {
+      description: 'Prop can be used to display icon within each tab',
+      control: { disable: true },
+    },
+    variant: {
+      description: 'Sets the base navigation styling',
+      control: {
+        type: 'radio',
+      },
+      options: ['tabs', 'info-tabs'],
+      table: {
+        type: { summary: 'tabs | info-tabs' },
+      },
+    },
+    transition: {
+      table: { disable: true },
+    },
+  }}
+/>
 
 export const Template = (args) => {
   return (
@@ -12,12 +61,11 @@ export const Template = (args) => {
       className="mb-3"
     >
       <Tab
+        {...args}
         eventKey="home"
-        title={
-          <>
-            <i className="bi bi-arrow-up-right-square"></i>Home
-          </>
-        }
+        title="Home"
+        icon={<i className="bi bi-arrow-up-right-square"></i>}
+        additionalTitle={2}
       >
         Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod
         tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim
@@ -35,6 +83,10 @@ export const Template = (args) => {
   );
 };
 
+# Tabs
+
+Tabs are a navigation element resembling tabbed dividers in a filing cabinet – by clicking a tab, users can easily locate a page containing related content.
+
 <Canvas>
   <Story name="Default">{Template.bind({})}</Story>
 </Canvas>
@@ -42,3 +94,49 @@ export const Template = (args) => {
 ## API
 
 <ArgsTable story="Default" />
+
+As our components are built on top of `React-Bootstrap` library, do check out the detailed `Tabs` API references <a href="https://react-bootstrap.github.io/components/tabs/" target="_blank">here</a>.
+
+## Variant Info-Tab
+
+By selecting `variant='info-tabs`, you may insert `additionalTitle` within tabs for displaying extra content. e.g displaying quantity or displaying status
+
+export const Variant = (args) => {
+  return (
+    <Tabs
+      {...args}
+      defaultActiveKey="approvals"
+      id="uncontrolled-tab-example"
+      className="mb-3"
+    >
+      <Tab
+        {...args}
+        eventKey="approvals"
+        title="All Approvals"
+        icon={<i className="bi bi-arrow-up-right-square"></i>}
+        additionalTitle={1}
+      >
+        Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod
+        tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim
+        veniam, quis nostrud exercitation ullamco
+      </Tab>
+      <Tab eventKey="pending" additionalTitle={1} title="Pending">
+        Contrary to popular belief, Lorem Ipsum is not simply random text. It
+        has roots in a piece of classical Latin literature from 45 BC, making it
+        over 2000 years old. Richard McClintock, a Latin professor at
+        Hampden-Sydney College in Virginia, looked up one of the more obscure
+        Latin words, consectetur, from a Lorem Ipsum
+      </Tab>
+      <Tab
+        eventKey="approved"
+        title="Approved"
+        additionalTitle={1}
+        disabled
+      ></Tab>
+    </Tabs>
+  );
+};
+
+<Canvas>
+  <Story name="Variant Info-tabs">{Variant.bind({})}</Story>
+</Canvas>

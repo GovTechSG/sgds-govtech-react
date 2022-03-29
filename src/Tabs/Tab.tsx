@@ -6,8 +6,10 @@ import TabPane, { TabPaneProps } from './TabPane';
 
 export interface TabProps extends Omit<TabPaneProps, 'title'> {
   title: React.ReactNode;
+  additionalTitle?: React.ReactNode;
   disabled?: boolean;
   tabClassName?: string;
+  tabAttrs?: Record<string, any>;
 }
 
 /* eslint-disable react/no-unused-prop-types */
@@ -19,6 +21,10 @@ const propTypes = {
    */
   title: PropTypes.node.isRequired,
 
+  //Content for tab additionalTitle.
+
+  additionalTitle: PropTypes.node,
+
   /**
    * The disabled state of the tab.
    */
@@ -28,13 +34,17 @@ const propTypes = {
    * Class to pass to the underlying nav link.
    */
   tabClassName: PropTypes.string,
+  /**
+   * Object containing attributes to pass to underlying nav link.
+   */
+  tabAttrs: PropTypes.object,
 };
 
 const Tab: React.FC<TabProps> = () => {
   throw new Error(
     'ReactBootstrap: The `Tab` component is not meant to be rendered! ' +
       "It's an abstract component that is only valid as a direct Child of the `Tabs` Component. " +
-      'For custom tabs components use TabPane and TabsContainer directly',
+      'For custom tabs components use TabPane and TabsContainer directly'
   );
   // Needed otherwise docs error out.
   return <></>;

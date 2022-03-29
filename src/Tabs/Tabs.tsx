@@ -12,12 +12,17 @@ import { forEach, map } from '../utils/ElementChildren';
 import getTabTransitionComponent from '../utils/getTabTransitionComponent';
 import { TransitionType } from '../utils/helpers';
 
-export interface TabsProps
-  extends Omit<BaseTabsProps, 'transition'>,
-    Omit<React.HTMLAttributes<HTMLElement>, 'onSelect'> {
-  // variant?: 'tabs' | 'pills';
-  transition?: TransitionType;
-}
+export type TabsProps = Omit<BaseTabsProps, 'transition'> &
+  Omit<React.HTMLAttributes<HTMLElement>, 'onSelect'> & {
+    transition?: TransitionType;
+  } & (
+    | { variant?: 'tabs'; icon?: React.ReactNode }
+    | {
+        variant?: 'info-tabs';
+        additionalTitle?: React.ReactNode;
+        icon?: React.ReactNode;
+      }
+  );
 
 const propTypes = {
   /**
@@ -33,10 +38,15 @@ const propTypes = {
   /**
    * Navigation style
    *
-  //  * @type {('tabs'| 'pills')}
-  //  */
-  // variant: PropTypes.string,
+   * @type {('tabs'| 'info-tabs')}
+   */
+  variant: PropTypes.string,
 
+  // extra info when variant="info-tabs"
+  additionalTitle: PropTypes.node,
+
+  // icon prop
+  icon: PropTypes.node,
   /**
    * Sets a default animation strategy for all children `<TabPane>`s.<tbcont
    *
@@ -85,14 +95,14 @@ const propTypes = {
 };
 
 const defaultProps = {
-  // variant: 'tabs',
+  variant: 'tabs',
   mountOnEnter: false,
   unmountOnExit: false,
 };
 
 function getDefaultActiveKey(children: React.ReactElement) {
   let defaultActiveKey: undefined;
-  forEach(children as React.ReactElement, (child) => {
+  forEach(children, (child) => {
     if (defaultActiveKey == null) {
       defaultActiveKey = child.props.eventKey;
     }
@@ -101,8 +111,9 @@ function getDefaultActiveKey(children: React.ReactElement) {
   return defaultActiveKey;
 }
 
-function renderTab(child: JSX.Element) {
-  const { title, eventKey, disabled, tabClassName, id } = child.props;
+function renderTab(child: React.ReactElement) {
+  const { icon, additionalTitle, title, eventKey, disabled, tabClassName, id } =
+    child.props;
   if (title == null) {
     return null;
   }
@@ -117,13 +128,15 @@ function renderTab(child: JSX.Element) {
         id={id}
         className={tabClassName}
       >
-        {title}
+        <span>{icon}</span>
+        <span>{title}</span>
+        <span>{additionalTitle}</span>
       </NavLink>
     </NavItem>
   );
 }
 
-const Tabs = (props: TabsProps) => {
+export const Tabs = (props: TabsProps) => {
   const {
     id,
     onSelect,
@@ -169,4 +182,4 @@ Tabs.propTypes = propTypes;
 Tabs.defaultProps = defaultProps;
 Tabs.displayName = 'Tabs';
 
-export default Tabs;
+

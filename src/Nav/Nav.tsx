@@ -18,7 +18,7 @@ import {
 } from '../utils/helpers';
 
 export interface NavProps extends BsPrefixProps, BaseNavProps {
-  variant?: 'tabs' | 'pills';
+  // variant?: 'tabs' | 'pills';
   navbarScroll?: boolean;
   defaultActiveKey?: EventKey;
 }
@@ -37,8 +37,8 @@ const propTypes = {
   /**
    * The visual variant of the nav items.
    *
-   * @type {('tabs'|'pills')}
-   */
+  //  * @type {('tabs'|'pills')}
+  //  */
   // variant: PropTypes.string,
 
   /**
