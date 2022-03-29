@@ -20,9 +20,16 @@ import { Tabs, Tab } from '../../src';
         type: { summary: 'string | number' },
       },
     },
+    title: {
+      description: 'Prop can be used to display content within tab button',
+      control: { disable: true },
+      table: {
+        type: { summary: 'ReactNode' },
+      },
+    },
     additionalTitle: {
       description:
-        'Prop can be used to display additional content when using `variant="info-tabs"`',
+        'Prop can be used to display additional content within tab button when using `variant="info-tabs"`',
       control: { disable: true },
     },
     id: {
@@ -120,7 +127,12 @@ export const Variant = (args) => {
         tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim
         veniam, quis nostrud exercitation ullamco
       </Tab>
-      <Tab eventKey="pending" additionalTitle={1} title="Pending">
+      <Tab
+        eventKey="pending"
+        icon={<i className="bi bi-arrow-up-right-square"></i>}
+        additionalTitle={1}
+        title="Pending"
+      >
         Contrary to popular belief, Lorem Ipsum is not simply random text. It
         has roots in a piece of classical Latin literature from 45 BC, making it
         over 2000 years old. Richard McClintock, a Latin professor at
@@ -130,6 +142,7 @@ export const Variant = (args) => {
       <Tab
         eventKey="approved"
         title="Approved"
+        icon={<i className="bi bi-arrow-up-right-square"></i>}
         additionalTitle={1}
         disabled
       ></Tab>
