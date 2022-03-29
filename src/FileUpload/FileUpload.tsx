@@ -51,7 +51,7 @@ const propTypes = {
 
   selectedFile: PropTypes.oneOfType([
     PropTypes.instanceOf(FileList),
-    PropTypes.object
+    PropTypes.object,
   ]).isRequired,
 };
 
@@ -113,31 +113,11 @@ export const FileUpload: React.FC<FileUploadProps> = ({
 
   const listItems = fileNames.map((item, index) => {
     return (
-      <li
-        key={index}
-        className="fileupload-list-item"
-        style={{ display: 'flex' }}
-      >
-        <i
-          className="bi bi-check me-2 check-icon"
-          style={{ color: 'green', fontSize: '1em' }}
-        ></i>
-        <span
-          className="filename"
-          style={{
-            color: 'blue',
-            textDecoration: 'underline',
-            fontWeight: '400',
-            whiteSpace: 'nowrap',
-            overflow: 'hidden',
-            textOverflow: 'ellipsis',
-          }}
-        >
-          {item}
-        </span>
+      <li key={index} className="fileupload-list-item">
+        <i className="bi bi-check me-2 check-icon"></i>
+        <span className="filename">{item}</span>
         <i
           className="bi bi-x-circle ms-2 x-circle-icon"
-          style={{ color: 'red', fontSize: '1em' }}
           onClick={() => removeFileHandler(index)}
         ></i>
       </li>
@@ -146,7 +126,7 @@ export const FileUpload: React.FC<FileUploadProps> = ({
 
   return (
     <>
-      <Form.Group controlId={controlId} className="">
+      <Form.Group controlId={controlId}>
         <Form.Control
           onChange={inputOnChangeHandler}
           ref={inputRef}
@@ -163,11 +143,7 @@ export const FileUpload: React.FC<FileUploadProps> = ({
           {children}
         </Button>
       </Form.Group>
-      <SGDSWrapper
-        as="ul"
-        className="fileupload-list"
-        style={{ listStyle: 'none', paddingLeft: '0' }}
-      >
+      <SGDSWrapper as="ul" className="fileupload-list">
         {listItems}
       </SGDSWrapper>
     </>
