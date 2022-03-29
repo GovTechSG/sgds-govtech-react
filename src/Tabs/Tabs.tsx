@@ -16,7 +16,7 @@ export type TabsProps = Omit<BaseTabsProps, 'transition'> &
   Omit<React.HTMLAttributes<HTMLElement>, 'onSelect'> & {
     transition?: TransitionType;
   } & (
-    | { variant?: 'tabs'; icon?: React.ReactNode }
+    | { variant?: 'tabs'; icon?: React.ReactNode; additionalTitle?: never }
     | {
         variant?: 'info-tabs';
         additionalTitle?: React.ReactNode;
@@ -181,5 +181,3 @@ export const Tabs = (props: TabsProps) => {
 Tabs.propTypes = propTypes;
 Tabs.defaultProps = defaultProps;
 Tabs.displayName = 'Tabs';
-
-
