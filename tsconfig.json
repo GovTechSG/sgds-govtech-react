@@ -34,11 +34,11 @@
     "noEmit": true,
     "noImplicitAny": true
   },
-  "include": ["src"],
+  "include": ["src", "tests"],
   "exclude": [
     "node_modules",
     "build",
     "src/**/*.stories.tsx",
     "src/**/*.test.tsx"
-  ],
+  ]
 }

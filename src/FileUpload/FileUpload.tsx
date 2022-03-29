@@ -1,19 +1,20 @@
 import * as React from 'react';
 import { default as Form } from '../Form/Form';
 import { FormGroupProps } from '../Form/FormGroup';
-import { Button, ButtonProps } from '../Button/Button';
+import { Button, ButtonProps, ButtonSize } from '../Button/Button';
 import { useRef } from 'react';
 import { ButtonVariant } from '../utils/types';
 import { SGDSWrapper } from '../ThemeProvider/ThemeProvider';
 import PropTypes from 'prop-types';
 
 type FileUpload = ButtonProps & FormGroupProps;
+type SelectedFileType = FileList | {};
 export interface FileUploadProps extends FileUpload {
   variant?: ButtonVariant;
-  size?: 'sm' | 'lg';
+  size?: ButtonSize;
   controlId: string;
   onChangeFile: (data: FileList) => void;
-  selectedFile: FileList;
+  selectedFile: SelectedFileType;
   disabled?: boolean;
 }
 
@@ -36,7 +37,7 @@ const propTypes = {
    *
    * @type ('sm'|'lg')
    */
-  size: PropTypes.oneOf(['sm', 'lg']),
+  size: PropTypes.oneOf<ButtonSize>(['sm', 'lg']),
 
   /**
    * Disables the Button, preventing mouse events,
@@ -48,7 +49,10 @@ const propTypes = {
 
   onChangeFile: PropTypes.func.isRequired,
 
-  selectedFile: PropTypes.object.isRequired,
+  selectedFile: PropTypes.oneOfType([
+    PropTypes.instanceOf(FileList),
+    PropTypes.object
+  ]).isRequired,
 };
 
 const defaultProps = {
