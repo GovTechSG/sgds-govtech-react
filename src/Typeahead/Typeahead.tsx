@@ -1,8 +1,6 @@
 import DropdownMenu from '../Dropdown/DropdownMenu';
 import * as React from 'react';
-import FormControl, { FormControlProps } from '../Form/FormControl';
-import InputGroup from '../InputGroup/InputGroup';
-import Overlay from '../Overlay/Overlay';
+import { FormControlProps } from '../Form/FormControl';
 import { useState, useRef } from 'react';
 import PropTypes from 'prop-types';
 import { BsPrefixRefForwardingComponent } from '../utils/helpers';
@@ -10,45 +8,23 @@ import useMergedRefs from '@restart/hooks/useMergedRefs';
 import DropdownItem from '../Dropdown/DropdownItem';
 import { Dropdown } from '..';
 import TypeaheadToggle from './TypeaheadToggle';
-export type MenuPlacement = 'top' | 'bottom';
+
+export type MenuPlacement = 'up' | 'down';
 
 export interface TypeaheadProps extends Omit<FormControlProps, 'type'> {
   initialValue?: string;
   menuPlacement?: MenuPlacement | undefined;
-  flip?: boolean;
   menuList: string[];
-  onChangeValue: (val: string) => void;
+  onChangeInput?: (val: string, e?: React.ChangeEvent<HTMLInputElement> | React.MouseEvent<HTMLLIElement>) => void;
 }
 
 const propTypes = {
   initialValue: PropTypes.string,
-  className: PropTypes.string,
-  minDate: PropTypes.string,
-  maxDate: PropTypes.string,
-  displayDate: PropTypes.instanceOf(Date),
-  placeholder: PropTypes.string,
-  onChangeValue: PropTypes.func,
-  onClear: PropTypes.func,
-  onBlur: PropTypes.func,
-  onFocus: PropTypes.func,
-  autoFocus: PropTypes.bool,
-  disabled: PropTypes.bool,
-  calendarPlacement: PropTypes.oneOf<MenuPlacement>(['top', 'bottom']),
-  /**
-   * dateFormat variants
-   *
-   * @type {('MM/DD/YYYY'|'DD/MM/YYYY'|'YYYY/MM/DD')}
-   */
-  dateFormat: PropTypes.string,
-  id: PropTypes.string,
-  /**
-   * mode variants
-   *
-   * @type {('single'|'range')}
-   */
-  mode: PropTypes.string,
-  flip: PropTypes.bool,
+  onChangeInput: PropTypes.func,
+  menuPlacement: PropTypes.oneOf<MenuPlacement>(['up', 'down']),
+  menuList: PropTypes.arrayOf(PropTypes.string).isRequired
 };
+
 interface TypeaheadState {
   value: string;
   invalid: boolean;
@@ -56,8 +32,7 @@ interface TypeaheadState {
 }
 
 const defaultProps: Partial<TypeaheadProps> = {
-  menuPlacement: 'bottom',
-  flip: true,
+  menuPlacement: 'down',
 };
 
 export const Typeahead: BsPrefixRefForwardingComponent<
@@ -66,14 +41,10 @@ export const Typeahead: BsPrefixRefForwardingComponent<
 > = React.forwardRef<HTMLInputElement, TypeaheadProps>(
   (
     {
-      menuPlacement = 'bottom',
+      menuPlacement = 'down',
       menuList,
-      flip = true,
-      onChange,
-      onFocus,
-      onBlur,
-      onChangeValue,
-      onKeyDown,
+      initialValue = '',
+      onChangeInput,
       ...props
     },
     ref
@@ -83,14 +54,17 @@ export const Typeahead: BsPrefixRefForwardingComponent<
       ref as React.MutableRefObject<HTMLInputElement>,
       formControlRef
     );
+    const [menuOpen, setIsMenuOpen] = useState(undefined);
     const initialState: TypeaheadState = {
-      value: '',
+      value: initialValue,
       invalid: false,
-      menuList,
+      menuList: initialValue ? menuList.filter(n => n.toLowerCase().startsWith(initialValue.toLowerCase())): menuList,
     };
     const [state, setState] = useState(initialState);
-
     const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+      if (!menuOpen) {
+        formControlRef.current?.click()
+      }
       const filterMenuList = menuList.filter((n) => {
         const nLowerCase = n.toLowerCase();
         const valueLower = e.currentTarget.value.toLowerCase();
@@ -102,10 +76,9 @@ export const Typeahead: BsPrefixRefForwardingComponent<
         value: e.currentTarget.value,
         menuList: filterMenuList,
       });
-      if (onChange) onChange(e);
-      if (onChangeValue) onChangeValue(e.currentTarget.value);
+      if (onChangeInput) onChangeInput(e.currentTarget.value, e);
     };
-    //triggered only when clicking dates
+
     const controlProps = {
       onChange: handleChange,
       value: state.value,
@@ -115,16 +88,18 @@ export const Typeahead: BsPrefixRefForwardingComponent<
     };
 
     const handleClickItem = (e: React.MouseEvent<HTMLLIElement>) => {
-      if (onChangeValue) onChangeValue(e.currentTarget.textContent!);
+      if (onChangeInput) onChangeInput(e.currentTarget.textContent!, e);
 
       setState({
         ...state,
         value: e.currentTarget.textContent as string,
+        menuList: state.menuList.filter(
+          (c) => c === e.currentTarget.textContent!
+        ),
       });
     };
 
     const focusDropdownItem = (event: React.FocusEvent<HTMLAnchorElement>) => {
-      console.log(event.currentTarget.textContent);
       setState({
         ...state,
         value: event.currentTarget.textContent as string,
@@ -132,8 +107,11 @@ export const Typeahead: BsPrefixRefForwardingComponent<
     };
 
     return (
-      <Dropdown>
-        <TypeaheadToggle {...controlProps} />
+      <Dropdown
+        focusFirstItemOnShow={false}
+        drop={menuPlacement}
+      >
+        <TypeaheadToggle {...controlProps} setIsMenuOpen={setIsMenuOpen}/>
         {state.menuList.length > 0 && (
           <DropdownMenu>
             {state.menuList.map((country) => (
@@ -154,6 +132,6 @@ export const Typeahead: BsPrefixRefForwardingComponent<
 );
 
 Typeahead.displayName = 'Typeahead';
-Typeahead.propTypes = propTypes as any;
+Typeahead.propTypes = propTypes;
 Typeahead.defaultProps = defaultProps;
 export default Typeahead;

@@ -13,16 +13,13 @@ import FormControl, { FormControlProps } from '../Form/FormControl';
 export interface TypeaheadToggleProps extends Omit<FormControlProps, 'type'> {
   as?: React.ElementType;
   childBsPrefix?: string;
+  setIsMenuOpen: Function
 }
 
 type TypeaheadToggleComponent = BsPrefixRefForwardingComponent<
   'input',
   TypeaheadToggleProps
 >;
-
-// export type PropsFromToggle = Partial<
-//   Pick<React.ComponentPropsWithRef<TypeaheadToggleComponent>, CommonButtonProps>
-// >;
 
 const propTypes = {
   /**
@@ -53,6 +50,7 @@ const TypeaheadToggle: TypeaheadToggleComponent = React.forwardRef(
       bsPrefix,
       className,
       childBsPrefix,
+      setIsMenuOpen,
       // Need to define the default "as" during prop destructuring to be compatible with styled-components github.com/react-bootstrap/react-bootstrap/issues/3595
       as: Component = FormControl,
       ...props
@@ -63,17 +61,21 @@ const TypeaheadToggle: TypeaheadToggleComponent = React.forwardRef(
     const dropdownContext = useContext(DropdownContext);
     const isInputGroup = useContext(InputGroupContext);
 
+
     if (childBsPrefix !== undefined) {
       (props as any).bsPrefix = childBsPrefix;
     }
-
     const [toggleProps] = useDropdownToggle();
-
     toggleProps.ref = useMergedRefs(
       toggleProps.ref,
       useWrappedRefWithWarning(ref, 'DropdownToggle'),
     );
+  
 
+    React.useEffect(() => {
+      setIsMenuOpen(dropdownContext?.show)
+    }, [dropdownContext?.show])
+   
     // This intentionally forwards size and variant (if set) to the
     // underlying component, to allow it to render size and style variants.
     return (
