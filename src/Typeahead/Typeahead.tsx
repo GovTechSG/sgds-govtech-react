@@ -14,7 +14,7 @@ export type MenuPlacement = 'up' | 'down';
 
 export interface TypeaheadProps extends Omit<FormControlProps, 'type'> {
   initialValue?: string;
-  menuPlacement?: MenuPlacement | undefined;
+  menuPlacement?: MenuPlacement;
   menuList: string[];
   onChangeInput?: (
     val: string,
