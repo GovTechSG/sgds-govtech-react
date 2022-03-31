@@ -1,15 +1,30 @@
 import { ArgsTable, Canvas, Meta, Story } from '@storybook/addon-docs';
-import { Typeahead } from '../../src/index';
+import { Typeahead, Form } from '../../src/index';
 import { useState, useRef, useEffect } from 'react';
 
-<Meta title="Components/Typeahead" component={Typeahead} />
+<Meta
+  title="Components/Typeahead"
+  component={Typeahead}
+  argTypes={{
+    initialValue: {
+      description: 'Initial value of input',
+    },
+    onChangeInput: {
+      description: "The onChange handler for Typeahead's input change ",
+    },
+    menuPlacement: {
+      description: 'Placement of menu in relation to input',
+    },
+    menuList: {
+      description: 'Array of values to pass into menu',
+    },
+    label: {
+      description: 'Adds a FormLabel to `<Typeahead />`'
+    }
+  }}
+/>
 
-export const TypeaheadTemplate = () => {
-  const [value, setValue] = useState('');
-  const handleChange = (value) => {
-    console.log(value);
-    // console.log(e)
-  };
+export const TypeaheadTemplate = (args) => {
   const menuList = [
     'Afghanistan',
     'Albania',
@@ -217,16 +232,82 @@ export const TypeaheadTemplate = () => {
     'Zambia',
     'Zimbabwe',
   ];
+  return <Typeahead {...args} menuList={menuList} />;
+};
+
+# Typeahead
+
+`Typeahead` is a built using `Dropdown`, `Dropdown.Menu`, `Dropdown.Item` and  `FormControl` that doubles up as a toggle.
+`TypeaheadProps` extends `FormControlProps`.
+
+<Story name="Default" args={{ label: 'Select a country' }}>
+  {TypeaheadTemplate.bind({})}
+</Story>
+
+<br />
+
+## API
+
+<ArgsTable story="Default" />
+
+```jsx
+import {
+  Typeahead,
+  TypeaheadProps,
+} from '@govtechsg/sgds-govtech-react/Typeahead';
+
+export const TypeaheadComponent = () => {
+  const menuList = ['apple', 'orange', 'banana'];
+  return <Typeahead menuList={menuList} />;
+};
+```
+
+## onChangeInput
+
+`onChangeInput` is fired whenever the value of input changes whether due to typing directly in the input or from selection from menu.
+The first argument of `onChangeInput` returns the string value of the input.
+The second argument returns either the ChangeEvent or MouseEvent depending on the type of user interaction with `<Typeahead/>`
+
+export const TypeaheadOnChangeTemplate = () => {
+  const [fruits, setFruits] = useState('');
+  const handleChange = (val, e) => {
+    setFruits(val);
+  };
+  const menuList = ['apple', 'orange', 'banana'];
   return (
-    <Typeahead
-      menuList={menuList}
-      initialValue="Afghanistan"
-      onChangeInput={handleChange}
-      menuPlacement='down'
-    />
+    <>
+      <Typeahead
+        menuList={menuList}
+        onChangeInput={handleChange}
+        label="Select a fruit"
+      />
+      <div>Selected fruits : {fruits}</div>
+    </>
   );
 };
 
-<Story name="Default" args={{}} height="380px">
-  {TypeaheadTemplate.bind({})}
-</Story>
+<Story name="onChangeInput">{TypeaheadOnChangeTemplate.bind({})}</Story>
+
+```jsx
+import {
+  Typeahead,
+} from '@govtechsg/sgds-govtech-react/Typeahead';
+
+export const TypeaheadComponent = () => {
+  const menuList = ['apple', 'orange', 'banana'];
+  const [fruits, setFruits] = useState('');
+  const handleChange = (val, e) => {
+    setFruits(val);
+  };
+  return (
+    <>
+      <Typeahead
+        menuList={menuList}
+        onChangeInput={handleChange}
+        label="Select a fruit"
+      />
+      <div>Selected fruits : {fruits}</div>
+    </>
+  );
+};
+```

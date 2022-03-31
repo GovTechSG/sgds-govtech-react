@@ -1,6 +1,7 @@
 import DropdownMenu from '../Dropdown/DropdownMenu';
 import * as React from 'react';
 import { FormControlProps } from '../Form/FormControl';
+import  FormLabel  from '../Form/FormLabel';
 import { useState, useRef } from 'react';
 import PropTypes from 'prop-types';
 import { BsPrefixRefForwardingComponent } from '../utils/helpers';
@@ -15,14 +16,19 @@ export interface TypeaheadProps extends Omit<FormControlProps, 'type'> {
   initialValue?: string;
   menuPlacement?: MenuPlacement | undefined;
   menuList: string[];
-  onChangeInput?: (val: string, e?: React.ChangeEvent<HTMLInputElement> | React.MouseEvent<HTMLLIElement>) => void;
+  onChangeInput?: (
+    val: string,
+    e?: React.ChangeEvent<HTMLInputElement> | React.MouseEvent<HTMLLIElement>
+  ) => void;
+  label? : string;
 }
 
 const propTypes = {
   initialValue: PropTypes.string,
   onChangeInput: PropTypes.func,
   menuPlacement: PropTypes.oneOf<MenuPlacement>(['up', 'down']),
-  menuList: PropTypes.arrayOf(PropTypes.string).isRequired
+  menuList: PropTypes.arrayOf(PropTypes.string).isRequired,
+  label: PropTypes.string
 };
 
 interface TypeaheadState {
@@ -45,6 +51,7 @@ export const Typeahead: BsPrefixRefForwardingComponent<
       menuList,
       initialValue = '',
       onChangeInput,
+      label = '',
       ...props
     },
     ref
@@ -58,17 +65,20 @@ export const Typeahead: BsPrefixRefForwardingComponent<
     const initialState: TypeaheadState = {
       value: initialValue,
       invalid: false,
-      menuList: initialValue ? menuList.filter(n => n.toLowerCase().startsWith(initialValue.toLowerCase())): menuList,
+      menuList: initialValue
+        ? menuList.filter((n) =>
+            n.toLowerCase().startsWith(initialValue.toLowerCase())
+          )
+        : menuList,
     };
     const [state, setState] = useState(initialState);
     const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
       if (!menuOpen) {
-        formControlRef.current?.click()
+        formControlRef.current?.click();
       }
       const filterMenuList = menuList.filter((n) => {
         const nLowerCase = n.toLowerCase();
         const valueLower = e.currentTarget.value.toLowerCase();
-        // return nLowerCase.includes(valueLower)
         return nLowerCase.startsWith(valueLower);
       });
       setState({
@@ -107,26 +117,26 @@ export const Typeahead: BsPrefixRefForwardingComponent<
     };
 
     return (
-      <Dropdown
-        focusFirstItemOnShow={false}
-        drop={menuPlacement}
-      >
-        <TypeaheadToggle {...controlProps} setIsMenuOpen={setIsMenuOpen}/>
-        {state.menuList.length > 0 && (
-          <DropdownMenu>
-            {state.menuList.map((country) => (
-              <DropdownItem
-                href="#"
-                key={country}
-                onClick={handleClickItem}
-                onFocus={focusDropdownItem}
-              >
-                {country}
-              </DropdownItem>
-            ))}
-          </DropdownMenu>
-        )}
-      </Dropdown>
+      <>
+        {label && <FormLabel htmlFor={props.id}>{label}</FormLabel>}
+        <Dropdown focusFirstItemOnShow={false} drop={menuPlacement}>
+          <TypeaheadToggle {...controlProps} setIsMenuOpen={setIsMenuOpen} />
+          {state.menuList.length > 0 && (
+            <DropdownMenu>
+              {state.menuList.map((country) => (
+                <DropdownItem
+                  href="#"
+                  key={country}
+                  onClick={handleClickItem}
+                  onFocus={focusDropdownItem}
+                >
+                  {country}
+                </DropdownItem>
+              ))}
+            </DropdownMenu>
+          )}
+        </Dropdown>
+      </>
     );
   }
 );

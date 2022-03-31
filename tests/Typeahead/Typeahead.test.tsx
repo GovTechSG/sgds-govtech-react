@@ -409,4 +409,13 @@ describe('<Typeahead>', () => {
       );
     });
   });
+
+  it('when label prop defined, firstElementchild is FormLabel', () => {
+    const { container, getByText } = render(
+      <Typeahead menuList={menuList} label="test" />
+    );
+    expect(container.firstElementChild?.tagName).toEqual('LABEL');
+    expect(container.firstElementChild?.classList).toContain('form-label');
+    expect(getByText('test')).toBeInTheDocument();
+  });
 });
