@@ -9,6 +9,7 @@ import useMergedRefs from '@restart/hooks/useMergedRefs';
 import Overlay, { OverlayChildren, OverlayProps } from './Overlay';
 import safeFindDOMNode from '../utils/safeFindDOMNode';
 
+
 export type OverlayTriggerType = 'hover' | 'click' | 'focus';
 
 export type OverlayDelay = number | { show: number; hide: number };

@@ -1,5 +1,5 @@
 {
-  "name": "@govtechsg/sgds-govtech-react",
+  "name": "clk-bs",
   "description": "Design System unites Singapore Government digital services around a common visual language and user experience",
   "author": "GovTechSG",
   "homepage": "https://github.com/GovTechSG/sgds-govtech-react/",
@@ -14,10 +14,9 @@
       "url": "https://github.com/haphizi"
     }
   ],
-  "module": "dist/index.js",
-  "version": "1.0.0-alpha.1",
+  "version": "2.0.6",
   "license": "MIT",
-  "main": "dist/main.js",
+  "module": "dist/index.js",
   "typings": "dist/index.d.ts",
   "engines": {
     "node": ">=10"
@@ -85,7 +84,6 @@
     "formik": "^2.2.9",
     "husky": "^7.0.4",
     "jest": "^27.5.1",
-    "prop-types-extra": "^1.1.1",
     "react": "^17.0.2",
     "react-dom": "^17.0.2",
     "react-is": "^17.0.2",
@@ -106,13 +104,17 @@
     "yup": "^0.32.11"
   },
   "dependencies": {
-    "@restart/ui": "^0.2.5",
+    "@restart/hooks": "^0.4.6",
+    "@restart/ui": "^1.2.0",
     "@storybook/addon-a11y": "^6.4.9",
     "@storybook/addon-storysource": "^6.4.9",
     "@types/invariant": "^2.2.35",
     "@types/react-transition-group": "^4.4.4",
     "classnames": "^2.3.1",
+    "dom-helpers": "^5.2.1",
     "invariant": "^2.2.4",
+    "prop-types": "^15.8.1",
+    "prop-types-extra": "^1.1.1",
     "react-transition-group": "^4.4.2"
   }
 }
