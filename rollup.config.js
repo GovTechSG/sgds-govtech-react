@@ -24,7 +24,7 @@ const folderBuilds = getFolders('./src').map((folder) => {
   return {
     input: `src/${folder}/index.ts`,
     output: {
-      file: `dist/${folder}/index.js`,
+      file: `dist/${folder}/index.mjs`,  
       sourcemap: true,
       exports: 'named',
     },
@@ -48,32 +48,17 @@ export default [
     external: ['react', 'react-dom'],
   },
   ...folderBuilds,
-  // {
-  //   input: ['src/index.ts'],
-  //   output: [
-  //     {
-  //       file: packageJson.main,
-  //       format: 'cjs',
-  //       sourcemap: true,
-  //       exports: 'named',
-  //     },
-  //   ],
-  //   plugins,
-  //   external: ['react', 'react-dom'],
-  // },
-  // {
-  //   input: ['src/index.ts'],
-  //   output: [
-  //     {
-  //       file: packageJson.browser,
-  //       format: 'umd',
-  //       sourcemap: true,
-  //       exports: 'named',
-  //       context: 'window',
-  //       name: packageJson.name
-  //     }
-  //   ],
-  //   plugins,
-  //   external: ['react', 'react-dom'],
-  // },
+  {
+    input: ['src/index.ts'],
+    output: [
+      {
+        file: packageJson.main,
+        format: 'cjs',
+        sourcemap: true,
+        exports: 'named',
+      },
+    ],
+    plugins,
+    external: ['react', 'react-dom'],
+  }
 ];
