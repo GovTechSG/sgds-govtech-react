@@ -24,7 +24,7 @@ const folderBuilds = getFolders('./src').map((folder) => {
   return {
     input: `src/${folder}/index.ts`,
     output: {
-      file: `dist/${folder}/index.mjs`,  
+      file: `dist/${folder}/index.js`,  
       sourcemap: true,
       exports: 'named',
     },

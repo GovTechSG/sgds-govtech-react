@@ -19,7 +19,7 @@ async function createPackageFile() {
     private: false,
     typings: './index.d.ts',
     main: './cjs/index.js',
-    module: './index.mjs',
+    module: './index.js',
   };
 
   const targetPath = resolve(distPath, './package.json');
