@@ -7,32 +7,31 @@ import { terser } from 'rollup-plugin-terser';
 const packageJson = require('./package.json');
 import { getFolders } from './scripts/buildUtils';
 
-const plugins =  [
-    peerDepsExternal(),
-    resolve(),
-    replace({
-      __IS_DEV__: process.env.NODE_ENV === 'development'
-    }),
-    commonjs(),
-    typescript({
-      tsconfig: './tsconfig.json',
-      useTsconfigDeclarationDir: true,
-    }),
-    terser()
-  ]
-const folderBuilds = getFolders('./src').map(folder=> {
+const plugins = [
+  peerDepsExternal(),
+  resolve(),
+  replace({
+    __IS_DEV__: process.env.NODE_ENV === 'development',
+  }),
+  commonjs(),
+  typescript({
+    tsconfig: './tsconfig.json',
+    useTsconfigDeclarationDir: true,
+  }),
+  terser(),
+];
+const folderBuilds = getFolders('./src').map((folder) => {
   return {
-    input: `src/${folder}/index.ts`, 
+    input: `src/${folder}/index.ts`,
     output: {
-      file: `dist/${folder}/index.js`,
+      file: `dist/${folder}/index.js`,  
       sourcemap: true,
       exports: 'named',
     },
     plugins,
     external: ['react', 'react-dom'],
-  }
-})
-
+  };
+});
 
 export default [
   {
@@ -61,5 +60,5 @@ export default [
     ],
     plugins,
     external: ['react', 'react-dom'],
-  },
+  }
 ];
