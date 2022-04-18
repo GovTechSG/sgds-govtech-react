@@ -52,7 +52,7 @@ export const Template = (args) => (
   </Dropdown>
 );
 
-##  Single button dropdowns
+## Single button dropdowns
 
 The basic Dropdown is composed of a wrapping `Dropdown` and
 inner `<Dropdown.Menu>`, and `<Dropdown.Toggle>`. By
@@ -197,7 +197,7 @@ import { Dropdown } from '@govtechsg/sgds-govtech-react';
   </Dropdown>
 ```
 
-##  Event Handlers
+## Event Handlers
 
 ### onSelect
 
@@ -257,3 +257,18 @@ export const onSelectToggleTemplate = () => {
     {onSelectToggleTemplate.bind({})}
   </Story>
 </Canvas>
+
+### Server-side rendering
+
+For SSR, specify `id` prop for `<Dropdown.Toggle/>` so that the `id` attribute matches for both Server Side and Client Side.
+
+```jsx
+<Dropdown>
+  <Dropdown.Toggle id="dropdown-id-1234">
+    Dropdown Button<i className="bi bi-chevron-down"></i>
+  </Dropdown.Toggle>
+  <Dropdown.Menu>
+   ...
+  </Dropdown.Menu>
+</Dropdown>
+```

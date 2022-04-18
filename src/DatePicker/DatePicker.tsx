@@ -420,7 +420,7 @@ export const DatePicker: BsPrefixRefForwardingComponent<
             transition={true}
             flip={flip}
           >
-            <Popover>
+            <Popover className='datepicker'>
               <Popover.Header>{calendarHeader}</Popover.Header>
               <Popover.Body>{BodyContent()}</Popover.Body>
             </Popover>
