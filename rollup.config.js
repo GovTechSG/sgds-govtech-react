@@ -6,6 +6,7 @@ import replace from '@rollup/plugin-replace';
 import { terser } from 'rollup-plugin-terser';
 const packageJson = require('./package.json');
 import { getFolders } from './scripts/buildUtils';
+import generatePackageJson from 'rollup-plugin-generate-package-json';
 
 const plugins = [
   peerDepsExternal(),
@@ -20,15 +21,28 @@ const plugins = [
   }),
   terser(),
 ];
+const subfolderPlugins = (folderName) => [
+  ...plugins,
+  generatePackageJson({
+    baseContents: {
+      name: `${packageJson.name}/${folderName}`,
+      private: true,
+      main: '../cjs/index.js',
+      module: './index.js',
+      types: './index.d.ts',
+    },
+  }),
+];
 const folderBuilds = getFolders('./src').map((folder) => {
   return {
     input: `src/${folder}/index.ts`,
     output: {
-      file: `dist/${folder}/index.js`,  
+      file: `dist/${folder}/index.js`,
       sourcemap: true,
       exports: 'named',
+      format: 'esm',
     },
-    plugins,
+    plugins: subfolderPlugins(folder),
     external: ['react', 'react-dom'],
   };
 });
@@ -60,5 +74,5 @@ export default [
     ],
     plugins,
     external: ['react', 'react-dom'],
-  }
+  },
 ];
