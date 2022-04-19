@@ -93,7 +93,7 @@ const handleSubmit = () => {
     .then((json) => setValue(json.results[0]));
 };
 
-<Form onSubmit={handleSubmit} {...args}>
+<Form onSubmit={handleSubmit}>
   <Form.Group as={Row} className="mb-3" controlId="formBasicPostalCode">
     <Col xs={4}>
       <Form.Label>Postal Code</Form.Label>
@@ -173,7 +173,7 @@ import { useState } from 'react';
 
 const [validated, setValidated] = useState(false);
 
-<Form noValidate validated={validated} {...args}>
+<Form noValidate validated={validated}>
   <Form.Group as={Col} className="mb-3">
     <Form.Label htmlFor="singleDate">Date of Birth</Form.Label>
     <Form.Text className="text-muted">e.g 01 Jun 1979</Form.Text>
