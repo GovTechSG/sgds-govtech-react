@@ -17,10 +17,10 @@ Pairing `<Form.Label>` with `<Form.Control>` can simply be done by including **h
 export const AddressPattern = (args) => {
   const [value, setValue] = useState({});
   const inputRef = useRef();
-  const handleSubmit = async () => {
+  const handleSubmit = () => {
     event.preventDefault();
     event.stopPropagation();
-    await fetch(
+    fetch(
       'https://developers.onemap.sg/commonapi/search?searchVal=' +
         inputRef.current.value +
         '&returnGeom=Y&getAddrDetails=Y'
@@ -36,7 +36,7 @@ export const AddressPattern = (args) => {
           <Form.Control
             ref={inputRef}
             type="text"
-            placeholder="e.g 630201"
+            placeholder="e.g 730317"
             autoComplete="postal-code"
             maxLength={6}
           />
@@ -81,10 +81,10 @@ const [value, setValue] = useState({});
 const inputRef = useRef();
 
 // fetch api example
-const handleSubmit = async () => {
+const handleSubmit = () => {
   event.preventDefault();
   event.stopPropagation();
-  await fetch(
+  fetch(
     'https://developers.onemap.sg/commonapi/search?searchVal=' +
       inputRef.current.value +
       '&returnGeom=Y&getAddrDetails=Y'
@@ -100,7 +100,7 @@ const handleSubmit = async () => {
       <Form.Control
         ref={inputRef}
         type="text"
-        placeholder="e.g 630201"
+        placeholder="e.g 730317"
         autoComplete="postal-code"
         maxLength={6}
       />
