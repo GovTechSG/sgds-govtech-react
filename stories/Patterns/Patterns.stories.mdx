@@ -1,0 +1,353 @@
+import { ArgsTable, Canvas, Meta, Story } from '@storybook/addon-docs';
+import { useState, useRef } from 'react';
+import { Form, Button, Row, Col } from '../../src/index';
+
+<Meta title="Components/Form/Patterns" component={Form} />
+
+# Address Pattern
+
+Use this base pattern when you require users to key in their Singapore-based address.
+
+Example below is an illustration of querying a postal code from [**OneMap API**](https://www.onemap.gov.sg/docs/) which maps back an address property value to the address input field.
+
+Pairing `<Form.Label>` with `<Form.Control>` can simply be done by including **htmlFor** and **id** attribute in each subcomponent respectively. Alternatively, you may wrap both subcomponents within `<Form.Group>` with the **controlId** attribute.
+
+**Note**: Give your users the option to either key in their postal code to look up their address, or enter their full address manually.
+
+export const AddressPattern = (args) => {
+  const [value, setValue] = useState({});
+  const inputRef = useRef();
+  const handleSubmit = () => {
+    event.preventDefault();
+    event.stopPropagation();
+    fetch(
+      'https://developers.onemap.sg/commonapi/search?searchVal=' +
+        inputRef.current.value +
+        '&returnGeom=Y&getAddrDetails=Y'
+    )
+      .then((response) => response.json())
+      .then((json) => setValue(json.results[0]));
+  };
+  return (
+    <Form onSubmit={handleSubmit} {...args}>
+      <Form.Group as={Row} className="mb-3" controlId="formBasicPostalCode">
+        <Col xs={4}>
+          <Form.Label>Postal Code</Form.Label>
+          <Form.Control
+            ref={inputRef}
+            type="text"
+            placeholder="e.g 730317"
+            autoComplete="postal-code"
+            maxLength={6}
+          />
+        </Col>
+        <Col xs={12} className="mt-3">
+          <Button type="submit">Find Address</Button>
+        </Col>
+      </Form.Group>
+      <Form.Group className="mb-3" controlId="formBasicStreet">
+        <Form.Label>Block/Street Name</Form.Label>
+        <Form.Control
+          defaultValue={value?.ADDRESS}
+          type="text"
+          placeholder="e.g 220 Pasir Ris Drive 50"
+          autoComplete="street-address"
+          className="w-50"
+        />
+      </Form.Group>
+      <Form.Group className="mb-3" controlId="formBasicBuilding">
+        <Form.Label>Building/House Number</Form.Label>
+        <Form.Text className="text-muted">If applicable</Form.Text>
+        <Form.Control type="text" placeholder="" className="w-25" />
+      </Form.Group>
+      <Form.Group className="mb-3" controlId="formBasicUnitNumber">
+        <Form.Label>Unit Number</Form.Label>
+        <Form.Text className="text-muted">If applicable</Form.Text>
+        <Form.Control type="text" className="w-50" />
+      </Form.Group>
+    </Form>
+  );
+};
+
+<Canvas>
+  <Story name="Address">{AddressPattern.bind({})}</Story>
+</Canvas>
+
+```jsx
+import { useState, useRef } from 'react';
+import { Form, Button, Row, Col } from '@govtechsg/sgds-govtech-react';
+
+const [value, setValue] = useState({});
+const inputRef = useRef();
+
+// fetch api example
+const handleSubmit = () => {
+  event.preventDefault();
+  event.stopPropagation();
+  fetch(
+    'https://developers.onemap.sg/commonapi/search?searchVal=' +
+      inputRef.current.value +
+      '&returnGeom=Y&getAddrDetails=Y'
+  )
+    .then((response) => response.json())
+    .then((json) => setValue(json.results[0]));
+};
+
+<Form onSubmit={handleSubmit}>
+  <Form.Group as={Row} className="mb-3" controlId="formBasicPostalCode">
+    <Col xs={4}>
+      <Form.Label>Postal Code</Form.Label>
+      <Form.Control
+        ref={inputRef}
+        type="text"
+        placeholder="e.g 730317"
+        autoComplete="postal-code"
+        maxLength={6}
+      />
+    </Col>
+    <Col xs={12} className="mt-3">
+      <Button type="submit">Find Address</Button>
+    </Col>
+  </Form.Group>
+  <Form.Group className="mb-3" controlId="formBasicStreet">
+    <Form.Label>Block/Street Name</Form.Label>
+    <Form.Control
+      defaultValue={value?.ADDRESS}
+      type="text"
+      placeholder="e.g 220 Pasir Ris Drive 50"
+      autoComplete="street-address"
+      className="w-50"
+    />
+  </Form.Group>
+  <Form.Group className="mb-3" controlId="formBasicBuilding">
+    <Form.Label>Building/House Number</Form.Label>
+    <Form.Text className="text-muted">If applicable</Form.Text>
+    <Form.Control type="text" placeholder="" className="w-25" />
+  </Form.Group>
+  <Form.Group className="mb-3" controlId="formBasicUnitNumber">
+    <Form.Label>Unit Number</Form.Label>
+    <Form.Text className="text-muted">If applicable</Form.Text>
+    <Form.Control type="text" className="w-50" />
+  </Form.Group>
+</Form>;
+```
+
+# Date Pattern
+
+Use this base pattern when you want to ask users for a specific date, e.g their date of birth or when something was issued to them.
+
+**Note**: If you need users to select from a few specific dates, we recommend that you use the `Radio button` component instead to allow them to choose easily. Alternatively, you may use the `DatePicker` component for users to select dates.
+
+You can choose from 2 ways of asking for dates, which can be seen in the examples below.
+
+## Single Date Input
+
+Base format when requiring users to type in dates for your services. Do state clearly how the data should be filled (e.g 01 01 2020 vs 1 1 2020).
+
+export const DatePatternSingle = (args) => {
+  const [validated, setValidated] = useState(false);
+  return (
+    <Form noValidate validated={validated} {...args}>
+      <Form.Group as={Col} className="mb-3">
+        <Form.Label htmlFor="singleDate">Date of Birth</Form.Label>
+        <Form.Text className="text-muted">e.g 01 Jun 1979</Form.Text>
+        <Form.Control
+          className="w-50"
+          type="text"
+          id="singleDate"
+          required
+          onFocus={(e) => setValidated(true)}
+        />
+      </Form.Group>
+    </Form>
+  );
+};
+
+<Canvas>
+  <Story name="Single Date">{DatePatternSingle.bind({})}</Story>
+</Canvas>
+
+```jsx
+import { Form } from '@govtechsg/sgds-govtech-react';
+import { useState } from 'react';
+
+const [validated, setValidated] = useState(false);
+
+<Form noValidate validated={validated}>
+  <Form.Group as={Col} className="mb-3">
+    <Form.Label htmlFor="singleDate">Date of Birth</Form.Label>
+    <Form.Text className="text-muted">e.g 01 Jun 1979</Form.Text>
+    <Form.Control
+      className="w-50"
+      type="text"
+      id="singleDate"
+      required
+      onFocus={(e) => setValidated(true)}
+    />
+  </Form.Group>
+</Form>;
+```
+
+## Isolated Date Input
+
+Base format when requesting users to fill in memorable dates, with the aid of `autoComplete` attribute for these 3 fields, `bday-day`,`bday-month` and `bday-year` to bring convenience to users.
+
+export const DatePatternIsolated = (args) => {
+  const [validated, setValidated] = useState(false);
+  return (
+    <Form noValidate validated={validated} {...args}>
+      <Row xs={8} sm={7} md={6}>
+        <Form.Group as={Col} className="mb-3">
+          <Form.Label htmlFor="dobDay">DD</Form.Label>
+          <Form.Control
+            type="text"
+            id="dobDay"
+            autoComplete="bday-day"
+            pattern="\d*"
+            maxLength={2}
+            required
+            onFocus={(e) => setValidated(true)}
+          />
+        </Form.Group>
+        <Form.Group as={Col} className="mb-3">
+          <Form.Label htmlFor="dobMonth">MM</Form.Label>
+          <Form.Control
+            type="text"
+            id="dobMonth"
+            autoComplete="bday-month"
+            pattern="\d*"
+            maxLength={2}
+            required
+            onFocus={(e) => setValidated(true)}
+          />
+        </Form.Group>
+        <Form.Group as={Col} className="mb-3">
+          <Form.Label htmlFor="dobYear">YYYY</Form.Label>
+          <Form.Control
+            type="text"
+            id="dobYear"
+            autoComplete="bday-year"
+            pattern="\d*"
+            maxLength={4}
+            required
+            onFocus={(e) => setValidated(true)}
+          />
+        </Form.Group>
+      </Row>
+    </Form>
+  );
+};
+
+<Canvas>
+  <Story name="Isolated Date">{DatePatternIsolated.bind({})}</Story>
+</Canvas>
+
+```jsx
+import { Form, Row, Col } from '@govtechsg/sgds-govtech-react';
+import { useState } from 'react';
+
+const [validated, setValidated] = useState(false);
+
+<Form noValidate validated={validated}>
+  <Row xs={8} sm={7} md={6}>
+    <Form.Group as={Col} className="mb-3">
+      <Form.Label htmlFor="dobDay">DD</Form.Label>
+      <Form.Control
+        type="text"
+        id="dobDay"
+        autoComplete="bday-day"
+        pattern="\d*"
+        maxLength={2}
+        required
+        onFocus={(e) => setValidated(true)}
+      />
+    </Form.Group>
+    <Form.Group as={Col} className="mb-3">
+      <Form.Label htmlFor="dobMonth">MM</Form.Label>
+      <Form.Control
+        type="text"
+        id="dobMonth"
+        autoComplete="bday-month"
+        pattern="\d*"
+        maxLength={2}
+        required
+        onFocus={(e) => setValidated(true)}
+      />
+    </Form.Group>
+    <Form.Group as={Col} className="mb-3">
+      <Form.Label htmlFor="dobYear">YYYY</Form.Label>
+      <Form.Control
+        type="text"
+        id="dobYear"
+        autoComplete="bday-year"
+        pattern="\d*"
+        maxLength={4}
+        required
+        onFocus={(e) => setValidated(true)}
+      />
+    </Form.Group>
+  </Row>
+</Form>;
+```
+
+# Email Pattern
+
+Use this base pattern when you need to ask users for their email address.
+
+**Note**: State clearly what their email address will be used for.
+
+export const EmailPattern = (args) => {
+  const [validated, setValidated] = useState(false);
+  return (
+    <Form noValidate validated={validated} {...args}>
+      <Form.Group className="mb-3">
+        <Form.Label htmlFor="email">Email Address</Form.Label>
+        <Form.Text className="text-muted">
+          Your email will only be used for updates
+        </Form.Text>
+        <Form.Control
+          className="w-50"
+          id="email"
+          type="email"
+          placeholder="Enter email"
+          maxLength={256}
+          required
+          autoComplete="email"
+          spellCheck={false}
+          onFocus={(e) => setValidated(true)}
+        />
+      </Form.Group>
+    </Form>
+  );
+};
+
+<Canvas>
+  <Story name="Email">{EmailPattern.bind({})}</Story>
+</Canvas>
+
+```jsx
+import { Form } from '@govtechsg/sgds-govtech-react';
+import { useState } from 'react';
+
+const [validated, setValidated] = useState(false);
+
+<Form noValidate validated={validated}>
+  <Form.Group className="mb-3">
+    <Form.Label htmlFor="email">Email Address</Form.Label>
+    <Form.Text className="text-muted">
+      Your email will only be used for updates
+    </Form.Text>
+    <Form.Control
+      className="w-50"
+      id="email"
+      type="email"
+      placeholder="Enter email"
+      maxLength={256}
+      required
+      autoComplete="email"
+      spellCheck={false}
+      onFocus={(e) => setValidated(true)}
+    />
+  </Form.Group>
+</Form>;
+```
