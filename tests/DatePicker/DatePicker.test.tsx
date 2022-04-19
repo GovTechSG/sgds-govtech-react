@@ -38,7 +38,7 @@ describe('DatePicker', () => {
 
     fireEvent.focus(container.querySelector('input')!);
     await waitFor(() => {
-      expect(container.querySelector('.popover')).toBeInTheDocument();
+      expect(container.querySelector('.popover.datepicker.sgds')).toBeInTheDocument();
       const today = new Date();
       expect(
         getByText(`${MONTH_LABELS[today.getMonth()]} ${today.getFullYear()}`)
