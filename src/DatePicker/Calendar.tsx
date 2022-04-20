@@ -7,7 +7,7 @@ interface CalendarProps extends React.HTMLAttributes<HTMLTableElement> {
   changeDate: (date: Date) => void;
   mode: 'single' | 'range';
 }
-const CELL_PADDING = '5px';
+
 export const DAY_LABELS = ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'];
 export const daysInMonth = [31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31];
 
@@ -82,8 +82,7 @@ export const Calendar = React.forwardRef<HTMLTableElement, CalendarProps>(
           let clickHandler: React.MouseEventHandler | undefined = handleClick;
           const style = {
             cursor: 'pointer',
-            padding: CELL_PADDING,
-            borderRadius: 50,
+            borderRadius: 0,
           };
           if (Date.parse(date) === Date.parse(currentDate.toISOString())) {
             //if selected Date is not current Date
@@ -97,13 +96,13 @@ export const Calendar = React.forwardRef<HTMLTableElement, CalendarProps>(
           if (selectedDates.length > 0) {
             rangeSelectedDates.forEach((d) => {
               if (Date.parse(date) === Date.parse(d.toISOString())) {
-                className = 'bg-primary';
+                className = 'bg-primary-100';
               }
             });
             if (
               Date.parse(date) === Date.parse(selectedDates[0]!.toISOString())
             ) {
-              className = 'bg-primary';
+              className = 'bg-primary-100';
             }
           }
 
@@ -138,7 +137,6 @@ export const Calendar = React.forwardRef<HTMLTableElement, CalendarProps>(
               return (
                 <td
                   key={index}
-                  style={{ padding: CELL_PADDING }}
                 >
                   <small>{label}</small>
                 </td>
