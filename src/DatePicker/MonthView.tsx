@@ -26,17 +26,11 @@ export const MonthView = React.forwardRef<HTMLDivElement, MonthViewProps>(
     const displayMonth = MONTH_LABELS[displayDate.getMonth()];
 
     return (
-      <div className="container text-center" ref={ref} {...props}>
-        <div className="row">
+      <div className="sgds monthpicker" ref={ref} {...props}>
           {MONTH_LABELS.map((m, idx) => (
-            <div
-              className={classNames(displayMonth === m  && 'active', 'col-4')}
-              key={m}
-            >
-              <button onClick={() =>onClickMonth(idx)}>{m}</button>
-            </div>
+            <button className={classNames(displayMonth === m  && 'active', 'month')}
+              key={m} onClick={() =>onClickMonth(idx)}>{m}</button>
           ))}
-        </div>
       </div>
     );
   }   

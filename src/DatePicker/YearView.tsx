@@ -18,17 +18,11 @@ export const YearView = React.forwardRef<HTMLDivElement, YearViewProps>(
     } 
 
     return (
-      <div className="container text-center" ref={ref} {...props}>
-        <div className="row">
-          {yearArray.map((y) => (
-            <div
-              className={classNames(displayYear === y && 'active', 'col-4')}
-              key={y}
-            >
-              <button onClick={() => onClickYear(y)}>{y}</button>
-            </div>
-          ))}
-        </div>
+      <div className="sgds yearpicker" ref={ref} {...props}>
+        {yearArray.map((y) => (
+          <button className={classNames(displayYear === y && 'active', 'year')}
+            key={y} onClick={() => onClickYear(y)}>{y}</button>
+        ))}
       </div>
     );
   }
