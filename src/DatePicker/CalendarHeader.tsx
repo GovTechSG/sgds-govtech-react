@@ -79,7 +79,7 @@ const CalendarHeader: React.FC<CalendarHeaderProps> = ({ ...props }) => {
     } ${props.displayDate.getFullYear()}`;
   };
   return (
-    <div className="text-center d-flex justify-content-around">
+    <div className="text-center d-flex justify-content-between">
       <i className="bi bi-chevron-left" onClick={handleClickPrevious}></i>
 
       <button onClick={changeView} disabled={view === 'year'}>
