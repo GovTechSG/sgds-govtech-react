@@ -20,7 +20,7 @@ describe('CalendarHeader', () => {
 
     expect(asFragment()).toMatchSnapshot();
     expect(
-      container.querySelector('div.d-flex.text-center.justify-content-around')
+      container.querySelector('div.d-flex.text-center.justify-content-between')
     ).toBeInTheDocument();
     expect(
       container.querySelector('div>i.bi.bi-chevron-left')

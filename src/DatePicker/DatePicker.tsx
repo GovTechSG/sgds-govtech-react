@@ -1,8 +1,5 @@
 import * as React from 'react';
-import FormControl from '../Form/FormControl';
 import InputGroup from '../InputGroup/InputGroup';
-import Overlay from '../Overlay/Overlay';
-import Popover from '../Popover/Popover';
 import Calendar from './Calendar';
 import CalendarHeader from './CalendarHeader';
 import { useState, useRef, useMemo } from 'react';
@@ -14,8 +11,11 @@ import PropTypes from 'prop-types';
 import { BsPrefixRefForwardingComponent } from '../utils/helpers';
 import useMergedRefs from '@restart/hooks/useMergedRefs';
 import warning from 'warning';
+import FormToggle from './FormControlToggle';
+import { Dropdown } from '../Dropdown';
+import { DropDirection } from '../Dropdown/DropdownContext';
 
-export type CalendarPlacement = 'top' | 'bottom';
+export type CalendarPlacement = 'up' | 'down';
 export type DateFormat = 'MM/DD/YYYY' | 'DD/MM/YYYY' | 'YYYY/MM/DD';
 export interface RangeSelectionValue {
   start: Date | undefined;
@@ -31,11 +31,8 @@ export interface DatePickerProps {
   placeholder?: string;
   onChangeDate?: (value: Date | RangeSelectionValue | undefined) => void;
   onClear?: Function;
-  onBlur?: React.FocusEventHandler<HTMLInputElement>;
-  onFocus?: React.FocusEventHandler<HTMLInputElement>;
-  autoFocus?: boolean;
   disabled?: boolean;
-  calendarPlacement?: CalendarPlacement | undefined;
+  calendarPlacement?: DropDirection;
   dateFormat?: DateFormat;
   id?: string;
   mode?: 'single' | 'range';
@@ -62,7 +59,7 @@ const propTypes = {
   onFocus: PropTypes.func,
   autoFocus: PropTypes.bool,
   disabled: PropTypes.bool,
-  calendarPlacement: PropTypes.oneOf<CalendarPlacement>(['top', 'bottom']),
+  calendarPlacement: PropTypes.oneOf<DropDirection>(['up', 'down', 'end']),
   /**
    * dateFormat variants
    *
@@ -78,12 +75,10 @@ const propTypes = {
   mode: PropTypes.string,
   flip: PropTypes.bool,
 };
- interface DatePickerState {
+interface DatePickerState {
   displayDate: Date;
   selectedDate: Date[];
   value: Date | RangeSelectionValue | undefined;
-  focused: boolean;
-  inputFocused: boolean;
   invalid: boolean;
 }
 const SEPARATOR = '/';
@@ -126,7 +121,7 @@ export const makeInputValueString = (
 
 const defaultProps: Partial<DatePickerProps> = {
   dateFormat: 'DD/MM/YYYY',
-  calendarPlacement: 'bottom',
+  calendarPlacement: 'down',
   mode: 'single',
   displayDate: new Date(),
   flip: true,
@@ -139,7 +134,7 @@ export const DatePicker: BsPrefixRefForwardingComponent<
   (
     {
       dateFormat = 'DD/MM/YYYY',
-      calendarPlacement = 'bottom',
+      calendarPlacement = 'down',
       mode = 'single',
       displayDate = new Date(),
       flip = true,
@@ -153,7 +148,6 @@ export const DatePicker: BsPrefixRefForwardingComponent<
       ref as React.MutableRefObject<HTMLInputElement>,
       formControlRef
     );
-    const overlayRef = useRef(null);
 
     const initialState: DatePickerState = {
       displayDate: displayDate,
@@ -161,8 +155,6 @@ export const DatePicker: BsPrefixRefForwardingComponent<
       value:
         props.initialValue ??
         (mode === 'range' ? { start: undefined, end: undefined } : undefined),
-      focused: false,
-      inputFocused: false,
       invalid: false,
     };
     const [state, setState] = useState(initialState);
@@ -177,34 +169,7 @@ export const DatePicker: BsPrefixRefForwardingComponent<
     const onChangeMonth = (newDisplayDate: Date) => {
       setState({ ...state, displayDate: newDisplayDate });
     };
-    const handleKeyDown = (e: React.KeyboardEvent) => {
-      if (e.key === 'Tab' && state.inputFocused) {
-        setState({ ...state, focused: false });
-      }
-    };
-    const handleFocus = (event: React.FocusEvent<HTMLInputElement>) => {
-      if (state.focused === true) {
-        return;
-      }
-      setState({
-        ...state,
-        inputFocused: true,
-        focused: true,
-      });
-      if (props.onFocus) {
-        props.onFocus(event);
-      }
-    };
-
-    const handleBlur = (event: React.FocusEvent<HTMLInputElement>) => {
-      setState({
-        ...state,
-        inputFocused: false,
-      });
-      if (props.onBlur) {
-        props.onBlur(event);
-      }
-    };
+   
     const clear = () => {
       setState({
         ...initialState,
@@ -221,15 +186,6 @@ export const DatePicker: BsPrefixRefForwardingComponent<
       }
     };
 
-    const handleHide = () => {
-      if (state.inputFocused) {
-        return;
-      }
-      setState({
-        ...state,
-        focused: false,
-      });
-    };
     //triggered only when clicking dates
 
     const onChangeDateSingle = (newSelectedDate: Date) => {
@@ -238,8 +194,8 @@ export const DatePicker: BsPrefixRefForwardingComponent<
         value: newSelectedDate,
         selectedDate: [newSelectedDate],
         displayDate: newSelectedDate,
-        focused: false,
       });
+      formControlRef?.current?.click();
       if (props.onChangeDate) {
         props.onChangeDate(newSelectedDate);
       }
@@ -248,7 +204,6 @@ export const DatePicker: BsPrefixRefForwardingComponent<
     const onChangeDateRange = (newSelectedDate: Date) => {
       let selectedDates = state.selectedDate;
       let conditionalValue = state.value as RangeSelectionValue;
-      let focused: boolean = state.focused;
       const { start, end } = conditionalValue;
       if ((!start && !end) || (start && end)) {
         conditionalValue.start =
@@ -256,7 +211,6 @@ export const DatePicker: BsPrefixRefForwardingComponent<
           selectedDates[1] =
             newSelectedDate;
         conditionalValue.end = undefined;
-        focused = true;
       }
       if (start && !end) {
         // if selected end date is before selected start date --> swap
@@ -267,16 +221,16 @@ export const DatePicker: BsPrefixRefForwardingComponent<
           conditionalValue.end = newSelectedDate;
         }
         selectedDates[1] = newSelectedDate;
-        focused = false;
       }
       setState({
         ...state,
         value: conditionalValue,
         selectedDate: selectedDates,
         displayDate: newSelectedDate,
-        focused: focused,
       });
-
+      if ((state.value as RangeSelectionValue).end) {
+        formControlRef?.current?.click();
+      }
       if (props.onChangeDate) {
         props.onChangeDate(conditionalValue);
       }
@@ -305,21 +259,15 @@ export const DatePicker: BsPrefixRefForwardingComponent<
       ? `${dateFormat.toLowerCase()} - ${dateFormat.toLowerCase()}`
       : `${dateFormat.toLowerCase()}`;
     const controlProps = {
-      onKeyDown: handleKeyDown,
       value: computeValue(),
       required: props.required,
       placeholder: props.placeholder || defaultPlaceHolder,
       ref: inputRef,
       disabled: props.disabled,
-      onFocus: handleFocus,
-      onBlur: handleBlur,
       readOnly: true,
       className: props.className,
       isInvalid: state.invalid,
     };
-    const control = (
-      <FormControl type="text" autoFocus={props.autoFocus} {...controlProps} />
-    );
 
     const BodyContent = (): JSX.Element => {
       const onClickMonth = (month: number) => {
@@ -376,6 +324,7 @@ export const DatePicker: BsPrefixRefForwardingComponent<
         />
       );
     };
+
     const warningCondition = () => {
       const displayDateStr = makeInputValueString(displayDate, dateFormat);
       if (isRange) {
@@ -396,36 +345,36 @@ export const DatePicker: BsPrefixRefForwardingComponent<
         warningCondition(),
         'In DatePicker `single` mode, `initialValue` is `Date` type and `displayDate` prop must be of same value. In range mode, `initialValue` should be of object {start: Date, end: Date} and `displayDate` prop must be of same value as either `start` or `end`'
       );
-      if(isRange){
+      if (isRange) {
         const { start, end } = props.initialValue as RangeSelectionValue;
-        start && end && warning(start.getTime() <= end.getTime(), '`end` Date cannot be earlier than `start` Date')
+        start &&
+          end &&
+          warning(
+            start.getTime() <= end.getTime(),
+            '`end` Date cannot be earlier than `start` Date'
+          );
       }
     }
-    // add warning for end date is earlier than start date
     return (
       <DatePickerContext.Provider value={contextValue}>
-        <InputGroup variant="has-icon" id={props.id}>
-          <div ref={overlayRef}> {control}</div>
-          <Button onClick={clear} disabled={props.disabled}>
-            <i className="bi bi-x"></i>
-          </Button>
-          <i className="bi bi-calendar form-control-icon"></i>
-          <Overlay
-            rootClose={true}
-            onHide={handleHide}
-            show={state.focused}
-            target={formControlRef.current}
-            placement={calendarPlacement}
-            container={overlayRef}
-            transition={true}
-            flip={flip}
-          >
-            <Popover className='sgds datepicker'>
-              <Popover.Header>{calendarHeader}</Popover.Header>
-              <Popover.Body>{BodyContent()}</Popover.Body>
-            </Popover>
-          </Overlay>
-        </InputGroup>
+        <Dropdown drop={calendarPlacement}>
+          <InputGroup variant="has-icon" id={props.id}>
+            <FormToggle
+              {...controlProps}
+              ref={formControlRef}
+            />
+            <Button onClick={clear} disabled={props.disabled}>
+              <i className="bi bi-x"></i>
+            </Button>
+            <i className="bi bi-calendar form-control-icon"></i>
+          </InputGroup>
+          <Dropdown.Menu className="sgds datepicker">
+            <Dropdown.Header className="datepicker-header">
+              {calendarHeader}
+            </Dropdown.Header>
+            <div className="datepicker-body">{BodyContent()}</div>
+          </Dropdown.Menu>
+        </Dropdown>
       </DatePickerContext.Provider>
     );
   }

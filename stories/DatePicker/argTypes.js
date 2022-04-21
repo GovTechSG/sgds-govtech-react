@@ -20,15 +20,6 @@ export const argTypes = {
     disabled: {
         description: 'Disables the Form Control and Button of Datepicker'
     }, 
-    autoFocus: {
-        description: 'When true, DatePicker is focused on first load'
-    }, 
-    onFocus: {
-        description: 'Focus callback function'
-    },
-    onBlur: {
-        description: 'Blur callback function'
-    },
     onClear: {
         description: 'Clear callback function'
     }, 

@@ -9,12 +9,10 @@ describe('MonthView', () => {
       
         const {container} = render(<MonthView onClickMonth={mockFn} displayDate={displayDate} />)
 
-        expect(container.querySelector('div.container.text-center')).toBeInTheDocument()
-        expect(container.querySelectorAll('div.row').length).toEqual(1)
-        expect(container.querySelectorAll('div.col-4').length).toEqual(12)
-        expect(container.querySelectorAll('button').length).toEqual(12)
-        expect(container.querySelectorAll('div.active').length).toEqual(1) 
-        expect(container.querySelector('div.active')?.textContent).toEqual(MONTH_LABELS[displayDate.getMonth()]) 
+        expect(container.querySelector('.sgds.monthpicker')).toBeInTheDocument()
+        expect(container.querySelectorAll('button.month').length).toEqual(12)
+        expect(container.querySelectorAll('button.active.month').length).toEqual(1) 
+        expect(container.querySelector('button.active')?.textContent).toEqual(MONTH_LABELS[displayDate.getMonth()]) 
 
     }) 
 
