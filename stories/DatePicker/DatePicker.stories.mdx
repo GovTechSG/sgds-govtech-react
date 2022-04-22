@@ -103,32 +103,31 @@ import {
 />;
 ```
 
-<Canvas>
-  <Story
-    name="Initial Value for Single"
-    args={{
-      initialValue: new Date('2020-01-01'),
-      displayDate: new Date('2020-01-01'),
-    }}
-    height="500px"
-  >
-    {DatePickerTemplate.bind({})}
-  </Story>
-  <Story
-    name="Initial Value for Multi"
-    args={{
-      initialValue: {
-        start: new Date('2020-01-01'),
-        end: new Date('2020-01-04'),
-      },
-      displayDate: new Date('2020-01-01'),
-      mode: 'range',
-    }}
-    height="500px"
-  >
-    {DatePickerTemplate.bind({})}
-  </Story>
-</Canvas>
+<Story
+  name="Initial Value for Single"
+  args={{
+    initialValue: new Date('2020-01-01'),
+    displayDate: new Date('2020-01-01'),
+  }}
+  height="500px"
+>
+  {DatePickerTemplate.bind({})}
+</Story>
+
+<Story
+  name="Initial Value for Multi"
+  args={{
+    initialValue: {
+      start: new Date('2020-01-01'),
+      end: new Date('2020-01-04'),
+    },
+    displayDate: new Date('2020-01-01'),
+    mode: 'range',
+  }}
+  height="500px"
+>
+  {DatePickerTemplate.bind({})}
+</Story>
 
 ## Callback Functions
 
@@ -136,42 +135,41 @@ import {
 
 `onClear`, `onChangeDate` of the input, perform a callback.
 
-<Canvas>
-  <Story
-    name="onClear"
-    args={{ onClear: () => alert('cleared!'), placeholder: 'clear me' }}
-    height="500px"
-  >
-    {DatePickerTemplate.bind({})}
-  </Story>
-  <Story
-    name="onChangeDate"
-    args={{
-      onChangeDate: (date) =>
-        alert(`selected ${date ? date.toISOString() : ''}`),
-      placeholder: 'choose a date',
-    }}
-    height="500px"
-  >
-    {DatePickerTemplate.bind({})}
-  </Story>
-  <Story
-    name="onChangeDate Range"
-    args={{
-      mode: 'range',
-      onChangeDate: ({ start, end }) =>
-        alert(
-          `selected start: ${start ? start.toISOString() : ''}, end: ${
-            end ? end.toISOString() : ''
-          }`
-        ),
-      placeholder: 'choose two dates',
-    }}
-    height="500px"
-  >
-    {DatePickerTemplate.bind({})}
-  </Story>
-</Canvas>
+<Story
+  name="onClear"
+  args={{ onClear: () => alert('cleared!'), placeholder: 'clear me' }}
+  height="500px"
+>
+  {DatePickerTemplate.bind({})}
+</Story>
+
+<Story
+  name="onChangeDate"
+  args={{
+    onChangeDate: (date) => alert(`selected ${date ? date.toISOString() : ''}`),
+    placeholder: 'choose a date',
+  }}
+  height="500px"
+>
+  {DatePickerTemplate.bind({})}
+</Story>
+
+<Story
+  name="onChangeDate Range"
+  args={{
+    mode: 'range',
+    onChangeDate: ({ start, end }) =>
+      alert(
+        `selected start: ${start ? start.toISOString() : ''}, end: ${
+          end ? end.toISOString() : ''
+        }`
+      ),
+    placeholder: 'choose two dates',
+  }}
+  height="500px"
+>
+  {DatePickerTemplate.bind({})}
+</Story>
 
 ```jsx
   //onClear
