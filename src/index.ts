@@ -63,6 +63,7 @@ export * from './CloseButton'
 export * from './Collapse'
 // export { default as Collapse } from './Collapse/Collapse';
 // export type { CollapseProps } from './Collapse/Collapse';
+export * from './DatePicker' 
 export * from './Dropdown'
 // export { default as Dropdown } from './Dropdown/Dropdown';
 // export type { DropdownProps } from './Dropdown/Dropdown';

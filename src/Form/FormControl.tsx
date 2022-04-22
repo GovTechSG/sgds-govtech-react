@@ -8,7 +8,7 @@ import FormContext from './FormContext';
 import { useBootstrapPrefix } from '../ThemeProvider/ThemeProvider';
 import { BsPrefixProps, BsPrefixRefForwardingComponent } from '../utils/helpers';
 
-type FormControlElement = HTMLInputElement | HTMLTextAreaElement;
+export type FormControlElement = HTMLInputElement | HTMLTextAreaElement;
 
 export interface FormControlProps
   extends BsPrefixProps,

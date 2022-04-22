@@ -6,9 +6,6 @@ import OverlayTrigger from '../Overlay/OverlayTrigger';
 import TooltipBox from './TooltipBox';
 import CloseButton from '../CloseButton/CloseButton';
 import PropTypes from 'prop-types';
-// import Overlay from 'react-overlays/Overlay'
-// import Overlay from 'react-bootstrap/Overlay'
-// import  OverlayTrigger  from 'react-bootstrap/OverlayTrigger';
 
 export interface TooltipProps {
   placement: TooltipPlacement;
