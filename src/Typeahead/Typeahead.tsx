@@ -8,7 +8,7 @@ import { BsPrefixRefForwardingComponent } from '../utils/helpers';
 import useMergedRefs from '@restart/hooks/useMergedRefs';
 import DropdownItem from '../Dropdown/DropdownItem';
 import { Dropdown } from '..';
-import TypeaheadToggle from './TypeaheadToggle';
+import FormControlToggle from '../Form/FormControlToggle';
 
 export type MenuPlacement = 'up' | 'down';
 
@@ -120,7 +120,7 @@ export const Typeahead: BsPrefixRefForwardingComponent<
       <>
         {label && <FormLabel htmlFor={props.id}>{label}</FormLabel>}
         <Dropdown focusFirstItemOnShow={false} drop={menuPlacement}>
-          <TypeaheadToggle {...controlProps} setIsMenuOpen={setIsMenuOpen} />
+          <FormControlToggle {...controlProps} setIsMenuOpen={setIsMenuOpen} />
           {state.menuList.length > 0 && (
             <DropdownMenu>
               {state.menuList.map((country) => (

@@ -1,0 +1,19 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`CalendarHeader should have default html structure 1`] = `
+<DocumentFragment>
+  <div
+    class="text-center d-flex justify-content-between"
+  >
+    <i
+      class="bi bi-chevron-left"
+    />
+    <button>
+      March 2022
+    </button>
+    <i
+      class="bi bi-chevron-right"
+    />
+  </div>
+</DocumentFragment>
+`;

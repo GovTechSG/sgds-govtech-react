@@ -69,7 +69,7 @@ import '@govtechsg/sgds-govtech/sgds/sgds.scss';
 If you want to modify SGDS's base styling, you can import the Sass source (your project needs to support Sass compilation) and [override SGDS's sass variables](https://www.designsystem.tech.gov.sg/docs/customise-sgds/).
 
 ```
-npm install @govtechsg/sgds-govtech
+npm install @govtechsg/sgds-govtech@alpha
 ```
 
 For example, importing sgds in your own sass file:

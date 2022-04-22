@@ -1,7 +1,6 @@
 /* eslint-disable no-console */
 const { resolve, join, basename } = require('path');
 const { readFile, writeFile, copy } = require('fs-extra');
-
 const packagePath = process.cwd();
 const distPath = join(packagePath, './dist');
 
@@ -19,7 +18,7 @@ async function createPackageFile() {
     ...packageOthers,
     private: false,
     typings: './index.d.ts',
-    main: './main.js',
+    main: './cjs/index.js',
     module: './index.js',
   };
 

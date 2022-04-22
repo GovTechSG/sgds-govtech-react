@@ -8,17 +8,17 @@ import useMergedRefs from '@restart/hooks/useMergedRefs';
 import InputGroupContext from '../InputGroup/InputGroupContext';
 import useWrappedRefWithWarning from '../utils/useWrappedRefWithWarning';
 import { BsPrefixRefForwardingComponent } from '../utils/helpers';
-import FormControl, { FormControlProps } from '../Form/FormControl';
+import FormControl, { FormControlProps } from './FormControl';
 
-export interface TypeaheadToggleProps extends Omit<FormControlProps, 'type'> {
+export interface FormControlToggleProps extends Omit<FormControlProps, 'type'> {
   as?: React.ElementType;
   childBsPrefix?: string;
-  setIsMenuOpen: Function
+  setIsMenuOpen?: Function;
 }
 
-type TypeaheadToggleComponent = BsPrefixRefForwardingComponent<
+type FormControlToggleComponent = BsPrefixRefForwardingComponent<
   'input',
-  TypeaheadToggleProps
+  FormControlToggleProps
 >;
 
 const propTypes = {
@@ -42,9 +42,10 @@ const propTypes = {
    * @private
    */
   childBsPrefix: PropTypes.string,
+  setIsMenuOpen: PropTypes.func
 };
 
-const TypeaheadToggle: TypeaheadToggleComponent = React.forwardRef(
+const FormToggle: FormControlToggleComponent = React.forwardRef(
   (
     {
       bsPrefix,
@@ -54,28 +55,26 @@ const TypeaheadToggle: TypeaheadToggleComponent = React.forwardRef(
       // Need to define the default "as" during prop destructuring to be compatible with styled-components github.com/react-bootstrap/react-bootstrap/issues/3595
       as: Component = FormControl,
       ...props
-    }: TypeaheadToggleProps,
-    ref,
+    }: FormControlToggleProps,
+    ref
   ) => {
-    const prefix = 'dropdown-toggle'
+    const prefix = 'dropdown-toggle';
     const dropdownContext = useContext(DropdownContext);
     const isInputGroup = useContext(InputGroupContext);
-
-
     if (childBsPrefix !== undefined) {
       (props as any).bsPrefix = childBsPrefix;
     }
     const [toggleProps] = useDropdownToggle();
     toggleProps.ref = useMergedRefs(
       toggleProps.ref,
-      useWrappedRefWithWarning(ref, 'DropdownToggle'),
+      useWrappedRefWithWarning(ref, 'DropdownToggle')
     );
-  
 
-    React.useEffect(() => {
-      setIsMenuOpen(dropdownContext?.show)
-    }, [dropdownContext?.show])
-   
+    if (setIsMenuOpen) {
+      React.useEffect(() => {
+        setIsMenuOpen(dropdownContext?.show);
+      }, [dropdownContext?.show]);
+    }
     // This intentionally forwards size and variant (if set) to the
     // underlying component, to allow it to render size and style variants.
     return (
@@ -83,16 +82,16 @@ const TypeaheadToggle: TypeaheadToggleComponent = React.forwardRef(
         className={classNames(
           className,
           prefix,
-          !!isInputGroup && dropdownContext?.show && 'show',
+          !!isInputGroup && dropdownContext?.show && 'show'
         )}
         {...toggleProps}
         {...props}
       />
     );
-  },
+  }
 );
 
-TypeaheadToggle.displayName = 'TypeaheadToggle';
-TypeaheadToggle.propTypes = propTypes;
+FormToggle.displayName = 'FormToggle';
+FormToggle.propTypes = propTypes;
 
-export default TypeaheadToggle;
+export default FormToggle;
