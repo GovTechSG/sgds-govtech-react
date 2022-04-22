@@ -418,4 +418,15 @@ describe('<Typeahead>', () => {
     expect(container.firstElementChild?.classList).toContain('form-label');
     expect(getByText('test')).toBeInTheDocument();
   });
+
+  it('hasIcon by default', () => {
+    const { container } = render(<Typeahead menuList={menuList}/>)
+    expect(container.querySelector('i.bi-search')).toBeInTheDocument()
+
+  })
+  it('when hasIcon false, no icon in container', () => {
+    const { container } = render(<Typeahead menuList={menuList} hasIcon={false}/>)
+
+    expect(container.querySelector('i')).not.toBeInTheDocument()
+  })
 });

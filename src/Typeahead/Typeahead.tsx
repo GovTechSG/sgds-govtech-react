@@ -1,7 +1,7 @@
 import DropdownMenu from '../Dropdown/DropdownMenu';
 import * as React from 'react';
 import { FormControlProps } from '../Form/FormControl';
-import  FormLabel  from '../Form/FormLabel';
+import FormLabel from '../Form/FormLabel';
 import { useState, useRef } from 'react';
 import PropTypes from 'prop-types';
 import { BsPrefixRefForwardingComponent } from '../utils/helpers';
@@ -9,6 +9,7 @@ import useMergedRefs from '@restart/hooks/useMergedRefs';
 import DropdownItem from '../Dropdown/DropdownItem';
 import { Dropdown } from '..';
 import FormControlToggle from '../Form/FormControlToggle';
+import InputGroup from '../InputGroup/InputGroup';
 
 export type MenuPlacement = 'up' | 'down';
 
@@ -20,7 +21,8 @@ export interface TypeaheadProps extends Omit<FormControlProps, 'type'> {
     val: string,
     e?: React.ChangeEvent<HTMLInputElement> | React.MouseEvent<HTMLLIElement>
   ) => void;
-  label? : string;
+  label?: string;
+  hasIcon?: boolean;
 }
 
 const propTypes = {
@@ -28,7 +30,8 @@ const propTypes = {
   onChangeInput: PropTypes.func,
   menuPlacement: PropTypes.oneOf<MenuPlacement>(['up', 'down']),
   menuList: PropTypes.arrayOf(PropTypes.string).isRequired,
-  label: PropTypes.string
+  label: PropTypes.string,
+  hasIcon: PropTypes.bool
 };
 
 interface TypeaheadState {
@@ -39,6 +42,8 @@ interface TypeaheadState {
 
 const defaultProps: Partial<TypeaheadProps> = {
   menuPlacement: 'down',
+  initialValue : '',
+  hasIcon : true
 };
 
 export const Typeahead: BsPrefixRefForwardingComponent<
@@ -52,6 +57,7 @@ export const Typeahead: BsPrefixRefForwardingComponent<
       initialValue = '',
       onChangeInput,
       label = '',
+      hasIcon = true,
       ...props
     },
     ref
@@ -120,7 +126,14 @@ export const Typeahead: BsPrefixRefForwardingComponent<
       <>
         {label && <FormLabel htmlFor={props.id}>{label}</FormLabel>}
         <Dropdown focusFirstItemOnShow={false} drop={menuPlacement}>
-          <FormControlToggle {...controlProps} setIsMenuOpen={setIsMenuOpen} />
+          <InputGroup variant={hasIcon ? 'has-icon' : undefined}>
+           {hasIcon && <i className="bi bi-search form-control-icon"></i>}
+            <FormControlToggle
+              {...controlProps}
+              setIsMenuOpen={setIsMenuOpen}
+            />
+          </InputGroup> 
+
           {state.menuList.length > 0 && (
             <DropdownMenu>
               {state.menuList.map((country) => (
