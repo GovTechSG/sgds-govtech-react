@@ -11,7 +11,7 @@ import PropTypes from 'prop-types';
 import { BsPrefixRefForwardingComponent } from '../utils/helpers';
 import useMergedRefs from '@restart/hooks/useMergedRefs';
 import warning from 'warning';
-import FormToggle from './FormControlToggle';
+import FormToggle from '../Form/FormControlToggle';
 import { Dropdown } from '../Dropdown';
 import { DropDirection } from '../Dropdown/DropdownContext';
 

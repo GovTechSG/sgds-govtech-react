@@ -8,7 +8,7 @@ import useMergedRefs from '@restart/hooks/useMergedRefs';
 import InputGroupContext from '../InputGroup/InputGroupContext';
 import useWrappedRefWithWarning from '../utils/useWrappedRefWithWarning';
 import { BsPrefixRefForwardingComponent } from '../utils/helpers';
-import FormControl, { FormControlProps } from '../Form/FormControl';
+import FormControl, { FormControlProps } from './FormControl';
 
 export interface FormControlToggleProps extends Omit<FormControlProps, 'type'> {
   as?: React.ElementType;
@@ -42,6 +42,7 @@ const propTypes = {
    * @private
    */
   childBsPrefix: PropTypes.string,
+  setIsMenuOpen: PropTypes.func
 };
 
 const FormToggle: FormControlToggleComponent = React.forwardRef(
