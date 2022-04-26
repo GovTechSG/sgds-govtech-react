@@ -48,9 +48,9 @@ import { Tabs, Tab } from '../../src';
       control: {
         type: 'radio',
       },
-      options: ['tabs', 'info-tabs'],
+      options: ['tabs', 'tabs-info'],
       table: {
-        type: { summary: 'tabs | info-tabs' },
+        type: { summary: 'tabs | tabs-info' },
       },
     },
     transition: {
@@ -61,12 +61,7 @@ import { Tabs, Tab } from '../../src';
 
 export const Template = (args) => {
   return (
-    <Tabs
-      {...args}
-      defaultActiveKey="profile"
-      id="uncontrolled-tab-example"
-      className="mb-3"
-    >
+    <Tabs {...args} defaultActiveKey="profile" id="uncontrolled-tab-example">
       <Tab
         {...args}
         eventKey="home"
@@ -102,11 +97,36 @@ Tabs are a navigation element resembling tabbed dividers in a filing cabinet –
 
 <ArgsTable story="Default" />
 
+```jsx
+import { Tabs, Tab } from '@govtechsg/sgds-govtech-react';
+
+<Tabs defaultActiveKey="profile" id="uncontrolled-tab-example">
+  <Tab
+    eventKey="home"
+    title="Home"
+    icon={<i className="bi bi-arrow-up-right-square"></i>}
+    additionalTitle={2}
+  >
+    Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod
+    tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam,
+    quis nostrud exercitation ullamco
+  </Tab>
+  <Tab eventKey="profile" title="Profile">
+    Contrary to popular belief, Lorem Ipsum is not simply random text. It has
+    roots in a piece of classical Latin literature from 45 BC, making it over
+    2000 years old. Richard McClintock, a Latin professor at Hampden-Sydney
+    College in Virginia, looked up one of the more obscure Latin words,
+    consectetur, from a Lorem Ipsum
+  </Tab>
+  <Tab eventKey="contact" title="Contact" disabled></Tab>
+</Tabs>;
+```
+
 As our components are built on top of `React-Bootstrap` library, do check out the detailed `Tabs` API references <a href="https://react-bootstrap.github.io/components/tabs/" target="_blank">here</a>.
 
-## Variant Info-Tab
+## Variant Tabs-info
 
-By selecting `variant='info-tabs`, you may insert `additionalTitle` within tabs for displaying extra content. e.g displaying quantity or displaying status
+By selecting `variant='tabs-info`, you may insert `additionalTitle` within tabs for displaying extra content. e.g displaying quantity or displaying status
 
 export const Variant = (args) => {
   return (
@@ -114,7 +134,7 @@ export const Variant = (args) => {
       {...args}
       defaultActiveKey="approvals"
       id="uncontrolled-tab-example"
-      className="mb-3"
+      variant="tabs-info"
     >
       <Tab
         {...args}
@@ -151,5 +171,45 @@ export const Variant = (args) => {
 };
 
 <Canvas>
-  <Story name="Variant Info-tabs">{Variant.bind({})}</Story>
+  <Story name="Variant Tabs-info">{Variant.bind({})}</Story>
 </Canvas>
+
+```jsx
+import { Tabs, Tab } from '@govtechsg/sgds-govtech-react';
+
+<Tabs
+  defaultActiveKey="approvals"
+  id="uncontrolled-tab-example"
+  variant="tabs-info"
+>
+  <Tab
+    eventKey="approvals"
+    title="All Approvals"
+    icon={<i className="bi bi-arrow-up-right-square"></i>}
+    additionalTitle={1}
+  >
+    Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod
+    tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam,
+    quis nostrud exercitation ullamco
+  </Tab>
+  <Tab
+    eventKey="pending"
+    icon={<i className="bi bi-arrow-up-right-square"></i>}
+    additionalTitle={1}
+    title="Pending"
+  >
+    Contrary to popular belief, Lorem Ipsum is not simply random text. It has
+    roots in a piece of classical Latin literature from 45 BC, making it over
+    2000 years old. Richard McClintock, a Latin professor at Hampden-Sydney
+    College in Virginia, looked up one of the more obscure Latin words,
+    consectetur, from a Lorem Ipsum
+  </Tab>
+  <Tab
+    eventKey="approved"
+    title="Approved"
+    icon={<i className="bi bi-arrow-up-right-square"></i>}
+    additionalTitle={1}
+    disabled
+  ></Tab>
+</Tabs>;
+```

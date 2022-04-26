@@ -18,7 +18,7 @@ import {
 } from '../utils/helpers';
 
 export interface NavProps extends BsPrefixProps, BaseNavProps {
-  // variant?: 'tabs' | 'pills';
+  variant?: 'tabs';
   navbarScroll?: boolean;
   defaultActiveKey?: EventKey;
 }
@@ -37,9 +37,9 @@ const propTypes = {
   /**
    * The visual variant of the nav items.
    *
-  //  * @type {('tabs'|'pills')}
+  //  * @type {('tabs')}
   //  */
-  // variant: PropTypes.string,
+  variant: PropTypes.string,
 
   /**
    * Marks the NavItem with a matching `eventKey` (or `href` if present) as active.
@@ -125,6 +125,7 @@ const Nav: BsPrefixRefForwardingComponent<'ul', NavProps> = React.forwardRef<
           [bsPrefix]: !isNavbar,
           [`${navbarBsPrefix}-nav`]: isNavbar,
           [`${navbarBsPrefix}-nav-scroll`]: isNavbar && navbarScroll,
+          ['nav-tabs']: !isNavbar,
           ['sgds']: !isNavbar,
         })}
         {...props}

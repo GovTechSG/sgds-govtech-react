@@ -18,7 +18,7 @@ export type TabsProps = Omit<BaseTabsProps, 'transition'> &
   } & (
     | { variant?: 'tabs'; icon?: React.ReactNode; additionalTitle?: never }
     | {
-        variant?: 'info-tabs';
+        variant?: 'tabs-info';
         additionalTitle?: React.ReactNode;
         icon?: React.ReactNode;
       }
@@ -38,11 +38,11 @@ const propTypes = {
   /**
    * Navigation style
    *
-   * @type {('tabs'| 'info-tabs')}
+   * @type {('tabs'| 'tabs-info')}
    */
   variant: PropTypes.string,
 
-  // extra info when variant="info-tabs"
+  // extra info when variant="tabs-info"
   additionalTitle: PropTypes.node,
 
   // icon prop
