@@ -1,6 +1,6 @@
 import { ArgsTable, Canvas, Meta, Story } from '@storybook/addon-docs';
 import { useState, useRef } from 'react';
-import { Form, Button, Row, Col } from '../../src/index';
+import { Form, Button, Row, Col, InputGroup, Card } from '../../src/index';
 
 <Meta title="Components/Form/Patterns" component={Form} />
 
@@ -14,7 +14,7 @@ Pairing `<Form.Label>` with `<Form.Control>` can simply be done by including **h
 
 **Note**: Give your users the option to either key in their postal code to look up their address, or enter their full address manually.
 
-export const AddressPattern = (args) => {
+export const AddressPatternTemplate = (args) => {
   const [value, setValue] = useState({});
   const inputRef = useRef();
   const handleSubmit = () => {
@@ -70,7 +70,7 @@ export const AddressPattern = (args) => {
 };
 
 <Canvas>
-  <Story name="Address">{AddressPattern.bind({})}</Story>
+  <Story name="Address">{AddressPatternTemplate.bind({})}</Story>
 </Canvas>
 
 ```jsx
@@ -144,7 +144,7 @@ You can choose from 2 ways of asking for dates, which can be seen in the example
 
 Base format when requiring users to type in dates for your services. Do state clearly how the data should be filled (e.g 01 01 2020 vs 1 1 2020).
 
-export const DatePatternSingle = (args) => {
+export const DatePatternSingleTemplate = (args) => {
   const [validated, setValidated] = useState(false);
   return (
     <Form noValidate validated={validated} {...args}>
@@ -164,7 +164,7 @@ export const DatePatternSingle = (args) => {
 };
 
 <Canvas>
-  <Story name="Single Date">{DatePatternSingle.bind({})}</Story>
+  <Story name="Single Date">{DatePatternSingleTemplate.bind({})}</Story>
 </Canvas>
 
 ```jsx
@@ -192,7 +192,7 @@ const [validated, setValidated] = useState(false);
 
 Base format when requesting users to fill in memorable dates, with the aid of `autoComplete` attribute for these 3 fields, `bday-day`,`bday-month` and `bday-year` to bring convenience to users.
 
-export const DatePatternIsolated = (args) => {
+export const DatePatternIsolatedTemplate = (args) => {
   const [validated, setValidated] = useState(false);
   return (
     <Form noValidate validated={validated} {...args}>
@@ -239,7 +239,7 @@ export const DatePatternIsolated = (args) => {
 };
 
 <Canvas>
-  <Story name="Isolated Date">{DatePatternIsolated.bind({})}</Story>
+  <Story name="Isolated Date">{DatePatternIsolatedTemplate.bind({})}</Story>
 </Canvas>
 
 ```jsx
@@ -296,7 +296,7 @@ Use this base pattern when you need to ask users for their email address.
 
 **Note**: State clearly what their email address will be used for.
 
-export const EmailPattern = (args) => {
+export const EmailPatternTemplate = (args) => {
   const [validated, setValidated] = useState(false);
   return (
     <Form noValidate validated={validated} {...args}>
@@ -322,7 +322,7 @@ export const EmailPattern = (args) => {
 };
 
 <Canvas>
-  <Story name="Email">{EmailPattern.bind({})}</Story>
+  <Story name="Email">{EmailPatternTemplate.bind({})}</Story>
 </Canvas>
 
 ```jsx
@@ -350,4 +350,354 @@ const [validated, setValidated] = useState(false);
     />
   </Form.Group>
 </Form>;
+```
+
+# Phone Number
+
+Use this pattern when you need to ask users for their phone number
+
+**Note**: State clearly what their phone number will be used for.
+
+export const PhonePatternTemplate = (args) => {
+  return (
+    <>
+      <Form.Label htmlFor="phone">Phone Number</Form.Label>
+      <InputGroup className="mb-3 w-50">
+        <InputGroup.Text id="basic-addon1">+65</InputGroup.Text>
+        <Form.Control
+          id="phone"
+          type="text"
+          placeholder="12345678"
+          aria-label="Phone"
+          aria-describedby="basic-addon1"
+          pattern="\d*"
+          maxLength="8"
+          autoComplete="tel-local"
+          required
+        />
+      </InputGroup>
+    </>
+  );
+};
+
+<Canvas>
+  <Story name="Phone Number">{PhonePatternTemplate.bind({})}</Story>
+</Canvas>
+
+```jsx
+import { InputGroup,Form } from '@govtechsg/sgds-govtech-react';
+
+<Form.Label htmlFor="phone">Phone Number</Form.Label>
+<InputGroup className="mb-3 w-50">
+  <InputGroup.Text id="basic-addon1">+65</InputGroup.Text>
+  <Form.Control
+          id="phone"
+          type="text"
+          placeholder="12345678"
+          aria-label="Phone"
+          aria-describedby="basic-addon1"
+          pattern="\d*"
+          maxLength="8"
+          autoComplete="tel-local"
+          required
+    />
+</InputGroup>
+```
+
+# Name
+
+Use this pattern when you need to ask users for their names.
+
+## General name field
+
+You should follow this pattern when you need to ask for a user’s name. You should only ask for names if you need it for a service.
+
+export const NamePatternTemplate = (args) => {
+  return (
+    <Form>
+      <Form.Group as={Col} xs={6} className="mb-3" controlId="fullName">
+        <Form.Label>Fullname as per NRIC</Form.Label>
+        <Form.Control
+          type="text"
+          autoComplete="name"
+          name="name"
+          spellCheck={false}
+          required
+        />
+      </Form.Group>
+    </Form>
+  );
+};
+
+<Canvas>
+  <Story name="General name">{NamePatternTemplate.bind({})}</Story>
+</Canvas>
+
+```jsx
+import { Form, Col } from '@govtechsg/sgds-govtech-react';
+
+<Form>
+  <Form.Group as={Col} xs={6} className="mb-3" controlId="fullName">
+    <Form.Label>Fullname as per NRIC</Form.Label>
+    <Form.Control
+      type="text"
+      autoComplete="name"
+      name="name"
+      spellCheck={false}
+      required
+    />
+  </Form.Group>
+</Form>;
+```
+
+## Multiline name field
+
+You should follow this pattern when you know that your users will follow the given-name and family-name convention.
+
+export const MultilineNamePatternTemplate = (args) => {
+  return (
+    <Form>
+      <Form.Group as={Col} xs={6} className="mb-3" controlId="givenName">
+        <Form.Label>Given Name</Form.Label>
+        <Form.Control
+          type="text"
+          autoComplete="given-name"
+          name="given-name"
+          spellCheck={false}
+          required
+        />
+      </Form.Group>
+      <Form.Group as={Col} xs={6} className="mb-3" controlId="familyName">
+        <Form.Label>Family Name</Form.Label>
+        <Form.Control
+          type="text"
+          autoComplete="family-name"
+          name="family-name"
+          spellCheck={false}
+          required
+        />
+      </Form.Group>
+    </Form>
+  );
+};
+
+<Canvas>
+  <Story name="Multiline name">{MultilineNamePatternTemplate.bind({})}</Story>
+</Canvas>
+
+```jsx
+import { Form, Col } from '@govtechsg/sgds-govtech-react';
+
+<Form>
+  <Form.Group as={Col} xs={6} className="mb-3" controlId="givenName">
+    <Form.Label>Given Name</Form.Label>
+    <Form.Control
+      type="text"
+      autoComplete="given-name"
+      name="given-name"
+      spellCheck={false}
+      required
+    />
+  </Form.Group>
+  <Form.Group as={Col} xs={6} className="mb-3" controlId="familyName">
+    <Form.Label>Family Name</Form.Label>
+    <Form.Control
+      type="text"
+      autoComplete="family-name"
+      name="family-name"
+      spellCheck={false}
+      required
+    />
+  </Form.Group>
+</Form>;
+```
+
+# Payment
+
+Use this pattern when you need to ask for their payment details.
+
+export const PaymentPatternTemplate = (args) => {
+  return (
+    <Form>
+      <Form.Group as={Col} xs={6} className="mb-3" controlId="fullName2">
+        <Form.Label>Name on card</Form.Label>
+        <Form.Control
+          type="text"
+          autoComplete="name"
+          name="name"
+          spellCheck={false}
+          required
+        />
+      </Form.Group>
+      <Form.Group as={Col} xs={6} className="mb-3" controlId="cardNumber">
+        <Form.Label>Card number</Form.Label>
+        <Form.Text className="text-muted">
+          Enter the 16-digit number on the card
+        </Form.Text>
+        <Form.Control
+          type="text"
+          autoComplete="cc-number"
+          name="cc-number"
+          pattern="\d*"
+          maxLength="16"
+          required
+        />
+      </Form.Group>
+      <Row>
+        <Form.Group as={Col} xs={3} className="mb-3" controlId="expiryDate">
+          <Form.Label>Expiry date</Form.Label>
+          <Form.Text className="text-muted">MM/YY</Form.Text>
+          <Form.Control
+            type="text"
+            autoComplete="cc-exp"
+            pattern="\d*"
+            maxLength="4"
+            name="cc-exp"
+            required
+          />
+        </Form.Group>
+        <Form.Group as={Col} xs={3} className="mb-3" controlId="cvv">
+          <Form.Label>CVV</Form.Label>
+          <Form.Text className="text-muted">
+            The 3 digit number at the back of card
+          </Form.Text>
+          <Form.Control
+            type="text"
+            autoComplete="cc-csc"
+            pattern="\d*"
+            maxLength="3"
+            name="cc-csc"
+            required
+          />
+        </Form.Group>
+      </Row>
+    </Form>
+  );
+};
+
+<Canvas>
+  <Story name="Payment">{PaymentPatternTemplate.bind({})}</Story>
+</Canvas>
+
+```jsx
+import { Form, Row, Col } from '@govtechsg/sgds-govtech-react';
+
+<Form>
+  <Form.Group as={Col} xs={6} className="mb-3" controlId="fullName2">
+    <Form.Label>Name on card</Form.Label>
+    <Form.Control
+      type="text"
+      autoComplete="name"
+      name="name"
+      spellCheck={false}
+      required
+    />
+  </Form.Group>
+  <Form.Group as={Col} xs={6} className="mb-3" controlId="cardNumber">
+    <Form.Label>Card number</Form.Label>
+    <Form.Text className="text-muted">
+      Enter the 16-digit number on the card
+    </Form.Text>
+    <Form.Control
+      type="text"
+      autoComplete="cc-number"
+      name="cc-number"
+      pattern="\d*"
+      maxLength="16"
+      required
+    />
+  </Form.Group>
+  <Row>
+    <Form.Group as={Col} xs={3} className="mb-3" controlId="expiryDate">
+      <Form.Label>Expiry date</Form.Label>
+      <Form.Text className="text-muted">MM/YY</Form.Text>
+      <Form.Control
+        type="text"
+        autoComplete="cc-exp"
+        name="cc-exp"
+        pattern="\d*"
+        maxLength="4"
+        required
+      />
+    </Form.Group>
+    <Form.Group as={Col} xs={3} className="mb-3" controlId="cvv">
+      <Form.Label>CVV</Form.Label>
+      <Form.Text className="text-muted">
+        The 3 digit number at the back of card
+      </Form.Text>
+      <Form.Control
+        type="text"
+        autoComplete="cc-csc"
+        name="cc-csc"
+        pattern="\d*"
+        maxLength="3"
+        required
+      />
+    </Form.Group>
+  </Row>
+</Form>;
+```
+
+# Error Summary
+
+Use this pattern to showcase a summary of errors the user has made at the top of the page. Refer to the `Card` component for further details on usage.
+
+export const ErrorSummaryTemplate = (args) => {
+  return (
+    <Col xs={6}>
+      <Card border="danger" style={{ backgroundColor: '#FFF4F3' }}>
+        <Card.Body>
+          <Card.Title as="h3">
+            There is a problem with your submission
+          </Card.Title>
+          <Row>
+            <Card.Text as="a" style={{ color: '#D7260F' }}>
+              The date format entered is wrong
+            </Card.Text>
+          </Row>
+          <Row>
+            <Card.Text as="a" style={{ color: '#D7260F' }}>
+              Address must be filled in
+            </Card.Text>
+          </Row>
+          <Row>
+            <Card.Text as="a" style={{ color: '#D7260F' }}>
+              Email address is not valid
+            </Card.Text>
+          </Row>
+        </Card.Body>
+      </Card>
+    </Col>
+  );
+};
+
+<Canvas>
+  <Story name="Error Summary">{ErrorSummaryTemplate.bind({})}</Story>
+</Canvas>
+
+```jsx
+import { Card, Row, Col } from '@govtechsg/sgds-govtech-react';
+
+<Col xs={6}>
+  <Card border="danger" style={{ backgroundColor: '#FFF4F3' }}>
+    <Card.Body>
+      <Card.Title as="h3">There is a problem with your submission</Card.Title>
+      <Row>
+        <Card.Text as="a" style={{ color: '#D7260F' }}>
+          The date format entered is wrong
+        </Card.Text>
+      </Row>
+      <Row>
+        <Card.Text as="a" style={{ color: '#D7260F' }}>
+          Address must be filled in
+        </Card.Text>
+      </Row>
+      <Row>
+        <Card.Text as="a" style={{ color: '#D7260F' }}>
+          Email address is not valid
+        </Card.Text>
+      </Row>
+    </Card.Body>
+  </Card>
+</Col>;
 ```
