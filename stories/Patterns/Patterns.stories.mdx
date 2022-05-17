@@ -544,7 +544,7 @@ export const PaymentPatternTemplate = (args) => {
         />
       </Form.Group>
       <Row>
-        <Form.Group as={Col} xs={3} className="mb-3" controlId="expiryDate">
+        <Form.Group as={Col} xs={2} className="mb-3" controlId="expiryDate">
           <Form.Label>Expiry date</Form.Label>
           <Form.Text className="text-muted">MM/YY</Form.Text>
           <Form.Control
@@ -556,7 +556,7 @@ export const PaymentPatternTemplate = (args) => {
             required
           />
         </Form.Group>
-        <Form.Group as={Col} xs={3} className="mb-3" controlId="cvv">
+        <Form.Group as={Col} xs={4} className="mb-3" controlId="cvv">
           <Form.Label>CVV</Form.Label>
           <Form.Text className="text-muted">
             The 3 digit number at the back of card
@@ -608,7 +608,7 @@ import { Form, Row, Col } from '@govtechsg/sgds-govtech-react';
     />
   </Form.Group>
   <Row>
-    <Form.Group as={Col} xs={3} className="mb-3" controlId="expiryDate">
+    <Form.Group as={Col} xs={2} className="mb-3" controlId="expiryDate">
       <Form.Label>Expiry date</Form.Label>
       <Form.Text className="text-muted">MM/YY</Form.Text>
       <Form.Control
@@ -620,7 +620,7 @@ import { Form, Row, Col } from '@govtechsg/sgds-govtech-react';
         required
       />
     </Form.Group>
-    <Form.Group as={Col} xs={3} className="mb-3" controlId="cvv">
+    <Form.Group as={Col} xs={4} className="mb-3" controlId="cvv">
       <Form.Label>CVV</Form.Label>
       <Form.Text className="text-muted">
         The 3 digit number at the back of card
@@ -651,17 +651,17 @@ export const ErrorSummaryTemplate = (args) => {
             There is a problem with your submission
           </Card.Title>
           <Row>
-            <Card.Text as="a" style={{ color: '#D7260F' }}>
+            <Card.Text as="a" className="text-danger">
               The date format entered is wrong
             </Card.Text>
           </Row>
           <Row>
-            <Card.Text as="a" style={{ color: '#D7260F' }}>
+            <Card.Text as="a" className="text-danger">
               Address must be filled in
             </Card.Text>
           </Row>
           <Row>
-            <Card.Text as="a" style={{ color: '#D7260F' }}>
+            <Card.Text as="a" className="text-danger">
               Email address is not valid
             </Card.Text>
           </Row>
@@ -683,17 +683,17 @@ import { Card, Row, Col } from '@govtechsg/sgds-govtech-react';
     <Card.Body>
       <Card.Title as="h3">There is a problem with your submission</Card.Title>
       <Row>
-        <Card.Text as="a" style={{ color: '#D7260F' }}>
+        <Card.Text as="a" className="text-danger">
           The date format entered is wrong
         </Card.Text>
       </Row>
       <Row>
-        <Card.Text as="a" style={{ color: '#D7260F' }}>
+        <Card.Text as="a" className="text-danger">
           Address must be filled in
         </Card.Text>
       </Row>
       <Row>
-        <Card.Text as="a" style={{ color: '#D7260F' }}>
+        <Card.Text as="a" className="text-danger">
           Email address is not valid
         </Card.Text>
       </Row>
