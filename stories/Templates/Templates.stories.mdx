@@ -402,7 +402,7 @@ A base collection of field components rendered within multi collapsible tabs.
 export const AccordionSinglePageTemplate = (args) => {
   return (
     <>
-      <Accordion defaultActiveKey="0" className="mb-4">
+      <Accordion defaultActiveKey="0" className="mb-4" {...args}>
         <Accordion.Item eventKey="0">
           <Accordion.Header>Header 1</Accordion.Header>
           <Accordion.Body>
