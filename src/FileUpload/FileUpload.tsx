@@ -50,7 +50,6 @@ const propTypes = {
   onChangeFile: PropTypes.func.isRequired,
 
   selectedFile: PropTypes.oneOfType([
-    PropTypes.instanceOf(FileList),
     PropTypes.object,
   ]).isRequired,
 };
