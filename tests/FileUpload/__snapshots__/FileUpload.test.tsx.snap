@@ -2,9 +2,7 @@
 
 exports[`<FileUpload> Should output a child button element 1`] = `
 <DocumentFragment>
-  <div
-    class=""
-  >
+  <div>
     <input
       class="d-none form-control"
       id="test123"
@@ -20,16 +18,13 @@ exports[`<FileUpload> Should output a child button element 1`] = `
   </div>
   <ul
     class="fileupload-list sgds"
-    style="list-style: none; padding-left: 0px;"
   />
 </DocumentFragment>
 `;
 
 exports[`<FileUpload> Should output a child input element 1`] = `
 <DocumentFragment>
-  <div
-    class=""
-  >
+  <div>
     <input
       class="d-none form-control"
       id="test123"
@@ -45,16 +40,13 @@ exports[`<FileUpload> Should output a child input element 1`] = `
   </div>
   <ul
     class="fileupload-list sgds"
-    style="list-style: none; padding-left: 0px;"
   />
 </DocumentFragment>
 `;
 
 exports[`<FileUpload> should have li named 'test.txt' and not 'hello.txt', upon removeFile 1`] = `
 <DocumentFragment>
-  <div
-    class=""
-  >
+  <div>
     <input
       class="d-none form-control"
       id="test123"
@@ -70,80 +62,63 @@ exports[`<FileUpload> should have li named 'test.txt' and not 'hello.txt', upon 
   </div>
   <ul
     class="fileupload-list sgds"
-    style="list-style: none; padding-left: 0px;"
   >
     <li
       class="fileupload-list-item"
-      style="display: flex;"
     >
       <i
         class="bi bi-check me-2 check-icon"
-        style="color: green; font-size: 1em;"
       />
       <span
         class="filename"
-        style="color: blue; text-decoration: underline; font-weight: 400; white-space: nowrap; overflow: hidden; text-overflow: ellipsis;"
       >
         test.txt
       </span>
       <i
         class="bi bi-x-circle ms-2 x-circle-icon"
-        style="color: red; font-size: 1em;"
       />
     </li>
     <li
       class="fileupload-list-item"
-      style="display: flex;"
     >
       <i
         class="bi bi-check me-2 check-icon"
-        style="color: green; font-size: 1em;"
       />
       <span
         class="filename"
-        style="color: blue; text-decoration: underline; font-weight: 400; white-space: nowrap; overflow: hidden; text-overflow: ellipsis;"
       >
         hello.txt
       </span>
       <i
         class="bi bi-x-circle ms-2 x-circle-icon"
-        style="color: red; font-size: 1em;"
       />
     </li>
     <li
       class="fileupload-list-item"
-      style="display: flex;"
     >
       <i
         class="bi bi-check me-2 check-icon"
-        style="color: green; font-size: 1em;"
       />
       <span
         class="filename"
-        style="color: blue; text-decoration: underline; font-weight: 400; white-space: nowrap; overflow: hidden; text-overflow: ellipsis;"
       />
       <i
         class="bi bi-x-circle ms-2 x-circle-icon"
-        style="color: red; font-size: 1em;"
       />
     </li>
     <li
       class="fileupload-list-item"
-      style="display: flex;"
     >
       <i
         class="bi bi-check me-2 check-icon"
-        style="color: green; font-size: 1em;"
       />
       <span
         class="filename"
-        style="color: blue; text-decoration: underline; font-weight: 400; white-space: nowrap; overflow: hidden; text-overflow: ellipsis;"
       >
         item
       </span>
       <i
         class="bi bi-x-circle ms-2 x-circle-icon"
-        style="color: red; font-size: 1em;"
       />
     </li>
   </ul>
@@ -152,9 +127,7 @@ exports[`<FileUpload> should have li named 'test.txt' and not 'hello.txt', upon 
 
 exports[`<FileUpload> should render a ul with list items, upon uploading 1`] = `
 <DocumentFragment>
-  <div
-    class=""
-  >
+  <div>
     <input
       class="d-none form-control"
       id="test123"
@@ -170,80 +143,63 @@ exports[`<FileUpload> should render a ul with list items, upon uploading 1`] = `
   </div>
   <ul
     class="fileupload-list sgds"
-    style="list-style: none; padding-left: 0px;"
   >
     <li
       class="fileupload-list-item"
-      style="display: flex;"
     >
       <i
         class="bi bi-check me-2 check-icon"
-        style="color: green; font-size: 1em;"
       />
       <span
         class="filename"
-        style="color: blue; text-decoration: underline; font-weight: 400; white-space: nowrap; overflow: hidden; text-overflow: ellipsis;"
       >
         test.txt
       </span>
       <i
         class="bi bi-x-circle ms-2 x-circle-icon"
-        style="color: red; font-size: 1em;"
       />
     </li>
     <li
       class="fileupload-list-item"
-      style="display: flex;"
     >
       <i
         class="bi bi-check me-2 check-icon"
-        style="color: green; font-size: 1em;"
       />
       <span
         class="filename"
-        style="color: blue; text-decoration: underline; font-weight: 400; white-space: nowrap; overflow: hidden; text-overflow: ellipsis;"
       >
         hello.txt
       </span>
       <i
         class="bi bi-x-circle ms-2 x-circle-icon"
-        style="color: red; font-size: 1em;"
       />
     </li>
     <li
       class="fileupload-list-item"
-      style="display: flex;"
     >
       <i
         class="bi bi-check me-2 check-icon"
-        style="color: green; font-size: 1em;"
       />
       <span
         class="filename"
-        style="color: blue; text-decoration: underline; font-weight: 400; white-space: nowrap; overflow: hidden; text-overflow: ellipsis;"
       />
       <i
         class="bi bi-x-circle ms-2 x-circle-icon"
-        style="color: red; font-size: 1em;"
       />
     </li>
     <li
       class="fileupload-list-item"
-      style="display: flex;"
     >
       <i
         class="bi bi-check me-2 check-icon"
-        style="color: green; font-size: 1em;"
       />
       <span
         class="filename"
-        style="color: blue; text-decoration: underline; font-weight: 400; white-space: nowrap; overflow: hidden; text-overflow: ellipsis;"
       >
         item
       </span>
       <i
         class="bi bi-x-circle ms-2 x-circle-icon"
-        style="color: red; font-size: 1em;"
       />
     </li>
   </ul>
