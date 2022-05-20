@@ -72,13 +72,11 @@ export const FileUpload: React.FC<FileUploadProps> = ({
   const inputRef = useRef<HTMLInputElement>(null);
   const fileNames = Object.entries(selectedFile).map((e) => e[1].name);
 
-  let data: string[] = [];
   const inputOnChangeHandler = (e: React.ChangeEvent<HTMLInputElement>) => {
     let fileList = e.target.files as FileList;
     //instead if using event object, instantiate a new dataTransfer obj to standardize with removeFile() data obj
     var dt = new DataTransfer();
     for (let i = 0; i < fileList.length; i++) {
-      data.push(fileList[i].name);
       dt.items.add(fileList[i]);
     }
     onChangeFile(dt.files);
@@ -86,8 +84,7 @@ export const FileUpload: React.FC<FileUploadProps> = ({
   const handleUpload = () => {
     inputRef?.current?.click();
   };
-  // console.log(selectedFile);
-  // console.log(fileNames);
+
   const removeFileHandler = (index: number) => {
     const attachments = (document.getElementById(
       controlId!
@@ -102,12 +99,6 @@ export const FileUpload: React.FC<FileUploadProps> = ({
     (document.getElementById(controlId!) as HTMLInputElement)!.files =
       fileBuffer.files; // <-- according to your file input reference
 
-    let newFileList = (document.getElementById(controlId!) as HTMLInputElement)!
-      .files;
-    //re-populate array into data variable for display
-    for (let i = 0; i < newFileList!.length; i++) {
-      data.push(newFileList![i].name);
-    }
     onChangeFile(fileBuffer.files);
   };
 
