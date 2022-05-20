@@ -1,17 +1,19 @@
 import * as React from 'react';
 import { useRef } from 'react';
 import classNames from 'classnames';
+import PropTypes from 'prop-types';
 import BaseOverlay, {
   OverlayProps as BaseOverlayProps,
   OverlayArrowProps,
 } from '@restart/ui/Overlay';
+//@ts-ignore
+import { componentOrElement, elementType } from 'prop-types-extra';
 import useMergedRefs from '@restart/hooks/useMergedRefs';
 import useOverlayOffset from './useOverlayOffset';
-import Fade from '../Fade/Fade';
+import {Fade} from '../Fade';
 import { TransitionType } from '../utils/helpers';
 import { Placement, RootCloseEvent } from '../utils/types';
 import safeFindDOMNode from '../utils/safeFindDOMNode';
-import PropTypes from 'prop-types';
 
 export interface OverlayInjectedProps {
   ref: React.RefCallback<HTMLElement>;
@@ -39,21 +41,22 @@ export interface OverlayProps
   extends Omit<BaseOverlayProps, 'children' | 'transition' | 'rootCloseEvent'> {
   children: OverlayChildren;
   transition?: TransitionType;
-  placement?: Placement | undefined;
+  placement?: Placement;
   rootCloseEvent?: RootCloseEvent;
 }
+
 const propTypes = {
   /**
    * A component instance, DOM node, or function that returns either.
    * The `container` element will have the Overlay appended to it via a React portal.
    */
-  container: PropTypes.oneOfType([ PropTypes.shape({ current: PropTypes.instanceOf(Element) }), PropTypes.func]),
+  container: PropTypes.oneOfType([componentOrElement, PropTypes.func]),
 
   /**
    * A component instance, DOM node, or function that returns either.
    * The overlay will be positioned in relation to the `target`
    */
-  target: PropTypes.oneOfType([ PropTypes.shape({ current: PropTypes.instanceOf(Element) }), PropTypes.func]),
+  target: PropTypes.oneOfType([componentOrElement, PropTypes.func]),
 
   /**
    * Set the visibility of the Overlay
@@ -85,7 +88,7 @@ const propTypes = {
    * Animate the entering and exiting of the Overlay. `true` will use the `<Fade>` transition,
    * or a custom react-transition-group `<Transition>` component can be provided.
    */
-  transition: PropTypes.oneOfType([PropTypes.bool, PropTypes.elementType]),
+  transition: PropTypes.oneOfType([PropTypes.bool, elementType]),
 
   /**
    * Callback fired before the Overlay transitions in
@@ -138,6 +141,7 @@ const propTypes = {
     'left-start',
   ]),
 };
+
 const defaultProps: Partial<OverlayProps> = {
   transition: Fade,
   rootClose: false,
@@ -145,7 +149,7 @@ const defaultProps: Partial<OverlayProps> = {
   placement: 'top',
 };
 
-function wrapRefs(props: any , arrowProps: any) {
+function wrapRefs(props: any, arrowProps : any) {
   const { ref } = props;
   const { ref: aRef } = arrowProps;
 
@@ -160,7 +164,7 @@ const Overlay = React.forwardRef<HTMLElement, OverlayProps>(
     outerRef,
   ) => {
     const popperRef = useRef({});
-    const [ref, modifiers] = useOverlayOffset();
+    const [ref, modifiers] = useOverlayOffset(outerProps.offset);
     const mergedRef = useMergedRefs(outerRef as any, ref);
 
     const actualTransition =
@@ -174,7 +178,8 @@ const Overlay = React.forwardRef<HTMLElement, OverlayProps>(
           ...popperConfig,
           modifiers: modifiers.concat(popperConfig.modifiers || []),
         }}
-        transition={actualTransition as React.ComponentType}
+        //@ts-ignore
+        transition={actualTransition}
       >
         {(overlayProps, { arrowProps, popper: popperObj, show }) => {
           wrapRefs(overlayProps, arrowProps);
@@ -219,7 +224,7 @@ const Overlay = React.forwardRef<HTMLElement, OverlayProps>(
 );
 
 Overlay.displayName = 'Overlay';
-Overlay.propTypes = propTypes as any;
+Overlay.propTypes = propTypes;
 Overlay.defaultProps = defaultProps;
 
 export default Overlay;
