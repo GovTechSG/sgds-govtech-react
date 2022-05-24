@@ -1,5 +1,5 @@
 import * as React from 'react';
-import PropTypes from 'prop-types';
+import PropTypes, { string } from 'prop-types';
 
 import { useUncontrolled } from 'uncontrollable';
 import BaseTabs, { TabsProps as BaseTabsProps } from '@restart/ui/Tabs';
@@ -15,7 +15,9 @@ import { TransitionType } from '../utils/helpers';
 export interface TabsProps
   extends Omit<BaseTabsProps, 'transition'>,
     Omit<React.HTMLAttributes<HTMLElement>, 'onSelect'> {
-  variant?: 'tabs' | 'pills';
+  variant?: 'tabs-basic-toggle' | 'tabs-info-toggle';
+  iconLeft?: JSX.Element;
+  iconRight?: JSX.Element;
   transition?: TransitionType;
 }
 
@@ -33,7 +35,7 @@ const propTypes = {
   /**
    * Navigation style
    *
-   * @type {('tabs'| 'pills')}
+   * @type {('tabs-basic-toggle'| 'tabs-info-toggle')}
    */
   variant: PropTypes.string,
 
@@ -85,13 +87,13 @@ const propTypes = {
 };
 
 const defaultProps = {
-  variant: 'tabs',
+  // variant: 'tabs',
   mountOnEnter: false,
   unmountOnExit: false,
 };
 
-function getDefaultActiveKey(children) {
-  let defaultActiveKey;
+function getDefaultActiveKey(children: React.ReactChildren) {
+  let defaultActiveKey: undefined;
   forEach(children, (child) => {
     if (defaultActiveKey == null) {
       defaultActiveKey = child.props.eventKey;
@@ -101,8 +103,17 @@ function getDefaultActiveKey(children) {
   return defaultActiveKey;
 }
 
-function renderTab(child) {
-  const { title, eventKey, disabled, tabClassName, tabAttrs, id } = child.props;
+function renderTab(child: React.ReactElement) {
+  const {
+    title,
+    eventKey,
+    disabled,
+    tabClassName,
+    tabAttrs,
+    id,
+    iconLeft,
+    iconRight,
+  } = child.props;
   if (title == null) {
     return null;
   }
@@ -118,7 +129,9 @@ function renderTab(child) {
         className={tabClassName}
         {...tabAttrs}
       >
+        {iconLeft}
         {title}
+        {iconRight}
       </NavLink>
     </NavItem>
   );
@@ -127,12 +140,13 @@ function renderTab(child) {
 const Tabs = (props: TabsProps) => {
   const {
     id,
+    variant,
     onSelect,
     transition,
     mountOnEnter,
     unmountOnExit,
     children,
-    activeKey = getDefaultActiveKey(children),
+    activeKey = getDefaultActiveKey(children as React.ReactChildren),
     ...controlledProps
   } = useUncontrolled(props, {
     activeKey: 'onSelect',
@@ -147,12 +161,12 @@ const Tabs = (props: TabsProps) => {
       mountOnEnter={mountOnEnter}
       unmountOnExit={unmountOnExit}
     >
-      <Nav {...controlledProps} role="tablist" as="ul">
-        {map(children, renderTab)}
+      <Nav {...controlledProps} role="tablist" as="ul" variant={variant}>
+        {map(children as React.ReactChildren, renderTab)}
       </Nav>
 
       <TabContent>
-        {map(children, (child) => {
+        {map(children as React.ReactChildren, (child) => {
           const childProps = { ...child.props };
 
           delete childProps.title;
