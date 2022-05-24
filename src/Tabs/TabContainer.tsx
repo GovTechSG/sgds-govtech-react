@@ -1,8 +1,8 @@
 import * as React from 'react';
 import PropTypes from 'prop-types';
 import Tabs, { TabsProps } from '@restart/ui/Tabs';
-import getTabTransitionComponent from './getTabTransitionComponent';
-import { TransitionType } from './helpers';
+import getTabTransitionComponent from '../utils/getTabTransitionComponent';
+import { TransitionType } from '../utils/helpers';
 
 export interface TabContainerProps extends Omit<TabsProps, 'transition'> {
   transition?: TransitionType;

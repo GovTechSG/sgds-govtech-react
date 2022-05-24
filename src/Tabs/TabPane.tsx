@@ -7,12 +7,12 @@ import { useTabPanel } from '@restart/ui/TabPanel';
 import { EventKey, TransitionCallbacks } from '@restart/ui/types';
 import { useBootstrapPrefix } from '../ThemeProvider/ThemeProvider';
 import Fade from '../Fade/Fade';
-import getTabTransitionComponent from './getTabTransitionComponent';
+import getTabTransitionComponent from '../utils/getTabTransitionComponent';
 import {
   BsPrefixProps,
   BsPrefixRefForwardingComponent,
   TransitionType,
-} from '../utils/';
+} from '../utils/helpers';
 
 export interface TabPaneProps
   extends TransitionCallbacks,
@@ -152,7 +152,7 @@ const TabPane: BsPrefixRefForwardingComponent<'div', TabPaneProps> =
           </SelectableContext.Provider>
         </TabContext.Provider>
       );
-    },
+    }
   );
 
 TabPane.displayName = 'TabPane';
