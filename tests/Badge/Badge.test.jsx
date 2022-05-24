@@ -58,4 +58,33 @@ describe('Badge', () => {
     const badge = getByTestId('test');
     expect(badge.querySelector('bg-primary')).toBeNull();
   });
+
+  it('textIndicator prop', () => {
+    const { getByTestId } = render(
+      <Badge textIndicator data-testid="test">
+        Message
+      </Badge>,
+    );
+    const badge = getByTestId('test');
+    expect(badge.classList).toContain('position-absolute')
+    expect(badge.classList).toContain('top-0')
+    expect(badge.classList).toContain('start-100')
+    expect(badge.classList).toContain('translate-middle')
+  })
+  it('dotIndicator prop', () => {
+    const { getByTestId } = render(
+      <Badge dotIndicator data-testid="test">
+        Message
+      </Badge>,
+    );
+    const badge = getByTestId('test');
+    expect(badge.classList).toContain('position-absolute')
+    expect(badge.classList).toContain('top-0')
+    expect(badge.classList).toContain('start-100')
+    expect(badge.classList).toContain('translate-middle')
+    expect(badge.classList).toContain('p-2') 
+    expect(badge.classList).toContain('border') 
+    expect(badge.classList).toContain('border-light') 
+    expect(badge.classList).toContain('rounded-circle') 
+  })
 });
