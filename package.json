@@ -31,7 +31,8 @@
     "size": "size-limit",
     "analyze": "size-limit --why",
     "storybook": "start-storybook -p 6006 --no-manager-cache",
-    "build-storybook": "build-storybook"
+    "build-storybook": "build-storybook",
+    "start": "react-scripts start"
   },
   "peerDependencies": {
     "react": ">=17.0.2",
@@ -88,6 +89,7 @@
     "react": "^17.0.2",
     "react-dom": "^17.0.2",
     "react-is": "^17.0.2",
+    "react-scripts": "^5.0.1",
     "rollup": "^2.68.0",
     "rollup-plugin-copy": "^3.4.0",
     "rollup-plugin-generate-package-json": "^3.2.0",
@@ -115,9 +117,9 @@
     "classnames": "^2.3.1",
     "dom-helpers": "^5.2.1",
     "invariant": "^2.2.4",
-    "warning": "^4.0.3",
     "prop-types": "^15.8.1",
     "prop-types-extra": "^1.1.1",
-    "react-transition-group": "^4.4.2"
+    "react-transition-group": "^4.4.2",
+    "warning": "^4.0.3"
   }
 }
