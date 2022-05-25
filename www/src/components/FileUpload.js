@@ -3,7 +3,7 @@ import { FileUpload } from "clk-bs/FileUpload";
 import { Form } from "@govtechsg/sgds-govtech-react/Form";
 
                                                                                                                                                                                             
-export const FileUploadCom = () => {
+const FileUploadCom = () => {
     const [selectedFile, setSelectedFile] = useState({});
     const onChangeFile = (data) => {
       setSelectedFile(data);
@@ -20,3 +20,5 @@ export const FileUploadCom = () => {
       </Form>
     );
   };
+
+  export default FileUploadCom

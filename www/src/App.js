@@ -1,23 +1,46 @@
-import logo from './logo.svg';
 import './App.css';
+import 'bootstrap-icons/font/bootstrap-icons.css';
+import '@govtechsg/sgds-govtech/sgds/sgds.css';
+import {
+  FileUploadCom,
+  MastheadCom,
+  TooltipCom,
+  NavbarCom,
+  StepperCom,
+  AccordionCom,
+  AlertCom,
+  BadgeCom,
+  BreadcrumbCom,
+  CardCom,
+  QtyToggleCom,
+  SelectableCardCom,
+  DropdownCom,
+  ValidationCom,
+  InputGroupCom,
+  TableCom,
+  ToastCom,
+} from './components';
 
 function App() {
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+    <div className="container">
+      <MastheadCom />
+      <FileUploadCom />
+      <TooltipCom />
+      <NavbarCom />
+      <StepperCom />
+      <AccordionCom />
+      <AlertCom />
+      <BadgeCom/>
+      <BreadcrumbCom/>
+      <CardCom/>
+      <QtyToggleCom/>
+      <SelectableCardCom/>
+      <DropdownCom/>
+      <ValidationCom/>
+      <InputGroupCom/>
+      <TableCom/>
+      <ToastCom/> 
     </div>
   );
 }
