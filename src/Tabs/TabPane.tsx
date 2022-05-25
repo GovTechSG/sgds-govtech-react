@@ -125,6 +125,7 @@ const TabPane: BsPrefixRefForwardingComponent<'div', TabPaneProps> =
         transition: getTabTransitionComponent(transition),
       } as any);
 
+      const { mdxType, originalType, contentLeft, contentRight, contentBottom, ...attrs } = rest;
       const prefix = useBootstrapPrefix(bsPrefix, 'tab-pane');
 
       // We provide an empty the TabContext so `<Nav>`s in `<TabPanel>`s don't
@@ -144,7 +145,7 @@ const TabPane: BsPrefixRefForwardingComponent<'div', TabPaneProps> =
               unmountOnExit={unmountOnExit as any}
             >
               <Component
-                {...rest}
+                {...attrs}
                 ref={ref}
                 className={classNames(className, prefix, isActive && 'active')}
               />

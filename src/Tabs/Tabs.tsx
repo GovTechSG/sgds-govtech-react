@@ -1,5 +1,5 @@
 import * as React from 'react';
-import PropTypes, { string } from 'prop-types';
+import PropTypes from 'prop-types';
 
 import { useUncontrolled } from 'uncontrollable';
 import BaseTabs, { TabsProps as BaseTabsProps } from '@restart/ui/Tabs';
@@ -16,8 +16,9 @@ export interface TabsProps
   extends Omit<BaseTabsProps, 'transition'>,
     Omit<React.HTMLAttributes<HTMLElement>, 'onSelect'> {
   variant?: 'tabs-basic-toggle' | 'tabs-info-toggle';
-  iconLeft?: JSX.Element;
-  iconRight?: JSX.Element;
+  contentLeft?: JSX.Element;
+  contentRight?: JSX.Element;
+  contentBottom?: JSX.Element;
   transition?: TransitionType;
 }
 
@@ -111,8 +112,8 @@ function renderTab(child: React.ReactElement) {
     tabClassName,
     tabAttrs,
     id,
-    iconLeft,
-    iconRight,
+    contentLeft,
+    contentRight,
   } = child.props;
   if (title == null) {
     return null;
@@ -129,9 +130,45 @@ function renderTab(child: React.ReactElement) {
         className={tabClassName}
         {...tabAttrs}
       >
-        {iconLeft}
+        {contentLeft}
         {title}
-        {iconRight}
+        {contentRight}
+      </NavLink>
+    </NavItem>
+  );
+}
+
+function renderTab2(child: React.ReactElement) {
+  const {
+    title,
+    eventKey,
+    disabled,
+    tabClassName,
+    tabAttrs,
+    id,
+    contentLeft,
+    contentBottom,
+  } = child.props;
+  if (title == null) {
+    return null;
+  }
+
+  return (
+    <NavItem as="li" role="presentation">
+      <NavLink
+        as="button"
+        type="button"
+        eventKey={eventKey}
+        disabled={disabled}
+        id={id}
+        className={tabClassName}
+        {...tabAttrs}
+      >
+        <div className={`tabs-info-label ${contentLeft ? "has-icon" : ""}`}>
+          {contentLeft}
+          {title}
+        </div>
+        <div className="tabs-info-count">{contentBottom}</div>
       </NavLink>
     </NavItem>
   );
@@ -162,13 +199,20 @@ const Tabs = (props: TabsProps) => {
       unmountOnExit={unmountOnExit}
     >
       <Nav {...controlledProps} role="tablist" as="ul" variant={variant}>
-        {map(children as React.ReactChildren, renderTab)}
+        {variant === 'tabs-info-toggle' ? (
+          <>{map(children as React.ReactChildren, renderTab2)}</>
+        ) : (
+          <>{map(children as React.ReactChildren, renderTab)}</>
+        )}
       </Nav>
 
       <TabContent>
         {map(children as React.ReactChildren, (child) => {
           const childProps = { ...child.props };
 
+          // delete childProps.contentLeft;
+          // delete childProps.contentRight;
+          // delete childProps.contentBottom;
           delete childProps.title;
           delete childProps.disabled;
           delete childProps.tabClassName;

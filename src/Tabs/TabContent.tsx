@@ -1,3 +1,3 @@
 import createWithBsPrefix from '../utils/createWithBsPrefix';
 
-export default createWithBsPrefix('tab-content');
+export default createWithBsPrefix('sgds tab-content');
