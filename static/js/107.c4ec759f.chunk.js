@@ -1,0 +1,2 @@
+"use strict";(self.webpackChunkwww=self.webpackChunkwww||[]).push([[107],{107:function(s,e,t){t.r(e);var r=t(754);(function(){var s="file:///Users/lukheichong/Repositories/sgds-govtech-react/www/node_modules/@govtechsg/sgds-masthead/dist/esm-es5/sgds-masthead.js",e={};return e.resourcesUrl=new URL(".",s).href,(0,r.p)(e)})().then((function(s){return(0,r.b)([["sgds-masthead",[[1,"sgds-masthead",{sgCrest:[1,"sg-crest"],fluid:[4],isOpen:[32]}]]]],s)}))}}]);
+//# sourceMappingURL=107.c4ec759f.chunk.js.map
