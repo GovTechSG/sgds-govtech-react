@@ -16,7 +16,6 @@
     "gh-pages": "^4.0.0",
     "react": "^18.1.0",
     "react-dom": "^18.1.0",
-    "react-scripts": "5.0.1",
     "web-vitals": "^2.1.4"
   },
   "scripts": {
@@ -45,7 +44,8 @@
     ]
   },
   "devDependencies": {
-    "@svgr/webpack": "^6.2.1"
+    "@svgr/webpack": "^6.2.1",
+    "react-scripts": "^5.0.1"
   },
   "overrides": {
     "@svgr/webpack": "$@svgr/webpack"
