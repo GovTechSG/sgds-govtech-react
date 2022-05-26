@@ -19,6 +19,8 @@ import {
   InputGroupCom,
   TableCom,
   ToastCom,
+  PaginationCom,
+  SideNavCom,
 } from './components';
 
 function App() {
@@ -41,6 +43,8 @@ function App() {
       <InputGroupCom/>
       <TableCom/>
       <ToastCom/> 
+      <PaginationCom/>
+      <SideNavCom/>
     </div>
   );
 }

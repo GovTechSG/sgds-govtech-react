@@ -15,4 +15,6 @@ export {default as ValidationCom} from './Validation'
 export {default as InputGroupCom} from './InputGroup'
 export {default as TableCom} from './Table'
 export {default as ToastCom} from './Toast'
+export {default as PaginationCom} from './Pagination'
+export {default as SideNavCom} from './Sidenav'
 
