@@ -1,4 +1,3 @@
-import './App.css';
 import 'bootstrap-icons/font/bootstrap-icons.css';
 import '@govtechsg/sgds-govtech/sgds/sgds.css';
 import {
@@ -21,6 +20,10 @@ import {
   ToastCom,
   PaginationCom,
   SideNavCom,
+  ProgressBarCom,
+  DatePickerCom,
+  TypeaheadCom,
+  ModalCom,
 } from './components';
 
 function App() {
@@ -45,6 +48,10 @@ function App() {
       <ToastCom/> 
       <PaginationCom/>
       <SideNavCom/>
+      <ProgressBarCom/> 
+      <DatePickerCom/>
+      <TypeaheadCom/>
+      <ModalCom/>
     </div>
   );
 }
