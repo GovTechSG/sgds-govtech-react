@@ -1,0 +1,319 @@
+import { ArgsTable, Canvas, Meta, Story } from '@storybook/addon-docs';
+
+import { Tabs, Badge } from '../../src/index';
+
+<Meta
+  title="Components/Tabs"
+  component={Tabs}
+  argTypes={{
+    activeKey: {
+      description:
+        'controlled by: onSelect, initial prop: defaultActiveKey \n\nMark the Tab with a matching eventKey as active.',
+      control: { disable: true },
+      table: {
+        type: { summary: 'string | number' },
+      },
+    },
+    defaultActiveKey: {
+      description: 'The default active key that is selected on start',
+      control: { disable: true },
+      table: {
+        type: { summary: 'string | number' },
+      },
+    },
+    title: {
+      description: 'Prop can be used to display content within tab button',
+      control: { disable: true },
+      table: {
+        type: { summary: 'ReactNode' },
+      },
+    },
+    id: {
+      description:
+        'HTML id attribute, required if no `generateChildId` prop is specified.',
+      table: {
+        type: { summary: 'string' },
+      },
+    },
+    contentLeft: {
+      description: 'To display content to the left of title e.g icon/badge',
+      control: { disable: true },
+    },
+    contentRight: {
+      description:
+        'To display content to the right of title e.g icon/badge. Not applicable to `tabs-info-toggle` variant.',
+      control: { disable: true },
+    },
+    contentBottom: {
+      description:
+        'To display content to the right of title e.g icon/badge. Applicable to `tabs-info-toggle` variant only.',
+      control: { disable: true },
+    },
+    variant: {
+      description: 'Sets the base navigation styling',
+      control: {
+        type: 'radio',
+      },
+      options: ['tabs-basic-toggle', 'tabs-info-toggle'],
+      table: {
+        type: { summary: 'tabs-basic-toggle | tabs-info-toggle' },
+      },
+    },
+    transition: {
+      table: { disable: true },
+    },
+  }}
+/>
+
+# Tabs
+
+Tabs are a navigation element resembling tabbed dividers in a filing cabinet - by clicking a tab, users can easily locate a page containing related content.
+
+export const DefaultTemplate = (args) => {
+  return (
+    <Tabs
+      defaultActiveKey="profile"
+      id="uncontrolled-tab-example"
+      className="mb-3"
+      {...args}
+    >
+      <Tab eventKey="home" title="Home">
+        Lorem Ipsum is simply dummy text of the printing and typesetting
+        industry. Lorem Ipsum has been the industry's standard dummy text ever
+        since the 1500s, when an unknown printer took a galley of type and
+        scrambled it to make a type specimen book.
+      </Tab>
+      <Tab eventKey="profile" title="Profile">
+        It is a long established fact that a reader will be distracted by the
+        readable content of a page when looking at its layout. The point of
+        using Lorem Ipsum is that it has a more-or-less normal distribution of
+        letters, as opposed to using 'Content here, content here',
+      </Tab>
+      <Tab eventKey="contact" title="Contact" disabled>
+        Contrary to popular belief, Lorem Ipsum is not simply random text. It
+        has roots in a piece of classical Latin literature from 45 BC, making it
+        over 2000 years old. Richard McClintock, a Latin professor at
+        Hampden-Sydney College in Virginia, looked up one of the more obscure
+        Latin words, consectetur, from a Lorem Ipsum passage, and going through
+        the cites of the word in classical literature, discovered the
+        undoubtable source.
+      </Tab>
+    </Tabs>
+  );
+};
+
+<Canvas>
+  <Story name="Default">{DefaultTemplate.bind({})}</Story>
+</Canvas>
+
+export const BasicTemplate = (args) => {
+  return (
+    <Tabs
+      {...args}
+      defaultActiveKey="profile"
+      id="uncontrolled-tab-example2"
+      variant="tabs-basic-toggle"
+    >
+      <Tab
+        eventKey="home"
+        title="Home"
+        contentLeft={<i className="bi bi-house left"></i>}
+      >
+        Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod
+        tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim
+        veniam, quis nostrud exercitation ullamco
+      </Tab>
+      <Tab
+        eventKey="profile"
+        title="Profile"
+        contentRight={
+          <Badge bg="light" text="dark" className="right">
+            99
+          </Badge>
+        }
+      >
+        Contrary to popular belief, Lorem Ipsum is not simply random text. It
+        has roots in a piece of classical Latin literature from 45 BC, making it
+        over 2000 years old. Richard McClintock, a Latin professor at
+        Hampden-Sydney College in Virginia, looked up one of the more obscure
+        Latin words, consectetur, from a Lorem Ipsum
+      </Tab>
+      <Tab
+        eventKey="contact"
+        title="Contact"
+        contentRight={<i className="bi bi-telephone right"></i>}
+      >
+        It is a long established fact that a reader will be distracted by the
+        readable content of a page when looking at its layout. The point of
+        using Lorem Ipsum is that it has a more-or-less normal distribution of
+        letters, as opposed to using 'Content here, content here', making it
+        look like readable English.
+      </Tab>
+    </Tabs>
+  );
+};
+
+export const InfoTemplate = (args) => {
+  return (
+    <Tabs
+      {...args}
+      defaultActiveKey="profile"
+      id="uncontrolled-tab-example3"
+      variant="tabs-info-toggle"
+    >
+      <Tab
+        eventKey="home"
+        title="Home"
+        contentLeft={<i className="bi bi-house"></i>}
+        contentBottom={99}
+      >
+        Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod
+        tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim
+        veniam, quis nostrud exercitation ullamco
+      </Tab>
+      <Tab
+        eventKey="profile"
+        title="Profile"
+        contentBottom={
+          <Badge bg="light" text="dark" className="right">
+            99
+          </Badge>
+        }
+      >
+        Contrary to popular belief, Lorem Ipsum is not simply random text. It
+        has roots in a piece of classical Latin literature from 45 BC, making it
+        over 2000 years old. Richard McClintock, a Latin professor at
+        Hampden-Sydney College in Virginia, looked up one of the more obscure
+        Latin words, consectetur, from a Lorem Ipsum
+      </Tab>
+    </Tabs>
+  );
+};
+
+## API
+
+<ArgsTable story="Default" />
+
+```jsx
+import { Tabs, Tab } from '@govtechsg/sgds-govtech-react';
+
+<Tabs defaultActiveKey="profile" id="uncontrolled-tab-example">
+  <Tab eventKey="home" title="Home">
+    Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod
+    tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam,
+    quis nostrud exercitation ullamco
+  </Tab>
+  <Tab eventKey="profile" title="Profile">
+    It is a long established fact that a reader will be distracted by the
+    readable content of a page when looking at its layout. The point of using
+    Lorem Ipsum is that it has a more-or-less normal distribution of letters, as
+    opposed to using 'Content here, content here',
+  </Tab>
+  <Tab eventKey="contact" title="Contact" disabled>
+    Contrary to popular belief, Lorem Ipsum is not simply random text. It has
+    roots in a piece of classical Latin literature from 45 BC, making it over
+    2000 years old. Richard McClintock, a Latin professor at Hampden-Sydney
+    College in Virginia, looked up one of the more obscure Latin words,
+    consectetur, from a Lorem Ipsum passage, and going through the cites of the
+    word in classical literature, discovered the undoubtable source.
+  </Tab>
+</Tabs>;
+```
+
+As our components are built on top of `React-Bootstrap` library, do check out the detailed `Tabs` API references <a href="https://react-bootstrap.github.io/components/tabs/" target="_blank">here</a>.
+
+## Variants
+
+Use variant `tabs-basic-toggle` to achieve the following styling. Props such as `contentLeft` and `contentRight` can be used to attach icons or badges component as shown.
+
+<Canvas>
+  <Story name="Basic-Toggle">{BasicTemplate.bind({})}</Story>
+</Canvas>
+
+```jsx
+import { Tabs, Tab, Badge } from '@govtechsg/sgds-govtech-react';
+
+<Tabs
+  defaultActiveKey="profile"
+  id="uncontrolled-tab-example2"
+  variant="tabs-basic-toggle"
+>
+  <Tab
+    eventKey="home"
+    title="Home"
+    contentLeft={<i className="bi bi-house left"></i>}
+  >
+    Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod
+    tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam,
+    quis nostrud exercitation ullamco
+  </Tab>
+  <Tab
+    eventKey="profile"
+    title="Profile"
+    contentRight={
+      <Badge bg="light" text="dark" className="right">
+        99
+      </Badge>
+    }
+  >
+    Contrary to popular belief, Lorem Ipsum is not simply random text. It has
+    roots in a piece of classical Latin literature from 45 BC, making it over
+    2000 years old. Richard McClintock, a Latin professor at Hampden-Sydney
+    College in Virginia, looked up one of the more obscure Latin words,
+    consectetur, from a Lorem Ipsum
+  </Tab>
+  <Tab
+    eventKey="contact"
+    title="Contact"
+    contentRight={<i className="bi bi-telephone right"></i>}
+  >
+    It is a long established fact that a reader will be distracted by the
+    readable content of a page when looking at its layout. The point of using
+    Lorem Ipsum is that it has a more-or-less normal distribution of letters, as
+    opposed to using 'Content here, content here', making it look like readable
+    English.
+  </Tab>
+</Tabs>;
+```
+
+Use variant `tabs-info-toggle` to achieve the following styling. Props such as `contentLeft` and `contentBottom` can be used to attach icons or badges component as shown.
+
+<Canvas>
+  <Story name="Info-Toggle">{InfoTemplate.bind({})}</Story>
+</Canvas>
+
+```jsx
+import { Tabs, Tab, Badge } from '@govtechsg/sgds-govtech-react';
+
+<Tabs
+  defaultActiveKey="profile"
+  id="uncontrolled-tab-example3"
+  variant="tabs-info-toggle"
+>
+  <Tab
+    eventKey="home"
+    title="Home"
+    contentLeft={<i className="bi bi-house"></i>}
+    contentBottom={99}
+  >
+    Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod
+    tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam,
+    quis nostrud exercitation ullamco
+  </Tab>
+  <Tab
+    eventKey="profile"
+    title="Profile"
+    contentBottom={
+      <Badge bg="light" text="dark" className="right">
+        99
+      </Badge>
+    }
+  >
+    Contrary to popular belief, Lorem Ipsum is not simply random text. It has
+    roots in a piece of classical Latin literature from 45 BC, making it over
+    2000 years old. Richard McClintock, a Latin professor at Hampden-Sydney
+    College in Virginia, looked up one of the more obscure Latin words,
+    consectetur, from a Lorem Ipsum
+  </Tab>
+</Tabs>;
+```
