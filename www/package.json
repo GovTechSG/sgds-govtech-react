@@ -13,6 +13,7 @@
     "bootstrap-icons": "^1.8.2",
     "clk-bs": "^4.0.4",
     "clk-masthead": "^0.0.2",
+    "gh-pages": "^4.0.0",
     "react": "^18.1.0",
     "react-dom": "^18.1.0",
     "react-scripts": "5.0.1",
