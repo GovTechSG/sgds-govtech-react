@@ -1,6 +1,5 @@
 import * as React from 'react';
 import PropTypes from 'prop-types';
-
 import { useUncontrolled } from 'uncontrollable';
 import BaseTabs, { TabsProps as BaseTabsProps } from '@restart/ui/Tabs';
 import Nav from '../Nav/Nav';
@@ -85,6 +84,10 @@ const propTypes = {
    * Unmount tabs (remove it from the DOM) when it is no longer visible
    */
   unmountOnExit: PropTypes.bool,
+
+  contentLeft: PropTypes.string,
+  contentRight: PropTypes.string,
+  contentBottom: PropTypes.string,
 };
 
 const defaultProps = {
@@ -104,74 +107,54 @@ function getDefaultActiveKey(children: React.ReactChildren) {
   return defaultActiveKey;
 }
 
-function renderTab(child: React.ReactElement) {
-  const {
-    title,
-    eventKey,
-    disabled,
-    tabClassName,
-    tabAttrs,
-    id,
-    contentLeft,
-    contentRight,
-  } = child.props;
-  if (title == null) {
-    return null;
-  }
-
-  return (
-    <NavItem as="li" role="presentation">
-      <NavLink
-        as="button"
-        type="button"
-        eventKey={eventKey}
-        disabled={disabled}
-        id={id}
-        className={tabClassName}
-        {...tabAttrs}
-      >
+function renderTab(variant?: 'tabs-basic-toggle' | 'tabs-info-toggle') {
+  return (child: React.ReactElement) => {
+    const {
+      title,
+      eventKey,
+      disabled,
+      tabClassName,
+      tabAttrs,
+      id,
+      contentLeft,
+      contentRight,
+      contentBottom,
+    } = child.props;
+    if (title == null) {
+      return null;
+    }
+    const tabsBasic = (
+      <>
         {contentLeft}
         {title}
         {contentRight}
-      </NavLink>
-    </NavItem>
-  );
-}
-
-function renderTab2(child: React.ReactElement) {
-  const {
-    title,
-    eventKey,
-    disabled,
-    tabClassName,
-    tabAttrs,
-    id,
-    contentLeft,
-    contentBottom,
-  } = child.props;
-  if (title == null) {
-    return null;
-  }
-
-  return (
-    <NavItem as="li" role="presentation">
-      <NavLink
-        as="button"
-        type="button"
-        eventKey={eventKey}
-        disabled={disabled}
-        id={id}
-        className={tabClassName}
-        {...tabAttrs}
-      >
-        <div className={`tabs-info-label ${contentLeft ? "has-icon" : ""}`}>
+      </>
+    );
+    const tabsInfo = (
+      <>
+        <div className={`tabs-info-label ${contentLeft ? 'has-icon' : ''}`}>
           {contentLeft}
           {title}
         </div>
         <div className="tabs-info-count">{contentBottom}</div>
-      </NavLink>
-    </NavItem>
-  );
+      </>
+    );
+    return (
+      <NavItem as="li" role="presentation">
+        <NavLink
+          as="button"
+          type="button"
+          eventKey={eventKey}
+          disabled={disabled}
+          id={id}
+          className={tabClassName}
+          {...tabAttrs}
+        >
+          {variant === 'tabs-info-toggle' ? tabsInfo : tabsBasic}
+        </NavLink>
+      </NavItem>
+    );
+  };
 }
 
 const Tabs = (props: TabsProps) => {
@@ -188,7 +171,6 @@ const Tabs = (props: TabsProps) => {
   } = useUncontrolled(props, {
     activeKey: 'onSelect',
   });
-
   return (
     <BaseTabs
       id={id}
@@ -198,21 +180,14 @@ const Tabs = (props: TabsProps) => {
       mountOnEnter={mountOnEnter}
       unmountOnExit={unmountOnExit}
     >
-      <Nav {...controlledProps} role="tablist" as="ul" variant={variant}>
-        {variant === 'tabs-info-toggle' ? (
-          <>{map(children as React.ReactChildren, renderTab2)}</>
-        ) : (
-          <>{map(children as React.ReactChildren, renderTab)}</>
-        )}
+     <Nav {...controlledProps} role="tablist" as="ul" variant={props.variant}>
+        {map(children as React.ReactChildren, renderTab(variant))}
       </Nav>
 
       <TabContent>
         {map(children as React.ReactChildren, (child) => {
           const childProps = { ...child.props };
 
-          // delete childProps.contentLeft;
-          // delete childProps.contentRight;
-          // delete childProps.contentBottom;
           delete childProps.title;
           delete childProps.disabled;
           delete childProps.tabClassName;

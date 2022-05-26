@@ -39,12 +39,14 @@ import { Tabs, Badge } from '../../src/index';
       description: 'To display content to the left of title e.g icon/badge',
       control: { disable: true },
     },
-     contentRight: {
-      description: 'To display content to the right of title e.g icon/badge. Not applicable to `tabs-info-toggle` variant.',
+    contentRight: {
+      description:
+        'To display content to the right of title e.g icon/badge. Not applicable to `tabs-info-toggle` variant.',
       control: { disable: true },
     },
-     contentBottom: {
-      description: 'To display content to the right of title e.g icon/badge. Applicable to `tabs-info-toggle` variant only.',
+    contentBottom: {
+      description:
+        'To display content to the right of title e.g icon/badge. Applicable to `tabs-info-toggle` variant only.',
       control: { disable: true },
     },
     variant: {
@@ -52,9 +54,9 @@ import { Tabs, Badge } from '../../src/index';
       control: {
         type: 'radio',
       },
-      options: ['tabs-basic-toggle', 'tabs-info-toggle', 'undefined'],
+      options: ['tabs-basic-toggle', 'tabs-info-toggle'],
       table: {
-        type: { summary: 'tabs-basic-toggle | tabs-info-toggle | undefined' },
+        type: { summary: 'tabs-basic-toggle | tabs-info-toggle' },
       },
     },
     transition: {
@@ -202,18 +204,18 @@ import { Tabs, Tab } from '@govtechsg/sgds-govtech-react';
     quis nostrud exercitation ullamco
   </Tab>
   <Tab eventKey="profile" title="Profile">
+    It is a long established fact that a reader will be distracted by the
+    readable content of a page when looking at its layout. The point of using
+    Lorem Ipsum is that it has a more-or-less normal distribution of letters, as
+    opposed to using 'Content here, content here',
+  </Tab>
+  <Tab eventKey="contact" title="Contact" disabled>
     Contrary to popular belief, Lorem Ipsum is not simply random text. It has
     roots in a piece of classical Latin literature from 45 BC, making it over
     2000 years old. Richard McClintock, a Latin professor at Hampden-Sydney
     College in Virginia, looked up one of the more obscure Latin words,
-    consectetur, from a Lorem Ipsum
-  </Tab>
-  <Tab eventKey="contact" title="Contact">
-    It is a long established fact that a reader will be distracted by the
-    readable content of a page when looking at its layout. The point of using
-    Lorem Ipsum is that it has a more-or-less normal distribution of letters, as
-    opposed to using 'Content here, content here', making it look like readable
-    English.
+    consectetur, from a Lorem Ipsum passage, and going through the cites of the
+    word in classical literature, discovered the undoubtable source.
   </Tab>
 </Tabs>;
 ```

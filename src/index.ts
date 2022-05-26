@@ -87,6 +87,7 @@ export * from './Table';
 // export type { TabPaneProps } from './Tabs/TabPane';
 
 export * from './Tabs';
+export * from './Tabs/Tab';
 
 export * from './ThemeProvider';
 export * from './Toast';
