@@ -1,0 +1,86 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`<Tabs> Should not render a Tab without a title 1`] = `
+<DocumentFragment>
+  <ul
+    class="nav sgds nav-tabs"
+    data-testid="testid"
+    role="tablist"
+  >
+    <li
+      class="nav-item"
+      role="presentation"
+    >
+      <button
+        aria-controls="test-tabpane-2"
+        aria-disabled="true"
+        class="nav-link disabled"
+        data-rr-ui-event-key="2"
+        disabled=""
+        id="test-tab-2"
+        role="tab"
+        tabindex="-1"
+        type="button"
+      >
+        Tab 2
+      </button>
+    </li>
+  </ul>
+  <div
+    class="sgds tab-content"
+  >
+    <div
+      aria-labelledby="test-tab-1"
+      class="fade tab-pane active show"
+      id="test-tabpane-1"
+    >
+      Tab 1 content
+    </div>
+    <div
+      aria-labelledby="test-tab-2"
+      class="fade tab-pane"
+      id="test-tabpane-2"
+    >
+      Tab 2 content
+    </div>
+  </div>
+</DocumentFragment>
+`;
+
+exports[`<Tabs> Should render TabPane with role="tab" 1`] = `
+<DocumentFragment>
+  <ul
+    class="nav sgds nav-tabs"
+    data-testid="testid"
+    role="tablist"
+  >
+    <li
+      class="nav-item"
+      role="presentation"
+    >
+      <button
+        aria-controls="test-tabpane-1"
+        aria-selected="true"
+        class="nav-link active"
+        data-rr-ui-event-key="1"
+        id="test-tab-1"
+        role="tab"
+        type="button"
+      >
+        Tab 1
+      </button>
+    </li>
+  </ul>
+  <div
+    class="sgds tab-content"
+  >
+    <div
+      aria-labelledby="test-tab-1"
+      class="fade tab-pane active show"
+      id="test-tabpane-1"
+    >
+      Tab 1 content
+    </div>
+  </div>
+</DocumentFragment>
+`;
