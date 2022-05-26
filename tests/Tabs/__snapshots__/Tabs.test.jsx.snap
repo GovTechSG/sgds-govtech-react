@@ -33,6 +33,7 @@ exports[`<Tabs> Should not render a Tab without a title 1`] = `
       aria-labelledby="test-tab-1"
       class="fade tab-pane active show"
       id="test-tabpane-1"
+      role="tabpanel"
     >
       Tab 1 content
     </div>
@@ -40,6 +41,7 @@ exports[`<Tabs> Should not render a Tab without a title 1`] = `
       aria-labelledby="test-tab-2"
       class="fade tab-pane"
       id="test-tabpane-2"
+      role="tabpanel"
     >
       Tab 2 content
     </div>
@@ -78,6 +80,7 @@ exports[`<Tabs> Should render TabPane with role="tab" 1`] = `
       aria-labelledby="test-tab-1"
       class="fade tab-pane active show"
       id="test-tabpane-1"
+      role="tabpanel"
     >
       Tab 1 content
     </div>
