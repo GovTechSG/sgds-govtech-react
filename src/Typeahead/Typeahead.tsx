@@ -7,7 +7,7 @@ import PropTypes from 'prop-types';
 import { BsPrefixRefForwardingComponent } from '../utils/helpers';
 import useMergedRefs from '@restart/hooks/useMergedRefs';
 import DropdownItem from '../Dropdown/DropdownItem';
-import { Dropdown } from '..';
+import Dropdown  from '../Dropdown/Dropdown';
 import FormControlToggle from '../Form/FormControlToggle';
 import InputGroup from '../InputGroup/InputGroup';
 
