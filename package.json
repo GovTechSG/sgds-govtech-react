@@ -32,7 +32,6 @@
     "analyze": "size-limit --why",
     "storybook": "start-storybook -p 6006 --no-manager-cache",
     "build-storybook": "build-storybook",
-    "start": "react-scripts start"
   },
   "peerDependencies": {
     "react": ">=17.0.2",
