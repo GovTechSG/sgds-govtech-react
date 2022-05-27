@@ -6,7 +6,7 @@ import { useContext, useMemo } from 'react';
 import { useUncontrolled } from 'uncontrollable';
 import BaseNav, { NavProps as BaseNavProps } from '@restart/ui/Nav';
 import { useBootstrapPrefix } from '../ThemeProvider/ThemeProvider';
-import NavbarContext from '../Navbar/NavbarContext';
+import NavbarContext from './NavbarContext';
 import NavItem from './NavItem';
 import NavLink from './NavLink';
 import NavDropdown from './NavDropdown';
@@ -105,16 +105,15 @@ const Nav: BsPrefixRefForwardingComponent<'ul', NavProps> = React.forwardRef<
     }),
     [activeKey]
   );
-  let navbarBsPrefix;
-  let isNavbar = false;
+  // let navbarBsPrefix;
+  // let isNavbar = false;
 
   const navbarContext = useContext(NavbarContext);
 
-  if (navbarContext) {
-    navbarBsPrefix = navbarContext.bsPrefix;
-    isNavbar = true;
-  }
-
+  // if (navbarContext) {
+  //   navbarBsPrefix = navbarContext.bsPrefix;
+  //   isNavbar = true;
+  // }
   return (
     <NavContext.Provider value={contextValue}>
       <BaseNav
@@ -122,11 +121,11 @@ const Nav: BsPrefixRefForwardingComponent<'ul', NavProps> = React.forwardRef<
         ref={ref}
         activeKey={activeKey}
         className={classNames(className, {
-          [bsPrefix]: !isNavbar,
-          [`${navbarBsPrefix}-nav`]: isNavbar,
-          [`${navbarBsPrefix}-nav-scroll`]: isNavbar && navbarScroll,
-          ['sgds']: !isNavbar,
-          ['nav-tabs']: !isNavbar,
+          [bsPrefix]: !navbarContext,
+          [`${navbarContext?.bsPrefix}-nav`]: navbarContext,
+          [`${navbarContext?.bsPrefix}-nav-scroll`]: navbarContext && navbarScroll,
+          ['sgds']: !navbarContext,
+          ['nav-tabs']: !navbarContext,
           // [`${bsPrefix}-${variant}`]: !!variant,
         })}
         {...props}
