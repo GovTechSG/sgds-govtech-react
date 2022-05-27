@@ -2,11 +2,9 @@
 
 # dependencies
 /node_modules
-/dist
 /.pnp
 .pnp.js
-/www/node_modules
-/www/build
+
 # testing
 /coverage
 
@@ -23,11 +21,3 @@
 npm-debug.log*
 yarn-debug.log*
 yarn-error.log*
-
-.vscode
-
-storybook-static
-
-*.bak
-
-storybook-build
