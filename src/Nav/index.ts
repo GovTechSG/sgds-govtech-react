@@ -8,3 +8,9 @@ export { default as NavItem } from './NavItem';
 
 export { default as NavLink } from './NavLink';
 export type { NavLinkProps } from './NavLink';
+
+export { default as Navbar } from './Navbar';
+export type { NavbarProps } from './Navbar';
+
+export { default as NavbarBrand } from './NavbarBrand';
+export type { NavbarBrandProps } from './NavbarBrand';
