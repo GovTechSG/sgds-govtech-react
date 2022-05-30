@@ -1,10 +1,11 @@
 import { ArgsTable, Canvas, Meta, Story } from '@storybook/addon-docs';
 
-import { Tabs, Badge } from '../../src/index';
+import { Tabs, Badge, Tab } from '../../src/index';
 
 <Meta
   title="Components/Tabs"
   component={Tabs}
+  subComponent={Tab}
   argTypes={{
     activeKey: {
       description:
@@ -12,6 +13,7 @@ import { Tabs, Badge } from '../../src/index';
       control: { disable: true },
       table: {
         type: { summary: 'string | number' },
+        category: '<Tabs>',
       },
     },
     defaultActiveKey: {
@@ -19,13 +21,7 @@ import { Tabs, Badge } from '../../src/index';
       control: { disable: true },
       table: {
         type: { summary: 'string | number' },
-      },
-    },
-    title: {
-      description: 'Prop can be used to display content within tab button',
-      control: { disable: true },
-      table: {
-        type: { summary: 'ReactNode' },
+        category: '<Tabs>',
       },
     },
     id: {
@@ -33,21 +29,8 @@ import { Tabs, Badge } from '../../src/index';
         'HTML id attribute, required if no `generateChildId` prop is specified.',
       table: {
         type: { summary: 'string' },
+        category: '<Tabs>',
       },
-    },
-    contentLeft: {
-      description: 'To display content to the left of title e.g icon/badge',
-      control: { disable: true },
-    },
-    contentRight: {
-      description:
-        'To display content to the right of title e.g icon/badge. Not applicable to `tabs-info-toggle` variant.',
-      control: { disable: true },
-    },
-    contentBottom: {
-      description:
-        'To display content to the right of title e.g icon/badge. Applicable to `tabs-info-toggle` variant only.',
-      control: { disable: true },
     },
     variant: {
       description: 'Sets the base navigation styling',
@@ -57,10 +40,87 @@ import { Tabs, Badge } from '../../src/index';
       options: ['tabs-basic-toggle', 'tabs-info-toggle'],
       table: {
         type: { summary: 'tabs-basic-toggle | tabs-info-toggle' },
+        category: '<Tabs>',
       },
     },
     transition: {
-      table: { disable: true },
+      table: { disable: true, category: '<Tabs>' },
+    },
+    onSelect: {
+      table: { disable: true, category: '<Tabs>' },
+    },
+    mountOnEnter: {
+      table: { category: '<Tabs>' },
+    },
+    unmountOnExit: {
+      table: { category: '<Tabs>' },
+    },
+    contentLeft: {
+      description: 'To display content to the left of title e.g icon/badge',
+      control: { disable: true },
+      table: {
+        category: '<Tab>',
+        type: { summary: 'ReactNode' },
+      },
+    },
+    contentRight: {
+      description:
+        'To display content to the right of title e.g icon/badge. Not applicable to `tabs-info-toggle` variant.',
+      control: { disable: true },
+      table: {
+        category: '<Tab>',
+        type: { summary: 'ReactNode' },
+      },
+    },
+    contentBottom: {
+      description:
+        'To display content to the right of title e.g icon/badge. Applicable to `tabs-info-toggle` variant only.',
+      control: { disable: true },
+      table: {
+        category: '<Tab>',
+        type: { summary: 'ReactNode' },
+      },
+    },
+    title: {
+      description: 'Prop can be used to display content within tab button',
+      control: { disable: true },
+      table: {
+        type: { summary: 'ReactNode' },
+        category: '<Tab>',
+      },
+      type: { required: true },
+    },
+    disabled: {
+      description: 'The disabled state of the tab',
+      control: { disable: true },
+      table: {
+        type: { summary: 'boolean' },
+        category: '<Tab>',
+      },
+    },
+    tabClassName: {
+      description: 'Class to pass to the underlying nav link',
+      control: { disable: true },
+      table: {
+        type: { summary: 'Object' },
+        category: '<Tab>',
+      },
+    },
+    tabAttrs: {
+      description: 'Object containing attributes to pass to underlying nav link',
+      control: { disable: true },
+      table: {
+        type: { summary: 'boolean' },
+        category: '<Tab>',
+      },
+    },
+    eventKey: {
+      description: 'A unique identifier for Tab. Required to apply `defaultActiveKey` & `activeKey` of Tabs',
+      control: { disable: true },
+      table: {
+        type: { summary: 'boolean' },
+        category: '<Tab>',
+      },
     },
   }}
 />
@@ -224,7 +284,7 @@ As our components are built on top of `React-Bootstrap` library, do check out th
 
 ## Variants
 
-Use variant `tabs-basic-toggle` to achieve the following styling. Props such as `contentLeft` and `contentRight` can be used to attach icons or badges component as shown.
+Use variant `tabs-basic-toggle` on `<Tabs>` to achieve the following styling. `<Tab>` props such as `contentLeft` and `contentRight` can be used to attach icons or badges component as shown.
 
 <Canvas>
   <Story name="Basic-Toggle">{BasicTemplate.bind({})}</Story>
@@ -276,7 +336,7 @@ import { Tabs, Tab, Badge } from '@govtechsg/sgds-govtech-react';
 </Tabs>;
 ```
 
-Use variant `tabs-info-toggle` to achieve the following styling. Props such as `contentLeft` and `contentBottom` can be used to attach icons or badges component as shown.
+Use variant `tabs-info-toggle` of `<Tabs>` to achieve the following styling. `<Tab>` props such as `contentLeft` and `contentBottom` can be used to attach icons or badges component as shown.
 
 <Canvas>
   <Story name="Info-Toggle">{InfoTemplate.bind({})}</Story>

@@ -9,6 +9,9 @@ export interface TabProps extends Omit<TabPaneProps, 'title'> {
   disabled?: boolean;
   tabClassName?: string;
   tabAttrs?: Record<string, any>;
+  contentLeft?: React.ReactNode;
+  contentRight?: React.ReactNode;
+  contentBottom?: React.ReactNode;
 }
 
 /* eslint-disable react/no-unused-prop-types */
@@ -34,6 +37,18 @@ const propTypes = {
    * Object containing attributes to pass to underlying nav link.
    */
   tabAttrs: PropTypes.object,
+   /**
+   * Content to the left of title.
+   */
+  contentLeft: PropTypes.node,
+   /**
+   * Content to the right of title. Not applicable to tabs-info-toggle variant.
+   */
+  contentRight: PropTypes.node,
+  /**
+   * Content to the bottom of title. Applicable to tabs-info-toggle variant only.
+   */
+  contentBottom:PropTypes.node,
 };
 
 const Tab: React.FC<TabProps> = () => {
