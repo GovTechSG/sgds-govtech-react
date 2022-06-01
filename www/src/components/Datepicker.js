@@ -1,4 +1,4 @@
-import { DatePicker } from 'clk-bs/DatePicker';
+import { DatePicker } from '@govtechsg/sgds-govtech-react/DatePicker';
 
 const DatePickerCom = () => {
   return (

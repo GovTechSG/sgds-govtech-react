@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { FileUpload } from "clk-bs/FileUpload";
+import { FileUpload } from "@govtechsg/sgds-govtech-react/FileUpload";
 import { Form } from "@govtechsg/sgds-govtech-react/Form";
 
                                                                                                                                                                                             

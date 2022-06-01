@@ -1,9 +1,8 @@
-import { Nav, NavDropdown, Navbar } from 'clk-bs/Nav';
+import { Nav, NavDropdown, Navbar } from '@govtechsg/sgds-govtech-react/Nav';
 import { Container } from '@govtechsg/sgds-govtech-react/Container';
 import { Row } from '@govtechsg/sgds-govtech-react/Row';
 import { Col } from '@govtechsg/sgds-govtech-react/Col';
 import { useState } from 'react';
-// import { Nav, NavDropdown, Navbar} from '@govtechsg/sgds-govtech-react'
 
 const NavbarCom = () => {
   const [active, setActive] = useState('home');
