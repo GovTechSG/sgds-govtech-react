@@ -1,9 +1,9 @@
 import * as React from 'react';
 import PaginationBase, {
   PaginationBaseProps,
-} from '../PaginationBase/PaginationBase';
+} from './PaginationBase';
 
-export interface PaginationsProps extends PaginationBaseProps {
+export interface PaginationProps extends PaginationBaseProps {
   dataLength: number;
   currentPage: number;
   itemsPerPage?: number;
@@ -15,7 +15,7 @@ export interface PaginationsProps extends PaginationBaseProps {
   ellipsisJump: number;
 }
 
-export const Paginations: React.FC<PaginationsProps> = ({
+export const Pagination: React.FC<PaginationProps> = ({
   dataLength = 0,
   currentPage = 1,
   itemsPerPage = 5,
@@ -150,4 +150,4 @@ export const Paginations: React.FC<PaginationsProps> = ({
   );
 };
 
-Paginations.displayName = 'Paginations';
+Pagination.displayName = 'Pagination';
