@@ -71,7 +71,11 @@ const SelectableCard: React.FC<SelectableCardProps> = ({
       onClick={handleSelect}
       tabIndex={0}
       variant="card-action"
-      className={formCheckRef.current?.checked && !props.disabled ? 'is-active' : undefined}
+      className={
+        formCheckRef.current?.checked && !props.disabled
+          ? 'is-active'
+          : undefined
+      }
       {...cardProps}
     >
       <Card.Body>

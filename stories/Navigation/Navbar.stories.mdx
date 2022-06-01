@@ -1,5 +1,7 @@
 import { ArgsTable, Canvas, Meta, Story } from '@storybook/addon-docs';
-import { Navbar, Nav, NavDropdown, Container, Row, Col } from '../../src';
+import { Container, Row, Col } from '../../src';
+import { Navbar, Nav, NavDropdown } from '../../src/Nav';
+
 import { useState } from 'react';
 import { HIDDEN_COMMON_PROPS } from '../helpers';
 
@@ -40,7 +42,8 @@ Create a fixed navbar along the top or bottom of the screen, that scrolls with t
       description: `The breakpoint, below which, the Navbar will collapse. When true the Navbar will always be expanded regardless of screen size.`,
     },
     bg: {
-      description: 'Sets the background color of navbar. See [bootstrap colors](https://getbootstrap.com/docs/5.0/utilities/colors/) for possible options',
+      description:
+        'Sets the background color of navbar. See [bootstrap colors](https://getbootstrap.com/docs/5.0/utilities/colors/) for possible options',
     },
   }}
 />
@@ -276,7 +279,9 @@ export const PageContent = Template('Sticky Top Nav', null, textContent);
 `<Navbar />` is a `<nav />` element, collapsible on breakpoint. It consist of subcomponents `<Navbar.Brand/>`, `<Navbar.Collapse/>`, `<Navbar.Toggle/>`
 
 <Canvas>
-  <Story name="Default" height="500px">{Default.bind({})}</Story>
+  <Story name="Default" height="500px">
+    {Default.bind({})}
+  </Story>
 </Canvas>
 
 ## API
@@ -288,8 +293,7 @@ For more detailed API documentation , refer to https://react-bootstrap.github.io
 ## Code Sample
 
 ```jsx
-import { Navbar } from '@govtechsg/sgds-govtech-react/Navbar';
-import { Nav, NavDropdown } from '@govtechsg/sgds-govtech-react/Nav';
+import { Navbar, Nav, NavDropdown } from '@govtechsg/sgds-govtech-react/Nav';
 import { Container } from '@govtechsg/sgds-govtech-react/Container';
 import { Row } from '@govtechsg/sgds-govtech-react/Row';
 import { Col } from '@govtechsg/sgds-govtech-react/Col';
@@ -546,5 +550,3 @@ View example in Canvas Mode to see sticky Nav
     {PageContent.bind({})}
   </Story>
 </Canvas>
-
-

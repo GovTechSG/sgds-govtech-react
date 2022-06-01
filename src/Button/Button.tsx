@@ -5,8 +5,14 @@ import {
   useButtonProps,
   ButtonProps as BaseButtonProps,
 } from '@restart/ui/Button';
-import { useBootstrapPrefix, SGDSWrapper } from '../ThemeProvider/ThemeProvider';
-import { BsPrefixProps, BsPrefixRefForwardingComponent } from '../utils/helpers';
+import {
+  useBootstrapPrefix,
+  SGDSWrapper,
+} from '../ThemeProvider/ThemeProvider';
+import {
+  BsPrefixProps,
+  BsPrefixRefForwardingComponent,
+} from '../utils/helpers';
 import { ButtonVariant } from '../utils/types';
 
 export interface ButtonProps
@@ -17,6 +23,7 @@ export interface ButtonProps
   size?: 'sm' | 'lg';
 }
 
+export type ButtonSize = 'sm' | 'lg';
 export type CommonButtonProps = 'href' | 'size' | 'variant' | 'disabled';
 
 const propTypes = {
@@ -64,7 +71,6 @@ const propTypes = {
    */
   type: PropTypes.oneOf(['button', 'reset', 'submit', null]),
   as: PropTypes.elementType,
-
 };
 
 const defaultProps = {

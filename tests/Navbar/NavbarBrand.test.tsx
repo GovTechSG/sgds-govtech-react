@@ -1,5 +1,5 @@
 import { render } from '@testing-library/react';
-import { NavbarBrand } from '../../src/Navbar';
+import { NavbarBrand } from '../../src/Nav';
 import * as React from 'react';
 
 describe('<Navbar.Brand>', () => {

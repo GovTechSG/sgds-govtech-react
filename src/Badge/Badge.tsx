@@ -12,6 +12,8 @@ export interface BadgeProps
   bg?: Variant;
   pill?: boolean;
   text?: Color;
+  textIndicator?: boolean;
+  dotIndicator?: boolean;
 }
 
 const propTypes = {
@@ -40,17 +42,21 @@ const propTypes = {
 
   /** @default span */
   as: PropTypes.elementType,
+  textIndicator: PropTypes.bool,
+  dotIndicator: PropTypes.bool,
 };
 
 const defaultProps = {
   bg: 'primary',
   pill: false,
+  textIndicator: false,
+  dotIndicator: false
 };
 
 export const Badge: BsPrefixRefForwardingComponent<'span', BadgeProps> =
   React.forwardRef<HTMLElement, BadgeProps>(
     (
-      { bsPrefix, bg, pill, text, className, as: Component = 'span', ...props },
+      { bsPrefix, bg, pill, text, className, textIndicator, dotIndicator, as: Component = 'span', ...props },
       ref,
     ) => {
       const prefix = useBootstrapPrefix(bsPrefix, 'badge');
@@ -65,8 +71,13 @@ export const Badge: BsPrefixRefForwardingComponent<'span', BadgeProps> =
             pill && `rounded-pill`,
             text && `text-${text}`,
             bg && `bg-${bg}`,
+            (textIndicator || dotIndicator) && 'position-absolute top-0 start-100 translate-middle',
+            dotIndicator && 'p-2 border border-light rounded-circle'
           )}
-        />
+        >
+          {dotIndicator && <span className='visually-hidden'>New alerts</span> }
+          {props.children}
+        </SGDSWrapper>
       );
     },
   );

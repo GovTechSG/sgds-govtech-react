@@ -1,7 +1,7 @@
 import { render } from '@testing-library/react';
 import * as React from 'react';
 
-import { Navbar } from '../../src/Navbar';
+import { Navbar } from '../../src/Nav';
 
 describe('<NavbarToggle>', () => {
   it('Should have button as default component', () => {

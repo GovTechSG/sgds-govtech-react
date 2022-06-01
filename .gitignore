@@ -5,7 +5,8 @@
 /dist
 /.pnp
 .pnp.js
-
+/www/node_modules
+/www/build
 # testing
 /coverage
 
