@@ -33,7 +33,7 @@ export const Template = (args) => {
         <Form.Text className="text-muted">
           We'll never share your email with anyone else.
         </Form.Text>
-        <Form.Control htmlSize={5} type="email" placeholder="Enter email" />
+        <Form.Control type="email" placeholder="Enter email" />
       </Form.Group>
       <Form.Group className="mb-3" controlId="formBasicPassword">
         <Form.Label>Password</Form.Label>
@@ -58,6 +58,10 @@ export const Template = (args) => {
 
 ## API
 
+```jsx
+import { Form } from '@govtechsg/sgds-govtech-react/Form'; 
+```
+
 <ArgsTable story="Basic" />
 
 For more detailed API documentation on `Form`, reference <a href="https://react-bootstrap.github.io/forms/overview/" target="_blank">here</a>.
@@ -69,7 +73,7 @@ import { Form, Button } from '@govtechsg/sgds-govtech-react';
 <Form onSubmit={onSubmit}>
   <Form.Group className="mb-3" controlId="formBasicEmail">
     <Form.Label>Email address</Form.Label>
-    <Form.Control htmlSize={5} type="email" placeholder="Enter email" />
+    <Form.Control type="email" placeholder="Enter email" />
     <Form.Text className="text-muted">
       We'll never share your email with anyone else.
     </Form.Text>
@@ -93,7 +97,6 @@ Add the `disabled` boolean attribute on an input to prevent user interactions an
 
 <Canvas>
   <Story name="Disabled Inputs">
-    <>
       <Form.Group className="mb-3">
         <Form.Label>Disabled input</Form.Label>
         <Form.Control placeholder="Disabled input" disabled />
@@ -107,7 +110,6 @@ Add the `disabled` boolean attribute on an input to prevent user interactions an
       <Form.Group className="mb-3">
         <Form.Check type="checkbox" label="Can't check this" disabled />
       </Form.Group>
-    </>
   </Story>
 </Canvas>
 
@@ -190,71 +192,5 @@ export const Template_Form_Text = (args) => {
     id="inputPassword5"
     aria-describedby="passwordHelpBlock"
   />
-</>
-```
-
-## ` <Form.Select />`
-
-Customize the native `<select>`s with custom CSS that changes the element’s initial appearance.
-
-export const Template_Form_Select = () => {
-  return (
-    <Form.Select aria-label="Default select example">
-      <option>Open this select menu</option>
-      <option value="1">One</option>
-      <option value="2">Two</option>
-      <option value="3">Three</option>
-    </Form.Select>
-  );
-};
-
-<Canvas>
-  <Story name="Form Select">{Template_Form_Select.bind({})}</Story>
-</Canvas>
-
-```jsx
-<Form.Select aria-label="Default select example">
-  <option>Open this select menu</option>
-  <option value="1">One</option>
-  <option value="2">Two</option>
-  <option value="3">Three</option>
-</Form.Select>
-```
-
-## Form Select Sizing
-
-You may also choose from small and large custom selects to match our similarly sized text inputs.
-
-<Canvas>
-  <Story name="Form Select Sizing">
-    <>
-      <Form.Select size="lg">
-        <option>Large select</option>
-      </Form.Select>
-      <br />
-      <Form.Select>
-        <option>Default select</option>
-      </Form.Select>
-      <br />
-      <Form.Select size="sm">
-        <option>Small select</option>
-      </Form.Select>
-    </>
-  </Story>
-</Canvas>
-
-```jsx
-<>
-  <Form.Select size="lg">
-    <option>Large select</option>
-  </Form.Select>
-
-  <Form.Select>
-    <option>Default select</option>
-  </Form.Select>
-
-  <Form.Select size="sm">
-    <option>Small select</option>
-  </Form.Select>
 </>
 ```

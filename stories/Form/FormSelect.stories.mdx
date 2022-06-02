@@ -1,0 +1,91 @@
+import { ArgsTable, Canvas, Meta, Story } from '@storybook/addon-docs';
+import { HIDDEN_COMMON_PROPS } from '../helpers';
+import { FormSelect, Button, Form } from '../../src/index';
+
+<Meta
+  title="Components/Form/FormSelect"
+  component={FormSelect}
+  argTypes={{
+    ...HIDDEN_COMMON_PROPS,
+    size: { description: 'size of control in terms of height' },
+    isValid: { description: 'Applies valid validation styles to the control' },
+    isInvalid: {
+      description: 'Applies invalid validation styles to the control',
+    },
+  }}
+/>
+
+# ` <Form.Select />`
+
+Customize the native `<select>`s with custom CSS that changes the element’s initial appearance.
+
+export const Template = (args) => {
+  return (
+    <FormSelect aria-label="Default select example" {...args}>
+      <option>Open this select menu</option>
+      <option value="1">One</option>
+      <option value="2">Two</option>
+      <option value="3">Three</option>
+    </FormSelect>
+  );
+};
+
+<Canvas>
+  <Story name="Default">{Template.bind({})}</Story>
+</Canvas>
+
+## API 
+
+```jsx
+import { FormSelect } from '@govtechsg/sgds-govtech-react/Form'; 
+//or 
+import { Form } from '@govtechsg/sgds-govtech-react/Form'; 
+// use <Form.Select />
+```
+
+<ArgsTable story="Default" />
+
+```jsx
+<Form.Select aria-label="Default select example">
+  <option>Open this select menu</option>
+  <option value="1">One</option>
+  <option value="2">Two</option>
+  <option value="3">Three</option>
+</Form.Select>
+```
+
+## Form Select Sizing
+
+You may also choose from small and large custom selects to match our similarly sized text inputs.
+
+<Canvas>
+  <Story name="Form Select Sizing">
+    <>
+      <Form.Select size="lg">
+        <option>Large select</option>
+      </Form.Select>
+      <br />
+      <Form.Select>
+        <option>Default select</option>
+      </Form.Select>
+      <br />
+      <Form.Select size="sm">
+        <option>Small select</option>
+      </Form.Select>
+    </>
+  </Story>
+</Canvas>
+
+```jsx
+  <Form.Select size="lg">
+    <option>Large select</option>
+  </Form.Select>
+
+  <Form.Select>
+    <option>Default select</option>
+  </Form.Select>
+
+  <Form.Select size="sm">
+    <option>Small select</option>
+  </Form.Select>
+```

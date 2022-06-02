@@ -26,15 +26,6 @@ describe('<FormSelect>', () => {
     expect(element.classList).toContain('form-select-lg')
   });
 
-  it('should render htmlSize correctly', () => {
-    const { getByTestId } = render(
-      <FormSelect htmlSize={3} data-testid="test-id" />,
-    );
-
-    const element = getByTestId('test-id');
-    expect(element).toHaveAttribute('size', '3')
-  });
-
   it('should render isValid correctly', () => {
     const { getByTestId } = render(
       <FormSelect isValid data-testid="test-id" />,

@@ -20,7 +20,6 @@ export interface FormCheckProps
   type?: FormCheckType;
   isValid?: boolean;
   isInvalid?: boolean;
-  feedbackTooltip?: boolean;
   feedback?: React.ReactNode;
   feedbackType?: FeedbackType;
   bsSwitchPrefix?: string;
@@ -64,19 +63,6 @@ const propTypes = {
   id: PropTypes.string,
 
   /**
-   * Provide a function child to manually handle the layout of the FormCheck's inner components.
-   *
-   * ```jsx
-   * <FormCheck>
-   *   <FormCheck.Input isInvalid type={radio} />
-   *   <FormCheck.Label>Allow us to contact you?</FormCheck.Label>
-   *   <Feedback type="invalid">Yo this is required</Feedback>
-   * </FormCheck>
-   * ```
-   */
-  children: PropTypes.node,
-
-  /**
    * Groups controls horizontally with other `FormCheck`s.
    */
   inline: PropTypes.bool,
@@ -108,9 +94,6 @@ const propTypes = {
   /** Manually style the input as invalid */
   isInvalid: PropTypes.bool,
 
-  /** Display feedback as a tooltip. */
-  feedbackTooltip: PropTypes.bool,
-
   /** A message to display when the input is in a validation state */
   feedback: PropTypes.node,
 };
@@ -126,7 +109,6 @@ const FormCheck: BsPrefixRefForwardingComponent<'input', FormCheckProps> =
         disabled = false,
         isValid = false,
         isInvalid = false,
-        feedbackTooltip = false,
         feedback,
         feedbackType,
         className,
@@ -134,7 +116,6 @@ const FormCheck: BsPrefixRefForwardingComponent<'input', FormCheckProps> =
         title = '',
         type = 'checkbox',
         label,
-        children,
         // Need to define the default "as" during prop destructuring to be compatible with styled-components github.com/react-bootstrap/react-bootstrap/issues/3595
         as = 'input',
         ...props
@@ -153,7 +134,7 @@ const FormCheck: BsPrefixRefForwardingComponent<'input', FormCheckProps> =
         [controlId, id],
       );
 
-      const hasLabel = label != null && label !== false && !children;
+      const hasLabel = label != null && label !== false
 
       const input = (
         <FormCheckInput
@@ -178,19 +159,15 @@ const FormCheck: BsPrefixRefForwardingComponent<'input', FormCheckProps> =
               type === 'switch' && bsSwitchPrefix,
             )}
           >
-            {children || (
-              <>
                 {input}
                 {hasLabel && (
                   <FormCheckLabel title={title}>{label}</FormCheckLabel>
                 )}
                 {feedback && (
-                  <Feedback type={feedbackType} tooltip={feedbackTooltip}>
+                  <Feedback type={feedbackType}>
                     {feedback}
                   </Feedback>
                 )}
-              </>
-            )}
           </div>
         </FormContext.Provider>
       );

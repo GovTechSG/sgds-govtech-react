@@ -106,14 +106,6 @@ describe('<FormControl>', () => {
     expect(element.classList).toContain('form-control-lg')
   });
 
-  it('should properly display html size of FormControl', () => {
-    const { getByTestId } = render(
-      <FormControl type="text" htmlSize={42} data-testid="test-id" />,
-    );
-    
-    expect(getByTestId('test-id')).toHaveAttribute('size', '42')
-  });
-
   it('Should have input as default component', () => {
     const { getByTestId } = render(<FormControl data-testid="test-id" />);
 

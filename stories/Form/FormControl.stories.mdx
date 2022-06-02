@@ -1,0 +1,77 @@
+import { ArgsTable, Canvas, Meta, Story } from '@storybook/addon-docs';
+import { HIDDEN_COMMON_PROPS } from '../helpers';
+import { FormControl, Form } from '../../src/index';
+
+<Meta
+  title="Components/Form/FormControl"
+  component={FormControl}
+  argTypes={{
+    size: { description: 'size of input in terms of height' },
+    as: {description: 'You can use a custom element type for this component'}, 
+    plaintext: { description: 'Render the input as plain text. Generally used along side readOnly'},
+    readOnly: { description: 'Make the control readonly'},
+    disabled: { description: 'Disables the control'},
+    value: {description: 'The `value` attribute of underlying input'},
+    onChange: {description: ' The callback fired when the `value` prop changes'},
+    type: {description: ' The HTML input `type`, which is only relevant if `as` is `input` (the default)'},
+    isValid: {description: 'Applies valid validation styles to the control'},
+    isInvalid: {description: 'Applies invalid validation styles to the control'}
+  }}
+/>
+
+export const Template = (args) => {
+  return (
+    <Form>
+      <Form.Group className="mb-3" controlId="exampleForm.ControlInput1">
+        <Form.Label>Name</Form.Label>
+        <Form.Control {...args}/>
+      </Form.Group>
+    </Form>
+  );
+};
+
+# FormControl
+
+Use FormControl for textual form controls like input and textarea. The default FormControl is an input element.
+FormControl extends the HTMLInputElement and HTMlTextAreaElement and their attributes are applicable to FormControl as props.
+
+<Canvas>
+  <Story name="Default">{Template.bind({})}</Story>
+</Canvas>
+
+## API
+
+```jsx
+import { FormControl } from '@govtechsg/sgds-govtech-react/Form';
+// or
+import { Form } from '@govtechsg/sgds-govtech-react/Form';
+// and use <Form.Control />
+```
+
+<ArgsTable story="Default" />
+
+## textarea
+
+Use `as` prop to change FormControl HTML tag from input to textarea
+
+<Canvas>
+  <Story name="Text area" args={{ as: 'textarea', placeholder: 'write something' }}>
+    {Template.bind({})}
+  </Story>
+</Canvas>
+
+```jsx
+<Form.Control as="textarea" placeholder="write something"/>
+```
+
+## Plain Text
+
+<Canvas>
+  <Story name="Plain text" args={{ plaintext: true, value: 'this is plaintext', readOnly: true }}>
+    {Template.bind({})}
+  </Story>
+</Canvas>
+
+```jsx
+<Form.Control plaintext value="this is plaintext" readOnly/>
+```
