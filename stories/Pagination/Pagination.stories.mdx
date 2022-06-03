@@ -1,10 +1,10 @@
 import { ArgsTable, Canvas, Meta, Story } from '@storybook/addon-docs';
 import { useState, useEffect } from 'react';
-import { Paginations, Table } from '../../src/index';
+import { Pagination, Table } from '../../src/index';
 
 <Meta
-  title="Components/Paginations"
-  component={Paginations}
+  title="Components/Pagination"
+  component={Pagination}
   argTypes={{
     dataLength: {
       description:
@@ -161,7 +161,7 @@ export const Template2 = (args) => {
         </thead>
         <tbody>{renderData(currentItems)}</tbody>
       </Table>
-      <Paginations
+      <Pagination
         {...args}
         dataLength={data.length}
         currentPage={currentPage}
@@ -214,7 +214,7 @@ export const Template = (args) => {
         </thead>
         <tbody>{renderData(currentItems)}</tbody>
       </Table>
-      <Paginations
+      <Pagination
         {...args}
         dataLength={data.length}
         currentPage={currentPage}
@@ -225,13 +225,13 @@ export const Template = (args) => {
   );
 };
 
-# Paginations
+# Pagination
 
 The Pagination component enables the user to select a specific page from a range of pages
 
-## Paginations with API sample
+## Pagination with API sample
 
-The `<Paginations>` component will include some props which is needed for the pagination to work. Users will be required to provide the **data objects** to be passed in as data length, a **current page** set as initial active, and set the **number of data items** to be rendered per page. Below is a sample of pagination with a table formatted data.
+The `<Pagination>` component will include some props which is needed for the pagination to work. Users will be required to provide the **data objects** to be passed in as data length, a **current page** set as initial active, and set the **number of data items** to be rendered per page. Below is a sample of pagination with a table formatted data.
 
 <Canvas>
   <Story name="Standard">{Template.bind({})}</Story>
@@ -239,10 +239,14 @@ The `<Paginations>` component will include some props which is needed for the pa
 
 ## API
 
+```jsx
+import { Pagination } from '@govtechsg/sgds-govtech-react/Pagination'; 
+```
+
 <ArgsTable story="Standard" />
 
 ```jsx
-import { Paginations, Table } from '@govtechsg/sgds-govtech-react';
+import { Pagination, Table } from '@govtechsg/sgds-govtech-react';
 import React, { useState, useEffect } from 'react';
 
 export const Template = () => {
@@ -290,7 +294,7 @@ export const Template = () => {
         </thead>
         <tbody>{renderData(currentItems)}</tbody>
       </Table>
-      <Paginations
+      <Pagination
         {...args}
         dataLength={data.length}
         currentPage={currentPage}

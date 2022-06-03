@@ -1,8 +1,7 @@
 import { render, waitFor } from '@testing-library/react';
 import * as React from 'react';
-import { Nav, NavDropdown } from '../../src/Nav';
+import { Nav, NavDropdown, Navbar} from '../../src/Nav';
 
-import { Navbar } from '../../src/Navbar';
 
 describe('<NavDropdown>', () => {
   it('Should render li when in nav', () => {

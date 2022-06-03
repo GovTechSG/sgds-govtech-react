@@ -1,11 +1,12 @@
-import { ArgsTable, Canvas, Meta, Story } from '@storybook/addon-docs';
+import { ArgsTable, Canvas, Meta, Story, Props } from '@storybook/addon-docs';
 
-import { Accordion } from '../../src';
+import { Accordion, AccordionButton } from '../../src';
+import  AccordionBody  from '../../src/Accordion/AccordionBody'
 
 <Meta
   title="Components/Accordion"
   component={Accordion}
-  argTypes={{
+  argTypes={{ 
     defaultActiveKey: {
       description:
         'The default active key that sets an accordion item to be expanded on start, value should correspond to assigned `eventKey` prop.',
@@ -63,7 +64,7 @@ import { Accordion } from '../../src';
       table: {
         category: '<Accordion>',
       },
-    },
+    }
   }}
 />
 
@@ -117,7 +118,11 @@ export const Template = (args) => (
 
 ## API
 
+```jsx
+import { Accordion } from '@govtechsg/sgds-govtech-react/Accordion'; 
+```
 <ArgsTable story="Basic" />
+
 
 ```jsx
 import { Accordion } from '@govtechsg/sgds-govtech-react';
@@ -158,7 +163,6 @@ If you want your `Accordion` to start in a fully-collapsed state, then simply do
   <Story name="Fully Collapsed State">{Template.bind({})}</Story>
 </Canvas>
 
-<ArgsTable story="Fully Collapsed State" />
 
 ```jsx
 import { Accordion } from '@govtechsg/sgds-govtech-react';
@@ -201,7 +205,6 @@ Add `flush` to remove the default background-color, some borders, and some round
   </Story>
 </Canvas>
 
-<ArgsTable story="Flush" />
 
 ```jsx
 import { Accordion } from '@govtechsg/sgds-govtech-react';
@@ -248,3 +251,4 @@ Control which AccordionItem should be open on first load by defining `defaultAct
     {Template.bind({})}
   </Story>
 </Canvas>
+

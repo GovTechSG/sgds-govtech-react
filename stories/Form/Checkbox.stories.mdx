@@ -1,0 +1,122 @@
+import { ArgsTable, Canvas, Meta, Story } from '@storybook/addon-docs';
+import { HIDDEN_COMMON_PROPS } from '../helpers';
+import { FormCheck, Button, Form } from '../../src/index';
+
+<Meta
+  title="Components/Form/FormCheck"
+  component={FormCheck}
+  argTypes={{
+    ...HIDDEN_COMMON_PROPS,
+    label: {
+      description: 'Label for FormCheck',
+    },
+    inline: {
+      description: 'Groups the FormChecks horizontally with each other',
+    },
+    disabled: {
+      description: 'Disables FormCheck',
+    },
+    type: {
+      description: 'The type of checkable',
+    },
+    isValid: {
+      description: 'Styles input as valid',
+    },
+    isInvalid: {
+      description: 'Styles input as invalid',
+    },
+    feedback: {
+      description:
+        'A message to display when the input is in a validation state',
+    },
+    feedbackType: {
+      description:
+        'Forwarded to underlying Feedback component. Specify whether feedback is for invalid or valid field',
+    },
+    bsSwitchPrefix: {
+      description: 'bsPrefix to override base switch class',
+    },
+  }}
+/>
+
+export const Template = (args) => {
+  return (
+    <Form>
+      <FormCheck {...args} id='default-checkbox-1'/>
+      <FormCheck {...args} id='default-checkbox-2' />
+    </Form>
+  );
+};
+
+# FormCheck
+
+<Canvas>
+  <Story
+    name="Default - checkbox"
+    args={{ label: 'I am default a checkbox (change me)' }}
+  >
+    {Template.bind({})}
+  </Story>
+</Canvas>
+
+## API
+
+```jsx
+import { FormCheck } from '@govtechsg/sgds-govtech-react/Form'; 
+//or 
+import { Form } from '@govtechsg/sgds-govtech-react/Form'
+//use <Form.Check />
+```
+
+<ArgsTable story="Default - checkbox" />
+
+## Radio
+
+Remember to apply HTMLInput type attribute `name` for radio buttons so that user can only select one option
+
+<Canvas>
+  <Story
+    name="Default - radio"
+    args={{ label: 'Radio', type: 'radio', name: 'radio_checks' }}
+  >
+    {Template.bind({})}
+  </Story>
+</Canvas>
+
+## Switch
+
+<Canvas>
+  <Story name="Default - switch" args={{ label: 'Switch', type: 'switch' }}>
+    {Template.bind({})}
+  </Story>
+</Canvas>
+
+## Validations
+
+Use props `feedback`, `feedbackType`, `isValid`, `isInvalid` to show valid or invalid feedback.
+See [Validations](/docs/components-form-validations--native-html-5-form-validation) story on how to use it in a form submission context.
+
+<Canvas>
+  <Story
+    name="Valid feedback"
+    args={{
+      label: 'Valid',
+      isValid: true,
+      feedbackType: 'valid',
+      feedback: 'All is good!',
+    }}
+  >
+    {Template.bind({})}
+  </Story>
+  <Story
+    name="Invalid Feedback"
+    args={{
+      label: 'Invalid',
+      isInvalid: true,
+      feedbackType: 'invalid',
+      feedback: 'Uh Oh!',
+    }}
+  >
+    {Template.bind({})}
+  </Story>
+</Canvas>

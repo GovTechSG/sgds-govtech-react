@@ -11,13 +11,12 @@ import { forEach, map } from '../utils/ElementChildren';
 import getTabTransitionComponent from '../utils/getTabTransitionComponent';
 import { TransitionType } from '../utils/helpers';
 
+export type TabsVariant = 'tabs-basic-toggle' | 'tabs-info-toggle';
+
 export interface TabsProps
   extends Omit<BaseTabsProps, 'transition'>,
     Omit<React.HTMLAttributes<HTMLElement>, 'onSelect'> {
-  variant?: 'tabs-basic-toggle' | 'tabs-info-toggle';
-  contentLeft?: JSX.Element;
-  contentRight?: JSX.Element;
-  contentBottom?: JSX.Element;
+  variant?: TabsVariant;
   transition?: TransitionType;
 }
 
@@ -84,10 +83,6 @@ const propTypes = {
    * Unmount tabs (remove it from the DOM) when it is no longer visible
    */
   unmountOnExit: PropTypes.bool,
-
-  contentLeft: PropTypes.string,
-  contentRight: PropTypes.string,
-  contentBottom: PropTypes.string,
 };
 
 const defaultProps = {
@@ -107,7 +102,7 @@ function getDefaultActiveKey(children: React.ReactChildren) {
   return defaultActiveKey;
 }
 
-function renderTab(variant?: 'tabs-basic-toggle' | 'tabs-info-toggle') {
+function renderTab(variant?: TabsVariant) {
   return (child: React.ReactElement) => {
     const {
       title,

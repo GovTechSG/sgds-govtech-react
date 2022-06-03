@@ -133,30 +133,5 @@ describe('<FormCheck>', () => {
 
       expect(container.querySelector('.invalid-tooltip')).toBeNull() 
     });
-
-    it('Should render valid feedback tooltip properly', () => {
-      const { container } = render(
-        <FormCheck
-          label="My label"
-          feedbackType="valid"
-          feedback="test"
-          feedbackTooltip
-        />,
-      );
-      expect(container.querySelector('.valid-feedback')).toBeNull()   
-      expect(container.querySelector('.valid-tooltip')).not.toBeNull()   
-    });
-
-    it('Should render invalid feedback tooltip properly', () => {
-      const { container } = render(
-        <FormCheck
-          label="My label"
-          feedbackType="invalid"
-          feedback="test"
-          feedbackTooltip
-        />,
-      );
-      expect(container.querySelector('.invalid-feedback')).toBeNull()
-      expect(container.querySelector('.invalid-tooltip')).not.toBeNull()
-    });
+   
 });

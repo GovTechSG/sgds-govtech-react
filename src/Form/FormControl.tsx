@@ -13,7 +13,6 @@ export type FormControlElement = HTMLInputElement | HTMLTextAreaElement;
 export interface FormControlProps
   extends BsPrefixProps,
     React.HTMLAttributes<FormControlElement> {
-  htmlSize?: number;
   size?: 'sm' | 'lg';
   plaintext?: boolean;
   readOnly?: boolean;
@@ -46,12 +45,6 @@ const propTypes = {
    * @type {('sm'|'lg')}
    */
   size: PropTypes.string,
-
-  /**
-   * The size attribute of the underlying HTML element.
-   * Specifies the visible width in characters if `as` is `'input'`.
-   */
-  htmlSize: PropTypes.number,
 
   /**
    * The underlying HTML element to use when rendering the FormControl.
@@ -109,7 +102,6 @@ const FormControl: BsPrefixRefForwardingComponent<'input', FormControlProps> =
         bsPrefix,
         type,
         size,
-        htmlSize,
         id,
         className,
         isValid = false,
@@ -146,7 +138,6 @@ const FormControl: BsPrefixRefForwardingComponent<'input', FormControlProps> =
           <Component
             {...props}
             type={type}
-            size={htmlSize}
             ref={ref}
             readOnly={readOnly}
             id={id || controlId}

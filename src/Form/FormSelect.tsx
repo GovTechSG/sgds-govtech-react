@@ -9,7 +9,6 @@ import FormContext from './FormContext';
 export interface FormSelectProps
   extends BsPrefixOnlyProps,
     Omit<React.SelectHTMLAttributes<HTMLSelectElement>, 'size'> {
-  htmlSize?: number;
   size?: 'sm' | 'lg';
   isValid?: boolean;
   isInvalid?: boolean;
@@ -28,11 +27,6 @@ const propTypes = {
    */
   size: PropTypes.string,
 
-  /**
-   * The size attribute of the underlying HTML element.
-   * Specifies the number of visible options.
-   */
-  htmlSize: PropTypes.number,
 
   /** Make the control disabled */
   disabled: PropTypes.bool,
@@ -58,13 +52,12 @@ const propTypes = {
   isInvalid: PropTypes.bool,
 };
 
-const FormSelect: BsPrefixRefForwardingComponent<'select', FormSelectProps> =
+export const FormSelect: BsPrefixRefForwardingComponent<'select', FormSelectProps> =
   React.forwardRef<HTMLSelectElement, FormSelectProps>(
     (
       {
         bsPrefix,
         size,
-        htmlSize,
         className,
         isValid = false,
         isInvalid = false,
@@ -79,7 +72,6 @@ const FormSelect: BsPrefixRefForwardingComponent<'select', FormSelectProps> =
       return (
         <select
           {...props}
-          size={htmlSize}
           ref={ref}
           className={classNames(
             className,

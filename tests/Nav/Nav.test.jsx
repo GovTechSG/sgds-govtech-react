@@ -1,7 +1,7 @@
 import { fireEvent, render, waitFor } from '@testing-library/react';
 import * as React from 'react';
 import { Nav, NavDropdown } from '../../src/Nav';
-import { Navbar } from '../../src/Navbar';
+import { Navbar } from '../../src/Nav';
 import { shouldWarn } from '../helpers';
 
 describe('<Nav>', () => {

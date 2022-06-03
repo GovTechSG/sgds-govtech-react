@@ -28,7 +28,7 @@ const propTypes = {
   eventKey: PropTypes.string.isRequired,
 };
 
-const AccordionItem: BsPrefixRefForwardingComponent<'div', AccordionItemProps> =
+export const AccordionItem: BsPrefixRefForwardingComponent<'div', AccordionItemProps> =
   React.forwardRef<HTMLElement, AccordionItemProps>(
     (
       {

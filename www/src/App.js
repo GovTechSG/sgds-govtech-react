@@ -24,6 +24,7 @@ import {
   DatePickerCom,
   TypeaheadCom,
   ModalCom,
+  TabsCom
 } from './components';
 
 function App() {
@@ -52,6 +53,7 @@ function App() {
       <DatePickerCom/>
       <TypeaheadCom/>
       <ModalCom/>
+      <TabsCom/>
     </div>
   );
 }

@@ -1,4 +1,4 @@
-import { Typeahead } from 'clk-bs/Typeahead';
+import { Typeahead } from '@govtechsg/sgds-govtech-react/Typeahead';
 
  const TypeaheadCom = () => {
     return (

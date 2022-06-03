@@ -21,4 +21,5 @@ export {default as ProgressBarCom} from './ProgressBar'
 export {default as DatePickerCom} from './Datepicker'
 export {default as TypeaheadCom} from './Typeahead'
 export {default as ModalCom} from './Modal'
+export {default as TabsCom} from './Tabs'
 
