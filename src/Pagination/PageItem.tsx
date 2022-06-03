@@ -11,7 +11,6 @@ export interface PageItemProps
     BsPrefixProps {
   disabled?: boolean;
   active?: boolean;
-  activeLabel?: string;
   href?: string;
 }
 
@@ -21,9 +20,6 @@ const propTypes = {
 
   /** Styles PageItem as active, and renders a `<span>` instead of an `<a>`. */
   active: PropTypes.bool,
-
-  /** An accessible label indicating the active state.. */
-  activeLabel: PropTypes.string,
 
   /** A callback function for when this component is clicked */
   onClick: PropTypes.func,
@@ -43,7 +39,6 @@ const PageItem: BsPrefixRefForwardingComponent<'li', PageItemProps> =
         disabled,
         className,
         style,
-        activeLabel,
         children,
         ...props
       }: PageItemProps,
@@ -58,9 +53,6 @@ const PageItem: BsPrefixRefForwardingComponent<'li', PageItemProps> =
         >
           <Component className="page-link" disabled={disabled} {...props}>
             {children}
-            {active && activeLabel && (
-              <span className="visually-hidden">{activeLabel}</span>
-            )}
           </Component>
         </li>
       );
@@ -77,8 +69,7 @@ function createButton(name: string, defaultValue: ReactNode) {
   function Button({ children, ...props }: PageItemProps) {
     return (
       <PageItem {...props}>
-        <span aria-hidden="true">{children || defaultValue}</span>
-        {/* <span className="visually-hidden">{label}</span> */}
+        <span>{children || defaultValue}</span>
       </PageItem>
     );
   }

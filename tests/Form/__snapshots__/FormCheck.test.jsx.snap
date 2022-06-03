@@ -37,6 +37,11 @@ exports[`<FormCheck> should not render bsPrefix if no label is specified 1`] = `
       type="radio"
       value="foo"
     />
+    <label
+      class="form-check-label"
+      for="foo"
+      title=""
+    />
   </div>
 </DocumentFragment>
 `;

@@ -106,7 +106,7 @@ const Table = React.forwardRef<HTMLTableElement, TableProps>(
         responsiveClass = `${responsiveClass}-${responsive}`;
       }
 
-      return <div className={responsiveClass}>{table}</div>;
+      return <div className={responsiveClass} tabIndex={0}>{table}</div>;
     }
 
     return table;

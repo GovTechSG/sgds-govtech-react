@@ -65,6 +65,7 @@ const FormToggle: FormControlToggleComponent = React.forwardRef(
       (props as any).bsPrefix = childBsPrefix;
     }
     const [toggleProps] = useDropdownToggle();
+    const {"aria-expanded": ariaExpanded, ...togglePropsOmitAriaExpanded} = toggleProps
     toggleProps.ref = useMergedRefs(
       toggleProps.ref,
       useWrappedRefWithWarning(ref, 'DropdownToggle')
@@ -84,7 +85,7 @@ const FormToggle: FormControlToggleComponent = React.forwardRef(
           prefix,
           !!isInputGroup && dropdownContext?.show && 'show'
         )}
-        {...toggleProps}
+        {...togglePropsOmitAriaExpanded}
         {...props}
       />
     );

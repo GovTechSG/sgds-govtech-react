@@ -235,7 +235,7 @@ export const TypeaheadTemplate = (args) => {
     'Zambia',
     'Zimbabwe',
   ];
-  return <Typeahead {...args} menuList={menuList} />;
+  return <Typeahead {...args} menuList={menuList} id="typeaheadExample" />;
 };
 
 # Typeahead
@@ -265,7 +265,7 @@ import {
 
 export const TypeaheadComponent = () => {
   const menuList = ['apple', 'orange', 'banana'];
-  return <Typeahead menuList={menuList} />;
+  return <Typeahead menuList={menuList} id="typeaheadExample" />;
 };
 ```
 
@@ -287,6 +287,7 @@ export const TypeaheadOnChangeTemplate = () => {
         menuList={menuList}
         onChangeInput={handleChange}
         label="Select a fruit"
+        id="typeaheadExample"
       />
       <div>Selected fruits : {fruits}</div>
     </>
@@ -312,6 +313,7 @@ export const TypeaheadComponent = () => {
         menuList={menuList}
         onChangeInput={handleChange}
         label="Select a fruit"
+        id="typeaheadExample"
       />
       <div>Selected fruits : {fruits}</div>
     </>

@@ -38,7 +38,7 @@ describe('<FormLabel>', () => {
 
   it('should render as a Col', () => {
     const { getByTestId } = render(
-      <FormLabel column sm={4} data-testid="test-id">
+      <FormLabel column sm={4} data-testid="test-id"> 
         Label
       </FormLabel>,
     );
