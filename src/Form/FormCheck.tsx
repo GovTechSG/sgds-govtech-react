@@ -17,6 +17,7 @@ export interface FormCheckProps
   inline?: boolean;
   disabled?: boolean;
   label?: React.ReactNode;
+  ariaLabel?: string;
   type?: FormCheckType;
   isValid?: boolean;
   isInvalid?: boolean;
@@ -81,6 +82,10 @@ const propTypes = {
    * Label for the control.
    */
   label: PropTypes.node,
+  /**
+   * aria-label for label element.
+   */
+  ariaLabel: PropTypes.string,
 
   /**
    * The type of checkable.
@@ -116,6 +121,7 @@ const FormCheck: BsPrefixRefForwardingComponent<'input', FormCheckProps> =
         title = '',
         type = 'checkbox',
         label,
+        ariaLabel,
         // Need to define the default "as" during prop destructuring to be compatible with styled-components github.com/react-bootstrap/react-bootstrap/issues/3595
         as = 'input',
         ...props
@@ -134,14 +140,13 @@ const FormCheck: BsPrefixRefForwardingComponent<'input', FormCheckProps> =
         [controlId, id],
       );
 
-      const hasLabel = label != null && label !== false
 
       const input = (
         <FormCheckInput
           {...props}
           type={type === 'switch' ? 'checkbox' : type}
           ref={ref}
-          isValid={isValid}
+          isValid={isValid} 
           isInvalid={isInvalid}
           disabled={disabled}
           as={as}
@@ -160,9 +165,7 @@ const FormCheck: BsPrefixRefForwardingComponent<'input', FormCheckProps> =
             )}
           >
                 {input}
-                {hasLabel && (
-                  <FormCheckLabel title={title}>{label}</FormCheckLabel>
-                )}
+                  <FormCheckLabel title={title} aria-label={ariaLabel}>{label}</FormCheckLabel>
                 {feedback && (
                   <Feedback type={feedbackType}>
                     {feedback}

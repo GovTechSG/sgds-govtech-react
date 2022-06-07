@@ -7,7 +7,7 @@ import { render, fireEvent, waitFor }  from '@testing-library/react';
 
 describe('<Pagination>', () => {
   it('renders default Pagination when no props are passed', () => {
-    const { container, getByText } = render(<Pagination />)
+    const { container, getAllByText } = render(<Pagination />)
     //ul is present
     const $pagination = container.querySelector('ul')
     expect($pagination).toBeDefined()
@@ -25,8 +25,11 @@ describe('<Pagination>', () => {
     expect($icons[1].classList).toContain('bi')
     
     // test that span's text are present
-    expect(getByText('Previous')).toBeDefined()
-    expect(getByText('Next')).toBeDefined()
+    expect(getAllByText('Previous')).toBeDefined()
+    //1 visually hidden, 1 text
+    expect(getAllByText('Previous').length).toBe(2)
+    expect(getAllByText('Next')).toBeDefined()
+    expect(getAllByText('Next').length).toBe(2)
   });
   
   it('renders 1 page numbers as dataLength = 1', () => {
@@ -45,67 +48,69 @@ describe('<Pagination>', () => {
 
 it ('limit >= pages.length, all page number should show and remain fix throughout navigation', () => {
   const {  container, rerender } = render(<Pagination limit={4} dataLength={3} itemsPerPage={1} currentPage={1} />)
+  const textWhenThreePg = 'Previous123Next';
   // limit 4 , 3 pages
-  expect(container.textContent).toEqual('Previous123Next')
+  expect(container.textContent).toContain(textWhenThreePg)
   rerender(<Pagination limit={4} dataLength={3} itemsPerPage={1} currentPage={2} />)
-  expect(container.textContent).toEqual('Previous123Next')
+  expect(container.textContent).toContain(textWhenThreePg)
   rerender(<Pagination limit={4} dataLength={3} itemsPerPage={1} currentPage={3} />)
-  expect(container.textContent).toEqual('Previous123Next')
+  expect(container.textContent).toContain(textWhenThreePg)
 
-
+  const textWhenFivePg = 'Previous12345Next'
   rerender(<Pagination limit={5} dataLength={5} itemsPerPage={1} currentPage={1} />)
-  expect(container.textContent).toEqual('Previous12345Next')
+  expect(container.textContent).toContain(textWhenFivePg)
   rerender(<Pagination limit={5} dataLength={5} itemsPerPage={1} currentPage={2} />)
-  expect(container.textContent).toEqual('Previous12345Next')
+  expect(container.textContent).toContain(textWhenFivePg)
   rerender(<Pagination limit={5} dataLength={5} itemsPerPage={1} currentPage={3} />)
-  expect(container.textContent).toEqual('Previous12345Next')
+  expect(container.textContent).toContain(textWhenFivePg)
   rerender(<Pagination limit={5} dataLength={5} itemsPerPage={1} currentPage={4} />)
-  expect(container.textContent).toEqual('Previous12345Next')
+  expect(container.textContent).toContain(textWhenFivePg)
   rerender(<Pagination limit={5} dataLength={5} itemsPerPage={1} currentPage={5} />)
-  expect(container.textContent).toEqual('Previous12345Next')
+  expect(container.textContent).toContain(textWhenFivePg)
 })
 
 it('when limit < page.length, page number shows should be same count as limit throughout navigatino', ()=> {
   // when limit is even number
-  const {  container,getByText, queryByText, rerender } = render(<Pagination limit={4} dataLength={5} itemsPerPage={1} currentPage={1} ellipsisOn={true}/>)
-  expect(container.textContent).toEqual('Previous1234…Next')
+  const {  container, rerender } = render(<Pagination limit={4} dataLength={5} itemsPerPage={1} currentPage={1} ellipsisOn={true}/>)
+  
+  expect(container.textContent).toContain('1234…')
   rerender(<Pagination limit={4} dataLength={5} itemsPerPage={1} currentPage={2} ellipsisOn={true}/>)
-  expect(container.textContent).toEqual('Previous1234…Next')
+  expect(container.textContent).toContain('1234…')
   rerender(<Pagination limit={4} dataLength={5} itemsPerPage={1} currentPage={3} ellipsisOn={true}/>)
-  expect(container.textContent).toEqual('Previous1234…Next') 
+  expect(container.textContent).toContain('1234…') 
   rerender(<Pagination limit={4} dataLength={5} itemsPerPage={1} currentPage={4} ellipsisOn={true}/>)
-  expect(container.textContent).toEqual('Previous…2345Next') 
+  expect(container.textContent).toContain('…Ellipsis2345')
   rerender(<Pagination limit={4} dataLength={5} itemsPerPage={1} currentPage={5} ellipsisOn={true}/>) 
-  expect(container.textContent).toEqual('Previous…2345Next') 
+  expect(container.textContent).toContain('…Ellipsis2345') 
 
   // when limit is odd number
   rerender(<Pagination limit={3} dataLength={5} itemsPerPage={1} currentPage={1} ellipsisOn={true}/>) 
-  expect(container.textContent).toEqual('Previous123…Next') 
+  expect(container.textContent).toContain('123…') 
   rerender(<Pagination limit={3} dataLength={5} itemsPerPage={1} currentPage={2} ellipsisOn={true}/>) 
-  expect(container.textContent).toEqual('Previous123…Next') 
+  expect(container.textContent).toContain('123…') 
   rerender(<Pagination limit={3} dataLength={5} itemsPerPage={1} currentPage={3} ellipsisOn={true}/>) 
-  expect(container.textContent).toEqual('Previous…234…Next') 
+  expect(container.textContent).toContain('…Ellipsis234…') 
   rerender(<Pagination limit={3} dataLength={5} itemsPerPage={1} currentPage={4} ellipsisOn={true}/>) 
-  expect(container.textContent).toEqual('Previous…345Next')
+  expect(container.textContent).toContain('…Ellipsis345')
 
   rerender(<Pagination limit={8} dataLength={10} itemsPerPage={1} currentPage={1} ellipsisOn={false}/>) 
-  expect(container.textContent).toEqual('Previous12345678…Next') 
+  expect(container.textContent).toContain('12345678…') 
   rerender(<Pagination limit={8} dataLength={10} itemsPerPage={1} currentPage={5} ellipsisOn={false}/>) 
-  expect(container.textContent).toEqual('Previous12345678…Next') 
+  expect(container.textContent).toContain('12345678…') 
   rerender(<Pagination limit={8} dataLength={10} itemsPerPage={1} currentPage={6} ellipsisOn={false}/>) 
-  expect(container.textContent).toEqual('Previous23456789…Next') 
+  expect(container.textContent).toContain('23456789…') 
   rerender(<Pagination limit={8} dataLength={10} itemsPerPage={1} currentPage={7} ellipsisOn={false}/>) 
-  expect(container.textContent).toEqual('Previous345678910Next') 
+  expect(container.textContent).toContain('Previous345678910Next') 
   rerender(<Pagination limit={8} dataLength={10} itemsPerPage={1} currentPage={8} ellipsisOn={false}/>) 
-  expect(container.textContent).toEqual('Previous345678910Next') 
+  expect(container.textContent).toContain('Previous345678910Next') 
   rerender(<Pagination limit={8} dataLength={10} itemsPerPage={1} currentPage={9} ellipsisOn={false}/>) 
-  expect(container.textContent).toEqual('Previous345678910Next') 
+  expect(container.textContent).toContain('Previous345678910Next') 
 
 })
 
   it('onclick should change li page to active', async()=> {
     const mockFn = jest.fn() 
-    const {  container,getByText, queryByText } = render(<Pagination limit={3} dataLength={20} currentPage={1} setCurrentPage={mockFn}/>)
+    const {  container} = render(<Pagination limit={3} dataLength={20} currentPage={1} setCurrentPage={mockFn}/>)
     const $li = container.querySelectorAll('li')
     const $page1 = $li[1]
 

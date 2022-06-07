@@ -1,7 +1,5 @@
 import * as React from 'react';
-import PaginationBase, {
-  PaginationBaseProps,
-} from './PaginationBase';
+import PaginationBase, { PaginationBaseProps } from './PaginationBase';
 
 export interface PaginationProps extends PaginationBaseProps {
   dataLength: number;
@@ -24,15 +22,13 @@ export const Pagination: React.FC<PaginationProps> = ({
   directionVariant = 'icon-text',
   size = 'sm',
   ellipsisOn = false,
-  ellipsisJump = 3
+  ellipsisJump = 3,
 }) => {
-
   // set the id of page item clicked to currentPage
   const handlePageClick = (event: React.MouseEvent<HTMLLIElement>) => {
     const liTarget = event.target as HTMLLIElement;
     setCurrentPage(Number(liTarget.id));
   };
-
 
   const pages = [];
   for (let i = 1; i <= Math.ceil(dataLength / itemsPerPage); i++) {
@@ -44,18 +40,21 @@ export const Pagination: React.FC<PaginationProps> = ({
     const pagesToShow = [];
     let sanitizeStartPage = 1;
     let endPage;
-    
-    if (limit < pages.length) sanitizeStartPage = currentPage - Math.floor(sanitizeLimit / 2);
-    
-    if(pages.length - sanitizeStartPage < limit) sanitizeStartPage = pages.length + 1 - limit
+
+    if (limit < pages.length)
+      sanitizeStartPage = currentPage - Math.floor(sanitizeLimit / 2);
+
+    if (pages.length - sanitizeStartPage < limit)
+      sanitizeStartPage = pages.length + 1 - limit;
 
     if (sanitizeStartPage <= 0) sanitizeStartPage = 1;
-    
+
     endPage = sanitizeStartPage + sanitizeLimit - 1;
 
     if (endPage > pages.length) endPage = pages.length;
 
-    if (currentPage === pages.length) sanitizeStartPage = pages.length - sanitizeLimit + 1;
+    if (currentPage === pages.length)
+      sanitizeStartPage = pages.length - sanitizeLimit + 1;
 
     for (let i = sanitizeStartPage; i <= endPage; i++) {
       pagesToShow.push(i);
@@ -83,33 +82,37 @@ export const Pagination: React.FC<PaginationProps> = ({
 
   const handleNextEllipsisButton = () => {
     setCurrentPage(currentPage + ellipsisJump);
-    if(currentPage + ellipsisJump > pages.length ) setCurrentPage(pages.length)
+    if (currentPage + ellipsisJump > pages.length) setCurrentPage(pages.length);
   };
   const handlePrevEllipsisButton = () => {
     setCurrentPage(currentPage - ellipsisJump);
-    if(currentPage - ellipsisJump < 1) setCurrentPage(1)
- 
+    if (currentPage - ellipsisJump < 1) setCurrentPage(1);
   };
 
   const renderLastEllipsis = () => {
-    const isEvenLimit = sanitizeLimit % 2 === 0
-    const differentialLimitCondition = isEvenLimit ? currentPage + Math.floor(sanitizeLimit / 2) <= pages.length :currentPage + Math.floor(sanitizeLimit / 2) < pages.length;
-   
-    if(pages.length !== sanitizeLimit && differentialLimitCondition)
-    return(
-      <PaginationBase.Ellipsis onClick={handleNextEllipsisButton} disabled={!ellipsisOn} />
-    )
-    else return null
-  }
+    const isEvenLimit = sanitizeLimit % 2 === 0;
+    const differentialLimitCondition = isEvenLimit
+      ? currentPage + Math.floor(sanitizeLimit / 2) <= pages.length
+      : currentPage + Math.floor(sanitizeLimit / 2) < pages.length;
+
+    if (pages.length !== sanitizeLimit && differentialLimitCondition)
+      return (
+        <PaginationBase.Ellipsis
+          onClick={handleNextEllipsisButton}
+          disabled={!ellipsisOn}
+        />
+      );
+    else return null;
+  };
 
   const renderFirstEllipsis = () => {
-    if (pages.length !== sanitizeLimit && currentPage - Math.floor(sanitizeLimit / 2 ) > 1)
-    return(
-      <PaginationBase.Ellipsis onClick={handlePrevEllipsisButton} />
-    ) 
-    else return null
-  }
-
+    if (
+      pages.length !== sanitizeLimit &&
+      currentPage - Math.floor(sanitizeLimit / 2) > 1
+    )
+      return <PaginationBase.Ellipsis onClick={handlePrevEllipsisButton} />;
+    else return null;
+  };
 
   const directionBtnContent = (
     directionLabel: 'Previous' | 'Next',
@@ -120,7 +123,9 @@ export const Pagination: React.FC<PaginationProps> = ({
         {directionVariant !== 'icon' &&
           directionLabel === 'Next' &&
           directionLabel}
-        {directionVariant === 'text' ? null : <i className={iconClass} />}
+        {directionVariant === 'text' ? null : (
+            <i className={iconClass}/>
+        )}
         {directionVariant !== 'icon' &&
           directionLabel === 'Previous' &&
           directionLabel}

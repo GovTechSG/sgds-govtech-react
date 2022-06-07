@@ -1,6 +1,6 @@
 import { ArgsTable, Canvas, Meta, Story } from '@storybook/addon-docs';
 import { useState, useEffect } from 'react';
-import { QuantityToggle, Col } from '../../src/index';
+import { QuantityToggle, Col, Form } from '../../src/index';
 import { HIDDEN_COMMON_PROPS, VARIANT } from '../helpers';
 
 <Meta
@@ -49,7 +49,11 @@ The minimum value for count is 0, if count < 0 is passed in, `QuantityToggle` wi
   <Story name="Default">
     {(args) => {
       const [count, setCount] = useState(0);
-      return <QuantityToggle {...args} count={count} setCount={setCount} />;
+      return (
+        <Form.Group controlId="qtyToggle">
+          <QuantityToggle {...args} count={count} setCount={setCount} />
+        </Form.Group>
+      );
     }}
   </Story>
 </Canvas>

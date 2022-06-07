@@ -30,6 +30,7 @@ describe('DatePicker', () => {
     );
     expect(container.querySelector('button')).toBeInTheDocument();
     expect(container.querySelector('i.bi-x')).toBeInTheDocument();
+    expect(container.querySelector('.btn >span.visually-hidden')).toBeInTheDocument()
     expect(
       container.querySelector('i.form-control-icon.bi-calendar')
     ).toBeInTheDocument();

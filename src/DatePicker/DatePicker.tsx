@@ -11,7 +11,7 @@ import PropTypes from 'prop-types';
 import { BsPrefixRefForwardingComponent } from '../utils/helpers';
 import useMergedRefs from '@restart/hooks/useMergedRefs';
 import warning from 'warning';
-import FormToggle from '../Form/FormControlToggle';
+import FormControlToggle from '../Form/FormControlToggle';
 import { Dropdown } from '../Dropdown';
 import { DropDirection } from '../Dropdown/DropdownContext';
 
@@ -144,6 +144,7 @@ export const DatePicker: BsPrefixRefForwardingComponent<
   ) => {
     const isRange = mode === 'range';
     const formControlRef = useRef<HTMLInputElement>(null);
+
     const inputRef = useMergedRefs(
       ref as React.MutableRefObject<HTMLInputElement>,
       formControlRef
@@ -359,12 +360,13 @@ export const DatePicker: BsPrefixRefForwardingComponent<
       <DatePickerContext.Provider value={contextValue}>
         <Dropdown drop={calendarPlacement}>
           <InputGroup variant="has-icon" id={props.id}>
-            <FormToggle
+            <FormControlToggle
               {...controlProps}
               ref={formControlRef}
             />
             <Button onClick={clear} disabled={props.disabled}>
               <i className="bi bi-x"></i>
+              <span className="visually-hidden">clear</span>
             </Button>
             <i className="bi bi-calendar form-control-icon"></i>
           </InputGroup>

@@ -1,4 +1,4 @@
-import { render } from '@testing-library/react';
+import { render, waitFor } from '@testing-library/react';
 import { ProgressBar } from '../../src/ProgressBar';
 import { shouldWarn } from '../helpers.js';
 import * as React from 'react';
@@ -94,6 +94,35 @@ describe('<ProgressBar>', () => {
     );
     const innerProgressElem = getByTestId('test').children[0];
     expect(innerProgressElem).toHaveTextContent('progress bar label');
+  });
+  it('default aria-label is progressbar', async() => {
+    const { getByTestId } = render(
+      <ProgressBar
+        data-testid="test"
+        min={0}
+        max={10}
+        now={5}
+        variant="success"
+        label="progress bar label"
+      />
+    );
+    const innerProgressElem = getByTestId('test').children[0];
+    expect(innerProgressElem).toHaveAttribute('aria-label', 'progressbar');
+  });
+  it('ariaLabel prop is forwarded correclty', async() => {
+    const { getByTestId } = render(
+      <ProgressBar
+        data-testid="test"
+        min={0}
+        max={10}
+        now={5}
+        variant="success"
+        label="progress bar label"
+        ariaLabel="test"
+      />
+    );
+    const innerProgressElem = getByTestId('test').children[0];
+    expect(innerProgressElem).toHaveAttribute('aria-label', 'test');
   });
 
   it('Should have screen reader only label', () => {

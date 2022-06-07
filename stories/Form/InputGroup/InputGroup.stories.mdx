@@ -21,8 +21,8 @@ import {
       control: { disable: true },
     },
     size: {
-      description: "Controls the size of the input group elements"
-    }
+      description: 'Controls the size of the input group elements',
+    },
   }}
 />
 
@@ -84,21 +84,23 @@ Users may choose to attach an icon within the`<Form.Control>` input. By default,
     <>
       <Form.Label>Phone Number</Form.Label>
       <InputGroup className="mb-3" variant="has-icon">
-        <i className="bi bi-search form-control-icon"></i>
-        <Form.Control
-          placeholder="Phone number"
-          aria-label="Phone"
-          aria-describedby="basic-addon1"
-        />
+        <InputGroup.Text id="basic-addon1">Phone number</InputGroup.Text>
+        <div>
+          <i className="bi bi-search form-control-icon"></i>
+          <Form.Control
+            placeholder="Phone number"
+            aria-label="Phone"
+            aria-describedby="basic-addon1"
+          />
+        </div>
       </InputGroup>
       <Form.Label>Email Add-on</Form.Label>
       <InputGroup className="mb-3" variant="has-icon">
-        <InputGroup.Text id="basic-addon1">Email</InputGroup.Text>
-        <div style={{ padding: '0', margin: '0' }}>
+        <InputGroup.Text id="basic-addon2">Email</InputGroup.Text>
+        <div>
           <i className="bi bi-search form-control-icon"></i>
           <Form.Control
             className="w-75"
-            placeholder="Email"
             aria-label="Email"
             aria-describedby="basic-addon2"
           />
@@ -174,27 +176,30 @@ import { Form, InputGroup } from '@govtechsg/sgds-govtech-react';
 
 
 // Without <InputGroup.Text> left addon
-      <Form.Label>Phone Number</Form.Label>
+     <Form.Label>Phone Number</Form.Label>
       <InputGroup className="mb-3" variant="has-icon">
-        <i className="bi bi-search form-control-icon"></i>
-        <Form.Control
-          placeholder="Phone number"
-          aria-label="Phone"
-          aria-describedby="basic-addon1"
-        />
+        <InputGroup.Text id="basic-addon1">Phone number</InputGroup.Text>
+        <div>
+          <i className="bi bi-search form-control-icon"></i>
+          <Form.Control
+            placeholder="Phone number"
+            aria-label="Phone"
+            aria-describedby="basic-addon1"
+          />
+        </div>
       </InputGroup>
 
 // With <InputGroup.Text> left addon
-      <Form.Label>Email</Form.Label>
+      <Form.Label>Email Add-on</Form.Label>
       <InputGroup className="mb-3" variant="has-icon">
-      <InputGroup.Text id="basic-addon1">Email</InputGroup.Text>
-      <div>
-        <i className="bi bi-search form-control-icon"></i>
-        <Form.Control
-          placeholder="Email"
-          aria-label="Email"
-          aria-describedby="basic-addon2"
-        />
+        <InputGroup.Text id="basic-addon2">Email</InputGroup.Text>
+        <div>
+          <i className="bi bi-search form-control-icon"></i>
+          <Form.Control
+            className="w-75"
+            aria-label="Email"
+            aria-describedby="basic-addon2"
+          />
         </div>
       </InputGroup>
 
@@ -801,8 +806,8 @@ Use the `<Form.Select>` as the native select tag within the input group.
 
 <Story name="Native Select Toggle">
   <Form>
-    <InputGroup className="mb-3">
-      <Form.Select defaultValue="2" aria-label="Default select example">
+    <InputGroup className="mb-3" id="select-addon1">
+      <Form.Select defaultValue="2" aria-label="select-addon1">
         <option value="1">One</option>
         <option value="2">Two</option>
         <option value="3">Three</option>
@@ -814,14 +819,14 @@ Use the `<Form.Select>` as the native select tag within the input group.
         aria-describedby="select-addon1"
       />
     </InputGroup>
-    <InputGroup className="mb-3">
+    <InputGroup className="mb-3" id="select-addon2">
       <Form.Control
         className="w-75"
         placeholder="Select..."
         aria-label="select"
         aria-describedby="select-addon2"
       />
-      <Form.Select defaultValue="3" aria-label="Default select example">
+      <Form.Select defaultValue="3" aria-label="select-addon2">
         <option value="1">One</option>
         <option value="2">Two</option>
         <option value="3">Three</option>
@@ -831,35 +836,38 @@ Use the `<Form.Select>` as the native select tag within the input group.
 </Story>
 
 ```jsx
-import { Form,InputGroup } from '@govtechsg/sgds-govtech-react';
+import { Form, InputGroup } from '@govtechsg/sgds-govtech-react';
 
 // Form select left addon
-  <InputGroup className="mb-3">
-    <Form.Select defaultValue="2" aria-label="Default select example">
+<Form>
+  <InputGroup className="mb-3" id="select-addon1">
+    <Form.Select defaultValue="2" aria-label="select-addon1">
       <option value="1">One</option>
       <option value="2">Two</option>
       <option value="3">Three</option>
     </Form.Select>
-    <Form.Control className="w-75"
-          placeholder="Select..."
-          aria-label="select"
-          aria-describedby="select-addon1"
-        />
+    <Form.Control
+      className="w-75"
+      placeholder="Select..."
+      aria-label="select"
+      aria-describedby="select-addon1"
+    />
   </InputGroup>
-
-// Form select right addon
-   <InputGroup className="mb-3">
-   <Form.Control className="w-75"
-          placeholder="Select..."
-          aria-label="select"
-          aria-describedby="select-addon2"
-        />
-    <Form.Select defaultValue="3" aria-label="Default select example">
+  // Form select right addon
+  <InputGroup className="mb-3" id="select-addon2">
+    <Form.Control
+      className="w-75"
+      placeholder="Select..."
+      aria-label="select"
+      aria-describedby="select-addon2"
+    />
+    <Form.Select defaultValue="3" aria-label="select-addon2">
       <option value="1">One</option>
       <option value="2">Two</option>
       <option value="3">Three</option>
     </Form.Select>
   </InputGroup>
+</Form>;
 ```
 
 ## 3. Input group validation
@@ -870,7 +878,7 @@ For `<InputGroup>` validation, it requires the `hasValidation` prop. Use this wh
   <Story name="Input Group Validation">
     <InputGroup hasValidation>
       <InputGroup.Text>@</InputGroup.Text>
-      <Form.Control type="text" required isInvalid />
+      <Form.Control type="text" required isInvalid aria-label="input" />
       <Form.Control.Feedback type="invalid">
         Please choose a username.
       </Form.Control.Feedback>
@@ -883,7 +891,7 @@ import { InputGroup, Form } from '@govtechsg/sgds-govtech-react';
 
 <InputGroup hasValidation>
   <InputGroup.Text>@</InputGroup.Text>
-  <Form.Control type="text" required isInvalid />
+  <Form.Control type="text" required isInvalid aria-label="input" />
   <Form.Control.Feedback type="invalid">
     Please choose a username.
   </Form.Control.Feedback>

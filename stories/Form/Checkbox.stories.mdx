@@ -42,8 +42,8 @@ import { FormCheck, Button, Form } from '../../src/index';
 export const Template = (args) => {
   return (
     <Form>
-      <FormCheck {...args} />
-      <FormCheck {...args} />
+      <FormCheck {...args} id='default-checkbox-1'/>
+      <FormCheck {...args} id='default-checkbox-2' />
     </Form>
   );
 };
@@ -77,7 +77,7 @@ Remember to apply HTMLInput type attribute `name` for radio buttons so that user
 <Canvas>
   <Story
     name="Default - radio"
-    args={{ label: 'Radio', type: 'radio', name: 'radio_checks' }}
+    args={{ label: 'Radio', type: 'radio', name: 'radio_checks', ariaLabel: 'radio' }}
   >
     {Template.bind({})}
   </Story>
@@ -86,7 +86,7 @@ Remember to apply HTMLInput type attribute `name` for radio buttons so that user
 ## Switch
 
 <Canvas>
-  <Story name="Default - switch" args={{ label: 'Switch', type: 'switch' }}>
+  <Story name="Default - switch" args={{ label: 'Switch', type: 'switch', ariaLabel: 'switch' }}>
     {Template.bind({})}
   </Story>
 </Canvas>
@@ -101,6 +101,7 @@ See [Validations](/docs/components-form-validations--native-html-5-form-validati
     name="Valid feedback"
     args={{
       label: 'Valid',
+      ariaLabel: 'valid',
       isValid: true,
       feedbackType: 'valid',
       feedback: 'All is good!',
@@ -112,6 +113,7 @@ See [Validations](/docs/components-form-validations--native-html-5-form-validati
     name="Invalid Feedback"
     args={{
       label: 'Invalid',
+      ariaLabel: 'invalid',
       isInvalid: true,
       feedbackType: 'invalid',
       feedback: 'Uh Oh!',

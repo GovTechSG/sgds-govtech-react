@@ -102,7 +102,7 @@ const NavDropdown: BsPrefixRefForwardingComponent<'li', NavDropdownProps> =
       return (
         <Dropdown
           ref={ref}
-          as="div"
+          as="li"
           {...props}
           className={dropDownClass}
           align={align}

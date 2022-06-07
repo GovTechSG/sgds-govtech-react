@@ -20,6 +20,7 @@ export interface ProgressBarProps
   animated?: boolean;
   variant?: 'success' | 'danger' | 'warning' | 'info' | string;
   isChild?: boolean;
+  ariaLabel?: string;
 }
 
 const ROUND_PRECISION = 1000;
@@ -84,6 +85,12 @@ const propTypes = {
    * EG. 60%
    */
   label: PropTypes.node,
+  /**
+   * Forwards to aria-label attribute on element with role="progressbar"
+   * 
+   */
+  ariaLabel: PropTypes.string,
+  
 
   /**
    * Hide's the label visually.
@@ -131,6 +138,7 @@ const defaultProps = {
   isChild: false,
   visuallyHidden: false,
   striped: false,
+  ariaLabel: "progressbar"
 };
 
 function getPercentage(now: number, min: number, max: number){
@@ -151,6 +159,7 @@ function renderProgressBar(
     style,
     variant,
     bsPrefix,
+    ariaLabel = "progressbar",
     ...props
   }: ProgressBarProps,
   ref: string | ((instance: HTMLDivElement | null) => void) | React.RefObject<HTMLDivElement> | null | undefined
@@ -169,6 +178,7 @@ function renderProgressBar(
       aria-valuenow={now}
       aria-valuemin={min}
       aria-valuemax={max}
+      aria-label={ariaLabel}
     >
       {visuallyHidden ? (
         <span className="visually-hidden">{label}</span>
@@ -201,6 +211,7 @@ const ProgressBar = React.forwardRef<HTMLDivElement, ProgressBarProps>(
       variant,
       className,
       children,
+      ariaLabel,
       ...wrapperProps
     } = props;
 
@@ -223,6 +234,7 @@ const ProgressBar = React.forwardRef<HTMLDivElement, ProgressBarProps>(
                 animated,
                 bsPrefix,
                 variant,
+                ariaLabel
               },
               ref,
             )}

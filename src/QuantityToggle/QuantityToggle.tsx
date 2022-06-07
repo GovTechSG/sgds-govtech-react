@@ -5,6 +5,7 @@ import FormControl from '../Form/FormControl';
 import { BsPrefixRefForwardingComponent } from '../utils/helpers';
 import { ButtonVariant } from '../utils/types';
 import PropTypes from 'prop-types';
+import { FormLabel } from '../Form';
 
 export interface QuantityToggleProps {
   step?: number;
@@ -24,27 +25,27 @@ const propTypes = {
   size: PropTypes.oneOf(['sm', 'lg']),
   count: PropTypes.number.isRequired,
   setCount: PropTypes.func.isRequired,
-  disabled: PropTypes.bool, 
+  disabled: PropTypes.bool,
   variant: PropTypes.oneOf<ButtonVariant>([
- 'primary',
- 'secondary',
- 'success',
- 'danger',
- 'warning',
- 'info',
- 'dark',
- 'light',
-  'link',
-  'outline-primary',
-  'outline-secondary',
-  'outline-success',
-  'outline-danger',
-  'outline-warning',
-  'outline-info',
-  'outline-dark',
-  'outline-light'
-  ])
-}
+    'primary',
+    'secondary',
+    'success',
+    'danger',
+    'warning',
+    'info',
+    'dark',
+    'light',
+    'link',
+    'outline-primary',
+    'outline-secondary',
+    'outline-success',
+    'outline-danger',
+    'outline-warning',
+    'outline-info',
+    'outline-dark',
+    'outline-light',
+  ]),
+};
 
 export const QuantityToggle: BsPrefixRefForwardingComponent<
   'input',
@@ -60,12 +61,14 @@ export const QuantityToggle: BsPrefixRefForwardingComponent<
       else setCount(count - step);
     };
     React.useEffect(() => {
-    if (count < 0 ) setCount(0)
-    }, [])
+      if (count < 0) setCount(0);
+    }, []);
     return (
+      <>
+      <FormLabel className="visually-hidden">quantity-toggle</FormLabel>
       <InputGroup size={size}>
-        <Button onClick={onMinus} {...buttonProps} >
-        <i className="bi bi-dash"></i>
+        <Button onClick={onMinus} {...buttonProps} aria-label="minus-btn">
+          <i className="bi bi-dash"></i>
         </Button>
         <FormControl
           {...props}
@@ -80,8 +83,11 @@ export const QuantityToggle: BsPrefixRefForwardingComponent<
           }}
           min={0}
         />
-        <Button onClick={onPlus} {...buttonProps}><i className="bi bi-plus" ></i></Button>
+        <Button onClick={onPlus} {...buttonProps} aria-label="plus-btn">
+          <i className="bi bi-plus"></i>
+        </Button>
       </InputGroup>
+      </>
     );
   }
 );

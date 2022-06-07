@@ -60,13 +60,13 @@ Use `className` key to pass down css selectors.
 
 ```jsx
 const listProps = {
-  className: 'bg-warning',
+  className: 'bg-light',
   disabled: true,
 };
 ```
 
 export const listProps = {
-  className: 'bg-warning',
+  className: 'bg-light',
   foo: 'bar',
 };
 
@@ -92,14 +92,14 @@ Hence if Breadcrumb.Item is active, i.e. it has no `<a />`, `linkProps` does not
 
 ```jsx
 const linkProps = {
-  className: 'text-primary bg-warning',
+  className: 'text-primary bg-light',
   foo: 'bar',
 };
 ```
 
 export const BreadcrumbItemTemplate = () => {
   const linkProps = {
-    className: 'text-primary bg-warning',
+    className: 'text-primary bg-light',
     foo: 'bar',
   };
   return (

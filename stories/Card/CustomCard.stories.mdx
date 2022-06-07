@@ -1,12 +1,6 @@
 import { ArgsTable, Canvas, Meta, Story } from '@storybook/addon-docs';
 import { HIDDEN_COMMON_PROPS, VARIANT } from '../helpers';
-import {
-  Card,
-  Row,
-  Col,
-  QuantityToggle,
-  CloseButton,
-} from '../../src/index';
+import { Card, Row, Col, QuantityToggle, CloseButton } from '../../src/index';
 import { useState } from 'react';
 import { CARD_COMMON_PROPS } from './argTypes';
 
@@ -41,13 +35,17 @@ export const QtyToggleTemplate = () => {
               </Row>
               <Row>
                 <Col>
-                  <Card.Subtitle as="h6" className="text-muted">
+                  <Card.Subtitle as="h5" className="text-muted">
                     Item Brand
                   </Card.Subtitle>
                   <Card.Text>Apple </Card.Text>
                 </Col>
                 <Col>
-                  <QuantityToggle count={count} setCount={setCount} />
+                  <QuantityToggle
+                    count={count}
+                    setCount={setCount}
+                    aria-label="Quantity"
+                  />
                 </Col>
               </Row>
             </Card.Body>
@@ -78,12 +76,16 @@ export const QtyToggleVariantTemplate = () => {
               </div>
               <div>
                 <Card.Unit>
-                  <Card.Subtitle as="h6" className="text-muted">
+                  <Card.Subtitle as="h5" className="text-muted">
                     Item Brand
                   </Card.Subtitle>
                   <Card.Subtitle as="h6">Apple</Card.Subtitle>
                 </Card.Unit>
-                <QuantityToggle count={count} setCount={setCount} />
+                <QuantityToggle
+                  count={count}
+                  setCount={setCount}
+                  aria-label="Quantity"
+                />
               </div>
             </Card.Body>
           </Card>

@@ -5,9 +5,12 @@ import { Form, Button } from '../../src/index';
 <Meta
   title="Components/Form"
   component={Form}
-  argTypes ={{
+  argTypes={{
     ...HIDDEN_COMMON_PROPS,
-    validated : {description: 'Mark a form as having been validated. Setting it to true will toggle any validation styles on the forms elements.'}
+    validated: {
+      description:
+        'Mark a form as having been validated. Setting it to true will toggle any validation styles on the forms elements.',
+    },
   }}
 />
 
@@ -18,8 +21,7 @@ Examples and usage guidelines for form control styles, layout options, and custo
 The `<Form.Control>` component renders a form control with Bootstrap styling. The `<Form.Group>` component wraps a form control with proper spacing,
 along with support for a label, help text, and validation state. To ensure accessibility, set controlId on `<FormGroup>`, and use `<FormLabel>` for the label.
 
-
-##  Basic Form
+## Basic Form
 
 export const Template = (args) => {
   const onSubmit = (event) => {
@@ -67,8 +69,14 @@ import { Form } from '@govtechsg/sgds-govtech-react/Form';
 For more detailed API documentation on `Form`, reference <a href="https://react-bootstrap.github.io/forms/overview/" target="_blank">here</a>.
 
 ### Code sample
+
 ```jsx
 import { Form, Button } from '@govtechsg/sgds-govtech-react';
+
+const onSubmit = (event) => {
+  event.preventDefault();
+  console.log('submission prevented');
+};
 
 <Form onSubmit={onSubmit}>
   <Form.Group className="mb-3" controlId="formBasicEmail">
@@ -91,7 +99,7 @@ import { Form, Button } from '@govtechsg/sgds-govtech-react';
 </Form>;
 ```
 
-##  Disabled forms
+## Disabled forms
 
 Add the `disabled` boolean attribute on an input to prevent user interactions and make it appear lighter.
 
@@ -101,56 +109,41 @@ Add the `disabled` boolean attribute on an input to prevent user interactions an
         <Form.Label>Disabled input</Form.Label>
         <Form.Control placeholder="Disabled input" disabled />
       </Form.Group>
-      <Form.Group className="mb-3">
+      <Form.Group className="mb-3" controlId="disabledSelectInput">
         <Form.Label>Disabled select menu</Form.Label>
         <Form.Select disabled>
           <option>Disabled select</option>
         </Form.Select>
       </Form.Group>
-      <Form.Group className="mb-3">
+      <Form.Group className="mb-3" controlId="disabledCheckboxInput">
         <Form.Check type="checkbox" label="Can't check this" disabled />
       </Form.Group>
   </Story>
 </Canvas>
 
-Browsers treat all native form controls (`<input>`, `<select>` and `<button>` elements) inside `<fieldset disabled>` as disabled, preventing both keyboard and mouse interactions on them.
-
-However, if your form also includes custom button-like elements such as `<a ... class="btn btn-*">`, these will only be given a style of `pointer-events: none`,
-meaning they are still focusable and operable using the keyboard. In this case, you must manually modify these controls by adding `tabindex="-1"` to prevent them
-from receiving focus and `aria-disabled="disabled"` to signal their state to assistive technologies.
+Browsers also treat all native form controls (`<input>`, `<select>` and `<button>` elements) inside `<fieldset disabled>` as disabled, preventing both keyboard and mouse interactions on them.
 
 ```jsx
 import { Form, Button } from '@govtechsg/sgds-govtech-react';
 
-<Canvas>
-  <Story name="Disabled fieldset">
-    <Form>
-      <fieldset disabled>
-        <Form.Group className="mb-3">
-          <Form.Label htmlFor="disabledTextInput">Disabled input</Form.Label>
-          <Form.Control id="disabledTextInput" placeholder="Disabled input" />
-        </Form.Group>
-        <Form.Group className="mb-3">
-          <Form.Label htmlFor="disabledSelect">Disabled select menu</Form.Label>
-          <Form.Select id="disabledSelect">
-            <option>Disabled select</option>
-          </Form.Select>
-        </Form.Group>
-        <Form.Group className="mb-3">
-          <Form.Check
-            type="checkbox"
-            id="disabledFieldsetCheck"
-            label="Can't check this"
-          />
-        </Form.Group>
-        <Button type="submit">Submit</Button>
-      </fieldset>
-    </Form>
-  </Story>
-</Canvas>;
+<Form>
+  <Form.Group className="mb-3" controlId="disabledInput">
+    <Form.Label>Disabled input</Form.Label>
+    <Form.Control placeholder="Disabled input" disabled />
+  </Form.Group>
+  <Form.Group className="mb-3" controlId="disabledSelectInput">
+    <Form.Label>Disabled select menu</Form.Label>
+    <Form.Select disabled>
+      <option>Disabled select</option>
+    </Form.Select>
+  </Form.Group>
+  <Form.Group className="mb-3" controlId="disabledCheckboxInput">
+    <Form.Check type="checkbox" label="Can't check this" disabled />
+  </Form.Group>
+</Form>;
 ```
 
-## ` <Form.Text />`
+## Form.Text
 
 Block-level help text in forms can be created using `<Form.Text>`. Inline help text can be flexibly implemented using any inline HTML element and utility classes like .text-muted.
 
