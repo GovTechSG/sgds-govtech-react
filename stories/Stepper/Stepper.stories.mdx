@@ -1,12 +1,5 @@
 import { ArgsTable, Canvas, Meta, Story } from '@storybook/addon-docs';
-import {
-  Button,
-  Stepper,
-  Form,
-  useStep,
-  Row,
-  Col,
-} from '../../src/index';
+import { Button, Stepper, Form, useStep, Row, Col } from '../../src/index';
 import { useState } from 'react';
 
 <Meta title="Components/Stepper" component={Stepper} />
@@ -67,26 +60,30 @@ export const Template = () => {
           value={details.lastName}
         />
       </Form.Group>
-      <Form.Group className="mb-3" controlId="formBasicCheckbox">
-        <Form.Check
-          type="radio"
-          name="gender"
-          value="female"
-          label="Female"
-          inline
-          onChange={handleChange}
-          checked={details.gender === 'female'}
-        />
-        <Form.Check
-          type="radio"
-          name="gender"
-          value="male"
-          label="Male"
-          inline
-          onChange={handleChange}
-          checked={details.gender === 'male'}
-        />
-      </Form.Group>
+      <div className="d-flex flex-row">
+        <Form.Group className="mb-3" controlId="femaleCheckBox">
+          <Form.Check
+            type="radio"
+            name="gender"
+            value="female"
+            label="Female"
+            inline
+            onChange={handleChange}
+            checked={details.gender === 'female'}
+          />
+        </Form.Group>
+        <Form.Group className="mb-3" controlId="maleCheckbox">
+          <Form.Check
+            type="radio"
+            name="gender"
+            value="male"
+            label="Male"
+            inline
+            onChange={handleChange}
+            checked={details.gender === 'male'}
+          />
+        </Form.Group>
+      </div>
     </>
   );
   const ComponentTwo = (
@@ -117,7 +114,7 @@ export const Template = () => {
   );
   const ComponentThree = (
     <>
-      <Form.Group className="mb-3" controlId="formBasicFirstName">
+      <Form.Group className="mb-3" controlId="formBasicFirstNameReview">
         <Form.Label>First Name</Form.Label>
         <Form.Control
           type="text"
@@ -127,7 +124,7 @@ export const Template = () => {
           readOnly
         />
       </Form.Group>
-      <Form.Group className="mb-3" controlId="formBasicLastName">
+      <Form.Group className="mb-3" controlId="formBasicLastNameReview">
         <Form.Label>Last Name</Form.Label>
         <Form.Control
           type="text"
@@ -137,27 +134,31 @@ export const Template = () => {
           readOnly
         />
       </Form.Group>
-      <Form.Group className="mb-3" controlId="formBasicCheckbox">
-        <Form.Check
-          type="radio"
-          name="gender"
-          value="female"
-          label="Female"
-          inline
-          checked={details.gender === 'female'}
-          readOnly
-        />
-        <Form.Check
-          type="radio"
-          name="gender"
-          value="male"
-          label="Male"
-          inline
-          checked={details.gender === 'male'}
-          readOnly
-        />
-      </Form.Group>
-      <Form.Group className="mb-3" controlId="formEmail">
+      <div className="d-flex flex-row">
+        <Form.Group controlId="femaleCheckboxReview">
+          <Form.Check
+            type="radio"
+            name="gender"
+            value="female"
+            label="Female"
+            inline
+            checked={details.gender === 'female'}
+            readOnly
+          />
+        </Form.Group>
+        <Form.Group className="mb-3" controlId="maleCheckboxReview">
+          <Form.Check
+            type="radio"
+            name="gender"
+            value="male"
+            label="Male"
+            inline
+            checked={details.gender === 'male'}
+            readOnly
+          />
+        </Form.Group>
+      </div>
+      <Form.Group className="mb-3" controlId="formEmailReview">
         <Form.Label>Email</Form.Label>
         <Form.Control
           type="email"
@@ -167,7 +168,7 @@ export const Template = () => {
           plaintext
         />
       </Form.Group>
-      <Form.Group className="mb-3" controlId="formBasicLastName">
+      <Form.Group className="mb-3" controlId="formBasicLastNameReview">
         <Form.Label>House Address</Form.Label>
         <Form.Control
           type="text"
@@ -276,8 +277,10 @@ The step markers are clickable for backwards navigation.
   <Story name="Default">{DefaultStepperTemplate.bind({})}</Story>
 </Canvas>
 
-## Example 
+## Example
+
 Try out the Stepper Component below with build-in Forms and Buttons
+
 <Canvas>
   <Story name="Example">{Template.bind({})}</Story>
 </Canvas>
@@ -379,9 +382,10 @@ const ExampleStepper = () => {
 }
 
 ```
+
 ### 4. Integrate Stepper with other Components
 
-The Stepper Component only renders the stepHeader and step markers. `stepMethods` exposes methods to render the respective content per Step. 
+The Stepper Component only renders the stepHeader and step markers. `stepMethods` exposes methods to render the respective content per Step.
 Destructure the returned object of `stepMethods` to access the various step methods
 
 ```jsx
@@ -500,8 +504,8 @@ const ExampleStepper = () => {
 
 | Property             | Type                                                | Description                                                                                                                                          |
 | -------------------- | --------------------------------------------------- | ---------------------------------------------------------------------------------------------------------------------------------------------------- |
-| `state`              | `StepperState`                                      | Returns the current state of Stepper. See [StepperState](/docs/Components-stepper--example#stepperstate)                                                    |
-| `stepsMetadata`      | `WrappedStepsMetadata`                              | Returns class `WrappedStepsMetadata` with its methods. See [WrappedStepsMetadata](/docs/Components-stepper--example#wrappedstepsmetadata-class)             |
+| `state`              | `StepperState`                                      | Returns the current state of Stepper. See [StepperState](/docs/Components-stepper--example#stepperstate)                                             |
+| `stepsMetadata`      | `WrappedStepsMetadata`                              | Returns class `WrappedStepsMetadata` with its methods. See [WrappedStepsMetadata](/docs/Components-stepper--example#wrappedstepsmetadata-class)      |
 | `nextStep`           | `Function` <br /> `() => Promise<void>`             | The method to invoke when user proceeds to next step of Stepper. It performs the side-effects if specified in `onNextStep` of `StepMetadata`         |
 | `prevStep`           | `Function` <br /> `() => Promise<void>`             | The method to invoke when user proceeds to previous step of Stepper. It performs the side-effects if specified in `onPreviousStep` of `StepMetadata` |
 | `setStep`            | `Function` <br /> `(step: number) => Promise<void>` | When invoked, it changes the `currentStep` state of `StepperState` and jumps Stepper to the step number as specified in the parameter                |
