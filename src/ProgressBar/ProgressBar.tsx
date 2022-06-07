@@ -211,6 +211,7 @@ const ProgressBar = React.forwardRef<HTMLDivElement, ProgressBarProps>(
       variant,
       className,
       children,
+      ariaLabel,
       ...wrapperProps
     } = props;
 
@@ -233,6 +234,7 @@ const ProgressBar = React.forwardRef<HTMLDivElement, ProgressBarProps>(
                 animated,
                 bsPrefix,
                 variant,
+                ariaLabel
               },
               ref,
             )}

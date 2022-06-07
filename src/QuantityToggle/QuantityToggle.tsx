@@ -85,7 +85,6 @@ export const QuantityToggle: BsPrefixRefForwardingComponent<
         />
         <Button onClick={onPlus} {...buttonProps} aria-label="plus-btn">
           <i className="bi bi-plus"></i>
-          <span className="visually-hidden">plus</span>
         </Button>
       </InputGroup>
       </>

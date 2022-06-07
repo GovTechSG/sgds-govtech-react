@@ -124,10 +124,7 @@ export const Pagination: React.FC<PaginationProps> = ({
           directionLabel === 'Next' &&
           directionLabel}
         {directionVariant === 'text' ? null : (
-          <>
-            <span className="visually-hidden">{directionLabel}</span>
-            <i className={iconClass} />
-          </>
+            <i className={iconClass}/>
         )}
         {directionVariant !== 'icon' &&
           directionLabel === 'Previous' &&

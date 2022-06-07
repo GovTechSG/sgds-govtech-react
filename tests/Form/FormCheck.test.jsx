@@ -13,6 +13,7 @@ describe('<FormCheck>', () => {
         defaultChecked
         label="My label"
         className="my-checkbox"
+        ariaLabel="label-text"
       />
     );
 
@@ -21,6 +22,7 @@ describe('<FormCheck>', () => {
     expect(container.querySelector('[name="foo"]')).toBeDefined();
     expect(container.querySelector('[name="foo"]')).toBeDefined();
     expect(container.querySelector('[defaultChecked]')).toBeDefined();
+    expect(container.querySelector('label[aria-label="label-text]')).toBeDefined()
     expect(getByLabelText('My label')).toBeDefined();
   });
 

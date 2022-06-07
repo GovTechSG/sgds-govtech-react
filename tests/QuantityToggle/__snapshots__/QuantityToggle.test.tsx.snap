@@ -2,10 +2,16 @@
 
 exports[`<QuantityToggle /> has default structure 1`] = `
 <DocumentFragment>
+  <label
+    class="visually-hidden form-label"
+  >
+    quantity-toggle
+  </label>
   <div
     class="input-group input-group-sm sgds"
   >
     <button
+      aria-label="minus-btn"
       class="btn btn-primary sgds"
       type="button"
     >
@@ -21,6 +27,7 @@ exports[`<QuantityToggle /> has default structure 1`] = `
       value="0"
     />
     <button
+      aria-label="plus-btn"
       class="btn btn-primary sgds"
       type="button"
     >

@@ -45,7 +45,7 @@ const propTypes = {
   setIsMenuOpen: PropTypes.func
 };
 
-const FormToggle: FormControlToggleComponent = React.forwardRef(
+const FormControlToggle: FormControlToggleComponent = React.forwardRef(
   (
     {
       bsPrefix,
@@ -65,11 +65,11 @@ const FormToggle: FormControlToggleComponent = React.forwardRef(
       (props as any).bsPrefix = childBsPrefix;
     }
     const [toggleProps] = useDropdownToggle();
-    const {"aria-expanded": ariaExpanded, ...togglePropsOmitAriaExpanded} = toggleProps
     toggleProps.ref = useMergedRefs(
       toggleProps.ref,
       useWrappedRefWithWarning(ref, 'DropdownToggle')
     );
+    const {"aria-expanded": ariaExpanded, ...togglePropsOmitAriaExpanded} = toggleProps
 
     if (setIsMenuOpen) {
       React.useEffect(() => {
@@ -92,7 +92,7 @@ const FormToggle: FormControlToggleComponent = React.forwardRef(
   }
 );
 
-FormToggle.displayName = 'FormToggle';
-FormToggle.propTypes = propTypes;
+FormControlToggle.displayName = 'FormToggle';
+FormControlToggle.propTypes = propTypes;
 
-export default FormToggle;
+export default FormControlToggle;
