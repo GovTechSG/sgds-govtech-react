@@ -20,7 +20,9 @@ export const FooterTopContactLinks: BsPrefixRefForwardingComponent<
       <Component className={classNames(bsPrefix, 'row', className)} ref={ref} {...props}>
         <div className="col">
           <div className="d-flex justify-content-lg-end">
-            <ul>{children}</ul>
+            <ul> {React.Children.map(children, (child) => (
+            <li>{React.cloneElement(child as React.ReactElement)}</li>
+          ))}</ul>
           </div>
         </div>
       </Component>
