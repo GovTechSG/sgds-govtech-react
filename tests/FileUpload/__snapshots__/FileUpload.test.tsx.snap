@@ -67,7 +67,7 @@ exports[`<FileUpload> should have li named 'test.txt' and not 'hello.txt', upon 
       class="fileupload-list-item"
     >
       <i
-        class="bi bi-check me-2 check-icon"
+        class="bi bi-check-lg check-icon me-2"
       />
       <span
         class="filename"
@@ -75,14 +75,14 @@ exports[`<FileUpload> should have li named 'test.txt' and not 'hello.txt', upon 
         test.txt
       </span>
       <i
-        class="bi bi-x-circle ms-2 x-circle-icon"
+        class="bi bi-x-circle x-circle-icon ms-2"
       />
     </li>
     <li
       class="fileupload-list-item"
     >
       <i
-        class="bi bi-check me-2 check-icon"
+        class="bi bi-check-lg check-icon me-2"
       />
       <span
         class="filename"
@@ -90,27 +90,27 @@ exports[`<FileUpload> should have li named 'test.txt' and not 'hello.txt', upon 
         hello.txt
       </span>
       <i
-        class="bi bi-x-circle ms-2 x-circle-icon"
+        class="bi bi-x-circle x-circle-icon ms-2"
       />
     </li>
     <li
       class="fileupload-list-item"
     >
       <i
-        class="bi bi-check me-2 check-icon"
+        class="bi bi-check-lg check-icon me-2"
       />
       <span
         class="filename"
       />
       <i
-        class="bi bi-x-circle ms-2 x-circle-icon"
+        class="bi bi-x-circle x-circle-icon ms-2"
       />
     </li>
     <li
       class="fileupload-list-item"
     >
       <i
-        class="bi bi-check me-2 check-icon"
+        class="bi bi-check-lg check-icon me-2"
       />
       <span
         class="filename"
@@ -118,7 +118,7 @@ exports[`<FileUpload> should have li named 'test.txt' and not 'hello.txt', upon 
         item
       </span>
       <i
-        class="bi bi-x-circle ms-2 x-circle-icon"
+        class="bi bi-x-circle x-circle-icon ms-2"
       />
     </li>
   </ul>
@@ -148,7 +148,7 @@ exports[`<FileUpload> should render a ul with list items, upon uploading 1`] = `
       class="fileupload-list-item"
     >
       <i
-        class="bi bi-check me-2 check-icon"
+        class="bi bi-check-lg check-icon me-2"
       />
       <span
         class="filename"
@@ -156,14 +156,14 @@ exports[`<FileUpload> should render a ul with list items, upon uploading 1`] = `
         test.txt
       </span>
       <i
-        class="bi bi-x-circle ms-2 x-circle-icon"
+        class="bi bi-x-circle x-circle-icon ms-2"
       />
     </li>
     <li
       class="fileupload-list-item"
     >
       <i
-        class="bi bi-check me-2 check-icon"
+        class="bi bi-check-lg check-icon me-2"
       />
       <span
         class="filename"
@@ -171,27 +171,27 @@ exports[`<FileUpload> should render a ul with list items, upon uploading 1`] = `
         hello.txt
       </span>
       <i
-        class="bi bi-x-circle ms-2 x-circle-icon"
+        class="bi bi-x-circle x-circle-icon ms-2"
       />
     </li>
     <li
       class="fileupload-list-item"
     >
       <i
-        class="bi bi-check me-2 check-icon"
+        class="bi bi-check-lg check-icon me-2"
       />
       <span
         class="filename"
       />
       <i
-        class="bi bi-x-circle ms-2 x-circle-icon"
+        class="bi bi-x-circle x-circle-icon ms-2"
       />
     </li>
     <li
       class="fileupload-list-item"
     >
       <i
-        class="bi bi-check me-2 check-icon"
+        class="bi bi-check-lg check-icon me-2"
       />
       <span
         class="filename"
@@ -199,7 +199,7 @@ exports[`<FileUpload> should render a ul with list items, upon uploading 1`] = `
         item
       </span>
       <i
-        class="bi bi-x-circle ms-2 x-circle-icon"
+        class="bi bi-x-circle x-circle-icon ms-2"
       />
     </li>
   </ul>
