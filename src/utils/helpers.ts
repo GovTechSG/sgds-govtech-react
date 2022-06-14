@@ -10,10 +10,12 @@ export type ReplaceProps<Inner extends React.ElementType, P> = Omit<
   P;
 
 export interface BsPrefixOnlyProps {
+  /** Overrides the default bsPrefix */
   bsPrefix?: string;
 }
 
 export interface AsProp<As extends React.ElementType = React.ElementType> {
+  /** You can use a custom element type for this component. */
   as?: As;
 }
 
@@ -23,11 +25,11 @@ export interface BsPrefixProps<As extends React.ElementType = React.ElementType>
 
 export interface BsPrefixRefForwardingComponent<
   TInitial extends React.ElementType,
-  P = unknown,
+  P = unknown
 > {
   <As extends React.ElementType = TInitial>(
     props: React.PropsWithChildren<ReplaceProps<As, BsPrefixProps<As> & P>>,
-    context?: any,
+    context?: any
   ): React.ReactElement | null;
   propTypes?: any;
   contextTypes?: any;
@@ -37,14 +39,12 @@ export interface BsPrefixRefForwardingComponent<
 
 export class BsPrefixComponent<
   As extends React.ElementType,
-  P = unknown,
+  P = unknown
 > extends React.Component<ReplaceProps<As, BsPrefixProps<As> & P>> {}
 
 // Need to use this instead of typeof Component to get proper type checking.
-export type BsPrefixComponentClass<
-  As extends React.ElementType,
-  P = unknown,
-> = React.ComponentClass<ReplaceProps<As, BsPrefixProps<As> & P>>;
+export type BsPrefixComponentClass<As extends React.ElementType, P = unknown> =
+  React.ComponentClass<ReplaceProps<As, BsPrefixProps<As> & P>>;
 
 export type TransitionType = boolean | TransitionComponent;
 
@@ -57,4 +57,3 @@ export function getOverlayDirection(placement: string, isRTL?: boolean) {
   }
   return bsDirection;
 }
-

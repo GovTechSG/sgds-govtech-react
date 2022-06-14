@@ -12,11 +12,8 @@ export interface FooterBottomLinksProps
     React.HTMLAttributes<HTMLDivElement> {}
 
 const propTypes = {
-  /** Set a custom element for this component */
   as: PropTypes.elementType,
-
-  /** Children prop should only contain a single child, and is enforced as such */
-  children: PropTypes.oneOfType([PropTypes.element]),
+  bsPrefix: PropTypes.string
 };
 
 export const FooterBottomLinks: BsPrefixRefForwardingComponent<

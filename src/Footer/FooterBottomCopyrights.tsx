@@ -9,31 +9,18 @@ import { useBootstrapPrefix } from '../ThemeProvider/ThemeProvider';
 
 export interface FooterBottomCopyrightsProps
   extends BsPrefixProps,
-    React.HTMLAttributes<HTMLDivElement> {
-}
+    React.HTMLAttributes<HTMLDivElement> {}
 
 const propTypes = {
-  /** Set a custom element for this component */
   as: PropTypes.elementType,
-
-  /** Children prop should only contain a single child, and is enforced as such */
-  children: PropTypes.oneOfType([PropTypes.element]),
+  bsPrefix: PropTypes.string,
 };
 
 export const FooterBottomCopyrights: BsPrefixRefForwardingComponent<
   'div',
   FooterBottomCopyrightsProps
 > = React.forwardRef<HTMLDivElement, FooterBottomCopyrightsProps>(
-  (
-    {
-      as: Component = 'div',
-      children,
-      className,
-      bsPrefix,
-      ...props
-    },
-    ref
-  ) => {
+  ({ as: Component = 'div', children, className, bsPrefix, ...props }, ref) => {
     bsPrefix = useBootstrapPrefix(bsPrefix, 'footer-copyrights');
     return (
       <Component
@@ -53,4 +40,3 @@ FooterBottomCopyrights.propTypes = propTypes;
 FooterBottomCopyrights.displayName = 'FooterBottomCopyrights';
 
 export default FooterBottomCopyrights;
-

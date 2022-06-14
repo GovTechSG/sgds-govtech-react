@@ -1,23 +1,41 @@
 import classNames from 'classnames';
 import * as React from 'react';
+import { forwardRef } from 'react';
 import { useBootstrapPrefix } from '../ThemeProvider/ThemeProvider';
 import {
   BsPrefixProps,
   BsPrefixRefForwardingComponent,
 } from '../utils/helpers';
+import PropTypes from 'prop-types';
 
 export interface FooterTopHeaderProps
   extends BsPrefixProps,
     React.HTMLAttributes<HTMLDivElement> {
+  /** The title of FooterTopHeader */
   headerTitle?: React.ReactNode;
+  /** Forwards css className to .title of FooterTopHeader */
   titleClass?: string;
+  /** Forwards css className to .description of FooterTopHeader */
   descriptionClass?: string;
+  /** Forwards css className to .col of FooterTopHeader */
+  columnClass?: string;
 }
+
+const propTypes = {
+  headerTitle: PropTypes.node,
+  titleClass: PropTypes.string,
+  descriptionClass: PropTypes.string,
+  columnClass: PropTypes.string,
+};
+
+const defaultProps = {
+  columnClass: 'col-lg-6',
+};
 
 export const FooterTopHeader: BsPrefixRefForwardingComponent<
   'div',
   FooterTopHeaderProps
-> = React.forwardRef<HTMLElement, FooterTopHeaderProps>(
+> = forwardRef<HTMLElement, FooterTopHeaderProps>(
   (
     {
       as: Component = 'div',
@@ -27,6 +45,7 @@ export const FooterTopHeader: BsPrefixRefForwardingComponent<
       className,
       titleClass,
       descriptionClass,
+      columnClass = 'col-lg-6',
       ...props
     },
     ref
@@ -38,7 +57,7 @@ export const FooterTopHeader: BsPrefixRefForwardingComponent<
         ref={ref}
         {...props}
       >
-        <div className="col col-lg-6">
+        <div className={classNames('col', columnClass)}>
           <div className={classNames('title', titleClass)}>{headerTitle}</div>
           <div className={classNames('description', descriptionClass)}>
             {children}
@@ -48,3 +67,7 @@ export const FooterTopHeader: BsPrefixRefForwardingComponent<
     );
   }
 );
+FooterTopHeader.defaultProps = defaultProps;
+FooterTopHeader.propTypes = propTypes;
+FooterTopHeader.displayName = 'FooterTopHeader';
+export default FooterTopHeader;

@@ -1,32 +1,28 @@
 import classNames from 'classnames';
 import * as React from 'react';
-import createWithBsPrefix from '../utils/createWithBsPrefix';
 import {
   BsPrefixProps,
   BsPrefixRefForwardingComponent,
 } from '../utils/helpers';
 import PropTypes from 'prop-types';
+import FooterTopItemGrpContext from './FooterTopItemsContext';
 
 export interface FooterTopItemProps
   extends BsPrefixProps,
     React.HTMLAttributes<HTMLDivElement> {
+  /** Category name of each item */
   itemTitle?: React.ReactNode;
+  /** Forwards title className to .title */
   titleClass?: string;
+  /** Forwards links className to .links */
   linksClass?: string;
 }
 
 const propTypes = {
-  /** Category name of each Item */
   itemTitle: PropTypes.node,
-
-  /** Forwards title className to .title */
   titleClass: PropTypes.string,
-
-  /** Forwards links className to .links */
   linksClass: PropTypes.string,
 };
-
-export const FooterTopItems = createWithBsPrefix('row footer-items');
 
 export const FooterTopItem: BsPrefixRefForwardingComponent<
   'div',
@@ -44,9 +40,11 @@ export const FooterTopItem: BsPrefixRefForwardingComponent<
     },
     ref
   ) => {
+    const { noOfItem } = React.useContext(FooterTopItemGrpContext);
+    const colSize = noOfItem < 5 ? 'col-lg-3' : 'col-lg-2';
     return (
       <Component
-        className={classNames('col-lg-3', className)}
+        className={classNames(colSize, className)}
         ref={ref}
         {...props}
       >
@@ -63,4 +61,5 @@ export const FooterTopItem: BsPrefixRefForwardingComponent<
 
 FooterTopItem.displayName = 'FooterTopItem';
 FooterTopItem.propTypes = propTypes;
+
 export default FooterTopItem;

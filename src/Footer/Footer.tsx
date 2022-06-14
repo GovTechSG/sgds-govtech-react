@@ -10,10 +10,16 @@ import {
 } from '../utils/helpers';
 import FooterBottom from './FooterBottom';
 import FooterTop from './FooterTop';
+import PropTypes from 'prop-types';
 
 export interface FooterProps
   extends BsPrefixProps,
     React.HTMLAttributes<HTMLElement> {}
+
+const propTypes = {
+  as: PropTypes.elementType,
+  bsPrefix: PropTypes.string,
+};
 
 export const Footer: BsPrefixRefForwardingComponent<'footer', FooterProps> =
   React.forwardRef<HTMLElement, FooterProps>(
@@ -30,6 +36,8 @@ export const Footer: BsPrefixRefForwardingComponent<'footer', FooterProps> =
     }
   );
 
+Footer.displayName = 'Footer';
+Footer.propTypes = propTypes;
 export default Object.assign(Footer, {
   Top: FooterTop,
   Bottom: FooterBottom,

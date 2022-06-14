@@ -7,7 +7,8 @@ import {
 } from '../utils/helpers';
 import FooterTopContactLinks from './FooterTopContactLinks';
 import { FooterTopHeader } from './FooterTopHeader';
-import { FooterTopItem, FooterTopItems } from './FooterTopItems';
+import { FooterTopItem } from './FooterTopItem';
+import {FooterTopItemGroup} from './FooterTopItemGroup'
 
 export interface FooterTopProps
   extends BsPrefixProps,
@@ -36,7 +37,7 @@ export const FooterTop: BsPrefixRefForwardingComponent<
 
 export default Object.assign(FooterTop, {
   Header: FooterTopHeader,
-  Items: FooterTopItems,
+  ItemGroup: FooterTopItemGroup,
   Item: FooterTopItem,
   ContactLinks: FooterTopContactLinks,
 });
