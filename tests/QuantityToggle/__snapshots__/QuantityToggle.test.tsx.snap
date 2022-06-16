@@ -9,6 +9,7 @@ exports[`<QuantityToggle /> has default structure 1`] = `
   </label>
   <div
     class="input-group input-group-sm sgds"
+    variant="quantity-toggle"
   >
     <button
       aria-label="minus-btn"

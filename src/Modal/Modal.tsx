@@ -58,6 +58,7 @@ export interface ModalProps
   contentClassName?: string;
   dialogAs?: React.ElementType;
   scrollable?: boolean;
+  centeredAlignVariant?: boolean;
   [other: string]: any;
 }
 
@@ -223,7 +224,13 @@ const propTypes = {
    */
   container: PropTypes.any,
 
-  'aria-labelledby': PropTypes.any,
+  'aria-labelledby': PropTypes.string,
+  'aria-describedby': PropTypes.string,
+  'aria-label': PropTypes.string,
+  /**
+   * Conveys centered align style to Modal 
+   */
+  centeredAlignVariant: PropTypes.bool
 };
 const defaultProps = {
   show: false,
@@ -234,6 +241,7 @@ const defaultProps = {
   restoreFocus: true,
   animation: true,
   dialogAs: ModalDialog,
+  centeredAlignVariant: false
 };
 
 
@@ -256,9 +264,11 @@ const Modal: BsPrefixRefForwardingComponent<'div', ModalProps> =
         dialogClassName,
         contentClassName,
         children,
-        dialogAs: Dialog,
+        dialogAs: Dialog = ModalDialog as React.ElementType,
         'aria-labelledby': ariaLabelledby,
-
+        'aria-describedby': ariaDescribedby,
+        'aria-label': ariaLabel,
+        centeredAlignVariant,
         /* BaseModal props */
 
         show,
@@ -465,10 +475,11 @@ const Modal: BsPrefixRefForwardingComponent<'div', ModalProps> =
           )}
           onClick={backdrop ? handleClick : undefined}
           onMouseUp={handleMouseUp}
+          aria-label={ariaLabel}
           aria-labelledby={ariaLabelledby}
+          aria-describedby={ariaDescribedby}          
+          variant={centeredAlignVariant ? 'centered-align-icon': undefined}
         >
-          {/*
-        // @ts-ignore */}
           <Dialog
             {...props}
             onMouseDown={handleDialogMouseDown}

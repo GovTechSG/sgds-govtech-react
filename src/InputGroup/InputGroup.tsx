@@ -34,7 +34,7 @@ export interface InputGroupProps
     React.HTMLAttributes<HTMLElement> {
   size?: 'sm' | 'md' | 'lg';
   hasValidation?: boolean;
-  variant?: 'has-icon'
+  variant?: 'has-icon' | 'quantity-toggle'
 }
 
 const propTypes = {
