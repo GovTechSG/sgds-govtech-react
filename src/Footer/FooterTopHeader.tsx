@@ -26,6 +26,8 @@ const propTypes = {
   titleClass: PropTypes.string,
   descriptionClass: PropTypes.string,
   columnClass: PropTypes.string,
+  as: PropTypes.elementType,
+  bsPrefix: PropTypes.string
 };
 
 const defaultProps = {

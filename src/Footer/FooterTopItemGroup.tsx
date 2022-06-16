@@ -13,6 +13,11 @@ export interface FooterTopItemGroupProps
   extends BsPrefixProps,
     React.HTMLAttributes<HTMLDivElement> {}
 
+const propTypes = {
+  as: PropTypes.elementType,
+  bsPrefix: PropTypes.string,
+};
+
 export const FooterTopItemGroup: BsPrefixRefForwardingComponent<
   'div',
   FooterTopItemGroupProps
@@ -25,7 +30,7 @@ export const FooterTopItemGroup: BsPrefixRefForwardingComponent<
       () => ({ noOfItem: noOfChildren }),
       [noOfChildren]
     );
-    
+
     warning(noOfChildren <= 6, 'Number of Footer Items should not exceed 6');
 
     return (
@@ -43,4 +48,5 @@ export const FooterTopItemGroup: BsPrefixRefForwardingComponent<
 );
 
 FooterTopItemGroup.displayName = 'FooterTopItemGroup';
+FooterTopItemGroup.propTypes = propTypes;
 export default FooterTopItemGroup;

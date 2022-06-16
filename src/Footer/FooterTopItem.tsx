@@ -8,7 +8,7 @@ import PropTypes from 'prop-types';
 import FooterTopItemGrpContext from './FooterTopItemsContext';
 
 export interface FooterTopItemProps
-  extends BsPrefixProps,
+  extends Omit<BsPrefixProps, 'bsPrefix'>,
     React.HTMLAttributes<HTMLDivElement> {
   /** Category name of each item */
   itemTitle?: React.ReactNode;
@@ -22,6 +22,7 @@ const propTypes = {
   itemTitle: PropTypes.node,
   titleClass: PropTypes.string,
   linksClass: PropTypes.string,
+  as: PropTypes.elementType,
 };
 
 export const FooterTopItem: BsPrefixRefForwardingComponent<

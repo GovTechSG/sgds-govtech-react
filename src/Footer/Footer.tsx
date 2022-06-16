@@ -9,7 +9,7 @@ import {
   BsPrefixRefForwardingComponent,
 } from '../utils/helpers';
 import FooterBottom from './FooterBottom';
-import FooterTop from './FooterTop';
+import FooterSection from './FooterTop';
 import PropTypes from 'prop-types';
 
 export interface FooterProps
@@ -39,6 +39,6 @@ export const Footer: BsPrefixRefForwardingComponent<'footer', FooterProps> =
 Footer.displayName = 'Footer';
 Footer.propTypes = propTypes;
 export default Object.assign(Footer, {
-  Top: FooterTop,
+  Top: FooterSection,
   Bottom: FooterBottom,
 });
