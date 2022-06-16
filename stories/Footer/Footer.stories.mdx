@@ -36,8 +36,8 @@ export const Template = (itemTitles) => {
           pariatur quod totam quia.
         </Footer.Top.Header>
         <Footer.Top.ItemGroup>
-          {itemTitles.map((title) => (
-            <Footer.Top.Item itemTitle={title}>
+          {itemTitles.map((title, i) => (
+            <Footer.Top.Item itemTitle={title} key={title + i}>
               <a href="">About Us</a>
               <a href="">This is a super long link</a>
               <a href="">Test</a>
