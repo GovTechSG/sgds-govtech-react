@@ -66,7 +66,7 @@ export const QuantityToggle: BsPrefixRefForwardingComponent<
     return (
       <>
       <FormLabel className="visually-hidden">quantity-toggle</FormLabel>
-      <InputGroup size={size}>
+      <InputGroup size={size} variant="quantity-toggle">
         <Button onClick={onMinus} {...buttonProps} aria-label="minus-btn">
           <i className="bi bi-dash"></i>
         </Button>

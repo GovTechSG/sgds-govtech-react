@@ -6,6 +6,7 @@ import { useRef } from 'react';
 import { ButtonVariant } from '../utils/types';
 import { SGDSWrapper } from '../ThemeProvider/ThemeProvider';
 import PropTypes from 'prop-types';
+import classNames from 'classnames';
 
 type FileUpload = ButtonProps & FormGroupProps;
 type SelectedFileType = FileList | {};
@@ -16,6 +17,8 @@ export interface FileUploadProps extends FileUpload {
   onChangeFile: (data: FileList) => void;
   selectedFile: SelectedFileType;
   disabled?: boolean;
+  checkedIcon?: JSX.Element;
+  cancelIcon?: JSX.Element;
 }
 
 const propTypes = {
@@ -49,14 +52,18 @@ const propTypes = {
 
   onChangeFile: PropTypes.func.isRequired,
 
-  selectedFile: PropTypes.oneOfType([
-    PropTypes.object,
-  ]).isRequired,
+  selectedFile: PropTypes.oneOfType([PropTypes.object]).isRequired,
+  checkedIcon: PropTypes.element,
+  cancelIcon: PropTypes.element,
 };
 
+const CHECKED_ICON = <i className="bi bi-check-lg check-icon"/>;
+const CANCEL_ICON = <i className="bi bi-x-circle x-circle-icon"/>;
 const defaultProps = {
   variant: 'primary',
   disabled: false,
+  checkedIcon: CHECKED_ICON,
+  cancelIcon: CANCEL_ICON
 };
 
 export const FileUpload: React.FC<FileUploadProps> = ({
@@ -67,6 +74,8 @@ export const FileUpload: React.FC<FileUploadProps> = ({
   disabled,
   size,
   children,
+  checkedIcon = CHECKED_ICON,
+  cancelIcon = CANCEL_ICON
 }) => {
   const inputRef = useRef<HTMLInputElement>(null);
   const fileNames = Object.entries(selectedFile).map((e) => e[1].name);
@@ -100,16 +109,17 @@ export const FileUpload: React.FC<FileUploadProps> = ({
 
     onChangeFile(fileBuffer.files);
   };
-
   const listItems = fileNames.map((item, index) => {
     return (
       <li key={index} className="fileupload-list-item">
-        <i className="bi bi-check me-2 check-icon"></i>
+        {React.cloneElement(checkedIcon, {
+          className: classNames(checkedIcon.props.className, 'me-2')
+        })}
         <span className="filename">{item}</span>
-        <i
-          className="bi bi-x-circle ms-2 x-circle-icon"
-          onClick={() => removeFileHandler(index)}
-        ></i>
+        {React.cloneElement(cancelIcon, {
+          onClick: () => removeFileHandler(index),
+          className: classNames(cancelIcon.props.className, 'ms-2')
+        })}
       </li>
     );
   });

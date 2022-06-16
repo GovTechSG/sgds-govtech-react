@@ -41,6 +41,9 @@ import { HIDDEN_COMMON_PROPS } from '../helpers';
       description:
         'Allows scrolling the <Modal.Body> instead of the entire Modal when overflowing.',
     },
+    centeredAlignVariant: {
+      description: 'A variant where contents of Modal are aligned to center.',
+    },
   }}
 />
 
@@ -62,7 +65,9 @@ export const NamedTemplate = (
         </Button>
         <Modal show={show} onHide={handleClose} {...singleProp} {...args}>
           <Modal.Header closeButton>
-            <Modal.Title>Modal heading</Modal.Title>
+            <Modal.Title>
+              <i className="bi bi-exclamation-triangle me-3"></i>Modal heading
+            </Modal.Title>
           </Modal.Header>
           <Modal.Body>{bodyContent}</Modal.Body>
           <Modal.Footer>
@@ -79,7 +84,7 @@ export const NamedTemplate = (
   };
   return Template;
 };
-export const defaultModal = NamedTemplate('Default').bind({});
+export const defaultModal = NamedTemplate('Default');
 export const smallModal = NamedTemplate('Small').bind({});
 export const largeModal = NamedTemplate('Large').bind({});
 export const xLargeModal = NamedTemplate('Extra large').bind({});
@@ -96,7 +101,7 @@ import { Modal, Button } from '@govtechsg/sgds-govtech-react';
         </Button>
         <Modal show={show} onHide={handleClose}>
           <Modal.Header closeButton>
-            <Modal.Title>Modal heading</Modal.Title>
+            <Modal.Title><i className="bi bi-exclamation-triangle me-3"></i>Modal heading</Modal.Title>
           </Modal.Header>
           <Modal.Body>Woohoo, you're reading this text in a modal!</Modal.Body>
           <Modal.Footer>
@@ -157,7 +162,6 @@ Sed pulvinar ipsum purus. Nullam eleifend scelerisque mauris, vitae consequat en
 `
 ).bind({});
 
-
 The `Modal` is hidden by default and appears with backdrop and animation on click. `Modal` component consists of
 `Modal.Title`, `Modal.Header`, `Modal.Body`, `Modal.Footer`, `Modal.Dialog`. Add children components to customize your `Modal`
 
@@ -173,14 +177,14 @@ The `Modal` is hidden by default and appears with backdrop and animation on clic
       },
     }}
   >
-    {defaultModal}
+    {defaultModal.bind({})}
   </Story>
 </Canvas>
 
 ## API
 
 ```jsx
-import { Modal } from '@govtechsg/sgds-govtech-react/Modal'; 
+import { Modal } from '@govtechsg/sgds-govtech-react/Modal';
 ```
 
 <ArgsTable story="Default" />
@@ -337,3 +341,19 @@ When modal content is long , it make sense to enable `scrollable` to `true`
     <Col></Col>
   </Row>
 </Story>
+
+## Centering Modal contents
+
+Set `centeredAlignVariant` prop to true to center contents of Modal
+
+<Story name="Centered Contents" args={{centeredAlignVariant:true}}>
+  {defaultModal.bind({})}
+</Story>
+
+```jsx
+import { Modal } from '@govtechsg/sgds-govtech-react';
+
+<Modal show={show} onHide={handleClose} centeredAlignVariant>
+  ...
+</Modal>;
+```

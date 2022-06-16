@@ -30,6 +30,8 @@ import { HIDDEN_COMMON_PROPS } from '../helpers';
       control: { disable: true },
     },
     controlId: { description: 'Sets a unique id to the file input, required.' },
+    checkedIcon: {description: 'Customize the checked icon'},
+    cancelIcon: {description: 'Customize the cancel icon'},
   }}
 />
 
@@ -95,3 +97,11 @@ return (
   </>
 );
 ```
+## Customize the checked and cancel icons 
+
+Change up the default checked and cancel icons by passing in icons of your choice 
+
+
+<Canvas>
+  <Story name="Custom Icons" args={{cancelIcon: <i className="bi bi-x-octagon"></i>, checkedIcon: <i className="bi bi-check2-circle"></i>}}>{Template.bind({})}</Story>
+</Canvas>
