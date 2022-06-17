@@ -8,7 +8,9 @@ type CardFormCheckProps = React.InputHTMLAttributes<HTMLInputElement> &
   Omit<CardProps, 'variant'>;
 
 export interface SelectableCardProps extends CardFormCheckProps {
+  /** Disables the FormCheck control when true */
   disabled?: boolean;
+  /** The type of checkable */
   type?: FormCheckType;
 }
 

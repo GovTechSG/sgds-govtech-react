@@ -6,13 +6,14 @@ import PropTypes from 'prop-types';
 import classNames from 'classnames';
 
 export interface SideNavLinkProps extends Omit<NavLinkProps, 'eventKey'> {
+  /** A unique key for SideNavLink */
   eventKey: string;
 }
 
 const propTypes = {
   eventKey: PropTypes.string.isRequired
 }
-const SideNavLink: BsPrefixRefForwardingComponent<'a', SideNavLinkProps> =
+export const SideNavLink: BsPrefixRefForwardingComponent<'a', SideNavLinkProps> =
   React.forwardRef<HTMLAnchorElement, SideNavLinkProps>(
     ({ eventKey, ...props }, ref) => {
       const {  activeLinkKey } = React.useContext(SideNavContext);

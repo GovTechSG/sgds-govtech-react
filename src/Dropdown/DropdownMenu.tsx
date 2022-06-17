@@ -120,7 +120,7 @@ export function getDropdownMenuPlacement(
   return placement;
 }
 
-const DropdownMenu: BsPrefixRefForwardingComponent<'ul', DropdownMenuProps> =
+export const DropdownMenu: BsPrefixRefForwardingComponent<'ul', DropdownMenuProps> =
   React.forwardRef<HTMLElement, DropdownMenuProps>(
     (
       {

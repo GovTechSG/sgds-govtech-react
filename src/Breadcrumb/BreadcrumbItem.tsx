@@ -3,16 +3,38 @@ import * as React from 'react';
 import PropTypes from 'prop-types';
 import Anchor from '@restart/ui/Anchor';
 import { useBootstrapPrefix } from '../ThemeProvider/ThemeProvider';
-import { BsPrefixProps, BsPrefixRefForwardingComponent } from '../utils/helpers';
+import {
+  BsPrefixProps,
+  BsPrefixRefForwardingComponent,
+} from '../utils/helpers';
 
 export interface BreadcrumbItemProps
   extends BsPrefixProps,
     Omit<React.HTMLAttributes<HTMLElement>, 'title'> {
+  /**
+   * Adds a visual "active" state to a Breadcrumb
+   * Item and disables the link.
+   */
   active?: boolean;
+  /**
+   * `href` attribute for the inner `a` element
+   */
   href?: string;
+  /**
+   * You can use a custom element type for this component's inner link.
+   */
   linkAs?: React.ElementType;
+  /**
+   * `target` attribute for the inner `a` element
+   */
   target?: string;
+  /**
+   * `title` attribute for the inner `a` element
+   */
   title?: React.ReactNode;
+  /**
+   * Additional props passed as-is to the underlying link for non-active items.
+   */
   linkProps?: Record<string, any>; // the generic is to much work here
 }
 
@@ -74,7 +96,7 @@ export const BreadcrumbItem: BsPrefixRefForwardingComponent<
       target,
       ...props
     },
-    ref,
+    ref
   ) => {
     const prefix = useBootstrapPrefix(bsPrefix, 'breadcrumb-item');
 
@@ -99,7 +121,7 @@ export const BreadcrumbItem: BsPrefixRefForwardingComponent<
         )}
       </Component>
     );
-  },
+  }
 );
 
 BreadcrumbItem.displayName = 'BreadcrumbItem';

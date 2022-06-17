@@ -1,6 +1,8 @@
 import createWithBsPrefix from '../utils/createWithBsPrefix';
 
-export default createWithBsPrefix('nav-item', {
+export const NavItem = createWithBsPrefix('nav-item', {
   Component: "li",
   displayName: 'NavItem'
 });
+
+export default NavItem;

@@ -7,12 +7,17 @@ import {
   SGDSWrapper,
 } from '../ThemeProvider/ThemeProvider';
 import BreadcrumbItem from './BreadcrumbItem';
-import { BsPrefixProps, BsPrefixRefForwardingComponent } from '../utils/helpers';
+import {
+  BsPrefixProps,
+  BsPrefixRefForwardingComponent,
+} from '../utils/helpers';
 
 export interface BreadcrumbProps
   extends BsPrefixProps,
     React.HTMLAttributes<HTMLElement> {
+  /**ARIA label for the nav element */
   ariaLabel?: string;
+  /**An object which keys and value are passed down to `<ol />` as attribute name and value respectively */
   listProps?: React.OlHTMLAttributes<HTMLOListElement>;
 }
 
@@ -41,41 +46,40 @@ const defaultProps = {
   listProps: {},
 };
 
-export const Breadcrumb: BsPrefixRefForwardingComponent<'nav', BreadcrumbProps> =
-  React.forwardRef<HTMLElement, BreadcrumbProps>(
-    (
-      {
-        bsPrefix,
-        className,
-        listProps,
-        children,
-        ariaLabel,
-        // Need to define the default "as" during prop destructuring to be compatible with styled-components github.com/react-bootstrap/react-bootstrap/issues/3595
-        as = 'nav',
-        ...props
-      },
-      ref
-    ) => {
-      const prefix = useBootstrapPrefix(bsPrefix, 'breadcrumb');
+export const Breadcrumb: BsPrefixRefForwardingComponent<
+  'nav',
+  BreadcrumbProps
+> = React.forwardRef<HTMLElement, BreadcrumbProps>(
+  (
+    {
+      bsPrefix,
+      className,
+      listProps,
+      children,
+      ariaLabel,
+      // Need to define the default "as" during prop destructuring to be compatible with styled-components github.com/react-bootstrap/react-bootstrap/issues/3595
+      as = 'nav',
+      ...props
+    },
+    ref
+  ) => {
+    const prefix = useBootstrapPrefix(bsPrefix, 'breadcrumb');
 
-      return (
-        <SGDSWrapper
-          as={as}
-          aria-label={ariaLabel}
-          className={className}
-          ref={ref}
-          {...props}
-        >
-          <ol
-            {...listProps}
-            className={classNames(prefix, listProps?.className)}
-          >
-            {children}
-          </ol>
-        </SGDSWrapper>
-      );
-    }
-  );
+    return (
+      <SGDSWrapper
+        as={as}
+        aria-label={ariaLabel}
+        className={className}
+        ref={ref}
+        {...props}
+      >
+        <ol {...listProps} className={classNames(prefix, listProps?.className)}>
+          {children}
+        </ol>
+      </SGDSWrapper>
+    );
+  }
+);
 
 Breadcrumb.displayName = 'Breadcrumb';
 Breadcrumb.propTypes = propTypes;

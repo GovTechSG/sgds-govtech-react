@@ -2,9 +2,12 @@ import * as React from 'react';
 import { useContext } from 'react';
 import classNames from 'classnames';
 import PropTypes from 'prop-types';
-import SideNavContext, {SideNavEventKey} from './SideNavContext';
+import SideNavContext, { SideNavEventKey } from './SideNavContext';
 import SideNavItemContext from './SideNavItemContext';
-import { BsPrefixProps, BsPrefixRefForwardingComponent } from '../utils/helpers';
+import {
+  BsPrefixProps,
+  BsPrefixRefForwardingComponent,
+} from '../utils/helpers';
 import Button from '../Button/Button';
 import useMergedRefs from '@restart/hooks/useMergedRefs';
 
@@ -13,6 +16,7 @@ type EventHandler = React.EventHandler<React.SyntheticEvent>;
 export interface SideNavButtonProps
   extends React.ButtonHTMLAttributes<HTMLButtonElement>,
     BsPrefixProps {
+  /** Providing a `href` will render an `<a>` element, _styled_ as a button. */
   href?: string;
 }
 
@@ -31,11 +35,10 @@ const propTypes = {
 
 export function useSideNavButton(
   eventKey: string,
-  onClick?: EventHandler,
+  onClick?: EventHandler
 ): EventHandler {
   const { activeEventKey, onSelect, alwaysOpen } = useContext(SideNavContext);
   return (e) => {
-
     /*
       Compare the event key in context with the given event key.
       If they are the same, then collapse the component.
@@ -55,24 +58,21 @@ export function useSideNavButton(
       }
     }
 
-
     onSelect?.(eventKeyPassed, e);
     onClick?.(e);
-  
-
   };
 }
-const setCollapseCSS = (activeEventKey: SideNavEventKey, eventKey : string) => {
+const setCollapseCSS = (activeEventKey: SideNavEventKey, eventKey: string) => {
   if (Array.isArray(activeEventKey)) {
-    return !activeEventKey.includes(eventKey) && 'collapsed'
+    return !activeEventKey.includes(eventKey) && 'collapsed';
   }
-  if (typeof activeEventKey === 'string'){
-    return (activeEventKey !== eventKey ) && 'collapsed'
+  if (typeof activeEventKey === 'string') {
+    return activeEventKey !== eventKey && 'collapsed';
   }
-  return 'collapsed'
-}
+  return 'collapsed';
+};
 
-const SideNavButton: BsPrefixRefForwardingComponent<
+export const SideNavButton: BsPrefixRefForwardingComponent<
   'button',
   SideNavButtonProps
 > = React.forwardRef<HTMLButtonElement, SideNavButtonProps>(
@@ -88,21 +88,23 @@ const SideNavButton: BsPrefixRefForwardingComponent<
     },
     ref
   ) => {
-    const btnRef = React.useRef<HTMLButtonElement>(null)
-    const mergedRef = useMergedRefs(ref as React.MutableRefObject<HTMLButtonElement>, btnRef)
+    const btnRef = React.useRef<HTMLButtonElement>(null);
+    const mergedRef = useMergedRefs(
+      ref as React.MutableRefObject<HTMLButtonElement>,
+      btnRef
+    );
     const { eventKey } = useContext(SideNavItemContext);
-    const sideNavOnClick = useSideNavButton(eventKey,onClick );
+    const sideNavOnClick = useSideNavButton(eventKey, onClick);
     const { activeEventKey } = useContext(SideNavContext);
 
     if (Component === 'button') {
       props.type = 'button';
     }
 
-
     return (
       <Component
         ref={mergedRef}
-        variant={""}
+        variant={''}
         onClick={sideNavOnClick}
         {...props}
         aria-expanded={eventKey === activeEventKey}

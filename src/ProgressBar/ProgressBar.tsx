@@ -3,7 +3,10 @@ import * as React from 'react';
 import { cloneElement } from 'react';
 import PropTypes from 'prop-types';
 
-import { useBootstrapPrefix, SGDSWrapper } from '../ThemeProvider/ThemeProvider';
+import {
+  useBootstrapPrefix,
+  SGDSWrapper,
+} from '../ThemeProvider/ThemeProvider';
 
 import { map } from '../utils/ElementChildren';
 import { BsPrefixProps } from '../utils/helpers';
@@ -11,15 +14,47 @@ import { BsPrefixProps } from '../utils/helpers';
 export interface ProgressBarProps
   extends React.HTMLAttributes<HTMLDivElement>,
     BsPrefixProps {
+  /**
+   * Minimum value progress can begin from
+   */
   min?: number;
+  /**
+   * Current value of progress
+   */
   now?: number;
+  /**
+   * Maximum value progress can reach
+   */
   max?: number;
+  /**
+   * Show label that represents visual percentage.
+   * EG. 60%
+   */
   label?: React.ReactNode;
+  /**
+   * Hide's the label visually.
+   */
   visuallyHidden?: boolean;
+  /**
+   * Uses a gradient to create a striped effect.
+   */
   striped?: boolean;
+  /**
+   * Animate's the stripes from right to left
+   */
   animated?: boolean;
+  /**
+   * Sets the background class of the progress bar.
+   *
+   * @type ('success'|'danger'|'warning'|'info')
+   */
   variant?: 'success' | 'danger' | 'warning' | 'info' | string;
+  /**Allows toggling display of progress bar */
   isChild?: boolean;
+  /**
+   * Forwards to aria-label attribute on element with role="progressbar"
+   *
+   */
   ariaLabel?: string;
 }
 
@@ -28,7 +63,11 @@ const ROUND_PRECISION = 1000;
 /**
  * Validate that children, if any, are instances of `<ProgressBar>`.
  */
-function onlyProgressBar(props:any, propName: any, componentName: string): Error | null {
+function onlyProgressBar(
+  props: any,
+  propName: any,
+  componentName: string
+): Error | null {
   const children = props[propName];
   if (!children) {
     return null;
@@ -57,7 +96,7 @@ function onlyProgressBar(props:any, propName: any, componentName: string): Error
       : child;
     error = new Error(
       `Children of ${componentName} can contain only ProgressBar ` +
-        `components. Found ${childIdentifier}.`,
+        `components. Found ${childIdentifier}.`
     );
   });
 
@@ -87,10 +126,9 @@ const propTypes = {
   label: PropTypes.node,
   /**
    * Forwards to aria-label attribute on element with role="progressbar"
-   * 
+   *
    */
   ariaLabel: PropTypes.string,
-  
 
   /**
    * Hide's the label visually.
@@ -138,11 +176,11 @@ const defaultProps = {
   isChild: false,
   visuallyHidden: false,
   striped: false,
-  ariaLabel: "progressbar"
+  ariaLabel: 'progressbar',
 };
 
-function getPercentage(now: number, min: number, max: number){
-  const percentage = ((now - min) / (max - min)) * 100
+function getPercentage(now: number, min: number, max: number) {
+  const percentage = ((now - min) / (max - min)) * 100;
   return Math.round(percentage * ROUND_PRECISION) / ROUND_PRECISION;
 }
 
@@ -159,10 +197,15 @@ function renderProgressBar(
     style,
     variant,
     bsPrefix,
-    ariaLabel = "progressbar",
+    ariaLabel = 'progressbar',
     ...props
   }: ProgressBarProps,
-  ref: string | ((instance: HTMLDivElement | null) => void) | React.RefObject<HTMLDivElement> | null | undefined
+  ref:
+    | string
+    | ((instance: HTMLDivElement | null) => void)
+    | React.RefObject<HTMLDivElement>
+    | null
+    | undefined
 ) {
   return (
     <div
@@ -234,13 +277,13 @@ const ProgressBar = React.forwardRef<HTMLDivElement, ProgressBarProps>(
                 animated,
                 bsPrefix,
                 variant,
-                ariaLabel
+                ariaLabel,
               },
-              ref,
+              ref
             )}
       </SGDSWrapper>
     );
-  },
+  }
 );
 
 ProgressBar.displayName = 'ProgressBar';

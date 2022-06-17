@@ -16,28 +16,10 @@ import { HIDDEN_COMMON_PROPS } from '../helpers';
 <Meta
   title="Components/Navigation/Nav/Nav"
   component={Nav}
-  argTypes={{
-    ...HIDDEN_COMMON_PROPS,
-    onSelect: {
-      table: {
-        category: `<Nav />`,
-      },
-    },
-    navbarScroll: {
-      description:
-        'When used with Navbar, enables vertical scrolling within the toggleable contents of a collapsed Navbar.',
-      table: {
-        category: `<Nav />`,
-      },
-    },
-    activeKey: {
-      description:
-        'Marks the Nav item with a matching eventKey (or href if present for NavLink) as active.',
-      table: {
-        category: `<Nav />`,
-      },
-      control: { disable: true },
-    },
+  subcomponents={{
+    'Nav.Item': Nav.Item,
+    'Nav.Link': Nav.Link,
+    'Nav.Dropdown': Nav.Dropdown,
   }}
 />
 
@@ -262,7 +244,7 @@ See example of all three types below;
 ## API
 
 ```jsx
-import { Nav } from '@govtechsg/sgds-govtech-react/Nav'; 
+import { Nav } from '@govtechsg/sgds-govtech-react/Nav';
 ```
 
 <ArgsTable story="Default" />

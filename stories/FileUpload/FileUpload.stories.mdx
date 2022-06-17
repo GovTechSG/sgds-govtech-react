@@ -8,31 +8,6 @@ import { HIDDEN_COMMON_PROPS } from '../helpers';
 <Meta
   title="Components/File Upload"
   component={FileUpload}
-  argTypes={{
-    ...HIDDEN_COMMON_PROPS,
-    href: { table: { disable: true } },
-    active: { table: { disable: true } },
-    variant: {
-      description:
-        'Sets the color variant. Refer to Button component for color variations',
-    },
-    size: { description: 'Sets the size for the button' },
-    target: { table: { disable: true } },
-    rel: { table: { disable: true } },
-    key: { table: { disable: true } },
-    validated: { table: { disable: true } },
-    onChangeFile: {
-      description: 'Expose the FileList object for uploading, preview etc',
-      control: { disable: true },
-    },
-     selectedFile: {
-      description: 'Sets the FileList object back from the state for rendering list of file names',
-      control: { disable: true },
-    },
-    controlId: { description: 'Sets a unique id to the file input, required.' },
-    checkedIcon: {description: 'Customize the checked icon'},
-    cancelIcon: {description: 'Customize the cancel icon'},
-  }}
 />
 
 # File Upload

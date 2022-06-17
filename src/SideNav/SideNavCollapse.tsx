@@ -21,7 +21,7 @@ const propTypes = {
   children: PropTypes.oneOfType([PropTypes.element]),
 };
 
-const SideNavCollapse: BsPrefixRefForwardingComponent<
+export const SideNavCollapse: BsPrefixRefForwardingComponent<
   'div',
   SideNavCollapseProps
 > = React.forwardRef<Transition<any>, SideNavCollapseProps>(

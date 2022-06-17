@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import * as React from 'react';
 import FormCheck from './FormCheck';
 import FormControl from './FormControl';
-import FormFloating from './FormFloating';
+import {FormFloating} from './FormFloating';
 import FormGroup from './FormGroup';
 import FormLabel from './FormLabel';
 import FormRange from './FormRange';
@@ -16,6 +16,10 @@ import { BsPrefixRefForwardingComponent, AsProp } from '../utils/helpers';
 export interface FormProps
   extends React.FormHTMLAttributes<HTMLFormElement>,
     AsProp {
+  /**
+   * Mark a form as having been validated. Setting it to `true` will
+   * toggle any validation styles on the forms elements.
+   */
   validated?: boolean;
 }
 
@@ -35,7 +39,7 @@ const propTypes = {
    * toggle any validation styles on the forms elements.
    */
   validated: PropTypes.bool,
-  as: PropTypes.elementType
+  as: PropTypes.elementType,
 };
 
 const Form: BsPrefixRefForwardingComponent<'form', FormProps> =

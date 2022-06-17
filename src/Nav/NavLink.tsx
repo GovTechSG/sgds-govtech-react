@@ -57,7 +57,7 @@ const defaultProps = {
   disabled: false,
 };
 
-const NavLink: BsPrefixRefForwardingComponent<'a', NavLinkProps> =
+export const NavLink: BsPrefixRefForwardingComponent<'a', NavLinkProps> =
   React.forwardRef<HTMLElement, NavLinkProps>(
     (
       {

@@ -3,27 +3,24 @@ import PropTypes from 'prop-types';
 
 import * as React from 'react';
 import { useMemo } from 'react';
-
-import createWithBsPrefix from '../utils/createWithBsPrefix';
+import { InputGroupText } from './InputGroupText';
 import {
   useBootstrapPrefix,
   SGDSWrapper,
 } from '../ThemeProvider/ThemeProvider';
-import FormCheckInput from '../Form/FormCheckInput';
+import FormCheckInput, { FormCheckInputProps } from '../Form/FormCheckInput';
 import InputGroupContext from './InputGroupContext';
 import { BsPrefixProps, BsPrefixRefForwardingComponent } from '../utils/helpers';
 
-const InputGroupText = createWithBsPrefix('input-group-text', {
-  Component: 'span',
-});
 
-const InputGroupCheckbox = (props: any) => (
+
+export const InputGroupCheckbox = (props: FormCheckInputProps) => (
   <InputGroupText>
     <FormCheckInput type="checkbox" {...props} />
   </InputGroupText>
 );
 
-const InputGroupRadio = (props: any) => (
+export const InputGroupRadio = (props: FormCheckInputProps) => (
   <InputGroupText>
     <FormCheckInput type="radio" {...props} />
   </InputGroupText>

@@ -1,3 +1,7 @@
 import createWithBsPrefix from '../utils/createWithBsPrefix';
 
-export default createWithBsPrefix('modal-title', { Component: 'h3' });
+export const ModalTitle = createWithBsPrefix('modal-title', {
+  Component: 'h3',
+});
+
+export default ModalTitle;

@@ -13,6 +13,11 @@ import {
 <Meta
   title="Components/Form/Input Group"
   component={InputGroup}
+  subcomponents={{
+    "InputGroup.Text": InputGroup.Text,
+    "InputGroup.Radio": InputGroup.Radio,
+    "InputGroup.Checkbox": InputGroup.Checkbox
+  }}
   argTypes={{
     ...HIDDEN_COMMON_PROPS,
     hasValidation: {
@@ -52,6 +57,7 @@ export const Template = (args) => {
   <Story name="Example">{Template.bind({})}</Story>
 </Canvas>
 
+
 ## API 
 
 ```jsx
@@ -59,6 +65,9 @@ import { InputGroup } from '@govtechsg/sgds-govtech-react/InputGroup';
 ```
 
 <ArgsTable story="Example" />
+
+**NOTE** Reference `FormCheckInputProps` for props of `<InputGroup.Radio/>` and `<InputGroup.Checkbox/>`
+
 
 ```jsx
 // Phone number Example

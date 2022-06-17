@@ -7,22 +7,52 @@ import FormCheckInput from './FormCheckInput';
 import FormCheckLabel from './FormCheckLabel';
 import FormContext from './FormContext';
 import { useBootstrapPrefix } from '../ThemeProvider/ThemeProvider';
-import { BsPrefixProps, BsPrefixRefForwardingComponent } from '../utils/helpers';
+import {
+  BsPrefixProps,
+  BsPrefixRefForwardingComponent,
+} from '../utils/helpers';
 
 export type FormCheckType = 'checkbox' | 'radio' | 'switch';
 
 export interface FormCheckProps
   extends BsPrefixProps,
     React.InputHTMLAttributes<HTMLInputElement> {
+  /**
+   * Groups controls horizontally with other `FormCheck`s.
+   */
   inline?: boolean;
+  /**
+   * Disables the control.
+   */
   disabled?: boolean;
+  /**
+   * Label for the control.
+   */
   label?: React.ReactNode;
+  /**
+   * aria-label for label element.
+   */
   ariaLabel?: string;
+  /**
+   * The type of checkable.
+   * @type {('radio' | 'checkbox' | 'switch')}
+   */
   type?: FormCheckType;
+  /** Manually style the input as valid */
   isValid?: boolean;
+  /** Manually style the input as invalid */
   isInvalid?: boolean;
+  /** A message to display when the input is in a validation state */
   feedback?: React.ReactNode;
+  /**
+   * Specify whether the feedback is for valid or invalid fields
+   */
   feedbackType?: FeedbackType;
+  /**
+   * bsPrefix override for the base switch class.
+   *
+   * @default 'form-switch'
+   */
   bsSwitchPrefix?: string;
 }
 
@@ -101,6 +131,7 @@ const propTypes = {
 
   /** A message to display when the input is in a validation state */
   feedback: PropTypes.node,
+  feedbackType: PropTypes.oneOf<FeedbackType>(['invalid', 'valid'])
 };
 
 const FormCheck: BsPrefixRefForwardingComponent<'input', FormCheckProps> =
@@ -126,9 +157,8 @@ const FormCheck: BsPrefixRefForwardingComponent<'input', FormCheckProps> =
         as = 'input',
         ...props
       },
-      ref,
+      ref
     ) => {
-
       bsPrefix = useBootstrapPrefix(bsPrefix, 'form-check');
       bsSwitchPrefix = useBootstrapPrefix(bsSwitchPrefix, 'form-switch');
 
@@ -137,16 +167,15 @@ const FormCheck: BsPrefixRefForwardingComponent<'input', FormCheckProps> =
         () => ({
           controlId: id || controlId,
         }),
-        [controlId, id],
+        [controlId, id]
       );
-
 
       const input = (
         <FormCheckInput
           {...props}
           type={type === 'switch' ? 'checkbox' : type}
           ref={ref}
-          isValid={isValid} 
+          isValid={isValid}
           isInvalid={isInvalid}
           disabled={disabled}
           as={as}
@@ -161,20 +190,18 @@ const FormCheck: BsPrefixRefForwardingComponent<'input', FormCheckProps> =
               className,
               label && bsPrefix,
               inline && `${bsPrefix}-inline`,
-              type === 'switch' && bsSwitchPrefix,
+              type === 'switch' && bsSwitchPrefix
             )}
           >
-                {input}
-                  <FormCheckLabel title={title} aria-label={ariaLabel}>{label}</FormCheckLabel>
-                {feedback && (
-                  <Feedback type={feedbackType}>
-                    {feedback}
-                  </Feedback>
-                )}
+            {input}
+            <FormCheckLabel title={title} aria-label={ariaLabel}>
+              {label}
+            </FormCheckLabel>
+            {feedback && <Feedback type={feedbackType}>{feedback}</Feedback>}
           </div>
         </FormContext.Provider>
       );
-    },
+    }
   );
 
 FormCheck.displayName = 'FormCheck';

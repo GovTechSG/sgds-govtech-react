@@ -5,62 +5,6 @@ import { Pagination, Table } from '../../src/index';
 <Meta
   title="Components/Pagination"
   component={Pagination}
-  argTypes={{
-    dataLength: {
-      description:
-        'Inserts the length value from a given sets of data objects. Value can be set using useState hook.',
-      control: { disable: true },
-    },
-    currentPage: {
-      description:
-        'Sets the starting active page upon render. Value can be set using useState hook.',
-      control: { disable: true },
-    },
-    itemsPerPage: {
-      description:
-        'Sets the amount of data objects to be displayed per page. Value can be set using useState hook.',
-      control: { disable: true },
-    },
-    limit: {
-      description:
-        'Sets the page limit to be displayed at any given render. e.g 3, 5, 7, 9',
-    },
-    size: {
-      description: 'Sets the size of all page items.',
-      table: {
-        type: { summary: 'string' },
-      },
-    },
-    directionVariant: {
-      description:
-        'Sets the page direction button to contain text and/or icon.',
-      table: {
-        type: { summary: 'string' },
-      },
-    },
-    directionVariant: {
-      description:
-        'Sets the page direction button to contain text and/or icon.',
-      table: {
-        type: { summary: 'string' },
-      },
-    },
-    setCurrentPage: {
-      description:
-        'A prop that is being triggered by clicking a page item which sets page numbering & enable active mode. Value to be inserted using useState hook',
-      control: { disable: true },
-    },
-    ellipsisOn: {
-      description:
-        'Toggles ellipsis buttons to be able to increment/decrement pages based on the ellipsisJump value set. By default, it will be false.',
-    },
-    ellipsisJump: {
-      description:
-        'When ellipsisOn is activated, length of decrementing/incrementing of pages can be set with a number value.',
-    },
-    bsPrefix: { table: { disable: true } }, // to remove as commonHiddenProps
-    as: { table: { disable: true } },
-  }}
 />
 
 export const DUMMY_DATA = [

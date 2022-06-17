@@ -5,37 +5,9 @@ import { FormCheck, Button, Form } from '../../src/index';
 <Meta
   title="Components/Form/FormCheck"
   component={FormCheck}
-  argTypes={{
-    ...HIDDEN_COMMON_PROPS,
-    label: {
-      description: 'Label for FormCheck',
-    },
-    inline: {
-      description: 'Groups the FormChecks horizontally with each other',
-    },
-    disabled: {
-      description: 'Disables FormCheck',
-    },
-    type: {
-      description: 'The type of checkable',
-    },
-    isValid: {
-      description: 'Styles input as valid',
-    },
-    isInvalid: {
-      description: 'Styles input as invalid',
-    },
-    feedback: {
-      description:
-        'A message to display when the input is in a validation state',
-    },
-    feedbackType: {
-      description:
-        'Forwarded to underlying Feedback component. Specify whether feedback is for invalid or valid field',
-    },
-    bsSwitchPrefix: {
-      description: 'bsPrefix to override base switch class',
-    },
+  subcomponents={{
+    "FormCheck.Input" : FormCheck.Input,
+    "FormCheck.Label" : FormCheck.Label
   }}
 />
 

@@ -6,77 +6,11 @@ import { useState } from 'react';
 <Meta
   title="Components/Navigation/SideNav"
   component={SideNav}
-  argTypes={{
-    ...HIDDEN_COMMON_PROPS,
-    alwaysOpen: {
-      table: { category: `<SideNav />` },
-      description:
-        'Allow sidenav items to stay open when another item is opened',
-    },
-    defaultActiveKey: {
-      description:
-        'The default active key that sets an sidenav item to be expanded on start, value should correspond to assigned `eventKey` prop.',
-      table: {
-        category: `<SideNav />`,
-        type: {
-          summary: 'SideNavEventKey: string | string[] | null | undefined',
-        },
-      },
-      control: { disable: true },
-    },
-    activeKey: {
-      description:
-        'The current active key that corresponds to the currently expanded item',
-      table: {
-        category: `<SideNav />`,
-        type: {
-          summary: 'SideNavEventKey: string | string[] | null | undefined',
-        },
-      },
-      control: { disable: true },
-    },
-    activeNavLinkKey: {
-      description:
-        'The current active SideNavLink. Its value should point to one of the `eventKey` value of SideNavLink',
-      table: {
-        category: `<SideNav />`,
-        type: {
-          summary: 'string',
-        },
-      },
-      control: { disable: true },
-    },
-    eventKey: {
-      description:
-        'A unique key used to control `SideNav.Item` collapse/expand. *Required* to apply **defaultActiveKey** & **activeKey**',
-      table: {
-        category: '<SideNav.Item />',
-        type: { summary: 'string' },
-      },
-      type: { required: true },
-    },
-    href: {
-      description:
-        'Providing a `href` will render an `<a>` element and remove toggle icon',
-      table: {
-        category: '<SideNav.Button />',
-        type: { summary: 'string' },
-      },
-    },
-    as: {
-      description: 'Set a custom element for this component',
-      table: {
-        category: '<SideNav.Collapse />',
-        type: { summary: 'Element' },
-      },
-      control: { disable: true },
-    },
-    children: {
-      table: {
-        category: '<SideNav.Collapse />',
-        type: { summary: 'Element' },
-      },
-    },
+  subcomponents={{
+    'SideNav.Button': SideNav.Button,
+    'SideNav.Collapse': SideNav.Collapse,
+    'SideNav.Item': SideNav.Item,
+    'SideNav.Link': SideNav.Link,
   }}
 />
 
@@ -206,7 +140,7 @@ The default `<SideNav />` is close. When other `<SideNav.Button />` is clicked o
 ## API
 
 ```jsx
-import { SideNav } from '@govtechsg/sgds-govtech-react/SideNav'; 
+import { SideNav } from '@govtechsg/sgds-govtech-react/SideNav';
 ```
 
 <ArgsTable story="Default" />

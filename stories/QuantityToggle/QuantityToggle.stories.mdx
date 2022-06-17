@@ -7,26 +7,13 @@ import { HIDDEN_COMMON_PROPS, VARIANT } from '../helpers';
   title="Components/QuantityToggle"
   component={QuantityToggle}
   argTypes={{
-    ...HIDDEN_COMMON_PROPS,
-    step: {
-      description: 'Controls the incremental / decremental value',
-    },
-    size: { description: 'Controls the size of the QuantityToggle' },
     count: {
       control: { disable: true },
-      description:
-        'Keep tracks of input value. This parameter should be passed down from parent with `setCount`',
     },
     setCount: {
       control: { disable: true },
-      description:
-        'Updates the count value in Parent component. This parameter should be passed down from parent with `count`',
-    },
-    disabled: {
-      description: 'Disables the buttons and input of `QuantityToggle`',
     },
     variant: {
-      description: 'Controls the color of the buttons',
       control: { type: 'select' },
       options: VARIANT,
     },

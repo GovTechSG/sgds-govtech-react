@@ -5,21 +5,14 @@ import { Alert, Button } from '../../src';
 <Meta
   title="Components/Alert"
   component={Alert}
-  parameters={{
-    actions: {
-      handles: ['click .btn', 'click .btn-close'],
-    },
-  }}
+  subcomponents={{"Alert.Heading": Alert.Heading, "Alert.Link": Alert.Link}}
   argTypes={{
     variant: {
-      description: 'Sets the background color for variants',
       table: {
-        category: '<Alert>',
         type: {
           summary:
             " 'primary' | 'secondary' | 'success' | 'danger' | 'warning' | 'info' | 'dark' | 'light' | dark",
         },
-        defaultValue: { summary: `'primary'` },
       },
       options: [
         'primary',
@@ -33,37 +26,6 @@ import { Alert, Button } from '../../src';
       ],
       control: {
         type: 'select',
-      },
-    },
-    dismissible: {
-      description:
-        'Renders a properly aligned dismiss button, as well as adding extra horizontal padding to the Alert.',
-      table: {
-        category: '<Alert>',
-        type: { summary: 'boolean' },
-        defaultValue: { summary: 'true' },
-      },
-      control: {
-        type: 'boolean',
-      },
-    },
-    show: {
-      description:
-        'controlled by: *onClose*, initial prop: *defaultShow* <br/> Controls the visual state of the Alert.',
-      table: {
-        category: '<Alert>',
-        type: { summary: 'boolean' },
-        defaultValue: { summary: 'true' },
-      },
-      control: {
-        type: 'boolean',
-      },
-    },
-    onClose: {
-      description: 'controls *show* <br/> Callback fired when alert is closed.',
-      table: {
-        category: '<Alert>',
-        type: { summary: 'function' },
       },
     },
   }}

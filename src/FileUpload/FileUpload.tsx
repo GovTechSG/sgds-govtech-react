@@ -13,11 +13,16 @@ type SelectedFileType = FileList | {};
 export interface FileUploadProps extends FileUpload {
   variant?: ButtonVariant;
   size?: ButtonSize;
+  /** Sets a unique id to the file input, required. */
   controlId: string;
+  /** Expose the FileList object for uploading, preview etc */
   onChangeFile: (data: FileList) => void;
+  /** Sets the FileList object back from the state for rendering list of file names */
   selectedFile: SelectedFileType;
   disabled?: boolean;
+  /** Customize the checked icon */
   checkedIcon?: JSX.Element;
+  /** Customize the cancel icon */
   cancelIcon?: JSX.Element;
 }
 

@@ -10,10 +10,12 @@ export type ReplaceProps<Inner extends React.ElementType, P> = Omit<
   P;
 
 export interface BsPrefixOnlyProps {
+  /**test */
   bsPrefix?: string;
 }
 
 export interface AsProp<As extends React.ElementType = React.ElementType> {
+  /** test */
   as?: As;
 }
 
