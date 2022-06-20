@@ -11,6 +11,14 @@ import { Tabs, Badge, Tab } from '../../src/index';
     "Tab.Content": Tab.Content,
     "Tab.Pane": Tab.Pane
   }}
+  argTypes={{
+    variant: {
+       control: {
+        type: 'radio',
+      },
+      options: ['tabs-basic-toggle', 'tabs-info-toggle'],
+    }
+  }}
 />
 
 # Tabs
