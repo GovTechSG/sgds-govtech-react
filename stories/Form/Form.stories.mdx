@@ -5,12 +5,17 @@ import { Form, Button } from '../../src/index';
 <Meta
   title="Components/Form"
   component={Form}
-  argTypes={{
-    ...HIDDEN_COMMON_PROPS,
-    validated: {
-      description:
-        'Mark a form as having been validated. Setting it to true will toggle any validation styles on the forms elements.',
-    },
+  subcomponents={{
+    'Form.Group': Form.Group,
+    'Form.Control': Form.Control,
+    'Form.Floating': Form.Floating,
+    'Form.Check': Form.Check,
+    'Form.Switch': Form.Switch,
+    'Form.Label': Form.Label,
+    'Form.Text': Form.Text,
+    'Form.Range': Form.Range,
+    'Form.Select': Form.Select,
+    'Form.FloatingLabel': Form.FloatingLabel,
   }}
 />
 
@@ -61,7 +66,7 @@ export const Template = (args) => {
 ## API
 
 ```jsx
-import { Form } from '@govtechsg/sgds-govtech-react/Form'; 
+import { Form } from '@govtechsg/sgds-govtech-react/Form';
 ```
 
 <ArgsTable story="Basic" />
@@ -105,19 +110,19 @@ Add the `disabled` boolean attribute on an input to prevent user interactions an
 
 <Canvas>
   <Story name="Disabled Inputs">
-      <Form.Group className="mb-3">
-        <Form.Label>Disabled input</Form.Label>
-        <Form.Control placeholder="Disabled input" disabled />
-      </Form.Group>
-      <Form.Group className="mb-3" controlId="disabledSelectInput">
-        <Form.Label>Disabled select menu</Form.Label>
-        <Form.Select disabled>
-          <option>Disabled select</option>
-        </Form.Select>
-      </Form.Group>
-      <Form.Group className="mb-3" controlId="disabledCheckboxInput">
-        <Form.Check type="checkbox" label="Can't check this" disabled />
-      </Form.Group>
+    <Form.Group className="mb-3">
+      <Form.Label>Disabled input</Form.Label>
+      <Form.Control placeholder="Disabled input" disabled />
+    </Form.Group>
+    <Form.Group className="mb-3" controlId="disabledSelectInput">
+      <Form.Label>Disabled select menu</Form.Label>
+      <Form.Select disabled>
+        <option>Disabled select</option>
+      </Form.Select>
+    </Form.Group>
+    <Form.Group className="mb-3" controlId="disabledCheckboxInput">
+      <Form.Check type="checkbox" label="Can't check this" disabled />
+    </Form.Group>
   </Story>
 </Canvas>
 

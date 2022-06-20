@@ -3,7 +3,7 @@ import * as React from 'react';
 import { render, fireEvent, waitFor, act } from '@testing-library/react';
 import sinon from 'sinon';
 import { OverlayTrigger } from '../../src/Overlay';
-import { TooltipBox } from '../../src/Tooltip';
+import TooltipBox from '../../src/Tooltip/TooltipBox';
 
 describe('<OverlayTrigger>', () => {
   // Swallow extra props.

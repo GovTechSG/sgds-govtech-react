@@ -8,43 +8,11 @@ import { HIDDEN_COMMON_PROPS } from '../helpers';
 <Meta
   title="Components/Navigation/Navbar"
   component={Navbar}
-  argTypes={{
-    ...HIDDEN_COMMON_PROPS,
-    hasBorderBottom: {
-      description: 'When true adds a border-bottom to Navbar',
-    },
-    expanded: {
-      description: 'When true and in hamburger state, Navbar body is visible',
-    },
-    collapseOnSelect: {
-      description:
-        'When true and in hamburger state, the Navbar collapses on selection of its items',
-    },
-    sticky: {
-      control: {
-        type: 'select',
-      },
-      options: ['top'],
-      description: `Position the navbar at the top of the viewport, but only after scrolling past it. A convenience prop for the sticky-top positioning class.  Not supported in <= IE11 and other older browsers without a polyfill`,
-    },
-    fixed: {
-      description: `	
-Create a fixed navbar along the top or bottom of the screen, that scrolls with the page. A convenience prop for the fixed-* positioning classes.`,
-    },
-    expand: {
-      control: { type: 'select' },
-      options: [true, false, 'sm', 'md', 'lg', 'xl', 'xxl'],
-      table: {
-        type: {
-          summary: 'boolean | "sm" | "md" | "lg" | "xl" | "xxl"',
-        },
-      },
-      description: `The breakpoint, below which, the Navbar will collapse. When true the Navbar will always be expanded regardless of screen size.`,
-    },
-    bg: {
-      description:
-        'Sets the background color of navbar. See [bootstrap colors](https://getbootstrap.com/docs/5.0/utilities/colors/) for possible options',
-    },
+  subcomponents={{
+    'Navbar.Brand': Navbar.Brand,
+    'Navbar.Collapse': Navbar.Collapse,
+    'Navbar.Text': Navbar.Text,
+    'Navbar.Toggle': Navbar.Toggle,
   }}
 />
 
@@ -287,7 +255,7 @@ export const PageContent = Template('Sticky Top Nav', null, textContent);
 ## API
 
 ```jsx
-import { Navbar } from '@govtechsg/sgds-govtech-react/Nav'; 
+import { Navbar } from '@govtechsg/sgds-govtech-react/Nav';
 ```
 
 <ArgsTable story="Default" />

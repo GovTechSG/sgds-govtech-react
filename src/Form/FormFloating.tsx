@@ -1,3 +1,5 @@
 import createWithBsPrefix from '../utils/createWithBsPrefix';
 
-export default createWithBsPrefix('form-floating');
+export const FormFloating =  createWithBsPrefix('form-floating');
+
+export default FormFloating

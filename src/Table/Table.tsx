@@ -1,21 +1,45 @@
 import classNames from 'classnames';
 import * as React from 'react';
 import PropTypes from 'prop-types';
-import { useBootstrapPrefix, SGDSWrapper } from '../ThemeProvider/ThemeProvider';
+import {
+  useBootstrapPrefix,
+  SGDSWrapper,
+} from '../ThemeProvider/ThemeProvider';
 
 import { BsPrefixOnlyProps } from '../utils/helpers';
 
 export interface TableProps
   extends BsPrefixOnlyProps,
     React.TableHTMLAttributes<HTMLTableElement> {
+  /**
+   * Adds zebra-striping to any table row within the `<tbody>`.
+   */
   striped?: boolean;
+  /**
+   * Adds borders on all sides of the table and cells.
+   */
   bordered?: boolean;
+  /**
+   * Removes all borders on the table and cells, including table header.
+   */
   borderless?: boolean;
+  /**
+   * Enable a hover state on table rows within a `<tbody>`.
+   */
   hover?: boolean;
+  /**
+   * Make tables more compact by cutting cell padding in half by setting
+   * size as `sm`.
+   */
   size?: string;
+  /**
+   * Invert the colors of the table — with light text on dark backgrounds
+   * by setting variant as `dark`.
+   */
   variant?: string;
+  /** Allow tables to be scrolled horizontally with ease. Across every breakpoint, use responsive for horizontally scrolling tables. Responsive tables are wrapped automatically in a div. Use `responsive="sm"`, `responsive="md"`, `responsive="lg"`, or `responsive="xl"` as needed to create responsive tables up to a particular breakpoint. From that breakpoint and up, the table will behave normally and not scroll horizontally. \n\n Alternatively, set boolean to `true` instead to make it always responsive throughout breakpoints.\n',
+   */
   responsive?: boolean | string;
-  boxArrowIcon? : boolean;
 }
 
 const propTypes = {
@@ -80,10 +104,9 @@ const Table = React.forwardRef<HTMLTableElement, TableProps>(
       size,
       variant,
       responsive,
-      boxArrowIcon = true,
       ...props
     },
-    ref,
+    ref
   ) => {
     const decoratedBsPrefix = useBootstrapPrefix(bsPrefix, 'table');
     const classes = classNames(
@@ -94,23 +117,27 @@ const Table = React.forwardRef<HTMLTableElement, TableProps>(
       striped && `${decoratedBsPrefix}-striped`,
       bordered && `${decoratedBsPrefix}-bordered`,
       borderless && `${decoratedBsPrefix}-borderless`,
-      hover && `${decoratedBsPrefix}-hover`,
+      hover && `${decoratedBsPrefix}-hover`
     );
-      
-    
 
-    const table = <SGDSWrapper as="table" {...props} className={classes} ref={ref} />;
+    const table = (
+      <SGDSWrapper as="table" {...props} className={classes} ref={ref} />
+    );
     if (responsive) {
       let responsiveClass = `${decoratedBsPrefix}-responsive`;
       if (typeof responsive === 'string') {
         responsiveClass = `${responsiveClass}-${responsive}`;
       }
 
-      return <div className={responsiveClass} tabIndex={0}>{table}</div>;
+      return (
+        <div className={responsiveClass} tabIndex={0}>
+          {table}
+        </div>
+      );
     }
 
     return table;
-  },
+  }
 );
 
 Table.displayName = 'Table';

@@ -8,11 +8,17 @@ import PropTypes from 'prop-types';
 import { FormLabel } from '../Form';
 
 export interface QuantityToggleProps {
+  /** Controls the incremental / decremental value */
   step?: number;
+  /** Controls the size of the QuantityToggle */
   size?: 'sm' | 'lg';
+  /**Keep tracks of input value. This parameter should be passed down from parent with `setCount` */
   count: number;
+  /**Updates the count value in Parent component. This parameter should be passed down from parent with `count` */
   setCount: React.Dispatch<React.SetStateAction<number>>;
+  /** Disables the buttons and input of `QuantityToggle` */
   disabled?: boolean;
+  /**Controls the color of the buttons */
   variant?: ButtonVariant;
 }
 
@@ -65,28 +71,28 @@ export const QuantityToggle: BsPrefixRefForwardingComponent<
     }, []);
     return (
       <>
-      <FormLabel className="visually-hidden">quantity-toggle</FormLabel>
-      <InputGroup size={size} variant="quantity-toggle">
-        <Button onClick={onMinus} {...buttonProps} aria-label="minus-btn">
-          <i className="bi bi-dash"></i>
-        </Button>
-        <FormControl
-          {...props}
-          disabled={disabled}
-          ref={ref}
-          type="number"
-          className="text-center"
-          value={count}
-          name="quantity"
-          onChange={(e) => {
-            setCount(parseInt(e.target.value));
-          }}
-          min={0}
-        />
-        <Button onClick={onPlus} {...buttonProps} aria-label="plus-btn">
-          <i className="bi bi-plus"></i>
-        </Button>
-      </InputGroup>
+        <FormLabel className="visually-hidden">quantity-toggle</FormLabel>
+        <InputGroup size={size} variant="quantity-toggle">
+          <Button onClick={onMinus} {...buttonProps} aria-label="minus-btn">
+            <i className="bi bi-dash"></i>
+          </Button>
+          <FormControl
+            {...props}
+            disabled={disabled}
+            ref={ref}
+            type="number"
+            className="text-center"
+            value={count}
+            name="quantity"
+            onChange={(e) => {
+              setCount(parseInt(e.target.value));
+            }}
+            min={0}
+          />
+          <Button onClick={onPlus} {...buttonProps} aria-label="plus-btn">
+            <i className="bi bi-plus"></i>
+          </Button>
+        </InputGroup>
       </>
     );
   }

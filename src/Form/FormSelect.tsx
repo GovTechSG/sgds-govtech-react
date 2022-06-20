@@ -3,14 +3,20 @@ import PropTypes from 'prop-types';
 import * as React from 'react';
 import { useContext } from 'react';
 import { useBootstrapPrefix } from '../ThemeProvider/ThemeProvider';
-import { BsPrefixOnlyProps, BsPrefixRefForwardingComponent } from '../utils/helpers';
+import {
+  BsPrefixOnlyProps,
+  BsPrefixRefForwardingComponent,
+} from '../utils/helpers';
 import FormContext from './FormContext';
 
 export interface FormSelectProps
   extends BsPrefixOnlyProps,
     Omit<React.SelectHTMLAttributes<HTMLSelectElement>, 'size'> {
+  /** Size variants   */
   size?: 'sm' | 'lg';
+  /** Add "valid" validation styles to the control */
   isValid?: boolean;
+  /** Add "invalid" validation styles to the control and accompanying label */
   isInvalid?: boolean;
 }
 
@@ -26,7 +32,6 @@ const propTypes = {
    * @type {('sm'|'lg')}
    */
   size: PropTypes.string,
-
 
   /** Make the control disabled */
   disabled: PropTypes.bool,
@@ -52,39 +57,41 @@ const propTypes = {
   isInvalid: PropTypes.bool,
 };
 
-export const FormSelect: BsPrefixRefForwardingComponent<'select', FormSelectProps> =
-  React.forwardRef<HTMLSelectElement, FormSelectProps>(
-    (
-      {
-        bsPrefix,
-        size,
-        className,
-        isValid = false,
-        isInvalid = false,
-        id,
-        ...props
-      },
-      ref,
-    ) => {
-      const { controlId } = useContext(FormContext);
-      bsPrefix = useBootstrapPrefix(bsPrefix, 'form-select');
-
-      return (
-        <select
-          {...props}
-          ref={ref}
-          className={classNames(
-            className,
-            bsPrefix,
-            size && `${bsPrefix}-${size}`,
-            isValid && `is-valid`,
-            isInvalid && `is-invalid`,
-          )}
-          id={id || controlId}
-        />
-      );
+export const FormSelect: BsPrefixRefForwardingComponent<
+  'select',
+  FormSelectProps
+> = React.forwardRef<HTMLSelectElement, FormSelectProps>(
+  (
+    {
+      bsPrefix,
+      size,
+      className,
+      isValid = false,
+      isInvalid = false,
+      id,
+      ...props
     },
-  );
+    ref
+  ) => {
+    const { controlId } = useContext(FormContext);
+    bsPrefix = useBootstrapPrefix(bsPrefix, 'form-select');
+
+    return (
+      <select
+        {...props}
+        ref={ref}
+        className={classNames(
+          className,
+          bsPrefix,
+          size && `${bsPrefix}-${size}`,
+          isValid && `is-valid`,
+          isInvalid && `is-invalid`
+        )}
+        id={id || controlId}
+      />
+    );
+  }
+);
 
 FormSelect.displayName = 'FormSelect';
 FormSelect.propTypes = propTypes;

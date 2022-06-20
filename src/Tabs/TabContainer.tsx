@@ -5,6 +5,15 @@ import getTabTransitionComponent from '../utils/getTabTransitionComponent';
 import { TransitionType } from '../utils/helpers';
 
 export interface TabContainerProps extends Omit<TabsProps, 'transition'> {
+  
+  /**
+   * Sets a default animation strategy for all children `<TabPane>`s.
+   * Defaults to `<Fade>` animation; else, use `false` to disable, or a
+   * custom react-transition-group `<Transition/>` component.
+   *
+   * @type {{Transition | false}}
+   * @default {Fade}
+   */
   transition?: TransitionType;
 }
 

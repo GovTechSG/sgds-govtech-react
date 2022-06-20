@@ -16,7 +16,21 @@ export type TabsVariant = 'tabs-basic-toggle' | 'tabs-info-toggle';
 export interface TabsProps
   extends Omit<BaseTabsProps, 'transition'>,
     Omit<React.HTMLAttributes<HTMLElement>, 'onSelect'> {
+  /**
+   * Navigation style
+   *
+   * @type {('tabs-basic-toggle'| 'tabs-info-toggle')}
+   */
   variant?: TabsVariant;
+  /**
+   * Sets a default animation strategy for all children `<TabPane>`s.<tbcont
+   *
+   * Defaults to `<Fade>` animation, else use `false` to disable or a
+   * react-transition-group `<Transition/>` component.
+   *
+   * @type {Transition | false}
+   * @default {Fade}
+   */
   transition?: TransitionType;
 }
 
@@ -175,7 +189,7 @@ const Tabs = (props: TabsProps) => {
       mountOnEnter={mountOnEnter}
       unmountOnExit={unmountOnExit}
     >
-     <Nav {...controlledProps} role="tablist" as="ul" variant={props.variant}>
+      <Nav {...controlledProps} role="tablist" as="ul" variant={props.variant}>
         {map(children as React.ReactChildren, renderTab(variant))}
       </Nav>
 

@@ -18,8 +18,17 @@ import {
 } from '../utils/helpers';
 
 export interface NavProps extends BsPrefixProps, BaseNavProps {
+  /**
+   * The visual variant of the nav items.
+   */
   variant?: 'tabs-basic-toggle' | 'tabs-info-toggle';
+  /**
+   * Enable vertical scrolling within the toggleable contents of a collapsed Navbar.
+   */
   navbarScroll?: boolean;
+  /**
+   * The default active key that is selected on start.
+   */
   defaultActiveKey?: EventKey;
 }
 
@@ -37,9 +46,14 @@ const propTypes = {
   /**
    * The visual variant of the nav items.
    *
-  //  * @type {('tabs-basic-toggle' | 'tabs-info-toggle')}
-  //  */
+   * @type {('tabs-basic-toggle' | 'tabs-info-toggle')}
+   */
   variant: PropTypes.string,
+
+  /**
+   * The default active key that is selected on start.
+   */
+  defaultActiveKey: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
 
   /**
    * Marks the NavItem with a matching `eventKey` (or `href` if present) as active.
@@ -105,15 +119,9 @@ const Nav: BsPrefixRefForwardingComponent<'ul', NavProps> = React.forwardRef<
     }),
     [activeKey]
   );
-  // let navbarBsPrefix;
-  // let isNavbar = false;
 
   const navbarContext = useContext(NavbarContext);
 
-  // if (navbarContext) {
-  //   navbarBsPrefix = navbarContext.bsPrefix;
-  //   isNavbar = true;
-  // }
   return (
     <NavContext.Provider value={contextValue}>
       <BaseNav
@@ -123,10 +131,10 @@ const Nav: BsPrefixRefForwardingComponent<'ul', NavProps> = React.forwardRef<
         className={classNames(className, {
           [bsPrefix]: !navbarContext,
           [`${navbarContext?.bsPrefix}-nav`]: navbarContext,
-          [`${navbarContext?.bsPrefix}-nav-scroll`]: navbarContext && navbarScroll,
+          [`${navbarContext?.bsPrefix}-nav-scroll`]:
+            navbarContext && navbarScroll,
           ['sgds']: !navbarContext,
           ['nav-tabs']: !navbarContext,
-          // [`${bsPrefix}-${variant}`]: !!variant,
         })}
         {...props}
       />

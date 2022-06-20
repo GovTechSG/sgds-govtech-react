@@ -4,37 +4,37 @@ import {
   useBootstrapPrefix,
   SGDSWrapper,
 } from '../ThemeProvider/ThemeProvider';
-import createWithBsPrefix from '../utils/createWithBsPrefix';
-import divWithClassName from '../utils/divWithClassName';
 import CardImg from './CardImg';
 import CardHeader from './CardHeader';
-import { BsPrefixProps, BsPrefixRefForwardingComponent } from '../utils/helpers';
+import {
+  BsPrefixProps,
+  BsPrefixRefForwardingComponent,
+} from '../utils/helpers';
 import { Color, Variant, CardVariant } from '../utils/types';
 import PropTypes from 'prop-types';
 
-const DivStyledAsH6 = divWithClassName('h6');
-const CardBody = createWithBsPrefix('card-body');
-const CardTitle = createWithBsPrefix('card-title', {
-  Component: 'h3',
-});
-const CardSubtitle = createWithBsPrefix('card-subtitle', {
-  Component: DivStyledAsH6,
-});
-const CardLink = createWithBsPrefix('card-link', { Component: 'a' });
-const CardStretchedLink = createWithBsPrefix('card-link stretched-link', {
-  Component: 'a',
-});
-const CardText = createWithBsPrefix('card-text', { Component: 'p' });
-const CardFooter = createWithBsPrefix('card-footer');
-const CardImgOverlay = createWithBsPrefix('card-img-overlay');
-const CardUnit =createWithBsPrefix('card-unit', {Component: 'div'})
+import {
+  CardBody,
+  CardTitle,
+  CardSubtitle,
+  CardLink,
+  CardStretchedLink,
+  CardText,
+  CardFooter,
+  CardImgOverlay,
+  CardUnit,
+} from './CardMisc';
 
 export interface CardProps
   extends BsPrefixProps,
     React.HTMLAttributes<HTMLElement> {
+  /** Sets card background */
   bg?: Variant;
+  /** Sets card text color */
   text?: Color;
+  /** Sets card border color */
   border?: Variant;
+  /** Use on actionable cards like SelectableCard and Quantity Toggle Card' */
   variant?: CardVariant;
 }
 const propTypes = {
@@ -64,9 +64,11 @@ const propTypes = {
    */
   border: PropTypes.string,
   as: PropTypes.elementType,
-  variant: PropTypes.oneOf<CardVariant>(['card-action' , 'card-action-quantity-toggle'])
+  variant: PropTypes.oneOf<CardVariant>([
+    'card-action',
+    'card-action-quantity-toggle',
+  ]),
 };
-
 
 export const Card: BsPrefixRefForwardingComponent<'div', CardProps> =
   React.forwardRef<HTMLElement, CardProps>(
@@ -86,22 +88,22 @@ export const Card: BsPrefixRefForwardingComponent<'div', CardProps> =
     ) => {
       const prefix = useBootstrapPrefix(bsPrefix, 'card');
 
-        return (
-          <SGDSWrapper
-            as={Component}
-            ref={ref}
-            {...props}
-            className={classNames(
-              className,
-              prefix,
-              bg && `bg-${bg}`,
-              text && `text-${text}`,
-              border && `border-${border}`
-            )}
-          >
-            {children}
-          </SGDSWrapper>
-        );
+      return (
+        <SGDSWrapper
+          as={Component}
+          ref={ref}
+          {...props}
+          className={classNames(
+            className,
+            prefix,
+            bg && `bg-${bg}`,
+            text && `text-${text}`,
+            border && `border-${border}`
+          )}
+        >
+          {children}
+        </SGDSWrapper>
+      );
     }
   );
 
@@ -119,5 +121,5 @@ export default Object.assign(Card, {
   Header: CardHeader,
   Footer: CardFooter,
   ImgOverlay: CardImgOverlay,
-  Unit: CardUnit
+  Unit: CardUnit,
 });

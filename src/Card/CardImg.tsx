@@ -3,11 +3,15 @@ import * as React from 'react';
 import PropTypes from 'prop-types';
 
 import { useBootstrapPrefix } from '../ThemeProvider/ThemeProvider';
-import { BsPrefixProps, BsPrefixRefForwardingComponent } from '../utils/helpers';
+import {
+  BsPrefixProps,
+  BsPrefixRefForwardingComponent,
+} from '../utils/helpers';
 
 export interface CardImgProps
   extends BsPrefixProps,
     React.ImgHTMLAttributes<HTMLImageElement> {
+  /** Defines image position inside the card*/
   variant?: 'top' | 'bottom';
 }
 const propTypes = {
@@ -27,7 +31,7 @@ const propTypes = {
   as: PropTypes.elementType,
 };
 
-const CardImg: BsPrefixRefForwardingComponent<'img', CardImgProps> =
+export const CardImg: BsPrefixRefForwardingComponent<'img', CardImgProps> =
   React.forwardRef(
     // Need to define the default "as" during prop destructuring to be compatible with styled-components github.com/react-bootstrap/react-bootstrap/issues/3595
     (
@@ -38,7 +42,7 @@ const CardImg: BsPrefixRefForwardingComponent<'img', CardImgProps> =
         as: Component = 'img',
         ...props
       }: CardImgProps,
-      ref,
+      ref
     ) => {
       const prefix = useBootstrapPrefix(bsPrefix, 'card-img');
 
@@ -47,12 +51,12 @@ const CardImg: BsPrefixRefForwardingComponent<'img', CardImgProps> =
           ref={ref}
           className={classNames(
             variant ? `${prefix}-${variant}` : prefix,
-            className,
+            className
           )}
           {...props}
         />
       );
-    },
+    }
   );
 CardImg.displayName = 'CardImg';
 CardImg.propTypes = propTypes;

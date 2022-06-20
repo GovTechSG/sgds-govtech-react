@@ -5,18 +5,6 @@ import { FormControl, Form } from '../../src/index';
 <Meta
   title="Components/Form/FormControl"
   component={FormControl}
-  argTypes={{
-    size: { description: 'size of input in terms of height' },
-    as: {description: 'You can use a custom element type for this component'}, 
-    plaintext: { description: 'Render the input as plain text. Generally used along side readOnly'},
-    readOnly: { description: 'Make the control readonly'},
-    disabled: { description: 'Disables the control'},
-    value: {description: 'The `value` attribute of underlying input'},
-    onChange: {description: ' The callback fired when the `value` prop changes'},
-    type: {description: ' The HTML input `type`, which is only relevant if `as` is `input` (the default)'},
-    isValid: {description: 'Applies valid validation styles to the control'},
-    isInvalid: {description: 'Applies invalid validation styles to the control'}
-  }}
 />
 
 export const Template = (args) => {

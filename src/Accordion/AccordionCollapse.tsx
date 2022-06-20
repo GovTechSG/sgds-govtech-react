@@ -9,6 +9,7 @@ import AccordionContext, { isAccordionItemSelected } from './AccordionContext';
 import { BsPrefixRefForwardingComponent, BsPrefixProps } from '../utils/helpers';
 
 export interface AccordionCollapseProps extends BsPrefixProps, CollapseProps {
+   /** A key that corresponds to the toggler that triggers this collapse's expand or collapse.*/
   eventKey: string;
 }
 
@@ -25,7 +26,7 @@ const propTypes = {
   children: PropTypes.element.isRequired,
 };
 
-const AccordionCollapse: BsPrefixRefForwardingComponent<
+export const AccordionCollapse: BsPrefixRefForwardingComponent<
   'div',
   AccordionCollapseProps
 > = React.forwardRef<Transition<any>, AccordionCollapseProps>(

@@ -1,18 +1,28 @@
 import { ArgsTable, Canvas, Meta, Story } from '@storybook/addon-docs';
 import { HIDDEN_COMMON_PROPS, VARIANT } from '../helpers';
 import { CARD_COMMON_PROPS } from './argTypes';
-import { Card, Button, CardGroup, Row, Col } from '../../src/index';
+import { Card, Button, CardGroup, Row, Col, CardTitle } from '../../src/index';
 
 <Meta
   title="Components/Card/Informational Card"
   component={Card}
+  subcomponents={{
+    'Card.Img': Card.Img,
+    'Card.Title': Card.Title,
+    'Card.Subtitle': Card.Subtitle,
+    'Card.Link': Card.Link,
+    'Card.StretchedLink': Card.StretchedLink,
+    'Card.Body': Card.Body,
+    'Card.Text': Card.Text,
+    'Card.Footer': Card.Footer,
+    'Card.ImgOverlay': Card.ImgOverlay,
+    'Card.Unit': Card.Unit,
+    'Card.Header': Card.Header,
+  }}
   argTypes={{
-    ...HIDDEN_COMMON_PROPS,
     ...CARD_COMMON_PROPS,
     variant: {
       control: { disable: true },
-      description:
-        'Use on actionable cards like SelectableCard and Quantity Toggle Card',
     },
   }}
 />
@@ -54,7 +64,7 @@ Cards can be used for headers and footers, a wide variety of content, contain co
 ## API
 
 ```jsx
-import { Card } from '@govtechsg/sgds-govtech-react/Card'; 
+import { Card } from '@govtechsg/sgds-govtech-react/Card';
 ```
 
 <ArgsTable story="Base Card" />

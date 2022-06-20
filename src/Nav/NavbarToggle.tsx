@@ -6,11 +6,15 @@ import useEventCallback from '@restart/hooks/useEventCallback';
 
 import { useBootstrapPrefix } from '../ThemeProvider/ThemeProvider';
 import NavbarContext from './NavbarContext';
-import { BsPrefixProps, BsPrefixRefForwardingComponent } from '../utils/helpers';
+import {
+  BsPrefixProps,
+  BsPrefixRefForwardingComponent,
+} from '../utils/helpers';
 
 export interface NavbarToggleProps
   extends BsPrefixProps,
     React.HTMLAttributes<HTMLElement> {
+  /** An accessible ARIA label for the toggler button. */
   label?: string;
 }
 
@@ -36,7 +40,7 @@ const defaultProps = {
   label: 'Toggle navigation',
 };
 
-const NavbarToggle: BsPrefixRefForwardingComponent<
+export const NavbarToggle: BsPrefixRefForwardingComponent<
   'button',
   NavbarToggleProps
 > = React.forwardRef<HTMLElement, NavbarToggleProps>(
@@ -51,7 +55,7 @@ const NavbarToggle: BsPrefixRefForwardingComponent<
       onClick,
       ...props
     },
-    ref,
+    ref
   ) => {
     bsPrefix = useBootstrapPrefix(bsPrefix, 'navbar-toggler');
 
@@ -76,7 +80,7 @@ const NavbarToggle: BsPrefixRefForwardingComponent<
         {children || <span className={`${bsPrefix}-icon`} />}
       </Component>
     );
-  },
+  }
 );
 
 NavbarToggle.displayName = 'NavbarToggle';
