@@ -1,8 +1,14 @@
 import classNames from 'classnames';
 import PropTypes from 'prop-types';
 import * as React from 'react';
-import { useBootstrapPrefix, SGDSWrapper } from '../ThemeProvider/ThemeProvider';
-import { BsPrefixProps, BsPrefixRefForwardingComponent } from '../utils/helpers';
+import {
+  useBootstrapPrefix,
+  SGDSWrapper,
+} from '../ThemeProvider/ThemeProvider';
+import {
+  BsPrefixProps,
+  BsPrefixRefForwardingComponent,
+} from '../utils/helpers';
 
 export type ToastPosition =
   | 'top-start'
@@ -18,6 +24,7 @@ export type ToastPosition =
 export interface ToastContainerProps
   extends BsPrefixProps,
     React.HTMLAttributes<HTMLElement> {
+  /**Position of toasts placed within the container. */
   position?: ToastPosition;
 }
 
@@ -27,9 +34,7 @@ const propTypes = {
    */
   bsPrefix: PropTypes.string,
 
-  /**
-   * Where the toasts will be placed within the container.
-   */
+  /**Position of toasts placed within the container. */
   position: PropTypes.oneOf<ToastPosition>([
     'top-start',
     'top-center',
@@ -68,7 +73,7 @@ export const ToastContainer: BsPrefixRefForwardingComponent<
       as: Component = 'div',
       ...props
     },
-    ref,
+    ref
   ) => {
     bsPrefix = useBootstrapPrefix(bsPrefix, 'toast-container');
 
@@ -79,11 +84,11 @@ export const ToastContainer: BsPrefixRefForwardingComponent<
         className={classNames(
           bsPrefix,
           position && `position-absolute ${positionClasses[position]}`,
-          className,
+          className
         )}
       />
     );
-  },
+  }
 );
 
 ToastContainer.displayName = 'ToastContainer';

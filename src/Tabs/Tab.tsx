@@ -5,12 +5,33 @@ import TabContent from './TabContent';
 import TabPane, { TabPaneProps } from './TabPane';
 
 export interface TabProps extends Omit<TabPaneProps, 'title'> {
+  /**
+   * Content for the tab title.
+   */
   title: React.ReactNode;
+  /**
+   * The disabled state of the tab.
+   */
   disabled?: boolean;
+  /**
+   * Class to pass to the underlying nav link.
+   */
   tabClassName?: string;
+  /**
+   * Object containing attributes to pass to underlying nav link.
+   */
   tabAttrs?: Record<string, any>;
+   /**
+   * Content to the left of title.
+   */
   contentLeft?: React.ReactNode;
+   /**
+   * Content to the right of title. Not applicable to tabs-info-toggle variant.
+   */
   contentRight?: React.ReactNode;
+  /**
+   * Content to the bottom of title. Applicable to tabs-info-toggle variant only.
+   */
   contentBottom?: React.ReactNode;
 }
 

@@ -12,8 +12,19 @@ import { BsPrefixOnlyProps } from '../utils/helpers';
 export interface ToastHeaderProps
   extends BsPrefixOnlyProps,
     React.HTMLAttributes<HTMLDivElement> {
+  /**
+   * Provides an accessible label for the close
+   * button. It is used for Assistive Technology when the label text is not
+   * readable.
+   */
   closeLabel?: string;
+  /**
+   * Sets the variant for close button.
+   */
   closeVariant?: CloseButtonVariant;
+  /**
+   * Specify whether the Component should contain a close button
+   */
   closeButton?: boolean;
 }
 
@@ -43,7 +54,7 @@ const defaultProps = {
   closeButton: true,
 };
 
-const ToastHeader = React.forwardRef<HTMLDivElement, ToastHeaderProps>(
+export const ToastHeader = React.forwardRef<HTMLDivElement, ToastHeaderProps>(
   (
     {
       bsPrefix,
@@ -54,7 +65,7 @@ const ToastHeader = React.forwardRef<HTMLDivElement, ToastHeaderProps>(
       children,
       ...props
     }: ToastHeaderProps,
-    ref,
+    ref
   ) => {
     bsPrefix = useBootstrapPrefix(bsPrefix, 'toast-header');
 
@@ -78,7 +89,7 @@ const ToastHeader = React.forwardRef<HTMLDivElement, ToastHeaderProps>(
         )}
       </div>
     );
-  },
+  }
 );
 
 ToastHeader.displayName = 'ToastHeader';

@@ -10,21 +10,44 @@ import ToastHeader from './ToastHeader';
 import ToastBody from './ToastBody';
 import { useBootstrapPrefix } from '../ThemeProvider/ThemeProvider';
 import ToastContext from './ToastContext';
-import { BsPrefixProps, BsPrefixRefForwardingComponent } from '../utils/helpers';
+import {
+  BsPrefixProps,
+  BsPrefixRefForwardingComponent,
+} from '../utils/helpers';
 import { Variant } from '../utils/types';
 
 export interface ToastProps
   extends BsPrefixProps,
     React.HTMLAttributes<HTMLElement> {
+  /**
+   * Apply a CSS fade transition to the toast
+   */
   animation?: boolean;
+  /**
+   * Auto hide the toast
+   */
   autohide?: boolean;
+  /**
+   * Delay hiding the toast (ms)
+   */
   delay?: number;
+  /** Callback triggered once after delay. Use it to set `show` state to false to hide Toast */
   onClose?: (e?: React.MouseEvent | React.KeyboardEvent) => void;
+  /** When true, the toast will appear */
   show?: boolean;
+  /**
+   * A `react-transition-group` Transition component used to animate the Toast on dismissal.
+   */
   transition?: TransitionComponent;
+  /**
+   * Sets Toast background
+   *
+   */
   bg?: Variant;
+  /** When set true, applies SGDS stylings */
   isSGDS?: boolean;
-  status?: 'success' | 'warning' | 'danger'
+  /**Adds CSS styling to `<Toast />` based on the defined status */
+  status?: 'success' | 'warning' | 'danger';
 }
 
 const propTypes = {
@@ -54,7 +77,7 @@ const propTypes = {
   onClose: PropTypes.func,
 
   /**
-   * When `true` The modal will show itself.
+   * When `true` The toast will show itself.
    */
   show: PropTypes.bool,
 
@@ -69,8 +92,8 @@ const propTypes = {
    * @type {('primary'|'secondary'|'success'|'danger'|'warning'|'info'|'dark'|'light')}
    */
   bg: PropTypes.string,
-  isSGDS : PropTypes.bool,
-  status: PropTypes.oneOf(['success' , 'warning' , 'danger'])
+  isSGDS: PropTypes.bool,
+  status: PropTypes.oneOf(['success', 'warning', 'danger']),
 };
 
 const Toast: BsPrefixRefForwardingComponent<'div', ToastProps> =
@@ -90,7 +113,7 @@ const Toast: BsPrefixRefForwardingComponent<'div', ToastProps> =
         status,
         ...props
       },
-      ref,
+      ref
     ) => {
       bsPrefix = useBootstrapPrefix(bsPrefix, 'toast');
 
@@ -122,7 +145,7 @@ const Toast: BsPrefixRefForwardingComponent<'div', ToastProps> =
         () => ({
           onClose,
         }),
-        [onClose],
+        [onClose]
       );
 
       const hasAnimation = !!(Transition && animation);
@@ -156,7 +179,7 @@ const Toast: BsPrefixRefForwardingComponent<'div', ToastProps> =
           )}
         </ToastContext.Provider>
       );
-    },
+    }
   );
 
 Toast.propTypes = propTypes;
