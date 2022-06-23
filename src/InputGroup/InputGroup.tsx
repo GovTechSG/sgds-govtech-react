@@ -8,30 +8,30 @@ import {
   useBootstrapPrefix,
   SGDSWrapper,
 } from '../ThemeProvider/ThemeProvider';
-import FormCheckInput, { FormCheckInputProps } from '../Form/FormCheckInput';
 import InputGroupContext from './InputGroupContext';
-import { BsPrefixProps, BsPrefixRefForwardingComponent } from '../utils/helpers';
-
-
-
-export const InputGroupCheckbox = (props: FormCheckInputProps) => (
-  <InputGroupText>
-    <FormCheckInput type="checkbox" {...props} />
-  </InputGroupText>
-);
-
-export const InputGroupRadio = (props: FormCheckInputProps) => (
-  <InputGroupText>
-    <FormCheckInput type="radio" {...props} />
-  </InputGroupText>
-);
+import {
+  BsPrefixProps,
+  BsPrefixRefForwardingComponent,
+} from '../utils/helpers';
+import { InputGroupCheckbox, InputGroupRadio } from './InputGroupMisc';
 
 export interface InputGroupProps
   extends BsPrefixProps,
     React.HTMLAttributes<HTMLElement> {
-  size?: 'sm' | 'md' | 'lg';
+  /**
+   * Control the size of buttons and form elements from the top-level.
+   *
+   */
+  size?: 'sm' | 'lg';
+  /** Handles the input's rounded corners when using form validation.
+   *  Use this when your input group contains both an input and feedback element.
+   * Refer to ***Input Group Validation***",
+   */
   hasValidation?: boolean;
-  variant?: 'has-icon' | 'quantity-toggle'
+  /** The variant of InputGroup. If icon is needed within .form-control, use `variant=has-icon`. 
+   * `variant=quantity-toggle` is a `@private` property used in  `<QuantityToggle/>` component
+   */
+  variant?: 'has-icon' | 'quantity-toggle';
 }
 
 const propTypes = {
@@ -53,6 +53,7 @@ const propTypes = {
   hasValidation: PropTypes.bool,
 
   as: PropTypes.elementType,
+  variant: PropTypes.oneOf(['has-icon', 'quantity-toggle'])
 };
 
 /**
@@ -61,43 +62,46 @@ const propTypes = {
  * @property {InputGroupRadio} Radio
  * @property {InputGroupCheckbox} Checkbox
  */
-const InputGroup: BsPrefixRefForwardingComponent<'div', InputGroupProps> =
-  React.forwardRef<HTMLElement, InputGroupProps>(
-    (
-      {
-        bsPrefix,
-        size = 'md',
-        hasValidation,
-        className,
-        // Need to define the default "as" during prop destructuring to be compatible with styled-components github.com/react-bootstrap/react-bootstrap/issues/3595
-        as: Component = 'div',
-        ...InputGroupProps
-      },
-      ref
-    ) => {
-      bsPrefix = useBootstrapPrefix(bsPrefix, 'input-group');
 
-      // Intentionally an empty object. Used in detecting if a dropdown
-      // exists under an input group.
-      const contextValue = useMemo(() => ({}), []);
+export const InputGroup: BsPrefixRefForwardingComponent<
+  'div',
+  InputGroupProps
+> = React.forwardRef<HTMLElement, InputGroupProps>(
+  (
+    {
+      bsPrefix,
+      size,
+      hasValidation,
+      className,
+      // Need to define the default "as" during prop destructuring to be compatible with styled-components github.com/react-bootstrap/react-bootstrap/issues/3595
+      as: Component = 'div',
+      ...InputGroupProps
+    },
+    ref
+  ) => {
+    bsPrefix = useBootstrapPrefix(bsPrefix, 'input-group');
 
-      return (
+    // Intentionally an empty object. Used in detecting if a dropdown
+    // exists under an input group.
+    const contextValue = useMemo(() => ({}), []);
 
-          <InputGroupContext.Provider value={contextValue}>
-            <SGDSWrapper as={Component}
-              ref={ref}
-              {...InputGroupProps}
-              className={classNames(
-                className,
-                bsPrefix,
-                size && `${bsPrefix}-${size}`,
-                hasValidation && 'has-validation'
-              )}
-            />
-          </InputGroupContext.Provider>
-      );
-    }
-  );
+    return (
+      <InputGroupContext.Provider value={contextValue}>
+        <SGDSWrapper
+          as={Component}
+          ref={ref}
+          {...InputGroupProps}
+          className={classNames(
+            className,
+            bsPrefix,
+            size && `${bsPrefix}-${size}`,
+            hasValidation && 'has-validation'
+          )}
+        />
+      </InputGroupContext.Provider>
+    );
+  }
+);
 
 InputGroup.propTypes = propTypes;
 InputGroup.displayName = 'InputGroup';
