@@ -1,5 +1,5 @@
 {
-  "name": "@govtechsg/sgds-govtech-react",
+  "name": "@govtechsg/sgds-react",
   "version": "0.2.7",
   "main": "dist/index.js",
   "files": [
