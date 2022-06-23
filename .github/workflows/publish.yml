@@ -3,7 +3,7 @@ name: Publish
 on:
   push:
     branches:
-      - ghActions-master
+      - master
 
 jobs:
   publish:    
