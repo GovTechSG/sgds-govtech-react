@@ -517,6 +517,18 @@ import { Form, Col } from '@govtechsg/sgds-govtech-react';
 Use this pattern when you need to ask for their payment details.
 
 export const PaymentPatternTemplate = (args) => {
+  const [expDate, setExpDate] = useState('');
+  const handleChange = (e) => {
+    if (e.target.value.length === 2) {
+      e.target.value = e.target.value + '/';
+    } else if (
+      e.target.value.length === 3 &&
+      e.target.value.charAt(2) === '/'
+    ) {
+      e.target.value = e.target.value.replace('/', '');
+    }
+    setExpDate(e.target.value);
+  };
   return (
     <Form>
       <Form.Group as={Col} xs={6} className="mb-3" controlId="fullName2">
@@ -549,9 +561,11 @@ export const PaymentPatternTemplate = (args) => {
           <Form.Text className="text-muted">MM/YY</Form.Text>
           <Form.Control
             type="text"
+            value={expDate}
+            onChange={handleChange}
             autoComplete="cc-exp"
             pattern="\d*"
-            maxLength="4"
+            maxLength="5"
             name="cc-exp"
             required
           />
@@ -564,7 +578,7 @@ export const PaymentPatternTemplate = (args) => {
           <Form.Control
             type="text"
             autoComplete="cc-csc"
-            pattern="\d*"
+            pattern="\d\*"
             maxLength="3"
             name="cc-csc"
             required
