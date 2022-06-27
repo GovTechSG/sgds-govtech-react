@@ -3,7 +3,7 @@ import { NavbarTemp } from "./components/NavbarTemp";
 import { SinglePageFormTemp } from "./components/SinglePageFormTemp";
 import { MultiPageFormTemp } from "./components/MultiPageFormTemp";
 import { CollapsibleFormTemp } from "./components/CollapsibleFormTemp";
-import "@govtechsg/sgds-govtech/sgds/sgds.css";
+import "@govtechsg/sgds/sgds/sgds.css";
 
 function App() {
   return (

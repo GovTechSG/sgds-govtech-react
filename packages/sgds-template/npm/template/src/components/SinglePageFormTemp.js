@@ -6,7 +6,7 @@ import {
   InputGroup,
   DatePicker,
   Dropdown,
-} from "@govtechsg/sgds-govtech-react";
+} from "@govtechsg/sgds-react";
 import React from "react";
 
 export const SinglePageFormTemp = (args) => {

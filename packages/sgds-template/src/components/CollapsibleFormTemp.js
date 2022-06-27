@@ -7,7 +7,7 @@ import {
   DatePicker,
   Dropdown,
   Accordion,
-} from "@govtechsg/sgds-govtech-react";
+} from "@govtechsg/sgds-react";
 import React from "react";
 
 export const CollapsibleFormTemp = () => {

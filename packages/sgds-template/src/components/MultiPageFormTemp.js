@@ -8,7 +8,7 @@ import {
   Dropdown,
   useStep,
   Stepper,
-} from "@govtechsg/sgds-govtech-react";
+} from "@govtechsg/sgds-react";
 import React, { useState } from "react";
 
 export const MultiPageFormTemp = () => {

@@ -1,7 +1,7 @@
-import { Nav, NavDropdown, Navbar } from "@govtechsg/sgds-govtech-react/Nav";
-import { Container } from "@govtechsg/sgds-govtech-react/Container";
-import { Row } from "@govtechsg/sgds-govtech-react/Row";
-import { Col } from "@govtechsg/sgds-govtech-react/Col";
+import { Nav, NavDropdown, Navbar } from "@govtechsg/sgds-react/Nav";
+import { Container } from "@govtechsg/sgds-react/Container";
+import { Row } from "@govtechsg/sgds-react/Row";
+import { Col } from "@govtechsg/sgds-react/Col";
 import React, { useState } from "react";
 import { Link } from "react-router-dom";
 

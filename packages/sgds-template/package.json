@@ -3,8 +3,8 @@
   "version": "0.1.0",
   "private": true,
   "dependencies": {
-    "@govtechsg/sgds-govtech": "^2.0.0-alpha.2",
-    "@govtechsg/sgds-govtech-react": "^1.0.0-alpha.6",
+    "@govtechsg/sgds": "^2.0.0-alpha.3",
+    "@govtechsg/sgds-react": "^2.0.0-alpha.1",
     "@testing-library/jest-dom": "^5.16.4",
     "@testing-library/react": "^13.3.0",
     "@testing-library/user-event": "^13.5.0",
