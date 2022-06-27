@@ -517,17 +517,38 @@ import { Form, Col } from '@govtechsg/sgds-govtech-react';
 Use this pattern when you need to ask for their payment details.
 
 export const PaymentPatternTemplate = (args) => {
-  const [expDate, setExpDate] = useState('');
-  const handleChange = (e) => {
-    if (e.target.value.length === 2) {
-      e.target.value = e.target.value + '/';
+  const [cardExpDate, setCardExpDate] = useState('');
+  const [cardNumber, setCardNumber] = useState('');
+  const handleChangeCardExpDate = (e) => {
+    if (e.target.value.length === 3 && e.target.value.charAt(2) !== '/') {
+      e.target.value =
+        e.target.value.substr(0, 2) + '/' + e.target.value.charAt(2);
     } else if (
       e.target.value.length === 3 &&
       e.target.value.charAt(2) === '/'
     ) {
-      e.target.value = e.target.value.replace('/', '');
+      e.target.value = e.target.value.substr(0, 2);
     }
-    setExpDate(e.target.value);
+    setCardExpDate(e.target.value);
+  };
+  const handleChangeCardNumber = (e) => {
+    if (e.target.value.length === 5 && e.target.value.charAt(4) !== ' ') {
+      e.target.value =
+        e.target.value.substr(0, 4) + ' ' + e.target.value.charAt(4);
+    } else if (
+      e.target.value.length === 10 &&
+      e.target.value.charAt(9) !== ' '
+    ) {
+      e.target.value =
+        e.target.value.substr(0, 9) + ' ' + e.target.value.charAt(9);
+    } else if (
+      e.target.value.length === 15 &&
+      e.target.value.charAt(14) !== ' '
+    ) {
+      e.target.value =
+        e.target.value.substr(0, 14) + ' ' + e.target.value.charAt(14);
+    }
+    setCardNumber(e.target.value);
   };
   return (
     <Form>
@@ -548,10 +569,12 @@ export const PaymentPatternTemplate = (args) => {
         </Form.Text>
         <Form.Control
           type="text"
+          value={cardNumber}
+          onChange={handleChangeCardNumber}
           autoComplete="cc-number"
           name="cc-number"
           pattern="\d*"
-          maxLength="16"
+          maxLength="19"
           required
         />
       </Form.Group>
@@ -561,8 +584,8 @@ export const PaymentPatternTemplate = (args) => {
           <Form.Text className="text-muted">MM/YY</Form.Text>
           <Form.Control
             type="text"
-            value={expDate}
-            onChange={handleChange}
+            value={cardExpDate}
+            onChange={handleChangeCardExpDate}
             autoComplete="cc-exp"
             pattern="\d*"
             maxLength="5"
@@ -595,6 +618,37 @@ export const PaymentPatternTemplate = (args) => {
 
 ```jsx
 import { Form, Row, Col } from '@govtechsg/sgds-govtech-react';
+import { useState } from 'react';
+
+const [cardExpDate, setCardExpDate] = useState('');
+const [cardNumber, setCardNumber] = useState('');
+
+const handleChangeCardExpDate = (e) => {
+  if (e.target.value.length === 3 && e.target.value.charAt(2) !== '/') {
+    e.target.value =
+      e.target.value.substr(0, 2) + '/' + e.target.value.charAt(2);
+  } else if (e.target.value.length === 3 && e.target.value.charAt(2) === '/') {
+    e.target.value = e.target.value.substr(0, 2);
+  }
+  setCardExpDate(e.target.value);
+};
+
+const handleChangeCardNumber = (e) => {
+  if (e.target.value.length === 5 && e.target.value.charAt(4) !== ' ') {
+    e.target.value =
+      e.target.value.substr(0, 4) + ' ' + e.target.value.charAt(4);
+  } else if (e.target.value.length === 10 && e.target.value.charAt(9) !== ' ') {
+    e.target.value =
+      e.target.value.substr(0, 9) + ' ' + e.target.value.charAt(9);
+  } else if (
+    e.target.value.length === 15 &&
+    e.target.value.charAt(14) !== ' '
+  ) {
+    e.target.value =
+      e.target.value.substr(0, 14) + ' ' + e.target.value.charAt(14);
+  }
+  setCardNumber(e.target.value);
+};
 
 <Form>
   <Form.Group as={Col} xs={6} className="mb-3" controlId="fullName2">
@@ -614,10 +668,12 @@ import { Form, Row, Col } from '@govtechsg/sgds-govtech-react';
     </Form.Text>
     <Form.Control
       type="text"
+      value={cardNumber}
+      onChange={handleChangeCardNumber}
       autoComplete="cc-number"
       name="cc-number"
       pattern="\d*"
-      maxLength="16"
+      maxLength="19"
       required
     />
   </Form.Group>
@@ -627,6 +683,8 @@ import { Form, Row, Col } from '@govtechsg/sgds-govtech-react';
       <Form.Text className="text-muted">MM/YY</Form.Text>
       <Form.Control
         type="text"
+        value={expDate}
+        onChange={handleChangeCardExpDate}
         autoComplete="cc-exp"
         name="cc-exp"
         pattern="\d*"
