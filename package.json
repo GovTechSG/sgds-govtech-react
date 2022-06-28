@@ -108,6 +108,7 @@
     "yup": "^0.32.11"
   },
   "dependencies": {
+    "@govtechsg/sgds-masthead-react": "^0.0.8",
     "@restart/hooks": "^0.4.6",
     "@restart/ui": "^1.2.0",
     "@types/invariant": "^2.2.35",
