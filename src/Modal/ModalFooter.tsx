@@ -1,3 +1,5 @@
 import createWithBsPrefix from '../utils/createWithBsPrefix';
 
-export default createWithBsPrefix('modal-footer');
+export const ModalFooter = createWithBsPrefix('modal-footer');
+
+export default ModalFooter;

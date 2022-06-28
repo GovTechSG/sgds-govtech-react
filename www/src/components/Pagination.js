@@ -1,4 +1,4 @@
-import { Paginations } from '@govtechsg/sgds-govtech-react/Paginations';
+import { Pagination } from 'clk-bs/Pagination';
 import { Table } from '@govtechsg/sgds-govtech-react/Table';
 import React, { useState, useEffect } from 'react';
 
@@ -47,7 +47,7 @@ import React, { useState, useEffect } from 'react';
         </thead>
         <tbody>{renderData(currentItems)}</tbody>
       </Table>
-      <Paginations
+      <Pagination
         dataLength={data.length}
         currentPage={currentPage}
         setCurrentPage={setCurrentPage}

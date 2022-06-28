@@ -5,17 +5,7 @@ import { Badge, Button } from '../../src';
   title="Components/Badge"
   component={Badge}
   argTypes={{
-    bsPrefix: { table: { disable: true } },
-    as: {
-      description: 'You can use a custom element type for this component.',
-      control: { disable: true },
-      table: {
-        type: { summary: 'elementType' },
-        defaultValue: { summary: 'span' },
-      },
-    },
     bg: {
-      description: 'Sets the background styling of the badge',
       table: {
         type: {
           summary:
@@ -37,21 +27,10 @@ import { Badge, Button } from '../../src';
         type: 'select',
       },
     },
-    pill: {
-      description:
-        'Add the `pill` modifier to make badges more rounded with some additional horizontal padding.',
-    },
     text: {
-      description: 'Sets badge text color',
       table: {
         defaultValue: { summary: 'light' },
       },
-    },
-    dotIndicator: {
-      description: 'Controls badge position to the corner of a Component and shape of badge is a circle. Use with Component as a wrapper with `.position-relative `css'
-    },
-    textIndicator: {
-      description: 'Controls badge position to the corner of a Component. Use with Component as a wrapper with `.position-relative `css'
     },
   }}
 />
@@ -90,6 +69,10 @@ export const Template = (args) => {
 </Canvas>
 
 ## API
+
+```jsx
+import { Badge } from '@govtechsg/sgds-govtech-react/Badge'; 
+```
 
 <ArgsTable story="Badge" />
 

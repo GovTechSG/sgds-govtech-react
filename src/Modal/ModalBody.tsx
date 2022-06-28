@@ -1,3 +1,5 @@
 import createWithBsPrefix from '../utils/createWithBsPrefix';
 
-export default createWithBsPrefix('modal-body');
+export const ModalBody = createWithBsPrefix('modal-body');
+
+export default ModalBody;

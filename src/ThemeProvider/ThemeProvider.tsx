@@ -65,6 +65,7 @@ function createBootstrapComponent(Component, opts) {
 
 interface SGDSComponentProps extends HTMLAttributes<HTMLElement> {
   as?: ElementType;
+  variant?: string;
 }
 
 const SGDSWrapper =  React.forwardRef<HTMLElement,SGDSComponentProps>(({ as: Tag = 'div', ...props}, ref) => {

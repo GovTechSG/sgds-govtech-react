@@ -5,26 +5,6 @@ import { useState, useRef, useEffect } from 'react';
 <Meta
   title="Components/Typeahead"
   component={Typeahead}
-  argTypes={{
-    initialValue: {
-      description: 'Initial value of input',
-    },
-    onChangeInput: {
-      description: "The onChange handler for Typeahead's input change ",
-    },
-    menuPlacement: {
-      description: 'Placement of menu in relation to input',
-    },
-    menuList: {
-      description: 'Array of values to pass into menu',
-    },
-    label: {
-      description: 'Adds a FormLabel to `<Typeahead />`'
-    },
-    hasIcon: {
-      description: 'When true, adds bi-search icon to FormControl'
-    }
-  }}
 />
 
 export const TypeaheadTemplate = (args) => {
@@ -235,7 +215,7 @@ export const TypeaheadTemplate = (args) => {
     'Zambia',
     'Zimbabwe',
   ];
-  return <Typeahead {...args} menuList={menuList} />;
+  return <Typeahead {...args} menuList={menuList} id="typeaheadExample" />;
 };
 
 # Typeahead
@@ -251,6 +231,10 @@ export const TypeaheadTemplate = (args) => {
 
 ## API
 
+```jsx
+import { Typeahead } from '@govtechsg/sgds-govtech-react/Typeahead'; 
+```
+
 <ArgsTable story="Default" />
 
 ```jsx
@@ -261,7 +245,7 @@ import {
 
 export const TypeaheadComponent = () => {
   const menuList = ['apple', 'orange', 'banana'];
-  return <Typeahead menuList={menuList} />;
+  return <Typeahead menuList={menuList} id="typeaheadExample" />;
 };
 ```
 
@@ -283,6 +267,7 @@ export const TypeaheadOnChangeTemplate = () => {
         menuList={menuList}
         onChangeInput={handleChange}
         label="Select a fruit"
+        id="typeaheadExample"
       />
       <div>Selected fruits : {fruits}</div>
     </>
@@ -308,6 +293,7 @@ export const TypeaheadComponent = () => {
         menuList={menuList}
         onChangeInput={handleChange}
         label="Select a fruit"
+        id="typeaheadExample"
       />
       <div>Selected fruits : {fruits}</div>
     </>

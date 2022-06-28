@@ -1,66 +1,10 @@
 import { ArgsTable, Canvas, Meta, Story } from '@storybook/addon-docs';
 import { useState, useEffect } from 'react';
-import { Paginations, Table } from '../../src/index';
+import { Pagination, Table } from '../../src/index';
 
 <Meta
-  title="Components/Paginations"
-  component={Paginations}
-  argTypes={{
-    dataLength: {
-      description:
-        'Inserts the length value from a given sets of data objects. Value can be set using useState hook.',
-      control: { disable: true },
-    },
-    currentPage: {
-      description:
-        'Sets the starting active page upon render. Value can be set using useState hook.',
-      control: { disable: true },
-    },
-    itemsPerPage: {
-      description:
-        'Sets the amount of data objects to be displayed per page. Value can be set using useState hook.',
-      control: { disable: true },
-    },
-    limit: {
-      description:
-        'Sets the page limit to be displayed at any given render. e.g 3, 5, 7, 9',
-    },
-    size: {
-      description: 'Sets the size of all page items.',
-      table: {
-        type: { summary: 'string' },
-      },
-    },
-    directionVariant: {
-      description:
-        'Sets the page direction button to contain text and/or icon.',
-      table: {
-        type: { summary: 'string' },
-      },
-    },
-    directionVariant: {
-      description:
-        'Sets the page direction button to contain text and/or icon.',
-      table: {
-        type: { summary: 'string' },
-      },
-    },
-    setCurrentPage: {
-      description:
-        'A prop that is being triggered by clicking a page item which sets page numbering & enable active mode. Value to be inserted using useState hook',
-      control: { disable: true },
-    },
-    ellipsisOn: {
-      description:
-        'Toggles ellipsis buttons to be able to increment/decrement pages based on the ellipsisJump value set. By default, it will be false.',
-    },
-    ellipsisJump: {
-      description:
-        'When ellipsisOn is activated, length of decrementing/incrementing of pages can be set with a number value.',
-    },
-    bsPrefix: { table: { disable: true } }, // to remove as commonHiddenProps
-    as: { table: { disable: true } },
-  }}
+  title="Components/Pagination"
+  component={Pagination}
 />
 
 export const DUMMY_DATA = [
@@ -127,7 +71,7 @@ export const DUMMY_DATA = [
   },
 ];
 
-export const Template2 = (args) => {
+export const PaginationTpl = (args) => {
   const renderData = (data) => {
     return (
       <>
@@ -150,29 +94,17 @@ export const Template2 = (args) => {
   const indexofFirstItem = indexOfLastItem - itemsPerPage;
   const currentItems = data.slice(indexofFirstItem, indexOfLastItem);
   return (
-    <div>
-      <Table striped bordered hover style={{ display: 'none' }}>
-        <thead>
-          <tr>
-            <th>Id</th>
-            <th>Title</th>
-            <th>Body</th>
-          </tr>
-        </thead>
-        <tbody>{renderData(currentItems)}</tbody>
-      </Table>
-      <Paginations
+      <Pagination
         {...args}
         dataLength={data.length}
         currentPage={currentPage}
         setCurrentPage={setCurrentPage}
         itemsPerPage={itemsPerPage}
       />
-    </div>
   );
 };
 
-export const Template = (args) => {
+export const PaginationWTableTpl = (args) => {
   const renderData = (data) => {
     return (
       <>
@@ -207,14 +139,14 @@ export const Template = (args) => {
       <Table striped bordered hover>
         <thead>
           <tr>
-            <th>Id</th>
-            <th>Title</th>
-            <th>Body</th>
+            <th scope="col">Id</th>
+            <th scope="col">Title</th>
+            <th scope="col">Body</th>
           </tr>
         </thead>
         <tbody>{renderData(currentItems)}</tbody>
       </Table>
-      <Paginations
+      <Pagination
         {...args}
         dataLength={data.length}
         currentPage={currentPage}
@@ -225,27 +157,31 @@ export const Template = (args) => {
   );
 };
 
-# Paginations
+# Pagination
 
 The Pagination component enables the user to select a specific page from a range of pages
 
-## Paginations with API sample
+## Pagination with API sample
 
-The `<Paginations>` component will include some props which is needed for the pagination to work. Users will be required to provide the **data objects** to be passed in as data length, a **current page** set as initial active, and set the **number of data items** to be rendered per page. Below is a sample of pagination with a table formatted data.
+The `<Pagination>` component will include some props which is needed for the pagination to work. Users will be required to provide the **data objects** to be passed in as data length, a **current page** set as initial active, and set the **number of data items** to be rendered per page. Below is a sample of pagination with a table formatted data.
 
 <Canvas>
-  <Story name="Standard">{Template.bind({})}</Story>
+  <Story name="Standard">{PaginationWTableTpl.bind({})}</Story>
 </Canvas>
 
 ## API
 
+```jsx
+import { Pagination } from '@govtechsg/sgds-govtech-react/Pagination'; 
+```
+
 <ArgsTable story="Standard" />
 
 ```jsx
-import { Paginations, Table } from '@govtechsg/sgds-govtech-react';
+import { Pagination, Table } from '@govtechsg/sgds-govtech-react';
 import React, { useState, useEffect } from 'react';
 
-export const Template = () => {
+export const PaginationWTableTpl = () => {
   const renderData = (data) => {
     return (
       <>
@@ -283,14 +219,14 @@ export const Template = () => {
       <Table striped bordered hover>
         <thead>
           <tr>
-            <th>Id</th>
-            <th>Title</th>
-            <th>Body</th>
+            <th scope="col">Id</th>
+            <th scope="col">Title</th>
+            <th scope="col">Body</th>
           </tr>
         </thead>
         <tbody>{renderData(currentItems)}</tbody>
       </Table>
-      <Paginations
+      <Pagination
         {...args}
         dataLength={data.length}
         currentPage={currentPage}
@@ -307,12 +243,12 @@ export const Template = () => {
 By default, the size is set at `sm`. Alternatively, you could also specify `md` or ` lg` to alter the sizes.
 
 <Canvas>
-  <Story name="Size-sm">{Template2.bind({})}</Story>
+  <Story name="Size-sm">{PaginationTpl.bind({})}</Story>
   <Story name="Size-md" args={{ size: 'md' }}>
-    {Template2.bind({})}
+    {PaginationTpl.bind({})}
   </Story>
   <Story name="Size-lg" args={{ size: 'lg' }}>
-    {Template2.bind({})}
+    {PaginationTpl.bind({})}
   </Story>
 </Canvas>
 
@@ -321,12 +257,12 @@ By default, the size is set at `sm`. Alternatively, you could also specify `md` 
 The `directionVariant` string prop allows you to toggle between rendering text and arrow direction for the increment/decrement pages button as shown below. By default, it is set to `icon-text`, but can be also be set to just `text` or `icon`.
 
 <Canvas>
-  <Story name="Direction Variant icon-text">{Template2.bind({})}</Story>
+  <Story name="Direction Variant icon-text">{PaginationTpl.bind({})}</Story>
   <Story name="Direction Variant text" args={{ directionVariant: 'text' }}>
-    {Template2.bind({})}
+    {PaginationTpl.bind({})}
   </Story>
   <Story name="Direction Variant icon" args={{ directionVariant: 'icon' }}>
-    {Template2.bind({})}
+    {PaginationTpl.bind({})}
   </Story>
 </Canvas>
 
@@ -339,12 +275,12 @@ To illustrate, the examples below has been set to use a dummy data `data.length`
 By setting the limit to **3** or **5** or **8**, it will show the number of pages equal to the particular limit given. Do ***note*** that if limit is set to be of higher value than the total pages for the pagination, it will just render the total pages at one go, ignoring the limit.
 
 <Canvas>
-  <Story name="Limit 3">{Template2.bind({})}</Story>
+  <Story name="Limit 3">{PaginationTpl.bind({})}</Story>
   <Story name="Limit 5" args={{ limit: 5 }}>
-    {Template2.bind({})}
+    {PaginationTpl.bind({})}
   </Story>
   <Story name="Limit 8" args={{ limit: 8 }}>
-    {Template2.bind({})}
+    {PaginationTpl.bind({})}
   </Story>
 </Canvas>
 
@@ -353,9 +289,9 @@ By setting the limit to **3** or **5** or **8**, it will show the number of page
 The `ellipsisOn` boolean prop allows user to skip pages using `ellipsisJump`. By default with `false`, it shows a disabled increment ellipsis button. Setting to `true` will render and allow functionality of both ellipsis direction button.
 
 <Canvas>
-  <Story name="Ellipsis Off">{Template2.bind({})}</Story>
+  <Story name="Ellipsis Off">{PaginationTpl.bind({})}</Story>
   <Story name="Ellipsis On" args={{ ellipsisOn: true }}>
-    {Template2.bind({})}
+    {PaginationTpl.bind({})}
   </Story>
 </Canvas>
 
@@ -366,12 +302,12 @@ it will decrement/increment to the end of the pages respectively.
 
 <Canvas>
   <Story name="Ellipsis Jump - 3" args={{ ellipsisOn: true, ellipsisJump: 3 }}>
-    {Template2.bind({})}
+    {PaginationTpl.bind({})}
   </Story>
   <Story name="Ellipsis Jump - 5" args={{ ellipsisOn: true, ellipsisJump: 5 }}>
-    {Template2.bind({})}
+    {PaginationTpl.bind({})}
   </Story>
   <Story name="Ellipsis Jump - 8" args={{ ellipsisOn: true, ellipsisJump: 8 }}>
-    {Template2.bind({})}
+    {PaginationTpl.bind({})}
   </Story>
 </Canvas>

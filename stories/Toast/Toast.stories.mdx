@@ -5,40 +5,11 @@ import { useState, useEffect } from 'react';
 
 <Meta
   title="Components/Toast"
-  component={Toast}
-  argTypes={{
-    ...HIDDEN_COMMON_PROPS,
-    show: {
-      control: { disable: true },
-      description: 'When true, the toast will appear',
-    },
-    animation: {
-      description: 'When true, applies a CSS fade transition to the toast',
-    },
-    autohide: { description: 'When true, auto hides the toast after delay' },
-    delay: { description: 'The time (ms) before onClose() is triggered' },
-    onClose: {
-      description:
-        'Callback triggered once after delay. Use it to set `show` state to false to hide Toast',
-    },
-    transition: {
-      table: { defaultValue: { summary: `<ToastFade />` } },
-      description:
-        'A react-transition-group Transition component used to animate the Toast on dismissal.',
-    },
-    bg: {
-      description: 'Sets the background color of Toast. ',
-      options: VARIANT,
-      control: { type: 'select' },
-    },
-    isSGDS: {
-      description: 'When set true, applies SGDS stylings',
-    },
-    status: {
-      description:
-        'Adds CSS styling to `<Toast />` based on the defined status',
-    },
+  subcomponents={{
+    "Toast.Header": Toast.Header,
+    "Toast.Body": Toast.Body
   }}
+  component={Toast}
 />
 
 export const Template = (args) => {
@@ -65,6 +36,10 @@ It includes `<Toast.Header/>` ,` <Toast.Body/>`
 </Canvas>
 
 ## API
+
+```jsx
+import { Toast } from '@govtechsg/sgds-govtech-react/Toast'; 
+```
 
 <ArgsTable story="Default" />
 

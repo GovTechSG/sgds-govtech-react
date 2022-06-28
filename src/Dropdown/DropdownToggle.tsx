@@ -48,7 +48,7 @@ const propTypes = {
   childBsPrefix: PropTypes.string,
 };
 
-const DropdownToggle: DropdownToggleComponent = React.forwardRef(
+export const DropdownToggle: DropdownToggleComponent = React.forwardRef(
   (
     {
       bsPrefix,

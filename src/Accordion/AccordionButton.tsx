@@ -55,7 +55,7 @@ export function useAccordionButton(
   };
 }
 
-const AccordionButton: BsPrefixRefForwardingComponent<
+export const AccordionButton: BsPrefixRefForwardingComponent<
   'div',
   AccordionButtonProps
 > = React.forwardRef<HTMLButtonElement, AccordionButtonProps>(

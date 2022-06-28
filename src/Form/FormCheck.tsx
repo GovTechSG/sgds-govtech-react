@@ -7,22 +7,52 @@ import FormCheckInput from './FormCheckInput';
 import FormCheckLabel from './FormCheckLabel';
 import FormContext from './FormContext';
 import { useBootstrapPrefix } from '../ThemeProvider/ThemeProvider';
-import { BsPrefixProps, BsPrefixRefForwardingComponent } from '../utils/helpers';
+import {
+  BsPrefixProps,
+  BsPrefixRefForwardingComponent,
+} from '../utils/helpers';
 
 export type FormCheckType = 'checkbox' | 'radio' | 'switch';
 
 export interface FormCheckProps
   extends BsPrefixProps,
     React.InputHTMLAttributes<HTMLInputElement> {
+  /**
+   * Groups controls horizontally with other `FormCheck`s.
+   */
   inline?: boolean;
+  /**
+   * Disables the control.
+   */
   disabled?: boolean;
+  /**
+   * Label for the control.
+   */
   label?: React.ReactNode;
+  /**
+   * aria-label for label element.
+   */
+  ariaLabel?: string;
+  /**
+   * The type of checkable.
+   * @type {('radio' | 'checkbox' | 'switch')}
+   */
   type?: FormCheckType;
+  /** Manually style the input as valid */
   isValid?: boolean;
+  /** Manually style the input as invalid */
   isInvalid?: boolean;
-  feedbackTooltip?: boolean;
+  /** A message to display when the input is in a validation state */
   feedback?: React.ReactNode;
+  /**
+   * Specify whether the feedback is for valid or invalid fields
+   */
   feedbackType?: FeedbackType;
+  /**
+   * bsPrefix override for the base switch class.
+   *
+   * @default 'form-switch'
+   */
   bsSwitchPrefix?: string;
 }
 
@@ -64,19 +94,6 @@ const propTypes = {
   id: PropTypes.string,
 
   /**
-   * Provide a function child to manually handle the layout of the FormCheck's inner components.
-   *
-   * ```jsx
-   * <FormCheck>
-   *   <FormCheck.Input isInvalid type={radio} />
-   *   <FormCheck.Label>Allow us to contact you?</FormCheck.Label>
-   *   <Feedback type="invalid">Yo this is required</Feedback>
-   * </FormCheck>
-   * ```
-   */
-  children: PropTypes.node,
-
-  /**
    * Groups controls horizontally with other `FormCheck`s.
    */
   inline: PropTypes.bool,
@@ -95,6 +112,10 @@ const propTypes = {
    * Label for the control.
    */
   label: PropTypes.node,
+  /**
+   * aria-label for label element.
+   */
+  ariaLabel: PropTypes.string,
 
   /**
    * The type of checkable.
@@ -108,11 +129,9 @@ const propTypes = {
   /** Manually style the input as invalid */
   isInvalid: PropTypes.bool,
 
-  /** Display feedback as a tooltip. */
-  feedbackTooltip: PropTypes.bool,
-
   /** A message to display when the input is in a validation state */
   feedback: PropTypes.node,
+  feedbackType: PropTypes.oneOf<FeedbackType>(['invalid', 'valid'])
 };
 
 const FormCheck: BsPrefixRefForwardingComponent<'input', FormCheckProps> =
@@ -126,7 +145,6 @@ const FormCheck: BsPrefixRefForwardingComponent<'input', FormCheckProps> =
         disabled = false,
         isValid = false,
         isInvalid = false,
-        feedbackTooltip = false,
         feedback,
         feedbackType,
         className,
@@ -134,14 +152,13 @@ const FormCheck: BsPrefixRefForwardingComponent<'input', FormCheckProps> =
         title = '',
         type = 'checkbox',
         label,
-        children,
+        ariaLabel,
         // Need to define the default "as" during prop destructuring to be compatible with styled-components github.com/react-bootstrap/react-bootstrap/issues/3595
         as = 'input',
         ...props
       },
-      ref,
+      ref
     ) => {
-
       bsPrefix = useBootstrapPrefix(bsPrefix, 'form-check');
       bsSwitchPrefix = useBootstrapPrefix(bsSwitchPrefix, 'form-switch');
 
@@ -150,10 +167,8 @@ const FormCheck: BsPrefixRefForwardingComponent<'input', FormCheckProps> =
         () => ({
           controlId: id || controlId,
         }),
-        [controlId, id],
+        [controlId, id]
       );
-
-      const hasLabel = label != null && label !== false && !children;
 
       const input = (
         <FormCheckInput
@@ -175,26 +190,18 @@ const FormCheck: BsPrefixRefForwardingComponent<'input', FormCheckProps> =
               className,
               label && bsPrefix,
               inline && `${bsPrefix}-inline`,
-              type === 'switch' && bsSwitchPrefix,
+              type === 'switch' && bsSwitchPrefix
             )}
           >
-            {children || (
-              <>
-                {input}
-                {hasLabel && (
-                  <FormCheckLabel title={title}>{label}</FormCheckLabel>
-                )}
-                {feedback && (
-                  <Feedback type={feedbackType} tooltip={feedbackTooltip}>
-                    {feedback}
-                  </Feedback>
-                )}
-              </>
-            )}
+            {input}
+            <FormCheckLabel title={title} aria-label={ariaLabel}>
+              {label}
+            </FormCheckLabel>
+            {feedback && <Feedback type={feedbackType}>{feedback}</Feedback>}
           </div>
         </FormContext.Provider>
       );
-    },
+    }
   );
 
 FormCheck.displayName = 'FormCheck';

@@ -1,3 +1,5 @@
 import createWithBsPrefix from '../utils/createWithBsPrefix';
 
-export default createWithBsPrefix('toast-body');
+export const ToastBody = createWithBsPrefix('toast-body');
+
+export default ToastBody;

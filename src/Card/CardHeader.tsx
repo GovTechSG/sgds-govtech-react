@@ -20,7 +20,7 @@ const propTypes = {
   as: PropTypes.elementType,
 };
 
-const CardHeader: BsPrefixRefForwardingComponent<'div', CardHeaderProps> =
+export const CardHeader: BsPrefixRefForwardingComponent<'div', CardHeaderProps> =
   React.forwardRef<HTMLElement, CardHeaderProps>(
     (
       {

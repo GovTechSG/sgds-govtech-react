@@ -13,31 +13,52 @@ import DropdownItem from './DropdownItem';
 import DropdownMenu, { getDropdownMenuPlacement } from './DropdownMenu';
 import DropdownToggle from './DropdownToggle';
 import InputGroupContext from '../InputGroup/InputGroupContext';
-import { useBootstrapPrefix, useIsRTL, SGDSWrapper } from '../ThemeProvider/ThemeProvider';
-import createWithBsPrefix from '../utils/createWithBsPrefix';
-import { BsPrefixProps, BsPrefixRefForwardingComponent } from '../utils/helpers';
+import {
+  useBootstrapPrefix,
+  useIsRTL,
+  SGDSWrapper,
+} from '../ThemeProvider/ThemeProvider';
+import {
+  BsPrefixProps,
+  BsPrefixRefForwardingComponent,
+} from '../utils/helpers';
 import { alignDirection, AlignDirection } from '../utils/types';
-
-const DropdownHeader = createWithBsPrefix('dropdown-header', {
-  defaultProps: { role: 'heading' },
-});
-const DropdownDivider = createWithBsPrefix('dropdown-divider', {
-  Component: 'hr',
-  defaultProps: { role: 'separator' },
-});
-const DropdownItemText = createWithBsPrefix('dropdown-item-text', {
-  Component: 'span',
-});
+import {
+  DropdownDivider,
+  DropdownHeader,
+  DropdownItemText,
+} from './DropdownMisc';
 
 export interface DropdownProps
   extends BaseDropdownProps,
     BsPrefixProps,
     Omit<React.HTMLAttributes<HTMLElement>, 'onSelect' | 'children'> {
+  /**
+   * Determines the direction and location of the Menu in relation to it's Toggle.
+   */
   drop?: DropDirection;
+  /** Aligns the dropdown menu to the specified side of the Dropdown toggle */
   align?: AlignDirection;
+  /**
+   * Allow Dropdown to flip in case of an overlapping on the reference element. For more information refer to
+   * Popper.js's flip [docs](https://popper.js.org/docs/v2/modifiers/flip/).
+   */
   flip?: boolean;
+  /**
+   * Controls the focus behavior for when the Dropdown is opened. Set to
+   * `true` to always focus the first menu item, `keyboard` to focus only when
+   * navigating via the keyboard, or `false` to disable completely
+   *
+   * The Default behavior is `false` **unless** the Menu has a `role="menu"`
+   * where it will default to `keyboard` to match the recommended [ARIA Authoring practices](https://www.w3.org/TR/wai-aria-practices-1.1/#menubutton).
+   */
   focusFirstItemOnShow?: boolean | 'keyboard';
+  /** @private */
   navbar?: boolean;
+  /**
+   * Controls the auto close behaviour of the dropdown when clicking outside of
+   * the button or the list.
+   */
   autoClose?: boolean | 'outside' | 'inside';
 }
 
@@ -121,7 +142,7 @@ const defaultProps: Partial<DropdownProps> = {
   focusFirstItemOnShow: 'keyboard',
 };
 
-const Dropdown: BsPrefixRefForwardingComponent<'div' , DropdownProps> =
+const Dropdown: BsPrefixRefForwardingComponent<'div', DropdownProps> =
   React.forwardRef<HTMLElement, DropdownProps>((pProps, ref) => {
     const {
       bsPrefix,
@@ -194,7 +215,7 @@ const Dropdown: BsPrefixRefForwardingComponent<'div' , DropdownProps> =
             props.children
           ) : (
             <SGDSWrapper
-            as={Component}
+              as={Component}
               {...props}
               ref={ref}
               className={classNames(

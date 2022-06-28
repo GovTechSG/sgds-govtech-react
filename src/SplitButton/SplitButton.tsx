@@ -12,12 +12,25 @@ export interface SplitButtonProps
   extends Omit<DropdownProps, 'title'>,
     PropsFromToggle,
     BsPrefixProps {
+  /** An ARIA accessible role applied to the Menu component. When set to 'menu', The dropdown */
   menuRole?: string;
+  /** Whether to render the dropdown menu in the DOM before the first time it is shown */
   renderMenuOnMount?: boolean;
+  /**
+   *  Which event when fired outside the component will cause it to be closed.
+   *
+   * _see [DropdownMenu](#dropdown-menu-props) for more details_
+   */
   rootCloseEvent?: 'click' | 'mousedown';
+  /** An anchor `target` passed to the non-toggle Button */
   target?: string;
+  /** The content of the non-toggle Button.  */
   title: React.ReactNode;
+  /**
+   * Accessible label for the toggle; the value of `title` if not specified.
+   */
   toggleLabel?: string;
+  /** A `type` passed to the non-toggle Button */
   type?: ButtonType;
 }
 
@@ -116,7 +129,7 @@ const SplitButton = React.forwardRef<HTMLElement, SplitButtonProps>(
       rootCloseEvent,
       ...props
     },
-    ref,
+    ref
   ) => (
     <Dropdown ref={ref} {...props} as={ButtonGroup}>
       <Button
@@ -140,6 +153,7 @@ const SplitButton = React.forwardRef<HTMLElement, SplitButtonProps>(
         childBsPrefix={bsPrefix}
       >
         <span className="visually-hidden">{toggleLabel}</span>
+        <i className="bi bi-chevron-down"></i>
       </Dropdown.Toggle>
 
       <Dropdown.Menu
@@ -150,7 +164,7 @@ const SplitButton = React.forwardRef<HTMLElement, SplitButtonProps>(
         {children}
       </Dropdown.Menu>
     </Dropdown>
-  ),
+  )
 );
 
 SplitButton.propTypes = propTypes as any;

@@ -15,13 +15,13 @@ export * from './Fade';
 export * from './FileUpload';
 export * from './Form';
 export * from './FloatingLabel';
+export * from './Footer'
 export * from './Container';
 export * from './InputGroup';
 export * from './Modal';
 export * from './Nav';
 export * from './Overlay';
-export * from './PaginationBase';
-export * from './Paginations';
+export * from './Pagination';
 export * from './Popover';
 export * from './ProgressBar';
 export * from './QuantityToggle';

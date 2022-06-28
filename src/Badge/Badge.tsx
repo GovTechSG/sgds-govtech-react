@@ -9,10 +9,15 @@ import { Color, Variant } from '../utils/types';
 export interface BadgeProps
   extends BsPrefixProps,
     React.HTMLAttributes<HTMLElement> {
+  /** Sets the background styling of the badge */
   bg?: Variant;
+  /** Add the `pill` modifier to make badges more rounded with some additional horizontal padding. */
   pill?: boolean;
+  /** Sets badge text color */
   text?: Color;
+  /** Controls badge position to the corner of a Component and shape of badge is a circle. Use with Component as a wrapper with `.position-relative `css */
   textIndicator?: boolean;
+  /**Controls badge position to the corner of a Component. Use with Component as a wrapper with `.position-relative `css */
   dotIndicator?: boolean;
 }
 

@@ -20,7 +20,7 @@ const propTypes = {
   onClick: PropTypes.func,
 };
 
-const AccordionHeader: BsPrefixRefForwardingComponent<
+export const AccordionHeader: BsPrefixRefForwardingComponent<
   'h2',
   AccordionHeaderProps
 > = React.forwardRef<HTMLElement, AccordionHeaderProps>(

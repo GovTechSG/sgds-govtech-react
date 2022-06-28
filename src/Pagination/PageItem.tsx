@@ -4,15 +4,18 @@ import PropTypes from 'prop-types';
 import * as React from 'react';
 import { ReactNode } from 'react';
 import Anchor from '@restart/ui/Anchor';
-import { BsPrefixProps, BsPrefixRefForwardingComponent } from '../utils/helpers';
+import {
+  BsPrefixProps,
+  BsPrefixRefForwardingComponent,
+} from '../utils/helpers';
 
 export interface PageItemProps
   extends React.HTMLAttributes<HTMLElement>,
     BsPrefixProps {
   disabled?: boolean;
   active?: boolean;
-  activeLabel?: string;
   href?: string;
+  activeLabel?: string;
 }
 
 const propTypes = {
@@ -22,11 +25,11 @@ const propTypes = {
   /** Styles PageItem as active, and renders a `<span>` instead of an `<a>`. */
   active: PropTypes.bool,
 
-  /** An accessible label indicating the active state.. */
-  activeLabel: PropTypes.string,
-
   /** A callback function for when this component is clicked */
   onClick: PropTypes.func,
+
+  /** An accessible label indicating the active state.. */
+  activeLabel: PropTypes.string,
 };
 
 const defaultProps = {
@@ -43,11 +46,11 @@ const PageItem: BsPrefixRefForwardingComponent<'li', PageItemProps> =
         disabled,
         className,
         style,
-        activeLabel,
         children,
+        activeLabel,
         ...props
       }: PageItemProps,
-      ref,
+      ref
     ) => {
       const Component = active || disabled ? 'span' : Anchor;
       return (
@@ -64,7 +67,7 @@ const PageItem: BsPrefixRefForwardingComponent<'li', PageItemProps> =
           </Component>
         </li>
       );
-    },
+    }
   );
 
 PageItem.propTypes = propTypes;
@@ -73,16 +76,15 @@ PageItem.displayName = 'PageItem';
 
 export default PageItem;
 
-function createButton(name: string, defaultValue: ReactNode) {
-  function Button({ children, ...props }: PageItemProps) {
-    return (
-      <PageItem {...props}>
+function createButton(name: string, defaultValue: ReactNode, label = name) {
+  const Button = React.forwardRef(
+    ({ children, ...props }: PageItemProps, ref) => (
+      <PageItem {...props} ref={ref}>
         <span aria-hidden="true">{children || defaultValue}</span>
-        {/* <span className="visually-hidden">{label}</span> */}
+        <span className="visually-hidden">{label}</span>
       </PageItem>
-    );
-  }
-
+    )
+  );
   Button.displayName = name;
 
   return Button;

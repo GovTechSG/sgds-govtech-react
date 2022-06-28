@@ -16,49 +16,11 @@ import { HIDDEN_COMMON_PROPS } from '../helpers';
 <Meta
   title="Components/Navigation/Nav/NavDropdown"
   component={Nav.Dropdown}
-  argTypes={{
-    ...HIDDEN_COMMON_PROPS,
-    title: {
-      description: 'The content of the DropdownToggle.',
-    },
-    disabled: {
-      description: 'Disables the DropdownToggle NavLink',
-    },
-    active: {
-      description: 'Style the DropdownToggle NavLink as active',
-    },
-    menuRole: {
-      description: ' An ARIA accessible role applied to the Menu component',
-    },
-    renderMenuOnMount: {
-      description:
-        'Whether to render the dropdown menu in the DOM before the first time it is shown',
-    },
-    rootCloseEvent: {
-      table: {
-        type: {
-          summary: 'click | mousedown',
-        },
-      },
-      description:
-        'Which event when fired outside the component will cause it to be closed.',
-    },
-    menuVariant: {
-      table: {
-        type: {
-          summary: 'dark',
-        },
-      },
-      description:
-        'Menu color variant. Omitting this will default to light color',
-    },
-    isMegaMenu: {
-      description: 'When true, stylings of dropdown menu changes to mega menu',
-    },
-    eventKey: {
-      description:
-        'Uniquely identifies the NavDropdown amongst its siblings, used to determine and control the active state of the parent Nav',
-    },
+  subcomponents={{
+    'NavDropdown.Item': Nav.Dropdown.Item,
+    'NavDropdown.ItemText': Nav.Dropdown.ItemText,
+    'NavDropdown.Divider': Nav.Dropdown.Divider,
+    'NavDropdown.Header': Nav.Dropdown.Header,
   }}
 />
 
@@ -137,6 +99,13 @@ NavDropdown and its subcomponents are build from `<Dropdown />` and their APIS c
 </Canvas>
 
 ## API
+
+```jsx
+import { NavDropdown } from '@govtechsg/sgds-govtech-react/Nav';
+//or
+import { Nav } from '@govtechsg/sgds-govtech-react/Nav';
+// use <Nav.Dropdown />
+```
 
 <ArgsTable story="Default" />
 

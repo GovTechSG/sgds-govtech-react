@@ -1,69 +1,17 @@
-import { ArgsTable, Canvas, Meta, Story } from '@storybook/addon-docs';
+import { ArgsTable, Canvas, Meta, Story, Props } from '@storybook/addon-docs';
 
-import { Accordion } from '../../src';
+import { Accordion, AccordionButton } from '../../src';
+import AccordionBody from '../../src/Accordion/AccordionBody';
 
 <Meta
   title="Components/Accordion"
   component={Accordion}
-  argTypes={{
-    defaultActiveKey: {
-      description:
-        'The default active key that sets an accordion item to be expanded on start, value should correspond to assigned `eventKey` prop.',
-      table: {
-        category: '<Accordion>',
-        type: {
-          summary: 'AccordionEventKey: string | string[] | null | undefined',
-        },
-      },
-    },
-    activeKey: {
-      description:
-        'The current active key that corresponds to the currently expanded card',
-      table: {
-        category: '<Accordion>',
-        type: {
-          summary: 'AccordionEventKey: string | string[] | null | undefined',
-        },
-      },
-    },
-    as: {
-      description: 'Set a custom element for this component',
-      table: {
-        category: '<Accordion>',
-        type: { summary: 'elementType' },
-        defaultValue: { summary: `'div'` },
-      },
-      control: { disable: true },
-    },
-    bsPrefix: { table: { disable: true } },
-    eventKey: {
-      description:
-        'A unique key used to control `Accordion.Item` collapse/expand. *Required* to apply **defaultActiveKey** & **activeKey**',
-      table: {
-        category: '<AccordionItem>',
-        type: { summary: 'string' },
-      },
-    },
-    flush: {
-      description:
-        'Removes border, renders accordion edge-to-edge with its parent container',
-      table: {
-        category: '<Accordion>',
-        type: { summary: 'boolean' },
-        defaultValue: { summary: 'false' },
-      },
-    },
-    onClick: {
-      action: 'clicked',
-      table: { disable: true },
-    },
-    alwaysOpen: {
-      description:
-        'Allow accordion items to stay open when another item is opened',
-      table: {
-        category: '<Accordion>',
-      },
-    },
+  subcomponents={{
+    'Accordion.Button': Accordion.Button,
+    'Accordion.Collapse': Accordion.Collapse,
+    'Accordion.Item': Accordion.Item,
+    'Accordion.Header': Accordion.Header,
+    'Accordion.Body': Accordion.Body,
   }}
 />
 
@@ -117,6 +65,10 @@ export const Template = (args) => (
 
 ## API
 
+```jsx
+import { Accordion } from '@govtechsg/sgds-govtech-react/Accordion';
+```
+
 <ArgsTable story="Basic" />
 
 ```jsx
@@ -158,8 +110,6 @@ If you want your `Accordion` to start in a fully-collapsed state, then simply do
   <Story name="Fully Collapsed State">{Template.bind({})}</Story>
 </Canvas>
 
-<ArgsTable story="Fully Collapsed State" />
-
 ```jsx
 import { Accordion } from '@govtechsg/sgds-govtech-react';
 
@@ -200,8 +150,6 @@ Add `flush` to remove the default background-color, some borders, and some round
     {Template.bind({})}
   </Story>
 </Canvas>
-
-<ArgsTable story="Flush" />
 
 ```jsx
 import { Accordion } from '@govtechsg/sgds-govtech-react';

@@ -7,9 +7,25 @@ import ModalContext from './ModalContext';
 
 export interface AbstractModalHeaderProps
   extends React.HTMLAttributes<HTMLDivElement> {
+  /**
+   * Provides an accessible label for the close
+   * button. It is used for Assistive Technology when the label text is not
+   * readable.
+   */
   closeLabel?: string;
+  /**
+   * Sets the variant for close button.
+   */
   closeVariant?: CloseButtonVariant;
+  /**
+   * Specify whether the Component should contain a close button
+   */
   closeButton?: boolean;
+  /**
+   * A Callback fired when the close button is clicked. If used directly inside
+   * a ModalContext, the onHide will automatically be propagated up
+   * to the parent `onHide`.
+   */
   onHide?: () => void;
 }
 
@@ -50,7 +66,7 @@ const AbstractModalHeader = React.forwardRef<
 >(
   (
     { closeLabel, closeVariant, closeButton, onHide, children, ...props },
-    ref,
+    ref
   ) => {
     const context = useContext(ModalContext);
 
@@ -72,7 +88,7 @@ const AbstractModalHeader = React.forwardRef<
         )}
       </div>
     );
-  },
+  }
 );
 
 AbstractModalHeader.propTypes = propTypes;

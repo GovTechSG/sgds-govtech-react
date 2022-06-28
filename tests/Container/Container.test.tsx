@@ -1,6 +1,6 @@
 import { render } from '@testing-library/react';
 import * as React from 'react'
-import Container from '../Container';
+import Container from '../../src/Container/Container';
 
 describe('<Container>', () => {
   it('should render props correctly', () => {

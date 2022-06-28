@@ -9,5 +9,6 @@ describe("<SideNavCollapse>", () => {
         expect(container.querySelector('div.collapse.sidenav-collapse')).not.toBeNull()
         expect(container.querySelector('div.collapse>ul.list-unstyled')).not.toBeNull()
         expect(container.querySelector('div.collapse>ul.list-unstyled')).toHaveTextContent('Item 1')
+        expect(container.querySelector('div.collapse>ul.list-unstyled>li')).toHaveTextContent('Item 1')
     })
 })

@@ -1,6 +1,6 @@
 import { shallow } from 'enzyme';
 import * as React from 'react';
-import { PaginationBase } from '../../src/PaginationBase';
+import  PaginationBase  from '../../src/Pagination/PaginationBase';
 
 describe('<PaginationBase>', () => {
   it('should have class', () => {
