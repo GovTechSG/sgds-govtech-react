@@ -10,10 +10,12 @@ import {
 } from "@govtechsg/sgds-react";
 import React from "react";
 import { FooterTemp } from "./FooterTemp"
+import { MastheadTemp } from "./Masthead.js";
 
 export const CollapsibleFormTemp = () => {
   return (
     <div>
+      <MastheadTemp />
       <div className="p-3 mb-3">
         <Accordion defaultActiveKey='0' className='mb-4'>
           <Accordion.Item eventKey='0'>

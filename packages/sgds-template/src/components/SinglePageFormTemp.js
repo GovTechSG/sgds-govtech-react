@@ -9,6 +9,7 @@ import {
 } from "@govtechsg/sgds-react";
 import React from "react";
 import { FooterTemp }from "./FooterTemp.js"
+import { MastheadTemp } from "./Masthead.js";
 
 export const SinglePageFormTemp = (args) => {
   const onSubmit = (event) => {
@@ -17,6 +18,7 @@ export const SinglePageFormTemp = (args) => {
   };
   return (
     <div>
+      <MastheadTemp />
       <Col xs={8} className="p-3" >
         <Form onSubmit={onSubmit} {...args} className="mb-3">
           <Row>

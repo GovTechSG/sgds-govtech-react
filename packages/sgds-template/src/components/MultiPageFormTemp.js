@@ -11,6 +11,7 @@ import {
 } from "@govtechsg/sgds-react";
 import React, { useState } from "react";
 import { FooterTemp } from "./FooterTemp"
+import { MastheadTemp } from "./Masthead.js";
 
 export const MultiPageFormTemp = () => {
   const initialState = {
@@ -241,6 +242,8 @@ export const MultiPageFormTemp = () => {
         <div>Submitted!</div>
       ) : (
         <>
+          <MastheadTemp />
+          <br /><br />
           <Stepper methods={stepMethods} />
           <Form className='p-3'>
             <div>{getComponent()}</div>

@@ -4,6 +4,7 @@
   "private": true,
   "dependencies": {
     "@govtechsg/sgds": "^2.0.0-alpha.3",
+    "@govtechsg/sgds-masthead-react": "^0.0.8",
     "@govtechsg/sgds-react": "^2.0.0-alpha.1",
     "@testing-library/jest-dom": "^5.16.4",
     "@testing-library/react": "^13.3.0",
