@@ -10,6 +10,7 @@ import {
   Stepper,
 } from "@govtechsg/sgds-react";
 import React, { useState } from "react";
+import { FooterTemp } from "./FooterTemp"
 
 export const MultiPageFormTemp = () => {
   const initialState = {
@@ -218,7 +219,6 @@ export const MultiPageFormTemp = () => {
   const {
     state: stepState,
     stepsMetadata,
-    getTitle,
     setStep,
     nextStep,
     prevStep,
@@ -276,6 +276,7 @@ export const MultiPageFormTemp = () => {
               </div>
             </div>
           </Form>
+          <FooterTemp />
         </>
       )}
     </>
