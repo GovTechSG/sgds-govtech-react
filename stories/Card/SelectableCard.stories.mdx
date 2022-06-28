@@ -26,9 +26,6 @@ import { CARD_COMMON_PROPS } from './argTypes';
 
 export const AppleBody = (
   <>
-    <Card.Subtitle as="h6">
-      <i className="bi bi-box"></i>Laptop
-    </Card.Subtitle>
     <Card.Title as="h5">
       Apple <i className="bi bi-apple"></i>
     </Card.Title>
@@ -38,9 +35,6 @@ export const AppleBody = (
 
 export const MicrosoftBody = (
   <>
-    <Card.Subtitle as="h6" className="text-muted">
-      <i className="bi bi-box"></i>Laptop
-    </Card.Subtitle>
     <Card.Title as="h5">
       Microsoft <i className="bi bi-microsoft"></i>
     </Card.Title>
@@ -50,9 +44,6 @@ export const MicrosoftBody = (
 
 export const AcerBody = (
   <>
-    <Card.Subtitle as="h6" className="text-muted">
-      <i className="bi bi-box"></i>Laptop
-    </Card.Subtitle>
     <Card.Title as="h5">
       Acer <i className="bi bi-laptop"></i>
     </Card.Title>
@@ -70,6 +61,11 @@ export const ActiveBorderTemplate = () => {
         <Form>
           <SelectableCard
             name="test"
+            categoryTitle={
+              <>
+                <i className="bi bi-box"></i>Laptop
+              </>
+            }
             type="checkbox"
             value="apple"
             onChange={handleChange}
@@ -79,6 +75,11 @@ export const ActiveBorderTemplate = () => {
           </SelectableCard>
           <SelectableCard
             name="test"
+            categoryTitle={
+              <>
+                <i className="bi bi-box"></i>Laptop
+              </>
+            }
             type="checkbox"
             value="microsoft"
             onChange={handleChange}
@@ -88,6 +89,11 @@ export const ActiveBorderTemplate = () => {
           </SelectableCard>
           <SelectableCard
             name="test"
+            categoryTitle={
+              <>
+                <i className="bi bi-box"></i>Laptop
+              </>
+            }
             type="checkbox"
             value="acer"
             onChange={handleChange}
@@ -102,7 +108,7 @@ export const ActiveBorderTemplate = () => {
 };
 export const ExampleTemplate = (args) => {
   const [brand, setBrand] = useState('');
-  const [qty, setQty] = useState(-2);
+  const [qty, setQty] = useState(0);
   const [disappear, setDisappear] = useState(false);
   const handleChange = (e) => {
     setBrand(e.target.value);
@@ -124,6 +130,11 @@ export const ExampleTemplate = (args) => {
         <Form>
           <SelectableCard
             name="test"
+            categoryTitle={
+              <>
+                <i className="bi bi-box"></i>Laptop
+              </>
+            }
             type="radio"
             value="apple"
             onChange={handleChange}
@@ -134,6 +145,11 @@ export const ExampleTemplate = (args) => {
           </SelectableCard>
           <SelectableCard
             name="test"
+            categoryTitle={
+              <>
+                <i className="bi bi-box"></i>Laptop
+              </>
+            }
             type="radio"
             value="microsoft"
             onChange={handleChange}
@@ -144,6 +160,11 @@ export const ExampleTemplate = (args) => {
           </SelectableCard>
           <SelectableCard
             name="test"
+            categoryTitle={
+              <>
+                <i className="bi bi-box"></i>Laptop
+              </>
+            }
             type="radio"
             value="acer"
             onChange={handleChange}
@@ -169,7 +190,7 @@ export const ExampleTemplate = (args) => {
                   <Card.Subtitle as="h6" className="text-muted">
                     Item Brand
                   </Card.Subtitle>
-                  <Card.Subtitle as="h6">{brand}</Card.Subtitle>
+                  <Card.Subtitle as="h6" className="mt-2">{brand}</Card.Subtitle>
                 </Card.Unit>
                 <QuantityToggle count={qty} setCount={setQty} />
               </div>
@@ -189,8 +210,8 @@ Action Cards are Cards that are able to perform actions like selection or quanti
 ## `<SelectableCard />`
 
 `<SelectableCard />` are Cards with input checkbox , radio or switch functionalities.
-`<SelectableCard />` is a composite component built with `<Card />` and `<FormCheck />` with partially extended props from both Components.
-Like `<Card />`, it is a wrapper that accepts subcomponents of `Card` as children.
+`<SelectableCard />` is a composite component built with `<Card />`, `<Card.Body/>`, `<Card.Subtitle/>` and `<FormCheck />` with partially extended props from both Components.
+Similar to `<Card />`, it is a wrapper that accepts subcomponents of `Card` , like `Card.Text`  and `Card.Subtitle` as children.
 
 The `ref` of `<FormCheck />` is extended to the `<Card/>` making the entire `<SelectableCard/>` essentially an input
 
@@ -199,11 +220,22 @@ The `ref` of `<FormCheck />` is extended to the `<Card/>` making the entire `<Se
 The default SelectableCard is a checkbox.
 
 <Canvas>
-  <Story name="Default SelectableCard">
+  <Story
+    name="Default SelectableCard"
+    args={{
+      categoryTitle: (
+        <>
+          <i className="bi bi-box"></i>Laptop
+        </>
+      ),
+    }}
+  >
     {(args) => (
       <Row>
         <Col xs>
-          <SelectableCard {...args} aria-label="selectablecard">{AppleBody}</SelectableCard>
+          <SelectableCard {...args} aria-label="selectablecard">
+            {AppleBody}
+          </SelectableCard>
         </Col>
         <Col xs>
           <></>
@@ -219,7 +251,7 @@ The default SelectableCard is a checkbox.
 ## API
 
 ```jsx
-import { SelectableCard } from '@govtechsg/sgds-govtech-react/Card'; 
+import { SelectableCard } from '@govtechsg/sgds-govtech-react/Card';
 ```
 
 <ArgsTable story="Default SelectableCard" />
@@ -235,17 +267,41 @@ Use `type` prop : `radio` / `switch` / `checkbox` to change the `SelectableCard`
     {() => (
       <Row>
         <Col xs>
-          <SelectableCard type="checkbox" aria-label="selectablecard">
+          <SelectableCard
+            type="checkbox"
+            aria-label="selectablecard"
+            categoryTitle={
+              <>
+                <i className="bi bi-box"></i>Laptop
+              </>
+            }
+          >
             {AppleBody}
           </SelectableCard>
         </Col>
         <Col xs>
-          <SelectableCard type="radio" aria-label="selectablecard">
+          <SelectableCard
+            type="radio"
+            aria-label="selectablecard"
+            categoryTitle={
+              <>
+                <i className="bi bi-box"></i>Laptop
+              </>
+            }
+          >
             {AppleBody}
           </SelectableCard>
         </Col>
         <Col xs>
-          <SelectableCard type="switch" aria-label="selectablecard">
+          <SelectableCard
+            type="switch"
+            aria-label="selectablecard"
+            categoryTitle={
+              <>
+                <i className="bi bi-box"></i>Laptop
+              </>
+            }
+          >
             {AppleBody}
           </SelectableCard>
         </Col>
@@ -276,6 +332,11 @@ const ActiveBorderTemplate = () => {
         <Form>
           <SelectableCard
             name="test"
+            categoryTitle={
+              <>
+                <i className="bi bi-box"></i>Laptop
+              </>
+            }
             type="checkbox"
             value="apple"
             onChange={handleChange}
@@ -285,6 +346,11 @@ const ActiveBorderTemplate = () => {
           </SelectableCard>
           <SelectableCard
             name="test"
+            categoryTitle={
+              <>
+                <i className="bi bi-box"></i>Laptop
+              </>
+            }
             type="checkbox"
             value="microsoft"
             onChange={handleChange}
@@ -294,6 +360,11 @@ const ActiveBorderTemplate = () => {
           </SelectableCard>
           <SelectableCard
             name="test"
+            categoryTitle={
+              <>
+                <i className="bi bi-box"></i>Laptop
+              </>
+            }
             type="checkbox"
             value="acer"
             onChange={handleChange}
@@ -355,6 +426,11 @@ export const ShoppingCart = (args) => {
         <Form>
           <SelectableCard
             name="test"
+            categoryTitle={
+              <>
+                <i className="bi bi-box"></i>Laptop
+              </>
+            }
             type="radio"
             value="apple"
             checked={brand === 'apple'}
@@ -365,6 +441,11 @@ export const ShoppingCart = (args) => {
           </SelectableCard>
           <SelectableCard
             name="test"
+            categoryTitle={
+              <>
+                <i className="bi bi-box"></i>Laptop
+              </>
+            }
             type="radio"
             value="microsoft"
             checked={brand === 'microsoft'}
@@ -375,6 +456,11 @@ export const ShoppingCart = (args) => {
           </SelectableCard>
           <SelectableCard
             name="test"
+            categoryTitle={
+              <>
+                <i className="bi bi-box"></i>Laptop
+              </>
+            }
             type="radio"
             value="acer"
             checked={brand === 'acer'}

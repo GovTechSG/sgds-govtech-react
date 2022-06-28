@@ -13,49 +13,6 @@ import { CARD_COMMON_PROPS } from './argTypes';
   }}
 />
 
-export const QtyToggleTemplate = () => {
-  const [count, setCount] = useState(0);
-  const [disappear, setDisappear] = useState(false);
-  const handleDismiss = () => {
-    setDisappear(!disappear);
-  };
-  if (!disappear)
-    return (
-      <Row>
-        <Col xs lg="5">
-          <Card>
-            <Card.Body>
-              <Row className="mb-3">
-                <div className="d-flex justify-content-between">
-                  <Card.Title as="h4">
-                    Basket <i className="bi bi-cart"></i>
-                  </Card.Title>
-                  <CloseButton onClick={handleDismiss} />
-                </div>
-              </Row>
-              <Row>
-                <Col>
-                  <Card.Subtitle as="h5" className="text-muted">
-                    Item Brand
-                  </Card.Subtitle>
-                  <Card.Text>Apple </Card.Text>
-                </Col>
-                <Col>
-                  <QuantityToggle
-                    count={count}
-                    setCount={setCount}
-                    aria-label="Quantity"
-                  />
-                </Col>
-              </Row>
-            </Card.Body>
-          </Card>
-        </Col>
-      </Row>
-    );
-  else return null;
-};
-
 export const QtyToggleVariantTemplate = () => {
   const [count, setCount] = useState(0);
   const [disappear, setDisappear] = useState(false);
@@ -79,7 +36,7 @@ export const QtyToggleVariantTemplate = () => {
                   <Card.Subtitle as="h5" className="text-muted">
                     Item Brand
                   </Card.Subtitle>
-                  <Card.Subtitle as="h6">Apple</Card.Subtitle>
+                  <Card.Subtitle as="h6" className="mt-2">Apple</Card.Subtitle>
                 </Card.Unit>
                 <QuantityToggle
                   count={count}
