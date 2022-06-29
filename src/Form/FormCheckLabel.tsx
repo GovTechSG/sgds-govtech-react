@@ -21,7 +21,7 @@ const propTypes = {
   htmlFor: PropTypes.string,
 };
 
-const FormCheckLabel = React.forwardRef<HTMLLabelElement, FormCheckLabelProps>(
+export const FormCheckLabel = React.forwardRef<HTMLLabelElement, FormCheckLabelProps>(
   ({ bsPrefix, className, htmlFor, ...props }, ref) => {
     const { controlId } = useContext(FormContext);
 

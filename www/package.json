@@ -6,7 +6,8 @@
   "dependencies": {
     "@govtechsg/sgds-govtech": "^2.0.0-alpha.1",
     "@govtechsg/sgds-govtech-react": "^1.0.0-alpha.6",
-    "@govtechsg/sgds-masthead-react": "^0.0.3",
+    "@govtechsg/sgds-masthead": "^0.0.14",
+    "@govtechsg/sgds-masthead-react": "^0.0.6",
     "@testing-library/jest-dom": "^5.16.4",
     "@testing-library/react": "^13.2.0",
     "@testing-library/user-event": "^13.5.0",

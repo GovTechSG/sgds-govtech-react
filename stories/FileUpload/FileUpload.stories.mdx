@@ -8,29 +8,6 @@ import { HIDDEN_COMMON_PROPS } from '../helpers';
 <Meta
   title="Components/File Upload"
   component={FileUpload}
-  argTypes={{
-    ...HIDDEN_COMMON_PROPS,
-    href: { table: { disable: true } },
-    active: { table: { disable: true } },
-    variant: {
-      description:
-        'Sets the color variant. Refer to Button component for color variations',
-    },
-    size: { description: 'Sets the size for the button' },
-    target: { table: { disable: true } },
-    rel: { table: { disable: true } },
-    key: { table: { disable: true } },
-    validated: { table: { disable: true } },
-    onChangeFile: {
-      description: 'Expose the FileList object for uploading, preview etc',
-      control: { disable: true },
-    },
-     selectedFile: {
-      description: 'Sets the FileList object back from the state for rendering list of file names',
-      control: { disable: true },
-    },
-    controlId: { description: 'Sets a unique id to the file input, required.' },
-  }}
 />
 
 # File Upload
@@ -95,3 +72,11 @@ return (
   </>
 );
 ```
+## Customize the checked and cancel icons 
+
+Change up the default checked and cancel icons by passing in icons of your choice 
+
+
+<Canvas>
+  <Story name="Custom Icons" args={{cancelIcon: <i className="bi bi-x-octagon"></i>, checkedIcon: <i className="bi bi-check2-circle"></i>}}>{Template.bind({})}</Story>
+</Canvas>

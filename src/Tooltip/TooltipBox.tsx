@@ -108,7 +108,7 @@ const TooltipBox = React.forwardRef<HTMLDivElement, TooltipBoxProps>(
         <div className="tooltip-arrow" {...arrowProps} />
         <div className={`${bsPrefix}-inner`}>
           {children}
-          { closeBtn}
+          {closeBtn}
         </div>
       </SGDSWrapper>
     );

@@ -8,6 +8,9 @@ import { AsProp, BsPrefixRefForwardingComponent } from '../utils/helpers';
 export interface FormGroupProps
   extends React.HTMLAttributes<HTMLElement>,
     AsProp {
+  /**
+   * Sets `id` on `<FormControl>` and `htmlFor` on `<FormGroup.Label>`.
+   */
   controlId?: string;
 }
 
@@ -30,7 +33,7 @@ const propTypes = {
   _ref: PropTypes.any,
 };
 
-const FormGroup: BsPrefixRefForwardingComponent<'div', FormGroupProps> =
+export const FormGroup: BsPrefixRefForwardingComponent<'div', FormGroupProps> =
   React.forwardRef(
     (
       {
@@ -39,7 +42,7 @@ const FormGroup: BsPrefixRefForwardingComponent<'div', FormGroupProps> =
         as: Component = 'div',
         ...props
       },
-      ref,
+      ref
     ) => {
       const context = useMemo(() => ({ controlId }), [controlId]);
 
@@ -48,7 +51,7 @@ const FormGroup: BsPrefixRefForwardingComponent<'div', FormGroupProps> =
           <Component {...props} ref={ref} />
         </FormContext.Provider>
       );
-    },
+    }
   );
 
 FormGroup.displayName = 'FormGroup';

@@ -5,26 +5,6 @@ import { useState, useRef, useEffect } from 'react';
 <Meta
   title="Components/Typeahead"
   component={Typeahead}
-  argTypes={{
-    initialValue: {
-      description: 'Initial value of input',
-    },
-    onChangeInput: {
-      description: "The onChange handler for Typeahead's input change ",
-    },
-    menuPlacement: {
-      description: 'Placement of menu in relation to input',
-    },
-    menuList: {
-      description: 'Array of values to pass into menu',
-    },
-    label: {
-      description: 'Adds a FormLabel to `<Typeahead />`'
-    },
-    hasIcon: {
-      description: 'When true, adds bi-search icon to FormControl'
-    }
-  }}
 />
 
 export const TypeaheadTemplate = (args) => {
