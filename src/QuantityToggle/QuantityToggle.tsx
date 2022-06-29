@@ -5,13 +5,20 @@ import FormControl from '../Form/FormControl';
 import { BsPrefixRefForwardingComponent } from '../utils/helpers';
 import { ButtonVariant } from '../utils/types';
 import PropTypes from 'prop-types';
+import { FormLabel } from '../Form';
 
 export interface QuantityToggleProps {
+  /** Controls the incremental / decremental value */
   step?: number;
+  /** Controls the size of the QuantityToggle */
   size?: 'sm' | 'lg';
+  /**Keep tracks of input value. This parameter should be passed down from parent with `setCount` */
   count: number;
+  /**Updates the count value in Parent component. This parameter should be passed down from parent with `count` */
   setCount: React.Dispatch<React.SetStateAction<number>>;
+  /** Disables the buttons and input of `QuantityToggle` */
   disabled?: boolean;
+  /**Controls the color of the buttons */
   variant?: ButtonVariant;
 }
 
@@ -24,27 +31,27 @@ const propTypes = {
   size: PropTypes.oneOf(['sm', 'lg']),
   count: PropTypes.number.isRequired,
   setCount: PropTypes.func.isRequired,
-  disabled: PropTypes.bool, 
+  disabled: PropTypes.bool,
   variant: PropTypes.oneOf<ButtonVariant>([
- 'primary',
- 'secondary',
- 'success',
- 'danger',
- 'warning',
- 'info',
- 'dark',
- 'light',
-  'link',
-  'outline-primary',
-  'outline-secondary',
-  'outline-success',
-  'outline-danger',
-  'outline-warning',
-  'outline-info',
-  'outline-dark',
-  'outline-light'
-  ])
-}
+    'primary',
+    'secondary',
+    'success',
+    'danger',
+    'warning',
+    'info',
+    'dark',
+    'light',
+    'link',
+    'outline-primary',
+    'outline-secondary',
+    'outline-success',
+    'outline-danger',
+    'outline-warning',
+    'outline-info',
+    'outline-dark',
+    'outline-light',
+  ]),
+};
 
 export const QuantityToggle: BsPrefixRefForwardingComponent<
   'input',
@@ -60,28 +67,33 @@ export const QuantityToggle: BsPrefixRefForwardingComponent<
       else setCount(count - step);
     };
     React.useEffect(() => {
-    if (count < 0 ) setCount(0)
-    }, [])
+      if (count < 0) setCount(0);
+    }, []);
     return (
-      <InputGroup size={size}>
-        <Button onClick={onMinus} {...buttonProps} >
-        <i className="bi bi-dash"></i>
-        </Button>
-        <FormControl
-          {...props}
-          disabled={disabled}
-          ref={ref}
-          type="number"
-          className="text-center"
-          value={count}
-          name="quantity"
-          onChange={(e) => {
-            setCount(parseInt(e.target.value));
-          }}
-          min={0}
-        />
-        <Button onClick={onPlus} {...buttonProps}><i className="bi bi-plus" ></i></Button>
-      </InputGroup>
+      <>
+        <FormLabel className="visually-hidden">quantity-toggle</FormLabel>
+        <InputGroup size={size} variant="quantity-toggle">
+          <Button onClick={onMinus} {...buttonProps} aria-label="minus-btn">
+            <i className="bi bi-dash"></i>
+          </Button>
+          <FormControl
+            {...props}
+            disabled={disabled}
+            ref={ref}
+            type="number"
+            className="text-center"
+            value={count}
+            name="quantity"
+            onChange={(e) => {
+              setCount(parseInt(e.target.value));
+            }}
+            min={0}
+          />
+          <Button onClick={onPlus} {...buttonProps} aria-label="plus-btn">
+            <i className="bi bi-plus"></i>
+          </Button>
+        </InputGroup>
+      </>
     );
   }
 );

@@ -1,0 +1,54 @@
+{
+  "name": "www",
+  "version": "0.1.0",
+  "private": true,
+  "homepage": "https://govtechsg.github.io/sgds-govtech-react/",
+  "dependencies": {
+    "@govtechsg/sgds-govtech": "^2.0.0-alpha.1",
+    "@govtechsg/sgds-govtech-react": "^1.0.0-alpha.6",
+    "@govtechsg/sgds-masthead": "^0.0.14",
+    "@govtechsg/sgds-masthead-react": "^0.0.6",
+    "@testing-library/jest-dom": "^5.16.4",
+    "@testing-library/react": "^13.2.0",
+    "@testing-library/user-event": "^13.5.0",
+    "bootstrap-icons": "^1.8.2",
+    "clk-bs": "^4.0.9",
+    "clk-masthead": "^0.0.2",
+    "gh-pages": "^4.0.0",
+    "react": "^18.1.0",
+    "react-dom": "^18.1.0",
+    "web-vitals": "^2.1.4"
+  },
+  "scripts": {
+    "start": "react-scripts start",
+    "build": "react-scripts build",
+    "test": "react-scripts test",
+    "eject": "react-scripts eject",
+    "deploy": "gh-pages -d build"
+  },
+  "eslintConfig": {
+    "extends": [
+      "react-app",
+      "react-app/jest"
+    ]
+  },
+  "browserslist": {
+    "production": [
+      ">0.2%",
+      "not dead",
+      "not op_mini all"
+    ],
+    "development": [
+      "last 1 chrome version",
+      "last 1 firefox version",
+      "last 1 safari version"
+    ]
+  },
+  "devDependencies": {
+    "@svgr/webpack": "^6.2.1",
+    "react-scripts": "^5.0.1"
+  },
+  "overrides": {
+    "@svgr/webpack": "$@svgr/webpack"
+  }
+}

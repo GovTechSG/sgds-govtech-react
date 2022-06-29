@@ -14,18 +14,6 @@ import { HIDDEN_COMMON_PROPS } from '../helpers';
 <Meta
   title="Components/Tooltip"
   component={Tooltip}
-  argTypes={{
-    ...HIDDEN_COMMON_PROPS,
-    placement: {
-      description: 'The placement of the Tooltip in relation to its target',
-    },
-    type: {
-      description: 'Types of Tooltip include clickable and hoverable',
-    },
-    content: {
-      description: 'The content to be displayed in the tooltip',
-    },
-  }}
 />
 
 export const NamedTemplate = (targetContent = '') => {
@@ -56,6 +44,10 @@ The `Tooltip` component works as a wrapper around its target children element.
 </Canvas>
 
 ## API
+
+```jsx
+import { Tooltip } from '@govtechsg/sgds-govtech-react/Tooltip'; 
+```
 
 <ArgsTable story="Default" />
 
@@ -93,9 +85,6 @@ Wrap the target element or Component with `Tooltip`. `Tooltip` only accepts a si
       </Tooltip>
       <Tooltip content="This is a sample Tooltip">
         <span>You can hover over a span element</span>
-      </Tooltip>
-      <Tooltip content="This is a sample Tooltip">
-        <textarea defaultValue="You can hover over a textarea element"></textarea>
       </Tooltip>
     </div>
   </Story>

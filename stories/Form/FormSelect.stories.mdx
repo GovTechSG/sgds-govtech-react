@@ -1,0 +1,89 @@
+import { ArgsTable, Canvas, Meta, Story } from '@storybook/addon-docs';
+import { HIDDEN_COMMON_PROPS } from '../helpers';
+import { FormSelect, Button, Form } from '../../src/index';
+
+<Meta
+  title="Components/Form/FormSelect"
+  component={FormSelect}
+/>
+
+# ` <Form.Select />`
+
+Customize the native `<select>`s with custom CSS that changes the element’s initial appearance.
+
+export const TemplateWithLabel = (label) => {
+  return (args) => (
+    <Form.Group>
+      <Form.Label htmlFor="defaultSelect">{label}</Form.Label>
+      <FormSelect
+        aria-label="Default select example"
+        {...args}
+        id="defaultSelect"
+      >
+        <option>Open this select menu</option>
+        <option value="1">One</option>
+        <option value="2">Two</option>
+        <option value="3">Three</option>
+      </FormSelect>
+    </Form.Group>
+  );
+};
+
+export const DefaultSelect = TemplateWithLabel('Default select menu');
+export const LargeSelect = TemplateWithLabel('Large select menu');
+export const SmallSelect = TemplateWithLabel('Small select menu');
+
+<Canvas>
+  <Story name="Default">{DefaultSelect.bind({})}</Story>
+</Canvas>
+
+## API
+
+```jsx
+import { FormSelect } from '@govtechsg/sgds-govtech-react/Form';
+//or
+import { Form } from '@govtechsg/sgds-govtech-react/Form';
+// use <Form.Select />
+```
+
+<ArgsTable story="Default" />
+
+```jsx
+<Form.Group>
+  <Form.Label htmlFor="defaultSelect">Default select menu</Form.Label>
+  <FormSelect aria-label="Default select example" id="defaultSelect">
+    <option>Open this select menu</option>
+    <option value="1">One</option>
+    <option value="2">Two</option>
+    <option value="3">Three</option>
+  </FormSelect>
+</Form.Group>
+```
+
+## Form Select Sizing
+
+You may also choose from small and large custom selects to match our similarly sized text inputs.
+
+<Canvas>
+  <Story name="Large Select Sizing" args={{ size: 'lg' }}>
+    {LargeSelect.bind({})}
+  </Story>
+  <Story name="Default Select Sizing">{DefaultSelect.bind({})}</Story>
+  <Story name="Small Select Sizing" args={{ size: 'sm' }}>
+    {SmallSelect.bind({})}
+  </Story>
+</Canvas>
+
+```jsx
+  <Form.Select size="lg">
+    <option>Large select</option>
+  </Form.Select>
+
+  <Form.Select>
+    <option>Default select</option>
+  </Form.Select>
+
+  <Form.Select size="sm">
+    <option>Small select</option>
+  </Form.Select>
+```

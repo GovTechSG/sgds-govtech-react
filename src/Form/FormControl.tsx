@@ -6,22 +6,41 @@ import warning from 'warning';
 import Feedback from './Feedback';
 import FormContext from './FormContext';
 import { useBootstrapPrefix } from '../ThemeProvider/ThemeProvider';
-import { BsPrefixProps, BsPrefixRefForwardingComponent } from '../utils/helpers';
+import {
+  BsPrefixProps,
+  BsPrefixRefForwardingComponent,
+} from '../utils/helpers';
 
 export type FormControlElement = HTMLInputElement | HTMLTextAreaElement;
 
 export interface FormControlProps
   extends BsPrefixProps,
     React.HTMLAttributes<FormControlElement> {
-  htmlSize?: number;
+  /** Input size variants */
   size?: 'sm' | 'lg';
+  /**
+   * Render the input as plain text. Generally used along side `readOnly`.
+   */
   plaintext?: boolean;
+  /** Make the control readonly */
   readOnly?: boolean;
+  /** Make the control disabled */
   disabled?: boolean;
+  /**
+   * The `value` attribute of underlying input
+   *
+   * @controllable onChange
+   * */
   value?: string | string[] | number;
+  /** A callback fired when the `value` prop changes */
   onChange?: React.ChangeEventHandler<FormControlElement>;
+  /**
+   * The HTML input `type`, which is only relevant if `as` is `'input'` (the default).
+   */
   type?: string;
+  /** Add "valid" validation styles to the control */
   isValid?: boolean;
+  /** Add "invalid" validation styles to the control and accompanying label */
   isInvalid?: boolean;
 }
 
@@ -46,12 +65,6 @@ const propTypes = {
    * @type {('sm'|'lg')}
    */
   size: PropTypes.string,
-
-  /**
-   * The size attribute of the underlying HTML element.
-   * Specifies the visible width in characters if `as` is `'input'`.
-   */
-  htmlSize: PropTypes.number,
 
   /**
    * The underlying HTML element to use when rendering the FormControl.
@@ -109,7 +122,6 @@ const FormControl: BsPrefixRefForwardingComponent<'input', FormControlProps> =
         bsPrefix,
         type,
         size,
-        htmlSize,
         id,
         className,
         isValid = false,
@@ -146,7 +158,6 @@ const FormControl: BsPrefixRefForwardingComponent<'input', FormControlProps> =
           <Component
             {...props}
             type={type}
-            size={htmlSize}
             ref={ref}
             readOnly={readOnly}
             id={id || controlId}

@@ -1,0 +1,82 @@
+import { useState } from 'react';
+import { ArgsTable, Canvas, Meta, Story } from '@storybook/addon-docs';
+import { Button } from '../../src/Button/Button';
+import { FileUpload } from '../../src/FileUpload/FileUpload';
+import { Form } from '../../src/Form/index';
+import { HIDDEN_COMMON_PROPS } from '../helpers';
+
+<Meta
+  title="Components/File Upload"
+  component={FileUpload}
+/>
+
+# File Upload
+
+`File Upload` is the process of publishing information (web pages, text, pictures, video, etc.) to a remote server. It allows uploading of a single or multiple files at any one time.
+
+export const Template = (args) => {
+  const [selectedFile, setSelectedFile] = useState({});
+  const onChangeFile = (data) => {
+    setSelectedFile(data);
+  };
+  console.log(selectedFile);
+  return (
+    <>
+      <Form>
+        <FileUpload
+          {...args}
+          controlId="fileupload1"
+          onChangeFile={onChangeFile}
+          selectedFile={selectedFile}
+        >
+          <i className="bi bi-upload me-2"></i>Choose a file
+        </FileUpload>
+      </Form>
+    </>
+  );
+};
+
+<Canvas>
+  <Story name="Default">{Template.bind({})}</Story>
+</Canvas>
+
+## API
+
+```jsx
+import { FileUpload } from '@govtechsg/sgds-govtech-react/FileUpload'; 
+```
+
+<ArgsTable story="Default" />
+
+```jsx
+import { useState } from 'react';
+import { FileUpload, Form } from '@govtechsg/sgds-govtech-react';
+
+const [selectedFile, setSelectedFile] = useState({});
+ const onChangeFile = (data) => {
+    setSelectedFile(data);
+  };
+console.log(selectedFile);
+
+return (
+  <>
+    <Form>
+      <FileUpload
+        controlId="fileupload1"
+        onChangeFile={onChangeFile}
+        selectedFile={selectedFile}
+      >
+        <i className="bi bi-upload me-2"></i>Choose a file
+      </FileUpload>
+    </Form>
+  </>
+);
+```
+## Customize the checked and cancel icons 
+
+Change up the default checked and cancel icons by passing in icons of your choice 
+
+
+<Canvas>
+  <Story name="Custom Icons" args={{cancelIcon: <i className="bi bi-x-octagon"></i>, checkedIcon: <i className="bi bi-check2-circle"></i>}}>{Template.bind({})}</Story>
+</Canvas>

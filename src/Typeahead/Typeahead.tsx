@@ -7,21 +7,27 @@ import PropTypes from 'prop-types';
 import { BsPrefixRefForwardingComponent } from '../utils/helpers';
 import useMergedRefs from '@restart/hooks/useMergedRefs';
 import DropdownItem from '../Dropdown/DropdownItem';
-import { Dropdown } from '..';
+import Dropdown  from '../Dropdown/Dropdown';
 import FormControlToggle from '../Form/FormControlToggle';
 import InputGroup from '../InputGroup/InputGroup';
 
 export type MenuPlacement = 'up' | 'down';
 
 export interface TypeaheadProps extends Omit<FormControlProps, 'type'> {
+  /**Initial value of input */
   initialValue?: string;
+  /** Placement of menu in relation to input */
   menuPlacement?: MenuPlacement;
+  /** Array of values to pass into menu */
   menuList: string[];
+  /** The onChange handler for Typeahead's input change */
   onChangeInput?: (
     val: string,
     e?: React.ChangeEvent<HTMLInputElement> | React.MouseEvent<HTMLLIElement>
   ) => void;
+  /** Adds a FormLabel to `<Typeahead />` */
   label?: string;
+  /** When true, adds bi-search icon to FormControl */
   hasIcon?: boolean;
 }
 

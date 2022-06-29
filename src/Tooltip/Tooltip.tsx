@@ -8,10 +8,12 @@ import CloseButton from '../CloseButton/CloseButton';
 import PropTypes from 'prop-types';
 
 export interface TooltipProps {
-  placement: TooltipPlacement;
-  type: 'hover' | 'click';
+  /** The placement of the Tooltip in relation to its target */
+  placement?: TooltipPlacement;
+  /** Types of Tooltip include clickable and hoverable */
+  type?: 'hover' | 'click';
+  /** The content to be displayed in the tooltip */
   content: string;
-  children: React.ReactNode;
 }
 const propTypes = {
   placement: PropTypes.oneOf<TooltipPlacement>([
@@ -29,11 +31,10 @@ const propTypes = {
 const defaultProps: TooltipProps = {
   placement: 'top',
   type: 'hover',
-  children: <></>,
   content: '',
 };
 
-export const Tooltip = (props = defaultProps): JSX.Element => {
+export const Tooltip: React.FC<TooltipProps> = ((props = defaultProps)=> {
   const { type, placement, content, children } = props;
   const [show, setShow] = useState(false);
   const target = useRef(null);
@@ -69,7 +70,7 @@ export const Tooltip = (props = defaultProps): JSX.Element => {
     </OverlayTrigger>
   );
   return type === 'hover' ? hoverTooltip() : clickToolTip();
-};
+})
 
 Tooltip.defaultProps = defaultProps;
 Tooltip.propTypes = propTypes as any;

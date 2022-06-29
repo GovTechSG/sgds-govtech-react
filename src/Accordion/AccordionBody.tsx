@@ -19,7 +19,7 @@ const propTypes = {
   bsPrefix: PropTypes.string,
 };
 
-const AccordionBody: BsPrefixRefForwardingComponent<'div', AccordionBodyProps> =
+export const AccordionBody: BsPrefixRefForwardingComponent<'div', AccordionBodyProps> =
   React.forwardRef<HTMLElement, AccordionBodyProps>(
     (
       {

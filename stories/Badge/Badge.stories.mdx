@@ -1,21 +1,11 @@
 import { ArgsTable, Canvas, Meta, Story } from '@storybook/addon-docs';
-import { Badge } from '../../src';
+import { Badge, Button } from '../../src';
 
 <Meta
   title="Components/Badge"
   component={Badge}
   argTypes={{
-    bsPrefix: { table: { disable: true } },
-    as: {
-      description: 'You can use a custom element type for this component.',
-      control: { disable: true },
-      table: {
-        type: { summary: 'elementType' },
-        defaultValue: { summary: 'span' },
-      },
-    },
     bg: {
-      description: 'Sets the background styling of the badge',
       table: {
         type: {
           summary:
@@ -37,15 +27,11 @@ import { Badge } from '../../src';
         type: 'select',
       },
     },
-    pill: {
-        description: 'Add the `pill` modifier to make badges more rounded with some additional horizontal padding.'
-    },
     text: {
-        description: 'Sets badge text color',
-        table: {
-        defaultValue: { summary: 'light' }
+      table: {
+        defaultValue: { summary: 'light' },
       },
-    }
+    },
   }}
 />
 
@@ -82,9 +68,11 @@ export const Template = (args) => {
   <Story name="Badge">{Template.bind({})}</Story>
 </Canvas>
 
-
-
 ## API
+
+```jsx
+import { Badge } from '@govtechsg/sgds-govtech-react/Badge'; 
+```
 
 <ArgsTable story="Badge" />
 
@@ -120,16 +108,16 @@ Add any of the below mentioned modifier classes to change the appearance of a ba
 <Canvas>
   <Story name="Contextual Variations">
     <div>
-      <Badge bg="primary">Primary</Badge>{' '}
-      <Badge bg="secondary">Secondary</Badge>{' '}
-      <Badge bg="success">Success</Badge> <Badge bg="danger">Danger</Badge>{' '}
+      <Badge bg="primary">Primary</Badge>
+      <Badge bg="secondary">Secondary</Badge>
+      <Badge bg="success">Success</Badge> <Badge bg="danger">Danger</Badge>
       <Badge bg="warning" text="dark">
         Warning
-      </Badge>{' '}
-      <Badge bg="info">Info</Badge>{' '}
+      </Badge>
+      <Badge bg="info">Info</Badge>
       <Badge bg="light" text="dark">
         Light
-      </Badge>{' '}
+      </Badge>
       <Badge bg="dark">Dark</Badge>
     </div>
   </Story>
@@ -139,15 +127,15 @@ Add any of the below mentioned modifier classes to change the appearance of a ba
 import { Badge } from '@govtechsg/sgds-govtech-react';
 
 <div>
-  <Badge bg="primary">Primary</Badge> <Badge bg="secondary">Secondary</Badge>{' '}
-  <Badge bg="success">Success</Badge> <Badge bg="danger">Danger</Badge>{' '}
+  <Badge bg="primary">Primary</Badge> <Badge bg="secondary">Secondary</Badge>
+  <Badge bg="success">Success</Badge> <Badge bg="danger">Danger</Badge>
   <Badge bg="warning" text="dark">
     Warning
-  </Badge>{' '}
-  <Badge bg="info">Info</Badge>{' '}
+  </Badge>
+  <Badge bg="info">Info</Badge>
   <Badge bg="light" text="dark">
     Light
-  </Badge>{' '}
+  </Badge>
   <Badge bg="dark">Dark</Badge>
 </div>;
 ```
@@ -161,25 +149,25 @@ You may also use the pill modifier class to make badges more rounded (with a lar
     <div>
       <Badge pill bg="primary">
         Primary
-      </Badge>{' '}
+      </Badge>
       <Badge pill bg="secondary">
         Secondary
-      </Badge>{' '}
+      </Badge>
       <Badge pill bg="success">
         Success
-      </Badge>{' '}
+      </Badge>
       <Badge pill bg="danger">
         Danger
-      </Badge>{' '}
+      </Badge>
       <Badge pill bg="warning" text="dark">
         Warning
-      </Badge>{' '}
+      </Badge>
       <Badge pill bg="info">
         Info
-      </Badge>{' '}
+      </Badge>
       <Badge pill bg="light" text="dark">
         Light
-      </Badge>{' '}
+      </Badge>
       <Badge pill bg="dark">
         Dark
       </Badge>
@@ -193,27 +181,70 @@ import { Badge } from '@govtechsg/sgds-govtech-react';
 <div>
   <Badge pill bg="primary">
     Primary
-  </Badge>{' '}
+  </Badge>
   <Badge pill bg="secondary">
     Secondary
-  </Badge>{' '}
+  </Badge>
   <Badge pill bg="success">
     Success
-  </Badge>{' '}
+  </Badge>
   <Badge pill bg="danger">
     Danger
-  </Badge>{' '}
+  </Badge>
   <Badge pill bg="warning" text="dark">
     Warning
-  </Badge>{' '}
+  </Badge>
   <Badge pill bg="info">
     Info
-  </Badge>{' '}
+  </Badge>
   <Badge pill bg="light" text="dark">
     Light
-  </Badge>{' '}
+  </Badge>
   <Badge pill bg="dark">
     Dark
   </Badge>
 </div>;
+```
+
+export const ComponentBadgeTemplate = (args) => (
+  <Button className="position-relative">
+    Inbox
+    <Badge {...args}></Badge>
+  </Button>
+);
+
+## Component's Badge
+
+Badge can also be used on other components as a dot indicator or text indicator for notification or alerts.
+
+<Canvas>
+  <Story
+    name="Components Badge - dotIndicator"
+    args={{ dotIndicator: true, bg: 'danger' }}
+  >
+    {ComponentBadgeTemplate.bind({})}
+  </Story>
+  <Story
+    name="Components Badge - textIndicator"
+    args={{ textIndicator: true, bg: 'danger', children: '99+' }}
+  >
+    {ComponentBadgeTemplate.bind({})}
+  </Story>
+</Canvas>
+
+Add css selector `position-relative` to the Component that wraps the badge. See example below
+
+```jsx
+//dotIndicator
+<Button className="position-relative">
+   Inbox
+   <Badge dotIndicator bg="danger">
+   </Badge>
+ </Button>
+ //textIndicator
+<Button className="position-relative">
+   Inbox
+   <Badge textIndicator bg="danger">
+   </Badge>
+ </Button>
 ```

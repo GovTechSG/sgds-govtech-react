@@ -6,27 +6,6 @@ import { HIDDEN_COMMON_PROPS } from '../helpers';
 <Meta
   title="Components/Progress Bar"
   component={ProgressBar}
-  argTypes={{
-    ...HIDDEN_COMMON_PROPS,
-    min: { description: 'Minimum value progress can begin from' },
-    now: { description: 'Current value of progress' },
-    max: { description: 'Maximum value progress can reach' },
-    label: {
-      description: 'Show label that represents visual percentage. Eg. 60%',
-      control: { disable: true },
-    },
-    visuallyHidden: { description: 'Hides the label visually.' },
-    striped: { description: 'Uses a gradient to create a striped effect.' },
-    animated: { description: 'Animate the stripes from right to left' },
-    variant: {
-      description: 'Sets the background class of the progress bar.',
-      options: ['success', 'danger', 'warning', 'info', 'undefined'],
-      control: {
-        type: 'select',
-      },
-    },
-    isChild: { description: 'Allows toggling display of progress bar.' },
-  }}
 />
 
 # Progress bars
@@ -42,6 +21,10 @@ export const Template = (args) => {
 </Canvas>
 
 ## API
+
+```jsx
+import { ProgressBar } from '@govtechsg/sgds-govtech-react/ProgressBar'; 
+```
 
 <ArgsTable story="Default" />
 

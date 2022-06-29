@@ -6,18 +6,18 @@ import { useState } from 'react';
 <Meta
   title="Components/Dropdown"
   component={Dropdown}
+  subcomponents={{
+    'Dropdown.Toggle': Dropdown.Toggle,
+    'Dropdown.Menu': Dropdown.Menu,
+    'Dropdown.Item': Dropdown.Item,
+    'Dropdown.ItemText': Dropdown.ItemText,
+    'Dropdown.Divider': Dropdown.Divider,
+    'Dropdown.Header': Dropdown.Header,
+  }}
   argTypes={{
     ...HIDDEN_COMMON_PROPS,
-    align: {
-      description: `Aligns the dropdown menu to the specified side of the Dropdown toggle`,
-    },
-    flip: { table: { disable: true } },
-    as: { table: { disable: true } },
-    focusFirstItemOnShow: { table: { disable: true } },
     navbar: { table: { disable: true } },
     autoClose: {
-      description:
-        'Controls the auto close behaviour of the dropdown when clicking outside of the button or the list',
       control: { type: 'select' },
       options: [true, false, 'outside', 'inside'],
     },
@@ -59,6 +59,10 @@ default the `<Dropdown.Toggle>` will render a
 <Story name="Basic">{Template.bind({})}</Story>
 
 ## API
+
+```jsx
+import { Dropdown } from '@govtechsg/sgds-govtech-react/Dropdown';
+```
 
 <ArgsTable story="Basic" />
 
@@ -200,7 +204,7 @@ import { Dropdown } from '@govtechsg/sgds-govtech-react';
 
 A callback fired when a menu item is selected
 
-`(eventKey:  string | null, event:  React.SyntheticEvent<any>) => any` .
+`(eventKey: string | null, event: React.SyntheticEvent<any>) => any` .
 
 ### onToggle
 
@@ -264,8 +268,6 @@ For SSR, specify `id` prop for `<Dropdown.Toggle/>` so that the `id` attribute m
   <Dropdown.Toggle id="dropdown-id-1234">
     Dropdown Button<i className="bi bi-chevron-down"></i>
   </Dropdown.Toggle>
-  <Dropdown.Menu>
-   ...
-  </Dropdown.Menu>
+  <Dropdown.Menu>...</Dropdown.Menu>
 </Dropdown>
 ```

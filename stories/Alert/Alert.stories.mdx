@@ -5,21 +5,14 @@ import { Alert, Button } from '../../src';
 <Meta
   title="Components/Alert"
   component={Alert}
-  parameters={{
-    actions: {
-      handles: ['click .btn', 'click .btn-close'],
-    },
-  }}
+  subcomponents={{"Alert.Heading": Alert.Heading, "Alert.Link": Alert.Link}}
   argTypes={{
     variant: {
-      description: 'Sets the background color for variants',
       table: {
-        category: '<Alert>',
         type: {
           summary:
             " 'primary' | 'secondary' | 'success' | 'danger' | 'warning' | 'info' | 'dark' | 'light' | dark",
         },
-        defaultValue: { summary: `'primary'` },
       },
       options: [
         'primary',
@@ -33,40 +26,6 @@ import { Alert, Button } from '../../src';
       ],
       control: {
         type: 'select',
-      },
-    },
-    dismissible: {
-      description:
-        'Renders a properly aligned dismiss button, as well as adding extra horizontal padding to the Alert.',
-      table: {
-        category: '<Alert>',
-        type: { summary: 'boolean' },
-        defaultValue: { summary: 'true' },
-      },
-    },
-    show: {
-      description:
-        'controlled by: *onClose*, initial prop: *defaultShow* <br/> Controls the visual state of the Alert.',
-      table: {
-        category: '<Alert>',
-        type: { summary: 'boolean' },
-        defaultValue: { summary: 'true' },
-      },
-    },
-    onClose: {
-      description: 'controls *show* <br/> Callback fired when alert is closed.',
-      table: {
-        category: '<Alert>',
-        type: { summary: 'function' },
-      },
-    },
-    as: {
-      description:
-        'You can use a custom element type for these components. <br/> `<DivStyledAsH4>` for Heading <br/> `<Anchor>` for Link',
-      table: {
-        category: '<Alert.Heading> <Alert.Link>',
-        type: { summary: 'elementType' },
-        defaultValue: { summary: '<DivStyledAsH4> <Anchor>' },
       },
     },
   }}
@@ -89,7 +48,19 @@ export const Template = (args) => {
 
 Provide contextual feedback messages for typical user actions with the handful of available and flexible alert messages.
 
-## 1. Basic with Icon
+<Canvas>
+  <Story name="Default">{Template.bind({})}</Story>
+</Canvas>
+
+## API 
+
+```jsx
+import { Alert } from '@govtechsg/sgds-govtech-react/Alert'; 
+```
+
+<ArgsTable story="Default" />
+
+## Basic with Icon
 
 Alerts are available for any length of text, as well as an optional dismiss button. For proper styling, use one of the eight **variant** colors provided.
 You may also choose to slot in your icons from any libraries to make your information clearer and user-friendly.

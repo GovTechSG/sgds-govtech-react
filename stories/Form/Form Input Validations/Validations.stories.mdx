@@ -1,19 +1,10 @@
 import { ArgsTable, Canvas, Meta, Story } from '@storybook/addon-docs';
 import { useState } from 'react';
-import {
-  Form,
-  Button,
-  Col,
-  InputGroup,
-  Row,
-} from '../../../src/index';
+import { Form, Button, Col, InputGroup, Row } from '../../../src/index';
 import * as yup from 'yup';
 import * as formik from 'formik';
 
-<Meta
-  title="Components/Form/Validations"
-  component={Form}
-/>
+<Meta title="Components/Form/Validations" component={Form} />
 
 # Form Validation
 
@@ -108,7 +99,7 @@ export const Template = (args) => {
           </Form.Control.Feedback>
         </Form.Group>
       </Row>
-      <Form.Group className="mb-3">
+      <Form.Group className="mb-3" controlId="validationCustom06">
         <Form.Check
           required
           label="Agree to terms and conditions"
@@ -125,10 +116,15 @@ export const Template = (args) => {
   <Story name="Native HTML5 Form Validation">{Template.bind({})}</Story>
 </Canvas>
 
-
 ```jsx
 import { useState } from 'react';
-import { Form, Button, Col, InputGroup, Row } from '@govtechsg/sgds-govtech-react';
+import {
+  Form,
+  Button,
+  Col,
+  InputGroup,
+  Row,
+} from '@govtechsg/sgds-govtech-react';
 
 const [validated, setValidated] = useState(false);
 const handleSubmit = (event) => {
@@ -214,7 +210,7 @@ export const NativeExample = () => {
         </Form.Group>
       </Row>
 
-      <Form.Group className="mb-3">
+      <Form.Group className="mb-3" controlId="validationCustom06">
         <Form.Check
           required
           label="Agree to terms and conditions"
@@ -388,7 +384,13 @@ export const Template2 = (args) => {
 
 ```jsx
 import { useState } from 'react';
-import { Form, Button, Col, InputGroup, Row } from '@govtechsg/sgds-govtech-react';
+import {
+  Form,
+  Button,
+  Col,
+  InputGroup,
+  Row,
+} from '@govtechsg/sgds-govtech-react';
 import { Formik } from 'formik';
 import { yup } from 'yup';
 

@@ -11,9 +11,8 @@ import PropTypes from 'prop-types';
 import { BsPrefixRefForwardingComponent } from '../utils/helpers';
 import useMergedRefs from '@restart/hooks/useMergedRefs';
 import warning from 'warning';
-import FormToggle from '../Form/FormControlToggle';
+import FormControlToggle from '../Form/FormControlToggle';
 import { Dropdown } from '../Dropdown';
-import { DropDirection } from '../Dropdown/DropdownContext';
 
 export type CalendarPlacement = 'up' | 'down';
 export type DateFormat = 'MM/DD/YYYY' | 'DD/MM/YYYY' | 'YYYY/MM/DD';
@@ -22,20 +21,35 @@ export interface RangeSelectionValue {
   end: Date | undefined;
 }
 export interface DatePickerProps {
+  /** The initial value of DatePicker on first load. When used, ensure that `displayDate` has the same value */
   initialValue?: Date | RangeSelectionValue;
+  /**When true, adds  required attribute to Form Control input element */
   required?: boolean;
+  /** Class name passed to the FormControl input element */
   className?: string;
+  /** ISO date string to set the lowest allowable date value. e.g. "2016-05-19T12:00:00.000Z" */
   minDate?: string;
+  /** ISO date string to set the highest allowable date value. e.g. "2016-05-19T12:00:00.000Z" */
   maxDate?: string;
+  /**Provides the date context for Calendar to present the appropriate view. If `initialValue` is used, `displayDate` should be synced with it */
   displayDate?: Date;
+  /** Placeholder text on input control. Default differs depending on mode */
   placeholder?: string;
+  /** The onChange handler for DatePicker */
   onChangeDate?: (value: Date | RangeSelectionValue | undefined) => void;
+  /** Clear callback function */
   onClear?: Function;
+  /** Disables the Form Control and Button of Datepicker */
   disabled?: boolean;
-  calendarPlacement?: DropDirection;
+  /** Overlay placement for the popover calendar */
+  calendarPlacement?: 'up' | 'down'
+  /** Date format reflected on input */
   dateFormat?: DateFormat;
+  /** Forwards the id to InputGroup of DatePicker */
   id?: string;
+  /** Changes DatePicker to single date selection or range date selection */
   mode?: 'single' | 'range';
+  /** When true, flips Calendar Overlay when placement does not fit */
   flip?: boolean;
 }
 
@@ -59,7 +73,7 @@ const propTypes = {
   onFocus: PropTypes.func,
   autoFocus: PropTypes.bool,
   disabled: PropTypes.bool,
-  calendarPlacement: PropTypes.oneOf<DropDirection>(['up', 'down', 'end']),
+  calendarPlacement: PropTypes.oneOf(['up', 'down']),
   /**
    * dateFormat variants
    *
@@ -144,6 +158,7 @@ export const DatePicker: BsPrefixRefForwardingComponent<
   ) => {
     const isRange = mode === 'range';
     const formControlRef = useRef<HTMLInputElement>(null);
+
     const inputRef = useMergedRefs(
       ref as React.MutableRefObject<HTMLInputElement>,
       formControlRef
@@ -359,12 +374,13 @@ export const DatePicker: BsPrefixRefForwardingComponent<
       <DatePickerContext.Provider value={contextValue}>
         <Dropdown drop={calendarPlacement}>
           <InputGroup variant="has-icon" id={props.id}>
-            <FormToggle
+            <FormControlToggle
               {...controlProps}
               ref={formControlRef}
             />
             <Button onClick={clear} disabled={props.disabled}>
               <i className="bi bi-x"></i>
+              <span className="visually-hidden">clear</span>
             </Button>
             <i className="bi bi-calendar form-control-icon"></i>
           </InputGroup>

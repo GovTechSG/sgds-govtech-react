@@ -3,21 +3,34 @@ import * as React from 'react';
 import { useMemo } from 'react';
 import PropTypes from 'prop-types';
 import { useUncontrolled } from 'uncontrollable';
-import { useBootstrapPrefix, SGDSWrapper } from '../ThemeProvider/ThemeProvider';
+import {
+  useBootstrapPrefix,
+  SGDSWrapper,
+} from '../ThemeProvider/ThemeProvider';
 import AccordionBody from './AccordionBody';
 import AccordionButton from './AccordionButton';
 import AccordionCollapse from './AccordionCollapse';
-import AccordionContext, {AccordionSelectCallback, AccordionEventKey} from './AccordionContext';
+import AccordionContext, {
+  AccordionSelectCallback,
+  AccordionEventKey,
+} from './AccordionContext';
 import AccordionHeader from './AccordionHeader';
 import AccordionItem from './AccordionItem';
-import { BsPrefixProps, BsPrefixRefForwardingComponent } from '../utils/helpers';
+import {
+  BsPrefixProps,
+  BsPrefixRefForwardingComponent,
+} from '../utils/helpers';
 export interface AccordionProps
   extends Omit<React.HTMLAttributes<HTMLElement>, 'onSelect'>,
     BsPrefixProps {
+  /** The current active key that corresponds to the currently expanded card */
   activeKey?: AccordionEventKey;
+  /** The default active key that is expanded on start */
   defaultActiveKey?: AccordionEventKey;
   onSelect?: AccordionSelectCallback;
+  /** Renders accordion edge-to-edge with its parent container */
   flush?: boolean;
+  /** Allow accordion items to stay open when another item is opened */
   alwaysOpen?: boolean;
 }
 
@@ -28,16 +41,16 @@ const propTypes = {
   /** @default 'accordion' */
   bsPrefix: PropTypes.string,
 
-   /** The current active key that corresponds to the currently expanded card */
-   activeKey: PropTypes.oneOfType([PropTypes.string, PropTypes.array]),
+  /** The current active key that corresponds to the currently expanded card */
+  activeKey: PropTypes.oneOfType([PropTypes.string, PropTypes.array]),
 
-   /** The default active key that is expanded on start */
-   defaultActiveKey: PropTypes.oneOfType([PropTypes.string, PropTypes.array]),
+  /** The default active key that is expanded on start */
+  defaultActiveKey: PropTypes.oneOfType([PropTypes.string, PropTypes.array]),
 
   /** Renders accordion edge-to-edge with its parent container */
   flush: PropTypes.bool,
- /** Allow accordion items to stay open when another item is opened */
- alwaysOpen: PropTypes.bool,
+  /** Allow accordion items to stay open when another item is opened */
+  alwaysOpen: PropTypes.bool,
 };
 
 const Accordion: BsPrefixRefForwardingComponent<'div', AccordionProps> =
@@ -63,7 +76,7 @@ const Accordion: BsPrefixRefForwardingComponent<'div', AccordionProps> =
         onSelect,
         alwaysOpen,
       }),
-      [activeKey, onSelect, alwaysOpen],
+      [activeKey, onSelect, alwaysOpen]
     );
 
     return (
@@ -72,7 +85,7 @@ const Accordion: BsPrefixRefForwardingComponent<'div', AccordionProps> =
           as={Component}
           ref={ref}
           {...controlledProps}
-          className={classNames( className, prefix, flush && `${prefix}-flush`)}
+          className={classNames(className, prefix, flush && `${prefix}-flush`)}
         />
       </AccordionContext.Provider>
     );
@@ -88,8 +101,3 @@ export default Object.assign(Accordion, {
   Header: AccordionHeader,
   Body: AccordionBody,
 });
-
-
-
-
-

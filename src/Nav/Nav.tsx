@@ -6,7 +6,7 @@ import { useContext, useMemo } from 'react';
 import { useUncontrolled } from 'uncontrollable';
 import BaseNav, { NavProps as BaseNavProps } from '@restart/ui/Nav';
 import { useBootstrapPrefix } from '../ThemeProvider/ThemeProvider';
-import NavbarContext from '../Navbar/NavbarContext';
+import NavbarContext from './NavbarContext';
 import NavItem from './NavItem';
 import NavLink from './NavLink';
 import NavDropdown from './NavDropdown';
@@ -18,8 +18,17 @@ import {
 } from '../utils/helpers';
 
 export interface NavProps extends BsPrefixProps, BaseNavProps {
-  variant?: 'tabs' | 'pills';
+  /**
+   * The visual variant of the nav items.
+   */
+  variant?: 'tabs-basic-toggle' | 'tabs-info-toggle';
+  /**
+   * Enable vertical scrolling within the toggleable contents of a collapsed Navbar.
+   */
   navbarScroll?: boolean;
+  /**
+   * The default active key that is selected on start.
+   */
   defaultActiveKey?: EventKey;
 }
 
@@ -37,9 +46,14 @@ const propTypes = {
   /**
    * The visual variant of the nav items.
    *
-   * @type {('tabs'|'pills')}
+   * @type {('tabs-basic-toggle' | 'tabs-info-toggle')}
    */
-  // variant: PropTypes.string,
+  variant: PropTypes.string,
+
+  /**
+   * The default active key that is selected on start.
+   */
+  defaultActiveKey: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
 
   /**
    * Marks the NavItem with a matching `eventKey` (or `href` if present) as active.
@@ -105,15 +119,8 @@ const Nav: BsPrefixRefForwardingComponent<'ul', NavProps> = React.forwardRef<
     }),
     [activeKey]
   );
-  let navbarBsPrefix;
-  let isNavbar = false;
 
   const navbarContext = useContext(NavbarContext);
-
-  if (navbarContext) {
-    navbarBsPrefix = navbarContext.bsPrefix;
-    isNavbar = true;
-  }
 
   return (
     <NavContext.Provider value={contextValue}>
@@ -122,10 +129,12 @@ const Nav: BsPrefixRefForwardingComponent<'ul', NavProps> = React.forwardRef<
         ref={ref}
         activeKey={activeKey}
         className={classNames(className, {
-          [bsPrefix]: !isNavbar,
-          [`${navbarBsPrefix}-nav`]: isNavbar,
-          [`${navbarBsPrefix}-nav-scroll`]: isNavbar && navbarScroll,
-          ['sgds']: !isNavbar,
+          [bsPrefix]: !navbarContext,
+          [`${navbarContext?.bsPrefix}-nav`]: navbarContext,
+          [`${navbarContext?.bsPrefix}-nav-scroll`]:
+            navbarContext && navbarScroll,
+          ['sgds']: !navbarContext,
+          ['nav-tabs']: !navbarContext,
         })}
         {...props}
       />

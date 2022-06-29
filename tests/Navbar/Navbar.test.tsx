@@ -1,6 +1,5 @@
 import { fireEvent, render } from '@testing-library/react';
-import { Nav } from '../../src/Nav';
-import { Navbar } from '../../src/Navbar';
+import { Nav, Navbar} from '../../src/Nav';
 import * as React from 'react';
 
 describe('<Navbar>', () => {

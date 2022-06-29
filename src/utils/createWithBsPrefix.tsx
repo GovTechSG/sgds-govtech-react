@@ -2,7 +2,7 @@ import classNames from 'classnames';
 import camelize from 'dom-helpers/camelize';
 import * as React from 'react';
 import { useBootstrapPrefix } from '../ThemeProvider/ThemeProvider';
-import { BsPrefixRefForwardingComponent } from './helpers';
+import { BsPrefixProps, BsPrefixRefForwardingComponent } from './helpers';
 
 const pascalCase = (str: string) => str[0].toUpperCase() + camelize(str).slice(1);
 
@@ -10,20 +10,22 @@ interface BsPrefixOptions<As extends React.ElementType = 'div'> {
   displayName?: string;
   Component?: As;
   defaultProps?: Partial<React.ComponentProps<As>>;
+  propTypes?: any
 }
 
 // TODO: emstricten & fix the typing here! `createWithBsPrefix<TElementType>...`
 export default function createWithBsPrefix<
-  As extends React.ElementType = 'div',
+  P extends BsPrefixProps, As extends React.ElementType = 'div'
 >(
   prefix: string,
   {
     displayName = pascalCase(prefix),
     Component,
     defaultProps,
+    propTypes
   }: BsPrefixOptions<As> = {},
-): BsPrefixRefForwardingComponent<As> {
-  const BsComponent = React.forwardRef(
+): BsPrefixRefForwardingComponent<As, P> {
+  const BsComponent = React.forwardRef<HTMLElement, P>(
     (
       { className, bsPrefix, as: Tag = Component || 'div', ...props }: any,
       ref,
@@ -39,6 +41,7 @@ export default function createWithBsPrefix<
     },
   );
   BsComponent.defaultProps = defaultProps as any;
+  BsComponent.propTypes = propTypes
   BsComponent.displayName = displayName;
   return BsComponent as any;
 }

@@ -47,7 +47,7 @@ const propTypes = {
   as: PropTypes.elementType,
 };
 
-const DropdownItem: BsPrefixRefForwardingComponent<
+export const DropdownItem: BsPrefixRefForwardingComponent<
   typeof BaseDropdownItem,
   DropdownItemProps
 > = React.forwardRef(

@@ -25,7 +25,10 @@ import ModalDialog, { ModalDialogProps } from './ModalDialog';
 import ModalFooter from './ModalFooter';
 import ModalHeader from './ModalHeader';
 import ModalTitle from './ModalTitle';
-import { BsPrefixRefForwardingComponent } from '../utils/helpers';
+import {
+  BsPrefixOnlyProps,
+  BsPrefixRefForwardingComponent,
+} from '../utils/helpers';
 import {
   useBootstrapPrefix,
   useIsRTL,
@@ -34,15 +37,21 @@ import {
 
 export interface ModalProps
   extends Omit<
-    BaseModalProps,
-    | 'role'
-    | 'renderBackdrop'
-    | 'renderDialog'
-    | 'transition'
-    | 'backdropTransition'
-    | 'children'
-  > {
+      BaseModalProps,
+      | 'role'
+      | 'renderBackdrop'
+      | 'renderDialog'
+      | 'transition'
+      | 'backdropTransition'
+      | 'children'
+    >,
+    BsPrefixOnlyProps {
+  /**
+   * Render a large, extra large or small modal.
+   * When not provided, the modal is rendered with medium (default) size.
+   */
   size?: 'sm' | 'lg' | 'xl';
+  /** Renders a fullscreen modal. Specifying a breakpoint will render the modal as fullscreen below the breakpoint size.*/
   fullscreen?:
     | true
     | 'sm-down'
@@ -50,14 +59,43 @@ export interface ModalProps
     | 'lg-down'
     | 'xl-down'
     | 'xxl-down';
-  bsPrefix?: string;
+
+  /**
+   * vertically center the Dialog in the window
+   */
   centered?: boolean;
+
+  /**
+   * Add an optional extra class name to .modal-backdrop
+   * It could end up looking like class="modal-backdrop foo-modal-backdrop in".
+   */
   backdropClassName?: string;
+  /**
+   * Open and close the Modal with a slide and fade animation.
+   */
   animation?: boolean;
+  /**
+   * A css class to apply to the Modal dialog DOM node.
+   */
   dialogClassName?: string;
+  /**
+   * Add an optional extra class name to .modal-content
+   */
   contentClassName?: string;
+  /**
+   * A Component type that provides the modal content Markup. This is a useful
+   * prop when you want to use your own styles and markup to create a custom
+   * modal component.
+   */
   dialogAs?: React.ElementType;
+  /**
+   * Allows scrolling the `<Modal.Body>` instead of the entire Modal when overflowing.
+   */
   scrollable?: boolean;
+  /**
+   * Conveys centered align style to Modal
+   */
+  centeredAlignVariant?: boolean;
   [other: string]: any;
 }
 
@@ -223,7 +261,13 @@ const propTypes = {
    */
   container: PropTypes.any,
 
-  'aria-labelledby': PropTypes.any,
+  'aria-labelledby': PropTypes.string,
+  'aria-describedby': PropTypes.string,
+  'aria-label': PropTypes.string,
+  /**
+   * Conveys centered align style to Modal
+   */
+  centeredAlignVariant: PropTypes.bool,
 };
 const defaultProps = {
   show: false,
@@ -234,8 +278,8 @@ const defaultProps = {
   restoreFocus: true,
   animation: true,
   dialogAs: ModalDialog,
+  centeredAlignVariant: false,
 };
-
 
 function DialogTransition(props: FadeProps) {
   return <Fade {...props} timeout={null} />;
@@ -256,9 +300,11 @@ const Modal: BsPrefixRefForwardingComponent<'div', ModalProps> =
         dialogClassName,
         contentClassName,
         children,
-        dialogAs: Dialog,
+        dialogAs: Dialog = ModalDialog as React.ElementType,
         'aria-labelledby': ariaLabelledby,
-
+        'aria-describedby': ariaDescribedby,
+        'aria-label': ariaLabel,
+        centeredAlignVariant,
         /* BaseModal props */
 
         show,
@@ -465,10 +511,11 @@ const Modal: BsPrefixRefForwardingComponent<'div', ModalProps> =
           )}
           onClick={backdrop ? handleClick : undefined}
           onMouseUp={handleMouseUp}
+          aria-label={ariaLabel}
           aria-labelledby={ariaLabelledby}
+          aria-describedby={ariaDescribedby}
+          variant={centeredAlignVariant ? 'centered-align-icon' : undefined}
         >
-          {/*
-        // @ts-ignore */}
           <Dialog
             {...props}
             onMouseDown={handleDialogMouseDown}

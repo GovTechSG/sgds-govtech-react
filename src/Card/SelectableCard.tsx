@@ -8,8 +8,12 @@ type CardFormCheckProps = React.InputHTMLAttributes<HTMLInputElement> &
   Omit<CardProps, 'variant'>;
 
 export interface SelectableCardProps extends CardFormCheckProps {
+  /** Disables the FormCheck control when true */
   disabled?: boolean;
+  /** The type of checkable */
   type?: FormCheckType;
+  /** Category title of the Card */
+  categoryTitle?: React.ReactNode;
 }
 
 const propTypes = {
@@ -44,6 +48,9 @@ const propTypes = {
    * @type {('primary'|'secondary'|'success'|'danger'|'warning'|'info'|'dark'|'light')}
    */
   border: PropTypes.string,
+
+  /** Category title of the Card */
+  categoryTitle: PropTypes.node
 };
 
 const defaultProps: Partial<SelectableCardProps> = {
@@ -55,6 +62,7 @@ const SelectableCard: React.FC<SelectableCardProps> = ({
   bg,
   text,
   border,
+  categoryTitle,
   ...props
 }) => {
   const formCheckRef = React.useRef<HTMLInputElement>(null);
@@ -64,23 +72,31 @@ const SelectableCard: React.FC<SelectableCardProps> = ({
   const handleSelect = () => {
     formCheckRef?.current?.click();
   };
-
   return (
     <Card
       ref={cardRef}
       onClick={handleSelect}
       tabIndex={0}
       variant="card-action"
-      className={formCheckRef.current?.checked && !props.disabled ? 'is-active' : undefined}
+      className={
+        props.checked && !props.disabled
+          ? 'is-active'
+          : undefined
+      }
       {...cardProps}
     >
       <Card.Body>
-        <div>{children}</div>
+      <Card.Subtitle as="h6" className="text-muted">
+        <div>{categoryTitle}</div>
+        <div className="card-input">
         <FormCheck
-          ref={formCheckRef}
-          {...formCheckProps}
-          onClick={handleSelect}
-        ></FormCheck>
+            ref={formCheckRef}
+            {...formCheckProps}
+            onClick={handleSelect}
+          ></FormCheck>
+        </div>
+        </Card.Subtitle>
+        {children}
       </Card.Body>
     </Card>
   );

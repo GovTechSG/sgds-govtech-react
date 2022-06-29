@@ -6,18 +6,7 @@ import { HIDDEN_COMMON_PROPS } from '../helpers';
 <Meta
   title="Components/Breadcrumb"
   component={Breadcrumb}
-  argTypes={{
-    ...HIDDEN_COMMON_PROPS,
-    ariaLabel: {
-      description: 'ARIA label for the nav element',
-      table: { category: '<Breadcrumb />' },
-    },
-    listProps: {
-      description:
-        'An object which keys and value are passed down to `<ol />` as attribute name and value respectively.',
-      table: { category: '<Breadcrumb />' },
-    }
-}}
+  subcomponents={{"Breadcrumb.Item": Breadcrumb.Item}}
 />
 
 export const Template = (args) => {
@@ -44,6 +33,10 @@ export const Template = (args) => {
 
 ## API
 
+```jsx
+import { Breadcrumb } from '@govtechsg/sgds-govtech-react/Breadcrumb'; 
+```
+
 <ArgsTable story="Default" />
 
 Please refer to https://react-bootstrap.github.io/components/breadcrumb/ for more detailed API documentation on `<Breadcrumb />` and `<Breadcrumb.Item />`
@@ -56,13 +49,13 @@ Use `className` key to pass down css selectors.
 
 ```jsx
 const listProps = {
-  className: 'bg-warning',
+  className: 'bg-light',
   disabled: true,
 };
 ```
 
 export const listProps = {
-  className: 'bg-warning',
+  className: 'bg-light',
   foo: 'bar',
 };
 
@@ -88,14 +81,14 @@ Hence if Breadcrumb.Item is active, i.e. it has no `<a />`, `linkProps` does not
 
 ```jsx
 const linkProps = {
-  className: 'text-primary bg-warning',
+  className: 'text-primary bg-light',
   foo: 'bar',
 };
 ```
 
 export const BreadcrumbItemTemplate = () => {
   const linkProps = {
-    className: 'text-primary bg-warning',
+    className: 'text-primary bg-light',
     foo: 'bar',
   };
   return (

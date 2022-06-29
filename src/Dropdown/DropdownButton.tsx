@@ -115,6 +115,7 @@ const DropdownButton: BsPrefixRefForwardingComponent<
         childBsPrefix={bsPrefix}
       >
         {title}
+        <i className="bi bi-chevron-down"></i>
       </DropdownToggle>
       <DropdownMenu
         role={menuRole}
