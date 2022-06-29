@@ -2,12 +2,13 @@
 
 ### Input Properties
 
-| Property   | Description                                                            |
-| ---------- | ---------------------------------------------------------------------- |
-| className | You can apply an outer style to the containing div of the tab component|
-| tabItems  | accepts a list of objects containing titles and links to be rendered as a tab(Example below)|
+| Property  | Description                                                                                  |
+| --------- | -------------------------------------------------------------------------------------------- |
+| className | You can apply an outer style to the containing div of the tab component                      |
+| tabItems  | accepts a list of objects containing titles and links to be rendered as a tab(Example below) |
 
 ### tab object structure
+
 The tabItems object should contain a title, icon and content.
 Content can be any JSX nested block child.
 
@@ -16,7 +17,7 @@ Content can be any JSX nested block child.
   {
     title:'Tab 1',
     icon:'sgds-icon-boat',
-    content:(  
+    content:(
       <div className="col">
         <h5>Tab 1 Content</h5>
         <p>
@@ -29,7 +30,7 @@ Content can be any JSX nested block child.
   {
     title:'Tab 2',
     icon:'sgds-icon-bus',
-    content:(  
+    content:(
       <div className="col">
         <h5>Tab 2 Content</h5>
         <p>
@@ -42,7 +43,7 @@ Content can be any JSX nested block child.
   {
     title:'Tab 3',
     icon:'sgds-icon-train',
-    content:(  
+    content:(
       <div className="col">
         <h5>Tab 3 Content</h5>
         <p>

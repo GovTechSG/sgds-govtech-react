@@ -16,7 +16,7 @@ class MainNav extends Component {
       hoverSub: null,
       hoverSunItem: null,
       showSearch: false,
-      expandMenu: false,
+      expandMenu: false
     };
     this.searchChangeHandler = props.searchChangeHandler
       ? props.searchChangeHandler
@@ -32,19 +32,19 @@ class MainNav extends Component {
       this.setState({
         selectedTab: index,
         selectedSub: subIndex,
-        selectedSubItem: subMenuIndex,
+        selectedSubItem: subMenuIndex
       });
     } else if (subIndex >= 0) {
       this.setState({
         selectedTab: index,
         selectedSub: subIndex,
-        selectedSubItem: null,
+        selectedSubItem: null
       });
     } else {
       this.setState({
         selectedTab: index,
         selectedSub: null,
-        selectedSubItem: null,
+        selectedSubItem: null
       });
     }
   };
@@ -57,21 +57,21 @@ class MainNav extends Component {
         hoverTabName: name,
         hoverTab: index,
         hoverSub: subIndex,
-        hoverSunItem: subMenuIndex,
+        hoverSunItem: subMenuIndex
       });
     } else if (subIndex >= 0) {
       this.setState({
         hoverTabName: name,
         hoverTab: index,
         hoverSub: subIndex,
-        hoverSunItem: null,
+        hoverSunItem: null
       });
     } else {
       this.setState({
         hoverTabName: name,
         hoverTab: index,
         hoverSub: null,
-        hoverSunItem: null,
+        hoverSunItem: null
       });
     }
   };
@@ -80,12 +80,12 @@ class MainNav extends Component {
       hoverTabName: null,
       hoverTab: null,
       hoverSub: null,
-      hoverSunItem: null,
+      hoverSunItem: null
     });
   };
   toggleMobileMenu = () => {
     this.setState({
-      expandMenu: !this.state.expandMenu,
+      expandMenu: !this.state.expandMenu
     });
   };
 
@@ -209,8 +209,8 @@ class MainNav extends Component {
                                   color: this.props.themePrimaryColor,
                                   fontWeight: 600,
                                   borderBottom: "5px solid",
-                                  borderBottomColor: this.props
-                                    .themePrimaryColor,
+                                  borderBottomColor:
+                                    this.props.themePrimaryColor
                                 }
                               : null
                           }
@@ -228,7 +228,7 @@ class MainNav extends Component {
                                   this.state.selectedTab === index
                                     ? {
                                         color: this.props.themePrimaryColor,
-                                        fontWeight: 600,
+                                        fontWeight: 600
                                       }
                                     : null
                                 }
@@ -261,8 +261,8 @@ class MainNav extends Component {
                                   color: this.props.themePrimaryColor,
                                   fontWeight: 600,
                                   borderBottom: "5px solid",
-                                  borderBottomColor: this.props
-                                    .themePrimaryColor,
+                                  borderBottomColor:
+                                    this.props.themePrimaryColor
                                 }
                               : null
                           }
@@ -289,9 +289,10 @@ class MainNav extends Component {
                                               this.state.selectedSub === i &&
                                               this.state.selectedSubItem === b
                                                 ? {
-                                                    color: this.props
-                                                      .themePrimaryColor,
-                                                    fontWeight: 600,
+                                                    color:
+                                                      this.props
+                                                        .themePrimaryColor,
+                                                    fontWeight: 600
                                                   }
                                                 : null
                                             }
@@ -351,7 +352,7 @@ class MainNav extends Component {
                                 color: this.props.themePrimaryColor,
                                 fontWeight: 600,
                                 borderBottom: "5px solid",
-                                borderBottomColor: this.props.themePrimaryColor,
+                                borderBottomColor: this.props.themePrimaryColor
                               }
                             : null
                         }
@@ -434,9 +435,9 @@ MainNav.propTypes = {
   links: PropTypes.arrayOf(
     PropTypes.shape({
       name: PropTypes.string.isRequired,
-      img: PropTypes.string,
+      img: PropTypes.string
     })
-  ),
+  )
 };
 
 export default MainNav;

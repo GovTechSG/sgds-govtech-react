@@ -2,13 +2,14 @@
 
 ### Input Properties
 
-| Property   | Description                                                            |
-| ---------- | ---------------------------------------------------------------------- |
-| brand  | Shades the button in the primary color style                           |
-| links  | List of objects containing links, the structure of the object will determine if the sub menu is a mega menu or just a list |
-| displaySearch  | Adds a search functionality to the main nav bar|
+| Property      | Description                                                                                                                |
+| ------------- | -------------------------------------------------------------------------------------------------------------------------- |
+| brand         | Shades the button in the primary color style                                                                               |
+| links         | List of objects containing links, the structure of the object will determine if the sub menu is a mega menu or just a list |
+| displaySearch | Adds a search functionality to the main nav bar                                                                            |
 
 ### links object structure
+
 Links takes in a list of objects and renders them depending on the content of the objects.
 
 #### Mega Menus
@@ -34,7 +35,7 @@ Links takes in a list of objects and renders them depending on the content of th
       ]
     },...
   ]
-} 
+}
 
 ```
 
@@ -52,7 +53,7 @@ Links takes in a list of objects and renders them depending on the content of th
       },...
     ]
   },
-} 
+}
 ```
 
 #### Simple Link Menus
@@ -65,11 +66,10 @@ Links takes in a list of objects and renders them depending on the content of th
 }
 ```
 
-
 ### Event handlers
 
-| Property | Description                   |
-| -------- | ----------------------------- |
-| selectItem  | Pass a item selected handler |
-| searchChangeHandler | onChange handler for search input|
-| searchClickHandler | onClick handler when user clicks search button
+| Property            | Description                                    |
+| ------------------- | ---------------------------------------------- |
+| selectItem          | Pass a item selected handler                   |
+| searchChangeHandler | onChange handler for search input              |
+| searchClickHandler  | onClick handler when user clicks search button |

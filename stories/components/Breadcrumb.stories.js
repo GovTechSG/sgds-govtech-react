@@ -33,7 +33,7 @@ const codeBreadcrumbItems2 = `
   </BreadcrumbItem>
   <BreadcrumbItem href="/">Sub-section</BreadcrumbItem>
 </Breadcrumb>`;
-const BreadcrumbStories = props => {
+const BreadcrumbStories = (props) => {
   return (
     <Page className="breadcrumb-stories">
       <Title>

@@ -2,11 +2,12 @@
 
 ### Input Properties
 
-| Property   | Description                                                            |
-| ---------- | ---------------------------------------------------------------------- |
-| menuItems  | accepts a list of objects containing titles and links to be rendered (Example below)|
+| Property  | Description                                                                          |
+| --------- | ------------------------------------------------------------------------------------ |
+| menuItems | accepts a list of objects containing titles and links to be rendered (Example below) |
 
 ### links object structure
+
 Links takes in a list of objects and renders them depending on the content of the objects.
 
 ```Javascript
@@ -31,15 +32,17 @@ Links takes in a list of objects and renders them depending on the content of th
 ```
 
 ### Customising the SideNav
+
 By passing in children into the object you can overwrite the default <a> tag that is generated.
 You can also open the nav by default by adding a isActive into the menuItems object
+
 ```Javascript
 [
   {
     title:'Item1',
     link:'#',
   },
-  { 
+  {
     title:'Item2',
     isActive:true,
     onClick:(id,isActive)=>{
@@ -48,7 +51,7 @@ You can also open the nav by default by adding a isActive into the menuItems obj
     },
     subMenuItems:[
       {
-        children:(          
+        children:(
           <a className="second-level-nav-item" href='#'>
             Passed in Child Link 1
           </a>
@@ -58,7 +61,7 @@ You can also open the nav by default by adding a isActive into the menuItems obj
     ]
   },
   {
-    children:(          
+    children:(
       <a href='#'>
         Item 3
       </a>

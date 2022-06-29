@@ -6,6 +6,6 @@ export {
   MainNavItem,
   MainNavMenu,
   MainNavMenuStart,
-  MainNavMenuEnd,
+  MainNavMenuEnd
 } from "./MainNav";
 export { Masthead } from "./Masthead";

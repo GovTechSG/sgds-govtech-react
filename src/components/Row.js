@@ -37,7 +37,7 @@ Row.propTypes = {
   isDesktop: PropTypes.oneOfType([PropTypes.bool, PropTypes.string]),
   isMobile: PropTypes.oneOfType([PropTypes.bool, PropTypes.string]),
   style: PropTypes.object,
-  className: PropTypes.string,
+  className: PropTypes.string
 };
 
 export default Row;

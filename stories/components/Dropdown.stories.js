@@ -38,7 +38,7 @@ const dropdownCode = `<Dropdown title="Click me">{/* Or <Dropdown title="Hover m
 </DropdownItem>
 </Dropdown>`;
 
-const DropdownStories = props => {
+const DropdownStories = (props) => {
   const [lastDropdownItemClicked, setLastDropdownItemClicked] = useState(null);
   function onDropdownItemClicked(num) {
     setLastDropdownItemClicked(num);
@@ -49,15 +49,11 @@ const DropdownStories = props => {
         <h2>Dropdowns</h2>
       </Title>
       <section className="sgds-section">
-        <h3>
-          Use dropdowns to show or hide a list of elements or links.
-        </h3>
+        <h3>Use dropdowns to show or hide a list of elements or links.</h3>
 
         <Divider />
 
-        <h4>
-          Standard Usage
-        </h4>
+        <h4>Standard Usage</h4>
         <div className="row">
           <div className="col is-3">
             <h5>Standard dropdown</h5>
@@ -68,7 +64,7 @@ const DropdownStories = props => {
               </DropdownItem>
               <DropdownItem
                 href="#!"
-                onClick={e => {
+                onClick={(e) => {
                   e.preventDefault();
                   onDropdownItemClicked(2);
                 }}
@@ -102,7 +98,7 @@ const DropdownStories = props => {
               </DropdownItem>
               <DropdownItem
                 href="#!"
-                onClick={e => {
+                onClick={(e) => {
                   e.preventDefault();
                   onDropdownItemClicked(2);
                 }}

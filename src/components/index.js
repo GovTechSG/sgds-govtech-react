@@ -16,7 +16,7 @@ export {
   default as SideNav,
   SideNavItem,
   SideNavMenu,
-  SideNavMenuItem,
+  SideNavMenuItem
 } from "./SideNav";
 export { default as Container } from "./Container";
 export { default as Section } from "./Section";

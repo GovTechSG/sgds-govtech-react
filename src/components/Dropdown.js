@@ -21,11 +21,11 @@ class Dropdown extends Component {
     });
   };
 
-  setContentWrapperRef = node => {
+  setContentWrapperRef = (node) => {
     this.contentWrapperRef = node; // Set directly on 'this' since it won't change/re-render
   };
 
-  hideDropdownOnClick = event => {
+  hideDropdownOnClick = (event) => {
     if (
       this.contentWrapperRef &&
       !this.contentWrapperRef.contains(event.target)
@@ -36,7 +36,7 @@ class Dropdown extends Component {
     }
   };
 
-  hideDropdownOnEscape = event => {
+  hideDropdownOnEscape = (event) => {
     if (event.key === "Escape") {
       this.setState({
         showDropdown: false

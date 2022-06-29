@@ -30,7 +30,7 @@ function Container(props) {
 Container.propTypes = {
   isFluid: PropTypes.oneOfType([PropTypes.bool, PropTypes.string]),
   style: PropTypes.object,
-  className: PropTypes.string,
+  className: PropTypes.string
 };
 
 export default Container;

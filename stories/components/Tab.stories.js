@@ -43,7 +43,7 @@ const tabItems = [
   }
 ];
 
-const TabStories = props => {
+const TabStories = (props) => {
   return (
     <Page>
       <Title>

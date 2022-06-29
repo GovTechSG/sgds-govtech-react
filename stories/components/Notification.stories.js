@@ -31,8 +31,7 @@ content="Lorem ipsum dolor sit amet, consectetur adipisicing elit.
   Accusamus adipisci aut dicta, ea facere fugit incidunt laborum officia quod unde."
 />
 `;
-const onCloseNotification = 
-` 
+const onCloseNotification = ` 
 import { Notification } from "sgds-govtech-react";
 
 <Notification
@@ -45,8 +44,7 @@ content="Lorem ipsum dolor sit amet, consectetur adipisicing elit.
   Accusamus adipisci aut dicta, ea facere fugit incidunt laborum officia quod unde."
 />`;
 
-const colourNotification = 
-`
+const colourNotification = `
 import { Notification } from "sgds-govtech-react";
 
 <Notification
@@ -117,7 +115,11 @@ const NotificationStories = (props) => {
         <SyntaxHighlighter>{formatCode(onCloseNotification)}</SyntaxHighlighter>
         <Divider />
         <h4>Colours</h4>
-        <p>Replace colorState with contextual text color classes (is-danger, is-warning, is-success etc.) for various background color. Can be use with toast notification sgds-notification is-toast is-danger</p>
+        <p>
+          Replace colorState with contextual text color classes (is-danger,
+          is-warning, is-success etc.) for various background color. Can be use
+          with toast notification sgds-notification is-toast is-danger
+        </p>
         <Notification
           closable
           colour="success"

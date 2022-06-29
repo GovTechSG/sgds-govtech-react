@@ -30,7 +30,7 @@ class SideNav extends Component {
     }
     this.setState({ [`dropdown-${id}`]: isActive });
   };
-  renderSubMenuItems = subMenuItems => {
+  renderSubMenuItems = (subMenuItems) => {
     let renderedSubMenuItems = subMenuItems.map((subItem, idx) => {
       try {
         let linkChild = subItem.children ? (
@@ -166,7 +166,7 @@ export function SideNavMenu(props) {
           className={`second-level-nav-header ${
             props.isActive ? "is-active" : ""
           }`}
-          onClick={e => {
+          onClick={(e) => {
             e.preventDefault();
             setOpen(!open);
           }}

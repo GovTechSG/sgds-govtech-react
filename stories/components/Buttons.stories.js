@@ -74,7 +74,7 @@ const buttonCode4 = `
 <Button data-example="value">I have a data- attribute on me!</Button>
 </>
 `;
-const ButtonStories = props => {
+const ButtonStories = (props) => {
   return (
     <Page>
       <Title>
@@ -189,7 +189,9 @@ const ButtonStories = props => {
         <h4>Additional attributes</h4>
         <p>You can provide your own attributes as well.</p>
         <RowButtonContainer>
-          <Button aria-label="Close">Put &quot;X&quot; icon here; screenreader reads &quot;Close&quot;</Button>
+          <Button aria-label="Close">
+            Put &quot;X&quot; icon here; screenreader reads &quot;Close&quot;
+          </Button>
           <Button data-example="value">I have a data- attribute on me!</Button>
         </RowButtonContainer>
         <SyntaxHighlighter>{formatCode(buttonCode4)}</SyntaxHighlighter>

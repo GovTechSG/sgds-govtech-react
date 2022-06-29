@@ -51,7 +51,7 @@ const links = {
 </div>
 </Footer>
 `;
-const FooterStories = props => {
+const FooterStories = (props) => {
   return (
     <Page>
       <Title>
@@ -76,7 +76,11 @@ const FooterStories = props => {
         <Divider />
 
         <h4>Fluid Footer</h4>
-        <Footer title="Singapore Design Systems" date="15 Aug 2019" isFluid></Footer>
+        <Footer
+          title="Singapore Design Systems"
+          date="15 Aug 2019"
+          isFluid
+        ></Footer>
         <SyntaxHighlighter>{formatCode(code2)}</SyntaxHighlighter>
 
         <Divider />

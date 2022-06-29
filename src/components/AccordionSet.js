@@ -13,7 +13,7 @@ class AccordionSet extends Component {
     }
   }
 
-  toggleActiveAccordion = index => {
+  toggleActiveAccordion = (index) => {
     if (index === this.state.activeAccordion) {
       this.setState({
         activeAccordion: -1
@@ -25,7 +25,7 @@ class AccordionSet extends Component {
     });
   };
 
-  shouldAccordionRender = index => {
+  shouldAccordionRender = (index) => {
     return this.state.activeAccordion === index;
   };
 

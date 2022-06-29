@@ -57,7 +57,7 @@ Notification.propTypes = {
   onClose: PropTypes.func,
   colour: PropTypes.string,
   style: PropTypes.object,
-  className: PropTypes.string,
+  className: PropTypes.string
 };
 
 export default Notification;

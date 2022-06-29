@@ -10,7 +10,7 @@ import {
   MainNavItem,
   MainNavMenu,
   MainNavMenuStart,
-  MainNavMenuEnd,
+  MainNavMenuEnd
 } from "../../src/components/standard";
 import Row from "../../src/components/Row";
 import Col from "../../src/components/Col";
@@ -20,7 +20,7 @@ const mainNavItems = {
   brand: {
     img: "https://www.designsystem.gov.sg/assets/img/logo_sgds.png",
     name: "Brand",
-    link: "",
+    link: ""
   },
   links: [
     {
@@ -29,7 +29,7 @@ const mainNavItems = {
       subMenuInfo: {
         title: "Sub Menu 1 Info",
         content:
-          "You can put short paragraph of information here to describe about this section.",
+          "You can put short paragraph of information here to describe about this section."
       },
       subMenus: [
         {
@@ -37,36 +37,36 @@ const mainNavItems = {
           subMenuItems: [
             {
               name: "Sub Link 1",
-              link: "#link1",
+              link: "#link1"
             },
             {
               name: "Sub Link 2",
-              link: "#link1",
+              link: "#link1"
             },
             {
               name: "Sub Link 3",
-              link: "#link1",
-            },
-          ],
+              link: "#link1"
+            }
+          ]
         },
         {
           subMenuTitle: "SUB MENU 1B",
           subMenuItems: [
             {
               name: "SUB MENU 2A",
-              link: "#link1",
+              link: "#link1"
             },
             {
               name: "SUB MENU 2A",
-              link: "#link1",
+              link: "#link1"
             },
             {
               name: "SUB MENU 2A",
-              link: "#link1",
-            },
-          ],
-        },
-      ],
+              link: "#link1"
+            }
+          ]
+        }
+      ]
     },
     {
       img: "",
@@ -74,24 +74,24 @@ const mainNavItems = {
       sublinks: [
         {
           img: "",
-          name: "SubLink2-1",
+          name: "SubLink2-1"
         },
         {
           img: "",
-          name: "SubLink2-2",
+          name: "SubLink2-2"
         },
         {
           img: "",
-          name: "SubLink2-3",
-        },
-      ],
+          name: "SubLink2-3"
+        }
+      ]
     },
     {
       img: "",
       name: "Link3",
-      link: "/",
-    },
-  ],
+      link: "/"
+    }
+  ]
 };
 
 const code1 = `
@@ -199,7 +199,9 @@ const ComposableMainNav1 = () => {
       </MainNavBrand>
       <MainNavMenu expand={showNavMenu}>
         <MainNavMenuStart>
-          <MainNavItem href="#!" isActive>isActive</MainNavItem>
+          <MainNavItem href="#!" isActive>
+            isActive
+          </MainNavItem>
           <MainNavItem href="#!" isUpperCase isTab>
             isUpperCase &amp; isTab
           </MainNavItem>

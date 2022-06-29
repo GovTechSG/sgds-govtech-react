@@ -35,5 +35,5 @@ export function Masthead({ isFluid = false, noLink = false, children }) {
 }
 Masthead.propTypes = {
   isFluid: PropTypes.bool,
-  noLink: PropTypes.bool,
+  noLink: PropTypes.bool
 };

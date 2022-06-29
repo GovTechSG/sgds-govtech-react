@@ -53,7 +53,7 @@ const accordionSetCode = `
 
 </AccordionSet>`;
 
-const AccordionStories = props => {
+const AccordionStories = (props) => {
   return (
     <Page>
       <Title>

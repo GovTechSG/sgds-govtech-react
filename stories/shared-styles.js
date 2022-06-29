@@ -1,7 +1,7 @@
 import React from "react";
 import styled from "styled-components";
 
-export const Title = props => {
+export const Title = (props) => {
   return (
     <section
       className="sgds-section"
@@ -17,9 +17,11 @@ export const Title = props => {
   );
 };
 
-export const Page = props => (
+export const Page = (props) => (
   <div
-    className={`page content has-default-header-styles ${props.className || ""}`}
+    className={`page content has-default-header-styles ${
+      props.className || ""
+    }`}
     style={{ flex: "1 0 auto" }}
   >
     {props.children}

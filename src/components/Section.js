@@ -36,7 +36,7 @@ Section.propTypes = {
   isMedium: PropTypes.oneOfType([PropTypes.bool, PropTypes.string]),
   isLarge: PropTypes.oneOfType([PropTypes.bool, PropTypes.string]),
   style: PropTypes.object,
-  className: PropTypes.string,
+  className: PropTypes.string
 };
 
 export default Section;

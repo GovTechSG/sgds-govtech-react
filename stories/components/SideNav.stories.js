@@ -183,7 +183,7 @@ const MenuItems2 = [
   }
 ];
 
-const SideNavStories = props => {
+const SideNavStories = (props) => {
   return (
     <Page className="sidenav-stories">
       <Title>
@@ -223,14 +223,12 @@ const SideNavStories = props => {
         </div>
         <SyntaxHighlighter>{code2}</SyntaxHighlighter>
 
-        <h4>
-          Composable side nav
-        </h4>
+        <h4>Composable side nav</h4>
 
         <p>
           You can nest <code>&lt;SideNavItem&gt;</code> components within
-          <code>&lt;SideNav&gt;</code> to compose compose your side navigation with greater
-          flexibility.
+          <code>&lt;SideNav&gt;</code> to compose compose your side navigation
+          with greater flexibility.
         </p>
         <p>
           By passing the <code>component</code>
@@ -248,7 +246,7 @@ const SideNavStories = props => {
                 Item 1 - href prop
               </SideNavItem>
               <SideNavItem
-                onClick={e => {
+                onClick={(e) => {
                   e.preventDefault();
                   console.log("Clicked Item 2");
                 }}
@@ -257,7 +255,7 @@ const SideNavStories = props => {
               </SideNavItem>
               <SideNavItem
                 href="#!"
-                onClick={e => {
+                onClick={(e) => {
                   e.preventDefault();
                   console.log("Clicked Item 3");
                 }}
@@ -278,7 +276,7 @@ const SideNavStories = props => {
                 </SideNavMenuItem>
                 <SideNavMenuItem
                   isActive
-                  onClick={e => {
+                  onClick={(e) => {
                     e.preventDefault();
                     console.log("Clicked sub-item 2");
                   }}
@@ -296,7 +294,7 @@ const SideNavStories = props => {
               </SideNavMenu>
               <SideNavMenu text="Side Nav Menu 2">
                 <SideNavMenuItem
-                  onClick={e => {
+                  onClick={(e) => {
                     e.preventDefault();
                     console.log("Clicked sub-item 2");
                   }}

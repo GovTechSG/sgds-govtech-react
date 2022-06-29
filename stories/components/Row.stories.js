@@ -34,7 +34,8 @@ const RowStories = (props) => {
         <h3>Rows to hold your Col components</h3>
         <p>
           Rows to structure your content with a twelve-column system, powered by
-          CSS flexbox. For more information check out the <a href="https://www.designsystem.tech.gov.sg/docs/grid/">
+          CSS flexbox. For more information check out the{" "}
+          <a href="https://www.designsystem.tech.gov.sg/docs/grid/">
             SGDS Grid Docs
           </a>
           .

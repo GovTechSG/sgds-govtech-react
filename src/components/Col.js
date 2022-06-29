@@ -60,7 +60,7 @@ Col.propTypes = {
   isWidescreen: PropTypes.number,
   isFullHd: PropTypes.number,
   style: PropTypes.object,
-  className: PropTypes.string,
+  className: PropTypes.string
 };
 
 export default Col;

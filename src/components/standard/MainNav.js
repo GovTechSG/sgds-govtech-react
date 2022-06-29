@@ -32,7 +32,7 @@ export function MainNavItem({ as, href = "", ...props }) {
   const mainNavItemProps = {
     className: navItemClass,
     href,
-    onClick: props.onClick,
+    onClick: props.onClick
   };
 
   return href ? (
@@ -47,7 +47,7 @@ MainNavItem.propTypes = {
   isUpperCase: PropTypes.bool,
   isTab: PropTypes.bool,
   onClick: PropTypes.func,
-  isActive: PropTypes.bool,
+  isActive: PropTypes.bool
 };
 
 export function MainNavBurger({ onClick, expand = "" }) {
@@ -64,7 +64,7 @@ export function MainNavBurger({ onClick, expand = "" }) {
 }
 MainNavBurger.propTypes = {
   onClick: PropTypes.func,
-  expand: PropTypes.bool,
+  expand: PropTypes.bool
 };
 
 export function MainNavMenu({ children, expand = "" }) {
@@ -75,7 +75,7 @@ export function MainNavMenu({ children, expand = "" }) {
   );
 }
 MainNavMenuEnd.propTypes = {
-  expand: PropTypes.bool,
+  expand: PropTypes.bool
 };
 
 export function MainNavMenuStart({ children }) {
@@ -130,5 +130,5 @@ MainNavDropdown.propTypes = {
   onClick: PropTypes.func,
   isActive: PropTypes.bool,
   isUpperCase: PropTypes.bool,
-  isMega: PropTypes.bool,
+  isMega: PropTypes.bool
 };

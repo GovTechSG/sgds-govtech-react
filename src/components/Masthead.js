@@ -7,19 +7,21 @@ class Masthead extends Component {
     this.hasLanguageSelector = props.hasLanguageSelector;
     // TODO: Test if input language is allowed
     this.state = {
-      selectedLanguage: props.defaultLanguage ? props.defaultLanguage : "English",
+      selectedLanguage: props.defaultLanguage
+        ? props.defaultLanguage
+        : "English",
       isActive: false
     };
     this.languageSelectHandler = props.languageSelectHandler;
-    if(this.languageSelectHandler){
-      this.languageSelectHandler('English')
+    if (this.languageSelectHandler) {
+      this.languageSelectHandler("English");
     }
     // should languages be extensible?
     this.languages = ["English", "中文", "Bahasa Melayu", "தமிழ்"];
   }
 
   renderLanguageList() {
-    return this.languages.map(language => {
+    return this.languages.map((language) => {
       return language !== this.state.selectedLanguage ? (
         <li
           key={language}
@@ -77,7 +79,9 @@ class Masthead extends Component {
             <div className="col is-9">
               <a href="https://www.gov.sg">
                 <span className="sgds-icon sgds-icon-sg-crest"></span>
-                <span className="is-text">A Singapore Government Agency Website</span>
+                <span className="is-text">
+                  A Singapore Government Agency Website
+                </span>
               </a>
             </div>
             {/* {this.renderSelectedLanguage()} */}
@@ -90,7 +94,7 @@ class Masthead extends Component {
 }
 
 Masthead.propTypes = {
-  hasLanguageSelector: PropTypes.bool,
+  hasLanguageSelector: PropTypes.bool
 };
 
 Masthead.defaultProps = {
