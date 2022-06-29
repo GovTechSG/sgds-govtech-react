@@ -9,11 +9,11 @@ import {
   Row,
   InputGroup,
   DatePicker,
-  Dropdown,
   useStep,
   Stepper,
   Accordion,
-  Footer
+  Footer,
+  Breadcrumb
 } from '../../src/index';
 
 import { useState } from 'react';
@@ -28,88 +28,107 @@ export const SinglePageTemplate = (args) => {
   return (
     <div>
       <SgdsMasthead />
-      <Col xs={8} className="mt-4">
-        <Form onSubmit={onSubmit} {...args}>
-          <Row>
-            <Form.Group
-              as={Col}
-              xs={6}
-              className="mb-3"
-              controlId="formSinglePageInput1"
-            >
-              <Form.Label>Label</Form.Label>
-              <Form.Control type="text" placeholder="Text goes here" />
-            </Form.Group>
-            <Form.Group
-              as={Col}
-              xs={6}
-              className="mb-3"
-              controlId="formSinglePageInput2"
-            >
-              <Form.Label>Label</Form.Label>
-              <Form.Control type="text" placeholder="Text goes here" />
-            </Form.Group>
-          </Row>
-          <Form.Group className="mb-3" controlId="formSinglePageInput3">
-            <Form.Label>Label</Form.Label>
-            <InputGroup className="mb-3">
-              <Form.Control
-                placeholder="Text goes here"
-                aria-label="Dollar amount (with dot and two decimal places)"
-              />
-              <InputGroup.Text>@something</InputGroup.Text>
-            </InputGroup>
-          </Form.Group>
-          <Form.Group className="mb-3" controlId="formSinglePageInput4">
-            <Form.Label>Label</Form.Label>
-            <Form.Control type="text" placeholder="Text goes here" />
-          </Form.Group>
-          <Form.Group className="mb-4">
-            <Form.Label>Label</Form.Label>
-            <DatePicker />
-          </Form.Group>
-          <Form.Group className="mb-3">
-            <Dropdown {...args}>
-              <Dropdown.Toggle>
-                Label Dropdown Button<i className="bi bi-chevron-down"></i>
-              </Dropdown.Toggle>
-              <Dropdown.Menu>
-                <Dropdown.Item href="#" eventKey="abc">
-                  Action
-                </Dropdown.Item>
-                <Dropdown.Item href="#">Another action</Dropdown.Item>
-                <Dropdown.Item onClick={() => console.log('Clicked')}>
-                  Something else
-                </Dropdown.Item>
-              </Dropdown.Menu>
-            </Dropdown>
-          </Form.Group>
-          <Form.Group className="mb-3" controlId="formSinglePageRadio1">
-            <Form.Label>Label</Form.Label>
-            <Form.Check type="radio" name="radioGroup1" label="Input 1" />
-            <Form.Check type="radio" name="radioGroup1" label="Input 2" />
-            <Form.Check type="radio" name="radioGroup1" label="Input 3" />
-          </Form.Group>
-          <Form.Group className="mb-3" controlId="formSinglePageInput5">
-            <Form.Label>Label</Form.Label>
-            <Form.Control
-              as="textarea"
-              rows={5}
-              type="text"
-              placeholder="This is the text that has been filled in"
-            />
-          </Form.Group>
-          <Form.Group className="mb-3" controlId="formBasicCheckbox1">
-            <Form.Check
-              type="checkbox"
-              label="I agree to the terms of the Subscriber Agreement and the Privacy Policy"
-            />
-          </Form.Group>
-          <Button variant="primary" type="submit">
-            Submit
+      <Breadcrumb className="mt-4">
+        <Breadcrumb.Item href="">
+          HOME
+        </Breadcrumb.Item>
+        <Breadcrumb.Item active>
+          SIGN-UP
+        </Breadcrumb.Item>
+      </Breadcrumb>
+      <div className="row">
+        <div className="col">
+          <h1>Sign-up</h1>
+        </div>
+        <div className="col d-flex justify-content-end align-items-center">
+          <a href="" className="me-4">Cancel</a>
+          <Button variant="outline-dark" className="me-4">
+              Save as draft
           </Button>
-        </Form>
-      </Col>
+          <Button variant="secondary">
+              Next
+          </Button>
+        </div>
+      </div>
+      <p className="text-muted">Already a member? <a href="" className="text-decoration-none">Log in</a></p>
+      <section className="shadow rounded p-4 my-4">
+        <Col xs={8}>
+          <Form onSubmit={onSubmit} {...args}>
+            <Row>
+              <Form.Group
+                as={Col}
+                xs={6}
+                className="mb-3"
+                controlId="formSinglePageInput1"
+              >
+                <Form.Label>Label</Form.Label>
+                <Form.Control type="text" placeholder="Text goes here" />
+              </Form.Group>
+              <Form.Group
+                as={Col}
+                xs={6}
+                className="mb-3"
+                controlId="formSinglePageInput2"
+              >
+                <Form.Label>Label</Form.Label>
+                <Form.Control type="text" placeholder="Text goes here" />
+              </Form.Group>
+            </Row>
+            <Form.Group className="mb-3" controlId="formSinglePageInput3">
+              <Form.Label>Label</Form.Label>
+              <InputGroup className="mb-3">
+                <Form.Control
+                  placeholder="Text goes here"
+                  aria-label="Dollar amount (with dot and two decimal places)"
+                />
+                <InputGroup.Text>@something</InputGroup.Text>
+              </InputGroup>
+            </Form.Group>
+            <Form.Group className="mb-3" controlId="formSinglePageInput4">
+              <Form.Label>Label</Form.Label>
+              <Form.Control type="text" placeholder="Text goes here" />
+            </Form.Group>
+            <Form.Group className="mb-4">
+              <Form.Label>Label</Form.Label>
+              <DatePicker />
+            </Form.Group>
+            <Form.Group className="mb-3" controlId="formSinglePageSelect1">
+              <Form.Label>Label</Form.Label>
+              <Form.Select>
+                <option>Text goes here</option>
+                <option>Text goes here</option>
+                <option>Text goes here</option>
+              </Form.Select>
+            </Form.Group>
+            <Form.Group className="mb-3" controlId="formSinglePageRadio1">
+              <Form.Label>Label</Form.Label>
+              <Form.Check type="radio" name="radioGroup1" label="Input 1" />
+              <Form.Check type="radio" name="radioGroup1" label="Input 2" />
+              <Form.Check type="radio" name="radioGroup1" label="Input 3" />
+            </Form.Group>
+            <Form.Group className="mb-3" controlId="formSinglePageInput5">
+              <Form.Label>Label</Form.Label>
+              <Form.Control
+                as="textarea"
+                rows={5}
+                type="text"
+                placeholder="This is the text that has been filled in"
+              />
+            </Form.Group>
+            <Form.Group className="mb-3" controlId="formBasicCheckbox1">
+              <Form.Check
+                type="checkbox"
+                label="I agree to the terms of the Subscriber Agreement and the Privacy Policy"
+              />
+            </Form.Group>
+          </Form>
+        </Col>
+      </section>
+      <div className="d-flex justify-content-end">
+        <Button variant="secondary" type="submit">
+              Submit
+        </Button>
+      </div>
       <Footer className="mt-4">
         <Footer.Top>
           <Footer.Top.ContactLinks>
@@ -210,21 +229,13 @@ export const MultiPageTemplate = () => {
   const ComponentTwo = (
     <>
       <Col xs={8}>
-        <Form.Group className="mb-3">
-          <Dropdown>
-            <Dropdown.Toggle>
-              Label Dropdown Button<i className="bi bi-chevron-down"></i>
-            </Dropdown.Toggle>
-            <Dropdown.Menu>
-              <Dropdown.Item href="#" eventKey="abc">
-                Action
-              </Dropdown.Item>
-              <Dropdown.Item href="#">Another action</Dropdown.Item>
-              <Dropdown.Item onClick={() => console.log('Clicked')}>
-                Something else
-              </Dropdown.Item>
-            </Dropdown.Menu>
-          </Dropdown>
+        <Form.Group className="mb-3" controlId="formSinglePageSelect1">
+          <Form.Label>Label</Form.Label>
+          <Form.Select>
+            <option>Text goes here</option>
+            <option>Text goes here</option>
+            <option>Text goes here</option>
+          </Form.Select>
         </Form.Group>
         <Form.Group className="mb-3" controlId="formSinglePageRadio1">
           <Form.Label>Label</Form.Label>
@@ -291,21 +302,13 @@ export const MultiPageTemplate = () => {
           <Form.Label>Label</Form.Label>
           <DatePicker />
         </Form.Group>
-        <Form.Group className="mb-3">
-          <Dropdown>
-            <Dropdown.Toggle>
-              Label Dropdown Button<i className="bi bi-chevron-down"></i>
-            </Dropdown.Toggle>
-            <Dropdown.Menu>
-              <Dropdown.Item href="#" eventKey="abc">
-                Action
-              </Dropdown.Item>
-              <Dropdown.Item href="#">Another action</Dropdown.Item>
-              <Dropdown.Item onClick={() => console.log('Clicked')}>
-                Something else
-              </Dropdown.Item>
-            </Dropdown.Menu>
-          </Dropdown>
+        <Form.Group className="mb-3" controlId="formSinglePageSelect1">
+          <Form.Label>Label</Form.Label>
+          <Form.Select>
+            <option>Text goes here</option>
+            <option>Text goes here</option>
+            <option>Text goes here</option>
+          </Form.Select>
         </Form.Group>
         <Form.Group className="mb-3" controlId="formSinglePageRadio1">
           <Form.Label>Label</Form.Label>
@@ -375,42 +378,67 @@ export const MultiPageTemplate = () => {
       ) : (
         <>
           <SgdsMasthead />
-          <br />
-          <Stepper methods={stepMethods} />
-          <Form className="p-3">
-            <div>{getComponent()}</div>
-            <div className="d-flex justify-content-between">
-              <div>
-                {getBackButtonTitle() && (
-                  <Button onClick={prevStep} variant="danger" className="me-3">
-                    {getBackButtonTitle()}
-                  </Button>
-                )}
-                <Button onClick={resetForm} variant="secondary">
-                  Reset
-                </Button>
-              </div>
-              <div>
-                <Button
-                  onClick={
-                    stepsMetadata.isLastStep(stepState.currentStep)
-                      ? submit
-                      : nextStep
-                  }
-                >
-                  {' '}
-                  {getNextButtonTitle()}
-                </Button>
-                <Button
-                  className="ms-3"
-                  onClick={() => setStep(3)}
-                  variant="warning"
-                >
-                  Jump to last page
-                </Button>
-              </div>
+          <Breadcrumb className="mt-4">
+            <Breadcrumb.Item href="">
+              HOME
+            </Breadcrumb.Item>
+            <Breadcrumb.Item active>
+              SIGN-UP
+            </Breadcrumb.Item>
+          </Breadcrumb>
+          <div className="row">
+            <div className="col">
+              <h1>Sign-up</h1>
             </div>
-          </Form>
+            <div className="col d-flex justify-content-end align-items-center">
+              <a href="" className="me-4">Cancel</a>
+              <Button variant="outline-dark" className="me-4">
+                  Save as draft
+              </Button>
+              <Button variant="secondary">
+                  Next
+              </Button>
+            </div>
+          </div>
+          <p className="text-muted">Already a member? <a href="" className="text-decoration-none">Log in</a></p>
+          <Stepper methods={stepMethods} />
+          <section className="shadow rounded p-4 mb-4">
+            <Form>
+              <div>{getComponent()}</div>
+            </Form>
+          </section>
+          <div className="d-flex justify-content-between">
+            <div>
+              <Button onClick={resetForm} variant="dark">
+                Reset
+              </Button>
+            </div>
+            <div>
+              {getBackButtonTitle() && (
+                <Button onClick={prevStep} variant="outline-dark" className="me-3">
+                  {getBackButtonTitle()}
+                </Button>
+              )}
+              <Button
+                onClick={
+                  stepsMetadata.isLastStep(stepState.currentStep)
+                    ? submit
+                    : nextStep
+                }
+                variant="secondary"
+              >
+                {' '}
+                {getNextButtonTitle()}
+              </Button>
+              <Button
+                className="ms-3"
+                onClick={() => setStep(3)}
+                variant="dark"
+              >
+                Jump to last page
+              </Button>
+            </div>
+          </div>
           <Footer className="mt-4">
             <Footer.Top>
               <Footer.Top.ContactLinks>
@@ -447,7 +475,30 @@ export const AccordionSinglePageTemplate = (args) => {
   return (
     <>
       <SgdsMasthead />
-      <Accordion defaultActiveKey="0" className="my-4" {...args}>
+      <Breadcrumb className="mt-4">
+        <Breadcrumb.Item href="">
+          HOME
+        </Breadcrumb.Item>
+        <Breadcrumb.Item active>
+          SIGN-UP
+        </Breadcrumb.Item>
+      </Breadcrumb>
+      <div className="row">
+        <div className="col">
+          <h1>Sign-up</h1>
+        </div>
+        <div className="col d-flex justify-content-end align-items-center">
+          <a href="" className="me-4">Cancel</a>
+          <Button variant="outline-dark" className="me-4">
+              Save as draft
+          </Button>
+          <Button variant="secondary">
+              Next
+          </Button>
+        </div>
+      </div>
+      <p className="text-muted">Already a member? <a href="" className="text-decoration-none">Log in</a></p>
+      <Accordion defaultActiveKey="0" className="my-4 shadow" {...args}>
         <Accordion.Item eventKey="0">
           <Accordion.Header>Header 1</Accordion.Header>
           <Accordion.Body>
@@ -498,21 +549,13 @@ export const AccordionSinglePageTemplate = (args) => {
               <Form.Label>Label</Form.Label>
               <DatePicker />
             </Form.Group>
-            <Form.Group className="mb-3">
-              <Dropdown {...args}>
-                <Dropdown.Toggle>
-                  Label Dropdown Button<i className="bi bi-chevron-down"></i>
-                </Dropdown.Toggle>
-                <Dropdown.Menu>
-                  <Dropdown.Item href="#" eventKey="abc">
-                    Action
-                  </Dropdown.Item>
-                  <Dropdown.Item href="#">Another action</Dropdown.Item>
-                  <Dropdown.Item onClick={() => console.log('Clicked')}>
-                    Something else
-                  </Dropdown.Item>
-                </Dropdown.Menu>
-              </Dropdown>
+            <Form.Group className="mb-3" controlId="formSinglePageSelect1">
+              <Form.Label>Label</Form.Label>
+              <Form.Select>
+                <option>Text goes here</option>
+                <option>Text goes here</option>
+                <option>Text goes here</option>
+              </Form.Select>
             </Form.Group>
           </Accordion.Body>
         </Accordion.Item>
@@ -543,7 +586,9 @@ export const AccordionSinglePageTemplate = (args) => {
           </Accordion.Body>
         </Accordion.Item>
       </Accordion>
-      <Button>Submit</Button>
+      <div className="d-flex justify-content-end">
+        <Button variant="secondary">Submit</Button>
+      </div>
       <Footer className="mt-4">
         <Footer.Top>
           <Footer.Top.ContactLinks>
