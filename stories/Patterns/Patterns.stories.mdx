@@ -35,10 +35,13 @@ export const AddressPatternTemplate = (args) => {
           <Form.Label>Postal Code</Form.Label>
           <Form.Control
             ref={inputRef}
-            type="text"
+            type="number"
             placeholder="e.g 730317"
             autoComplete="postal-code"
             maxLength={6}
+            onInput={(e) => {
+              e.target.value = e.target.value.slice(0, e.target.maxLength);
+            }}
           />
         </Col>
         <Col xs={12} className="mt-3">
@@ -58,12 +61,17 @@ export const AddressPatternTemplate = (args) => {
       <Form.Group className="mb-3" controlId="formBasicBuilding">
         <Form.Label>Building/House Number</Form.Label>
         <Form.Text className="text-muted">If applicable</Form.Text>
-        <Form.Control type="text" placeholder="" className="w-25" />
+        <Form.Control
+          type="text"
+          placeholder=""
+          className="w-25"
+          autoComplete="on"
+        />
       </Form.Group>
       <Form.Group className="mb-3" controlId="formBasicUnitNumber">
         <Form.Label>Unit Number</Form.Label>
         <Form.Text className="text-muted">If applicable</Form.Text>
-        <Form.Control type="text" className="w-50" />
+        <Form.Control type="text" className="w-50" autoComplete="on" />
       </Form.Group>
     </Form>
   );
@@ -99,10 +107,13 @@ const handleSubmit = () => {
       <Form.Label>Postal Code</Form.Label>
       <Form.Control
         ref={inputRef}
-        type="text"
+        type="number"
         placeholder="e.g 730317"
         autoComplete="postal-code"
         maxLength={6}
+        onInput={(e) => {
+          e.target.value = e.target.value.slice(0, e.target.maxLength);
+        }}
       />
     </Col>
     <Col xs={12} className="mt-3">
@@ -122,12 +133,17 @@ const handleSubmit = () => {
   <Form.Group className="mb-3" controlId="formBasicBuilding">
     <Form.Label>Building/House Number</Form.Label>
     <Form.Text className="text-muted">If applicable</Form.Text>
-    <Form.Control type="text" placeholder="" className="w-25" />
+    <Form.Control
+      type="text"
+      placeholder=""
+      className="w-25"
+      autoComplete="on"
+    />
   </Form.Group>
   <Form.Group className="mb-3" controlId="formBasicUnitNumber">
     <Form.Label>Unit Number</Form.Label>
     <Form.Text className="text-muted">If applicable</Form.Text>
-    <Form.Control type="text" className="w-50" />
+    <Form.Control type="text" className="w-50" autoComplete="on" />
   </Form.Group>
 </Form>;
 ```
@@ -145,9 +161,8 @@ You can choose from 2 ways of asking for dates, which can be seen in the example
 Base format when requiring users to type in dates for your services. Do state clearly how the data should be filled (e.g 01 01 2020 vs 1 1 2020).
 
 export const DatePatternSingleTemplate = (args) => {
-  const [validated, setValidated] = useState(false);
   return (
-    <Form noValidate validated={validated} {...args}>
+    <Form {...args}>
       <Form.Group as={Col} className="mb-3">
         <Form.Label htmlFor="singleDate">Date of Birth</Form.Label>
         <Form.Text className="text-muted">e.g 01 Jun 1979</Form.Text>
@@ -155,8 +170,8 @@ export const DatePatternSingleTemplate = (args) => {
           className="w-50"
           type="text"
           id="singleDate"
+          autoComplete="on"
           required
-          onFocus={(e) => setValidated(true)}
         />
       </Form.Group>
     </Form>
@@ -171,9 +186,7 @@ export const DatePatternSingleTemplate = (args) => {
 import { Form } from '@govtechsg/sgds-govtech-react';
 import { useState } from 'react';
 
-const [validated, setValidated] = useState(false);
-
-<Form noValidate validated={validated}>
+<Form>
   <Form.Group as={Col} className="mb-3">
     <Form.Label htmlFor="singleDate">Date of Birth</Form.Label>
     <Form.Text className="text-muted">e.g 01 Jun 1979</Form.Text>
@@ -181,8 +194,8 @@ const [validated, setValidated] = useState(false);
       className="w-50"
       type="text"
       id="singleDate"
+      autoComplete="on"
       required
-      onFocus={(e) => setValidated(true)}
     />
   </Form.Group>
 </Form>;
@@ -193,44 +206,49 @@ const [validated, setValidated] = useState(false);
 Base format when requesting users to fill in memorable dates, with the aid of `autoComplete` attribute for these 3 fields, `bday-day`,`bday-month` and `bday-year` to bring convenience to users.
 
 export const DatePatternIsolatedTemplate = (args) => {
-  const [validated, setValidated] = useState(false);
   return (
-    <Form noValidate validated={validated} {...args}>
+    <Form {...args}>
       <Row xs={8} sm={7} md={6}>
         <Form.Group as={Col} className="mb-3">
           <Form.Label htmlFor="dobDay">DD</Form.Label>
           <Form.Control
-            type="text"
+            type="number"
             id="dobDay"
             autoComplete="bday-day"
             pattern="\d*"
             maxLength={2}
+            onInput={(e) => {
+              e.target.value = e.target.value.slice(0, e.target.maxLength);
+            }}
             required
-            onFocus={(e) => setValidated(true)}
           />
         </Form.Group>
         <Form.Group as={Col} className="mb-3">
           <Form.Label htmlFor="dobMonth">MM</Form.Label>
           <Form.Control
-            type="text"
+            type="number"
             id="dobMonth"
             autoComplete="bday-month"
             pattern="\d*"
             maxLength={2}
+            onInput={(e) => {
+              e.target.value = e.target.value.slice(0, e.target.maxLength);
+            }}
             required
-            onFocus={(e) => setValidated(true)}
           />
         </Form.Group>
         <Form.Group as={Col} className="mb-3">
           <Form.Label htmlFor="dobYear">YYYY</Form.Label>
           <Form.Control
-            type="text"
+            type="number"
             id="dobYear"
             autoComplete="bday-year"
             pattern="\d*"
             maxLength={4}
+            onInput={(e) => {
+              e.target.value = e.target.value.slice(0, e.target.maxLength);
+            }}
             required
-            onFocus={(e) => setValidated(true)}
           />
         </Form.Group>
       </Row>
@@ -246,44 +264,48 @@ export const DatePatternIsolatedTemplate = (args) => {
 import { Form, Row, Col } from '@govtechsg/sgds-govtech-react';
 import { useState } from 'react';
 
-const [validated, setValidated] = useState(false);
-
-<Form noValidate validated={validated}>
+<Form>
   <Row xs={8} sm={7} md={6}>
     <Form.Group as={Col} className="mb-3">
       <Form.Label htmlFor="dobDay">DD</Form.Label>
       <Form.Control
-        type="text"
+        type="number"
         id="dobDay"
         autoComplete="bday-day"
         pattern="\d*"
         maxLength={2}
+        onInput={(e) => {
+          e.target.value = e.target.value.slice(0, e.target.maxLength);
+        }}
         required
-        onFocus={(e) => setValidated(true)}
       />
     </Form.Group>
     <Form.Group as={Col} className="mb-3">
       <Form.Label htmlFor="dobMonth">MM</Form.Label>
       <Form.Control
-        type="text"
+        type="number"
         id="dobMonth"
         autoComplete="bday-month"
         pattern="\d*"
         maxLength={2}
+        onInput={(e) => {
+          e.target.value = e.target.value.slice(0, e.target.maxLength);
+        }}
         required
-        onFocus={(e) => setValidated(true)}
       />
     </Form.Group>
     <Form.Group as={Col} className="mb-3">
       <Form.Label htmlFor="dobYear">YYYY</Form.Label>
       <Form.Control
-        type="text"
+        type="number"
         id="dobYear"
         autoComplete="bday-year"
         pattern="\d*"
         maxLength={4}
+        onInput={(e) => {
+          e.target.value = e.target.value.slice(0, e.target.maxLength);
+        }}
         required
-        onFocus={(e) => setValidated(true)}
       />
     </Form.Group>
   </Row>
@@ -297,9 +319,8 @@ Use this base pattern when you need to ask users for their email address.
 **Note**: State clearly what their email address will be used for.
 
 export const EmailPatternTemplate = (args) => {
-  const [validated, setValidated] = useState(false);
   return (
-    <Form noValidate validated={validated} {...args}>
+    <Form {...args}>
       <Form.Group className="mb-3">
         <Form.Label htmlFor="email">Email Address</Form.Label>
         <Form.Text className="text-muted">
@@ -314,7 +335,6 @@ export const EmailPatternTemplate = (args) => {
           required
           autoComplete="email"
           spellCheck={false}
-          onFocus={(e) => setValidated(true)}
         />
       </Form.Group>
     </Form>
@@ -329,9 +349,7 @@ export const EmailPatternTemplate = (args) => {
 import { Form } from '@govtechsg/sgds-govtech-react';
 import { useState } from 'react';
 
-const [validated, setValidated] = useState(false);
-
-<Form noValidate validated={validated}>
+<Form>
   <Form.Group className="mb-3">
     <Form.Label htmlFor="email">Email Address</Form.Label>
     <Form.Text className="text-muted">
@@ -346,7 +364,6 @@ const [validated, setValidated] = useState(false);
       required
       autoComplete="email"
       spellCheck={false}
-      onFocus={(e) => setValidated(true)}
     />
   </Form.Group>
 </Form>;
@@ -366,12 +383,15 @@ export const PhonePatternTemplate = (args) => {
         <InputGroup.Text id="basic-addon1">+65</InputGroup.Text>
         <Form.Control
           id="phone"
-          type="text"
+          type="number"
           placeholder="12345678"
           aria-label="Phone"
           aria-describedby="basic-addon1"
           pattern="\d*"
           maxLength="8"
+          onInput={(e) => {
+            e.target.value = e.target.value.slice(0, e.target.maxLength);
+          }}
           autoComplete="tel-local"
           required
         />
@@ -392,12 +412,15 @@ import { InputGroup,Form } from '@govtechsg/sgds-govtech-react';
   <InputGroup.Text id="basic-addon1">+65</InputGroup.Text>
   <Form.Control
           id="phone"
-          type="text"
+          type="number"
           placeholder="12345678"
           aria-label="Phone"
           aria-describedby="basic-addon1"
           pattern="\d*"
           maxLength="8"
+          onInput={(e) => {
+              e.target.value = e.target.value.slice(0, e.target.maxLength);
+          }}
           autoComplete="tel-local"
           required
     />
@@ -416,7 +439,7 @@ export const NamePatternTemplate = (args) => {
   return (
     <Form>
       <Form.Group as={Col} xs={6} className="mb-3" controlId="fullName">
-        <Form.Label>Fullname as per NRIC</Form.Label>
+        <Form.Label>Full name as per NRIC</Form.Label>
         <Form.Control
           type="text"
           autoComplete="name"
@@ -438,7 +461,7 @@ import { Form, Col } from '@govtechsg/sgds-govtech-react';
 
 <Form>
   <Form.Group as={Col} xs={6} className="mb-3" controlId="fullName">
-    <Form.Label>Fullname as per NRIC</Form.Label>
+    <Form.Label>Full name as per NRIC</Form.Label>
     <Form.Control
       type="text"
       autoComplete="name"
@@ -599,10 +622,13 @@ export const PaymentPatternTemplate = (args) => {
             The 3 digit number at the back of card
           </Form.Text>
           <Form.Control
-            type="text"
+            type="number"
             autoComplete="cc-csc"
             pattern="\d\*"
             maxLength="3"
+            onInput={(e) => {
+              e.target.value = e.target.value.slice(0, e.target.maxLength);
+            }}
             name="cc-csc"
             required
           />
@@ -698,11 +724,14 @@ const handleChangeCardNumber = (e) => {
         The 3 digit number at the back of card
       </Form.Text>
       <Form.Control
-        type="text"
+        type="number"
         autoComplete="cc-csc"
         name="cc-csc"
         pattern="\d*"
         maxLength="3"
+        onInput={(e) => {
+          e.target.value = e.target.value.slice(0, e.target.maxLength);
+        }}
         required
       />
     </Form.Group>
@@ -723,17 +752,17 @@ export const ErrorSummaryTemplate = (args) => {
             There is a problem with your submission
           </Card.Title>
           <Row>
-            <Card.Text as="a" className="text-danger">
+            <Card.Text as="a" className="text-danger" href="#">
               The date format entered is wrong
             </Card.Text>
           </Row>
           <Row>
-            <Card.Text as="a" className="text-danger">
+            <Card.Text as="a" className="text-danger" href="#">
               Address must be filled in
             </Card.Text>
           </Row>
           <Row>
-            <Card.Text as="a" className="text-danger">
+            <Card.Text as="a" className="text-danger" href="#">
               Email address is not valid
             </Card.Text>
           </Row>
@@ -755,17 +784,17 @@ import { Card, Row, Col } from '@govtechsg/sgds-govtech-react';
     <Card.Body>
       <Card.Title as="h3">There is a problem with your submission</Card.Title>
       <Row>
-        <Card.Text as="a" className="text-danger">
+        <Card.Text as="a" className="text-danger" href="#">
           The date format entered is wrong
         </Card.Text>
       </Row>
       <Row>
-        <Card.Text as="a" className="text-danger">
+        <Card.Text as="a" className="text-danger" href="#">
           Address must be filled in
         </Card.Text>
       </Row>
       <Row>
-        <Card.Text as="a" className="text-danger">
+        <Card.Text as="a" className="text-danger" href="#">
           Email address is not valid
         </Card.Text>
       </Row>
