@@ -36,11 +36,12 @@ export const SinglePageTemplate = (args) => {
           SIGN-UP
         </Breadcrumb.Item>
       </Breadcrumb>
-      <div className="row">
-        <div className="col">
+      <Row>
+        <Col xs={12} md={6}>
           <h1>Sign-up</h1>
-        </div>
-        <div className="col d-flex justify-content-end align-items-center">
+          <p className="text-muted">Already a member? <a href="" className="text-decoration-none">Log in</a></p>
+        </Col>
+        <Col xs={12} md={6} className="d-flex justify-content-end align-items-center">
           <a href="" className="me-4">Cancel</a>
           <Button variant="outline-dark" className="me-4">
               Save as draft
@@ -48,16 +49,16 @@ export const SinglePageTemplate = (args) => {
           <Button variant="secondary">
               Next
           </Button>
-        </div>
-      </div>
-      <p className="text-muted">Already a member? <a href="" className="text-decoration-none">Log in</a></p>
+        </Col>
+      </Row>
       <section className="shadow rounded p-4 my-4">
-        <Col xs={8}>
+        <Col sm={8}>
           <Form onSubmit={onSubmit} {...args}>
             <Row>
               <Form.Group
                 as={Col}
-                xs={6}
+                xs={12}
+                md={6}
                 className="mb-3"
                 controlId="formSinglePageInput1"
               >
@@ -66,7 +67,8 @@ export const SinglePageTemplate = (args) => {
               </Form.Group>
               <Form.Group
                 as={Col}
-                xs={6}
+                xs={12}
+                md={6}
                 className="mb-3"
                 controlId="formSinglePageInput2"
               >
@@ -178,11 +180,12 @@ export const MultiPageTemplate = () => {
   };
   const ComponentOne = (
     <>
-      <Col xs={8}>
+      <Col sm={8}>
         <Row>
           <Form.Group
             as={Col}
-            xs={6}
+            xs={12}
+            md={6}
             className="mb-3"
             controlId="formSinglePageInput1"
           >
@@ -197,7 +200,8 @@ export const MultiPageTemplate = () => {
           </Form.Group>
           <Form.Group
             as={Col}
-            xs={6}
+            xs={12}
+            md={6}
             className="mb-3"
             controlId="formSinglePageInput2"
           >
@@ -228,7 +232,7 @@ export const MultiPageTemplate = () => {
   );
   const ComponentTwo = (
     <>
-      <Col xs={8}>
+      <Col sm={8}>
         <Form.Group className="mb-3" controlId="formSinglePageSelect1">
           <Form.Label>Label</Form.Label>
           <Form.Select>
@@ -263,11 +267,12 @@ export const MultiPageTemplate = () => {
   );
   const ComponentThree = (
     <>
-      <Col xs={8}>
+      <Col sm={8}>
         <Row>
           <Form.Group
             as={Col}
-            xs={6}
+            xs={12}
+            md={6}
             className="mb-3"
             controlId="formSinglePageInput1"
           >
@@ -276,7 +281,8 @@ export const MultiPageTemplate = () => {
           </Form.Group>
           <Form.Group
             as={Col}
-            xs={6}
+            xs={12}
+            md={6}
             className="mb-3"
             controlId="formSinglePageInput2"
           >
@@ -355,7 +361,6 @@ export const MultiPageTemplate = () => {
     state: stepState,
     stepsMetadata,
     getTitle,
-    setStep,
     nextStep,
     prevStep,
     getNextButtonTitle,
@@ -363,10 +368,6 @@ export const MultiPageTemplate = () => {
     getComponent,
     reset,
   } = stepMethods;
-  const resetForm = () => {
-    setDetails(initialState);
-    reset();
-  };
   const submit = () => {
     alert('Form Submitted');
     setSubmitted(true);
@@ -386,11 +387,12 @@ export const MultiPageTemplate = () => {
               SIGN-UP
             </Breadcrumb.Item>
           </Breadcrumb>
-          <div className="row">
-            <div className="col">
+          <Row className="mb-4">
+            <Col xs={12} md={6}>
               <h1>Sign-up</h1>
-            </div>
-            <div className="col d-flex justify-content-end align-items-center">
+              <p className="text-muted">Already a member? <a href="" className="text-decoration-none">Log in</a></p>
+            </Col>
+            <Col xs={12} md={6} className="d-flex justify-content-end align-items-center">
               <a href="" className="me-4">Cancel</a>
               <Button variant="outline-dark" className="me-4">
                   Save as draft
@@ -398,21 +400,15 @@ export const MultiPageTemplate = () => {
               <Button variant="secondary">
                   Next
               </Button>
-            </div>
-          </div>
-          <p className="text-muted">Already a member? <a href="" className="text-decoration-none">Log in</a></p>
+            </Col>
+          </Row>
           <Stepper methods={stepMethods} />
           <section className="shadow rounded p-4 mb-4">
             <Form>
               <div>{getComponent()}</div>
             </Form>
           </section>
-          <div className="d-flex justify-content-between">
-            <div>
-              <Button onClick={resetForm} variant="dark">
-                Reset
-              </Button>
-            </div>
+          <div className="d-flex justify-content-end">
             <div>
               {getBackButtonTitle() && (
                 <Button onClick={prevStep} variant="outline-dark" className="me-3">
@@ -429,13 +425,6 @@ export const MultiPageTemplate = () => {
               >
                 {' '}
                 {getNextButtonTitle()}
-              </Button>
-              <Button
-                className="ms-3"
-                onClick={() => setStep(3)}
-                variant="dark"
-              >
-                Jump to last page
               </Button>
             </div>
           </div>
@@ -483,11 +472,12 @@ export const AccordionSinglePageTemplate = (args) => {
           SIGN-UP
         </Breadcrumb.Item>
       </Breadcrumb>
-      <div className="row">
-        <div className="col">
+      <Row className="mb-4">
+        <Col xs={12} md={6}>
           <h1>Sign-up</h1>
-        </div>
-        <div className="col d-flex justify-content-end align-items-center">
+          <p className="text-muted">Already a member? <a href="" className="text-decoration-none">Log in</a></p>
+        </Col>
+        <Col xs={12} md={6} className="d-flex justify-content-end align-items-center">
           <a href="" className="me-4">Cancel</a>
           <Button variant="outline-dark" className="me-4">
               Save as draft
@@ -495,19 +485,19 @@ export const AccordionSinglePageTemplate = (args) => {
           <Button variant="secondary">
               Next
           </Button>
-        </div>
-      </div>
-      <p className="text-muted">Already a member? <a href="" className="text-decoration-none">Log in</a></p>
+        </Col>
+      </Row>
       <Accordion defaultActiveKey="0" className="my-4 shadow" {...args}>
         <Accordion.Item eventKey="0">
           <Accordion.Header>Header 1</Accordion.Header>
           <Accordion.Body>
-            <Col xs={8}>
+            <Col sm={8}>
               <Form {...args}>
                 <Row>
                   <Form.Group
                     as={Col}
-                    xs={6}
+                    xs={12}
+                    md={6}
                     className="mb-3"
                     controlId="formSinglePageInput1"
                   >
@@ -516,7 +506,8 @@ export const AccordionSinglePageTemplate = (args) => {
                   </Form.Group>
                   <Form.Group
                     as={Col}
-                    xs={6}
+                    xs={12}
+                    md={6}
                     className="mb-3"
                     controlId="formSinglePageInput2"
                   >
@@ -545,44 +536,48 @@ export const AccordionSinglePageTemplate = (args) => {
         <Accordion.Item eventKey="1">
           <Accordion.Header>Header 2</Accordion.Header>
           <Accordion.Body>
-            <Form.Group className="mb-4">
-              <Form.Label>Label</Form.Label>
-              <DatePicker />
-            </Form.Group>
-            <Form.Group className="mb-3" controlId="formSinglePageSelect1">
-              <Form.Label>Label</Form.Label>
-              <Form.Select>
-                <option>Text goes here</option>
-                <option>Text goes here</option>
-                <option>Text goes here</option>
-              </Form.Select>
-            </Form.Group>
+            <Col sm={8}>
+              <Form.Group className="mb-4">
+                <Form.Label>Label</Form.Label>
+                <DatePicker />
+              </Form.Group>
+              <Form.Group className="mb-3" controlId="formSinglePageSelect1">
+                <Form.Label>Label</Form.Label>
+                <Form.Select>
+                  <option>Text goes here</option>
+                  <option>Text goes here</option>
+                  <option>Text goes here</option>
+                </Form.Select>
+              </Form.Group>
+            </Col>
           </Accordion.Body>
         </Accordion.Item>
         <Accordion.Item eventKey="2">
           <Accordion.Header>Header 3</Accordion.Header>
           <Accordion.Body>
-            <Form.Group className="mb-3" controlId="formSinglePageRadio1">
-              <Form.Label>Label</Form.Label>
-              <Form.Check type="radio" name="radioGroup1" label="Input 1" />
-              <Form.Check type="radio" name="radioGroup1" label="Input 2" />
-              <Form.Check type="radio" name="radioGroup1" label="Input 3" />
-            </Form.Group>
-            <Form.Group className="mb-3" controlId="formSinglePageInput5">
-              <Form.Label>Label</Form.Label>
-              <Form.Control
-                as="textarea"
-                rows={5}
-                type="text"
-                placeholder="This is the text that has been filled in"
-              />
-            </Form.Group>
-            <Form.Group className="mb-3" controlId="formBasicCheckbox1">
-              <Form.Check
-                type="checkbox"
-                label="I agree to the terms of the Subscriber Agreement and the Privacy Policy"
-              />
-            </Form.Group>
+            <Col sm={8}>
+              <Form.Group className="mb-3" controlId="formSinglePageRadio1">
+                <Form.Label>Label</Form.Label>
+                <Form.Check type="radio" name="radioGroup1" label="Input 1" />
+                <Form.Check type="radio" name="radioGroup1" label="Input 2" />
+                <Form.Check type="radio" name="radioGroup1" label="Input 3" />
+              </Form.Group>
+              <Form.Group className="mb-3" controlId="formSinglePageInput5">
+                <Form.Label>Label</Form.Label>
+                <Form.Control
+                  as="textarea"
+                  rows={5}
+                  type="text"
+                  placeholder="This is the text that has been filled in"
+                />
+              </Form.Group>
+              <Form.Group className="mb-3" controlId="formBasicCheckbox1">
+                <Form.Check
+                  type="checkbox"
+                  label="I agree to the terms of the Subscriber Agreement and the Privacy Policy"
+                />
+              </Form.Group>
+            </Col>
           </Accordion.Body>
         </Accordion.Item>
       </Accordion>
