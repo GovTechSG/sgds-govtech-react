@@ -28,7 +28,7 @@ export const SinglePageTemplate = (args) => {
   return (
     <div>
       <SgdsMasthead />
-      <section className="m-8">
+      <section className="my-8 mx-md-8">
         <Breadcrumb>
           <Breadcrumb.Item href="">
             HOME
@@ -53,7 +53,7 @@ export const SinglePageTemplate = (args) => {
           </Col>
         </Row>
       </section>
-      <section className="shadow rounded p-5 m-8">
+      <section className="shadow rounded p-5 my-8 mx-md-8">
         <Col sm={8}>
           <Form onSubmit={onSubmit} {...args}>
             <Row>
@@ -128,12 +128,12 @@ export const SinglePageTemplate = (args) => {
           </Form>
         </Col>
       </section>
-      <div className="d-flex justify-content-end m-8">
+      <div className="d-flex justify-content-end my-8 mx-md-8">
         <Button variant="secondary" type="submit">
               Submit
         </Button>
       </div>
-      <Footer className="mt-4">
+      <Footer>
         <Footer.Top>
           <Footer.Top.ContactLinks>
             <a href="" target="_blank">Contact</a>
@@ -381,7 +381,7 @@ export const MultiPageTemplate = () => {
       ) : (
         <>
           <SgdsMasthead />
-          <section className="m-8">
+          <section className="my-8 mx-md-8">
             <Breadcrumb>
               <Breadcrumb.Item href="">
                 HOME
@@ -407,12 +407,12 @@ export const MultiPageTemplate = () => {
             </Row>
           </section>
           <Stepper methods={stepMethods} />
-          <section className="shadow rounded p-5 m-8">
+          <section className="shadow rounded p-5 mx-md-8">
             <Form>
               <div>{getComponent()}</div>
             </Form>
           </section>
-          <div className="d-flex justify-content-end m-8">
+          <div className="d-flex justify-content-end my-8 mx-md-8">
             <div>
               {getBackButtonTitle() && (
                 <Button onClick={prevStep} variant="outline-dark" className="me-3">
@@ -432,7 +432,7 @@ export const MultiPageTemplate = () => {
               </Button>
             </div>
           </div>
-          <Footer className="mt-4">
+          <Footer>
             <Footer.Top>
               <Footer.Top.ContactLinks>
                 <a href="" target="_blank">Contact</a>
@@ -468,7 +468,7 @@ export const AccordionSinglePageTemplate = (args) => {
   return (
     <>
       <SgdsMasthead />
-      <section className="m-8">
+      <section className="my-8 mx-md-8">
         <Breadcrumb>
           <Breadcrumb.Item href="">
             HOME
@@ -493,7 +493,7 @@ export const AccordionSinglePageTemplate = (args) => {
           </Col>
         </Row>
       </section>
-      <Accordion defaultActiveKey="0" className="m-8 shadow" {...args}>
+      <Accordion defaultActiveKey="0" className="mx-md-8 shadow" {...args}>
         <Accordion.Item eventKey="0">
           <Accordion.Header>Input 1</Accordion.Header>
           <Accordion.Body className="p-5">
@@ -587,10 +587,10 @@ export const AccordionSinglePageTemplate = (args) => {
           </Accordion.Body>
         </Accordion.Item>
       </Accordion>
-      <div className="d-flex justify-content-end m-8">
+      <div className="d-flex justify-content-end my-8 mx-md-8">
         <Button variant="secondary">Submit</Button>
       </div>
-      <Footer className="mt-4">
+      <Footer>
         <Footer.Top>
           <Footer.Top.ContactLinks>
             <a href="" target="_blank">Contact</a>
