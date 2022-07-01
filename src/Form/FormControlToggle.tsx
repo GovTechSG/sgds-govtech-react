@@ -69,7 +69,7 @@ const FormControlToggle: FormControlToggleComponent = React.forwardRef(
       toggleProps.ref,
       useWrappedRefWithWarning(ref, 'DropdownToggle')
     );
-    const {"aria-expanded": ariaExpanded, ...togglePropsOmitAriaExpanded} = toggleProps
+    const {"aria-expanded": ariaExpanded, id, ...newToggleProps} = toggleProps
 
     if (setIsMenuOpen) {
       React.useEffect(() => {
@@ -85,7 +85,7 @@ const FormControlToggle: FormControlToggleComponent = React.forwardRef(
           prefix,
           !!isInputGroup && dropdownContext?.show && 'show'
         )}
-        {...togglePropsOmitAriaExpanded}
+        {...newToggleProps}
         {...props}
       />
     );
