@@ -282,6 +282,7 @@ export const DatePicker: BsPrefixRefForwardingComponent<
       readOnly: true,
       className: props.className,
       isInvalid: state.invalid,
+      id: props.id 
     };
 
     const BodyContent = (): JSX.Element => {
@@ -373,7 +374,7 @@ export const DatePicker: BsPrefixRefForwardingComponent<
     return (
       <DatePickerContext.Provider value={contextValue}>
         <Dropdown drop={calendarPlacement}>
-          <InputGroup variant="has-icon" id={props.id}>
+          <InputGroup variant="has-icon">
             <FormControlToggle
               {...controlProps}
               ref={formControlRef}

@@ -1,6 +1,7 @@
 import { ArgsTable, Canvas, Meta, Story } from '@storybook/addon-docs';
-import '@govtechsg/sgds-masthead/dist/sgds-masthead/sgds-masthead.css';
 import { SgdsMasthead } from '@govtechsg/sgds-masthead-react';
+import '@govtechsg/sgds-masthead/dist/sgds-masthead/sgds-masthead.css';
+
 
 import {
   Form,
@@ -20,7 +21,7 @@ import { useState } from 'react';
 
 <Meta title="Templates" component={Form} />
 
-export const SinglePageTemplate = (args) => {
+export const SinglePageTemplate = () => {
   const onSubmit = (event) => {
     event.preventDefault();
     console.log('submission prevented');
@@ -55,7 +56,7 @@ export const SinglePageTemplate = (args) => {
       </section>
       <section className="shadow rounded p-5 my-8 mx-md-8">
         <Col sm={8}>
-          <Form onSubmit={onSubmit} {...args}>
+          <Form onSubmit={onSubmit}>
             <Row>
               <Form.Group
                 as={Col}
@@ -92,9 +93,9 @@ export const SinglePageTemplate = (args) => {
               <Form.Label>Label</Form.Label>
               <Form.Control type="text" placeholder="Text goes here" />
             </Form.Group>
-            <Form.Group className="mb-4">
+            <Form.Group className="mb-4" controlId="formSinglePageDatepicker1">
               <Form.Label>Label</Form.Label>
-              <DatePicker />
+              <DatePicker/>
             </Form.Group>
             <Form.Group className="mb-3" controlId="formSinglePageSelect1">
               <Form.Label>Label</Form.Label>
@@ -189,13 +190,13 @@ export const MultiPageTemplate = () => {
             xs={12}
             md={6}
             className="mb-3"
-            controlId="formSinglePageInput1"
+            controlId="formMultiPageInput1"
           >
             <Form.Label>Label</Form.Label>
             <Form.Control
               type="text"
               placeholder="Text goes here"
-              name="formSinglePageInput1"
+              name="formMultiPageInput1"
               onChange={handleChange}
               value={details.formSinglePageInput1}
             />
@@ -205,13 +206,13 @@ export const MultiPageTemplate = () => {
             xs={12}
             md={6}
             className="mb-3"
-            controlId="formSinglePageInput2"
+            controlId="formMultiPageInput2"
           >
             <Form.Label>Label</Form.Label>
             <Form.Control type="text" placeholder="Text goes here" />
           </Form.Group>
         </Row>
-        <Form.Group className="mb-3" controlId="formSinglePageInput3">
+        <Form.Group className="mb-3" controlId="formMultiPageInput3">
           <Form.Label>Label</Form.Label>
           <InputGroup className="mb-3">
             <Form.Control
@@ -221,11 +222,11 @@ export const MultiPageTemplate = () => {
             <InputGroup.Text>@something</InputGroup.Text>
           </InputGroup>
         </Form.Group>
-        <Form.Group className="mb-3" controlId="formSinglePageInput4">
+        <Form.Group className="mb-3" controlId="formMultiPageInput4">
           <Form.Label>Label</Form.Label>
           <Form.Control type="text" placeholder="Text goes here" />
         </Form.Group>
-        <Form.Group className="mb-4">
+        <Form.Group className="mb-4" controlId="formMultiPageDatepicker1">
           <Form.Label>Label</Form.Label>
           <DatePicker />
         </Form.Group>
@@ -235,7 +236,7 @@ export const MultiPageTemplate = () => {
   const ComponentTwo = (
     <>
       <Col sm={8}>
-        <Form.Group className="mb-3" controlId="formSinglePageSelect1">
+        <Form.Group className="mb-3" controlId="formMultiPage2Select1">
           <Form.Label>Label</Form.Label>
           <Form.Select>
             <option>Text goes here</option>
@@ -243,13 +244,13 @@ export const MultiPageTemplate = () => {
             <option>Text goes here</option>
           </Form.Select>
         </Form.Group>
-        <Form.Group className="mb-3" controlId="formSinglePageRadio1">
+        <Form.Group className="mb-3" controlId="formMultiPage2Radio2">
           <Form.Label>Label</Form.Label>
           <Form.Check type="radio" name="radioGroup1" label="Input 1" />
           <Form.Check type="radio" name="radioGroup1" label="Input 2" />
           <Form.Check type="radio" name="radioGroup1" label="Input 3" />
         </Form.Group>
-        <Form.Group className="mb-3" controlId="formSinglePageInput5">
+        <Form.Group className="mb-3" controlId="formMultiPage2Input5">
           <Form.Label>Label</Form.Label>
           <Form.Control
             as="textarea"
@@ -258,7 +259,7 @@ export const MultiPageTemplate = () => {
             placeholder="This is the text that has been filled in"
           />
         </Form.Group>
-        <Form.Group className="mb-3" controlId="formBasicCheckbox1">
+        <Form.Group className="mb-3" controlId="formMultiPage2Checkbox1">
           <Form.Check
             type="checkbox"
             label="I agree to the terms of the Subscriber Agreement and the Privacy Policy"
@@ -276,7 +277,7 @@ export const MultiPageTemplate = () => {
             xs={12}
             md={6}
             className="mb-3"
-            controlId="formSinglePageInput1"
+            controlId="formMultiPage3Input1"
           >
             <Form.Label>Label</Form.Label>
             <Form.Control type="text" placeholder="Text goes here" />
@@ -286,13 +287,13 @@ export const MultiPageTemplate = () => {
             xs={12}
             md={6}
             className="mb-3"
-            controlId="formSinglePageInput2"
+            controlId="formMultiPage3Input2"
           >
             <Form.Label>Label</Form.Label>
             <Form.Control type="text" placeholder="Text goes here" />
           </Form.Group>
         </Row>
-        <Form.Group className="mb-3" controlId="formSinglePageInput3">
+        <Form.Group className="mb-3" controlId="formMultiPage3Input3">
           <Form.Label>Label</Form.Label>
           <InputGroup className="mb-3">
             <Form.Control
@@ -302,15 +303,15 @@ export const MultiPageTemplate = () => {
             <InputGroup.Text>@something</InputGroup.Text>
           </InputGroup>
         </Form.Group>
-        <Form.Group className="mb-3" controlId="formSinglePageInput4">
+        <Form.Group className="mb-3" controlId="formMultiPage3Input4">
           <Form.Label>Label</Form.Label>
           <Form.Control type="text" placeholder="Text goes here" />
         </Form.Group>
-        <Form.Group className="mb-4">
+        <Form.Group className="mb-4" controlId="formMultiPage3Datepicker1">
           <Form.Label>Label</Form.Label>
           <DatePicker />
         </Form.Group>
-        <Form.Group className="mb-3" controlId="formSinglePageSelect1">
+        <Form.Group className="mb-3" controlId="formMultiPage3Select1">
           <Form.Label>Label</Form.Label>
           <Form.Select>
             <option>Text goes here</option>
@@ -318,13 +319,13 @@ export const MultiPageTemplate = () => {
             <option>Text goes here</option>
           </Form.Select>
         </Form.Group>
-        <Form.Group className="mb-3" controlId="formSinglePageRadio1">
+        <Form.Group className="mb-3" controlId="formMultiPage3Radio1">
           <Form.Label>Label</Form.Label>
           <Form.Check type="radio" name="radioGroup1" label="Input 1" />
           <Form.Check type="radio" name="radioGroup1" label="Input 2" />
           <Form.Check type="radio" name="radioGroup1" label="Input 3" />
         </Form.Group>
-        <Form.Group className="mb-3" controlId="formSinglePageInput5">
+        <Form.Group className="mb-3" controlId="formMultiPage3Input5">
           <Form.Label>Label</Form.Label>
           <Form.Control
             as="textarea"
@@ -427,7 +428,6 @@ export const MultiPageTemplate = () => {
                 }
                 variant="secondary"
               >
-                {' '}
                 {getNextButtonTitle()}
               </Button>
             </div>
@@ -464,7 +464,7 @@ export const MultiPageTemplate = () => {
 
 A base collection of field components rendered within multi collapsible tabs.
 
-export const AccordionSinglePageTemplate = (args) => {
+export const AccordionSinglePageTemplate = () => {
   return (
     <>
       <SgdsMasthead />
@@ -493,19 +493,19 @@ export const AccordionSinglePageTemplate = (args) => {
           </Col>
         </Row>
       </section>
-      <Accordion defaultActiveKey="0" className="mx-md-8 shadow" {...args}>
+      <Accordion defaultActiveKey="0" className="mx-md-8 shadow">
         <Accordion.Item eventKey="0">
           <Accordion.Header>Input 1</Accordion.Header>
           <Accordion.Body className="p-5">
             <Col sm={8}>
-              <Form {...args}>
+              <Form>
                 <Row>
                   <Form.Group
                     as={Col}
                     xs={12}
                     md={6}
                     className="mb-3"
-                    controlId="formSinglePageInput1"
+                    controlId="formCollapsibleInput1"
                   >
                     <Form.Label>Label</Form.Label>
                     <Form.Control type="text" placeholder="Text goes here" />
@@ -515,13 +515,13 @@ export const AccordionSinglePageTemplate = (args) => {
                     xs={12}
                     md={6}
                     className="mb-3"
-                    controlId="formSinglePageInput2"
+                    controlId="formCollapsibleSinglePageInput2"
                   >
                     <Form.Label>Label</Form.Label>
                     <Form.Control type="text" placeholder="Text goes here" />
                   </Form.Group>
                 </Row>
-                <Form.Group className="mb-3" controlId="formSinglePageInput3">
+                <Form.Group className="mb-3" controlId="formCollapsibleInput3">
                   <Form.Label>Label</Form.Label>
                   <InputGroup className="mb-3">
                     <Form.Control
@@ -531,7 +531,7 @@ export const AccordionSinglePageTemplate = (args) => {
                     <InputGroup.Text>@something</InputGroup.Text>
                   </InputGroup>
                 </Form.Group>
-                <Form.Group className="mb-3" controlId="formSinglePageInput4">
+                <Form.Group className="mb-3" controlId="formCollapsibleInput4">
                   <Form.Label>Label</Form.Label>
                   <Form.Control type="text" placeholder="Text goes here" />
                 </Form.Group>
@@ -543,11 +543,11 @@ export const AccordionSinglePageTemplate = (args) => {
           <Accordion.Header>Input 2</Accordion.Header>
           <Accordion.Body className="p-5">
             <Col sm={8}>
-              <Form.Group className="mb-4">
+              <Form.Group className="mb-4" controlId="formCollapsibleDatepicker1">
                 <Form.Label>Label</Form.Label>
                 <DatePicker />
               </Form.Group>
-              <Form.Group className="mb-3" controlId="formSinglePageSelect1">
+              <Form.Group className="mb-3" controlId="formCollapsibleSelect1">
                 <Form.Label>Label</Form.Label>
                 <Form.Select>
                   <option>Text goes here</option>
@@ -562,13 +562,13 @@ export const AccordionSinglePageTemplate = (args) => {
           <Accordion.Header>Input 3</Accordion.Header>
           <Accordion.Body className="p-5">
             <Col sm={8}>
-              <Form.Group className="mb-3" controlId="formSinglePageRadio1">
+              <Form.Group className="mb-3" controlId="formCollapsibleRadio1">
                 <Form.Label>Label</Form.Label>
                 <Form.Check type="radio" name="radioGroup1" label="Input 1" />
                 <Form.Check type="radio" name="radioGroup1" label="Input 2" />
                 <Form.Check type="radio" name="radioGroup1" label="Input 3" />
               </Form.Group>
-              <Form.Group className="mb-3" controlId="formSinglePageInput5">
+              <Form.Group className="mb-3" controlId="formCollapsibleInput5">
                 <Form.Label>Label</Form.Label>
                 <Form.Control
                   as="textarea"
@@ -577,7 +577,7 @@ export const AccordionSinglePageTemplate = (args) => {
                   placeholder="This is the text that has been filled in"
                 />
               </Form.Group>
-              <Form.Group className="mb-3" controlId="formBasicCheckbox1">
+              <Form.Group className="mb-3" controlId="formCollapsibleCheckbox1">
                 <Form.Check
                   type="checkbox"
                   label="I agree to the terms of the Subscriber Agreement and the Privacy Policy"

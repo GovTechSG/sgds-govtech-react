@@ -154,7 +154,6 @@ const FormControl: BsPrefixRefForwardingComponent<'input', FormControlProps> =
       );
 
       return (
-        <>
           <Component
             {...props}
             type={type}
@@ -169,7 +168,6 @@ const FormControl: BsPrefixRefForwardingComponent<'input', FormControlProps> =
               type === 'color' && `${bsPrefix}-color`
             )}
           />
-        </>
       );
     }
   );
