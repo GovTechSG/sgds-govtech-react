@@ -1,9 +1,9 @@
 import { useState } from "react";
-import { Form } from "@govtechsg/sgds-govtech-react/Form";
-import { Row } from "@govtechsg/sgds-govtech-react/Row"
-import { Col } from "@govtechsg/sgds-govtech-react/Col"
-import { InputGroup } from "@govtechsg/sgds-govtech-react/InputGroup";
-import { Button } from "@govtechsg/sgds-govtech-react/Button";
+import { Form } from "@govtechsg/sgds-react/Form";
+import { Row } from "@govtechsg/sgds-react/Row"
+import { Col } from "@govtechsg/sgds-react/Col"
+import { InputGroup } from "@govtechsg/sgds-react/InputGroup";
+import { Button } from "@govtechsg/sgds-react/Button";
 
 const ValidationCom = (args) => {
     const [validated, setValidated] = useState(false);

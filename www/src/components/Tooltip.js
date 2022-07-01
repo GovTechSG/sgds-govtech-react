@@ -1,5 +1,5 @@
-import { Tooltip} from "@govtechsg/sgds-govtech-react/Tooltip";
-import { Button } from "@govtechsg/sgds-govtech-react/Button";
+import { Tooltip} from "@govtechsg/sgds-react/Tooltip";
+import { Button } from "@govtechsg/sgds-react/Button";
 
  const TooltipCom = () => {
     return (

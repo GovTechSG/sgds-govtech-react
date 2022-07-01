@@ -1,41 +1,41 @@
-# @govtechsg/sgds-govtech-react
+# @govtechsg/sgds-react
 
 React components powered by [Singapore Government Design System](https://www.designsystem.gov.sg)
 
-`@govtechsg/sgds-govtech-react` take references from [react-boostrap](https://react-bootstrap.github.io/) 
+`@govtechsg/sgds-react` take references from [react-boostrap](https://react-bootstrap.github.io/)
 
 ## Version Compatibility
 
-See the below table on which version of `@govtech/sgds-govtech` you should be using in your project.
+See the below table on which version of `@govtechsg/sgds` you should be using in your project.
 
-| @govtechsg/sgds-govtech version | @govtechsg/sgds-govtech-react version |
-| ------------------------------- | ------------------------------------- |
-| v2.x                            | v1.x                                  |
+| @govtechsg/sgds version | @govtechsg/sgds-react version |
+| ----------------------- | ----------------------------- |
+| v2.x                    | v2.x                          |
 
 ## Installation
 
-`@govtechsg/sgds-govtech-react` is not ship with any included CSS . Apply `@govtechsg/sgds-govtech@2.0.0` styles by installing the module or using CDN.
+`@govtechsg/sgds-react` is not ship with any included CSS . Apply `@govtechsg/sgds@2.0.0` styles by installing the module or using CDN.
 
-`@govtechsg/sgds-govtech-react` uses `bootstrap-icons` for certain components like Form but it is not ship with it. Install `bootstrap-icons` or use CDN if you need it Please refer to [bootstrap-icons](https://icons.getbootstrap.com/#usage) for usage instructions
+`@govtechsg/sgds-react` uses `bootstrap-icons` for certain components like Form but it is not ship with it. Install `bootstrap-icons` or use CDN if you need it Please refer to [bootstrap-icons](https://icons.getbootstrap.com/#usage) for usage instructions
 
 ```js
 
-npm install @govtechsg/sgds-govtech-react@alpha
+npm install @govtechsg/sgds-react
 
 //not required if using cdn
-npm install @govtechsg/sgds-govtech@alpha bootstrap-icons
+npm install @govtechsg/sgds-govtech bootstrap-icons
 
 ```
 
 ## Importing Components
 
-You should import individual components like: `@govtechsg/sgds-govtech-react/Button` rather than the entire library. Doing so pulls in only the specific components that you use, which can significantly reduce the amount of code you end up sending to the client.
+You should import individual components like: `@govtechsg/sgds-react/Button` rather than the entire library. Doing so pulls in only the specific components that you use, which can significantly reduce the amount of code you end up sending to the client.
 
 ```js
-import { Button } from '@govtechsg/sgds-govtech-react/Button';
+import { Button } from '@govtechsg/sgds-react/Button';
 
 // or less ideally
-import { Button } from '@govtechsg/sgds-govtech-react';
+import { Button } from '@govtechsg/sgds-react';
 ```
 
 ## Stylesheets
@@ -45,9 +45,9 @@ import { Button } from '@govtechsg/sgds-govtech-react';
 ```js
 // In your entry point
 // import CSS or
-import '@govtechsg/sgds-govtech/sgds/sgds.css';
+import '@govtechsg/sgds/sgds/sgds.css';
 // import SASS
-import '@govtechsg/sgds-govtech/sgds/sgds.scss';
+import '@govtechsg/sgds/sgds/sgds.scss';
 ```
 
 #### Using CDN
@@ -68,8 +68,9 @@ import '@govtechsg/sgds-govtech/sgds/sgds.scss';
 
 If you want to modify SGDS's base styling, you can import the Sass source (your project needs to support Sass compilation) and [override SGDS's sass variables](https://www.designsystem.tech.gov.sg/docs/customise-sgds/).
 
+
 ```
-npm install @govtechsg/sgds-govtech@alpha
+npm install @govtechsg/sgds
 ```
 
 For example, importing sgds in your own sass file:
@@ -107,3 +108,4 @@ With certain SGDS React components, you may want to modify the component or HTML
 If you want to keep all the styling of a particular component but switch the component that is finally rendered (whether it's a different SGDS React component, a different custom component, or a different HTML tag) you can use the "as" Prop to do so.
 
 See [example](https://react-bootstrap.github.io/getting-started/introduction#as-prop-api)
+

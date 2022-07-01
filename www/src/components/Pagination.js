@@ -1,5 +1,5 @@
 import { Pagination } from 'clk-bs/Pagination';
-import { Table } from '@govtechsg/sgds-govtech-react/Table';
+import { Table } from '@govtechsg/sgds-react/Table';
 import React, { useState, useEffect } from 'react';
 
  const PaginationCom = () => {

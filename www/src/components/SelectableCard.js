@@ -1,4 +1,4 @@
-import { SelectableCard, Card } from '@govtechsg/sgds-govtech-react/Card';
+import { SelectableCard, Card } from '@govtechsg/sgds-react/Card';
 
 const SelectableCardCom = () => {
   const AppleBody = (

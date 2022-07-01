@@ -1,5 +1,5 @@
-import { ProgressBar } from '@govtechsg/sgds-govtech-react/ProgressBar';
-import { Button } from '@govtechsg/sgds-govtech-react/Button';
+import { ProgressBar } from '@govtechsg/sgds-react/ProgressBar';
+import { Button } from '@govtechsg/sgds-react/Button';
 import { useState } from 'react';
 
 const ProgressBarCom = () => {

@@ -1,4 +1,4 @@
-import { Dropdown } from '@govtechsg/sgds-govtech-react/Dropdown';
+import { Dropdown } from '@govtechsg/sgds-react/Dropdown';
 const DropdownCom = () => (
   <Dropdown>
     <Dropdown.Toggle>

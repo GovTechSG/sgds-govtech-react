@@ -66,7 +66,7 @@ export const Template = (args) => {
 ## API
 
 ```jsx
-import { Form } from '@govtechsg/sgds-govtech-react/Form';
+import { Form } from '@govtechsg/sgds-react/Form';
 ```
 
 <ArgsTable story="Basic" />
@@ -76,7 +76,7 @@ For more detailed API documentation on `Form`, reference <a href="https://react-
 ### Code sample
 
 ```jsx
-import { Form, Button } from '@govtechsg/sgds-govtech-react';
+import { Form, Button } from '@govtechsg/sgds-react';
 
 const onSubmit = (event) => {
   event.preventDefault();
@@ -129,7 +129,7 @@ Add the `disabled` boolean attribute on an input to prevent user interactions an
 Browsers also treat all native form controls (`<input>`, `<select>` and `<button>` elements) inside `<fieldset disabled>` as disabled, preventing both keyboard and mouse interactions on them.
 
 ```jsx
-import { Form, Button } from '@govtechsg/sgds-govtech-react';
+import { Form, Button } from '@govtechsg/sgds-react';
 
 <Form>
   <Form.Group className="mb-3" controlId="disabledInput">

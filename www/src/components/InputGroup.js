@@ -1,6 +1,6 @@
-import { Form } from "@govtechsg/sgds-govtech-react/Form";
-import { InputGroup } from "@govtechsg/sgds-govtech-react/InputGroup";
-import { Dropdown, DropdownButton } from "@govtechsg/sgds-govtech-react/Dropdown";
+import { Form } from "@govtechsg/sgds-react/Form";
+import { InputGroup } from "@govtechsg/sgds-react/InputGroup";
+import { Dropdown, DropdownButton } from "@govtechsg/sgds-react/Dropdown";
 const InputGroupCom = () => {
     return (
       <Form>

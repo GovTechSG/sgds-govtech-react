@@ -1,5 +1,5 @@
-import { Tabs, Tab } from '@govtechsg/sgds-govtech-react/Tabs';
-import { Badge } from '@govtechsg/sgds-govtech-react/Badge';
+import { Tabs, Tab } from '@govtechsg/sgds-react/Tabs';
+import { Badge } from '@govtechsg/sgds-react/Badge';
 
 const TabsCom = () => (
   <>

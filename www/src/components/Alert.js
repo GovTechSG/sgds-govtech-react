@@ -1,6 +1,6 @@
 import { useState } from 'react';
-import { Alert } from '@govtechsg/sgds-govtech-react/Alert';
-import { Button } from '@govtechsg/sgds-govtech-react/Button';
+import { Alert } from '@govtechsg/sgds-react/Alert';
+import { Button } from '@govtechsg/sgds-react/Button';
 
  const AlertCom = () => {
   const [show, setShow] = useState(true);

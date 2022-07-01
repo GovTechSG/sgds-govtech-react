@@ -1,4 +1,4 @@
-import { Accordion } from '@govtechsg/sgds-govtech-react/Accordion'
+import { Accordion } from '@govtechsg/sgds-react/Accordion'
 
 const AccordionCom = () => (
     <Accordion>

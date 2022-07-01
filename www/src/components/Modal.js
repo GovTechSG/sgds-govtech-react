@@ -1,5 +1,5 @@
-import { Modal } from '@govtechsg/sgds-govtech-react/Modal';
-import { Button } from '@govtechsg/sgds-govtech-react/Button';
+import { Modal } from '@govtechsg/sgds-react/Modal';
+import { Button } from '@govtechsg/sgds-react/Button';
 import { useState } from 'react'
 
 const ModalCom = () => {

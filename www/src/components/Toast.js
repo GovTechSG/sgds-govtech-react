@@ -1,4 +1,4 @@
-import { Toast } from '@govtechsg/sgds-govtech-react/Toast';
+import { Toast } from '@govtechsg/sgds-react/Toast';
 import { useState } from "react";
 
 const ToastCom = () => {
