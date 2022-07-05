@@ -37,17 +37,17 @@ export const Template = (args) => {
     <Form onSubmit={onSubmit} {...args}>
       <Form.Group className="mb-3" controlId="formBasicEmail">
         <Form.Label>Email address</Form.Label>
-        <Form.Text className="text-muted">
+        <Form.Text className="text-muted" id="NoShare">
           We'll never share your email with anyone else.
         </Form.Text>
-        <Form.Control type="email" placeholder="Enter email" />
+        <Form.Control type="email" placeholder="Enter email" id="NoShare" />
       </Form.Group>
       <Form.Group className="mb-3" controlId="formBasicPassword">
         <Form.Label>Password</Form.Label>
-        <Form.Text className="text-muted">
+        <Form.Text className="text-muted" id="pwdCombination">
           Password has to be a combination of alphanumeric.
         </Form.Text>
-        <Form.Control type="password" placeholder="Password" />
+        <Form.Control type="password" placeholder="Password" aria-describedby="pwdCombination" />
       </Form.Group>
       <Form.Group className="mb-3" controlId="formBasicCheckbox">
         <Form.Check type="checkbox" label="Check me out" />
@@ -86,8 +86,8 @@ const onSubmit = (event) => {
 <Form onSubmit={onSubmit}>
   <Form.Group className="mb-3" controlId="formBasicEmail">
     <Form.Label>Email address</Form.Label>
-    <Form.Control type="email" placeholder="Enter email" />
-    <Form.Text className="text-muted">
+    <Form.Control type="email" placeholder="Enter email" aria-describedby="NoShare" />
+    <Form.Text className="text-muted" id="NoShare">
       We'll never share your email with anyone else.
     </Form.Text>
   </Form.Group>
@@ -152,9 +152,9 @@ import { Form, Button } from '@govtechsg/sgds-govtech-react';
 
 Block-level help text in forms can be created using `<Form.Text>`. Inline help text can be flexibly implemented using any inline HTML element and utility classes like .text-muted.
 
-### **Associating help text with form controls**
+### Accessibility: Associating help text with form controls
 
-Help text should be explicitly associated with the form control it relates to using the `aria-describedby` attribute. This will ensure that assistive technologies—such as screen readers—will announce this help text when the user focuses or enters the control.
+Help text should be explicitly associated with the form control it relates to using the `aria-describedby` attribute. This will ensure that assistive technologies — such as screen readers — will announce this help text when the user focuses or enters the control.
 Form text below inputs can be styled with `<Form.Text>`. This component includes `display: block` and adds some top margin for easy spacing from the inputs above.
 
 export const Template_Form_Text = (args) => {

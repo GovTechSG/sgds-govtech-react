@@ -60,18 +60,19 @@ export const AddressPatternTemplate = (args) => {
       </Form.Group>
       <Form.Group className="mb-3" controlId="formBasicBuilding">
         <Form.Label>Building/House Number</Form.Label>
-        <Form.Text className="text-muted">If applicable</Form.Text>
+        <Form.Text className="text-muted" id="buildingHint">If applicable</Form.Text>
         <Form.Control
           type="text"
           placeholder=""
           className="w-25"
           autoComplete="on"
+          aria-describedby="buildingHint"
         />
       </Form.Group>
       <Form.Group className="mb-3" controlId="formBasicUnitNumber">
         <Form.Label>Unit Number</Form.Label>
-        <Form.Text className="text-muted">If applicable</Form.Text>
-        <Form.Control type="text" className="w-50" autoComplete="on" />
+        <Form.Text className="text-muted" id="UnitHint">If applicable</Form.Text>
+        <Form.Control type="text" className="w-50" autoComplete="on" aria-describedby="unitHint" />
       </Form.Group>
     </Form>
   );
@@ -132,18 +133,24 @@ const handleSubmit = () => {
   </Form.Group>
   <Form.Group className="mb-3" controlId="formBasicBuilding">
     <Form.Label>Building/House Number</Form.Label>
-    <Form.Text className="text-muted">If applicable</Form.Text>
+    <Form.Text className="text-muted" id="buildingHint">If applicable</Form.Text>
     <Form.Control
       type="text"
       placeholder=""
       className="w-25"
       autoComplete="on"
+      aria-describedby="buildingHint"
     />
   </Form.Group>
   <Form.Group className="mb-3" controlId="formBasicUnitNumber">
     <Form.Label>Unit Number</Form.Label>
-    <Form.Text className="text-muted">If applicable</Form.Text>
-    <Form.Control type="text" className="w-50" autoComplete="on" />
+    <Form.Text className="text-muted" id="UnitHint">If applicable</Form.Text>
+    <Form.Control 
+      type="text" 
+      className="w-50" 
+      autoComplete="on" 
+      aria-describedby="unitHint" 
+    />
   </Form.Group>
 </Form>;
 ```
@@ -165,12 +172,13 @@ export const DatePatternSingleTemplate = (args) => {
     <Form {...args}>
       <Form.Group as={Col} className="mb-3">
         <Form.Label htmlFor="singleDate">Date of Birth</Form.Label>
-        <Form.Text className="text-muted">e.g 01 Jun 1979</Form.Text>
+        <Form.Text className="text-muted" id="dobHint">e.g 01 Jun 1979</Form.Text>
         <Form.Control
           className="w-50"
           type="text"
           id="singleDate"
           autoComplete="on"
+          aria-describedby="dobHint"
           required
         />
       </Form.Group>
@@ -189,12 +197,13 @@ import { useState } from 'react';
 <Form>
   <Form.Group as={Col} className="mb-3">
     <Form.Label htmlFor="singleDate">Date of Birth</Form.Label>
-    <Form.Text className="text-muted">e.g 01 Jun 1979</Form.Text>
+    <Form.Text className="text-muted" id="dobHint">e.g 01 Jun 1979</Form.Text>
     <Form.Control
       className="w-50"
       type="text"
       id="singleDate"
       autoComplete="on"
+      aria-describedby="dobHint"
       required
     />
   </Form.Group>
@@ -323,13 +332,14 @@ export const EmailPatternTemplate = (args) => {
     <Form {...args}>
       <Form.Group className="mb-3">
         <Form.Label htmlFor="email">Email Address</Form.Label>
-        <Form.Text className="text-muted">
+        <Form.Text className="text-muted" id="EmailPurpose">
           Your email will only be used for updates
         </Form.Text>
         <Form.Control
           className="w-50"
           id="email"
           type="email"
+          aria-describedby="EmailPurpose"
           placeholder="Enter email"
           maxLength={256}
           required
@@ -352,13 +362,14 @@ import { useState } from 'react';
 <Form>
   <Form.Group className="mb-3">
     <Form.Label htmlFor="email">Email Address</Form.Label>
-    <Form.Text className="text-muted">
+    <Form.Text className="text-muted" id="EmailPurpose">
       Your email will only be used for updates
     </Form.Text>
     <Form.Control
       className="w-50"
       id="email"
       type="email"
+      aria-describedby="EmailPurpose"
       placeholder="Enter email"
       maxLength={256}
       required
@@ -587,12 +598,13 @@ export const PaymentPatternTemplate = (args) => {
       </Form.Group>
       <Form.Group as={Col} xs={6} className="mb-3" controlId="cardNumber">
         <Form.Label>Card number</Form.Label>
-        <Form.Text className="text-muted">
+        <Form.Text className="text-muted" id="sixteenDigits">
           Enter the 16-digit number on the card
         </Form.Text>
         <Form.Control
           type="text"
           value={cardNumber}
+          aria-describedby="sixteenDigits"
           onChange={handleChangeCardNumber}
           autoComplete="cc-number"
           name="cc-number"
@@ -604,10 +616,11 @@ export const PaymentPatternTemplate = (args) => {
       <Row>
         <Form.Group as={Col} xs={2} className="mb-3" controlId="expiryDate">
           <Form.Label>Expiry date</Form.Label>
-          <Form.Text className="text-muted">MM/YY</Form.Text>
+          <Form.Text className="text-muted" id="monthYear">MM/YY</Form.Text>
           <Form.Control
             type="text"
             value={cardExpDate}
+            aria-describedby="monthYear"
             onChange={handleChangeCardExpDate}
             autoComplete="cc-exp"
             pattern="\d*"
@@ -618,11 +631,12 @@ export const PaymentPatternTemplate = (args) => {
         </Form.Group>
         <Form.Group as={Col} xs={4} className="mb-3" controlId="cvv">
           <Form.Label>CVV</Form.Label>
-          <Form.Text className="text-muted">
+          <Form.Text className="text-muted" id="threeDigits">
             The 3 digit number at the back of card
           </Form.Text>
           <Form.Control
             type="number"
+            aria-describedby="threeDigits"
             autoComplete="cc-csc"
             pattern="\d\*"
             maxLength="3"
@@ -689,12 +703,13 @@ const handleChangeCardNumber = (e) => {
   </Form.Group>
   <Form.Group as={Col} xs={6} className="mb-3" controlId="cardNumber">
     <Form.Label>Card number</Form.Label>
-    <Form.Text className="text-muted">
+    <Form.Text className="text-muted" id="sixteenDigits">
       Enter the 16-digit number on the card
     </Form.Text>
     <Form.Control
       type="text"
       value={cardNumber}
+      aria-describedby="sixteenDigits"
       onChange={handleChangeCardNumber}
       autoComplete="cc-number"
       name="cc-number"
@@ -706,10 +721,11 @@ const handleChangeCardNumber = (e) => {
   <Row>
     <Form.Group as={Col} xs={2} className="mb-3" controlId="expiryDate">
       <Form.Label>Expiry date</Form.Label>
-      <Form.Text className="text-muted">MM/YY</Form.Text>
+      <Form.Text className="text-muted" id="monthYear">MM/YY</Form.Text>
       <Form.Control
         type="text"
         value={expDate}
+        aria-describedby="monthYear"
         onChange={handleChangeCardExpDate}
         autoComplete="cc-exp"
         name="cc-exp"
@@ -720,11 +736,12 @@ const handleChangeCardNumber = (e) => {
     </Form.Group>
     <Form.Group as={Col} xs={4} className="mb-3" controlId="cvv">
       <Form.Label>CVV</Form.Label>
-      <Form.Text className="text-muted">
+      <Form.Text className="text-muted" id="threeDigits">
         The 3 digit number at the back of card
       </Form.Text>
       <Form.Control
         type="number"
+        aria-describedby="threeDigits"
         autoComplete="cc-csc"
         name="cc-csc"
         pattern="\d*"

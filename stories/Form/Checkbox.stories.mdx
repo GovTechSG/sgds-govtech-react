@@ -14,8 +14,8 @@ import { FormCheck, Button, Form } from '../../src/index';
 export const Template = (args) => {
   return (
     <Form>
-      <FormCheck {...args} id='default-checkbox-1'/>
-      <FormCheck {...args} id='default-checkbox-2' />
+      <FormCheck {...args} id='option-1'/>
+      <FormCheck {...args} id='option-2' />
     </Form>
   );
 };
@@ -58,7 +58,7 @@ Remember to apply HTMLInput type attribute `name` for radio buttons so that user
 ## Switch
 
 <Canvas>
-  <Story name="Default - switch" args={{ label: 'Switch', type: 'switch', ariaLabel: 'switch' }}>
+  <Story name="Default - switch" args={{ label: 'Switch', type: 'switch' }}>
     {Template.bind({})}
   </Story>
 </Canvas>
