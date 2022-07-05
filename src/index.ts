@@ -35,4 +35,4 @@ export * from './Tabs/Tab';
 export * from './ThemeProvider';
 export * from './Toast';
 export * from './Tooltip';
-export * from './Typeahead';
+export * from './Combobox';

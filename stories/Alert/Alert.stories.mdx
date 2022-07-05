@@ -5,13 +5,13 @@ import { Alert, Button } from '../../src';
 <Meta
   title="Components/Alert"
   component={Alert}
-  subcomponents={{"Alert.Heading": Alert.Heading, "Alert.Link": Alert.Link}}
+  subcomponents={{ 'Alert.Heading': Alert.Heading, 'Alert.Link': Alert.Link }}
   argTypes={{
     variant: {
       table: {
         type: {
           summary:
-            " 'primary' | 'secondary' | 'success' | 'danger' | 'warning' | 'info' | 'dark' | 'light' | dark",
+            " 'primary' | 'secondary' | 'success' | 'danger' | 'warning' | 'info' | 'light' ",
         },
       },
       options: [
@@ -22,7 +22,6 @@ import { Alert, Button } from '../../src';
         'warning',
         'info',
         'light',
-        'dark',
       ],
       control: {
         type: 'select',
@@ -52,10 +51,10 @@ Provide contextual feedback messages for typical user actions with the handful o
   <Story name="Default">{Template.bind({})}</Story>
 </Canvas>
 
-## API 
+## API
 
 ```jsx
-import { Alert } from '@govtechsg/sgds-govtech-react/Alert'; 
+import { Alert } from '@govtechsg/sgds-react/Alert';
 ```
 
 <ArgsTable story="Default" />
@@ -75,7 +74,6 @@ You may also choose to slot in your icons from any libraries to make your inform
       'warning',
       'info',
       'light',
-      'dark',
     ].map((variant, idx) => (
       <Alert key={idx} variant={variant} className="d-flex align-items-center">
         <div>
@@ -89,25 +87,18 @@ You may also choose to slot in your icons from any libraries to make your inform
 </Canvas>
 
 ```jsx
-import { Alert } from '@govtechsg/sgds-govtech-react';
+import { Alert } from '@govtechsg/sgds-react';
 
-[
-  'primary',
-  'secondary',
-  'success',
-  'danger',
-  'warning',
-  'info',
-  'light',
-  'dark',
-].map((variant, idx) => (
-  <Alert key={idx} variant={variant} className="d-flex align-items-center">
-    <div>
-      <i className="bi bi-exclamation-circle me-4"></i>This is a {variant} alert—check
-      it out!
-    </div>
-  </Alert>
-));
+['primary', 'secondary', 'success', 'danger', 'warning', 'info', 'light'].map(
+  (variant, idx) => (
+    <Alert key={idx} variant={variant} className="d-flex align-items-center">
+      <div>
+        <i className="bi bi-exclamation-circle me-4"></i>This is a {variant} alert—check
+        it out!
+      </div>
+    </Alert>
+  )
+);
 ```
 
 ## 2. Links
@@ -124,7 +115,6 @@ For links, use the `<Alert.Link>` component to provide matching colored links wi
       'warning',
       'info',
       'light',
-      'dark',
     ].map((variant, idx) => (
       <Alert key={idx} variant={variant} className="d-flex align-items-center">
         <i className="bi bi-exclamation-circle me-4"></i>
@@ -140,27 +130,20 @@ For links, use the `<Alert.Link>` component to provide matching colored links wi
 </Canvas>
 
 ```jsx
-import { Alert } from '@govtechsg/sgds-govtech-react';
+import { Alert } from '@govtechsg/sgds-react';
 
-[
-  'primary',
-  'secondary',
-  'success',
-  'danger',
-  'warning',
-  'info',
-  'light',
-  'dark',
-].map((variant, idx) => (
-  <Alert key={idx} variant={variant} className="d-flex align-items-center">
-    <i className="bi bi-exclamation-circle me-4"></i>
-    <div>
-      This is a {variant} alert with{' '}
-      <Alert.Link href="#">an example link</Alert.Link>. Give it a click if you
-      like.
-    </div>
-  </Alert>
-));
+['primary', 'secondary', 'success', 'danger', 'warning', 'info', 'light'].map(
+  (variant, idx) => (
+    <Alert key={idx} variant={variant} className="d-flex align-items-center">
+      <i className="bi bi-exclamation-circle me-4"></i>
+      <div>
+        This is a {variant} alert with{' '}
+        <Alert.Link href="#">an example link</Alert.Link>. Give it a click if
+        you like.
+      </div>
+    </Alert>
+  )
+);
 ```
 
 ## 3. Additional content
@@ -189,7 +172,7 @@ Alerts can contain whatever content you like. Headers, paragraphs, dividers etc.
 </Canvas>
 
 ```jsx
-import { Alert } from '@govtechsg/sgds-govtech-react';
+import { Alert } from '@govtechsg/sgds-react';
 
 <Alert variant="success" className="d-flex align-items-center">
   <i className="bi bi-exclamation-circle me-4"></i>
@@ -247,7 +230,7 @@ export const Dismissible = (args) => {
 </Canvas>
 
 ```jsx
-import { Alert, Button } from '@govtechsg/sgds-govtech-react';
+import { Alert, Button } from '@govtechsg/sgds-react';
 
 export const Alert = () => {
   const [show, setShow] = useState(true);

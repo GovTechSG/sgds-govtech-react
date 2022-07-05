@@ -1,5 +1,5 @@
-import { Col } from '@govtechsg/sgds-govtech-react/Col';
-import { Card } from '@govtechsg/sgds-govtech-react/Card';
+import { Col } from '@govtechsg/sgds-react/Col';
+import { Card } from '@govtechsg/sgds-react/Card';
 const CardCom = (args) => {
   return (
     <Col xs lg="4">

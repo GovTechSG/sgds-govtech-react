@@ -1,0 +1,50 @@
+import { ArgsTable, Canvas, Meta, Story } from '@storybook/addon-docs';
+import { HIDDEN_COMMON_PROPS } from '../helpers';
+import { FormControl, Form, FormControlGroup } from '../../src/index';
+
+<Meta title="Components/Form/FormControlGroup" component={FormControlGroup} />
+
+
+
+# FormControlGroup
+
+Use FormControlGroup to add icons to FormControl. Icons embedded in FormControl input provide users the visual cue on the input content.
+Wrap `<FormControl/>` with `<FormControlGroup/>`. Only applicable for default `FormControl` using HTMl `<input/>`
+
+Does not apply to textarea.
+
+`icon` prop is a required field. Icon element passed in will be positioned to left of inside `FormControl` 
+
+export const FormControlIcon = () => {
+  return (
+    <Form>
+    <Form.Group className="mb-3" controlId="formControlWithIcon">
+    <Form.Label>Search</Form.Label>
+    <Form.Control.Group icon={<i className="bi bi-search"></i>}>
+      <Form.Control />
+    </Form.Control.Group>
+    </Form.Group>
+    </Form>
+  );
+};
+
+<Canvas>
+  <Story
+    name="Default"
+  >
+    {FormControlIcon.bind({})}
+  </Story>
+</Canvas>
+
+
+
+## API
+
+```jsx
+import { FormControlGroup } from '@govtechsg/sgds-react/Form';
+//or 
+import { Form } from '@govtechsg/sgds-react/Form'
+// use Form.Control.Group
+```
+
+<ArgsTable story="Default" />

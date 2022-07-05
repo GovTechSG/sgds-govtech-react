@@ -1,9 +1,9 @@
 import { useState } from "react";
-import { Row } from '@govtechsg/sgds-govtech-react/Row'
-import { Col } from '@govtechsg/sgds-govtech-react/Col'
-import { Card } from '@govtechsg/sgds-govtech-react/Card'
-import { CloseButton } from '@govtechsg/sgds-govtech-react/CloseButton'
-import { QuantityToggle } from '@govtechsg/sgds-govtech-react/QuantityToggle'
+import { Row } from '@govtechsg/sgds-react/Row'
+import { Col } from '@govtechsg/sgds-react/Col'
+import { Card } from '@govtechsg/sgds-react/Card'
+import { CloseButton } from '@govtechsg/sgds-react/CloseButton'
+import { QuantityToggle } from '@govtechsg/sgds-react/QuantityToggle'
 const QtyToggleCom = () => {
     const [count, setCount] = useState(0);
     const [disappear, setDisappear] = useState(false);

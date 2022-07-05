@@ -1,7 +1,7 @@
-import { Button } from '@govtechsg/sgds-govtech-react/Button';
-import { Stepper, useStep } from '@govtechsg/sgds-govtech-react/Stepper';
+import { Button } from '@govtechsg/sgds-react/Button';
+import { Stepper, useStep } from '@govtechsg/sgds-react/Stepper';
 import { useState } from 'react';
-import { Form } from '@govtechsg/sgds-govtech-react/Form';
+import { Form } from '@govtechsg/sgds-react/Form';
 
 const StepperCom = () => {
   const initialState = {

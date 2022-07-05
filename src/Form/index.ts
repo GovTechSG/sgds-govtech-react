@@ -4,6 +4,9 @@ export type { FormProps } from './Form';
 export { default as FormControl } from './FormControl';
 export type { FormControlProps } from './FormControl';
 
+export { default as FormControlGroup } from './FormControlGroup';
+export type { FormControlGroupProps } from './FormControlGroup';
+
 export { default as FormCheck } from './FormCheck';
 export type { FormCheckProps } from './FormCheck';
 

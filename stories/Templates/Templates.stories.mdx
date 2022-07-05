@@ -1,0 +1,619 @@
+import { ArgsTable, Canvas, Meta, Story } from '@storybook/addon-docs';
+import { SgdsMasthead } from '@govtechsg/sgds-masthead-react';
+import '@govtechsg/sgds-masthead/dist/sgds-masthead/sgds-masthead.css';
+
+
+import {
+  Form,
+  Button,
+  Col,
+  Row,
+  InputGroup,
+  DatePicker,
+  useStep,
+  Stepper,
+  Accordion,
+  Footer,
+  Breadcrumb
+} from '../../src/index';
+
+import { useState } from 'react';
+
+<Meta title="Templates" component={Form} />
+
+export const SinglePageTemplate = () => {
+  const onSubmit = (event) => {
+    event.preventDefault();
+    console.log('submission prevented');
+  };
+  return (
+    <div>
+      <SgdsMasthead />
+      <section className="my-8 mx-md-8">
+        <Breadcrumb>
+          <Breadcrumb.Item href="">
+            HOME
+          </Breadcrumb.Item>
+          <Breadcrumb.Item active>
+            SIGN-UP
+          </Breadcrumb.Item>
+        </Breadcrumb>
+        <Row>
+          <Col xs={12} md={6}>
+            <h1>Sign-up</h1>
+            <p className="text-muted">Already a member? <a href="" className="text-decoration-none">Log in</a></p>
+          </Col>
+          <Col xs={12} md={6} className="d-flex justify-content-end align-items-center">
+            <a href="" className="me-4">Cancel</a>
+            <Button variant="outline-dark" className="me-4">
+                Save as draft
+            </Button>
+            <Button variant="secondary">
+                Next
+            </Button>
+          </Col>
+        </Row>
+      </section>
+      <section className="shadow rounded p-5 my-8 mx-md-8">
+        <Col sm={8}>
+          <Form onSubmit={onSubmit}>
+            <Row>
+              <Form.Group
+                as={Col}
+                xs={12}
+                md={6}
+                className="mb-3"
+                controlId="formSinglePageInput1"
+              >
+                <Form.Label>Label</Form.Label>
+                <Form.Control type="text" placeholder="Text goes here" />
+              </Form.Group>
+              <Form.Group
+                as={Col}
+                xs={12}
+                md={6}
+                className="mb-3"
+                controlId="formSinglePageInput2"
+              >
+                <Form.Label>Label</Form.Label>
+                <Form.Control type="text" placeholder="Text goes here" />
+              </Form.Group>
+            </Row>
+            <Form.Group className="mb-3" controlId="formSinglePageInput3">
+              <Form.Label>Label</Form.Label>
+              <InputGroup className="mb-3">
+                <Form.Control
+                  placeholder="Text goes here"
+                  aria-label="Dollar amount (with dot and two decimal places)"
+                />
+                <InputGroup.Text>@something</InputGroup.Text>
+              </InputGroup>
+            </Form.Group>
+            <Form.Group className="mb-3" controlId="formSinglePageInput4">
+              <Form.Label>Label</Form.Label>
+              <Form.Control type="text" placeholder="Text goes here" />
+            </Form.Group>
+            <Form.Group className="mb-4" controlId="formSinglePageDatepicker1">
+              <Form.Label>Label</Form.Label>
+              <DatePicker/>
+            </Form.Group>
+            <Form.Group className="mb-3" controlId="formSinglePageSelect1">
+              <Form.Label>Label</Form.Label>
+              <Form.Select>
+                <option>Text goes here</option>
+                <option>Text goes here</option>
+                <option>Text goes here</option>
+              </Form.Select>
+            </Form.Group>
+            <Form.Group className="mb-3" controlId="formSinglePageRadio1">
+              <Form.Label>Label</Form.Label>
+              <Form.Check type="radio" name="radioGroup1" label="Input 1" />
+              <Form.Check type="radio" name="radioGroup1" label="Input 2" />
+              <Form.Check type="radio" name="radioGroup1" label="Input 3" />
+            </Form.Group>
+            <Form.Group className="mb-3" controlId="formSinglePageInput5">
+              <Form.Label>Label</Form.Label>
+              <Form.Control
+                as="textarea"
+                rows={5}
+                type="text"
+                placeholder="This is the text that has been filled in"
+              />
+            </Form.Group>
+            <Form.Group className="mb-3" controlId="formBasicCheckbox1">
+              <Form.Check
+                type="checkbox"
+                label="I agree to the terms of the Subscriber Agreement and the Privacy Policy"
+              />
+            </Form.Group>
+          </Form>
+        </Col>
+      </section>
+      <div className="d-flex justify-content-end my-8 mx-md-8">
+        <Button variant="secondary" type="submit">
+              Submit
+        </Button>
+      </div>
+      <Footer>
+        <Footer.Top>
+          <Footer.Top.ContactLinks>
+            <a href="" target="_blank">Contact</a>
+            <a href="" target="_blank">Feedback</a>
+          </Footer.Top.ContactLinks>
+        </Footer.Top>
+        <Footer.Bottom>
+          <Footer.Bottom.Links>
+            <a href="" target="_blank">Report Vulnerability</a>
+            <a href="">Privacy</a>
+            <a href="">Terms of use</a>
+          </Footer.Bottom.Links>
+          <Footer.Bottom.Copyrights>
+            © 2022 Government of Singapore. Last Updated 08 Feb 2022
+          </Footer.Bottom.Copyrights>
+        </Footer.Bottom>
+      </Footer>
+    </div>
+  );
+};
+
+# Single Page form
+
+A base collection of field components rendered on a single page.
+
+<Canvas>
+  <Story name="Single Page Form">{SinglePageTemplate.bind({})}</Story>
+</Canvas>
+
+# Multi Page form
+
+A base collection of field components rendered on a multi page layout.
+
+export const MultiPageTemplate = () => {
+  const initialState = {
+    formSinglePageInput1: '',
+    lastName: '',
+    gender: '',
+    email: '',
+    address: '',
+  };
+  const [submitted, setSubmitted] = useState(false);
+  const [details, setDetails] = useState(initialState);
+  const handleChange = (e) => {
+    setDetails({ ...details, [e.target.name]: e.target.value });
+  };
+  const ComponentOne = (
+    <>
+      <Col sm={8}>
+        <Row>
+          <Form.Group
+            as={Col}
+            xs={12}
+            md={6}
+            className="mb-3"
+            controlId="formMultiPageInput1"
+          >
+            <Form.Label>Label</Form.Label>
+            <Form.Control
+              type="text"
+              placeholder="Text goes here"
+              name="formMultiPageInput1"
+              onChange={handleChange}
+              value={details.formSinglePageInput1}
+            />
+          </Form.Group>
+          <Form.Group
+            as={Col}
+            xs={12}
+            md={6}
+            className="mb-3"
+            controlId="formMultiPageInput2"
+          >
+            <Form.Label>Label</Form.Label>
+            <Form.Control type="text" placeholder="Text goes here" />
+          </Form.Group>
+        </Row>
+        <Form.Group className="mb-3" controlId="formMultiPageInput3">
+          <Form.Label>Label</Form.Label>
+          <InputGroup className="mb-3">
+            <Form.Control
+              placeholder="Text goes here"
+              aria-label="Dollar amount (with dot and two decimal places)"
+            />
+            <InputGroup.Text>@something</InputGroup.Text>
+          </InputGroup>
+        </Form.Group>
+        <Form.Group className="mb-3" controlId="formMultiPageInput4">
+          <Form.Label>Label</Form.Label>
+          <Form.Control type="text" placeholder="Text goes here" />
+        </Form.Group>
+        <Form.Group className="mb-4" controlId="formMultiPageDatepicker1">
+          <Form.Label>Label</Form.Label>
+          <DatePicker />
+        </Form.Group>
+      </Col>
+    </>
+  );
+  const ComponentTwo = (
+    <>
+      <Col sm={8}>
+        <Form.Group className="mb-3" controlId="formMultiPage2Select1">
+          <Form.Label>Label</Form.Label>
+          <Form.Select>
+            <option>Text goes here</option>
+            <option>Text goes here</option>
+            <option>Text goes here</option>
+          </Form.Select>
+        </Form.Group>
+        <Form.Group className="mb-3" controlId="formMultiPage2Radio2">
+          <Form.Label>Label</Form.Label>
+          <Form.Check type="radio" name="radioGroup1" label="Input 1" />
+          <Form.Check type="radio" name="radioGroup1" label="Input 2" />
+          <Form.Check type="radio" name="radioGroup1" label="Input 3" />
+        </Form.Group>
+        <Form.Group className="mb-3" controlId="formMultiPage2Input5">
+          <Form.Label>Label</Form.Label>
+          <Form.Control
+            as="textarea"
+            rows={5}
+            type="text"
+            placeholder="This is the text that has been filled in"
+          />
+        </Form.Group>
+        <Form.Group className="mb-3" controlId="formMultiPage2Checkbox1">
+          <Form.Check
+            type="checkbox"
+            label="I agree to the terms of the Subscriber Agreement and the Privacy Policy"
+          />
+        </Form.Group>
+      </Col>
+    </>
+  );
+  const ComponentThree = (
+    <>
+      <Col sm={8}>
+        <Row>
+          <Form.Group
+            as={Col}
+            xs={12}
+            md={6}
+            className="mb-3"
+            controlId="formMultiPage3Input1"
+          >
+            <Form.Label>Label</Form.Label>
+            <Form.Control type="text" placeholder="Text goes here" />
+          </Form.Group>
+          <Form.Group
+            as={Col}
+            xs={12}
+            md={6}
+            className="mb-3"
+            controlId="formMultiPage3Input2"
+          >
+            <Form.Label>Label</Form.Label>
+            <Form.Control type="text" placeholder="Text goes here" />
+          </Form.Group>
+        </Row>
+        <Form.Group className="mb-3" controlId="formMultiPage3Input3">
+          <Form.Label>Label</Form.Label>
+          <InputGroup className="mb-3">
+            <Form.Control
+              placeholder="Text goes here"
+              aria-label="Dollar amount (with dot and two decimal places)"
+            />
+            <InputGroup.Text>@something</InputGroup.Text>
+          </InputGroup>
+        </Form.Group>
+        <Form.Group className="mb-3" controlId="formMultiPage3Input4">
+          <Form.Label>Label</Form.Label>
+          <Form.Control type="text" placeholder="Text goes here" />
+        </Form.Group>
+        <Form.Group className="mb-4" controlId="formMultiPage3Datepicker1">
+          <Form.Label>Label</Form.Label>
+          <DatePicker />
+        </Form.Group>
+        <Form.Group className="mb-3" controlId="formMultiPage3Select1">
+          <Form.Label>Label</Form.Label>
+          <Form.Select>
+            <option>Text goes here</option>
+            <option>Text goes here</option>
+            <option>Text goes here</option>
+          </Form.Select>
+        </Form.Group>
+        <Form.Group className="mb-3" controlId="formMultiPage3Radio1">
+          <Form.Label>Label</Form.Label>
+          <Form.Check type="radio" name="radioGroup1" label="Input 1" />
+          <Form.Check type="radio" name="radioGroup1" label="Input 2" />
+          <Form.Check type="radio" name="radioGroup1" label="Input 3" />
+        </Form.Group>
+        <Form.Group className="mb-3" controlId="formMultiPage3Input5">
+          <Form.Label>Label</Form.Label>
+          <Form.Control
+            as="textarea"
+            rows={5}
+            type="text"
+            placeholder="This is the text that has been filled in"
+          />
+        </Form.Group>
+        <Form.Group className="mb-3" controlId="formBasicCheckbox1">
+          <Form.Check
+            type="checkbox"
+            label="I agree to the terms of the Subscriber Agreement and the Privacy Policy"
+          />
+        </Form.Group>
+      </Col>
+    </>
+  );
+  const stepMethods = useStep([
+    {
+      component: ComponentOne,
+      title: 'Marker 1',
+      stepHeader: 'Marker 1',
+    },
+    {
+      component: ComponentTwo,
+      title: 'Marker 2',
+      stepHeader: 'Marker 2',
+    },
+    {
+      component: ComponentThree,
+      title: 'Marker 3',
+      stepHeader: 'Marker 3',
+    },
+  ]);
+  const {
+    state: stepState,
+    stepsMetadata,
+    getTitle,
+    nextStep,
+    prevStep,
+    getNextButtonTitle,
+    getBackButtonTitle,
+    getComponent,
+    reset,
+  } = stepMethods;
+  const submit = () => {
+    alert('Form Submitted');
+    setSubmitted(true);
+  };
+  return (
+    <>
+      {submitted ? (
+        <div>Submitted!</div>
+      ) : (
+        <>
+          <SgdsMasthead />
+          <section className="my-8 mx-md-8">
+            <Breadcrumb>
+              <Breadcrumb.Item href="">
+                HOME
+              </Breadcrumb.Item>
+              <Breadcrumb.Item active>
+                SIGN-UP
+              </Breadcrumb.Item>
+            </Breadcrumb>
+            <Row className="mb-4">
+              <Col xs={12} md={6}>
+                <h1>Sign-up</h1>
+                <p className="text-muted">Already a member? <a href="" className="text-decoration-none">Log in</a></p>
+              </Col>
+              <Col xs={12} md={6} className="d-flex justify-content-end align-items-center">
+                <a href="" className="me-4">Cancel</a>
+                <Button variant="outline-dark" className="me-4">
+                    Save as draft
+                </Button>
+                <Button variant="secondary">
+                    Next
+                </Button>
+              </Col>
+            </Row>
+          </section>
+          <Stepper methods={stepMethods} />
+          <section className="shadow rounded p-5 mx-md-8">
+            <Form>
+              <div>{getComponent()}</div>
+            </Form>
+          </section>
+          <div className="d-flex justify-content-end my-8 mx-md-8">
+            <div>
+              {getBackButtonTitle() && (
+                <Button onClick={prevStep} variant="outline-dark" className="me-3">
+                  {getBackButtonTitle()}
+                </Button>
+              )}
+              <Button
+                onClick={
+                  stepsMetadata.isLastStep(stepState.currentStep)
+                    ? submit
+                    : nextStep
+                }
+                variant="secondary"
+              >
+                {getNextButtonTitle()}
+              </Button>
+            </div>
+          </div>
+          <Footer>
+            <Footer.Top>
+              <Footer.Top.ContactLinks>
+                <a href="" target="_blank">Contact</a>
+                <a href="" target="_blank">Feedback</a>
+              </Footer.Top.ContactLinks>
+            </Footer.Top>
+            <Footer.Bottom>
+              <Footer.Bottom.Links>
+                <a href="" target="_blank">Report Vulnerability</a>
+                <a href="">Privacy</a>
+                <a href="">Terms of use</a>
+              </Footer.Bottom.Links>
+              <Footer.Bottom.Copyrights>
+                © 2022 Government of Singapore. Last Updated 08 Feb 2022
+              </Footer.Bottom.Copyrights>
+            </Footer.Bottom>
+          </Footer>
+        </>
+      )}
+    </>
+  );
+};
+
+<Canvas>
+  <Story name="Multi Page Form">{MultiPageTemplate.bind({})}</Story>
+</Canvas>
+
+# Collapsible Single Page form
+
+A base collection of field components rendered within multi collapsible tabs.
+
+export const AccordionSinglePageTemplate = () => {
+  return (
+    <>
+      <SgdsMasthead />
+      <section className="my-8 mx-md-8">
+        <Breadcrumb>
+          <Breadcrumb.Item href="">
+            HOME
+          </Breadcrumb.Item>
+          <Breadcrumb.Item active>
+            SIGN-UP
+          </Breadcrumb.Item>
+        </Breadcrumb>
+        <Row className="mb-4">
+          <Col xs={12} md={6}>
+            <h1>Sign-up</h1>
+            <p className="text-muted">Already a member? <a href="" className="text-decoration-none">Log in</a></p>
+          </Col>
+          <Col xs={12} md={6} className="d-flex justify-content-end align-items-center">
+            <a href="" className="me-4">Cancel</a>
+            <Button variant="outline-dark" className="me-4">
+                Save as draft
+            </Button>
+            <Button variant="secondary">
+                Next
+            </Button>
+          </Col>
+        </Row>
+      </section>
+      <Accordion defaultActiveKey="0" className="mx-md-8 shadow">
+        <Accordion.Item eventKey="0">
+          <Accordion.Header>Input 1</Accordion.Header>
+          <Accordion.Body className="p-5">
+            <Col sm={8}>
+              <Form>
+                <Row>
+                  <Form.Group
+                    as={Col}
+                    xs={12}
+                    md={6}
+                    className="mb-3"
+                    controlId="formCollapsibleInput1"
+                  >
+                    <Form.Label>Label</Form.Label>
+                    <Form.Control type="text" placeholder="Text goes here" />
+                  </Form.Group>
+                  <Form.Group
+                    as={Col}
+                    xs={12}
+                    md={6}
+                    className="mb-3"
+                    controlId="formCollapsibleSinglePageInput2"
+                  >
+                    <Form.Label>Label</Form.Label>
+                    <Form.Control type="text" placeholder="Text goes here" />
+                  </Form.Group>
+                </Row>
+                <Form.Group className="mb-3" controlId="formCollapsibleInput3">
+                  <Form.Label>Label</Form.Label>
+                  <InputGroup className="mb-3">
+                    <Form.Control
+                      placeholder="Text goes here"
+                      aria-label="Dollar amount (with dot and two decimal places)"
+                    />
+                    <InputGroup.Text>@something</InputGroup.Text>
+                  </InputGroup>
+                </Form.Group>
+                <Form.Group className="mb-3" controlId="formCollapsibleInput4">
+                  <Form.Label>Label</Form.Label>
+                  <Form.Control type="text" placeholder="Text goes here" />
+                </Form.Group>
+              </Form>
+            </Col>
+          </Accordion.Body>
+        </Accordion.Item>
+        <Accordion.Item eventKey="1">
+          <Accordion.Header>Input 2</Accordion.Header>
+          <Accordion.Body className="p-5">
+            <Col sm={8}>
+              <Form.Group className="mb-4" controlId="formCollapsibleDatepicker1">
+                <Form.Label>Label</Form.Label>
+                <DatePicker />
+              </Form.Group>
+              <Form.Group className="mb-3" controlId="formCollapsibleSelect1">
+                <Form.Label>Label</Form.Label>
+                <Form.Select>
+                  <option>Text goes here</option>
+                  <option>Text goes here</option>
+                  <option>Text goes here</option>
+                </Form.Select>
+              </Form.Group>
+            </Col>
+          </Accordion.Body>
+        </Accordion.Item>
+        <Accordion.Item eventKey="2">
+          <Accordion.Header>Input 3</Accordion.Header>
+          <Accordion.Body className="p-5">
+            <Col sm={8}>
+              <Form.Group className="mb-3" controlId="formCollapsibleRadio1">
+                <Form.Label>Label</Form.Label>
+                <Form.Check type="radio" name="radioGroup1" label="Input 1" />
+                <Form.Check type="radio" name="radioGroup1" label="Input 2" />
+                <Form.Check type="radio" name="radioGroup1" label="Input 3" />
+              </Form.Group>
+              <Form.Group className="mb-3" controlId="formCollapsibleInput5">
+                <Form.Label>Label</Form.Label>
+                <Form.Control
+                  as="textarea"
+                  rows={5}
+                  type="text"
+                  placeholder="This is the text that has been filled in"
+                />
+              </Form.Group>
+              <Form.Group className="mb-3" controlId="formCollapsibleCheckbox1">
+                <Form.Check
+                  type="checkbox"
+                  label="I agree to the terms of the Subscriber Agreement and the Privacy Policy"
+                />
+              </Form.Group>
+            </Col>
+          </Accordion.Body>
+        </Accordion.Item>
+      </Accordion>
+      <div className="d-flex justify-content-end my-8 mx-md-8">
+        <Button variant="secondary">Submit</Button>
+      </div>
+      <Footer>
+        <Footer.Top>
+          <Footer.Top.ContactLinks>
+            <a href="" target="_blank">Contact</a>
+            <a href="" target="_blank">Feedback</a>
+          </Footer.Top.ContactLinks>
+        </Footer.Top>
+        <Footer.Bottom>
+          <Footer.Bottom.Links>
+            <a href="" target="_blank">Report Vulnerability</a>
+            <a href="">Privacy</a>
+            <a href="">Terms of use</a>
+          </Footer.Bottom.Links>
+          <Footer.Bottom.Copyrights>
+            © 2022 Government of Singapore. Last Updated 08 Feb 2022
+          </Footer.Bottom.Copyrights>
+        </Footer.Bottom>
+      </Footer>
+    </>
+  );
+};
+
+<Canvas>
+  <Story name="Collapsible Single Page Form">
+    {AccordionSinglePageTemplate.bind({})}
+  </Story>
+</Canvas>

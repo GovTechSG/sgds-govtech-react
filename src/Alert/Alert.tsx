@@ -24,7 +24,7 @@ export interface AlertProps
   extends React.HTMLAttributes<HTMLDivElement>,
     BsPrefixProps {
   /** The Alert visual color variant */
-  variant?: Variant;
+  variant?: Omit<Variant, 'dark'>;
   /** Renders a properly aligned dismiss button, as well as adding extra horizontal padding to the Alert */
   dismissible?: boolean;
   /** Controls the visual state of the Alert */
@@ -51,7 +51,7 @@ const propTypes = {
   /**
    * The Alert visual variant
    *
-   * @type {'primary' | 'secondary' | 'success' | 'danger' | 'warning' | 'info' | 'dark' | 'light'}
+   * @type {'primary' | 'secondary' | 'success' | 'danger' | 'warning' | 'info' | 'light'}
    */
   variant: PropTypes.string,
 

@@ -1,6 +1,6 @@
 import { useState } from "react";
-import { FileUpload } from "@govtechsg/sgds-govtech-react/FileUpload";
-import { Form } from "@govtechsg/sgds-govtech-react/Form";
+import { FileUpload } from "@govtechsg/sgds-react/FileUpload";
+import { Form } from "@govtechsg/sgds-react/Form";
 
                                                                                                                                                                                             
 const FileUploadCom = () => {

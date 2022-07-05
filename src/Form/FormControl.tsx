@@ -10,6 +10,7 @@ import {
   BsPrefixProps,
   BsPrefixRefForwardingComponent,
 } from '../utils/helpers';
+import FormControlGroup from './FormControlGroup';
 
 export type FormControlElement = HTMLInputElement | HTMLTextAreaElement;
 
@@ -152,24 +153,21 @@ const FormControl: BsPrefixRefForwardingComponent<'input', FormControlProps> =
         controlId == null || !id,
         '`controlId` is ignored on `<FormControl>` when `id` is specified.'
       );
-
       return (
-        <>
-          <Component
-            {...props}
-            type={type}
-            ref={ref}
-            readOnly={readOnly}
-            id={id || controlId}
-            className={classNames(
-              className,
-              classes,
-              isValid && `is-valid`,
-              isInvalid && `is-invalid`,
-              type === 'color' && `${bsPrefix}-color`
-            )}
-          />
-        </>
+        <Component
+          {...props}
+          type={type}
+          ref={ref}
+          readOnly={readOnly}
+          id={id || controlId}
+          className={classNames(
+            className,
+            classes,
+            isValid && `is-valid`,
+            isInvalid && `is-invalid`,
+            type === 'color' && `${bsPrefix}-color`
+          )}
+        />
       );
     }
   );
@@ -177,4 +175,4 @@ const FormControl: BsPrefixRefForwardingComponent<'input', FormControlProps> =
 FormControl.displayName = 'FormControl';
 FormControl.propTypes = propTypes;
 
-export default Object.assign(FormControl, { Feedback });
+export default Object.assign(FormControl, { Feedback, Group: FormControlGroup });

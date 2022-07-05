@@ -97,7 +97,6 @@
     "rollup-plugin-rename": "^1.0.1",
     "rollup-plugin-terser": "^7.0.2",
     "rollup-plugin-typescript2": "^0.31.2",
-    "sgds-govtech": "^2.0.0",
     "sinon": "^12.0.1",
     "size-limit": "^7.0.4",
     "storybook-dark-mode": "^1.0.8",
@@ -108,6 +107,7 @@
     "yup": "^0.32.11"
   },
   "dependencies": {
+    "@govtechsg/sgds-masthead-react": "^0.0.8",
     "@restart/hooks": "^0.4.6",
     "@restart/ui": "^1.2.0",
     "@types/invariant": "^2.2.35",

@@ -24,7 +24,7 @@ export const DatePickerTemplate = (args) => {
 
 # DatePicker
 
-The `DatePicker` Component is built using `InputGroup`, `FormControl`, `Overlay`, `Popover` and `Button` components.
+The `DatePicker` Component is built using `Dropdown`, `FormControl` and `Button` components.
 By default, the Calendar points to current date and input has no value. The `FormControl` is a read-only input and users can only pick dates using the Calendar.
 
 <Canvas>
@@ -36,7 +36,7 @@ By default, the Calendar points to current date and input has no value. The `For
 ## API
 
 ```jsx
-import { DatePicker } from '@govtechsg/sgds-govtech-react/DatePicker'; 
+import { DatePicker } from '@govtechsg/sgds-react/DatePicker'; 
 ```
 
 <ArgsTable story="Default" />
@@ -68,7 +68,7 @@ When `initialValue` is defined, it has to be equal to the value of `displayDate`
 By default, `displayDate` is the current date. If your `initialValue` does not equal to current Date, pass in `displayDate` with its value equals to `initialValue`
 
 ```jsx
-import { DatePicker } from '@govtechsg/sgds-govtech-react/DatePicker';
+import { DatePicker } from '@govtechsg/sgds-react/DatePicker';
 
 //initialValue: Date;
 
@@ -98,7 +98,7 @@ A console error will appear if either one of these conditions are not met.
 import {
   DatePicker,
   RangeSelectionValue,
-} from '@govtechsg/sgds-govtech-react/DatePicker';
+} from '@govtechsg/sgds-react/DatePicker';
 
 <DatePicker
   initialValue={{ start: new Date('2020-01-01'), end: new Date('2020-01-04') }}

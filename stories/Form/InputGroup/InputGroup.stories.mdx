@@ -57,14 +57,14 @@ export const Template = (args) => {
 ## API
 
 ```jsx
-import { InputGroup } from '@govtechsg/sgds-govtech-react/InputGroup';
+import { InputGroup } from '@govtechsg/sgds-react/InputGroup';
 ```
 
 <ArgsTable story="Example" />
 
 ```jsx
 // Phone number Example
-import { InputGroup, Form } from '@govtechsg/sgds-govtech-react';
+import { InputGroup, Form } from '@govtechsg/sgds-react';
 <>
   <Form.Label>Phone Number</Form.Label>
   <InputGroup className="mb-3">
@@ -78,77 +78,57 @@ import { InputGroup, Form } from '@govtechsg/sgds-govtech-react';
 </>;
 ```
 
-## Variant Icon Input
-
-Users may choose to attach an icon within the`<Form.Control>` input. By default, `variant` string attribute is set to empty. You may add it to the `<InputGroup>` by setting it to `'has-icon`. To allow input add-on before the `<i>` tag, simply wrap a `<div>` onto the `<i>` & `<Form.Control>` as shown in the examples below.
+## Example Addons
 
 <Canvas>
-  <Story name="Input icon">
+  <Story name="More Addons">
     <>
       <Form.Label>Phone Number</Form.Label>
-      <InputGroup className="mb-3" variant="has-icon">
+      <InputGroup className="mb-3">
         <InputGroup.Text id="basic-addon1">Phone number</InputGroup.Text>
-        <div>
-          <i className="bi bi-search form-control-icon"></i>
           <Form.Control
             placeholder="Phone number"
             aria-label="Phone"
             aria-describedby="basic-addon1"
           />
-        </div>
       </InputGroup>
       <Form.Label>Email Add-on</Form.Label>
-      <InputGroup className="mb-3" variant="has-icon">
+      <InputGroup className="mb-3">
         <InputGroup.Text id="basic-addon2">Email</InputGroup.Text>
-        <div>
-          <i className="bi bi-search form-control-icon"></i>
           <Form.Control
             className="w-75"
             aria-label="Email"
             aria-describedby="basic-addon2"
           />
-        </div>
       </InputGroup>
       <Form.Label>Checkbox Add-on</Form.Label>
-      <InputGroup className="mb-3" variant="has-icon">
+      <InputGroup className="mb-3">
         <InputGroup.Checkbox aria-label="Checkbox for following text input" />
-        <div>
-          <i className="bi bi-search form-control-icon"></i>
           <Form.Control aria-label="Text input with checkbox" />
-        </div>
       </InputGroup>
       <Form.Label>Radio Add-on</Form.Label>
-      <InputGroup className="mb-3" variant="has-icon">
+      <InputGroup className="mb-3">
         <InputGroup.Radio aria-label="Radio button for following text input" />
-        <div>
-          <i className="bi bi-search form-control-icon"></i>
           <Form.Control aria-label="Text input with radio button" />
-        </div>
       </InputGroup>
       <Form.Label>Multiple Add-on</Form.Label>
-      <InputGroup className="mb-3" variant="has-icon">
+      <InputGroup className="mb-3">
         <InputGroup.Text>$</InputGroup.Text>
         <InputGroup.Text>0.00</InputGroup.Text>
-        <div>
-          <i className="bi bi-search form-control-icon"></i>
           <Form.Control aria-label="Dollar amount (with dot and two decimal places)" />
-        </div>
       </InputGroup>
       <Form.Label>Button Add-on</Form.Label>
-      <InputGroup className="mb-3" variant="has-icon">
+      <InputGroup className="mb-3">
         <Button variant="outline-secondary" id="button-addon1">
           Button
         </Button>
-        <div>
-          <i className="bi bi-search form-control-icon"></i>
           <Form.Control
             aria-label="Example text with button addon"
             aria-describedby="basic-addon1"
           />
-        </div>
       </InputGroup>
       <Form.Label>DropdownButton Add-on</Form.Label>
-      <InputGroup className="mb-3 dropdown" variant="has-icon">
+      <InputGroup className="mb-3 dropdown">
         <DropdownButton
           variant="outline-secondary"
           title="Dropdown"
@@ -162,13 +142,10 @@ Users may choose to attach an icon within the`<Form.Control>` input. By default,
             Separated link
           </Dropdown.Item>
         </DropdownButton>
-        <div>
-          <i className="bi bi-search form-control-icon"></i>
           <Form.Control
             className="w-75"
             aria-label="Text input with dropdown button"
           />
-        </div>
       </InputGroup>
     </>
   </Story>
@@ -298,7 +275,7 @@ Multiple button add-ons can also be aligned within an `<InputGroup>` for customi
 To allow dropdown add-ons, pass `className="dropdown"` to `<InputGroup />` and import a `DropdownButton` component to use it as below.
 
 ```jsx
-import { DropdownButton, Dropdown } from '@govtech/sgds-govtech-react/Dropdown';
+import { DropdownButton, Dropdown } from '@govtechsg/sgds-react/Dropdown';
 ```
 
 <Canvas>
@@ -376,9 +353,9 @@ import { DropdownButton, Dropdown } from '@govtech/sgds-govtech-react/Dropdown';
 Another variant is the `<SplitButton>` addon which is a dual-function menu button that offers a default action as well as the possibility of choosing a different action by selecting from a set of alternatives.
 
 ```jsx
-import { SplitButton } from '@govtechsg/sgds-govtech-react';
+import { SplitButton } from '@govtechsg/sgds-react';
 //or
-import { SplitButton } from '@govtechsg/sgds-govtech-react/SplitButton';
+import { SplitButton } from '@govtechsg/sgds-react/SplitButton';
 ```
 
 <Canvas>

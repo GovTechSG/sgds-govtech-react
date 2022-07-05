@@ -1,4 +1,4 @@
-import { Breadcrumb } from '@govtechsg/sgds-govtech-react/Breadcrumb'
+import { Breadcrumb } from '@govtechsg/sgds-react/Breadcrumb'
 
 const BreadcrumbCom = () => {
     return (
@@ -6,7 +6,7 @@ const BreadcrumbCom = () => {
         <Breadcrumb.Item href="https://www.designsystem.tech.gov.sg/">
           Home
         </Breadcrumb.Item>
-        <Breadcrumb.Item href="https://github.com/GovTechSG/@govtechsg/sgds-govtech-react/">
+        <Breadcrumb.Item href="https://github.com/GovTechSG/@govtechsg/sgds-react/">
           Library
         </Breadcrumb.Item>
         <Breadcrumb.Item active>Data</Breadcrumb.Item>

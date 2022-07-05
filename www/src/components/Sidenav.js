@@ -1,4 +1,4 @@
-import { SideNav } from '@govtechsg/sgds-govtech-react/SideNav';
+import { SideNav } from '@govtechsg/sgds-react/SideNav';
 
 const SideNavCom = () => {
   return (

@@ -1,4 +1,4 @@
-import { Table } from '@govtechsg/sgds-govtech-react/Table';
+import { Table } from '@govtechsg/sgds-react/Table';
 
 const TableCom = () => (
   <Table>

@@ -28,10 +28,9 @@ export interface InputGroupProps
    * Refer to ***Input Group Validation***",
    */
   hasValidation?: boolean;
-  /** The variant of InputGroup. If icon is needed within .form-control, use `variant=has-icon`. 
-   * `variant=quantity-toggle` is a `@private` property used in  `<QuantityToggle/>` component
+  /** `@private` property used in  `<QuantityToggle/>` component
    */
-  variant?: 'has-icon' | 'quantity-toggle';
+  variant?: 'quantity-toggle';
 }
 
 const propTypes = {
@@ -53,7 +52,7 @@ const propTypes = {
   hasValidation: PropTypes.bool,
 
   as: PropTypes.elementType,
-  variant: PropTypes.oneOf(['has-icon', 'quantity-toggle'])
+  variant: PropTypes.oneOf(['quantity-toggle'])
 };
 
 /**
@@ -84,7 +83,6 @@ export const InputGroup: BsPrefixRefForwardingComponent<
     // Intentionally an empty object. Used in detecting if a dropdown
     // exists under an input group.
     const contextValue = useMemo(() => ({}), []);
-
     return (
       <InputGroupContext.Provider value={contextValue}>
         <SGDSWrapper

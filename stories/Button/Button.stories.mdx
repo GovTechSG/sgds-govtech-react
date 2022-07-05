@@ -21,7 +21,7 @@ export const defaultTemplate = (args) => <Button {...args}>Default</Button>;
 ## API 
 
 ```jsx
-import { Button } from '@govtechsg/sgds-govtech-react/Button'; 
+import { Button } from '@govtechsg/sgds-react/Button'; 
 ```
 <ArgsTable story="Default" />
 
@@ -52,7 +52,7 @@ Use any of the available button style types to quickly create a styled button. J
 ```jsx
 // Example
 
-import { Button } from '@govtechsg/sgds-govtech-react';
+import { Button } from '@govtechsg/sgds-react';
 
 <Button variant="primary">Primary<Button>
 ```
@@ -78,7 +78,7 @@ For a lighter touch, Buttons also come in `outline-*` variants with no backgroun
 </Canvas>
 
 ```jsx
-import { Button } from '@govtechsg/sgds-govtech-react';
+import { Button } from '@govtechsg/sgds-react';
 
 <Button variant="outline-primary">Primary<Button>
 ```
@@ -86,7 +86,7 @@ import { Button } from '@govtechsg/sgds-govtech-react';
 ## Button tags
 
 Normally `<Button>` components will render a HTML `<button>` element. However you can render whatever you'd like, adding a href prop will automatically render an `<a/>` element.
-You can use the as prop to render whatever your heart desires. @govtechsg/sgds-govtech-react will take care of the proper ARIA roles for you.
+You can use the as prop to render whatever your heart desires. @govtechsg/sgds-react will take care of the proper ARIA roles for you.
 
 <Canvas withSource="open">
   <Story name="Button tags">
@@ -182,7 +182,7 @@ Make buttons look inactive by adding the `disabled` prop to.
 
 Watch out! `<a>` elements don't naturally support a disabled attribute. In browsers that support it this is handled with a point-events: none style but not all browsers support it yet.
 
-@govtechsg/sgds-govtech-react will prevent any `onClick` handlers from firing regardless of the rendered element.
+@govtechsg/sgds-react will prevent any `onClick` handlers from firing regardless of the rendered element.
 
 ## Button loading state
 
