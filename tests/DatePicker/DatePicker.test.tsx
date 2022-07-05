@@ -24,11 +24,8 @@ describe('DatePicker', () => {
   it('has the default html structure', async () => {
     const { container, getByText } = render(<DatePicker />);
     expect(container.querySelector('input')).toBeInTheDocument();
-    expect(container.querySelector('.input-group')).toHaveAttribute(
-      'variant',
-      'has-icon'
-    );
-    expect(container.querySelector('button')).toBeInTheDocument();
+    expect(container.querySelector('div.input-group.form-control-group.dropdown')).toBeInTheDocument();
+    expect(container.querySelector('button.btn-primary')).toBeInTheDocument();
     expect(container.querySelector('i.bi-x')).toBeInTheDocument();
     expect(container.querySelector('.btn >span.visually-hidden')).toBeInTheDocument()
     expect(
@@ -49,7 +46,10 @@ describe('DatePicker', () => {
       ).toBeInTheDocument();
     });
   });
-
+  it('clearBtnVariant prop changes the Button variant', () => {
+    const { container } = render(<DatePicker clearBtnVariant='secondary' />);
+    expect(container.querySelector('button.btn-secondary')).toBeDefined()
+  })
   it('initialValue passed in, should reflect on input and calendar', async () => {
     const initialValue = new Date();
     const day = initialValue.getDate();

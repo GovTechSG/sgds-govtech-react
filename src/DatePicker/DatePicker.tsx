@@ -1,5 +1,4 @@
 import * as React from 'react';
-import InputGroup from '../InputGroup/InputGroup';
 import Calendar from './Calendar';
 import CalendarHeader from './CalendarHeader';
 import { useState, useRef, useMemo } from 'react';
@@ -13,6 +12,7 @@ import useMergedRefs from '@restart/hooks/useMergedRefs';
 import warning from 'warning';
 import FormControlToggle from '../Form/FormControlToggle';
 import { Dropdown } from '../Dropdown';
+import { ButtonVariant } from '../utils/types';
 
 export type CalendarPlacement = 'up' | 'down';
 export type DateFormat = 'MM/DD/YYYY' | 'DD/MM/YYYY' | 'YYYY/MM/DD';
@@ -42,7 +42,7 @@ export interface DatePickerProps {
   /** Disables the Form Control and Button of Datepicker */
   disabled?: boolean;
   /** Overlay placement for the popover calendar */
-  calendarPlacement?: 'up' | 'down'
+  calendarPlacement?: 'up' | 'down';
   /** Date format reflected on input */
   dateFormat?: DateFormat;
   /** Forwards the id to InputGroup of DatePicker */
@@ -51,6 +51,8 @@ export interface DatePickerProps {
   mode?: 'single' | 'range';
   /** When true, flips Calendar Overlay when placement does not fit */
   flip?: boolean;
+  /** Customize clear button variant colour */
+  clearBtnVariant?: ButtonVariant
 }
 
 const propTypes = {
@@ -88,6 +90,7 @@ const propTypes = {
    */
   mode: PropTypes.string,
   flip: PropTypes.bool,
+  clearBtnVariant: PropTypes.string
 };
 interface DatePickerState {
   displayDate: Date;
@@ -152,6 +155,7 @@ export const DatePicker: BsPrefixRefForwardingComponent<
       mode = 'single',
       displayDate = new Date(),
       flip = true,
+      clearBtnVariant = "primary", 
       ...props
     },
     ref
@@ -184,7 +188,7 @@ export const DatePicker: BsPrefixRefForwardingComponent<
     const onChangeMonth = (newDisplayDate: Date) => {
       setState({ ...state, displayDate: newDisplayDate });
     };
-   
+
     const clear = () => {
       setState({
         ...initialState,
@@ -282,7 +286,7 @@ export const DatePicker: BsPrefixRefForwardingComponent<
       readOnly: true,
       className: props.className,
       isInvalid: state.invalid,
-      id: props.id 
+      id: props.id,
     };
 
     const BodyContent = (): JSX.Element => {
@@ -373,18 +377,14 @@ export const DatePicker: BsPrefixRefForwardingComponent<
     }
     return (
       <DatePickerContext.Provider value={contextValue}>
-        <Dropdown drop={calendarPlacement}>
-          <InputGroup variant="has-icon">
-            <FormControlToggle
-              {...controlProps}
-              ref={formControlRef}
-            />
-            <Button onClick={clear} disabled={props.disabled}>
+        <Dropdown drop={calendarPlacement} className="form-control-group input-group">
+              <FormControlToggle {...controlProps} ref={formControlRef} />
+            <Button onClick={clear} disabled={props.disabled} variant={clearBtnVariant}>
               <i className="bi bi-x"></i>
               <span className="visually-hidden">clear</span>
             </Button>
             <i className="bi bi-calendar form-control-icon"></i>
-          </InputGroup>
+
           <Dropdown.Menu className="sgds datepicker">
             <Dropdown.Header className="datepicker-header">
               {calendarHeader}

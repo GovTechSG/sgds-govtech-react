@@ -4,7 +4,7 @@ import { Dropdown, DropdownButton } from "@govtechsg/sgds-react/Dropdown";
 const InputGroupCom = () => {
     return (
       <Form>
-        <InputGroup className="mb-3" variant="has-icon">
+        <InputGroup className="mb-3 dropdown">
           <DropdownButton
             variant="outline-secondary"
             title="Dropdown"
@@ -18,7 +18,6 @@ const InputGroupCom = () => {
               Separated link
             </Dropdown.Item>
           </DropdownButton>
-          <i className="bi bi-search form-control-icon"></i>
           <Form.Control
             className="w-75"
             aria-label="Text input with dropdown button"

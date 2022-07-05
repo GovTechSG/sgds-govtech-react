@@ -1,13 +1,13 @@
 import { ArgsTable, Canvas, Meta, Story } from '@storybook/addon-docs';
-import { Typeahead, Form } from '../../src/index';
+import { Combobox, Form } from '../../src/index';
 import { useState, useRef, useEffect } from 'react';
 
 <Meta
-  title="Components/Typeahead"
-  component={Typeahead}
+  title="Components/Combobox"
+  component={Combobox}
 />
 
-export const TypeaheadTemplate = (args) => {
+export const ComboboxTemplate = (args) => {
   const menuList = [
     'Afghanistan',
     'Albania',
@@ -215,16 +215,16 @@ export const TypeaheadTemplate = (args) => {
     'Zambia',
     'Zimbabwe',
   ];
-  return <Typeahead {...args} menuList={menuList} id="typeaheadExample" />;
+  return <Combobox {...args} menuList={menuList} id="typeaheadExample" icon={<i className="bi bi-search"></i>}/>;
 };
 
-# Typeahead
+# Combobox
 
-`Typeahead` is a built using `Dropdown`, `Dropdown.Menu`, `Dropdown.Item` and  `FormControl` that doubles up as a toggle.
-`TypeaheadProps` extends `FormControlProps`.
+`Combobox` is a built using `Dropdown`, `Dropdown.Menu`, `Dropdown.Item` and  `FormControl` that doubles up as a toggle.
+`ComboboxProps` extends `FormControlProps`.
 
 <Story name="Default" args={{ label: 'Select a country' }}>
-  {TypeaheadTemplate.bind({})}
+  {ComboboxTemplate.bind({})}
 </Story>
 
 <br />
@@ -232,20 +232,20 @@ export const TypeaheadTemplate = (args) => {
 ## API
 
 ```jsx
-import { Typeahead } from '@govtechsg/sgds-react/Typeahead'; 
+import { Combobox } from '@govtechsg/sgds-react/Combobox'; 
 ```
 
 <ArgsTable story="Default" />
 
 ```jsx
 import {
-  Typeahead,
-  TypeaheadProps,
-} from '@govtechsg/sgds-react/Typeahead';
+  Combobox,
+  ComboboxProps,
+} from '@govtechsg/sgds-react/Combobox';
 
-export const TypeaheadComponent = () => {
+export const ComboboxComponent = () => {
   const menuList = ['apple', 'orange', 'banana'];
-  return <Typeahead menuList={menuList} id="typeaheadExample" />;
+  return <Combobox menuList={menuList} id="typeaheadExample" icon={<i className="bi bi-search"></i> } />;
 };
 ```
 
@@ -253,9 +253,9 @@ export const TypeaheadComponent = () => {
 
 `onChangeInput` is fired whenever the value of input changes whether due to typing directly in the input or from selection from menu.
 The first argument of `onChangeInput` returns the string value of the input.
-The second argument returns either the ChangeEvent or MouseEvent depending on the type of user interaction with `<Typeahead/>`
+The second argument returns either the ChangeEvent or MouseEvent depending on the type of user interaction with `<Combobox/>`
 
-export const TypeaheadOnChangeTemplate = () => {
+export const ComboboxOnChangeTemplate = () => {
   const [fruits, setFruits] = useState('');
   const handleChange = (val, e) => {
     setFruits(val);
@@ -263,25 +263,26 @@ export const TypeaheadOnChangeTemplate = () => {
   const menuList = ['apple', 'orange', 'banana'];
   return (
     <>
-      <Typeahead
+      <Combobox
         menuList={menuList}
         onChangeInput={handleChange}
         label="Select a fruit"
         id="typeaheadExample"
+        icon={<i className="bi bi-search"></i> }
       />
       <div>Selected fruits : {fruits}</div>
     </>
   );
 };
 
-<Story name="onChangeInput">{TypeaheadOnChangeTemplate.bind({})}</Story>
+<Story name="onChangeInput">{ComboboxOnChangeTemplate.bind({})}</Story>
 
 ```jsx
 import {
-  Typeahead,
-} from '@govtechsg/sgds-react/Typeahead';
+  Combobox,
+} from '@govtechsg/sgds-react/Combobox';
 
-export const TypeaheadComponent = () => {
+export const ComboboxComponent = () => {
   const menuList = ['apple', 'orange', 'banana'];
   const [fruits, setFruits] = useState('');
   const handleChange = (val, e) => {
@@ -289,11 +290,12 @@ export const TypeaheadComponent = () => {
   };
   return (
     <>
-      <Typeahead
+      <Combobox
         menuList={menuList}
         onChangeInput={handleChange}
         label="Select a fruit"
         id="typeaheadExample"
+        icon={<i className="bi bi-search"></i> }
       />
       <div>Selected fruits : {fruits}</div>
     </>

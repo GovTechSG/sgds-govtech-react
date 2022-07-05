@@ -1,6 +1,6 @@
 import { fireEvent, render, waitFor } from '@testing-library/react';
 import * as React from 'react';
-import { Typeahead } from '../../src';
+import { Combobox } from '../../src';
 const menuList = [
   'Afghanistan',
   'Albania',
@@ -209,9 +209,9 @@ const menuList = [
   'Zimbabwe',
 ];
 
-describe('<Typeahead>', () => {
+describe('<Combobox>', () => {
   it('renders default HTML of dropdown', async () => {
-    const { container, getByText } = render(<Typeahead menuList={menuList} />);
+    const { container, getByText } = render(<Combobox menuList={menuList} />);
     expect(container.firstElementChild?.classList).toContain('dropdown');
     expect(container.firstElementChild?.classList).toContain('dropdown');
     expect(container.firstElementChild?.tagName).toContain('DIV');
@@ -232,7 +232,7 @@ describe('<Typeahead>', () => {
 
   it('reflects initialValue prop', async () => {
     const { container } = render(
-      <Typeahead menuList={menuList} initialValue="test" />
+      <Combobox menuList={menuList} initialValue="test" />
     );
     expect(container.querySelector('input')?.value).toEqual('test');
     fireEvent.click(
@@ -248,7 +248,7 @@ describe('<Typeahead>', () => {
 
   it('when initialValue matches one of menuList, onClick should show menu', async () => {
     const { container, getByText } = render(
-      <Typeahead menuList={menuList} initialValue="Afghanistan" />
+      <Combobox menuList={menuList} initialValue="Afghanistan" />
     );
     expect(container.querySelector('input')?.value).toEqual('Afghanistan');
 
@@ -262,7 +262,7 @@ describe('<Typeahead>', () => {
   });
   it('when initialValue matches one of menuList, onClick should show menu', async () => {
     const { container, getByText } = render(
-      <Typeahead menuList={menuList} initialValue="afghanistan" />
+      <Combobox menuList={menuList} initialValue="afghanistan" />
     );
     expect(container.querySelector('input')?.value).toEqual('afghanistan');
 
@@ -276,7 +276,7 @@ describe('<Typeahead>', () => {
   });
   it('when initialValue matches one of menuList, onClick should show menu', async () => {
     const { container, getByText, queryByText } = render(
-      <Typeahead menuList={menuList} initialValue="a" />
+      <Combobox menuList={menuList} initialValue="a" />
     );
     expect(container.querySelector('input')?.value).toEqual('a');
 
@@ -294,7 +294,7 @@ describe('<Typeahead>', () => {
 
   it('onclick of menuitem , populates value of input', async () => {
     const { container, getByText } = render(
-      <Typeahead menuList={menuList} initialValue="a" />
+      <Combobox menuList={menuList} initialValue="a" />
     );
     expect(container.querySelector('input')?.value).toEqual('a');
 
@@ -314,7 +314,7 @@ describe('<Typeahead>', () => {
 
   it('onchange of input, menu filters', async () => {
     const { container, getByText, queryByText } = render(
-      <Typeahead menuList={menuList} />
+      <Combobox menuList={menuList} />
     );
     fireEvent.click(
       container.querySelector('input.form-control.dropdown-toggle')!
@@ -345,7 +345,7 @@ describe('<Typeahead>', () => {
   });
 
   it('key press arrowDown scrolls menu and changes input', async () => {
-    const { container, getByText } = render(<Typeahead menuList={menuList} />);
+    const { container, getByText } = render(<Combobox menuList={menuList} />);
     fireEvent.click(
       container.querySelector('input.form-control.dropdown-toggle')!
     );
@@ -381,7 +381,7 @@ describe('<Typeahead>', () => {
   it('onChangeInput fires when input changes', async () => {
     const mockFn = jest.fn();
     const { container } = render(
-      <Typeahead menuList={menuList} onChangeInput={mockFn} />
+      <Combobox menuList={menuList} onChangeInput={mockFn} />
     );
     fireEvent.change(
       container.querySelector('input.form-control.dropdown-toggle')!,
@@ -397,7 +397,7 @@ describe('<Typeahead>', () => {
 
   it('pass in menuPlacement changes data-popper-placement attri', async () => {
     const { container } = render(
-      <Typeahead menuList={menuList} menuPlacement="up" />
+      <Combobox menuList={menuList} menuPlacement="up" />
     );
     fireEvent.click(
       container.querySelector('input.form-control.dropdown-toggle')!
@@ -412,21 +412,21 @@ describe('<Typeahead>', () => {
 
   it('when label prop defined, firstElementchild is FormLabel', () => {
     const { container, getByText } = render(
-      <Typeahead menuList={menuList} label="test" />
+      <Combobox menuList={menuList} label="test" />
     );
     expect(container.firstElementChild?.tagName).toEqual('LABEL');
     expect(container.firstElementChild?.classList).toContain('form-label');
     expect(getByText('test')).toBeInTheDocument();
   });
 
-  it('hasIcon by default', () => {
-    const { container } = render(<Typeahead menuList={menuList}/>)
-    expect(container.querySelector('i.bi-search')).toBeInTheDocument()
+  it('when icon not defined, there is no icon ', () => {
+    const { container } = render(<Combobox menuList={menuList}/>)
+    expect(container.querySelector('.dropdown.combobox> i.form-control-icon')).not.toBeInTheDocument()
 
   })
-  it('when hasIcon false, no icon in container', () => {
-    const { container } = render(<Typeahead menuList={menuList} hasIcon={false}/>)
+  it('when icon defined, icon in container', () => {
+    const { container } = render(<Combobox menuList={menuList} icon={<i className="bi bi-search"></i>}/>)
 
-    expect(container.querySelector('i')).not.toBeInTheDocument()
+    expect(container.querySelector('.dropdown.combobox> i.form-control-icon.bi.bi-search')).toBeInTheDocument()
   })
 });

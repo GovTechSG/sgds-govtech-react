@@ -1,6 +1,6 @@
-import {InputGroup} from '../../src';
+import { InputGroup } from '../../src';
 import { render } from '@testing-library/react';
-import * as React  from 'react'
+import * as React from 'react';
 
 describe('<InputGroup>', () => {
   it('Should have div as default component', () => {
@@ -12,15 +12,22 @@ describe('<InputGroup>', () => {
   it('Should render size correctly', () => {
     const { getByTestId } = render(<InputGroup size="sm" data-testid="test" />);
 
-    expect(getByTestId('test').classList).toContain('input-group-sm')
+    expect(getByTestId('test').classList).toContain('input-group-sm');
   });
 
   it('Should render hasValidation correctly', () => {
     const { getByTestId } = render(
-      <InputGroup hasValidation data-testid="test" />,
+      <InputGroup hasValidation data-testid="test" />
     );
 
-    expect(getByTestId('test').classList).toContain('has-validation')
+    expect(getByTestId('test').classList).toContain('has-validation');
+  });
+
+  it('forwards variant prop to variant attribute', () => {
+    const { getByTestId } = render(
+      <InputGroup data-testid="test" variant="quantity-toggle"/>
+    );
+    expect(getByTestId('test')).toHaveAttribute('variant', 'quantity-toggle')
   });
 
   describe('<Checkbox>', () => {
@@ -29,7 +36,7 @@ describe('<InputGroup>', () => {
 
       const { getByRole } = render(<InputGroup.Checkbox name={name} />);
 
-      expect(getByRole('checkbox')).toHaveAttribute('name', 'foobar')
+      expect(getByRole('checkbox')).toHaveAttribute('name', 'foobar');
     });
   });
 
@@ -39,7 +46,7 @@ describe('<InputGroup>', () => {
 
       const { getByRole } = render(<InputGroup.Radio name={name} />);
 
-      expect(getByRole('radio')).toHaveAttribute('name', 'foobar')
+      expect(getByRole('radio')).toHaveAttribute('name', 'foobar');
     });
   });
 });
