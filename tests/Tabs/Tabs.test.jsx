@@ -341,7 +341,6 @@ describe('<Tabs>', () => {
         </Tab>
       </Tabs>
     );
-    expect(asFragment()).toMatchSnapshot();
     const tabs = getByTestId('testid');
     expect(tabs.children.length).toEqual(1);
   });

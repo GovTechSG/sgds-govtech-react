@@ -60,6 +60,7 @@
   ],
   "devDependencies": {
     "@babel/core": "^7.16.5",
+    "@govtechsg/sgds-masthead-react": "0.0.8",
     "@rollup/plugin-commonjs": "^21.0.2",
     "@rollup/plugin-node-resolve": "^13.1.3",
     "@rollup/plugin-replace": "^4.0.0",
@@ -107,7 +108,6 @@
     "yup": "^0.32.11"
   },
   "dependencies": {
-    "@govtechsg/sgds-masthead-react": "^0.0.8",
     "@restart/hooks": "^0.4.6",
     "@restart/ui": "^1.2.0",
     "@types/invariant": "^2.2.35",
