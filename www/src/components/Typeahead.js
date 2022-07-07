@@ -1,8 +1,8 @@
-import { Typeahead } from '@govtechsg/sgds-react/Typeahead';
+import { Combobox } from '@govtechsg/sgds-react/Combobox';
 
  const TypeaheadCom = () => {
     return (
-      <Typeahead menuList={["apple", "orange", "banana"]}></Typeahead>
+      <Combobox menuList={["apple", "orange", "banana"]}></Combobox>
     );
   };
 
