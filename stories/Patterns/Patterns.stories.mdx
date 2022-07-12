@@ -546,6 +546,49 @@ import { Form, Col } from '@govtechsg/sgds-react';
 </Form>;
 ```
 
+# Multiple Options
+
+You should follow this pattern by using `<fieldset>` and `<legend>`. This will ensure that assistive technologies — such as screen readers — will announce the related question when reading out the options.
+
+export const MultilineCheckboxesTemplate = (args) => {
+  return (
+    <Form>
+      <fieldset>
+      <legend className="form-label">How do you know about us?</legend>
+        <FormCheck
+          id="option-1"
+          label="Friends"
+        />
+        <FormCheck
+          id="option-2"
+          label="Newsletter"
+        />
+      </fieldset>
+    </Form>
+  );
+};
+
+<Canvas>
+  <Story name="Multiple Options">{MultilineCheckboxesTemplate.bind({})}</Story>
+</Canvas>
+
+```jsx
+import { Form, Col } from '@govtechsg/sgds-react';
+
+<Form>
+  <Form.Group as={Col} xs={6} className="mb-3" controlId="givenName">
+    <Form.Check
+      id="option-1"
+      label="I am default a checkbox (change me)"
+    />
+    <Form.Check
+      id="option-2"
+      label="I am default a checkbox (change me)"
+    />
+  </Form.Group>
+</Form>;
+```
+
 # Payment
 
 Use this pattern when you need to ask for their payment details.
