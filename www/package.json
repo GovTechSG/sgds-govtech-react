@@ -4,6 +4,7 @@
   "private": true,
   "homepage": "https://govtechsg.github.io/sgds-govtech-react/",
   "dependencies": {
+    "@govtechsg/sgds": "^2.0.0-alpha.3",
     "@govtechsg/sgds-masthead": "^0.0.14",
     "@govtechsg/sgds-masthead-react": "^0.0.6",
     "@govtechsg/sgds-react": "^2.0.0-alpha.1",

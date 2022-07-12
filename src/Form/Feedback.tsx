@@ -11,8 +11,12 @@ export interface FeedbackProps
   // I think this is because we use BsPrefixRefForwardingComponent below
   // which includes bsPrefix.
   bsPrefix?: never;
+  /**
+   * Specify whether the feedback is for valid or invalid fields
+   *
+   * @type {('valid'|'invalid')}
+   */
   type?: FeedbackType;
-  tooltip?: boolean;
 }
 
 const propTypes = {
@@ -23,13 +27,10 @@ const propTypes = {
    */
   type: PropTypes.string,
 
-  /** Display feedback as a tooltip. */
-  tooltip: PropTypes.bool,
-
   as: PropTypes.elementType,
 };
 
-const Feedback: BsPrefixRefForwardingComponent<'div', FeedbackProps> =
+export const Feedback: BsPrefixRefForwardingComponent<'div', FeedbackProps> =
   React.forwardRef(
     // Need to define the default "as" during prop destructuring to be compatible with styled-components github.com/react-bootstrap/react-bootstrap/issues/3595
     (
@@ -37,7 +38,6 @@ const Feedback: BsPrefixRefForwardingComponent<'div', FeedbackProps> =
         as: Component = 'div',
         className,
         type = 'valid',
-        tooltip = false,
         ...props
       },
       ref
@@ -48,7 +48,7 @@ const Feedback: BsPrefixRefForwardingComponent<'div', FeedbackProps> =
           ref={ref}
           className={classNames(
             className,
-            `${type}-${tooltip ? 'tooltip' : 'feedback'}`
+            `${type}-feedback`
           )}
         />
       );

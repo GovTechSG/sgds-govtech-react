@@ -3,14 +3,12 @@ import PropTypes from 'prop-types';
 import * as React from 'react';
 import FormCheck from './FormCheck';
 import FormControl from './FormControl';
-import {FormFloating} from './FormFloating';
 import FormGroup from './FormGroup';
 import FormLabel from './FormLabel';
-import FormRange from './FormRange';
+// import FormRange from './FormRange';
 import FormSelect from './FormSelect';
 import FormText from './FormText';
 import Switch from './Switch';
-import FloatingLabel from '../FloatingLabel/FloatingLabel';
 import { BsPrefixRefForwardingComponent, AsProp } from '../utils/helpers';
 
 export interface FormProps
@@ -68,12 +66,10 @@ Form.propTypes = propTypes as any;
 export default Object.assign(Form, {
   Group: FormGroup,
   Control: FormControl,
-  Floating: FormFloating,
   Check: FormCheck,
   Switch,
   Label: FormLabel,
   Text: FormText,
-  Range: FormRange,
+  // Range: FormRange,
   Select: FormSelect,
-  FloatingLabel,
 });
