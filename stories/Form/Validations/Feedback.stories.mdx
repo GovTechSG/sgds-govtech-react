@@ -18,30 +18,30 @@ export const FbFormControl = () => {
     <Form noValidate validated={true}>
       <Form.Group md="4" controlId="textOnlyInput">
         <Form.Label>First name</Form.Label>
-        <Form.Text className="text-muted" id="hT_textOnlyInput">
+        <Form.Text className="text-muted" id="hT-textOnlyInput">
           Input should contain letters only
         </Form.Text>
         <Form.Control
           type="text"
           placeholder="First name"
           pattern="[a-zA-Z]*"
-          aria-describedby="hT_textOnlyInput"
-          aria-errormessage="err_textOnlyInput"
+          aria-describedby="hT-textOnlyInput"
+          aria-errormessage="err-textOnlyInput"
         />
-        <Form.Control.Feedback type="invalid" id="err_textOnlyInput">
+        <Form.Control.Feedback type="invalid" id="err-textOnlyInput">
           Name is invalid or empty
         </Form.Control.Feedback>
       </Form.Group>
       <Form.Group md="4" controlId="requiredInput">
         <Form.Label>First name</Form.Label>
-        <Form.Text className="text-muted" id="hT_requiredInput">
+        <Form.Text className="text-muted" id="hT-requiredInput">
           Input is required
         </Form.Text>
         <Form.Control
           type="text"
           placeholder="First name"
           required
-          aria-describedby="hT_requiredInput"
+          aria-describedby="hT-requiredInput"
         />
         <Form.Control.Feedback type="invalid">
           Name is invalid or empty
@@ -49,14 +49,14 @@ export const FbFormControl = () => {
       </Form.Group>
       <Form.Group md="4" controlId="minLengthFiveInput">
         <Form.Label>First name</Form.Label>
-        <Form.Text className="text-muted" id="hT_minLengthFiveInput">
+        <Form.Text className="text-muted" id="hT-minLengthFiveInput">
           Minimum length of 5
         </Form.Text>
         <Form.Control
           type="text"
           placeholder="First name"
           minLength="5"
-          aria-describedby="hT_minLengthFiveInput"
+          aria-describedby="hT-minLengthFiveInput"
         />
         <Form.Control.Feedback type="invalid">
           Name is invalid or empty
@@ -81,28 +81,12 @@ export const FbFormCheek = (args) => {
   );
 };
 
-export const FbFormSelect = () => {
-  return (
-    <Form noValidate validated={true}>
-      <Form.Group controlId="formSelectValidation">
-        <Form.Label>Fruits</Form.Label>
-        <Form.Select aria-label="Default select example" maxLength="3" required>
-          <option>Select numbers only </option>
-          <option value="Apple">Apple</option>
-          <option value="Banana">Banana</option>
-          <option value="3">Carrot</option>
-        </Form.Select>
-      </Form.Group>
-      <Feedback type="invalid">Name is invalid or empty</Feedback>
-    </Form>
-  );
-};
 
 # Feedback
 
 Feedback is the text message describing the `invalid` or `valid` typed validation.
 
-Use `<Feedback />` for form validation of Form Components: `Form.Control`, `Form.Check`, `Form.Select`.
+Use `<Feedback />` for form validation of Form Components: `Form.Control`, `Form.Check`.
 
 > **NOTE** : Browsers provide their own validation UI by default on forms. You can disable the default UI by adding the HTML `noValidate` attribute to your `<Form>` or `<form>` element.
 
@@ -140,13 +124,5 @@ See FormCheck API for more information.
 <Canvas>
   <Story name="In FormCheck" args={{ required: true }}>
     {FbFormCheek.bind({})}
-  </Story>
-</Canvas>
-
-## Feedback in FormSelect
-
-<Canvas>
-  <Story name="In FormSelect" args={{ required: true }}>
-    {FbFormSelect.bind({})}
   </Story>
 </Canvas>
