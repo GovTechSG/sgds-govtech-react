@@ -14,12 +14,20 @@ import {
   Stepper,
   Accordion,
   Footer,
-  Breadcrumb
+  Breadcrumb,
+  Nav,
+  Navbar,
+  NavDropdown,
+  SideNav
 } from '../../src/index';
 
 import { useState } from 'react';
 
 <Meta title="Templates" component={Form} />
+
+# Single Page form
+
+A base collection of field components rendered on a single page.
 
 export const SinglePageTemplate = () => {
   const onSubmit = (event) => {
@@ -155,10 +163,6 @@ export const SinglePageTemplate = () => {
     </div>
   );
 };
-
-# Single Page form
-
-A base collection of field components rendered on a single page.
 
 <Canvas>
   <Story name="Single Page Form">{SinglePageTemplate.bind({})}</Story>
@@ -615,5 +619,804 @@ export const AccordionSinglePageTemplate = () => {
 <Canvas>
   <Story name="Collapsible Single Page Form">
     {AccordionSinglePageTemplate.bind({})}
+  </Story>
+</Canvas>
+
+# Landing Page
+
+A landing page is a standalone page distinct from any other pages including homepage, which serves a specific purpose or action.
+
+export const LandingPageTemplate = () => {
+  const [active, setActive] = useState("about")
+  const clickNavbarItem = (eventKey) => {
+    setActive(eventKey)
+  }
+  return (
+    <div>
+      <SgdsMasthead />
+      <Navbar className="mt-4" expand="lg">
+        <Navbar.Brand href="">
+          <img src="https://www.developer.tech.gov.sg/assets/img/logo_color.svg" alt="Home" />
+        </Navbar.Brand>
+        <Navbar.Toggle aria-controls="landingNav" />
+        <Navbar.Collapse id="landingNav">
+          <Nav className="me-auto" navbarScroll activeKey={active}>
+            <Nav.Item>
+              <Nav.Link
+                href=""
+                eventKey="about"
+                onClick={() => clickNavbarItem('about')}
+              >
+                About
+              </Nav.Link>
+            </Nav.Item>
+            <Nav.Item>
+              <Nav.Link
+                href=""
+                eventKey="components"
+                onClick={() => clickNavbarItem('components')}
+              >
+                Components
+              </Nav.Link>
+            </Nav.Item>
+            <Nav.Item>
+              <Nav.Link
+                href=""
+                eventKey="patterns"
+                onClick={() => clickNavbarItem('patterns')}
+              >
+                Patterns
+              </Nav.Link>
+            </Nav.Item>
+            <Nav.Item>
+              <Nav.Link
+                href=""
+                eventKey="templates"
+                onClick={() => clickNavbarItem('templates')}
+              >
+                Templates
+              </Nav.Link>
+            </Nav.Item>
+            <NavDropdown
+              title="Theme customiser"
+              id="theme-customiser"
+              eventKey="theme customiser"
+              onClick={() => clickNavbarItem('theme customiser')}
+            >
+              <NavDropdown.Item
+                href=""
+                onClick={() => clickNavbarItem('theme customiser')}
+              >
+                Option 1
+              </NavDropdown.Item>
+              <NavDropdown.Item
+                href=""
+                onClick={() => clickNavbarItem('theme customiser')}
+                active
+              >
+                Option 2
+              </NavDropdown.Item>
+              <NavDropdown.Item
+                href=""
+                onClick={() => clickNavbarItem('theme customiser')}
+              >
+                Option 3
+              </NavDropdown.Item>
+              <NavDropdown.Item
+                href=""
+                onClick={() => clickNavbarItem('theme customiser')}
+              >
+                Option 4
+              </NavDropdown.Item>
+            </NavDropdown>
+            <Nav.Item>
+              <Nav.Link
+                href=""
+              >
+                <i className="bi bi-search"></i>
+              </Nav.Link>
+            </Nav.Item>
+            <Nav.Item>
+              <Nav.Link
+                href=""
+              >
+                <i className="bi bi-grid-3x3-gap-fill"></i>
+              </Nav.Link>
+            </Nav.Item>
+          </Nav>
+        </Navbar.Collapse>
+      </Navbar>
+      <section className="m-8">
+        <h4>Place your content here</h4>
+      </section>
+      <Footer>
+        <Footer.Top>
+          <Footer.Top.ContactLinks>
+            <a href="" target="_blank">Contact</a>
+            <a href="" target="_blank">Feedback</a>
+          </Footer.Top.ContactLinks>
+        </Footer.Top>
+        <Footer.Bottom>
+          <Footer.Bottom.Links>
+            <a href="" target="_blank">Report Vulnerability</a>
+            <a href="">Privacy</a>
+            <a href="">Terms of use</a>
+          </Footer.Bottom.Links>
+          <Footer.Bottom.Copyrights>
+            © 2022 Government of Singapore. Last Updated 08 Feb 2022
+          </Footer.Bottom.Copyrights>
+        </Footer.Bottom>
+      </Footer>
+    </div>
+  );
+};
+
+<Canvas>
+  <Story name="Landing Page">
+    {LandingPageTemplate.bind({})}
+  </Story>
+</Canvas>
+
+# Detail Page Basic
+
+Detail page basic may consist of any relevant information related to a certain product or service.
+
+export const DetailBasicTemplate = () => {
+  const [active, setActive] = useState("about")
+  const clickNavbarItem = (eventKey) => {
+    setActive(eventKey)
+  }
+  return (
+    <div>
+      <SgdsMasthead />
+      <Navbar className="mt-4" expand="lg">
+        <Navbar.Brand href="">
+          <img src="https://www.developer.tech.gov.sg/assets/img/logo_color.svg" alt="Home" />
+        </Navbar.Brand>
+        <Navbar.Toggle aria-controls="landingNav" />
+        <Navbar.Collapse id="landingNav">
+          <Nav className="me-auto" navbarScroll activeKey={active}>
+            <Nav.Item>
+              <Nav.Link
+                href=""
+                eventKey="about"
+                onClick={() => clickNavbarItem('about')}
+              >
+                About
+              </Nav.Link>
+            </Nav.Item>
+            <Nav.Item>
+              <Nav.Link
+                href=""
+                eventKey="components"
+                onClick={() => clickNavbarItem('components')}
+              >
+                Components
+              </Nav.Link>
+            </Nav.Item>
+            <Nav.Item>
+              <Nav.Link
+                href=""
+                eventKey="patterns"
+                onClick={() => clickNavbarItem('patterns')}
+              >
+                Patterns
+              </Nav.Link>
+            </Nav.Item>
+            <Nav.Item>
+              <Nav.Link
+                href=""
+                eventKey="templates"
+                onClick={() => clickNavbarItem('templates')}
+              >
+                Templates
+              </Nav.Link>
+            </Nav.Item>
+            <NavDropdown
+              title="Theme customiser"
+              id="theme-customiser"
+              eventKey="theme customiser"
+              onClick={() => clickNavbarItem('theme customiser')}
+            >
+              <NavDropdown.Item
+                href=""
+                onClick={() => clickNavbarItem('theme customiser')}
+              >
+                Option 1
+              </NavDropdown.Item>
+              <NavDropdown.Item
+                href=""
+                onClick={() => clickNavbarItem('theme customiser')}
+                active
+              >
+                Option 2
+              </NavDropdown.Item>
+              <NavDropdown.Item
+                href=""
+                onClick={() => clickNavbarItem('theme customiser')}
+              >
+                Option 3
+              </NavDropdown.Item>
+              <NavDropdown.Item
+                href=""
+                onClick={() => clickNavbarItem('theme customiser')}
+              >
+                Option 4
+              </NavDropdown.Item>
+            </NavDropdown>
+            <Nav.Item>
+              <Nav.Link
+                href=""
+              >
+                <i className="bi bi-search"></i>
+              </Nav.Link>
+            </Nav.Item>
+            <Nav.Item>
+              <Nav.Link
+                href=""
+              >
+                <i className="bi bi-grid-3x3-gap-fill"></i>
+              </Nav.Link>
+            </Nav.Item>
+          </Nav>
+        </Navbar.Collapse>
+      </Navbar>
+      <section className="m-8">
+        <Breadcrumb>
+          <Breadcrumb.Item href="">
+            Home
+          </Breadcrumb.Item>
+          <Breadcrumb.Item href="">
+            Library
+          </Breadcrumb.Item>
+          <Breadcrumb.Item active>
+            Data
+          </Breadcrumb.Item>
+        </Breadcrumb>
+      </section>
+      <section className="m-8">
+        <h2>Page heading</h2>
+        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>
+        <h4>Overview</h4>
+        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.</p>
+      </section>
+      <Footer>
+        <Footer.Top>
+          <Footer.Top.ContactLinks>
+            <a href="" target="_blank">Contact</a>
+            <a href="" target="_blank">Feedback</a>
+          </Footer.Top.ContactLinks>
+        </Footer.Top>
+        <Footer.Bottom>
+          <Footer.Bottom.Links>
+            <a href="" target="_blank">Report Vulnerability</a>
+            <a href="">Privacy</a>
+            <a href="">Terms of use</a>
+          </Footer.Bottom.Links>
+          <Footer.Bottom.Copyrights>
+            © 2022 Government of Singapore. Last Updated 08 Feb 2022
+          </Footer.Bottom.Copyrights>
+        </Footer.Bottom>
+      </Footer>
+    </div>
+  );
+};
+
+<Canvas>
+  <Story name="Detail Page Basic">
+    {DetailBasicTemplate.bind({})}
+  </Story>
+</Canvas>
+
+# Detail Page Side Nav
+
+Detail page with a side navigation menu.
+
+export const DetailSideNavTemplate = () => {
+  const [active, setActive] = useState("about")
+  const clickNavbarItem = (eventKey) => {
+    setActive(eventKey)
+  }
+  const [sideActive, setSideActive] = useState("1")
+  const clickSideNavItem = (eventKey) => {
+    setSideActive(eventKey)
+  }
+  const [sideActiveLink, setSideActiveLink] = useState("1.1")
+  const clickSideNavLink = (eventKey) => {
+    setSideActiveLink(eventKey)
+  }
+  return (
+    <div>
+      <SgdsMasthead />
+      <Navbar className="mt-4" expand="lg">
+        <Navbar.Brand href="">
+          <img src="https://www.developer.tech.gov.sg/assets/img/logo_color.svg" alt="Home" />
+        </Navbar.Brand>
+        <Navbar.Toggle aria-controls="landingNav" />
+        <Navbar.Collapse id="landingNav">
+          <Nav className="me-auto" navbarScroll activeKey={active}>
+            <Nav.Item>
+              <Nav.Link
+                href=""
+                eventKey="about"
+                onClick={() => clickNavbarItem('about')}
+              >
+                About
+              </Nav.Link>
+            </Nav.Item>
+            <Nav.Item>
+              <Nav.Link
+                href=""
+                eventKey="components"
+                onClick={() => clickNavbarItem('components')}
+              >
+                Components
+              </Nav.Link>
+            </Nav.Item>
+            <Nav.Item>
+              <Nav.Link
+                href=""
+                eventKey="patterns"
+                onClick={() => clickNavbarItem('patterns')}
+              >
+                Patterns
+              </Nav.Link>
+            </Nav.Item>
+            <Nav.Item>
+              <Nav.Link
+                href=""
+                eventKey="templates"
+                onClick={() => clickNavbarItem('templates')}
+              >
+                Templates
+              </Nav.Link>
+            </Nav.Item>
+            <NavDropdown
+              title="Theme customiser"
+              id="theme-customiser"
+              eventKey="theme customiser"
+              onClick={() => clickNavbarItem('theme customiser')}
+            >
+              <NavDropdown.Item
+                href=""
+                onClick={() => clickNavbarItem('theme customiser')}
+              >
+                Option 1
+              </NavDropdown.Item>
+              <NavDropdown.Item
+                href=""
+                onClick={() => clickNavbarItem('theme customiser')}
+                active
+              >
+                Option 2
+              </NavDropdown.Item>
+              <NavDropdown.Item
+                href=""
+                onClick={() => clickNavbarItem('theme customiser')}
+              >
+                Option 3
+              </NavDropdown.Item>
+              <NavDropdown.Item
+                href=""
+                onClick={() => clickNavbarItem('theme customiser')}
+              >
+                Option 4
+              </NavDropdown.Item>
+            </NavDropdown>
+            <Nav.Item>
+              <Nav.Link
+                href=""
+              >
+                <i className="bi bi-search"></i>
+              </Nav.Link>
+            </Nav.Item>
+            <Nav.Item>
+              <Nav.Link
+                href=""
+              >
+                <i className="bi bi-grid-3x3-gap-fill"></i>
+              </Nav.Link>
+            </Nav.Item>
+          </Nav>
+        </Navbar.Collapse>
+      </Navbar>
+      <Row className="m-8">
+        <Col lg="3" className="d-none d-lg-block">
+          <SideNav activeKey={sideActive} activeNavLinkKey={sideActiveLink}>
+            <SideNav.Item
+              eventKey="1"
+              onClick={() => clickSideNavItem("1")}
+            >
+              <SideNav.Button>Sub menu</SideNav.Button>
+              <SideNav.Collapse>
+                <SideNav.Link
+                  eventKey="1.1"
+                  href=""
+                  onClick={() => clickSideNavLink("1.1")}
+                >
+                  Sub menu item
+                </SideNav.Link>
+                <SideNav.Link
+                  eventKey="1.2"
+                  href=""
+                  onClick={() => clickSideNavLink("1.2")}
+                >
+                  Sub menu item
+                </SideNav.Link>
+                <SideNav.Link
+                  eventKey="1.3"
+                  href=""
+                  onClick={() => clickSideNavLink("1.3")}
+                >
+                  Sub menu item
+                </SideNav.Link>
+              </SideNav.Collapse>
+            </SideNav.Item>
+            <SideNav.Item
+              eventKey="2"
+              onClick={() => clickSideNavItem("2")}
+            >
+              <SideNav.Button>Sub menu</SideNav.Button>
+              <SideNav.Collapse>
+                <SideNav.Link
+                  eventKey="2.1"
+                  href=""
+                  onClick={() => clickSideNavLink("2.1")}
+                >
+                  Sub menu item
+                </SideNav.Link>
+                <SideNav.Link
+                  eventKey="2.2"
+                  href=""
+                  onClick={() => clickSideNavLink("2.2")}
+                >
+                  Sub menu item
+                </SideNav.Link>
+                <SideNav.Link
+                  eventKey="2.3"
+                  href=""
+                  onClick={() => clickSideNavLink("2.3")}
+                >
+                  Sub menu item
+                </SideNav.Link>
+              </SideNav.Collapse>
+            </SideNav.Item>
+            <SideNav.Item
+              eventKey="3"
+              onClick={() => clickSideNavItem("3")}
+            >
+              <SideNav.Button>Sub menu</SideNav.Button>
+              <SideNav.Collapse>
+                <SideNav.Link
+                  eventKey="3.1"
+                  href=""
+                  onClick={() => clickSideNavLink("3.1")}
+                >
+                  Sub menu item
+                </SideNav.Link>
+                <SideNav.Link
+                  eventKey="3.2"
+                  href=""
+                  onClick={() => clickSideNavLink("3.2")}
+                >
+                  Sub menu item
+                </SideNav.Link>
+                <SideNav.Link
+                  eventKey="3.3"
+                  href=""
+                  onClick={() => clickSideNavLink("3.3")}
+                >
+                  Sub menu item
+                </SideNav.Link>
+              </SideNav.Collapse>
+            </SideNav.Item>
+          </SideNav>
+        </Col>
+        <Col lg="9">
+          <Breadcrumb className="mb-8">
+            <Breadcrumb.Item href="">
+              Home
+            </Breadcrumb.Item>
+            <Breadcrumb.Item href="">
+              Library
+            </Breadcrumb.Item>
+            <Breadcrumb.Item active>
+              Data
+            </Breadcrumb.Item>
+          </Breadcrumb>
+            <h2>Page heading</h2>
+            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>
+            <h4>Overview</h4>
+            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.</p>
+        </Col>
+      </Row>
+      <Footer>
+        <Footer.Top>
+          <Footer.Top.ContactLinks>
+            <a href="" target="_blank">Contact</a>
+            <a href="" target="_blank">Feedback</a>
+          </Footer.Top.ContactLinks>
+        </Footer.Top>
+        <Footer.Bottom>
+          <Footer.Bottom.Links>
+            <a href="" target="_blank">Report Vulnerability</a>
+            <a href="">Privacy</a>
+            <a href="">Terms of use</a>
+          </Footer.Bottom.Links>
+          <Footer.Bottom.Copyrights>
+            © 2022 Government of Singapore. Last Updated 08 Feb 2022
+          </Footer.Bottom.Copyrights>
+        </Footer.Bottom>
+      </Footer>
+    </div>
+  );
+};
+
+<Canvas>
+  <Story name="Detail Page Side Nav">
+    {DetailSideNavTemplate.bind({})}
+  </Story>
+</Canvas>
+
+# Detail Page Side Nav Extended
+
+Detail page with a side navigation menu and table of contents.
+
+export const DetailSideNavExtendedTemplate = () => {
+  const [active, setActive] = useState("about")
+  const clickNavbarItem = (eventKey) => {
+    setActive(eventKey)
+  }
+  const [sideActive, setSideActive] = useState("1")
+  const clickSideNavItem = (eventKey) => {
+    setSideActive(eventKey)
+  }
+  const [sideActiveLink, setSideActiveLink] = useState("1.1")
+  const clickSideNavLink = (eventKey) => {
+    setSideActiveLink(eventKey)
+  }
+  return (
+    <div>
+      <SgdsMasthead />
+      <Navbar className="mt-4" expand="lg">
+        <Navbar.Brand href="">
+          <img src="https://www.developer.tech.gov.sg/assets/img/logo_color.svg" alt="Home" />
+        </Navbar.Brand>
+        <Navbar.Toggle aria-controls="landingNav" />
+        <Navbar.Collapse id="landingNav">
+          <Nav className="me-auto" navbarScroll activeKey={active}>
+            <Nav.Item>
+              <Nav.Link
+                href=""
+                eventKey="about"
+                onClick={() => clickNavbarItem('about')}
+              >
+                About
+              </Nav.Link>
+            </Nav.Item>
+            <Nav.Item>
+              <Nav.Link
+                href=""
+                eventKey="components"
+                onClick={() => clickNavbarItem('components')}
+              >
+                Components
+              </Nav.Link>
+            </Nav.Item>
+            <Nav.Item>
+              <Nav.Link
+                href=""
+                eventKey="patterns"
+                onClick={() => clickNavbarItem('patterns')}
+              >
+                Patterns
+              </Nav.Link>
+            </Nav.Item>
+            <Nav.Item>
+              <Nav.Link
+                href=""
+                eventKey="templates"
+                onClick={() => clickNavbarItem('templates')}
+              >
+                Templates
+              </Nav.Link>
+            </Nav.Item>
+            <NavDropdown
+              title="Theme customiser"
+              id="theme-customiser"
+              eventKey="theme customiser"
+              onClick={() => clickNavbarItem('theme customiser')}
+            >
+              <NavDropdown.Item
+                href=""
+                onClick={() => clickNavbarItem('theme customiser')}
+              >
+                Option 1
+              </NavDropdown.Item>
+              <NavDropdown.Item
+                href=""
+                onClick={() => clickNavbarItem('theme customiser')}
+                active
+              >
+                Option 2
+              </NavDropdown.Item>
+              <NavDropdown.Item
+                href=""
+                onClick={() => clickNavbarItem('theme customiser')}
+              >
+                Option 3
+              </NavDropdown.Item>
+              <NavDropdown.Item
+                href=""
+                onClick={() => clickNavbarItem('theme customiser')}
+              >
+                Option 4
+              </NavDropdown.Item>
+            </NavDropdown>
+            <Nav.Item>
+              <Nav.Link
+                href=""
+              >
+                <i className="bi bi-search"></i>
+              </Nav.Link>
+            </Nav.Item>
+            <Nav.Item>
+              <Nav.Link
+                href=""
+              >
+                <i className="bi bi-grid-3x3-gap-fill"></i>
+              </Nav.Link>
+            </Nav.Item>
+          </Nav>
+        </Navbar.Collapse>
+      </Navbar>
+      <Row className="m-8">
+        <Col lg="3" className="d-none d-lg-block">
+          <SideNav activeKey={sideActive} activeNavLinkKey={sideActiveLink}>
+            <SideNav.Item
+              eventKey="1"
+              onClick={() => clickSideNavItem("1")}
+            >
+              <SideNav.Button>Sub menu</SideNav.Button>
+              <SideNav.Collapse>
+                <SideNav.Link
+                  eventKey="1.1"
+                  href=""
+                  onClick={() => clickSideNavLink("1.1")}
+                >
+                  Sub menu item
+                </SideNav.Link>
+                <SideNav.Link
+                  eventKey="1.2"
+                  href=""
+                  onClick={() => clickSideNavLink("1.2")}
+                >
+                  Sub menu item
+                </SideNav.Link>
+                <SideNav.Link
+                  eventKey="1.3"
+                  href=""
+                  onClick={() => clickSideNavLink("1.3")}
+                >
+                  Sub menu item
+                </SideNav.Link>
+              </SideNav.Collapse>
+            </SideNav.Item>
+            <SideNav.Item
+              eventKey="2"
+              onClick={() => clickSideNavItem("2")}
+            >
+              <SideNav.Button>Sub menu</SideNav.Button>
+              <SideNav.Collapse>
+                <SideNav.Link
+                  eventKey="2.1"
+                  href=""
+                  onClick={() => clickSideNavLink("2.1")}
+                >
+                  Sub menu item
+                </SideNav.Link>
+                <SideNav.Link
+                  eventKey="2.2"
+                  href=""
+                  onClick={() => clickSideNavLink("2.2")}
+                >
+                  Sub menu item
+                </SideNav.Link>
+                <SideNav.Link
+                  eventKey="2.3"
+                  href=""
+                  onClick={() => clickSideNavLink("2.3")}
+                >
+                  Sub menu item
+                </SideNav.Link>
+              </SideNav.Collapse>
+            </SideNav.Item>
+            <SideNav.Item
+              eventKey="3"
+              onClick={() => clickSideNavItem("3")}
+            >
+              <SideNav.Button>Sub menu</SideNav.Button>
+              <SideNav.Collapse>
+                <SideNav.Link
+                  eventKey="3.1"
+                  href=""
+                  onClick={() => clickSideNavLink("3.1")}
+                >
+                  Sub menu item
+                </SideNav.Link>
+                <SideNav.Link
+                  eventKey="3.2"
+                  href=""
+                  onClick={() => clickSideNavLink("3.2")}
+                >
+                  Sub menu item
+                </SideNav.Link>
+                <SideNav.Link
+                  eventKey="3.3"
+                  href=""
+                  onClick={() => clickSideNavLink("3.3")}
+                >
+                  Sub menu item
+                </SideNav.Link>
+              </SideNav.Collapse>
+            </SideNav.Item>
+          </SideNav>
+        </Col>
+        <Col lg="7">
+          <Breadcrumb className="mb-8">
+            <Breadcrumb.Item href="">
+              Home
+            </Breadcrumb.Item>
+            <Breadcrumb.Item href="">
+              Library
+            </Breadcrumb.Item>
+            <Breadcrumb.Item active>
+              Data
+            </Breadcrumb.Item>
+          </Breadcrumb>
+            <h2>Page heading</h2>
+            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>
+            <h4>Overview</h4>
+            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.</p>
+        </Col>
+        <Col lg="2" className="d-none d-lg-block">
+            <h4>On this page</h4>
+            <ul style={{listStyle: "none"}}>
+              <li>
+                <a href="" className="text-decoration-none">Page heading</a>
+              </li>
+              <ul style={{listStyle: "none"}}>
+                <li>
+                  <a href="" className="text-decoration-none">Overview</a>
+                </li>
+              </ul>
+            </ul>
+        </Col>
+      </Row>
+      <Footer>
+        <Footer.Top>
+          <Footer.Top.ContactLinks>
+            <a href="" target="_blank">Contact</a>
+            <a href="" target="_blank">Feedback</a>
+          </Footer.Top.ContactLinks>
+        </Footer.Top>
+        <Footer.Bottom>
+          <Footer.Bottom.Links>
+            <a href="" target="_blank">Report Vulnerability</a>
+            <a href="">Privacy</a>
+            <a href="">Terms of use</a>
+          </Footer.Bottom.Links>
+          <Footer.Bottom.Copyrights>
+            © 2022 Government of Singapore. Last Updated 08 Feb 2022
+          </Footer.Bottom.Copyrights>
+        </Footer.Bottom>
+      </Footer>
+    </div>
+  );
+};
+
+<Canvas>
+  <Story name="Detail Page Side Nav Extended">
+    {DetailSideNavExtendedTemplate.bind({})}
   </Story>
 </Canvas>
