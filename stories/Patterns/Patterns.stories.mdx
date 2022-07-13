@@ -1,6 +1,6 @@
 import { ArgsTable, Canvas, Meta, Story } from '@storybook/addon-docs';
 import { useState, useRef } from 'react';
-import { Form, Button, Row, Col, InputGroup, Card } from '../../src/index';
+import { Form, Button, Row, Col, InputGroup, FormCheck, Card } from '../../src/index';
 
 <Meta title="Components/Form/Patterns" component={Form} />
 
@@ -550,17 +550,21 @@ import { Form, Col } from '@govtechsg/sgds-react';
 
 You should follow this pattern by using `<fieldset>` and `<legend>`. This will ensure that assistive technologies — such as screen readers — will announce the related question when reading out the options.
 
-export const MultilineCheckboxesTemplate = (args) => {
+## Multiple checkboxes
+
+export const MultipleCheckboxesTemplate = (args) => {
   return (
     <Form>
       <fieldset>
-      <legend className="form-label">How do you know about us?</legend>
+       <Form.Label as="legend" className="h5 mb-2" >
+            How do you know about us?
+          </Form.Label>
         <FormCheck
-          id="option-1"
+          id="friends"
           label="Friends"
         />
         <FormCheck
-          id="option-2"
+          id="newsletter"
           label="Newsletter"
         />
       </fieldset>
@@ -569,23 +573,80 @@ export const MultilineCheckboxesTemplate = (args) => {
 };
 
 <Canvas>
-  <Story name="Multiple Options">{MultilineCheckboxesTemplate.bind({})}</Story>
+  <Story name="Multiple Checkboxes">{MultipleCheckboxesTemplate.bind({})}</Story>
 </Canvas>
 
 ```jsx
-import { Form, Col } from '@govtechsg/sgds-react';
+import { Form, FormCheck, Col } from '@govtechsg/sgds-react';
 
 <Form>
-  <Form.Group as={Col} xs={6} className="mb-3" controlId="givenName">
-    <Form.Check
-      id="option-1"
-      label="I am default a checkbox (change me)"
+  <fieldset>
+    <Form.Label as="legend" className="h5 mb-2" >
+        How do you know about us?
+      </Form.Label>
+    <FormCheck
+      id="friends"
+      label="Friends"
     />
-    <Form.Check
-      id="option-2"
-      label="I am default a checkbox (change me)"
+    <FormCheck
+      id="newsletter"
+      label="Newsletter"
     />
-  </Form.Group>
+  </fieldset>
+</Form>;
+```
+
+## Multiple Radio Buttons
+
+export const MultipleRadioTemplate = (args) => {
+  return (
+    <Form>
+      <fieldset>
+       <Form.Label as="legend" className="h5 mb-2" >
+            How do you know about us?
+          </Form.Label>
+        <FormCheck
+          id="friends-radio"
+          name="survey"
+          label="Friends"
+          type="radio"
+        />
+        <FormCheck
+          id="newsletter-radio"
+          name="survey"
+          label="Newsletter"
+          type="radio"
+        />
+      </fieldset>
+    </Form>
+  );
+};
+
+<Canvas>
+  <Story name="Multiple Radio Buttons">{MultipleRadioTemplate.bind({})}</Story>
+</Canvas>
+
+```jsx
+import { Form, FormCheck, Col } from '@govtechsg/sgds-react';
+
+<Form>
+  <fieldset>
+    <Form.Label as="legend" className="h5 mb-2" >
+        How do you know about us?
+      </Form.Label>
+    <FormCheck
+      id="friends-radio"
+      name="survey"
+      label="Friends"
+      type="radio"
+    />
+    <FormCheck
+      id="newsletter-radio"
+      name="survey"
+      label="Newsletter"
+      type="radio"
+    />
+  </fieldset>
 </Form>;
 ```
 

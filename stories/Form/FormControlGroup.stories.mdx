@@ -15,6 +15,10 @@ Does not apply to textarea.
 
 `icon` prop is a required field. Icon element passed in will be positioned to left of inside `FormControl` 
 
+### Accessibility consideration
+
+If you are planning to use `icon` to represent the label for the `<input>` without explicitly using `<label>`, you must include `aria-label` attribute on the form control. This will ensure that assistive technologies — such as screen readers — will announce the label when the user focuses or enters the control.
+
 export const FormControlIcon = () => {
   return (
     <Form>

@@ -25,7 +25,7 @@ export const Template = (args) => {
 <Canvas>
   <Story
     name="Default - checkbox"
-    args={{ label: 'I am default a checkbox (change me)' }}
+    args={{ label: 'Option Name' }}
   >
     {Template.bind({})}
   </Story>
@@ -49,7 +49,7 @@ Remember to apply HTMLInput type attribute `name` for radio buttons so that user
 <Canvas>
   <Story
     name="Default - radio"
-    args={{ label: 'Radio', type: 'radio', name: 'radio_checks', ariaLabel: 'radio' }}
+    args={{ label: 'Option Name', type: 'radio', name: 'radio_checks' }}
   >
     {Template.bind({})}
   </Story>
@@ -58,10 +58,14 @@ Remember to apply HTMLInput type attribute `name` for radio buttons so that user
 ## Switch
 
 <Canvas>
-  <Story name="Default - switch" args={{ label: 'Switch', type: 'switch' }}>
+  <Story name="Default - switch" args={{ label: 'Option Name', type: 'switch' }}>
     {Template.bind({})}
   </Story>
 </Canvas>
+
+## Accessibility consideration
+
+If you are planning to group several checkboxes or radio buttons within a form  question, you should use `<fieldset>` and `<legend>`. This will ensure that assistive technologies — such as screen readers — will announce the related question when reading out the options. See explanation and examples at [w3.org: Grouping Controls](https://www.w3.org/WAI/tutorials/forms/grouping/).
 
 ## Validations
 
