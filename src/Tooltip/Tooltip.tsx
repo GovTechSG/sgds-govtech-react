@@ -14,6 +14,7 @@ export interface TooltipProps {
   type?: 'hover' | 'click';
   /** The content to be displayed in the tooltip */
   content: string;
+  children?: React.ReactNode
 }
 const propTypes = {
   placement: PropTypes.oneOf<TooltipPlacement>([
