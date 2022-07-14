@@ -27,6 +27,7 @@ export const FbFormControl = () => {
           pattern="[a-zA-Z]*"
           aria-describedby="lettersOnlyHint"
           aria-errormessage="lettersOnlyErr"
+          defaultValue="Lorem Ipsum 123"
         />
         <Form.Control.Feedback type="invalid" id="lettersOnlyErr">
           Name is invalid or empty
@@ -57,6 +58,7 @@ export const FbFormControl = () => {
           placeholder="First name"
           minLength="5"
           aria-describedby="minLenFiveHint"
+          defaultValue="Lorem Ipsum"
         />
         <Form.Control.Feedback type="invalid">
           Name is invalid or empty
