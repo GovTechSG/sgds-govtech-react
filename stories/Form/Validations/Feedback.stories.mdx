@@ -18,30 +18,30 @@ export const FbFormControl = () => {
     <Form noValidate validated={true}>
       <Form.Group md="4" controlId="textOnlyInput">
         <Form.Label>First name</Form.Label>
-        <Form.Text className="text-muted" id="hT-textOnlyInput">
+        <Form.Text className="text-muted" id="lettersOnlyHint">
           Input should contain letters only
         </Form.Text>
         <Form.Control
           type="text"
           placeholder="First name"
           pattern="[a-zA-Z]*"
-          aria-describedby="hT-textOnlyInput"
-          aria-errormessage="err-textOnlyInput"
+          aria-describedby="lettersOnlyHint"
+          aria-errormessage="lettersOnlyErr"
         />
-        <Form.Control.Feedback type="invalid" id="err-textOnlyInput">
+        <Form.Control.Feedback type="invalid" id="lettersOnlyErr">
           Name is invalid or empty
         </Form.Control.Feedback>
       </Form.Group>
       <Form.Group md="4" controlId="requiredInput">
         <Form.Label>First name</Form.Label>
-        <Form.Text className="text-muted" id="hT-requiredInput">
+        <Form.Text className="text-muted" id="requiredInputHint">
           Input is required
         </Form.Text>
         <Form.Control
           type="text"
           placeholder="First name"
           required
-          aria-describedby="hT-requiredInput"
+          aria-describedby="requiredInputHint"
         />
         <Form.Control.Feedback type="invalid">
           Name is invalid or empty
@@ -49,14 +49,14 @@ export const FbFormControl = () => {
       </Form.Group>
       <Form.Group md="4" controlId="minLengthFiveInput">
         <Form.Label>First name</Form.Label>
-        <Form.Text className="text-muted" id="hT-minLengthFiveInput">
+        <Form.Text className="text-muted" id="minLenFiveHint">
           Minimum length of 5
         </Form.Text>
         <Form.Control
           type="text"
           placeholder="First name"
           minLength="5"
-          aria-describedby="hT-minLengthFiveInput"
+          aria-describedby="minLenFiveHint"
         />
         <Form.Control.Feedback type="invalid">
           Name is invalid or empty
