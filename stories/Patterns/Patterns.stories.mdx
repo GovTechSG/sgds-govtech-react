@@ -78,7 +78,7 @@ export const AddressPatternTemplate = () => {
       </Form.Group>
       <Form.Group className="mb-3" controlId="formBasicUnitNumber">
         <Form.Label>Unit Number</Form.Label>
-        <Form.Text className="text-muted" id="UnitHint">If applicable</Form.Text>
+        <Form.Text className="text-muted" id="unitHint">If applicable</Form.Text>
         <Form.Control type="text" className="w-50" autoComplete="on" aria-describedby="unitHint" />
       </Form.Group>
     </Form>
@@ -195,14 +195,14 @@ export const EmailPatternTemplate = () => {
     <Form>
       <Form.Group className="mb-3">
         <Form.Label htmlFor="email">Email Address</Form.Label>
-        <Form.Text className="text-muted" id="EmailPurpose">
+        <Form.Text className="text-muted" id="emailPurpose">
           Your email will only be used for updates
         </Form.Text>
         <Form.Control
           className="w-50"
           id="email"
           type="email"
-          aria-describedby="EmailPurpose"
+          aria-describedby="emailPurpose"
           placeholder="Enter email"
           maxLength={256}
           required
