@@ -1,0 +1,130 @@
+import { ArgsTable, Canvas, Meta, Story, Props } from '@storybook/addon-docs';
+import { useState } from 'react';
+import {
+  Form,
+  Button,
+  Col,
+  InputGroup,
+  Row,
+  Feedback,
+} from '../../../src/index';
+import * as yup from 'yup';
+import * as formik from 'formik';
+
+<Meta title="Components/Form/Validations/Feedback" component={Feedback} />
+
+export const FbFormControl = () => {
+  return (
+    <Form noValidate validated={true}>
+      <Form.Group md="4" controlId="textOnlyInput">
+        <Form.Label>First name</Form.Label>
+        <Form.Text className="text-muted" id="lettersOnlyHint">
+          Input should contain letters only
+        </Form.Text>
+        <Form.Control
+          type="text"
+          placeholder="First name"
+          pattern="[a-zA-Z]*"
+          aria-describedby="lettersOnlyHint"
+          aria-errormessage="lettersOnlyErr"
+          defaultValue="Lorem Ipsum 123"
+        />
+        <Form.Control.Feedback type="invalid" id="lettersOnlyErr">
+          Name is invalid or empty
+        </Form.Control.Feedback>
+      </Form.Group>
+      <Form.Group md="4" controlId="requiredInput">
+        <Form.Label>First name</Form.Label>
+        <Form.Text className="text-muted" id="requiredInputHint">
+          Input is required
+        </Form.Text>
+        <Form.Control
+          type="text"
+          placeholder="First name"
+          required
+          aria-describedby="requiredInputHint"
+        />
+        <Form.Control.Feedback type="invalid">
+          Name is invalid or empty
+        </Form.Control.Feedback>
+      </Form.Group>
+      <Form.Group md="4" controlId="minLengthFiveInput">
+        <Form.Label>First name</Form.Label>
+        <Form.Text className="text-muted" id="minLenFiveHint">
+          Minimum length of 5
+        </Form.Text>
+        <Form.Control
+          type="text"
+          placeholder="First name"
+          minLength="5"
+          aria-describedby="minLenFiveHint"
+          defaultValue="Lorem Ipsum"
+        />
+        <Form.Control.Feedback type="invalid">
+          Name is invalid or empty
+        </Form.Control.Feedback>
+      </Form.Group>
+    </Form>
+  );
+};
+
+export const FbFormCheek = (args) => {
+  return (
+    <Form noValidate validated={true}>
+      <Form.Group className="mb-3" controlId="formCheckValidation">
+        <Form.Check
+          label="Agree to terms and conditions"
+          feedback="You must agree before submitting."
+          feedbackType="invalid"
+          {...args}
+        />
+      </Form.Group>
+    </Form>
+  );
+};
+
+
+# Feedback
+
+Feedback is the text message describing the `invalid` or `valid` typed validation.
+
+Use `<Feedback />` for form validation of Form Components: `Form.Control`, `Form.Check`.
+
+> **NOTE** : Browsers provide their own validation UI by default on forms. You can disable the default UI by adding the HTML `noValidate` attribute to your `<Form>` or `<form>` element.
+
+## API
+
+```jsx
+import { Feedback } from '@govtechsg/sgds-react/Form';
+
+//if using FormControl
+import { FormControl, Form } from '@govtechsg/sgds-react/Form';
+// use <FormControl.Feedback/>
+// or <Form.Control.Feedback/>
+```
+
+<ArgsTable of={Feedback} />
+
+## Feedback in FormControl
+
+Example of how the `<Feedback/>` component works with native HTML5 Form Validations using HTMLInputElement attributes `required`, `pattern` and `minlength`.
+
+Type some values in the `<FormControl/>` below to trigger the Feedback
+
+<Canvas>
+  <Story name="In FormControl">{FbFormControl.bind({})}</Story>
+</Canvas>
+
+## Feedback in FormCheck
+
+Feedback component is embedded in FormCheck component.
+
+Use props `feedback`, `feedbackType` with HTMLInput attributes like `required` to perform validation.
+
+See FormCheck API for more information.
+
+<Canvas>
+  <Story name="In FormCheck" args={{ required: true }}>
+    {FbFormCheek.bind({})}
+  </Story>
+</Canvas>
