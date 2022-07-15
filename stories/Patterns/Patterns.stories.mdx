@@ -1,6 +1,6 @@
 import { ArgsTable, Canvas, Meta, Story } from '@storybook/addon-docs';
 import { useState, useRef } from 'react';
-import { Form, Button, Row, Col, InputGroup, Card } from '../../src/index';
+import { Form, Button, Row, Col, InputGroup, FormCheck, Card } from '../../src/index';
 
 <Meta title="Patterns" component={Form} />
 
@@ -67,18 +67,19 @@ export const AddressPatternTemplate = () => {
       </Form.Group>
       <Form.Group className="mb-3" controlId="formBasicBuilding">
         <Form.Label>Building/House Number</Form.Label>
-        <Form.Text className="text-muted">If applicable</Form.Text>
+        <Form.Text className="text-muted" id="buildingHint">If applicable</Form.Text>
         <Form.Control
           type="text"
           placeholder=""
           className="w-25"
           autoComplete="on"
+          aria-describedby="buildingHint"
         />
       </Form.Group>
       <Form.Group className="mb-3" controlId="formBasicUnitNumber">
         <Form.Label>Unit Number</Form.Label>
-        <Form.Text className="text-muted">If applicable</Form.Text>
-        <Form.Control type="text" className="w-50" autoComplete="on" />
+        <Form.Text className="text-muted" id="unitHint">If applicable</Form.Text>
+        <Form.Control type="text" className="w-50" autoComplete="on" aria-describedby="unitHint" />
       </Form.Group>
     </Form>
   );
@@ -105,12 +106,13 @@ export const DatePatternSingleTemplate = () => {
     <Form>
       <Form.Group as={Col} className="mb-3">
         <Form.Label htmlFor="singleDate">Date of Birth</Form.Label>
-        <Form.Text className="text-muted">e.g 01 Jun 1979</Form.Text>
+        <Form.Text className="text-muted" id="dobHint">e.g 01 Jun 1979</Form.Text>
         <Form.Control
           className="w-50"
           type="text"
           id="singleDate"
           autoComplete="on"
+          aria-describedby="dobHint"
           required
         />
       </Form.Group>
@@ -193,13 +195,14 @@ export const EmailPatternTemplate = () => {
     <Form>
       <Form.Group className="mb-3">
         <Form.Label htmlFor="email">Email Address</Form.Label>
-        <Form.Text className="text-muted">
+        <Form.Text className="text-muted" id="emailPurpose">
           Your email will only be used for updates
         </Form.Text>
         <Form.Control
           className="w-50"
           id="email"
           type="email"
+          aria-describedby="emailPurpose"
           placeholder="Enter email"
           maxLength={256}
           required
@@ -319,6 +322,66 @@ export const MultilineNamePatternTemplate = () => {
   <Story name="Multiline name">{MultilineNamePatternTemplate.bind({})}</Story>
 </Canvas>
 
+# Multiple Options
+
+You should follow this pattern by using `<fieldset>` and `<legend>`. This will ensure that assistive technologies — such as screen readers — will announce the related question when reading out the options.
+
+## Multiple checkboxes
+
+export const MultipleCheckboxesTemplate = (args) => {
+  return (
+    <Form>
+      <fieldset>
+       <Form.Label as="legend" className="h5 mb-2" >
+            How do you know about us?
+          </Form.Label>
+        <FormCheck
+          id="friends"
+          label="Friends"
+        />
+        <FormCheck
+          id="newsletter"
+          label="Newsletter"
+        />
+      </fieldset>
+    </Form>
+  );
+};
+
+<Canvas>
+  <Story name="Multiple Checkboxes">{MultipleCheckboxesTemplate.bind({})}</Story>
+</Canvas>
+
+## Multiple Radio Buttons
+
+export const MultipleRadioTemplate = (args) => {
+  return (
+    <Form>
+      <fieldset>
+       <Form.Label as="legend" className="h5 mb-2" >
+            How do you know about us?
+          </Form.Label>
+        <FormCheck
+          id="friends-radio"
+          name="survey"
+          label="Friends"
+          type="radio"
+        />
+        <FormCheck
+          id="newsletter-radio"
+          name="survey"
+          label="Newsletter"
+          type="radio"
+        />
+      </fieldset>
+    </Form>
+  );
+};
+
+<Canvas>
+  <Story name="Multiple Radio Buttons">{MultipleRadioTemplate.bind({})}</Story>
+</Canvas>
+
 # Payment
 
 Use this pattern when you need to ask for their payment details.
@@ -369,12 +432,13 @@ export const PaymentPatternTemplate = () => {
       </Form.Group>
       <Form.Group as={Col} xs={6} className="mb-3" controlId="cardNumber">
         <Form.Label>Card number</Form.Label>
-        <Form.Text className="text-muted">
+        <Form.Text className="text-muted" id="sixteenDigits">
           Enter the 16-digit number on the card
         </Form.Text>
         <Form.Control
           type="text"
           value={cardNumber}
+          aria-describedby="sixteenDigits"
           onChange={handleChangeCardNumber}
           onKeyPress={(e) => onlyNumberKey(e)}
           autoComplete="cc-number"
@@ -387,10 +451,11 @@ export const PaymentPatternTemplate = () => {
       <Row>
         <Form.Group as={Col} xs={2} className="mb-3" controlId="expiryDate">
           <Form.Label>Expiry date</Form.Label>
-          <Form.Text className="text-muted">MM/YY</Form.Text>
+          <Form.Text className="text-muted" id="monthYear">MM/YY</Form.Text>
           <Form.Control
             type="text"
             value={cardExpDate}
+            aria-describedby="monthYear"
             onChange={handleChangeCardExpDate}
             autoComplete="cc-exp"
             pattern="\d*"
@@ -402,10 +467,11 @@ export const PaymentPatternTemplate = () => {
         </Form.Group>
         <Form.Group as={Col} xs={4} className="mb-3" controlId="cvv">
           <Form.Label>CVV</Form.Label>
-          <Form.Text className="text-muted">
+          <Form.Text className="text-muted" id="threeDigits">
             The 3 digit number at the back of card
           </Form.Text>
           <Form.Control
+            aria-describedby="threeDigits"
             type="text"
             autoComplete="cc-csc"
             pattern="\d\*"

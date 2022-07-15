@@ -32,7 +32,7 @@ import { ProgressBar } from '@govtechsg/sgds-react/ProgressBar';
 
 Use the `min` to set base progress (default is 0), `now` to indicate the current value of progress and `max` to set the maximum progress (default is 100).
 
-export const Template_Decrement_Increment = (args) => {
+export const DecrementIncrementTpl = (args) => {
   const current = 20;
   const [percentage, setPercentage] = useState(current);
   let incrementHandler = () => {
@@ -62,7 +62,7 @@ export const Template_Decrement_Increment = (args) => {
 
 <Canvas>
   <Story name="Decrement & Increment">
-    {Template_Decrement_Increment.bind({})}
+    {DecrementIncrementTpl.bind({})}
   </Story>
 </Canvas>
 
@@ -100,13 +100,13 @@ let decrementHandler = () => {
 
 Add a `label` prop to show a visible percentage. For low percentages, consider adding a min-width to ensure the label's text is fully visible.
 
-export const Template_With_Label = (args) => {
+export const WithLabelTmpl = (args) => {
   const now = 60;
   return <ProgressBar {...args} now={now} label={`${now}%`} />;
 };
 
 <Canvas>
-  <Story name="With Label">{Template_With_Label.bind({})}</Story>
+  <Story name="With Label">{WithLabelTmpl.bind({})}</Story>
 </Canvas>
 
 ```jsx
@@ -121,14 +121,14 @@ const now = 60;
 
 Add a `visuallyHidden` prop to hide the label visually.
 
-export const Template_With_Sr_Label = (args) => {
+export const SrLabelTmpl = (args) => {
   const now = 60;
   return <ProgressBar {...args} now={now} label={`${now}%`} visuallyHidden />;
 };
 
 <Canvas>
   <Story name="Screenreader Only Label">
-    {Template_With_Sr_Label.bind({})}
+    {SrLabelTmpl.bind({})}
   </Story>
 </Canvas>
 

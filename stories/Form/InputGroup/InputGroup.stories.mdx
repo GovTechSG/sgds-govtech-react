@@ -37,13 +37,13 @@ As our components are built on top of `React-Bootstrap` library, do check out th
 export const Template = (args) => {
   return (
     <>
-      <Form.Label>Phone Number</Form.Label>
+      <Form.Label htmlFor="phone-number">Phone Number</Form.Label>
       <InputGroup {...args} className="mb-3">
-        <InputGroup.Text id="basic-addon1">+65</InputGroup.Text>
+        <InputGroup.Text id="country-code" aria-label="Auto prefix with +65">+65</InputGroup.Text>
         <Form.Control
-          placeholder="Phone number"
+          id="phone-number"
           aria-label="Phone"
-          aria-describedby="basic-addon1"
+          aria-describedby="country-code"
         />
       </InputGroup>
     </>
@@ -454,7 +454,7 @@ Use the `<Form.Select>` as the native select tag within the input group.
   <Story name="Native Select Toggle">
     <Form>
       <InputGroup className="mb-3" id="select-addon1">
-        <Form.Select defaultValue="2" aria-label="select-addon1">
+        <Form.Select defaultValue="2" aria-label="Choose a number">
           <option value="1">One</option>
           <option value="2">Two</option>
           <option value="3">Three</option>
@@ -473,7 +473,7 @@ Use the `<Form.Select>` as the native select tag within the input group.
           aria-label="select"
           aria-describedby="select-addon2"
         />
-        <Form.Select defaultValue="3" aria-label="select-addon2">
+        <Form.Select defaultValue="3" aria-label="Choose a number">
           <option value="1">One</option>
           <option value="2">Two</option>
           <option value="3">Three</option>
@@ -490,8 +490,8 @@ For `<InputGroup>` validation, it requires the `hasValidation` prop. Use this wh
 <Canvas>
   <Story name="Input Group Validation">
     <InputGroup hasValidation>
-      <InputGroup.Text>@</InputGroup.Text>
-      <Form.Control type="text" required isInvalid aria-label="input" />
+      <InputGroup.Text id="prefix" aria-label="Auto prefix @ symbol">@</InputGroup.Text>
+      <Form.Control type="text" required isInvalid aria-label="Username" aria-describedby="prefix" />
       <Form.Control.Feedback type="invalid">
         Please choose a username.
       </Form.Control.Feedback>
