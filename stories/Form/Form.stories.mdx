@@ -134,7 +134,7 @@ Block-level help text in forms can be created using `<Form.Text>`. Inline help t
 Help text should be explicitly associated with the form control it relates to using the `aria-describedby` attribute. This will ensure that assistive technologies — such as screen readers — will announce this help text when the user focuses or enters the control.
 Form text below inputs can be styled with `<Form.Text>`. This component includes `display: block` and adds some top margin for easy spacing from the inputs above.
 
-export const Template_Form_Text = (args) => {
+export const FormTextTemplate = (args) => {
   return (
     <>
       <Form.Label htmlFor="inputPassword5">Password</Form.Label>
@@ -152,6 +152,6 @@ export const Template_Form_Text = (args) => {
 };
 
 <Canvas>
-  <Story name="Form Text">{Template_Form_Text.bind({})}</Story>
+  <Story name="Form Text">{FormTextTemplate.bind({})}</Story>
 </Canvas>
 
