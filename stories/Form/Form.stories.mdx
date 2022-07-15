@@ -34,10 +34,10 @@ export const Template = (args) => {
     <Form onSubmit={onSubmit} {...args}>
       <Form.Group className="mb-3" controlId="formBasicEmail">
         <Form.Label>Email address</Form.Label>
-        <Form.Text className="text-muted" id="NoShare">
+        <Form.Text className="text-muted" id="noShare">
           We'll never share your email with anyone else.
         </Form.Text>
-        <Form.Control type="email" placeholder="Enter email" id="NoShare" />
+        <Form.Control type="email" placeholder="Enter email" id="noShare" />
       </Form.Group>
       <Form.Group className="mb-3" controlId="formBasicPassword">
         <Form.Label>Password</Form.Label>
@@ -83,8 +83,8 @@ const onSubmit = (event) => {
 <Form onSubmit={onSubmit}>
   <Form.Group className="mb-3" controlId="formBasicEmail">
     <Form.Label>Email address</Form.Label>
-    <Form.Control type="email" placeholder="Enter email" aria-describedby="NoShare" />
-    <Form.Text className="text-muted" id="NoShare">
+    <Form.Control type="email" placeholder="Enter email" aria-describedby="noShare" />
+    <Form.Text className="text-muted" id="noShare">
       We'll never share your email with anyone else.
     </Form.Text>
   </Form.Group>
@@ -125,26 +125,6 @@ Add the `disabled` boolean attribute on an input to prevent user interactions an
 
 Browsers also treat all native form controls (`<input>`, `<select>` and `<button>` elements) inside `<fieldset disabled>` as disabled, preventing both keyboard and mouse interactions on them.
 
-```jsx
-import { Form, Button } from '@govtechsg/sgds-react';
-
-<Form>
-  <Form.Group className="mb-3" controlId="disabledInput">
-    <Form.Label>Disabled input</Form.Label>
-    <Form.Control placeholder="Disabled input" disabled />
-  </Form.Group>
-  <Form.Group className="mb-3" controlId="disabledSelectInput">
-    <Form.Label>Disabled select menu</Form.Label>
-    <Form.Select disabled>
-      <option>Disabled select</option>
-    </Form.Select>
-  </Form.Group>
-  <Form.Group className="mb-3" controlId="disabledCheckboxInput">
-    <Form.Check type="checkbox" label="Can't check this" disabled />
-  </Form.Group>
-</Form>;
-```
-
 ## Form.Text
 
 Block-level help text in forms can be created using `<Form.Text>`. Inline help text can be flexibly implemented using any inline HTML element and utility classes like .text-muted.
@@ -175,17 +155,3 @@ export const Template_Form_Text = (args) => {
   <Story name="Form Text">{Template_Form_Text.bind({})}</Story>
 </Canvas>
 
-```jsx
-<>
-  <Form.Label htmlFor="inputPassword5">Password</Form.Label>
-  <Form.Text id="passwordHelpBlock" muted>
-    Your password must be 8-20 characters long, contain letters and numbers, and
-    must not contain spaces, special characters, or emoji.
-  </Form.Text>
-  <Form.Control
-    type="password"
-    id="inputPassword5"
-    aria-describedby="passwordHelpBlock"
-  />
-</>
-```
