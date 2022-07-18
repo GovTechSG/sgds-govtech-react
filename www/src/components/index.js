@@ -19,7 +19,7 @@ export {default as PaginationCom} from './Pagination'
 export {default as SideNavCom} from './Sidenav'
 export {default as ProgressBarCom} from './ProgressBar'
 export {default as DatePickerCom} from './Datepicker'
-export {default as TypeaheadCom} from './Typeahead'
+export {default as ComboboxCom} from './Combobox'
 export {default as ModalCom} from './Modal'
 export {default as TabsCom} from './Tabs'
 

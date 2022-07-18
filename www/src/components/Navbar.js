@@ -91,7 +91,7 @@ const NavbarCom = () => {
                     collaboration opportunities
                   </p>
                 </Col>
-                <Col>
+                <Col as="ul" className="list-unstyled">
                   <NavDropdown.Item
                     href="#"
                     onClick={() => clickNavbarItem('mega')}
@@ -111,7 +111,7 @@ const NavbarCom = () => {
                     Features
                   </NavDropdown.Item>
                 </Col>
-                <Col>
+                <Col as="ul" className="list-unstyled">
                   <NavDropdown.Item
                     href="#"
                     onClick={() => clickNavbarItem('mega')}
@@ -131,7 +131,7 @@ const NavbarCom = () => {
                     Features
                   </NavDropdown.Item>
                 </Col>
-                <Col>
+                <Col as="ul" className="list-unstyled">
                   <NavDropdown.Item
                     href="#"
                     onClick={() => clickNavbarItem('mega')}
