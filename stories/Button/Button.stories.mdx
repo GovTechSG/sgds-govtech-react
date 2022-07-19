@@ -3,10 +3,7 @@ import { Button } from '../../src/index';
 import { useState, useEffect } from 'react';
 import { HIDDEN_COMMON_PROPS } from '../helpers';
 
-<Meta
-  title="Components/Button"
-  component={Button}
-/>
+<Meta title="Components/Button" component={Button} />
 
 # Buttons
 
@@ -18,14 +15,15 @@ export const defaultTemplate = (args) => <Button {...args}>Default</Button>;
   <Story name="Default">{defaultTemplate.bind({})}</Story>
 </Canvas>
 
-## API 
+## API
 
 ```jsx
-import { Button } from '@govtechsg/sgds-react/Button'; 
+import { Button } from '@govtechsg/sgds-react/Button';
 ```
+
 <ArgsTable story="Default" />
 
-##  Variants
+## Variants
 
 Use any of the available button style types to quickly create a styled button. Just modify the `variant` prop.
 
@@ -49,19 +47,11 @@ Use any of the available button style types to quickly create a styled button. J
   </Story>
 </Canvas>
 
-```jsx
-// Example
-
-import { Button } from '@govtechsg/sgds-react';
-
-<Button variant="primary">Primary<Button>
-```
-
-##  Outline buttons
+## Outline buttons
 
 For a lighter touch, Buttons also come in `outline-*` variants with no background color.
 
-<Canvas withSource="open">
+<Canvas>
   <Story name="Outline buttons">
     <>
       <Button variant="outline-primary">Primary</Button>{' '}
@@ -73,22 +63,15 @@ For a lighter touch, Buttons also come in `outline-*` variants with no backgroun
       <Button variant="outline-light">Light</Button>{' '}
       <Button variant="outline-dark">Dark</Button>
     </>
-    ;
   </Story>
 </Canvas>
-
-```jsx
-import { Button } from '@govtechsg/sgds-react';
-
-<Button variant="outline-primary">Primary<Button>
-```
 
 ## Button tags
 
 Normally `<Button>` components will render a HTML `<button>` element. However you can render whatever you'd like, adding a href prop will automatically render an `<a/>` element.
 You can use the as prop to render whatever your heart desires. @govtechsg/sgds-react will take care of the proper ARIA roles for you.
 
-<Canvas withSource="open">
+<Canvas>
   <Story name="Button tags">
     <>
       <Button href="#">Link</Button> <Button type="submit">Button</Button>{' '}
@@ -99,11 +82,11 @@ You can use the as prop to render whatever your heart desires. @govtechsg/sgds-r
   </Story>
 </Canvas>
 
-##  Sizes
+## Sizes
 
 Fancy larger or smaller buttons? Add `size="lg"`, `size="sm"` for additional sizes.
 
-<Canvas withSource="open">
+<Canvas>
   <Story name="Button sizes">
     <>
       <div className="mb-2">
@@ -216,37 +199,6 @@ export const Template = (args) => {
   <Story name="Button loading state">{Template.bind({})}</Story>
 </Canvas>
 
-```jsx
-function simulateNetworkRequest() {
-  return new Promise((resolve) => setTimeout(resolve, 2000));
-}
-
-function LoadingButton() {
-  const [isLoading, setLoading] = useState(false);
-
-  useEffect(() => {
-    if (isLoading) {
-      simulateNetworkRequest().then(() => {
-        setLoading(false);
-      });
-    }
-  }, [isLoading]);
-
-  const handleClick = () => setLoading(true);
-
-  return (
-    <Button
-      variant="primary"
-      disabled={isLoading}
-      onClick={!isLoading ? handleClick : null}
-    >
-      {isLoading ? 'Loading…' : 'Click to load'}
-    </Button>
-  );
-}
-
-render(<LoadingButton />);
-```
 
 ## Add icon as a child component
 
