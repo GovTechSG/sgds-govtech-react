@@ -27,6 +27,7 @@
     "post:build": "node ./scripts/frankBuild.js",
     "rollup": "rm -rf dist && rollup -c",
     "test": "jest --passWithNoTests",
+    "ci:test": "jest --detectOpenHandles",
     "lint": "tsdx lint",
     "size": "size-limit",
     "analyze": "size-limit --why",

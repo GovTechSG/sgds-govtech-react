@@ -45,7 +45,6 @@
   },
   "devDependencies": {
     "@svgr/webpack": "^6.2.1",
-    "react-app-rewired": "^2.2.1",
     "react-app-rewired": "^5.0.1"
   }
 }
