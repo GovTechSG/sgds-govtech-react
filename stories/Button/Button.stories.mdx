@@ -188,6 +188,10 @@ Watch out! `<a>` elements don't naturally support a disabled attribute. In brows
 
 When activating an asynchronous action from a button it is a good UX pattern to give the user feedback as to the loading state, this can easily be done by updating your `<Button />`s props from a state change like below.
 
+### Accessibility consideration
+
+The loading state uses the `disabled` Boolean attribute which removes the ability to focus and removing it from the accessibility tree. This makes it invisible to assistive technology users. To make the disabled button content perceivable to all users, you will need to add `aria-disabled` attribute so that assistive technologies can still access the button content while indicating that it is disabled.
+
 export const Template = (args) => {
   function simulateNetworkRequest() {
     return new Promise((resolve) => setTimeout(resolve, 2000));
@@ -205,6 +209,7 @@ export const Template = (args) => {
     <Button
       variant="primary"
       disabled={isLoading}
+      aria-disabled={!isLoading ? "false" : "true"}
       onClick={!isLoading ? handleClick : null}
     >
       {isLoading ? 'Loading…' : 'Click to load'}
@@ -238,6 +243,7 @@ function LoadingButton() {
     <Button
       variant="primary"
       disabled={isLoading}
+      aria-disabled={!isLoading ? "false" : "true"}
       onClick={!isLoading ? handleClick : null}
     >
       {isLoading ? 'Loading…' : 'Click to load'}
@@ -252,9 +258,13 @@ render(<LoadingButton />);
 
 Add icon to `Button` as a children component
 
+### Accessibility consideration
+
+If the icon on the button is only for decorative purpose, you should use `aria-hidden="true"` on the icon to hide from screen readers. If you are using an icon button with no text, you must have `<span class="visually-hidden">button function</span>` to ensure that assistive technologies — such as screen readers — will announce the function of the button when the user focuses on the icon only button.
+
 export const iconTemplate = (args) => (
   <Button {...args}>
-    <i className="bi bi-arrow-90deg-left"></i> Button with icon
+    <i className="bi bi-arrow-90deg-left" aria-hidden="true"></i> Button with icon
   </Button>
 );
 
