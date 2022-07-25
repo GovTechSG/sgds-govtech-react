@@ -23,7 +23,7 @@ See the below table on which version of `@govtechsg/sgds` you should be using in
 npm install @govtechsg/sgds-react
 
 //not required if using cdn
-npm install @govtechsg/sgds-govtech bootstrap-icons
+npm install @govtechsg/sgds bootstrap-icons
 
 ```
 
