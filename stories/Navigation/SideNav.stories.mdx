@@ -20,7 +20,6 @@ export const Template = (args) => {
       <SideNav.Item eventKey="0">
         <SideNav.Button>SideNav Item #1</SideNav.Button>
         <SideNav.Collapse>
-          <>
             <SideNav.Link eventKey="nl-1" href="#">
               number one
             </SideNav.Link>
@@ -30,18 +29,15 @@ export const Template = (args) => {
             <SideNav.Link eventKey="nl-3" href="#">
               number one
             </SideNav.Link>
-          </>
         </SideNav.Collapse>
       </SideNav.Item>
       <SideNav.Item eventKey="1">
         <SideNav.Button>SideNav Item #2</SideNav.Button>
         <SideNav.Collapse>
-          <>
             <SideNav.Link eventKey="nl-4">number two</SideNav.Link>
             <SideNav.Link eventKey="nl-6">number two</SideNav.Link>
             <SideNav.Link eventKey="nl-7">number two</SideNav.Link>
             <SideNav.Link eventKey="nl-8">number two</SideNav.Link>
-          </>
         </SideNav.Collapse>
       </SideNav.Item>
       <SideNav.Item eventKey="2">
@@ -72,7 +68,6 @@ export const ActiveKeyTemplate = (initialAK, initialALK) => {
             SideNav Item #1
           </SideNav.Button>
           <SideNav.Collapse>
-            <>
               <SideNav.Link
                 eventKey="nl-1"
                 href="#"
@@ -94,7 +89,6 @@ export const ActiveKeyTemplate = (initialAK, initialALK) => {
               >
                 number one
               </SideNav.Link>
-            </>
           </SideNav.Collapse>
         </SideNav.Item>
         <SideNav.Item eventKey="1">
@@ -156,7 +150,6 @@ export const DefaultSideNav = () => {
       <SideNav.Item eventKey="0">
         <SideNav.Button>SideNav Item #1</SideNav.Button>
         <SideNav.Collapse>
-          <>
             <SideNav.Link eventKey="nl-1" href="#">
               number one
             </SideNav.Link>
@@ -166,18 +159,15 @@ export const DefaultSideNav = () => {
             <SideNav.Link eventKey="nl-3" href="#">
               number one
             </SideNav.Link>
-          </>
         </SideNav.Collapse>
       </SideNav.Item>
       <SideNav.Item eventKey="1">
         <SideNav.Button>SideNav Item #2</SideNav.Button>
         <SideNav.Collapse>
-          <>
             <SideNav.Link eventKey="nl-4">number two</SideNav.Link>
             <SideNav.Link eventKey="nl-6">number two</SideNav.Link>
             <SideNav.Link eventKey="nl-7">number two</SideNav.Link>
             <SideNav.Link eventKey="nl-8">number two</SideNav.Link>
-          </>
         </SideNav.Collapse>
       </SideNav.Item>
       <SideNav.Item eventKey="2">
@@ -253,7 +243,6 @@ export const ManageActiveKeyTemplate = (args) => {
           SideNav Item #1
         </SideNav.Button>
         <SideNav.Collapse>
-          <>
             <SideNav.Link
               eventKey="nl-1"
               href="#"
@@ -275,7 +264,6 @@ export const ManageActiveKeyTemplate = (args) => {
             >
               number one
             </SideNav.Link>
-          </>
         </SideNav.Collapse>
       </SideNav.Item>
       <SideNav.Item eventKey="1">
@@ -283,7 +271,6 @@ export const ManageActiveKeyTemplate = (args) => {
           SideNav Item #2
         </SideNav.Button>
         <SideNav.Collapse>
-          <>
             {['one', 'two', 'three', 'four'].map((e, i) => (
               <SideNav.Link
                 eventKey={`${e}-${i}`}
@@ -292,7 +279,6 @@ export const ManageActiveKeyTemplate = (args) => {
                 number {e}
               </SideNav.Link>
             ))}
-          </>
         </SideNav.Collapse>
       </SideNav.Item>
       <SideNav.Item eventKey="2">

@@ -1,7 +1,7 @@
 {
   // see https://www.typescriptlang.org/tsconfig to better understand tsconfigs
   "compilerOptions": {
-    "target": "ES2017",
+    "target": "esnext",
     "module": "esnext",
     "lib": ["dom", "esnext"],
     "importHelpers": true,

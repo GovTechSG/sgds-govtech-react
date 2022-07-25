@@ -2,32 +2,34 @@
 
 # dependencies
 /node_modules
-/**/node_modules
-/dist
 /.pnp
 .pnp.js
-/**/build
+
 # testing
 /coverage
+
+# next.js
+/.next/
+/out/
 
 # production
 /build
 
 # misc
 .DS_Store
-.env.local
-.env.development.local
-.env.test.local
-.env.production.local
+*.pem
 
+# debug
 npm-debug.log*
 yarn-debug.log*
 yarn-error.log*
+.pnpm-debug.log*
 
-.vscode
+# local env files
+.env*.local
 
-storybook-static
+# vercel
+.vercel
 
-*.bak
-
-storybook-build
+# typescript
+*.tsbuildinfo

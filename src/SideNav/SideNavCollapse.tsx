@@ -18,7 +18,7 @@ const propTypes = {
   as: PropTypes.elementType,
 
   /** Children prop should only contain a single child, and is enforced as such */
-  children: PropTypes.oneOfType([PropTypes.element]),
+  children: PropTypes.node,
 };
 
 export const SideNavCollapse: BsPrefixRefForwardingComponent<
