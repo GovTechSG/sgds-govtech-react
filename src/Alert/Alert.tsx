@@ -134,6 +134,7 @@ export const Alert: BsPrefixRefForwardingComponent<'div', AlertProps> =
             dismissible && `${prefix}-dismissible`
           )}
         >
+          {children}
           {dismissible && (
             <CloseButton
               onClick={handleClose}
@@ -141,7 +142,6 @@ export const Alert: BsPrefixRefForwardingComponent<'div', AlertProps> =
               className={`btn-sm`}
             />
           )}
-          {children}
         </SGDSWrapper>
       );
 
