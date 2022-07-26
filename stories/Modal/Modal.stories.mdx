@@ -56,9 +56,9 @@ export const defaultModal = NamedTemplate('Default');
 export const smallModal = NamedTemplate('Small').bind({});
 export const largeModal = NamedTemplate('Large').bind({});
 export const xLargeModal = NamedTemplate('Extra large').bind({});
-export const templateCode = `
-import { Modal, Button } from '@govtechsg/sgds-react';
- const DefaultModal = (args) => {
+// start of template codes
+export const templateCode_Modal = `
+ const DefaultModal = () => {
     const [show, setShow] = useState(false);
     const handleClose = () => setShow(false);
     const handleShow = () => setShow(true);
@@ -85,6 +85,33 @@ import { Modal, Button } from '@govtechsg/sgds-react';
     );
   };
 `;
+export const templateCode_Sizes = `
+<Modal show={show} onHide={handleClose} size="sm">
+  ...
+</Modal>;
+<Modal show={show} onHide={handleClose} size="lg">
+  ...
+</Modal>;
+<Modal show={show} onHide={handleClose} size="xl">
+  ...
+</Modal>;
+`;
+export const templateCode_CustomDialog = `<Modal show={show} onHide={handleClose} dialogClassName="text-primary">
+  ...
+</Modal>;`;
+export const templateCode_CustomContent = `<Modal show={show} onHide={handleClose} contentClassName="text-warning">
+  ...
+</Modal>;`;
+export const templateCode_CustomBackdrop = `<Modal show={show} onHide={handleClose} backdropClassName="bg-primary">
+  ...
+</Modal>;`;
+export const templateCode_NoAnimation = `<Modal show={show} onHide={handleClose} animation={false}>
+  ...
+</Modal>;`;
+export const templateCode_Centered = `<Modal show={show} onHide={handleClose} centeredAlignVariant>
+  ...
+</Modal>;`;
+// end of template codes
 export const customCssDialog = NamedTemplate('Custom Dialog Classname', {
   dialogClassName: 'text-primary',
 }).bind({});
@@ -139,7 +166,7 @@ The `Modal` is hidden by default and appears with backdrop and animation on clic
     parameters={{
       docs: {
         source: {
-          code: templateCode,
+          code: templateCode_Modal,
         },
         type: 'code',
       },
@@ -167,6 +194,14 @@ You can specify a bootstrap large or small modal by using the size prop: `sm`, `
     args={{
       size: 'sm',
     }}
+    parameters={{
+      docs: {
+        source: {
+          code: templateCode_Sizes,
+        },
+        type: 'code',
+      },
+    }}
   >
     {smallModal}
   </Story>
@@ -174,6 +209,13 @@ You can specify a bootstrap large or small modal by using the size prop: `sm`, `
     name="Size Large"
     args={{
       size: 'lg',
+    }}
+    parameters={{
+      docs: {
+        source: {
+          code: '',
+        },
+      },
     }}
   >
     {largeModal}
@@ -183,24 +225,17 @@ You can specify a bootstrap large or small modal by using the size prop: `sm`, `
     args={{
       size: 'xl',
     }}
+    parameters={{
+      docs: {
+        source: {
+          code: '',
+        },
+      },
+    }}
   >
     {xLargeModal}
   </Story>
 </Canvas>
-
-```jsx
-import { Modal } from '@govtechsg/sgds-react';
-
-<Modal show={show} onHide={handleClose} size="sm">
-  ...
-</Modal>;
-<Modal show={show} onHide={handleClose} size="lg">
-  ...
-</Modal>;
-<Modal show={show} onHide={handleClose} size="xl">
-  ...
-</Modal>;
-```
 
 ## Fullscreen Modal
 
@@ -217,8 +252,6 @@ You can use the fullscreen prop to make the modal fullscreen. Specifying a break
 </Story>
 
 ```jsx
-import { Modal } from '@govtechsg/sgds-react';
-
 <Modal show={show} onHide={handleClose} fullscreen={true}>
   ...
 </Modal>;
@@ -231,6 +264,12 @@ import { Modal } from '@govtechsg/sgds-react';
 <Modal show={show} onHide={handleClose} fullscreen="lg-down">
   ...
 </Modal>;
+<Modal show={show} onHide={handleClose} fullscreen="xl-down">
+  ...
+</Modal>;
+<Modal show={show} onHide={handleClose} fullscreen="xxl-down">
+  ...
+</Modal>;
 ```
 
 ## Apply Custom CSS to Modal
@@ -241,57 +280,81 @@ You can apply custom css using props: dialogClassName, contentPropClassName
 
 You can apply custom css to the modal dialog div using the dialogClassName prop. Example is using a custom css class .text-primary.
 
-<Story name="Custom css - dialogClassName">{customCssDialog}</Story>
-
-```jsx
-import { Modal } from '@govtechsg/sgds-react';
-
-<Modal show={show} onHide={handleClose} dialogClassName="text-primary">
-  ...
-</Modal>;
-```
+<Canvas>
+  <Story
+    name="Custom css - dialogClassName"
+    parameters={{
+      docs: {
+        source: {
+          code: templateCode_CustomDialog,
+        },
+        type: 'code',
+      },
+    }}
+  >
+    {customCssDialog}
+  </Story>
+</Canvas>
 
 ### contentPropClassName
 
 Use contentPropClassName to add an optional extra classname to .modal-content. Example is using a custom css class .text-warning.
 
-<Story name="Custom CSS - contentPropClassName">{customCssContent}</Story>
-
-```jsx
-import { Modal } from '@govtechsg/sgds-react';
-
-<Modal show={show} onHide={handleClose} contentClassName="text-warning">
-  ...
-</Modal>;
-```
+<Canvas>
+  <Story
+    name="Custom CSS - contentPropClassName"
+    parameters={{
+      docs: {
+        source: {
+          code: templateCode_CustomContent,
+        },
+        type: 'code',
+      },
+    }}
+  >
+    {customCssContent}
+  </Story>
+</Canvas>
 
 ### backdropClassName
 
 Add an optional extra class name to .modal-backdrop It could end up looking like class="modal-backdrop foo-modal-backdrop in".
 
-<Story name="Custom CSS - backdropClassName">{customCssBg}</Story>
-
-```jsx
-import { Modal } from '@govtechsg/sgds-react';
-
-<Modal show={show} onHide={handleClose} backdropClassName="bg-primary">
-  ...
-</Modal>;
-```
+<Canvas>
+  <Story
+    name="Custom CSS - backdropClassName"
+    parameters={{
+      docs: {
+        source: {
+          code: templateCode_CustomBackdrop,
+        },
+        type: 'code',
+      },
+    }}
+  >
+    {customCssBg}
+  </Story>
+</Canvas>
 
 ## Without Animation
 
 A Modal can also be without an animation. For that set the `animation` prop to `false`.
 
-<Story name="Animation">{noAnim}</Story>
-
-```jsx
-import { Modal } from '@govtechsg/sgds-react';
-
-<Modal show={show} onHide={handleClose} animation={false}>
-  ...
-</Modal>;
-```
+<Canvas>
+  <Story
+    name="Animation"
+    parameters={{
+      docs: {
+        source: {
+          code: templateCode_NoAnimation,
+        },
+        type: 'code',
+      },
+    }}
+  >
+    {noAnim}
+  </Story>
+</Canvas>
 
 ## Scrollable
 
@@ -311,14 +374,19 @@ When modal content is long , it make sense to enable `scrollable` to `true`
 
 Set `centeredAlignVariant` prop to true to center contents of Modal
 
-<Story name="Centered Contents" args={{ centeredAlignVariant: true }}>
-  {defaultModal.bind({})}
-</Story>
-
-```jsx
-import { Modal } from '@govtechsg/sgds-react';
-
-<Modal show={show} onHide={handleClose} centeredAlignVariant>
-  ...
-</Modal>;
-```
+<Canvas>
+  <Story
+    name="Centered Contents"
+    args={{ centeredAlignVariant: true }}
+    parameters={{
+      docs: {
+        source: {
+          code: templateCode_Centered,
+        },
+        type: 'code',
+      },
+    }}
+  >
+    {defaultModal.bind({})}
+  </Story>
+</Canvas>

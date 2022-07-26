@@ -23,6 +23,235 @@ import { HIDDEN_COMMON_PROPS } from '../helpers';
   }}
 />
 
+export const templateCode_Nav = `import {
+  Navbar,
+  Nav,
+  Col,
+  Row,
+  Container,
+} from '@govtechsg/sgds-react';
+<Navbar>
+  <Nav>
+    <Nav.Item>
+      <Nav.Link eventKey="link-1">Link</Nav.Link>
+    </Nav.Item>
+    <Nav.Dropdown eventKey="4" title="Dropdown" id="nav-dropdown">
+      <Nav.Dropdown.Item eventKey="4.1">Action</Nav.Dropdown.Item>
+      <Nav.Dropdown.Item eventKey="4.2">Another action</Nav.Dropdown.Item>
+      <Nav.Dropdown.Item eventKey="4.3">Something else here</Nav.Dropdown.Item>
+      <Nav.Dropdown.Divider />
+      <Nav.Dropdown.Item eventKey="4.4">Separated link</Nav.Dropdown.Item>
+    </Nav.Dropdown>
+    <Nav.Dropdown eventKey="5" isMegaMenu title="Megamenu" id="nav-mega">
+      <Container>
+        <Row>
+          <Col>
+            <Nav.Dropdown.Item eventKey="5.1">Action</Nav.Dropdown.Item>
+          </Col>
+          <Col>
+            <Nav.Dropdown.Item eventKey="5.2">Action</Nav.Dropdown.Item>
+          </Col>
+          <Col>
+            <Nav.Dropdown.Item eventKey="5.3">Action</Nav.Dropdown.Item>
+          </Col>
+        </Row>
+        <Row>
+          <Col>
+            <Nav.Dropdown.Item eventKey="5.4">Action</Nav.Dropdown.Item>
+          </Col>
+          <Col>
+            <Nav.Dropdown.Item eventKey="5.5">Action</Nav.Dropdown.Item>
+          </Col>
+          <Col>
+            <Nav.Dropdown.Item eventKey="5.6">Action</Nav.Dropdown.Item>
+          </Col>
+        </Row>
+      </Container>
+    </Nav.Dropdown>
+  </Nav>
+</Navbar>;
+`;
+
+export const templateCode_NavDefaultActive = `import {
+  Navbar,
+  Nav,
+  Col,
+  Row,
+  Container,
+} from '@govtechsg/sgds-react';
+<Navbar>
+  <Nav defaultActiveKey="link-1">
+    <Nav.Item>
+      <Nav.Link eventKey="link-1">Link</Nav.Link>
+    </Nav.Item>
+    <Nav.Dropdown eventKey="4" title="Dropdown" id="nav-dropdown">
+      <Nav.Dropdown.Item eventKey="4.1">Action</Nav.Dropdown.Item>
+      <Nav.Dropdown.Item eventKey="4.2">Another action</Nav.Dropdown.Item>
+      <Nav.Dropdown.Item eventKey="4.3">Something else here</Nav.Dropdown.Item>
+      <Nav.Dropdown.Divider />
+      <Nav.Dropdown.Item eventKey="4.4">Separated link</Nav.Dropdown.Item>
+    </Nav.Dropdown>
+    <Nav.Dropdown eventKey="5" isMegaMenu title="Megamenu" id="nav-mega">
+      <Container>
+        <Row>
+          <Col>
+            <Nav.Dropdown.Item eventKey="5.1">Action</Nav.Dropdown.Item>
+          </Col>
+          <Col>
+            <Nav.Dropdown.Item eventKey="5.2">Action</Nav.Dropdown.Item>
+          </Col>
+          <Col>
+            <Nav.Dropdown.Item eventKey="5.3">Action</Nav.Dropdown.Item>
+          </Col>
+        </Row>
+        <Row>
+          <Col>
+            <Nav.Dropdown.Item eventKey="5.4">Action</Nav.Dropdown.Item>
+          </Col>
+          <Col>
+            <Nav.Dropdown.Item eventKey="5.5">Action</Nav.Dropdown.Item>
+          </Col>
+          <Col>
+            <Nav.Dropdown.Item eventKey="5.6">Action</Nav.Dropdown.Item>
+          </Col>
+        </Row>
+      </Container>
+    </Nav.Dropdown>
+  </Nav>
+</Navbar>;
+`;
+
+export const templateCode_NavActive = `
+import { Navbar, Nav, Container, Row, Col } from '@govtechsg/sgds-react';
+const ActiveKeyTemplate = () => {
+  const [activeK, setActiveK] = React.useState('4');
+  const [activeDropdownLink, setActiveDropdownLink] = React.useState('4.1');
+  const handleClickDropdown = (ek, linkKey) => {
+    setActiveK(ek);
+    if (linkKey) setActiveDropdownLink(linkKey);
+  };
+  const handleLinkClick = (ek) => {
+    setActiveK(ek);
+    setActiveDropdownLink('');
+  };
+  return (
+    <Navbar>
+      <Nav activeKey={activeK}>
+        <Nav.Item>
+          <Nav.Link onClick={() => handleLinkClick('link-1')} eventKey="link-1">
+            Link
+          </Nav.Link>
+        </Nav.Item>
+        <Nav.Dropdown
+          eventKey="4"
+          title="Dropdown"
+          id="nav-dropdown"
+          onClick={() => handleClickDropdown('4')}
+        >
+          <Nav.Dropdown.Item
+            onClick={() => handleClickDropdown('4', '4.1')}
+            eventKey="4.1"
+            active={activeDropdownLink === '4.1'}
+          >
+            Action
+          </Nav.Dropdown.Item>
+          <Nav.Dropdown.Item
+            onClick={() => handleClickDropdown('4', '4.2')}
+            eventKey="4.2"
+            active={activeDropdownLink === '4.2'}
+          >
+            Another action
+          </Nav.Dropdown.Item>
+          <Nav.Dropdown.Item
+            onClick={() => handleClickDropdown('4', '4.3')}
+            eventKey="4.3"
+            active={activeDropdownLink === '4.3'}
+          >
+            Something else here
+          </Nav.Dropdown.Item>
+          <Nav.Dropdown.Divider />
+          <Nav.Dropdown.Item
+            onClick={() => handleClickDropdown('4', '4.4')}
+            eventKey="4.4"
+            active={activeDropdownLink === '4.4'}
+          >
+            Separated link
+          </Nav.Dropdown.Item>
+        </Nav.Dropdown>
+        <Nav.Dropdown
+          eventKey="5"
+          isMegaMenu
+          title="Megamenu"
+          id="nav-mega"
+          onClick={() => handleClickDropdown('5')}
+        >
+          <Container>
+            <Row>
+              <Col>
+                <Nav.Dropdown.Item
+                  onClick={() => handleClickDropdown('5', '5.1')}
+                  eventKey="5.1"
+                  active={activeDropdownLink === '5.1'}
+                >
+                  Action
+                </Nav.Dropdown.Item>
+              </Col>
+              <Col>
+                <Nav.Dropdown.Item
+                  onClick={() => handleClickDropdown('5', '5,2')}
+                  eventKey="5.2"
+                  active={activeDropdownLink === '5.2'}
+                >
+                  Action
+                </Nav.Dropdown.Item>
+              </Col>
+              <Col>
+                <Nav.Dropdown.Item
+                  onClick={() => handleClickDropdown('5', '5.3')}
+                  eventKey="5.3"
+                  active={activeDropdownLink === '5.3'}
+                >
+                  Action
+                </Nav.Dropdown.Item>
+              </Col>
+            </Row>
+            <Row>
+              <Col>
+                <Nav.Dropdown.Item
+                  onClick={() => handleClickDropdown('5', '5.4')}
+                  eventKey="5.4"
+                  active={activeDropdownLink === '5.4'}
+                >
+                  Action
+                </Nav.Dropdown.Item>
+              </Col>
+              <Col>
+                <Nav.Dropdown.Item
+                  onClick={() => handleClickDropdown('5', '5.5')}
+                  eventKey="5.5"
+                  active={activeDropdownLink === '5.5'}
+                >
+                  Action
+                </Nav.Dropdown.Item>
+              </Col>
+              <Col>
+                <Nav.Dropdown.Item
+                  onClick={() => handleClickDropdown('5', '5.6')}
+                  eventKey="5.6"
+                  active={activeDropdownLink === '5.6'}
+                >
+                  Action
+                </Nav.Dropdown.Item>
+              </Col>
+            </Row>
+          </Container>
+        </Nav.Dropdown>
+      </Nav>
+    </Navbar>
+  );
+}
+`;
+
 export const DefaultTemplate = (args) => {
   return (
     <Navbar>
@@ -236,7 +465,18 @@ In Nav, there are three kinds of children :
 See example of all three types below;
 
 <Canvas>
-  <Story height="300px" name="Default">
+  <Story
+    height="300px"
+    name="Default"
+    parameters={{
+      docs: {
+        source: {
+          code: templateCode_Nav,
+        },
+        type: 'code',
+      },
+    }}
+  >
     {DefaultTemplate.bind({})}
   </Story>
 </Canvas>
@@ -254,57 +494,6 @@ Reference API for [NavItem](https://react-bootstrap.github.io/components/navs/#n
 and
 [NavDropdown](/docs/components-navigation-nav-navdropdown--default-story)
 
-```jsx
-import {
-  Navbar,
-  Nav,
-  Col,
-  Row,
-  Container,
-} from '@govtechsg/sgds-react';
-
-<Navbar>
-  <Nav>
-    <Nav.Item>
-      <Nav.Link eventKey="link-1">Link</Nav.Link>
-    </Nav.Item>
-    <Nav.Dropdown eventKey="4" title="Dropdown" id="nav-dropdown">
-      <Nav.Dropdown.Item eventKey="4.1">Action</Nav.Dropdown.Item>
-      <Nav.Dropdown.Item eventKey="4.2">Another action</Nav.Dropdown.Item>
-      <Nav.Dropdown.Item eventKey="4.3">Something else here</Nav.Dropdown.Item>
-      <Nav.Dropdown.Divider />
-      <Nav.Dropdown.Item eventKey="4.4">Separated link</Nav.Dropdown.Item>
-    </Nav.Dropdown>
-    <Nav.Dropdown eventKey="5" isMegaMenu title="Megamenu" id="nav-mega">
-      <Container>
-        <Row>
-          <Col>
-            <Nav.Dropdown.Item eventKey="5.1">Action</Nav.Dropdown.Item>
-          </Col>
-          <Col>
-            <Nav.Dropdown.Item eventKey="5.2">Action</Nav.Dropdown.Item>
-          </Col>
-          <Col>
-            <Nav.Dropdown.Item eventKey="5.3">Action</Nav.Dropdown.Item>
-          </Col>
-        </Row>
-        <Row>
-          <Col>
-            <Nav.Dropdown.Item eventKey="5.4">Action</Nav.Dropdown.Item>
-          </Col>
-          <Col>
-            <Nav.Dropdown.Item eventKey="5.5">Action</Nav.Dropdown.Item>
-          </Col>
-          <Col>
-            <Nav.Dropdown.Item eventKey="5.6">Action</Nav.Dropdown.Item>
-          </Col>
-        </Row>
-      </Container>
-    </Nav.Dropdown>
-  </Nav>
-</Navbar>;
-```
-
 ## On first load
 
 Usually on first load, the navigated item should appear active to the users.
@@ -316,6 +505,14 @@ Use `defaultActiveKey` prop to set the activeKey on initial load
     height="250px"
     name="Default Active Key"
     args={{ defaultActiveKey: 'link-1' }}
+    parameters={{
+      docs: {
+        source: {
+          code: templateCode_NavDefaultActive,
+        },
+        type: 'code',
+      },
+    }}
   >
     {DefaultTemplate.bind({})}
   </Story>
@@ -331,145 +528,18 @@ Under `NavDropdown` each `Nav.Dropdown.Item` accepts an `active`. Make use of us
 Toggle with the demo below and see code example below
 
 <Canvas>
-  <Story height="250px" name="Active Key">
+  <Story
+    height="250px"
+    name="Active Key"
+    parameters={{
+      docs: {
+        source: {
+          code: templateCode_NavActive,
+        },
+        type: 'code',
+      },
+    }}
+  >
     {ActiveKeyTemplate.bind({})}
   </Story>
 </Canvas>
-
-```jsx
-import {
-  Navbar,
-  Nav,
-  Container,
-  Row,
-  Col,
-} from '@govtechsg/sgds-react';
-
-const ActiveKeyTemplate = () => {
-  const [activeK, setActiveK] = React.useState('4');
-  const [activeDropdownLink, setActiveDropdownLink] = React.useState('4.1');
-  const handleClickDropdown = (ek, linkKey) => {
-    setActiveK(ek);
-    if (linkKey) setActiveDropdownLink(linkKey);
-  };
-  const handleLinkClick = (ek) => {
-    setActiveK(ek);
-    setActiveDropdownLink('');
-  };
-  return (
-    <Navbar>
-      <Nav activeKey={activeK}>
-        <Nav.Item>
-          <Nav.Link onClick={() => handleLinkClick('link-1')} eventKey="link-1">
-            Link
-          </Nav.Link>
-        </Nav.Item>
-        <Nav.Dropdown
-          eventKey="4"
-          title="Dropdown"
-          id="nav-dropdown"
-          onClick={() => handleClickDropdown('4')}
-        >
-          <Nav.Dropdown.Item
-            onClick={() => handleClickDropdown('4', '4.1')}
-            eventKey="4.1"
-            active={activeDropdownLink === '4.1'}
-          >
-            Action
-          </Nav.Dropdown.Item>
-          <Nav.Dropdown.Item
-            onClick={() => handleClickDropdown('4', '4.2')}
-            eventKey="4.2"
-            active={activeDropdownLink === '4.2'}
-          >
-            Another action
-          </Nav.Dropdown.Item>
-          <Nav.Dropdown.Item
-            onClick={() => handleClickDropdown('4', '4.3')}
-            eventKey="4.3"
-            active={activeDropdownLink === '4.3'}
-          >
-            Something else here
-          </Nav.Dropdown.Item>
-          <Nav.Dropdown.Divider />
-          <Nav.Dropdown.Item
-            onClick={() => handleClickDropdown('4', '4.4')}
-            eventKey="4.4"
-            active={activeDropdownLink === '4.4'}
-          >
-            Separated link
-          </Nav.Dropdown.Item>
-        </Nav.Dropdown>
-        <Nav.Dropdown
-          eventKey="5"
-          isMegaMenu
-          title="Megamenu"
-          id="nav-mega"
-          onClick={() => handleClickDropdown('5')}
-        >
-          <Container>
-            <Row>
-              <Col>
-                <Nav.Dropdown.Item
-                  onClick={() => handleClickDropdown('5', '5.1')}
-                  eventKey="5.1"
-                  active={activeDropdownLink === '5.1'}
-                >
-                  Action
-                </Nav.Dropdown.Item>
-              </Col>
-              <Col>
-                <Nav.Dropdown.Item
-                  onClick={() => handleClickDropdown('5', '5,2')}
-                  eventKey="5.2"
-                  active={activeDropdownLink === '5.2'}
-                >
-                  Action
-                </Nav.Dropdown.Item>
-              </Col>
-              <Col>
-                <Nav.Dropdown.Item
-                  onClick={() => handleClickDropdown('5', '5.3')}
-                  eventKey="5.3"
-                  active={activeDropdownLink === '5.3'}
-                >
-                  Action
-                </Nav.Dropdown.Item>
-              </Col>
-            </Row>
-            <Row>
-              <Col>
-                <Nav.Dropdown.Item
-                  onClick={() => handleClickDropdown('5', '5.4')}
-                  eventKey="5.4"
-                  active={activeDropdownLink === '5.4'}
-                >
-                  Action
-                </Nav.Dropdown.Item>
-              </Col>
-              <Col>
-                <Nav.Dropdown.Item
-                  onClick={() => handleClickDropdown('5', '5.5')}
-                  eventKey="5.5"
-                  active={activeDropdownLink === '5.5'}
-                >
-                  Action
-                </Nav.Dropdown.Item>
-              </Col>
-              <Col>
-                <Nav.Dropdown.Item
-                  onClick={() => handleClickDropdown('5', '5.6')}
-                  eventKey="5.6"
-                  active={activeDropdownLink === '5.6'}
-                >
-                  Action
-                </Nav.Dropdown.Item>
-              </Col>
-            </Row>
-          </Container>
-        </Nav.Dropdown>
-      </Nav>
-    </Navbar>
-  );
-};
-```

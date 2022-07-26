@@ -5,6 +5,13 @@ import { Pagination, Table } from '../../src/index';
 <Meta
   title="Components/Pagination"
   component={Pagination}
+  parameters={{
+    docs: {
+      source: {
+        type: 'code',
+      },
+    },
+  }}
 />
 
 export const DUMMY_DATA = [
@@ -94,13 +101,13 @@ export const PaginationTpl = (args) => {
   const indexofFirstItem = indexOfLastItem - itemsPerPage;
   const currentItems = data.slice(indexofFirstItem, indexOfLastItem);
   return (
-      <Pagination
-        {...args}
-        dataLength={data.length}
-        currentPage={currentPage}
-        setCurrentPage={setCurrentPage}
-        itemsPerPage={itemsPerPage}
-      />
+    <Pagination
+      {...args}
+      dataLength={data.length}
+      currentPage={currentPage}
+      setCurrentPage={setCurrentPage}
+      itemsPerPage={itemsPerPage}
+    />
   );
 };
 
@@ -172,7 +179,7 @@ The `<Pagination>` component will include some props which is needed for the pag
 ## API
 
 ```jsx
-import { Pagination } from '@govtechsg/sgds-react/Pagination'; 
+import { Pagination } from '@govtechsg/sgds-react/Pagination';
 ```
 
 <ArgsTable story="Standard" />
@@ -268,11 +275,11 @@ The `directionVariant` string prop allows you to toggle between rendering text a
 
 ## Setting Limit
 
-The `limit` prop will set the number of pages shown at any one time. It will be based on the `data.length` and `itemsPerPage` provided by user. 
-By default, limit is set to **3** and `itemsperPage` is set to **5**. 
+The `limit` prop will set the number of pages shown at any one time. It will be based on the `data.length` and `itemsPerPage` provided by user.
+By default, limit is set to **3** and `itemsperPage` is set to **5**.
 
 To illustrate, the examples below has been set to use a dummy data `data.length` of **10** and `itemsPerPage` of **1**. So altogether, there will be a total of **10** pages in the pagination.
-By setting the limit to **3** or **5** or **8**, it will show the number of pages equal to the particular limit given. Do ***note*** that if limit is set to be of higher value than the total pages for the pagination, it will just render the total pages at one go, ignoring the limit.
+By setting the limit to **3** or **5** or **8**, it will show the number of pages equal to the particular limit given. Do **_note_** that if limit is set to be of higher value than the total pages for the pagination, it will just render the total pages at one go, ignoring the limit.
 
 <Canvas>
   <Story name="Limit 3">{PaginationTpl.bind({})}</Story>
@@ -297,7 +304,7 @@ The `ellipsisOn` boolean prop allows user to skip pages using `ellipsisJump`. By
 
 ## Ellipsis Jump
 
-By default, `ellipsisJump` value is set to 3. Set as desired to decrement/increment pages for the Ellipsis button. If it is set to be of higher value than the total pages in pagination, 
+By default, `ellipsisJump` value is set to 3. Set as desired to decrement/increment pages for the Ellipsis button. If it is set to be of higher value than the total pages in pagination,
 it will decrement/increment to the end of the pages respectively.
 
 <Canvas>

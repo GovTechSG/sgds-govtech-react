@@ -6,10 +6,17 @@ import { useState, useEffect } from 'react';
 <Meta
   title="Components/Toast"
   subcomponents={{
-    "Toast.Header": Toast.Header,
-    "Toast.Body": Toast.Body
+    'Toast.Header': Toast.Header,
+    'Toast.Body': Toast.Body,
   }}
   component={Toast}
+  parameters={{
+    docs: {
+      source: {
+        type: 'code',
+      },
+    },
+  }}
 />
 
 export const Template = (args) => {
@@ -38,7 +45,7 @@ It includes `<Toast.Header/>` ,` <Toast.Body/>`
 ## API
 
 ```jsx
-import { Toast } from '@govtechsg/sgds-react/Toast'; 
+import { Toast } from '@govtechsg/sgds-react/Toast';
 ```
 
 <ArgsTable story="Default" />

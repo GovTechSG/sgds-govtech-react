@@ -19,6 +19,39 @@ import { Form, Button } from '../../src/index';
   }}
 />
 
+export const templateCode_BasicForm = `
+const Form = () => {
+  const onSubmit = (event) => {
+    event.preventDefault();
+    console.log('submission prevented');
+  };
+  return (
+    <Form onSubmit={onSubmit}>
+      <Form.Group className="mb-3" controlId="formBasicEmail">
+        <Form.Label>Email address</Form.Label>
+        <Form.Text className="text-muted">
+          We'll never share your email with anyone else.
+        </Form.Text>
+        <Form.Control type="email" placeholder="Enter email" />
+      </Form.Group>
+      <Form.Group className="mb-3" controlId="formBasicPassword">
+        <Form.Label>Password</Form.Label>
+        <Form.Text className="text-muted">
+          Password has to be a combination of alphanumeric.
+        </Form.Text>
+        <Form.Control type="password" placeholder="Password" />
+      </Form.Group>
+      <Form.Group className="mb-3" controlId="formBasicCheckbox">
+        <Form.Check type="checkbox" label="Check me out" />
+      </Form.Group>
+      <Button variant="primary" type="submit">
+        Submit
+      </Button>
+    </Form>
+  );
+};
+`;
+
 # Forms
 
 Examples and usage guidelines for form control styles, layout options, and custom components for creating a wide variety of forms.
@@ -60,7 +93,19 @@ export const Template = (args) => {
 };
 
 <Canvas>
-  <Story name="Basic">{Template.bind({})}</Story>
+  <Story
+    name="Basic"
+    parameters={{
+      docs: {
+        source: {
+          code: templateCode_BasicForm,
+        },
+        type: 'code',
+      },
+    }}
+  >
+    {Template.bind({})}
+  </Story>
 </Canvas>
 
 ## API
@@ -72,37 +117,6 @@ import { Form } from '@govtechsg/sgds-react/Form';
 <ArgsTable story="Basic" />
 
 For more detailed API documentation on `Form`, reference <a href="https://react-bootstrap.github.io/forms/overview/" target="_blank">here</a>.
-
-### Code sample
-
-```jsx
-import { Form, Button } from '@govtechsg/sgds-react';
-
-const onSubmit = (event) => {
-  event.preventDefault();
-  console.log('submission prevented');
-};
-
-<Form onSubmit={onSubmit}>
-  <Form.Group className="mb-3" controlId="formBasicEmail">
-    <Form.Label>Email address</Form.Label>
-    <Form.Control type="email" placeholder="Enter email" />
-    <Form.Text className="text-muted">
-      We'll never share your email with anyone else.
-    </Form.Text>
-  </Form.Group>
-  <Form.Group className="mb-3" controlId="formBasicPassword">
-    <Form.Label>Password</Form.Label>
-    <Form.Control type="password" placeholder="Password" />
-  </Form.Group>
-  <Form.Group className="mb-3" controlId="formBasicCheckbox">
-    <Form.Check type="checkbox" label="Check me out" />
-  </Form.Group>
-  <Button variant="primary" type="submit">
-    Submit
-  </Button>
-</Form>;
-```
 
 ## Disabled forms
 
@@ -127,26 +141,6 @@ Add the `disabled` boolean attribute on an input to prevent user interactions an
 </Canvas>
 
 Browsers also treat all native form controls (`<input>`, `<select>` and `<button>` elements) inside `<fieldset disabled>` as disabled, preventing both keyboard and mouse interactions on them.
-
-```jsx
-import { Form, Button } from '@govtechsg/sgds-react';
-
-<Form>
-  <Form.Group className="mb-3" controlId="disabledInput">
-    <Form.Label>Disabled input</Form.Label>
-    <Form.Control placeholder="Disabled input" disabled />
-  </Form.Group>
-  <Form.Group className="mb-3" controlId="disabledSelectInput">
-    <Form.Label>Disabled select menu</Form.Label>
-    <Form.Select disabled>
-      <option>Disabled select</option>
-    </Form.Select>
-  </Form.Group>
-  <Form.Group className="mb-3" controlId="disabledCheckboxInput">
-    <Form.Check type="checkbox" label="Can't check this" disabled />
-  </Form.Group>
-</Form>;
-```
 
 ## Form.Text
 
@@ -177,18 +171,3 @@ export const Template_Form_Text = (args) => {
 <Canvas>
   <Story name="Form Text">{Template_Form_Text.bind({})}</Story>
 </Canvas>
-
-```jsx
-<>
-  <Form.Label htmlFor="inputPassword5">Password</Form.Label>
-  <Form.Text id="passwordHelpBlock" muted>
-    Your password must be 8-20 characters long, contain letters and numbers, and
-    must not contain spaces, special characters, or emoji.
-  </Form.Text>
-  <Form.Control
-    type="password"
-    id="inputPassword5"
-    aria-describedby="passwordHelpBlock"
-  />
-</>
-```

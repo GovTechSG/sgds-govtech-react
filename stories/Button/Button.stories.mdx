@@ -3,7 +3,7 @@ import { Button } from '../../src/index';
 import { useState, useEffect } from 'react';
 import { HIDDEN_COMMON_PROPS } from '../helpers';
 
-<Meta title="Components/Button" component={Button} />
+<Meta title="Components/Button" component={Button}/>
 
 # Buttons
 
@@ -113,7 +113,7 @@ Fancy larger or smaller buttons? Add `size="lg"`, `size="sm"` for additional siz
 
 Create responsive stacks of full-width, “block buttons” with a mix of our display and gap utilities.
 
-<Canvas withSource="open">
+<Canvas>
   <Story name="Block buttons">
     <div className="d-grid gap-2">
       <Button variant="primary" size="lg">
@@ -130,7 +130,7 @@ Create responsive stacks of full-width, “block buttons” with a mix of our di
 
 To set a button's active state simply set the component's `active` prop.
 
-<Canvas withSource="open">
+<Canvas>
   <Story name="Active state">
     <>
       <Button variant="primary" active>
@@ -147,7 +147,7 @@ To set a button's active state simply set the component's `active` prop.
 
 Make buttons look inactive by adding the `disabled` prop to.
 
-<Canvas withSource="open">
+<Canvas>
   <Story name="Disabled state">
     <>
       <Button variant="primary" disabled>
@@ -196,7 +196,7 @@ export const Template = (args) => {
 };
 
 <Canvas>
-  <Story name="Button loading state">{Template.bind({})}</Story>
+  <Story name="Button loading state" parameters={{ docs: { source: { type: 'code' } } }}>{Template.bind({})}</Story>
 </Canvas>
 
 

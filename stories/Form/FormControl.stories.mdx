@@ -21,8 +21,19 @@ Use FormControl for textual form controls like input and textarea. The default F
 FormControl extends the HTMLInputElement and HTMlTextAreaElement and their attributes are applicable to FormControl as props.
 
 <Canvas>
-  <Story name="Default">{Template.bind({})}</Story>
+  <Story name="Default" parameters={{ docs: { source: { code: '' } } }}>
+    {Template.bind({})}
+  </Story>
 </Canvas>
+
+```jsx
+<Form>
+  <Form.Group className="mb-3" controlId="exampleForm.ControlInput1">
+    <Form.Label>Name</Form.Label>
+    <Form.Control />
+  </Form.Group>
+</Form>
+```
 
 ## API
 
@@ -46,12 +57,12 @@ Does not apply to textarea.
 export const FormControlIcon = () => {
   return (
     <Form>
-    <Form.Group className="mb-3" controlId="formControlWithIcon">
-    <Form.Label>Search</Form.Label>
-    <FormControlGroup icon={<i className="bi bi-search"></i>}>
-      <FormControl />
-    </FormControlGroup>
-    </Form.Group>
+      <Form.Group className="mb-3" controlId="formControlWithIcon">
+        <Form.Label>Search</Form.Label>
+        <FormControlGroup icon={<i className="bi bi-search"></i>}>
+          <FormControl />
+        </FormControlGroup>
+      </Form.Group>
     </Form>
   );
 };
@@ -59,10 +70,22 @@ export const FormControlIcon = () => {
 <Canvas>
   <Story
     name="Form Control with Icon"
+    parameters={{ docs: { source: { code: '' } } }}
   >
     {FormControlIcon.bind({})}
   </Story>
 </Canvas>
+
+```jsx
+<Form>
+  <Form.Group className="mb-3" controlId="formControlWithIcon">
+    <Form.Label>Search</Form.Label>
+    <FormControlGroup icon={<i className="bi bi-search"></i>}>
+      <FormControl />
+    </FormControlGroup>
+  </Form.Group>
+</Form>
+```
 
 ## textarea
 
@@ -72,6 +95,7 @@ Use `as` prop to change FormControl HTML tag from input to textarea
   <Story
     name="Text area"
     args={{ as: 'textarea', placeholder: 'write something' }}
+    parameters={{ docs: { source: { code: '' } } }}
   >
     {Template.bind({})}
   </Story>
@@ -87,6 +111,7 @@ Use `as` prop to change FormControl HTML tag from input to textarea
   <Story
     name="Plain text"
     args={{ plaintext: true, value: 'this is plaintext', readOnly: true }}
+    parameters={{ docs: { source: { code: '' } } }}
   >
     {Template.bind({})}
   </Story>

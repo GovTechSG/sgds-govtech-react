@@ -9,6 +9,7 @@ import { argTypes } from './argTypes';
   argTypes={{
     ...argTypes,
   }}
+  parameters={{ docs: { source: { type: 'code' } } }}
 />
 
 export const DatePickerTemplate = (args) => {
@@ -36,7 +37,7 @@ By default, the Calendar points to current date and input has no value. The `For
 ## API
 
 ```jsx
-import { DatePicker } from '@govtechsg/sgds-react/DatePicker'; 
+import { DatePicker } from '@govtechsg/sgds-react/DatePicker';
 ```
 
 <ArgsTable story="Default" />
@@ -47,7 +48,16 @@ When `mode=range` , DatePicker allows a selection of two dates, start and end.
 
 <Canvas>
   <Story name="Range Selection" args={{ mode: 'range' }} height="500px">
-    {DatePickerTemplate.bind({})}
+    {(args) => {
+      const [date, setDate] = useState(new Date('2020-01-01'));
+      const ref = React.createRef();
+      const handleChange = (value) => {
+        setDate(value);
+      };
+      const minDate = new Date(2020, 10, 11, 12, 0, 0, 0).toISOString();
+      const maxDate = new Date(2020, 10, 13, 12, 0, 0, 0).toISOString();
+      return <DatePicker mode="range" {...args} />;
+    }}
   </Story>
 </Canvas>
 
@@ -67,16 +77,25 @@ Use the `initialValue` prop to set the initial value of input on first load.
 When `initialValue` is defined, it has to be equal to the value of `displayDate`, else a console error will appear.
 By default, `displayDate` is the current date. If your `initialValue` does not equal to current Date, pass in `displayDate` with its value equals to `initialValue`
 
-```jsx
-import { DatePicker } from '@govtechsg/sgds-react/DatePicker';
-
-//initialValue: Date;
-
-<DatePicker
-  initialValue={new Date('2020-01-01')}
-  displayDate={new Date('2020-01-01')}
-/>;
-```
+<Canvas>
+  <Story name="Initial Value for Single" height="500px">
+    {() => {
+      const [date, setDate] = useState(new Date('2020-01-01'));
+      const ref = React.createRef();
+      const handleChange = (value) => {
+        setDate(value);
+      };
+      const minDate = new Date(2020, 10, 11, 12, 0, 0, 0).toISOString();
+      const maxDate = new Date(2020, 10, 13, 12, 0, 0, 0).toISOString();
+      return (
+        <DatePicker
+          initialValue={new Date('2020-01-01')}
+          displayDate={new Date('2020-01-01')}
+        />
+      );
+    }}
+  </Story>
+</Canvas>
 
 ### range mode
 
@@ -88,50 +107,29 @@ For DatePicker in `range` mode.
 
 A console error will appear if either one of these conditions are not met.
 
-```jsx
-// interface RangeSelectionValue {
-//   start: Date | undefined;
-//   end: Date | undefined;
-// }
-// initialValue: RangeSelectionValue;
-
-import {
-  DatePicker,
-  RangeSelectionValue,
-} from '@govtechsg/sgds-react/DatePicker';
-
-<DatePicker
-  initialValue={{ start: new Date('2020-01-01'), end: new Date('2020-01-04') }}
-  displayDate={new Date('2020-01-01')}
-  mode="range"
-/>;
-```
-
-<Story
-  name="Initial Value for Single"
-  args={{
-    initialValue: new Date('2020-01-01'),
-    displayDate: new Date('2020-01-01'),
-  }}
-  height="500px"
->
-  {DatePickerTemplate.bind({})}
-</Story>
-
-<Story
-  name="Initial Value for Multi"
-  args={{
-    initialValue: {
-      start: new Date('2020-01-01'),
-      end: new Date('2020-01-04'),
-    },
-    displayDate: new Date('2020-01-01'),
-    mode: 'range',
-  }}
-  height="500px"
->
-  {DatePickerTemplate.bind({})}
-</Story>
+<Canvas>
+  <Story name="Initial Value for Multi" height="500px">
+    {() => {
+      const [date, setDate] = useState(new Date('2020-01-01'));
+      const ref = React.createRef();
+      const handleChange = (value) => {
+        setDate(value);
+      };
+      const minDate = new Date(2020, 10, 11, 12, 0, 0, 0).toISOString();
+      const maxDate = new Date(2020, 10, 13, 12, 0, 0, 0).toISOString();
+      return (
+        <DatePicker
+          initialValue={{
+            start: new Date('2020-01-01'),
+            end: new Date('2020-01-04'),
+          }}
+          displayDate={new Date('2020-01-01')}
+          mode="range"
+        />
+      );
+    }}
+  </Story>
+</Canvas>
 
 ## Callback Functions
 
@@ -139,50 +137,68 @@ import {
 
 `onClear`, `onChangeDate` of the input, perform a callback.
 
-<Story
-  name="onClear"
-  args={{ onClear: () => alert('cleared!'), placeholder: 'clear me' }}
-  height="500px"
->
-  {DatePickerTemplate.bind({})}
-</Story>
+<Canvas>
+  <Story name="onClear" height="500px">
+    {() => {
+      const [date, setDate] = useState(new Date('2020-01-01'));
+      const ref = React.createRef();
+      const handleChange = (value) => {
+        setDate(value);
+      };
+      const minDate = new Date(2020, 10, 11, 12, 0, 0, 0).toISOString();
+      const maxDate = new Date(2020, 10, 13, 12, 0, 0, 0).toISOString();
+      return (
+        <DatePicker onClear={() => alert('cleared')} placeholder="clear me" />
+      );
+    }}
+  </Story>
+</Canvas>
 
-<Story
-  name="onChangeDate"
-  args={{
-    onChangeDate: (date) => alert(`selected ${date ? date.toISOString() : ''}`),
-    placeholder: 'choose a date',
-  }}
-  height="500px"
->
-  {DatePickerTemplate.bind({})}
-</Story>
+<Canvas>
+  <Story name="onChangeDate" height="500px">
+    {() => {
+      const [date, setDate] = useState(new Date('2020-01-01'));
+      const ref = React.createRef();
+      const handleChange = (value) => {
+        setDate(value);
+      };
+      const minDate = new Date(2020, 10, 11, 12, 0, 0, 0).toISOString();
+      const maxDate = new Date(2020, 10, 13, 12, 0, 0, 0).toISOString();
+      return (
+        <DatePicker
+          onChangeDate={(date) =>
+            alert(`selected ${date ? date.toISOString() : ''}`)
+          }
+          placeholder="choose a date"
+        />
+      );
+    }}
+  </Story>
+</Canvas>
 
-<Story
-  name="onChangeDate Range"
-  args={{
-    mode: 'range',
-    onChangeDate: ({ start, end }) =>
-      alert(
-        `selected start: ${start ? start.toISOString() : ''}, end: ${
-          end ? end.toISOString() : ''
-        }`
-      ),
-    placeholder: 'choose two dates',
-  }}
-  height="500px"
->
-  {DatePickerTemplate.bind({})}
-</Story>
-
-```jsx
-  //onClear
-<DatePicker onClear={() => alert('cleared!')} />
-    //onChangeDate single mode
-<DatePicker onChangeDate={(date) => alert(`selected ${date ? date.toISOString(): ''}`)} />
-    //onChangeDate range mode
-<DatePicker onChangeDate={({ start, end }) =>
-      alert(
-          `selected start: ${start ? start.toISOString(): ''}, end: ${end ? end.toISOString(): ''}`
-        )} />
-```
+<Canvas>
+  <Story name="onChangeDate Range" height="500px">
+    {() => {
+      const [date, setDate] = useState(new Date('2020-01-01'));
+      const ref = React.createRef();
+      const handleChange = (value) => {
+        setDate(value);
+      };
+      const minDate = new Date(2020, 10, 11, 12, 0, 0, 0).toISOString();
+      const maxDate = new Date(2020, 10, 13, 12, 0, 0, 0).toISOString();
+      return (
+        <DatePicker
+          onChangeDate={({ start, end }) =>
+            alert(
+              `selected start: ${start ? start.toISOString() : ''}, end: ${
+                end ? end.toISOString() : ''
+              }`
+            )
+          }
+          placeholder="choose two dates"
+          mode="range"
+        />
+      );
+    }}
+  </Story>
+</Canvas>

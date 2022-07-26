@@ -5,10 +5,55 @@ import { FileUpload } from '../../src/FileUpload/FileUpload';
 import { Form } from '../../src/Form/index';
 import { HIDDEN_COMMON_PROPS } from '../helpers';
 
-<Meta
-  title="Components/File Upload"
-  component={FileUpload}
-/>
+<Meta title="Components/File Upload" component={FileUpload} />
+
+export const templateCode_FileUpload = `
+const FileUpload  = () => {
+  const [selectedFile, setSelectedFile] = useState({});
+  const onChangeFile = (data) => {
+    setSelectedFile(data);
+  };
+  console.log(selectedFile);
+  return (
+    <>
+      <Form>
+        <FileUpload
+          controlId="fileupload1"
+          onChangeFile={onChangeFile}
+          selectedFile={selectedFile}
+        >
+          <i className="bi bi-upload me-2"></i>Choose a file
+        </FileUpload>
+      </Form>
+    </>
+  );
+};
+`;
+
+export const templateCode_CustomizedIcons = `
+const FileUpload  = () => {
+  const [selectedFile, setSelectedFile] = useState({});
+  const onChangeFile = (data) => {
+    setSelectedFile(data);
+  };
+  console.log(selectedFile);
+  return (
+    <>
+      <Form>
+        <FileUpload
+          controlId="fileupload1"
+          onChangeFile={onChangeFile}
+          selectedFile={selectedFile}
+          cancelIcon={<i className="bi bi-x-octagon"></i>}
+          checkedIcon={<i className="bi bi-check2-circle"></i>}
+        >
+          <i className="bi bi-upload me-2"></i>Choose a file
+        </FileUpload>
+      </Form>
+    </>
+  );
+};
+`;
 
 # File Upload
 
@@ -37,46 +82,49 @@ export const Template = (args) => {
 };
 
 <Canvas>
-  <Story name="Default">{Template.bind({})}</Story>
+  <Story
+    name="Default"
+    parameters={{
+      docs: {
+        source: {
+          code: templateCode_FileUpload,
+        },
+        type: 'code',
+      },
+    }}
+  >
+    {Template.bind({})}
+  </Story>
 </Canvas>
 
 ## API
 
 ```jsx
-import { FileUpload } from '@govtechsg/sgds-react/FileUpload'; 
+import { FileUpload } from '@govtechsg/sgds-react/FileUpload';
 ```
 
 <ArgsTable story="Default" />
 
-```jsx
-import { useState } from 'react';
-import { FileUpload, Form } from '@govtechsg/sgds-react';
+## Customize the checked and cancel icons
 
-const [selectedFile, setSelectedFile] = useState({});
- const onChangeFile = (data) => {
-    setSelectedFile(data);
-  };
-console.log(selectedFile);
-
-return (
-  <>
-    <Form>
-      <FileUpload
-        controlId="fileupload1"
-        onChangeFile={onChangeFile}
-        selectedFile={selectedFile}
-      >
-        <i className="bi bi-upload me-2"></i>Choose a file
-      </FileUpload>
-    </Form>
-  </>
-);
-```
-## Customize the checked and cancel icons 
-
-Change up the default checked and cancel icons by passing in icons of your choice 
-
+Change up the default checked and cancel icons by passing in icons of your choice
 
 <Canvas>
-  <Story name="Custom Icons" args={{cancelIcon: <i className="bi bi-x-octagon"></i>, checkedIcon: <i className="bi bi-check2-circle"></i>}}>{Template.bind({})}</Story>
+  <Story
+    name="Custom Icons"
+    args={{
+      cancelIcon: <i className="bi bi-x-octagon"></i>,
+      checkedIcon: <i className="bi bi-check2-circle"></i>,
+    }}
+    parameters={{
+      docs: {
+        source: {
+          code: templateCode_CustomizedIcons,
+        },
+        type: 'code',
+      },
+    }}
+  >
+    {Template.bind({})}
+  </Story>
 </Canvas>
