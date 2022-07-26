@@ -8,14 +8,11 @@ import { Form, Button } from '../../src/index';
   subcomponents={{
     'Form.Group': Form.Group,
     'Form.Control': Form.Control,
-    'Form.Floating': Form.Floating,
     'Form.Check': Form.Check,
     'Form.Switch': Form.Switch,
     'Form.Label': Form.Label,
     'Form.Text': Form.Text,
-    'Form.Range': Form.Range,
     'Form.Select': Form.Select,
-    'Form.FloatingLabel': Form.FloatingLabel,
   }}
 />
 
@@ -70,17 +67,17 @@ export const Template = (args) => {
     <Form onSubmit={onSubmit} {...args}>
       <Form.Group className="mb-3" controlId="formBasicEmail">
         <Form.Label>Email address</Form.Label>
-        <Form.Text className="text-muted">
+        <Form.Text className="text-muted" id="noShare">
           We'll never share your email with anyone else.
         </Form.Text>
-        <Form.Control type="email" placeholder="Enter email" />
+        <Form.Control type="email" placeholder="Enter email" id="noShare" />
       </Form.Group>
       <Form.Group className="mb-3" controlId="formBasicPassword">
         <Form.Label>Password</Form.Label>
-        <Form.Text className="text-muted">
+        <Form.Text className="text-muted" id="pwdCombination">
           Password has to be a combination of alphanumeric.
         </Form.Text>
-        <Form.Control type="password" placeholder="Password" />
+        <Form.Control type="password" placeholder="Password" aria-describedby="pwdCombination" />
       </Form.Group>
       <Form.Group className="mb-3" controlId="formBasicCheckbox">
         <Form.Check type="checkbox" label="Check me out" />
@@ -146,12 +143,12 @@ Browsers also treat all native form controls (`<input>`, `<select>` and `<button
 
 Block-level help text in forms can be created using `<Form.Text>`. Inline help text can be flexibly implemented using any inline HTML element and utility classes like .text-muted.
 
-### **Associating help text with form controls**
+### Accessibility: Associating help text with form controls
 
-Help text should be explicitly associated with the form control it relates to using the `aria-describedby` attribute. This will ensure that assistive technologies—such as screen readers—will announce this help text when the user focuses or enters the control.
+Help text should be explicitly associated with the form control it relates to using the `aria-describedby` attribute. This will ensure that assistive technologies — such as screen readers — will announce this help text when the user focuses or enters the control.
 Form text below inputs can be styled with `<Form.Text>`. This component includes `display: block` and adds some top margin for easy spacing from the inputs above.
 
-export const Template_Form_Text = (args) => {
+export const FormTextTemplate = (args) => {
   return (
     <>
       <Form.Label htmlFor="inputPassword5">Password</Form.Label>
@@ -169,5 +166,5 @@ export const Template_Form_Text = (args) => {
 };
 
 <Canvas>
-  <Story name="Form Text">{Template_Form_Text.bind({})}</Story>
+  <Story name="Form Text">{FormTextTemplate.bind({})}</Story>
 </Canvas>

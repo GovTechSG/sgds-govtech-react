@@ -1,9 +1,9 @@
 import { Combobox } from '@govtechsg/sgds-react/Combobox';
 
- const TypeaheadCom = () => {
+ const ComboboxCom = () => {
     return (
       <Combobox menuList={["apple", "orange", "banana"]}></Combobox>
     );
   };
 
-export default TypeaheadCom
+export default ComboboxCom

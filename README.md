@@ -23,7 +23,7 @@ See the below table on which version of `@govtechsg/sgds` you should be using in
 npm install @govtechsg/sgds-react
 
 //not required if using cdn
-npm install @govtechsg/sgds-govtech bootstrap-icons
+npm install @govtechsg/sgds bootstrap-icons
 
 ```
 
@@ -45,9 +45,9 @@ import { Button } from '@govtechsg/sgds-react';
 ```js
 // In your entry point
 // import CSS or
-import '@govtechsg/sgds/sgds/sgds.css';
+import '@govtechsg/sgds/css/sgds.css';
 // import SASS
-import '@govtechsg/sgds/sgds/sgds.scss';
+import '@govtechsg/sgds/sass/sgds.scss';
 ```
 
 #### Using CDN
@@ -55,10 +55,10 @@ import '@govtechsg/sgds/sgds/sgds.scss';
 ```js
 
 //index.html
-<link href='https://v2dev.designsystem.gov.sg/sgds/sgds.css' rel='stylesheet' type='text/css'/>
+<link href='https://v2dev.designsystem.gov.sg/css/sgds.css' rel='stylesheet' type='text/css'/>
 
 //index.css
-@import url('https://v2dev.designsystem.gov.sg/sgds/sgds.css');
+@import url('https://v2dev.designsystem.gov.sg/css/sgds.css');
 
 ```
 
@@ -84,7 +84,7 @@ $secondary: #ff8c00;
 $warning: rgb(134, 37, 37);
 
 // Import all of sgds
-@import '@govtechsg/sgds-govtech/sgds/sgds.scss';
+@import '@govtechsg/sgds/sass/sgds.scss';
 ```
 
 Then, in your app:

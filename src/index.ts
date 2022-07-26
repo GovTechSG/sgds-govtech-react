@@ -14,7 +14,6 @@ export * from './Dropdown';
 export * from './Fade';
 export * from './FileUpload';
 export * from './Form';
-export * from './FloatingLabel';
 export * from './Footer'
 export * from './Container';
 export * from './InputGroup';
