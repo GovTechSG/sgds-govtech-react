@@ -2,10 +2,7 @@ import { ArgsTable, Canvas, Meta, Story } from '@storybook/addon-docs';
 import { Combobox, Form } from '../../src/index';
 import { useState, useRef, useEffect } from 'react';
 
-<Meta
-  title="Components/Combobox"
-  component={Combobox}
-/>
+<Meta title="Components/Combobox" component={Combobox} />
 
 export const ComboboxTemplate = (args) => {
   const menuList = [
@@ -215,15 +212,26 @@ export const ComboboxTemplate = (args) => {
     'Zambia',
     'Zimbabwe',
   ];
-  return <Combobox {...args} menuList={menuList} id="typeaheadExample" icon={<i className="bi bi-search"></i>}/>;
+  return (
+    <Combobox
+      {...args}
+      menuList={menuList}
+      id="typeaheadExample"
+      icon={<i className="bi bi-search"></i>}
+    />
+  );
 };
 
 # Combobox
 
-`Combobox` is a built using `Dropdown`, `Dropdown.Menu`, `Dropdown.Item` and  `FormControl` that doubles up as a toggle.
+`Combobox` is a built using `Dropdown`, `Dropdown.Menu`, `Dropdown.Item` and `FormControl` that doubles up as a toggle.
 `ComboboxProps` extends `FormControlProps`.
 
-<Story name="Default" args={{ label: 'Select a country' }}>
+<Story
+  name="Default"
+  args={{ label: 'Select a country' }}
+  parameters={{ docs: { source: { type: 'code' } } }}
+>
   {ComboboxTemplate.bind({})}
 </Story>
 
@@ -232,20 +240,25 @@ export const ComboboxTemplate = (args) => {
 ## API
 
 ```jsx
-import { Combobox } from '@govtechsg/sgds-react/Combobox'; 
+import { Combobox } from '@govtechsg/sgds-react/Combobox';
 ```
 
 <ArgsTable story="Default" />
 
+### Code Sample
+
 ```jsx
-import {
-  Combobox,
-  ComboboxProps,
-} from '@govtechsg/sgds-react/Combobox';
+import { Combobox, ComboboxProps } from '@govtechsg/sgds-react/Combobox';
 
 export const ComboboxComponent = () => {
   const menuList = ['apple', 'orange', 'banana'];
-  return <Combobox menuList={menuList} id="typeaheadExample" icon={<i className="bi bi-search"></i> } />;
+  return (
+    <Combobox
+      menuList={menuList}
+      id="typeaheadExample"
+      icon={<i className="bi bi-search"></i>}
+    />
+  );
 };
 ```
 
@@ -268,7 +281,7 @@ export const ComboboxOnChangeTemplate = () => {
         onChangeInput={handleChange}
         label="Select a fruit"
         id="typeaheadExample"
-        icon={<i className="bi bi-search"></i> }
+        icon={<i className="bi bi-search"></i>}
       />
       <div>Selected fruits : {fruits}</div>
     </>
@@ -277,10 +290,10 @@ export const ComboboxOnChangeTemplate = () => {
 
 <Story name="onChangeInput">{ComboboxOnChangeTemplate.bind({})}</Story>
 
+### Code Sample
+
 ```jsx
-import {
-  Combobox,
-} from '@govtechsg/sgds-react/Combobox';
+import { Combobox } from '@govtechsg/sgds-react/Combobox';
 
 export const ComboboxComponent = () => {
   const menuList = ['apple', 'orange', 'banana'];
@@ -295,7 +308,7 @@ export const ComboboxComponent = () => {
         onChangeInput={handleChange}
         label="Select a fruit"
         id="typeaheadExample"
-        icon={<i className="bi bi-search"></i> }
+        icon={<i className="bi bi-search"></i>}
       />
       <div>Selected fruits : {fruits}</div>
     </>

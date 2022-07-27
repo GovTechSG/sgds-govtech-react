@@ -24,6 +24,172 @@ import { CARD_COMMON_PROPS } from './argTypes';
   }}
 />
 
+export const templateCodeDefaultSelectable = `
+import {
+  SelectableCard,
+  Col,
+  Row,
+} from '@govtechsg/sgds-react';
+export const AppleBody = (
+  <>
+    <Card.Title as="h5">
+      Apple <i className="bi bi-apple"></i>
+    </Card.Title>
+    <Card.Text>Macbook Pro M1</Card.Text>
+  </>);
+export const DefaultSelectable = () => {
+  return (
+  <Row>
+    <Col xs>
+      <SelectableCard
+        categoryTitle={<><i className="bi bi-box"></i>Laptop</>}
+        aria-label="selectablecard">
+        {AppleBody}
+      </SelectableCard>
+    </Col>
+    <Col xs>
+      <></>
+    </Col>
+    <Col xs>
+      <></>
+    </Col>
+</Row>
+)};`;
+
+export const templateCodeCardTypes = `
+import {
+  SelectableCard,
+  Col,
+  Row,
+} from '@govtechsg/sgds-react';
+export const AppleBody = (
+  <>
+    <Card.Title as="h5">
+      Apple <i className="bi bi-apple"></i>
+    </Card.Title>
+    <Card.Text>Macbook Pro M1</Card.Text>
+  </>);
+export const CardTypes = () => {
+ <Row>
+   <Col xs>
+    <SelectableCard
+      type="checkbox"
+      aria-label="selectablecard"
+      categoryTitle={<><i className="bi bi-box"></i>Laptop</>}
+    >
+      {AppleBody}
+    </SelectableCard>
+   </Col>
+   <Col xs>
+    <SelectableCard
+      type="radio"
+      aria-label="selectablecard"
+      categoryTitle={<><i className="bi bi-box"></i>Laptop</>}
+    >
+      {AppleBody}
+    </SelectableCard>
+   </Col>
+   <Col xs>
+    <SelectableCard
+      type="switch"
+      aria-label="selectablecard"
+      categoryTitle={<><i className="bi bi-box"></i>Laptop</>}
+    >
+      {AppleBody}
+    </SelectableCard>
+   </Col>
+  </Row>
+  }`;
+
+export const templateCodeActiveCard = `
+import {
+  SelectableCard,
+  Form,
+  Col,
+  Row,
+} from '@govtechsg/sgds-react';
+import { useState } from 'react';
+export const AppleBody = (
+  <>
+    <Card.Title as="h5">
+      Apple <i className="bi bi-apple"></i>
+    </Card.Title>
+    <Card.Text>Macbook Pro M1</Card.Text>
+  </>
+);
+export const MicrosoftBody = (
+  <>
+    <Card.Title as="h5">
+      Microsoft <i className="bi bi-microsoft"></i>
+    </Card.Title>
+    <Card.Text>Microsoft Surface Pro</Card.Text>
+  </>
+);
+export const AcerBody = (
+  <>
+    <Card.Title as="h5">
+      Acer <i className="bi bi-laptop"></i>
+    </Card.Title>
+    <Card.Text>Acer Aspire 5</Card.Text>
+  </>
+);
+const ActiveBorderTemplate = () => {
+  const [cart, setCard] = useState([]);
+  const handleChange = (e) => {
+    setCard([e.target.value, ...cart]);
+  };
+  return (
+    <Row>
+      <Col xs lg="4">
+        <Form>
+          <SelectableCard
+            name="test"
+            categoryTitle={
+              <>
+                <i className="bi bi-box"></i>Laptop
+              </>
+            }
+            type="checkbox"
+            value="apple"
+            onChange={handleChange}
+            aria-label="selectablecard"
+          >
+            {AppleBody}
+          </SelectableCard>
+          <SelectableCard
+            name="test"
+            categoryTitle={
+              <>
+                <i className="bi bi-box"></i>Laptop
+              </>
+            }
+            type="checkbox"
+            value="microsoft"
+            onChange={handleChange}
+            aria-label="selectablecard"
+          >
+            {MicrosoftBody}
+          </SelectableCard>
+          <SelectableCard
+            name="test"
+            categoryTitle={
+              <>
+                <i className="bi bi-box"></i>Laptop
+              </>
+            }
+            type="checkbox"
+            value="acer"
+            onChange={handleChange}
+            aria-label="selectablecard"
+          >
+            {AcerBody}
+          </SelectableCard>
+        </Form>
+      </Col>
+    </Row>
+  );
+};`;
+
 export const AppleBody = (
   <>
     <Card.Title as="h5">
@@ -190,7 +356,9 @@ export const ExampleTemplate = (args) => {
                   <Card.Subtitle as="h6" className="text-muted">
                     Item Brand
                   </Card.Subtitle>
-                  <Card.Subtitle as="h6" className="mt-2">{brand}</Card.Subtitle>
+                  <Card.Subtitle as="h6" className="mt-2">
+                    {brand}
+                  </Card.Subtitle>
                 </Card.Unit>
                 <QuantityToggle count={qty} setCount={setQty} />
               </div>
@@ -211,7 +379,7 @@ Action Cards are Cards that are able to perform actions like selection or quanti
 
 `<SelectableCard />` are Cards with input checkbox , radio or switch functionalities.
 `<SelectableCard />` is a composite component built with `<Card />`, `<Card.Body/>`, `<Card.Subtitle/>` and `<FormCheck />` with partially extended props from both Components.
-Similar to `<Card />`, it is a wrapper that accepts subcomponents of `Card` , like `Card.Text`  and `Card.Subtitle` as children.
+Similar to `<Card />`, it is a wrapper that accepts subcomponents of `Card` , like `Card.Text` and `Card.Subtitle` as children.
 
 The `ref` of `<FormCheck />` is extended to the `<Card/>` making the entire `<SelectableCard/>` essentially an input
 
@@ -228,6 +396,14 @@ The default SelectableCard is a checkbox.
           <i className="bi bi-box"></i>Laptop
         </>
       ),
+    }}
+    parameters={{
+      docs: {
+        source: {
+          code: templateCodeDefaultSelectable,
+        },
+        type: 'code',
+      },
     }}
   >
     {(args) => (
@@ -263,7 +439,17 @@ import { SelectableCard } from '@govtechsg/sgds-react/Card';
 Use `type` prop : `radio` / `switch` / `checkbox` to change the `SelectableCard` input type
 
 <Canvas>
-  <Story name="Types">
+  <Story
+    name="Types"
+    parameters={{
+      docs: {
+        source: {
+          code: templateCodeCardTypes,
+        },
+        type: 'code',
+      },
+    }}
+  >
     {() => (
       <Row>
         <Col xs>
@@ -317,67 +503,21 @@ When a `<SelectableCard />` is checked, its card borders are highlighted.
 **Note:** This feature occurs only when onChange is passed in with state updates. See demo and code example below
 
 <Canvas>
-  <Story name="Active Borders">{ActiveBorderTemplate.bind({})}</Story>
+  <Story
+    name="Active Borders"
+    parameters={{
+      docs: {
+        source: {
+          code: templateCodeActiveCard,
+        },
+        type: 'code',
+      },
+    }}
+  >
+    {ActiveBorderTemplate.bind({})}
+  </Story>
 </Canvas>
 
-```jsx
-const ActiveBorderTemplate = () => {
-  const [cart, setCard] = useState([]);
-  const handleChange = (e) => {
-    setCard([e.target.value, ...cart]);
-  };
-  return (
-    <Row>
-      <Col xs lg="4">
-        <Form>
-          <SelectableCard
-            name="test"
-            categoryTitle={
-              <>
-                <i className="bi bi-box"></i>Laptop
-              </>
-            }
-            type="checkbox"
-            value="apple"
-            onChange={handleChange}
-            aria-label="selectablecard"
-          >
-            {AppleBody}
-          </SelectableCard>
-          <SelectableCard
-            name="test"
-            categoryTitle={
-              <>
-                <i className="bi bi-box"></i>Laptop
-              </>
-            }
-            type="checkbox"
-            value="microsoft"
-            onChange={handleChange}
-            aria-label="selectablecard"
-          >
-            {MicrosoftBody}
-          </SelectableCard>
-          <SelectableCard
-            name="test"
-            categoryTitle={
-              <>
-                <i className="bi bi-box"></i>Laptop
-              </>
-            }
-            type="checkbox"
-            value="acer"
-            onChange={handleChange}
-            aria-label="selectablecard"
-          >
-            {AcerBody}
-          </SelectableCard>
-        </Form>
-      </Col>
-    </Row>
-  );
-};
-```
 
 ## Usage: Shopping Cart
 
@@ -386,7 +526,18 @@ An example of the usage of the `<SelectableCard />` with a Custom Basket card wi
 Click on the `SelectableCard` to choose your product to order
 
 <Canvas>
-  <Story name="Usage Example">{ExampleTemplate.bind({})}</Story>
+  <Story
+    name="Usage Example"
+    parameters={{
+      docs: {
+        source: {
+          code: '',
+        },
+      },
+    }}
+  >
+    {ExampleTemplate.bind({})}
+  </Story>
 </Canvas>
 
 ### Shopping Cart Code

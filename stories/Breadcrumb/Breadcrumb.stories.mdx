@@ -47,12 +47,6 @@ Pass down attributes or css selectors via listProps object to `<ol />` of Breadc
 
 Use `className` key to pass down css selectors.
 
-```jsx
-const listProps = {
-  className: 'bg-light',
-  disabled: true,
-};
-```
 
 export const listProps = {
   className: 'bg-light',
@@ -79,14 +73,8 @@ Do not set both active and href attributes together. `active` prop overrides `hr
 `linkProps` object passes down attributes or css selectors to `<a />` of Breadcrumb.Item. `linkProps` only applies to anchor element.
 Hence if Breadcrumb.Item is active, i.e. it has no `<a />`, `linkProps` does not have any effect
 
-```jsx
-const linkProps = {
-  className: 'text-primary bg-light',
-  foo: 'bar',
-};
-```
 
-export const BreadcrumbItemTemplate = () => {
+export const BreadcrumbItemTemplate = (args) => {
   const linkProps = {
     className: 'text-primary bg-light',
     foo: 'bar',
@@ -108,7 +96,7 @@ export const BreadcrumbItemTemplate = () => {
 };
 
 <Canvas>
-  <Story name="Style BreadcrumbItem" args={{ listProps }}>
+  <Story name="Style BreadcrumbItem">
     {BreadcrumbItemTemplate.bind({})}
   </Story>
 </Canvas>

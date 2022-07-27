@@ -20,9 +20,9 @@ export const Template = (args) => {
 Use FormControl for textual form controls like input and textarea. The default FormControl is an input element.
 FormControl extends the HTMLInputElement and HTMlTextAreaElement and their attributes are applicable to FormControl as props.
 
-<Canvas>
-  <Story name="Default">{Template.bind({})}</Story>
-</Canvas>
+<Story name="Default">{Template.bind({})}</Story>
+
+<br />
 
 ## API
 
@@ -35,6 +35,17 @@ import { Form } from '@govtechsg/sgds-react/Form';
 
 <ArgsTable story="Default" />
 
+### Code Sample
+
+```jsx
+<Form>
+  <Form.Group className="mb-3" controlId="exampleForm.ControlInput1">
+    <Form.Label>Name</Form.Label>
+    <Form.Control />
+  </Form.Group>
+</Form>
+```
+
 ## FormControl input with icon
 
 Icons embedded in FormControl input provide users the visual cue on the input content.
@@ -46,36 +57,47 @@ Does not apply to textarea.
 export const FormControlIcon = () => {
   return (
     <Form>
-    <Form.Group className="mb-3" controlId="formControlWithIcon">
-    <Form.Label>Search</Form.Label>
-    <FormControlGroup icon={<i className="bi bi-search"></i>}>
-      <FormControl />
-    </FormControlGroup>
-    </Form.Group>
+      <Form.Group className="mb-3" controlId="formControlWithIcon">
+        <Form.Label>Search</Form.Label>
+        <FormControlGroup icon={<i className="bi bi-search"></i>}>
+          <FormControl />
+        </FormControlGroup>
+      </Form.Group>
     </Form>
   );
 };
 
-<Canvas>
-  <Story
-    name="Form Control with Icon"
-  >
-    {FormControlIcon.bind({})}
-  </Story>
-</Canvas>
+<Story name="Form Control with Icon">{FormControlIcon.bind({})}</Story>
+
+<br />
+
+### Code Sample
+
+```jsx
+<Form>
+  <Form.Group className="mb-3" controlId="formControlWithIcon">
+    <Form.Label>Search</Form.Label>
+    <FormControlGroup icon={<i className="bi bi-search"></i>}>
+      <FormControl />
+    </FormControlGroup>
+  </Form.Group>
+</Form>
+```
 
 ## textarea
 
 Use `as` prop to change FormControl HTML tag from input to textarea
 
-<Canvas>
-  <Story
-    name="Text area"
-    args={{ as: 'textarea', placeholder: 'write something' }}
-  >
-    {Template.bind({})}
-  </Story>
-</Canvas>
+<Story
+  name="Text area"
+  args={{ as: 'textarea', placeholder: 'write something' }}
+>
+  {Template.bind({})}
+</Story>
+
+<br />
+
+### Code Sample
 
 ```jsx
 <Form.Control as="textarea" placeholder="write something" />
@@ -83,14 +105,16 @@ Use `as` prop to change FormControl HTML tag from input to textarea
 
 ## Plain Text
 
-<Canvas>
-  <Story
-    name="Plain text"
-    args={{ plaintext: true, value: 'this is plaintext', readOnly: true }}
-  >
-    {Template.bind({})}
-  </Story>
-</Canvas>
+<Story
+  name="Plain text"
+  args={{ plaintext: true, value: 'this is plaintext', readOnly: true }}
+>
+  {Template.bind({})}
+</Story>
+
+<br />
+
+### Code Sample
 
 ```jsx
 <Form.Control plaintext value="this is plaintext" readOnly />

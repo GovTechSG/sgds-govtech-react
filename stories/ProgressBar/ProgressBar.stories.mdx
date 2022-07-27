@@ -6,6 +6,13 @@ import { HIDDEN_COMMON_PROPS } from '../helpers';
 <Meta
   title="Components/Progress Bar"
   component={ProgressBar}
+  parameters={{
+    docs: {
+      source: {
+        type: 'code',
+      },
+    },
+  }}
 />
 
 # Progress bars
@@ -23,7 +30,7 @@ export const Template = (args) => {
 ## API
 
 ```jsx
-import { ProgressBar } from '@govtechsg/sgds-react/ProgressBar'; 
+import { ProgressBar } from '@govtechsg/sgds-react/ProgressBar';
 ```
 
 <ArgsTable story="Default" />
@@ -66,35 +73,6 @@ export const DecrementIncrementTpl = (args) => {
   </Story>
 </Canvas>
 
-```jsx
-import { ProgressBar, Button } from '@govtechsg/sgds-react';
-import { useState } from 'react';
-
-const current = 20;
-const [percentage, setPercentage] = useState(current);
-let incrementHandler = () => {
-  if (percentage < 100) {
-    setPercentage(percentage + 20);
-  }
-};
-let decrementHandler = () => {
-  if (percentage > 0) {
-    setPercentage(percentage - 20);
-  }
-};
-
-<>
-  <ProgressBar now={percentage} label={`${percentage}%`} />
-  <div className="mt-4">
-    <Button className="me-3" variant="danger" onClick={decrementHandler}>
-      Back
-    </Button>
-    <Button variant="dark" onClick={incrementHandler}>
-      Next
-    </Button>
-  </div>
-</>;
-```
 
 ## With label
 
@@ -109,13 +87,6 @@ export const WithLabelTmpl = (args) => {
   <Story name="With Label">{WithLabelTmpl.bind({})}</Story>
 </Canvas>
 
-```jsx
-import { ProgressBar } from '@govtechsg/sgds-react';
-
-const now = 60;
-
-<ProgressBar now={now} label={`${now}%`} />;
-```
 
 ## Screenreader only label
 
@@ -132,13 +103,6 @@ export const SrLabelTmpl = (args) => {
   </Story>
 </Canvas>
 
-```jsx
-import { ProgressBar } from '@govtechsg/sgds-react';
-
-const now = 60;
-
-<ProgressBar now={now} label={`${now}%`} visuallyHidden />;
-```
 
 ## Contextual alternatives
 
@@ -155,16 +119,6 @@ Progress bars use some of the same button and alert classes for consistent style
   </Story>
 </Canvas>
 
-```jsx
-import { ProgressBar } from '@govtechsg/sgds-react';
-
-<div>
-  <ProgressBar variant="success" now={40} />
-  <ProgressBar variant="info" now={20} />
-  <ProgressBar variant="warning" now={60} />
-  <ProgressBar variant="danger" now={80} />
-</div>;
-```
 
 ## Striped
 
@@ -181,16 +135,6 @@ Uses a gradient to create a `striped` effect.
   </Story>
 </Canvas>
 
-```jsx
-import { ProgressBar } from '@govtechsg/sgds-react';
-
-<div>
-  <ProgressBar striped variant="success" now={40} />
-  <ProgressBar striped variant="info" now={20} />
-  <ProgressBar striped variant="warning" now={60} />
-  <ProgressBar striped variant="danger" now={80} />
-</div>;
-```
 
 ## Animated
 
@@ -202,11 +146,6 @@ Add `animated` prop to animate the stripes right to left.
   </Story>
 </Canvas>
 
-```jsx
-import { ProgressBar } from '@govtechsg/sgds-react';
-
-<ProgressBar animated now={45} />;
-```
 
 ## Stacked
 
@@ -222,12 +161,3 @@ Nest `<ProgressBar />`'s to stack them.
   </Story>
 </Canvas>
 
-```jsx
-import { ProgressBar } from '@govtechsg/sgds-react';
-
-<ProgressBar>
-  <ProgressBar striped variant="success" now={35} key={1} />
-  <ProgressBar variant="warning" now={20} key={2} />
-  <ProgressBar animated variant="danger" now={10} key={3} />
-</ProgressBar>;
-```

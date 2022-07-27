@@ -51,7 +51,7 @@ export const Template = (args) => {
 };
 
 <Canvas>
-  <Story name="Example">{Template.bind({})}</Story>
+  <Story name="Example" parameters={{ docs: { source: { type: 'code' } } }}>{Template.bind({})}</Story>
 </Canvas>
 
 ## API
@@ -62,21 +62,6 @@ import { InputGroup } from '@govtechsg/sgds-react/InputGroup';
 
 <ArgsTable story="Example" />
 
-```jsx
-// Phone number Example
-import { InputGroup, Form } from '@govtechsg/sgds-react';
-<>
-  <Form.Label>Phone Number</Form.Label>
-  <InputGroup className="mb-3">
-    <InputGroup.Text id="basic-addon1">+65</InputGroup.Text>
-    <Form.Control
-      placeholder="Phone number"
-      aria-label="Phone"
-      aria-describedby="basic-addon1"
-    />
-  </InputGroup>
-</>;
-```
 
 ## Example Addons
 

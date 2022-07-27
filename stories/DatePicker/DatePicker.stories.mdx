@@ -9,6 +9,7 @@ import { argTypes } from './argTypes';
   argTypes={{
     ...argTypes,
   }}
+  parameters={{ docs: { source: { type: 'code' } } }}
 />
 
 export const DatePickerTemplate = (args) => {
@@ -36,7 +37,7 @@ By default, the Calendar points to current date and input has no value. The `For
 ## API
 
 ```jsx
-import { DatePicker } from '@govtechsg/sgds-react/DatePicker'; 
+import { DatePicker } from '@govtechsg/sgds-react/DatePicker';
 ```
 
 <ArgsTable story="Default" />
@@ -45,11 +46,9 @@ import { DatePicker } from '@govtechsg/sgds-react/DatePicker';
 
 When `mode=range` , DatePicker allows a selection of two dates, start and end.
 
-<Canvas>
-  <Story name="Range Selection" args={{ mode: 'range' }} height="500px">
-    {DatePickerTemplate.bind({})}
-  </Story>
-</Canvas>
+<Story name="Range Selection" args={{ mode: 'range' }} height="500px">
+  {DatePickerTemplate.bind({})}
+</Story>
 
 ## Flip
 
@@ -77,6 +76,17 @@ import { DatePicker } from '@govtechsg/sgds-react/DatePicker';
   displayDate={new Date('2020-01-01')}
 />;
 ```
+
+<Story
+  name="Initial Value for Single"
+  args={{
+    initialValue: new Date('2020-01-01'),
+    displayDate: new Date('2020-01-01'),
+  }}
+  height="500px"
+>
+  {DatePickerTemplate.bind({})}
+</Story>
 
 ### range mode
 
@@ -106,17 +116,6 @@ import {
   mode="range"
 />;
 ```
-
-<Story
-  name="Initial Value for Single"
-  args={{
-    initialValue: new Date('2020-01-01'),
-    displayDate: new Date('2020-01-01'),
-  }}
-  height="500px"
->
-  {DatePickerTemplate.bind({})}
-</Story>
 
 <Story
   name="Initial Value for Multi"
@@ -176,11 +175,13 @@ import {
 </Story>
 
 ```jsx
-  //onClear
+  // onClear
 <DatePicker onClear={() => alert('cleared!')} />
-    //onChangeDate single mode
+
+// onChangeDate single mode
 <DatePicker onChangeDate={(date) => alert(`selected ${date ? date.toISOString(): ''}`)} />
-    //onChangeDate range mode
+
+// onChangeDate range mode
 <DatePicker onChangeDate={({ start, end }) =>
       alert(
           `selected start: ${start ? start.toISOString(): ''}, end: ${end ? end.toISOString(): ''}`

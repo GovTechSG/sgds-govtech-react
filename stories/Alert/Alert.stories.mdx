@@ -28,6 +28,7 @@ import { Alert, Button } from '../../src';
       },
     },
   }}
+  parameters={{ docs: { source: { type: 'code' } } }}
 />
 
 export const Template = (args) => {
@@ -86,21 +87,6 @@ You may also choose to slot in your icons from any libraries to make your inform
   </Story>
 </Canvas>
 
-```jsx
-import { Alert } from '@govtechsg/sgds-react';
-
-['primary', 'secondary', 'success', 'danger', 'warning', 'info', 'light'].map(
-  (variant, idx) => (
-    <Alert key={idx} variant={variant} className="d-flex align-items-center">
-      <div>
-        <i className="bi bi-exclamation-circle me-4"></i>This is a {variant} alert—check
-        it out!
-      </div>
-    </Alert>
-  )
-);
-```
-
 ## 2. Links
 
 For links, use the `<Alert.Link>` component to provide matching colored links within any alert.
@@ -129,23 +115,6 @@ For links, use the `<Alert.Link>` component to provide matching colored links wi
   </Story>
 </Canvas>
 
-```jsx
-import { Alert } from '@govtechsg/sgds-react';
-
-['primary', 'secondary', 'success', 'danger', 'warning', 'info', 'light'].map(
-  (variant, idx) => (
-    <Alert key={idx} variant={variant} className="d-flex align-items-center">
-      <i className="bi bi-exclamation-circle me-4"></i>
-      <div>
-        This is a {variant} alert with{' '}
-        <Alert.Link href="#">an example link</Alert.Link>. Give it a click if
-        you like.
-      </div>
-    </Alert>
-  )
-);
-```
-
 ## 3. Additional content
 
 Alerts can contain whatever content you like. Headers, paragraphs, dividers etc.
@@ -170,27 +139,6 @@ Alerts can contain whatever content you like. Headers, paragraphs, dividers etc.
     </Alert>
   </Story>
 </Canvas>
-
-```jsx
-import { Alert } from '@govtechsg/sgds-react';
-
-<Alert variant="success" className="d-flex align-items-center">
-  <i className="bi bi-exclamation-circle me-4"></i>
-  <div>
-    <Alert.Heading>Hey, nice to see you</Alert.Heading>
-    <p>
-      Aww yeah, you successfully read this important alert message. This example
-      text is going to run a bit longer so that you can see how spacing within
-      an alert works with this kind of content.
-    </p>
-    <hr />
-    <p className="mb-0">
-      Whenever you need to, be sure to use margin utilities to keep things nice
-      and tidy.
-    </p>
-  </div>
-</Alert>;
-```
 
 ## 4. Dismissible
 
@@ -228,33 +176,3 @@ export const Dismissible = (args) => {
     {Dismissible.bind({})}
   </Story>
 </Canvas>
-
-```jsx
-import { Alert, Button } from '@govtechsg/sgds-react';
-
-export const Alert = () => {
-  const [show, setShow] = useState(true);
-
-  if (show) {
-    return (
-      <Alert
-        variant="primary"
-        onClose={() => setShow(false)}
-        className="d-flex align-items-center"
-        dismissible
-      >
-        <i className="bi bi-exclamation-circle me-4"></i>
-        <div>
-          <Alert.Heading>Oh snap! You got an error!</Alert.Heading>
-          <p>
-            Change this and that and try again. Duis mollis, est non commodo
-            luctus, nisi erat porttitor ligula, eget lacinia odio sem nec elit.
-            Cras mattis consectetur purus sit amet fermentum.
-          </p>
-        </div>
-      </Alert>
-    );
-  }
-  return <Button onClick={() => setShow(true)}>Show Alert</Button>;
-};
-```
