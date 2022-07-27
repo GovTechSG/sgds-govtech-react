@@ -16,7 +16,7 @@ import { Form, Button } from '../../src/index';
   }}
 />
 
-export const templateCode_BasicForm = `
+export const templateCodeBasicForm = `
 const Form = () => {
   const onSubmit = (event) => {
     event.preventDefault();
@@ -77,7 +77,11 @@ export const Template = (args) => {
         <Form.Text className="text-muted" id="pwdCombination">
           Password has to be a combination of alphanumeric.
         </Form.Text>
-        <Form.Control type="password" placeholder="Password" aria-describedby="pwdCombination" />
+        <Form.Control
+          type="password"
+          placeholder="Password"
+          aria-describedby="pwdCombination"
+        />
       </Form.Group>
       <Form.Group className="mb-3" controlId="formBasicCheckbox">
         <Form.Check type="checkbox" label="Check me out" />
@@ -95,7 +99,7 @@ export const Template = (args) => {
     parameters={{
       docs: {
         source: {
-          code: templateCode_BasicForm,
+          code: templateCodeBasicForm,
         },
         type: 'code',
       },

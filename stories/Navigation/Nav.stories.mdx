@@ -23,7 +23,7 @@ import { HIDDEN_COMMON_PROPS } from '../helpers';
   }}
 />
 
-export const templateCode_Nav = `import {
+export const templateCodeNav = `import {
   Navbar,
   Nav,
   Col,
@@ -72,7 +72,7 @@ export const templateCode_Nav = `import {
 </Navbar>;
 `;
 
-export const templateCode_NavDefaultActive = `import {
+export const templateCodeNavDefaultActive = `import {
   Navbar,
   Nav,
   Col,
@@ -121,7 +121,7 @@ export const templateCode_NavDefaultActive = `import {
 </Navbar>;
 `;
 
-export const templateCode_NavActive = `
+export const templateCodeNavActive = `
 import { Navbar, Nav, Container, Row, Col } from '@govtechsg/sgds-react';
 const ActiveKeyTemplate = () => {
   const [activeK, setActiveK] = React.useState('4');
@@ -471,7 +471,7 @@ See example of all three types below;
     parameters={{
       docs: {
         source: {
-          code: templateCode_Nav,
+          code: templateCodeNav,
         },
         type: 'code',
       },
@@ -508,7 +508,7 @@ Use `defaultActiveKey` prop to set the activeKey on initial load
     parameters={{
       docs: {
         source: {
-          code: templateCode_NavDefaultActive,
+          code: templateCodeNavDefaultActive,
         },
         type: 'code',
       },
@@ -534,7 +534,7 @@ Toggle with the demo below and see code example below
     parameters={{
       docs: {
         source: {
-          code: templateCode_NavActive,
+          code: templateCodeNavActive,
         },
         type: 'code',
       },

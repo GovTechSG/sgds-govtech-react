@@ -24,7 +24,7 @@ import { CARD_COMMON_PROPS } from './argTypes';
   }}
 />
 
-export const templateCode_DefaultSelectable = `
+export const templateCodeDefaultSelectable = `
 import {
   SelectableCard,
   Col,
@@ -56,7 +56,7 @@ export const DefaultSelectable = () => {
 </Row>
 )};`;
 
-export const templateCode_CardTypes = `
+export const templateCodeCardTypes = `
 import {
   SelectableCard,
   Col,
@@ -101,7 +101,7 @@ export const CardTypes = () => {
   </Row>
   }`;
 
-export const templateCode_ActiveCard = `
+export const templateCodeActiveCard = `
 import {
   SelectableCard,
   Form,
@@ -400,7 +400,7 @@ The default SelectableCard is a checkbox.
     parameters={{
       docs: {
         source: {
-          code: templateCode_DefaultSelectable,
+          code: templateCodeDefaultSelectable,
         },
         type: 'code',
       },
@@ -444,7 +444,7 @@ Use `type` prop : `radio` / `switch` / `checkbox` to change the `SelectableCard`
     parameters={{
       docs: {
         source: {
-          code: templateCode_CardTypes,
+          code: templateCodeCardTypes,
         },
         type: 'code',
       },
@@ -508,7 +508,7 @@ When a `<SelectableCard />` is checked, its card borders are highlighted.
     parameters={{
       docs: {
         source: {
-          code: templateCode_ActiveCard,
+          code: templateCodeActiveCard,
         },
         type: 'code',
       },

@@ -2,9 +2,9 @@ import { ArgsTable, Canvas, Meta, Story } from '@storybook/addon-docs';
 import { HIDDEN_COMMON_PROPS } from '../helpers';
 import { FormSelect, Button, Form } from '../../src/index';
 
-<Meta title="Components/Form/FormSelect" component={FormSelect}/>
+<Meta title="Components/Form/FormSelect" component={FormSelect} />
 
-export const templateCode_DefaultSelectMenu = `
+export const templateCodeDefaultSelectMenu = `
   <Form.Group>
       <Form.Label htmlFor="defaultSelect">Default select menu</Form.Label>
       <FormSelect aria-label="Default select example" id="defaultSelect">
@@ -16,7 +16,7 @@ export const templateCode_DefaultSelectMenu = `
 </Form.Group>
 `;
 
-export const templateCode_FormSelectSizes = `
+export const templateCodeFormSelectSizes = `
   <Form.Select size="lg">
   <option>Large select</option>
 </Form.Select>
@@ -59,7 +59,7 @@ export const SmallSelect = TemplateWithLabel('Small select menu', 'sm');
     parameters={{
       docs: {
         source: {
-          code: templateCode_DefaultSelectMenu,
+          code: templateCodeDefaultSelectMenu,
         },
         type: 'code',
       },
@@ -90,7 +90,7 @@ You may also choose from small and large custom selects to match our similarly s
     parameters={{
       docs: {
         source: {
-          code: templateCode_FormSelectSizes,
+          code: templateCodeFormSelectSizes,
         },
         type: 'code',
       },

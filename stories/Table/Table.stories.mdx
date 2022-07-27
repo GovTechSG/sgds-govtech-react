@@ -4,10 +4,10 @@ import { Table } from '../../src/index';
 
 <Meta title="Components/Table" component={Table} />
 
-export const templateCode_AlwaysResponsive = `
+export const templateCodeAlwaysResponsive = `
 <Table responsive>...</Table>;`;
 
-export const templateCode_BreakpointSpec = `
+export const templateCodeBreakpointSpec = `
 <div>
   <Table responsive="sm">...</Table>
   <Table responsive="md">...</Table>
@@ -178,7 +178,7 @@ export const AlwaysResponsive = (args) => {
     parameters={{
       docs: {
         source: {
-          code: templateCode_AlwaysResponsive,
+          code: templateCodeAlwaysResponsive,
         },
         type: 'code',
       },
@@ -210,7 +210,7 @@ export const BpResponsive = () => {
     parameters={{
       docs: {
         source: {
-          code: templateCode_BreakpointSpec,
+          code: templateCodeBreakpointSpec,
         },
         type: 'code',
       },

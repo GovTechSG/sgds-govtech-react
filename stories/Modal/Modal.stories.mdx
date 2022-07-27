@@ -57,7 +57,7 @@ export const smallModal = NamedTemplate('Small').bind({});
 export const largeModal = NamedTemplate('Large').bind({});
 export const xLargeModal = NamedTemplate('Extra large').bind({});
 // start of template codes
-export const templateCode_Modal = `
+export const templateCodeModal = `
  const DefaultModal = () => {
     const [show, setShow] = useState(false);
     const handleClose = () => setShow(false);
@@ -85,7 +85,7 @@ export const templateCode_Modal = `
     );
   };
 `;
-export const templateCode_Sizes = `
+export const templateCodeSizes = `
 <Modal show={show} onHide={handleClose} size="sm">
   ...
 </Modal>;
@@ -96,19 +96,19 @@ export const templateCode_Sizes = `
   ...
 </Modal>;
 `;
-export const templateCode_CustomDialog = `<Modal show={show} onHide={handleClose} dialogClassName="text-primary">
+export const templateCodeCustomDialog = `<Modal show={show} onHide={handleClose} dialogClassName="text-primary">
   ...
 </Modal>;`;
-export const templateCode_CustomContent = `<Modal show={show} onHide={handleClose} contentClassName="text-warning">
+export const templateCodeCustomContent = `<Modal show={show} onHide={handleClose} contentClassName="text-warning">
   ...
 </Modal>;`;
-export const templateCode_CustomBackdrop = `<Modal show={show} onHide={handleClose} backdropClassName="bg-primary">
+export const templateCodeCustomBackdrop = `<Modal show={show} onHide={handleClose} backdropClassName="bg-primary">
   ...
 </Modal>;`;
-export const templateCode_NoAnimation = `<Modal show={show} onHide={handleClose} animation={false}>
+export const templateCodeNoAnimation = `<Modal show={show} onHide={handleClose} animation={false}>
   ...
 </Modal>;`;
-export const templateCode_Centered = `<Modal show={show} onHide={handleClose} centeredAlignVariant>
+export const templateCodeCentered = `<Modal show={show} onHide={handleClose} centeredAlignVariant>
   ...
 </Modal>;`;
 // end of template codes
@@ -166,7 +166,7 @@ The `Modal` is hidden by default and appears with backdrop and animation on clic
     parameters={{
       docs: {
         source: {
-          code: templateCode_Modal,
+          code: templateCodeModal,
         },
         type: 'code',
       },
@@ -197,7 +197,7 @@ You can specify a bootstrap large or small modal by using the size prop: `sm`, `
     parameters={{
       docs: {
         source: {
-          code: templateCode_Sizes,
+          code: templateCodeSizes,
         },
         type: 'code',
       },
@@ -286,7 +286,7 @@ You can apply custom css to the modal dialog div using the dialogClassName prop.
     parameters={{
       docs: {
         source: {
-          code: templateCode_CustomDialog,
+          code: templateCodeCustomDialog,
         },
         type: 'code',
       },
@@ -306,7 +306,7 @@ Use contentPropClassName to add an optional extra classname to .modal-content. E
     parameters={{
       docs: {
         source: {
-          code: templateCode_CustomContent,
+          code: templateCodeCustomContent,
         },
         type: 'code',
       },
@@ -326,7 +326,7 @@ Add an optional extra class name to .modal-backdrop It could end up looking like
     parameters={{
       docs: {
         source: {
-          code: templateCode_CustomBackdrop,
+          code: templateCodeCustomBackdrop,
         },
         type: 'code',
       },
@@ -346,7 +346,7 @@ A Modal can also be without an animation. For that set the `animation` prop to `
     parameters={{
       docs: {
         source: {
-          code: templateCode_NoAnimation,
+          code: templateCodeNoAnimation,
         },
         type: 'code',
       },
@@ -381,7 +381,7 @@ Set `centeredAlignVariant` prop to true to center contents of Modal
     parameters={{
       docs: {
         source: {
-          code: templateCode_Centered,
+          code: templateCodeCentered,
         },
         type: 'code',
       },

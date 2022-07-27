@@ -6,7 +6,7 @@ import * as formik from 'formik';
 
 <Meta title="Components/Form/Validations" component={Form} />
 
-export const templateCode_Native = `
+export const templateCodeNative = `
 const NativeValidation = () => {
   const [validated, setValidated] = useState(false);
   const handleSubmit = (event) => {
@@ -102,7 +102,7 @@ const NativeValidation = () => {
 };
 `;
 
-export const templateCode_Formik = `
+export const templateCodeFormik = `
 export const FormikValidation = () => {
   const { Formik } = formik;
   const schema = yup.object().shape({
@@ -373,7 +373,7 @@ import * as formik from 'formik';
     parameters={{
       docs: {
         source: {
-          code: templateCode_Native,
+          code: templateCodeNative,
         },
         type: 'code',
       },
@@ -543,7 +543,7 @@ export const Template2 = (args) => {
     parameters={{
       docs: {
         source: {
-          code: templateCode_Formik,
+          code: templateCodeFormik,
         },
         type: 'code',
       },

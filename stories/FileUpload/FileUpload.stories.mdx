@@ -7,7 +7,7 @@ import { HIDDEN_COMMON_PROPS } from '../helpers';
 
 <Meta title="Components/File Upload" component={FileUpload} />
 
-export const templateCode_FileUpload = `
+export const templateCodeFileUpload = `
 const FileUpload  = () => {
   const [selectedFile, setSelectedFile] = useState({});
   const onChangeFile = (data) => {
@@ -30,7 +30,7 @@ const FileUpload  = () => {
 };
 `;
 
-export const templateCode_CustomizedIcons = `
+export const templateCodeCustomizedIcons = `
 const FileUpload  = () => {
   const [selectedFile, setSelectedFile] = useState({});
   const onChangeFile = (data) => {
@@ -87,7 +87,7 @@ export const Template = (args) => {
     parameters={{
       docs: {
         source: {
-          code: templateCode_FileUpload,
+          code: templateCodeFileUpload,
         },
         type: 'code',
       },
@@ -119,7 +119,7 @@ Change up the default checked and cancel icons by passing in icons of your choic
     parameters={{
       docs: {
         source: {
-          code: templateCode_CustomizedIcons,
+          code: templateCodeCustomizedIcons,
         },
         type: 'code',
       },

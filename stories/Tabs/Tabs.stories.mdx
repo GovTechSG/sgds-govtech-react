@@ -21,7 +21,7 @@ import { Tabs, Badge, Tab } from '../../src/index';
   }}
 />
 
-export const templateCode_Tabs = `import { Tabs, Tab } from '@govtechsg/sgds-react';
+export const templateCodeTabs = `import { Tabs, Tab } from '@govtechsg/sgds-react';
 <Tabs defaultActiveKey="profile" id="uncontrolled-tab-example">
   <Tab eventKey="home" title="Home">
     Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod
@@ -45,7 +45,7 @@ export const templateCode_Tabs = `import { Tabs, Tab } from '@govtechsg/sgds-rea
 </Tabs>
 ;`;
 
-export const templateCode_TabsBasic = `import { Tabs, Tab, Badge } from '@govtechsg/sgds-react';
+export const templateCodeTabsBasic = `import { Tabs, Tab, Badge } from '@govtechsg/sgds-react';
 <Tabs
   defaultActiveKey="profile"
   id="uncontrolled-tab-example2"
@@ -89,7 +89,7 @@ export const templateCode_TabsBasic = `import { Tabs, Tab, Badge } from '@govtec
 </Tabs>
 ;`;
 
-export const templateCode_TabsInfo = `import { Tabs, Tab, Badge } from '@govtechsg/sgds-react';
+export const templateCodeTabsInfo = `import { Tabs, Tab, Badge } from '@govtechsg/sgds-react';
 <Tabs
   defaultActiveKey="profile"
   id="uncontrolled-tab-example3"
@@ -166,7 +166,7 @@ export const DefaultTemplate = (args) => {
     parameters={{
       docs: {
         source: {
-          code: templateCode_Tabs,
+          code: templateCodeTabs,
         },
         type: 'code',
       },
@@ -268,7 +268,6 @@ import { Tabs } from '@govtechsg/sgds-react/Tabs';
 
 <ArgsTable story="Default" />
 
-
 As our components are built on top of `React-Bootstrap` library, do check out the detailed `Tabs` API references <a href="https://react-bootstrap.github.io/components/tabs/" target="_blank">here</a>.
 
 ## Variants
@@ -281,7 +280,7 @@ Use variant `tabs-basic-toggle` on `<Tabs>` to achieve the following styling. `<
     parameters={{
       docs: {
         source: {
-          code: templateCode_TabsBasic,
+          code: templateCodeTabsBasic,
         },
         type: 'code',
       },
@@ -299,7 +298,7 @@ Use variant `tabs-info-toggle` of `<Tabs>` to achieve the following styling. `<T
     parameters={{
       docs: {
         source: {
-          code: templateCode_TabsInfo,
+          code: templateCodeTabsInfo,
         },
         type: 'code',
       },
@@ -308,4 +307,3 @@ Use variant `tabs-info-toggle` of `<Tabs>` to achieve the following styling. `<T
     {InfoTemplate.bind({})}
   </Story>
 </Canvas>
-
