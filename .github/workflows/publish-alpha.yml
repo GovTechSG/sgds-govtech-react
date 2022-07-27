@@ -18,9 +18,9 @@ jobs:
           node-version: 12
           registry-url: 'https://registry.npmjs.org'
       - run: echo "alpha"
-        if: contains($NPM_TAG, 'alpha')
+        if: contains(env.NPM_TAG, 'alpha')
       - run: echo "beta"
-        if: contains($NPM_TAG, 'beta')
+        if: contains(env.NPM_TAG, 'beta')
       # - run: npm ci
       # - run: npm run ci:test
       # - run: npm run build
