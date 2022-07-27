@@ -4,19 +4,26 @@ on:
   push:
     tags:
       - 'v[0-9]+.[0-9]+.[0-9]+-alpha.[0-9]+'
+      - 'v[0-9]+.[0-9]+.[0-9]+-beta.[0-9]+'
 
 jobs:
   publish:    
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2
+      - name: Set Tag env
+        run: echo "NPM_TAG=${GITHUB_REF#refs/*/}" >> $GITHUB_ENV
       - uses: actions/setup-node@v1
         with:
           node-version: 12
           registry-url: 'https://registry.npmjs.org'
-      - run: npm ci
-      - run: npm run ci:test
-      - run: npm run build
-      - run: npm publish --tag alpha ./dist
+      - run: echo "alpha"
+        if: contains($NPM_TAG, 'alpha')
+      - run: echo "beta"
+        if: contains($NPM_TAG, 'beta')
+      # - run: npm ci
+      # - run: npm run ci:test
+      # - run: npm run build
+      # - run: npm publish --tag alpha ./dist
         env:
           NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
