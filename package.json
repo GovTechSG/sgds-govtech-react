@@ -14,7 +14,7 @@
       "url": "https://github.com/haphizi"
     }
   ],
-  "version": "2.0.0-alpha.1",
+  "version": "2.0.0-beta.1",
   "license": "MIT",
   "main": "dist/cjs/index.js",
   "module": "dist/index.js",
@@ -45,16 +45,6 @@
     "singleQuote": true,
     "trailingComma": "es5"
   },
-  "size-limit": [
-    {
-      "path": "dist/main.js",
-      "limit": "100 KB"
-    },
-    {
-      "path": "dist/index.js",
-      "limit": "100 KB"
-    }
-  ],
   "devDependencies": {
     "@babel/core": "^7.16.5",
     "@commitlint/cli": "^17.0.3",
