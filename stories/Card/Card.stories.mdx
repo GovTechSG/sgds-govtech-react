@@ -156,7 +156,7 @@ Use `as` prop to change the default HTMLElement of Card sub-components when requ
         <Card>
           <Card.Body>
             <Card.Title as="h5">Card Title</Card.Title>
-            <Card.Text as="a">
+            <Card.Text as="a" href="#">
               Some quick example text to build on the card title and make up the
               bulk of the card's content.
             </Card.Text>
@@ -197,7 +197,7 @@ Both method achieves the same outcome.
           <Card.Body>
             <Card.Title>'as' Prop</Card.Title>
             <Card.Text>Pass Button to Card.Link using the as prop</Card.Text>
-            <Card.Link href="#" as={Button}>
+            <Card.Link as={Button}>
               Button
             </Card.Link>
           </Card.Body>
@@ -213,7 +213,7 @@ Both method achieves the same outcome.
           <Card.Body>
             <Card.Title>children </Card.Title>
             <Card.Text>Directly add Button into Card as a children</Card.Text>
-            <Button href="#">Button</Button>
+            <Button>Button</Button>
           </Card.Body>
         </Card>
       </Col>
