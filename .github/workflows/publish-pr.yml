@@ -1,4 +1,4 @@
-name: Publish Alpha releases
+name: Publish Pre-releases
 
 on:
   push:
@@ -17,13 +17,12 @@ jobs:
         with:
           node-version: 12
           registry-url: 'https://registry.npmjs.org'
-      - run: echo "alpha"
+      - run: npm ci
+      - run: npm run ci:test
+      - run: npm run build
+      - run: npm publish --tag alpha ./dist
         if: contains(env.NPM_TAG, 'alpha')
-      - run: echo "beta"
+      - run: npm publish --tag beta ./dist
         if: contains(env.NPM_TAG, 'beta')
-      # - run: npm ci
-      # - run: npm run ci:test
-      # - run: npm run build
-      # - run: npm publish --tag alpha ./dist
         env:
           NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
