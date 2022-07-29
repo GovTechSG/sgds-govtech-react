@@ -109,7 +109,6 @@ import { Nav } from '@govtechsg/sgds-react/Nav';
 
 <ArgsTable story="Default" />
 
-## Code Sample
 
 ## MegaMenu Dropdown
 
@@ -124,45 +123,3 @@ for alternative layout.
   </Story>
 </Canvas>
 
-```jsx
-import { Nav } from '@govtechsg/sgds-react/Nav';
-import { Navbar } from '@govtechsg/sgds-react/Navbar';
-import { Container } from '@govtechsg/sgds-react/Container';
-import { Col } from '@govtechsg/sgds-react/Row';
-import { Row } from '@govtechsg/sgds-react/Col';
-
-const Megamenu = () => {
-  return (
-    <Navbar>
-      <Nav>
-        <Nav.Dropdown eventKey="5" isMegaMenu title="Megamenu">
-          <Container>
-            <Row>
-              <Col>
-                <Nav.Dropdown.Item eventKey="5.1">Action</Nav.Dropdown.Item>
-              </Col>
-              <Col>
-                <Nav.Dropdown.Item eventKey="5.2">Action</Nav.Dropdown.Item>
-              </Col>
-              <Col>
-                <Nav.Dropdown.Item eventKey="5.3">Action</Nav.Dropdown.Item>
-              </Col>
-            </Row>
-            <Row>
-              <Col>
-                <Nav.Dropdown.Item eventKey="5.4">Action</Nav.Dropdown.Item>
-              </Col>
-              <Col>
-                <Nav.Dropdown.Item eventKey="5.5">Action</Nav.Dropdown.Item>
-              </Col>
-              <Col>
-                <Nav.Dropdown.Item eventKey="5.6">Action</Nav.Dropdown.Item>
-              </Col>
-            </Row>
-          </Container>
-        </Nav.Dropdown>
-      </Nav>
-    </Navbar>
-  );
-};
-```

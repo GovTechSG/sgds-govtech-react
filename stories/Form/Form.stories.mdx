@@ -16,6 +16,39 @@ import { Form, Button } from '../../src/index';
   }}
 />
 
+export const templateCodeBasicForm = `
+const Form = () => {
+  const onSubmit = (event) => {
+    event.preventDefault();
+    console.log('submission prevented');
+  };
+  return (
+    <Form onSubmit={onSubmit}>
+      <Form.Group className="mb-3" controlId="formBasicEmail">
+        <Form.Label>Email address</Form.Label>
+        <Form.Text className="text-muted">
+          We'll never share your email with anyone else.
+        </Form.Text>
+        <Form.Control type="email" placeholder="Enter email" />
+      </Form.Group>
+      <Form.Group className="mb-3" controlId="formBasicPassword">
+        <Form.Label>Password</Form.Label>
+        <Form.Text className="text-muted">
+          Password has to be a combination of alphanumeric.
+        </Form.Text>
+        <Form.Control type="password" placeholder="Password" />
+      </Form.Group>
+      <Form.Group className="mb-3" controlId="formBasicCheckbox">
+        <Form.Check type="checkbox" label="Check me out" />
+      </Form.Group>
+      <Button variant="primary" type="submit">
+        Submit
+      </Button>
+    </Form>
+  );
+};
+`;
+
 # Forms
 
 Examples and usage guidelines for form control styles, layout options, and custom components for creating a wide variety of forms.
@@ -44,7 +77,11 @@ export const Template = (args) => {
         <Form.Text className="text-muted" id="pwdCombination">
           Password has to be a combination of alphanumeric.
         </Form.Text>
-        <Form.Control type="password" placeholder="Password" aria-describedby="pwdCombination" />
+        <Form.Control
+          type="password"
+          placeholder="Password"
+          aria-describedby="pwdCombination"
+        />
       </Form.Group>
       <Form.Group className="mb-3" controlId="formBasicCheckbox">
         <Form.Check type="checkbox" label="Check me out" />
@@ -57,7 +94,19 @@ export const Template = (args) => {
 };
 
 <Canvas>
-  <Story name="Basic">{Template.bind({})}</Story>
+  <Story
+    name="Basic"
+    parameters={{
+      docs: {
+        source: {
+          code: templateCodeBasicForm,
+        },
+        type: 'code',
+      },
+    }}
+  >
+    {Template.bind({})}
+  </Story>
 </Canvas>
 
 ## API
@@ -69,37 +118,6 @@ import { Form } from '@govtechsg/sgds-react/Form';
 <ArgsTable story="Basic" />
 
 For more detailed API documentation on `Form`, reference <a href="https://react-bootstrap.github.io/forms/overview/" target="_blank">here</a>.
-
-### Code sample
-
-```jsx
-import { Form, Button } from '@govtechsg/sgds-react';
-
-const onSubmit = (event) => {
-  event.preventDefault();
-  console.log('submission prevented');
-};
-
-<Form onSubmit={onSubmit}>
-  <Form.Group className="mb-3" controlId="formBasicEmail">
-    <Form.Label>Email address</Form.Label>
-    <Form.Control type="email" placeholder="Enter email" aria-describedby="noShare" />
-    <Form.Text className="text-muted" id="noShare">
-      We'll never share your email with anyone else.
-    </Form.Text>
-  </Form.Group>
-  <Form.Group className="mb-3" controlId="formBasicPassword">
-    <Form.Label>Password</Form.Label>
-    <Form.Control type="password" placeholder="Password" />
-  </Form.Group>
-  <Form.Group className="mb-3" controlId="formBasicCheckbox">
-    <Form.Check type="checkbox" label="Check me out" />
-  </Form.Group>
-  <Button variant="primary" type="submit">
-    Submit
-  </Button>
-</Form>;
-```
 
 ## Disabled forms
 
@@ -154,4 +172,3 @@ export const FormTextTemplate = (args) => {
 <Canvas>
   <Story name="Form Text">{FormTextTemplate.bind({})}</Story>
 </Canvas>
-

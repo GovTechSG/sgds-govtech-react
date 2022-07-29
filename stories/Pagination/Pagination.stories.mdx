@@ -5,6 +5,13 @@ import { Pagination, Table } from '../../src/index';
 <Meta
   title="Components/Pagination"
   component={Pagination}
+  parameters={{
+    docs: {
+      source: {
+        type: 'code',
+      },
+    },
+  }}
 />
 
 export const DUMMY_DATA = [
@@ -71,6 +78,144 @@ export const DUMMY_DATA = [
   },
 ];
 
+export const templateCodeAlternativeSizes = `
+<Pagination
+  size="md"
+  ...
+/>
+<Pagination
+  size="lg"
+  ...
+/>`;
+
+export const templateCodeDirectionVariant = `
+<Pagination
+directionVariant="text"
+...
+/>
+<Pagination
+directionVariant="icon"
+...
+/>
+`;
+
+export const templateCodeSettingLimit = `
+export const DUMMY_DATA = [
+  {
+    userId: 1,
+    id: 1,
+    title:
+      'sunt aut facere repellat provident occaecati excepturi optio reprehenderit',
+    body: 'quia et suscipit\nsuscipit recusandae consequuntur expedita et cum\nreprehenderit molestiae ut ut quas totam\nnostrum rerum est autem sunt rem eveniet architecto',
+  },
+  {
+    userId: 1,
+    id: 2,
+    title: 'qui est esse',
+    body: 'est rerum tempore vitae\nsequi sint nihil reprehenderit dolor beatae ea dolores neque\nfugiat blanditiis voluptate porro vel nihil molestiae ut reiciendis\nqui aperiam non debitis possimus qui neque nisi nulla',
+  },
+  {
+    userId: 1,
+    id: 3,
+    title: 'ea molestias quasi exercitationem repellat qui ipsa sit aut',
+    body: 'et iusto sed quo iure\nvoluptatem occaecati omnis eligendi aut ad\nvoluptatem doloribus vel accusantium quis pariatur\nmolestiae porro eius odio et labore et velit aut',
+  },
+  {
+    userId: 1,
+    id: 4,
+    title: 'eum et est occaecati',
+    body: 'ullam et saepe reiciendis voluptatem adipisci\nsit amet autem assumenda provident rerum culpa\nquis hic commodi nesciunt rem tenetur doloremque ipsam iure\nquis sunt voluptatem rerum illo velit',
+  },
+  {
+    userId: 1,
+    id: 5,
+    title: 'nesciunt quas odio',
+    body: 'repudiandae veniam quaerat sunt sed\nalias aut fugiat sit autem sed est\nvoluptatem omnis possimus esse voluptatibus quis\nest aut tenetur dolor neque',
+  },
+  {
+    userId: 1,
+    id: 6,
+    title: 'dolorem eum magni eos aperiam quia',
+    body: 'ut aspernatur corporis harum nihil quis provident sequi\nmollitia nobis aliquid molestiae\nperspiciatis et ea nemo ab reprehenderit accusantium quas\nvoluptate dolores velit et doloremque molestiae',
+  },
+  {
+    userId: 1,
+    id: 7,
+    title: 'magnam facilis autem',
+    body: 'dolore placeat quibusdam ea quo vitae\nmagni quis enim qui quis quo nemo aut saepe\nquidem repellat excepturi ut quia\nsunt ut sequi eos ea sed quas',
+  },
+  {
+    userId: 1,
+    id: 8,
+    title: 'dolorem dolore est ipsam',
+    body: 'dignissimos aperiam dolorem qui eum\nfacilis quibusdam animi sint suscipit qui sint possimus cum\nquaerat magni maiores excepturi\nipsam ut commodi dolor voluptatum modi aut vitae',
+  },
+  {
+    userId: 1,
+    id: 9,
+    title: 'nesciunt iure omnis dolorem tempora et accusantium',
+    body: 'consectetur animi nesciunt iure dolore\nenim quia ad\nveniam autem ut quam aut nobis\net est aut quod aut provident voluptas autem voluptas',
+  },
+  {
+    userId: 1,
+    id: 10,
+    title: 'optio molestias id quia eum',
+    body: 'quo et expedita modi cum officia vel magni\ndoloribus qui repudiandae\nvero nisi sit\nquos veniam quod sed accusamus veritatis error',
+  },
+];
+export const PaginationTpl = () => {
+  const renderData = (data) => {
+    return (
+      <>
+        {data.map((post, index) => {
+          return (
+            <tr key={index}>
+              <td>{post.id}</td>
+              <td key={index}>{post.title}</td>
+              <td>{post.body}</td>
+            </tr>
+          );
+        })}
+      </>
+    );
+  };
+  const [data, setData] = useState(DUMMY_DATA);
+  const [currentPage, setCurrentPage] = useState(1);
+  const [itemsPerPage, setItemsPerPage] = useState(1);
+  const indexOfLastItem = currentPage * itemsPerPage;
+  const indexofFirstItem = indexOfLastItem - itemsPerPage;
+  const currentItems = data.slice(indexofFirstItem, indexOfLastItem);
+  return (
+    <Pagination
+      limit={5}
+      dataLength={data.length}
+      currentPage={currentPage}
+      setCurrentPage={setCurrentPage}
+      itemsPerPage={itemsPerPage}
+    />
+  );
+};`;
+
+export const templateCodeEllipsis = `
+<Pagination
+ellipsisOn={true}
+...
+/>
+`;
+
+export const templateCodeEllipsisJump = `
+<Pagination
+ellipsisOn={true}
+ellipsisJump={5}
+...
+/>
+<Pagination
+ellipsisOn={true}
+ellipsisJump={8}
+...
+/>
+`;
+
 export const PaginationTpl = (args) => {
   const renderData = (data) => {
     return (
@@ -94,13 +239,13 @@ export const PaginationTpl = (args) => {
   const indexofFirstItem = indexOfLastItem - itemsPerPage;
   const currentItems = data.slice(indexofFirstItem, indexOfLastItem);
   return (
-      <Pagination
-        {...args}
-        dataLength={data.length}
-        currentPage={currentPage}
-        setCurrentPage={setCurrentPage}
-        itemsPerPage={itemsPerPage}
-      />
+    <Pagination
+      {...args}
+      dataLength={data.length}
+      currentPage={currentPage}
+      setCurrentPage={setCurrentPage}
+      itemsPerPage={itemsPerPage}
+    />
   );
 };
 
@@ -165,14 +310,12 @@ The Pagination component enables the user to select a specific page from a range
 
 The `<Pagination>` component will include some props which is needed for the pagination to work. Users will be required to provide the **data objects** to be passed in as data length, a **current page** set as initial active, and set the **number of data items** to be rendered per page. Below is a sample of pagination with a table formatted data.
 
-<Canvas>
-  <Story name="Standard">{PaginationWTableTpl.bind({})}</Story>
-</Canvas>
+<Story name="Standard">{PaginationWTableTpl.bind({})}</Story>
 
 ## API
 
 ```jsx
-import { Pagination } from '@govtechsg/sgds-react/Pagination'; 
+import { Pagination } from '@govtechsg/sgds-react/Pagination';
 ```
 
 <ArgsTable story="Standard" />
@@ -227,7 +370,6 @@ export const PaginationWTableTpl = () => {
         <tbody>{renderData(currentItems)}</tbody>
       </Table>
       <Pagination
-        {...args}
         dataLength={data.length}
         currentPage={currentPage}
         setCurrentPage={setCurrentPage}
@@ -243,11 +385,44 @@ export const PaginationWTableTpl = () => {
 By default, the size is set at `sm`. Alternatively, you could also specify `md` or ` lg` to alter the sizes.
 
 <Canvas>
-  <Story name="Size-sm">{PaginationTpl.bind({})}</Story>
-  <Story name="Size-md" args={{ size: 'md' }}>
+  <Story
+    name="Size-sm"
+    parameters={{
+      docs: {
+        source: {
+          code: templateCodeAlternativeSizes,
+        },
+        type: 'code',
+      },
+    }}
+  >
     {PaginationTpl.bind({})}
   </Story>
-  <Story name="Size-lg" args={{ size: 'lg' }}>
+  <Story
+    name="Size-md"
+    args={{ size: 'md' }}
+    parameters={{
+      docs: {
+        source: {
+          code: '',
+        },
+      },
+    }}
+  >
+    {PaginationTpl.bind({})}
+  </Story>
+  <Story
+    name="Size-lg"
+    args={{ size: 'lg' }}
+    parameters={{
+      docs: {
+        source: {
+          code: '',
+        },
+        type: 'code',
+      },
+    }}
+  >
     {PaginationTpl.bind({})}
   </Story>
 </Canvas>
@@ -257,29 +432,93 @@ By default, the size is set at `sm`. Alternatively, you could also specify `md` 
 The `directionVariant` string prop allows you to toggle between rendering text and arrow direction for the increment/decrement pages button as shown below. By default, it is set to `icon-text`, but can be also be set to just `text` or `icon`.
 
 <Canvas>
-  <Story name="Direction Variant icon-text">{PaginationTpl.bind({})}</Story>
-  <Story name="Direction Variant text" args={{ directionVariant: 'text' }}>
+  <Story
+    name="Direction Variant icon-text"
+    parameters={{
+      docs: {
+        source: {
+          code: templateCodeDirectionVariant,
+        },
+        type: 'code',
+      },
+    }}
+  >
     {PaginationTpl.bind({})}
   </Story>
-  <Story name="Direction Variant icon" args={{ directionVariant: 'icon' }}>
+  <Story
+    name="Direction Variant text"
+    args={{ directionVariant: 'text' }}
+    parameters={{
+      docs: {
+        source: {
+          code: '',
+        },
+      },
+    }}
+  >
+    {PaginationTpl.bind({})}
+  </Story>
+  <Story
+    name="Direction Variant icon"
+    args={{ directionVariant: 'icon' }}
+    parameters={{
+      docs: {
+        source: {
+          code: '',
+        },
+      },
+    }}
+  >
     {PaginationTpl.bind({})}
   </Story>
 </Canvas>
 
 ## Setting Limit
 
-The `limit` prop will set the number of pages shown at any one time. It will be based on the `data.length` and `itemsPerPage` provided by user. 
-By default, limit is set to **3** and `itemsperPage` is set to **5**. 
+The `limit` prop will set the number of pages shown at any one time. It will be based on the `data.length` and `itemsPerPage` provided by user.
+By default, limit is set to **3** and `itemsperPage` is set to **5**.
 
 To illustrate, the examples below has been set to use a dummy data `data.length` of **10** and `itemsPerPage` of **1**. So altogether, there will be a total of **10** pages in the pagination.
-By setting the limit to **3** or **5** or **8**, it will show the number of pages equal to the particular limit given. Do ***note*** that if limit is set to be of higher value than the total pages for the pagination, it will just render the total pages at one go, ignoring the limit.
+By setting the limit to **3** or **5** or **8**, it will show the number of pages equal to the particular limit given. Do **_note_** that if limit is set to be of higher value than the total pages for the pagination, it will just render the total pages at one go, ignoring the limit.
 
 <Canvas>
-  <Story name="Limit 3">{PaginationTpl.bind({})}</Story>
-  <Story name="Limit 5" args={{ limit: 5 }}>
+  <Story
+    name="Limit 3"
+    parameters={{
+      docs: {
+        source: {
+          code: templateCodeSettingLimit,
+        },
+        type: 'code',
+      },
+    }}
+  >
     {PaginationTpl.bind({})}
   </Story>
-  <Story name="Limit 8" args={{ limit: 8 }}>
+  <Story
+    name="Limit 5"
+    args={{ limit: 5 }}
+    parameters={{
+      docs: {
+        source: {
+          code: '',
+        },
+      },
+    }}
+  >
+    {PaginationTpl.bind({})}
+  </Story>
+  <Story
+    name="Limit 8"
+    args={{ limit: 8 }}
+    parameters={{
+      docs: {
+        source: {
+          code: '',
+        },
+      },
+    }}
+  >
     {PaginationTpl.bind({})}
   </Story>
 </Canvas>
@@ -289,25 +528,78 @@ By setting the limit to **3** or **5** or **8**, it will show the number of page
 The `ellipsisOn` boolean prop allows user to skip pages using `ellipsisJump`. By default with `false`, it shows a disabled increment ellipsis button. Setting to `true` will render and allow functionality of both ellipsis direction button.
 
 <Canvas>
-  <Story name="Ellipsis Off">{PaginationTpl.bind({})}</Story>
-  <Story name="Ellipsis On" args={{ ellipsisOn: true }}>
+  <Story
+    name="Ellipsis Off"
+    parameters={{
+      docs: {
+        source: {
+          code: templateCodeEllipsis,
+        },
+        type: 'code',
+      },
+    }}
+  >
+    {PaginationTpl.bind({})}
+  </Story>
+  <Story
+    name="Ellipsis On"
+    args={{ ellipsisOn: true }}
+    parameters={{
+      docs: {
+        source: {
+          code: '',
+        },
+      },
+    }}
+  >
     {PaginationTpl.bind({})}
   </Story>
 </Canvas>
 
 ## Ellipsis Jump
 
-By default, `ellipsisJump` value is set to 3. Set as desired to decrement/increment pages for the Ellipsis button. If it is set to be of higher value than the total pages in pagination, 
+By default, `ellipsisJump` value is set to 3. Set as desired to decrement/increment pages for the Ellipsis button. If it is set to be of higher value than the total pages in pagination,
 it will decrement/increment to the end of the pages respectively.
 
 <Canvas>
-  <Story name="Ellipsis Jump - 3" args={{ ellipsisOn: true, ellipsisJump: 3 }}>
+  <Story
+    name="Ellipsis Jump - 3"
+    args={{ ellipsisOn: true, ellipsisJump: 3 }}
+    parameters={{
+      docs: {
+        source: {
+          code: templateCodeEllipsisJump,
+        },
+        type: 'code',
+      },
+    }}
+  >
     {PaginationTpl.bind({})}
   </Story>
-  <Story name="Ellipsis Jump - 5" args={{ ellipsisOn: true, ellipsisJump: 5 }}>
+  <Story
+    name="Ellipsis Jump - 5"
+    args={{ ellipsisOn: true, ellipsisJump: 5 }}
+    parameters={{
+      docs: {
+        source: {
+          code: '',
+        },
+      },
+    }}
+  >
     {PaginationTpl.bind({})}
   </Story>
-  <Story name="Ellipsis Jump - 8" args={{ ellipsisOn: true, ellipsisJump: 8 }}>
+  <Story
+    name="Ellipsis Jump - 8"
+    args={{ ellipsisOn: true, ellipsisJump: 8 }}
+    parameters={{
+      docs: {
+        source: {
+          code: '',
+        },
+      },
+    }}
+  >
     {PaginationTpl.bind({})}
   </Story>
 </Canvas>

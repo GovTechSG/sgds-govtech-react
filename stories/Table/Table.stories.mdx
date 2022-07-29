@@ -2,10 +2,18 @@ import { ArgsTable, Canvas, Meta, Story } from '@storybook/addon-docs';
 
 import { Table } from '../../src/index';
 
-<Meta
-  title="Components/Table"
-  component={Table}
-/>
+<Meta title="Components/Table" component={Table} />
+
+export const templateCodeAlwaysResponsive = `
+<Table responsive>...</Table>;`;
+
+export const templateCodeBreakpointSpec = `
+<div>
+  <Table responsive="sm">...</Table>
+  <Table responsive="md">...</Table>
+  <Table responsive="lg">...</Table>
+  <Table responsive="xl">...</Table>
+</div>;`;
 
 export const Basic = (args) => {
   return (
@@ -52,44 +60,10 @@ Use the `striped`, `bordered` and `hover` props to customise the table.
 ## API
 
 ```jsx
-import { Table } from '@govtechsg/sgds-react/Table'; 
+import { Table } from '@govtechsg/sgds-react/Table';
 ```
 
 <ArgsTable story="Default" />
-
-```jsx
-import { Table } from '@govtechsg/sgds-react';
-
-<Table>
-  <thead>
-    <tr>
-      <th>#</th>
-      <th>First Name</th>
-      <th>Last Name</th>
-      <th>Username</th>
-    </tr>
-  </thead>
-  <tbody>
-    <tr>
-      <td>1</td>
-      <td>Mark</td>
-      <td>Otto</td>
-      <td>@mdo</td>
-    </tr>
-    <tr>
-      <td>2</td>
-      <td>Jacob</td>
-      <td>Thornton</td>
-      <td>@fat</td>
-    </tr>
-    <tr>
-      <td>3</td>
-      <td colSpan={2}>Larry the Bird</td>
-      <td>@twitter</td>
-    </tr>
-  </tbody>
-</Table>;
-```
 
 ## Small Table
 
@@ -101,12 +75,6 @@ Use `size="sm"` to make tables compact by cutting cell padding in half.
   </Story>
 </Canvas>
 
-```jsx
-import { Table } from '@govtechsg/sgds-react';
-
-<Table size="sm">...</Table>;
-```
-
 ## Striped Body
 
 Adds zebra-striping using `striped` to table row within the `<tbody>`.
@@ -116,12 +84,6 @@ Adds zebra-striping using `striped` to table row within the `<tbody>`.
     {Basic.bind({})}
   </Story>
 </Canvas>
-
-```jsx
-import { Table } from '@govtechsg/sgds-react';
-
-<Table striped>...</Table>;
-```
 
 ## Bordered Body
 
@@ -133,12 +95,6 @@ Use `bordered` to add borders on all sides of the table and cells.
   </Story>
 </Canvas>
 
-```jsx
-import { Table } from '@govtechsg/sgds-react';
-
-<Table bordered>...</Table>;
-```
-
 ## Borderless Body
 
 Add `borderless` to remove all borders on the table and cells, including table header.
@@ -148,12 +104,6 @@ Add `borderless` to remove all borders on the table and cells, including table h
     {Basic.bind({})}
   </Story>
 </Canvas>
-
-```jsx
-import { Table } from '@govtechsg/sgds-react';
-
-<Table borderless>...</Table>;
-```
 
 ## Hovered Body
 
@@ -165,12 +115,6 @@ Use `hover` to enable a hover state on table rows within a `<tbody>`.
   </Story>
 </Canvas>
 
-```jsx
-import { Table } from '@govtechsg/sgds-react';
-
-<Table hover>...</Table>;
-```
-
 ## Dark Table
 
 Use `variant="dark"` to invert the colors of the table and get light text on a dark background.
@@ -180,12 +124,6 @@ Use `variant="dark"` to invert the colors of the table and get light text on a d
     {Basic.bind({})}
   </Story>
 </Canvas>
-
-```jsx
-import { Table } from '@govtechsg/sgds-react';
-
-<Table variant="dark">...</Table>;
-```
 
 ## Responsive
 
@@ -234,16 +172,21 @@ export const AlwaysResponsive = (args) => {
 };
 
 <Canvas>
-  <Story name="Responsive" args={{ responsive: true }}>
+  <Story
+    name="Responsive"
+    args={{ responsive: true }}
+    parameters={{
+      docs: {
+        source: {
+          code: templateCodeAlwaysResponsive,
+        },
+        type: 'code',
+      },
+    }}
+  >
     {AlwaysResponsive.bind({})}
   </Story>
 </Canvas>
-
-```jsx
-import { Table } from '@govtechsg/sgds-react';
-
-<Table responsive>...</Table>;
-```
 
 ## Breakpoint specific
 
@@ -262,16 +205,17 @@ export const BpResponsive = () => {
 };
 
 <Canvas>
-  <Story name="Breakpoint Specific">{BpResponsive.bind({})}</Story>
+  <Story
+    name="Breakpoint Specific"
+    parameters={{
+      docs: {
+        source: {
+          code: templateCodeBreakpointSpec,
+        },
+        type: 'code',
+      },
+    }}
+  >
+    {BpResponsive.bind({})}
+  </Story>
 </Canvas>
-
-```jsx
-import { Table } from '@govtechsg/sgds-react';
-
-<div>
-  <Table responsive="sm">...</Table>
-  <Table responsive="md">...</Table>
-  <Table responsive="lg">...</Table>
-  <Table responsive="xl">...</Table>
-</div>;
-```

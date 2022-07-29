@@ -76,31 +76,6 @@ import { Badge } from '@govtechsg/sgds-react/Badge';
 
 <ArgsTable story="Badge" />
 
-```jsx
-import { Badge } from '@govtechsg/sgds-react';
-
-<div>
-  <h1>
-    Example heading <Badge>New</Badge>
-  </h1>
-  <h2>
-    Example heading <Badge>New</Badge>
-  </h2>
-  <h3>
-    Example heading <Badge>New</Badge>
-  </h3>
-  <h4>
-    Example heading <Badge>New</Badge>
-  </h4>
-  <h5>
-    Example heading <Badge>New</Badge>
-  </h5>
-  <h6>
-    Example heading <Badge>New</Badge>
-  </h6>
-</div>;
-```
-
 ## Contextual variations
 
 Add any of the below mentioned modifier classes to change the appearance of a badge.
@@ -122,23 +97,6 @@ Add any of the below mentioned modifier classes to change the appearance of a ba
     </div>
   </Story>
 </Canvas>
-
-```jsx
-import { Badge } from '@govtechsg/sgds-react';
-
-<div>
-  <Badge bg="primary">Primary</Badge> <Badge bg="secondary">Secondary</Badge>
-  <Badge bg="success">Success</Badge> <Badge bg="danger">Danger</Badge>
-  <Badge bg="warning" text="dark">
-    Warning
-  </Badge>
-  <Badge bg="info">Info</Badge>
-  <Badge bg="light" text="dark">
-    Light
-  </Badge>
-  <Badge bg="dark">Dark</Badge>
-</div>;
-```
 
 ## Pills
 
@@ -175,37 +133,6 @@ You may also use the pill modifier class to make badges more rounded (with a lar
   </Story>
 </Canvas>
 
-```jsx
-import { Badge } from '@govtechsg/sgds-react';
-
-<div>
-  <Badge pill bg="primary">
-    Primary
-  </Badge>
-  <Badge pill bg="secondary">
-    Secondary
-  </Badge>
-  <Badge pill bg="success">
-    Success
-  </Badge>
-  <Badge pill bg="danger">
-    Danger
-  </Badge>
-  <Badge pill bg="warning" text="dark">
-    Warning
-  </Badge>
-  <Badge pill bg="info">
-    Info
-  </Badge>
-  <Badge pill bg="light" text="dark">
-    Light
-  </Badge>
-  <Badge pill bg="dark">
-    Dark
-  </Badge>
-</div>;
-```
-
 export const ComponentBadgeTemplate = (args) => (
   <Button className="position-relative">
     Inbox
@@ -231,20 +158,3 @@ Badge can also be used on other components as a dot indicator or text indicator 
     {ComponentBadgeTemplate.bind({})}
   </Story>
 </Canvas>
-
-Add css selector `position-relative` to the Component that wraps the badge. See example below
-
-```jsx
-//dotIndicator
-<Button className="position-relative">
-   Inbox
-   <Badge dotIndicator bg="danger">
-   </Badge>
- </Button>
- //textIndicator
-<Button className="position-relative">
-   Inbox
-   <Badge textIndicator bg="danger">
-   </Badge>
- </Button>
-```
