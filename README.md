@@ -14,7 +14,7 @@ See the below table on which version of `@govtechsg/sgds` you should be using in
 
 ## Installation
 
-`@govtechsg/sgds-react` is not ship with any included CSS . Apply `@govtechsg/sgds@2.0.0` styles by installing the module or using CDN.
+`@govtechsg/sgds-react` is not ship with any included CSS . Apply `@govtechsg/sgds@latest` styles by installing the module or using CDN.
 
 `@govtechsg/sgds-react` uses `bootstrap-icons` for certain components like Form but it is not ship with it. Install `bootstrap-icons` or use CDN if you need it Please refer to [bootstrap-icons](https://icons.getbootstrap.com/#usage) for usage instructions
 
@@ -55,10 +55,10 @@ import '@govtechsg/sgds/sass/sgds.scss';
 ```js
 
 //index.html
-<link href='https://v2dev.designsystem.gov.sg/css/sgds.css' rel='stylesheet' type='text/css'/>
+<link href='https://designsystem.gov.sg/css/sgds.css' rel='stylesheet' type='text/css'/>
 
 //index.css
-@import url('https://v2dev.designsystem.gov.sg/css/sgds.css');
+@import url('https://designsystem.gov.sg/css/sgds.css');
 
 ```
 
@@ -66,7 +66,7 @@ import '@govtechsg/sgds/sass/sgds.scss';
 
 ## Customisation with Sass
 
-If you want to modify SGDS's base styling, you can import the Sass source (your project needs to support Sass compilation) and [override SGDS's sass variables](https://www.designsystem.tech.gov.sg/docs/customise-sgds/).
+If you want to modify SGDS's base styling, you can import the Sass source (your project needs to support Sass compilation) and [override SGDS's sass variables](https://www.designsystem.tech.gov.sg/get-started/customise-with-sass).
 
 
 ```
@@ -99,7 +99,7 @@ export default function App() {
 }
 ```
 
-For more information on customising with Sass, see the [SGDS documentation](https://www.designsystem.tech.gov.sg/docs/customise-sgds/).
+For more information on customising with Sass, see the [SGDS documentation](https://www.designsystem.tech.gov.sg/get-started/customise-with-sass).
 
 ## "as" Prop API
 
