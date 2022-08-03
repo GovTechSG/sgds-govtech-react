@@ -2,7 +2,7 @@
 
 React components powered by [Singapore Government Design System](https://www.designsystem.gov.sg)
 
-`@govtechsg/sgds-react` take references from [react-boostrap](https://react-bootstrap.github.io/)
+`@govtechsg/sgds-react` take references from [react-bootstrap](https://react-bootstrap.github.io/)
 
 ## Version Compatibility
 
@@ -14,15 +14,15 @@ See the below table on which version of `@govtechsg/sgds` you should be using in
 
 ## Installation
 
-`@govtechsg/sgds-react` is not ship with any included CSS . Apply `@govtechsg/sgds@latest` styles by installing the module or using CDN.
+`@govtechsg/sgds-react` is not shipped with any included CSS. Apply `@govtechsg/sgds@latest` styles by installing the module or using CDN.
 
-`@govtechsg/sgds-react` uses `bootstrap-icons` for certain components like Form but it is not ship with it. Install `bootstrap-icons` or use CDN if you need it Please refer to [bootstrap-icons](https://icons.getbootstrap.com/#usage) for usage instructions
+`@govtechsg/sgds-react` uses `bootstrap-icons` for certain components like Form, but does not ship with it. Install `bootstrap-icons` or use CDN if you need it. Please refer to [bootstrap-icons](https://icons.getbootstrap.com/#usage) for usage instructions
 
 ```js
 
 npm install @govtechsg/sgds-react
 
-//not required if using cdn
+//not required if using CDN
 npm install @govtechsg/sgds bootstrap-icons
 
 ```
@@ -68,7 +68,6 @@ import '@govtechsg/sgds/sass/sgds.scss';
 
 If you want to modify SGDS's base styling, you can import the Sass source (your project needs to support Sass compilation) and [override SGDS's sass variables](https://www.designsystem.tech.gov.sg/get-started/customise-with-sass).
 
-
 ```
 npm install @govtechsg/sgds
 ```
@@ -105,7 +104,6 @@ For more information on customising with Sass, see the [SGDS documentation](http
 
 With certain SGDS React components, you may want to modify the component or HTML tag that is rendered.
 
-If you want to keep all the styling of a particular component but switch the component that is finally rendered (whether it's a different SGDS React component, a different custom component, or a different HTML tag) you can use the "as" Prop to do so.
+If you want to keep all the styling of a particular component but switch the component that is finally rendered (whether it's a different SGDS React component, a different custom component, or a different HTML tag), you can use the "as" Prop to do so.
 
 See [example](https://react-bootstrap.github.io/getting-started/introduction#as-prop-api)
-
