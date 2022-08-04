@@ -2,7 +2,6 @@ import { ArgsTable, Canvas, Meta, Story } from '@storybook/addon-docs';
 import { SgdsMasthead } from '@govtechsg/sgds-masthead-react';
 import '@govtechsg/sgds-masthead/dist/sgds-masthead/sgds-masthead.css';
 
-
 import {
   Form,
   Button,
@@ -18,7 +17,7 @@ import {
   Nav,
   Navbar,
   NavDropdown,
-  SideNav
+  SideNav,
 } from '../../src/index';
 
 import { useState } from 'react';
@@ -39,26 +38,31 @@ export const SinglePageTemplate = () => {
       <SgdsMasthead />
       <section className="my-8 mx-md-8">
         <Breadcrumb>
-          <Breadcrumb.Item href="">
-            HOME
-          </Breadcrumb.Item>
-          <Breadcrumb.Item active>
-            SIGN-UP
-          </Breadcrumb.Item>
+          <Breadcrumb.Item href="">HOME</Breadcrumb.Item>
+          <Breadcrumb.Item active>SIGN-UP</Breadcrumb.Item>
         </Breadcrumb>
         <Row>
           <Col xs={12} md={6}>
             <h1>Sign-up</h1>
-            <p className="text-muted">Already a member? <a href="" className="text-decoration-none">Log in</a></p>
+            <p className="text-muted">
+              Already a member?{' '}
+              <a href="" className="text-decoration-none">
+                Log in
+              </a>
+            </p>
           </Col>
-          <Col xs={12} md={6} className="d-flex justify-content-end align-items-center">
-            <a href="" className="me-4">Cancel</a>
+          <Col
+            xs={12}
+            md={6}
+            className="d-flex justify-content-end align-items-center"
+          >
+            <a href="" className="me-4">
+              Cancel
+            </a>
             <Button variant="outline-dark" className="me-4">
-                Save as draft
+              Save as draft
             </Button>
-            <Button variant="secondary">
-                Next
-            </Button>
+            <Button variant="secondary">Next</Button>
           </Col>
         </Row>
       </section>
@@ -103,7 +107,7 @@ export const SinglePageTemplate = () => {
             </Form.Group>
             <Form.Group className="mb-4" controlId="formSinglePageDatepicker1">
               <Form.Label>Label</Form.Label>
-              <DatePicker/>
+              <DatePicker />
             </Form.Group>
             <Form.Group className="mb-3" controlId="formSinglePageSelect1">
               <Form.Label>Label</Form.Label>
@@ -139,24 +143,32 @@ export const SinglePageTemplate = () => {
       </section>
       <div className="d-flex justify-content-end my-8 mx-md-8">
         <Button variant="secondary" type="submit">
-              Submit
+          Submit
         </Button>
       </div>
       <Footer>
         <Footer.Top>
           <Footer.Top.ContactLinks>
-            <a href="" target="_blank">Contact</a>
-            <a href="" target="_blank">Feedback</a>
+            <a href="" target="_blank">
+              Contact
+            </a>
+            <a href="" target="_blank">
+              Feedback
+            </a>
           </Footer.Top.ContactLinks>
         </Footer.Top>
         <Footer.Bottom>
           <Footer.Bottom.Links>
-            <a href="" target="_blank">Report Vulnerability</a>
-            <a href="">Privacy</a>
+            <a href="" target="_blank">
+              Report Vulnerability
+            </a>
+            <a href="">Privacy Statement</a>
             <a href="">Terms of use</a>
           </Footer.Bottom.Links>
-          <Footer.Bottom.Copyrights>
-            © 2022 Government of Singapore. Last Updated 08 Feb 2022
+          <Footer.Bottom.Copyrights className="text-end">
+            © 2022 Government of Singapore
+            <br />
+            Last Updated 08 Feb 2022
           </Footer.Bottom.Copyrights>
         </Footer.Bottom>
       </Footer>
@@ -388,26 +400,31 @@ export const MultiPageTemplate = () => {
           <SgdsMasthead />
           <section className="my-8 mx-md-8">
             <Breadcrumb>
-              <Breadcrumb.Item href="">
-                HOME
-              </Breadcrumb.Item>
-              <Breadcrumb.Item active>
-                SIGN-UP
-              </Breadcrumb.Item>
+              <Breadcrumb.Item href="">HOME</Breadcrumb.Item>
+              <Breadcrumb.Item active>SIGN-UP</Breadcrumb.Item>
             </Breadcrumb>
             <Row className="mb-4">
               <Col xs={12} md={6}>
                 <h1>Sign-up</h1>
-                <p className="text-muted">Already a member? <a href="" className="text-decoration-none">Log in</a></p>
+                <p className="text-muted">
+                  Already a member?{' '}
+                  <a href="" className="text-decoration-none">
+                    Log in
+                  </a>
+                </p>
               </Col>
-              <Col xs={12} md={6} className="d-flex justify-content-end align-items-center">
-                <a href="" className="me-4">Cancel</a>
+              <Col
+                xs={12}
+                md={6}
+                className="d-flex justify-content-end align-items-center"
+              >
+                <a href="" className="me-4">
+                  Cancel
+                </a>
                 <Button variant="outline-dark" className="me-4">
-                    Save as draft
+                  Save as draft
                 </Button>
-                <Button variant="secondary">
-                    Next
-                </Button>
+                <Button variant="secondary">Next</Button>
               </Col>
             </Row>
           </section>
@@ -420,7 +437,11 @@ export const MultiPageTemplate = () => {
           <div className="d-flex justify-content-end my-8 mx-md-8">
             <div>
               {getBackButtonTitle() && (
-                <Button onClick={prevStep} variant="outline-dark" className="me-3">
+                <Button
+                  onClick={prevStep}
+                  variant="outline-dark"
+                  className="me-3"
+                >
                   {getBackButtonTitle()}
                 </Button>
               )}
@@ -439,18 +460,25 @@ export const MultiPageTemplate = () => {
           <Footer>
             <Footer.Top>
               <Footer.Top.ContactLinks>
-                <a href="" target="_blank">Contact</a>
-                <a href="" target="_blank">Feedback</a>
+                <a href="" target="_blank">
+                  Contact
+                </a>
+                <a href="" target="_blank">
+                  Feedback
+                </a>
               </Footer.Top.ContactLinks>
             </Footer.Top>
             <Footer.Bottom>
               <Footer.Bottom.Links>
-                <a href="" target="_blank">Report Vulnerability</a>
-                <a href="">Privacy</a>
+                <a href="" target="_blank">
+                  Report Vulnerability
+                </a>
+                <a href="">Privacy Statement</a>
                 <a href="">Terms of use</a>
               </Footer.Bottom.Links>
-              <Footer.Bottom.Copyrights>
-                © 2022 Government of Singapore. Last Updated 08 Feb 2022
+              <Footer.Bottom.Copyrights className="text-end">
+                © 2022 Government of Singapore <br />
+                Last Updated 08 Feb 2022
               </Footer.Bottom.Copyrights>
             </Footer.Bottom>
           </Footer>
@@ -474,26 +502,31 @@ export const AccordionSinglePageTemplate = () => {
       <SgdsMasthead />
       <section className="my-8 mx-md-8">
         <Breadcrumb>
-          <Breadcrumb.Item href="">
-            HOME
-          </Breadcrumb.Item>
-          <Breadcrumb.Item active>
-            SIGN-UP
-          </Breadcrumb.Item>
+          <Breadcrumb.Item href="">HOME</Breadcrumb.Item>
+          <Breadcrumb.Item active>SIGN-UP</Breadcrumb.Item>
         </Breadcrumb>
         <Row className="mb-4">
           <Col xs={12} md={6}>
             <h1>Sign-up</h1>
-            <p className="text-muted">Already a member? <a href="" className="text-decoration-none">Log in</a></p>
+            <p className="text-muted">
+              Already a member?{' '}
+              <a href="" className="text-decoration-none">
+                Log in
+              </a>
+            </p>
           </Col>
-          <Col xs={12} md={6} className="d-flex justify-content-end align-items-center">
-            <a href="" className="me-4">Cancel</a>
+          <Col
+            xs={12}
+            md={6}
+            className="d-flex justify-content-end align-items-center"
+          >
+            <a href="" className="me-4">
+              Cancel
+            </a>
             <Button variant="outline-dark" className="me-4">
-                Save as draft
+              Save as draft
             </Button>
-            <Button variant="secondary">
-                Next
-            </Button>
+            <Button variant="secondary">Next</Button>
           </Col>
         </Row>
       </section>
@@ -547,7 +580,10 @@ export const AccordionSinglePageTemplate = () => {
           <Accordion.Header>Input 2</Accordion.Header>
           <Accordion.Body className="p-5">
             <Col sm={8}>
-              <Form.Group className="mb-4" controlId="formCollapsibleDatepicker1">
+              <Form.Group
+                className="mb-4"
+                controlId="formCollapsibleDatepicker1"
+              >
                 <Form.Label>Label</Form.Label>
                 <DatePicker />
               </Form.Group>
@@ -597,18 +633,26 @@ export const AccordionSinglePageTemplate = () => {
       <Footer>
         <Footer.Top>
           <Footer.Top.ContactLinks>
-            <a href="" target="_blank">Contact</a>
-            <a href="" target="_blank">Feedback</a>
+            <a href="" target="_blank">
+              Contact
+            </a>
+            <a href="" target="_blank">
+              Feedback
+            </a>
           </Footer.Top.ContactLinks>
         </Footer.Top>
         <Footer.Bottom>
           <Footer.Bottom.Links>
-            <a href="" target="_blank">Report Vulnerability</a>
-            <a href="">Privacy</a>
+            <a href="" target="_blank">
+              Report Vulnerability
+            </a>
+            <a href="">Privacy Statement</a>
             <a href="">Terms of use</a>
           </Footer.Bottom.Links>
-          <Footer.Bottom.Copyrights>
-            © 2022 Government of Singapore. Last Updated 08 Feb 2022
+          <Footer.Bottom.Copyrights className="text-end">
+            © 2022 Government of Singapore
+            <br />
+            Last Updated 08 Feb 2022
           </Footer.Bottom.Copyrights>
         </Footer.Bottom>
       </Footer>
@@ -627,16 +671,19 @@ export const AccordionSinglePageTemplate = () => {
 A landing page is a standalone page distinct from any other pages including homepage, which serves a specific purpose or action.
 
 export const LandingPageTemplate = () => {
-  const [active, setActive] = useState("about")
+  const [active, setActive] = useState('about');
   const clickNavbarItem = (eventKey) => {
-    setActive(eventKey)
-  }
+    setActive(eventKey);
+  };
   return (
     <div>
       <SgdsMasthead />
       <Navbar className="mt-4" expand="sm">
         <Navbar.Brand href="">
-          <img src="https://www.developer.tech.gov.sg/assets/img/logo_color.svg" alt="Home" />
+          <img
+            src="https://www.developer.tech.gov.sg/assets/img/logo_color.svg"
+            alt="Home"
+          />
         </Navbar.Brand>
         <Navbar.Toggle aria-controls="landingNav" />
         <Navbar.Collapse id="landingNav">
@@ -699,18 +746,26 @@ export const LandingPageTemplate = () => {
       <Footer>
         <Footer.Top>
           <Footer.Top.ContactLinks>
-            <a href="" target="_blank">Contact</a>
-            <a href="" target="_blank">Feedback</a>
+            <a href="" target="_blank">
+              Contact
+            </a>
+            <a href="" target="_blank">
+              Feedback
+            </a>
           </Footer.Top.ContactLinks>
         </Footer.Top>
         <Footer.Bottom>
           <Footer.Bottom.Links>
-            <a href="" target="_blank">Report Vulnerability</a>
-            <a href="">Privacy</a>
+            <a href="" target="_blank">
+              Report Vulnerability
+            </a>
+            <a href="">Privacy Statement</a>
             <a href="">Terms of use</a>
           </Footer.Bottom.Links>
-          <Footer.Bottom.Copyrights>
-            © 2022 Government of Singapore. Last Updated 08 Feb 2022
+          <Footer.Bottom.Copyrights className="text-end">
+            © 2022 Government of Singapore
+            <br />
+            Last Updated 08 Feb 2022
           </Footer.Bottom.Copyrights>
         </Footer.Bottom>
       </Footer>
@@ -719,9 +774,7 @@ export const LandingPageTemplate = () => {
 };
 
 <Canvas>
-  <Story name="Landing Page">
-    {LandingPageTemplate.bind({})}
-  </Story>
+  <Story name="Landing Page">{LandingPageTemplate.bind({})}</Story>
 </Canvas>
 
 # Detail Page Basic
@@ -729,16 +782,19 @@ export const LandingPageTemplate = () => {
 Detail page basic may consist of any relevant information related to a certain product or service.
 
 export const DetailBasicTemplate = () => {
-  const [active, setActive] = useState("about")
+  const [active, setActive] = useState('about');
   const clickNavbarItem = (eventKey) => {
-    setActive(eventKey)
-  }
+    setActive(eventKey);
+  };
   return (
     <div>
       <SgdsMasthead />
       <Navbar className="mt-4" expand="sm">
         <Navbar.Brand href="">
-          <img src="https://www.developer.tech.gov.sg/assets/img/logo_color.svg" alt="Home" />
+          <img
+            src="https://www.developer.tech.gov.sg/assets/img/logo_color.svg"
+            alt="Home"
+          />
         </Navbar.Brand>
         <Navbar.Toggle aria-controls="landingNav" />
         <Navbar.Collapse id="landingNav">
@@ -797,38 +853,49 @@ export const DetailBasicTemplate = () => {
       </Navbar>
       <section className="m-8">
         <Breadcrumb>
-          <Breadcrumb.Item href="">
-            Home
-          </Breadcrumb.Item>
-          <Breadcrumb.Item href="">
-            Library
-          </Breadcrumb.Item>
-          <Breadcrumb.Item active>
-            Data
-          </Breadcrumb.Item>
+          <Breadcrumb.Item href="">Home</Breadcrumb.Item>
+          <Breadcrumb.Item href="">Library</Breadcrumb.Item>
+          <Breadcrumb.Item active>Data</Breadcrumb.Item>
         </Breadcrumb>
       </section>
       <section className="m-8">
         <h2>Page heading</h2>
-        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>
+        <p>
+          Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
+          eiusmod tempor incididunt ut labore et dolore magna aliqua.
+        </p>
         <h4>Overview</h4>
-        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.</p>
+        <p>
+          Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
+          eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad
+          minim veniam, quis nostrud exercitation ullamco laboris nisi ut
+          aliquip ex ea commodo consequat. Duis aute irure dolor in
+          reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla
+          pariatur.
+        </p>
       </section>
       <Footer>
         <Footer.Top>
           <Footer.Top.ContactLinks>
-            <a href="" target="_blank">Contact</a>
-            <a href="" target="_blank">Feedback</a>
+            <a href="" target="_blank">
+              Contact
+            </a>
+            <a href="" target="_blank">
+              Feedback
+            </a>
           </Footer.Top.ContactLinks>
         </Footer.Top>
         <Footer.Bottom>
           <Footer.Bottom.Links>
-            <a href="" target="_blank">Report Vulnerability</a>
-            <a href="">Privacy</a>
+            <a href="" target="_blank">
+              Report Vulnerability
+            </a>
+            <a href="">Privacy Statement</a>
             <a href="">Terms of use</a>
           </Footer.Bottom.Links>
-          <Footer.Bottom.Copyrights>
-            © 2022 Government of Singapore. Last Updated 08 Feb 2022
+          <Footer.Bottom.Copyrights className="text-end">
+            © 2022 Government of Singapore
+            <br /> Last Updated 08 Feb 2022
           </Footer.Bottom.Copyrights>
         </Footer.Bottom>
       </Footer>
@@ -837,9 +904,7 @@ export const DetailBasicTemplate = () => {
 };
 
 <Canvas>
-  <Story name="Detail Page Basic">
-    {DetailBasicTemplate.bind({})}
-  </Story>
+  <Story name="Detail Page Basic">{DetailBasicTemplate.bind({})}</Story>
 </Canvas>
 
 # Detail Page Side Nav
@@ -847,24 +912,27 @@ export const DetailBasicTemplate = () => {
 Detail page with a side navigation menu.
 
 export const DetailSideNavTemplate = () => {
-  const [active, setActive] = useState("about")
+  const [active, setActive] = useState('about');
   const clickNavbarItem = (eventKey) => {
-    setActive(eventKey)
-  }
-  const [sideActive, setSideActive] = useState("1")
+    setActive(eventKey);
+  };
+  const [sideActive, setSideActive] = useState('1');
   const clickSideNavItem = (eventKey) => {
-    setSideActive(eventKey)
-  }
-  const [sideActiveLink, setSideActiveLink] = useState("1.1")
+    setSideActive(eventKey);
+  };
+  const [sideActiveLink, setSideActiveLink] = useState('1.1');
   const clickSideNavLink = (eventKey) => {
-    setSideActiveLink(eventKey)
-  }
+    setSideActiveLink(eventKey);
+  };
   return (
     <div>
       <SgdsMasthead />
       <Navbar className="mt-4" expand="sm">
         <Navbar.Brand href="">
-          <img src="https://www.developer.tech.gov.sg/assets/img/logo_color.svg" alt="Home" />
+          <img
+            src="https://www.developer.tech.gov.sg/assets/img/logo_color.svg"
+            alt="Home"
+          />
         </Navbar.Brand>
         <Navbar.Toggle aria-controls="landingNav" />
         <Navbar.Collapse id="landingNav">
@@ -924,88 +992,79 @@ export const DetailSideNavTemplate = () => {
       <Row className="m-8">
         <Col lg="3" className="d-none d-lg-block">
           <SideNav activeKey={sideActive} activeNavLinkKey={sideActiveLink}>
-            <SideNav.Item
-              eventKey="1"
-              onClick={() => clickSideNavItem("1")}
-            >
+            <SideNav.Item eventKey="1" onClick={() => clickSideNavItem('1')}>
               <SideNav.Button>Sub menu</SideNav.Button>
               <SideNav.Collapse>
                 <SideNav.Link
                   eventKey="1.1"
                   href=""
-                  onClick={() => clickSideNavLink("1.1")}
+                  onClick={() => clickSideNavLink('1.1')}
                 >
                   Sub menu item
                 </SideNav.Link>
                 <SideNav.Link
                   eventKey="1.2"
                   href=""
-                  onClick={() => clickSideNavLink("1.2")}
+                  onClick={() => clickSideNavLink('1.2')}
                 >
                   Sub menu item
                 </SideNav.Link>
                 <SideNav.Link
                   eventKey="1.3"
                   href=""
-                  onClick={() => clickSideNavLink("1.3")}
+                  onClick={() => clickSideNavLink('1.3')}
                 >
                   Sub menu item
                 </SideNav.Link>
               </SideNav.Collapse>
             </SideNav.Item>
-            <SideNav.Item
-              eventKey="2"
-              onClick={() => clickSideNavItem("2")}
-            >
+            <SideNav.Item eventKey="2" onClick={() => clickSideNavItem('2')}>
               <SideNav.Button>Sub menu</SideNav.Button>
               <SideNav.Collapse>
                 <SideNav.Link
                   eventKey="2.1"
                   href=""
-                  onClick={() => clickSideNavLink("2.1")}
+                  onClick={() => clickSideNavLink('2.1')}
                 >
                   Sub menu item
                 </SideNav.Link>
                 <SideNav.Link
                   eventKey="2.2"
                   href=""
-                  onClick={() => clickSideNavLink("2.2")}
+                  onClick={() => clickSideNavLink('2.2')}
                 >
                   Sub menu item
                 </SideNav.Link>
                 <SideNav.Link
                   eventKey="2.3"
                   href=""
-                  onClick={() => clickSideNavLink("2.3")}
+                  onClick={() => clickSideNavLink('2.3')}
                 >
                   Sub menu item
                 </SideNav.Link>
               </SideNav.Collapse>
             </SideNav.Item>
-            <SideNav.Item
-              eventKey="3"
-              onClick={() => clickSideNavItem("3")}
-            >
+            <SideNav.Item eventKey="3" onClick={() => clickSideNavItem('3')}>
               <SideNav.Button>Sub menu</SideNav.Button>
               <SideNav.Collapse>
                 <SideNav.Link
                   eventKey="3.1"
                   href=""
-                  onClick={() => clickSideNavLink("3.1")}
+                  onClick={() => clickSideNavLink('3.1')}
                 >
                   Sub menu item
                 </SideNav.Link>
                 <SideNav.Link
                   eventKey="3.2"
                   href=""
-                  onClick={() => clickSideNavLink("3.2")}
+                  onClick={() => clickSideNavLink('3.2')}
                 >
                   Sub menu item
                 </SideNav.Link>
                 <SideNav.Link
                   eventKey="3.3"
                   href=""
-                  onClick={() => clickSideNavLink("3.3")}
+                  onClick={() => clickSideNavLink('3.3')}
                 >
                   Sub menu item
                 </SideNav.Link>
@@ -1015,37 +1074,48 @@ export const DetailSideNavTemplate = () => {
         </Col>
         <Col lg="9">
           <Breadcrumb className="mb-8">
-            <Breadcrumb.Item href="">
-              Home
-            </Breadcrumb.Item>
-            <Breadcrumb.Item href="">
-              Library
-            </Breadcrumb.Item>
-            <Breadcrumb.Item active>
-              Data
-            </Breadcrumb.Item>
+            <Breadcrumb.Item href="">Home</Breadcrumb.Item>
+            <Breadcrumb.Item href="">Library</Breadcrumb.Item>
+            <Breadcrumb.Item active>Data</Breadcrumb.Item>
           </Breadcrumb>
-            <h2>Page heading</h2>
-            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>
-            <h4>Overview</h4>
-            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.</p>
+          <h2>Page heading</h2>
+          <p>
+            Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
+            eiusmod tempor incididunt ut labore et dolore magna aliqua.
+          </p>
+          <h4>Overview</h4>
+          <p>
+            Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
+            eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim
+            ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut
+            aliquip ex ea commodo consequat. Duis aute irure dolor in
+            reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla
+            pariatur.
+          </p>
         </Col>
       </Row>
       <Footer>
         <Footer.Top>
           <Footer.Top.ContactLinks>
-            <a href="" target="_blank">Contact</a>
-            <a href="" target="_blank">Feedback</a>
+            <a href="" target="_blank">
+              Contact
+            </a>
+            <a href="" target="_blank">
+              Feedback
+            </a>
           </Footer.Top.ContactLinks>
         </Footer.Top>
         <Footer.Bottom>
           <Footer.Bottom.Links>
-            <a href="" target="_blank">Report Vulnerability</a>
-            <a href="">Privacy</a>
+            <a href="" target="_blank">
+              Report Vulnerability
+            </a>
+            <a href="">Privacy Statement</a>
             <a href="">Terms of use</a>
           </Footer.Bottom.Links>
-          <Footer.Bottom.Copyrights>
-            © 2022 Government of Singapore. Last Updated 08 Feb 2022
+          <Footer.Bottom.Copyrights className="text-end">
+            © 2022 Government of Singapore
+            <br /> Last Updated 08 Feb 2022
           </Footer.Bottom.Copyrights>
         </Footer.Bottom>
       </Footer>
@@ -1054,9 +1124,7 @@ export const DetailSideNavTemplate = () => {
 };
 
 <Canvas>
-  <Story name="Detail Page Side Nav">
-    {DetailSideNavTemplate.bind({})}
-  </Story>
+  <Story name="Detail Page Side Nav">{DetailSideNavTemplate.bind({})}</Story>
 </Canvas>
 
 # Detail Page Side Nav Extended
@@ -1064,24 +1132,27 @@ export const DetailSideNavTemplate = () => {
 Detail page with a side navigation menu and table of contents.
 
 export const DetailSideNavExtendedTemplate = () => {
-  const [active, setActive] = useState("about")
+  const [active, setActive] = useState('about');
   const clickNavbarItem = (eventKey) => {
-    setActive(eventKey)
-  }
-  const [sideActive, setSideActive] = useState("1")
+    setActive(eventKey);
+  };
+  const [sideActive, setSideActive] = useState('1');
   const clickSideNavItem = (eventKey) => {
-    setSideActive(eventKey)
-  }
-  const [sideActiveLink, setSideActiveLink] = useState("1.1")
+    setSideActive(eventKey);
+  };
+  const [sideActiveLink, setSideActiveLink] = useState('1.1');
   const clickSideNavLink = (eventKey) => {
-    setSideActiveLink(eventKey)
-  }
+    setSideActiveLink(eventKey);
+  };
   return (
     <div>
       <SgdsMasthead />
       <Navbar className="mt-4" expand="sm">
         <Navbar.Brand href="">
-          <img src="https://www.developer.tech.gov.sg/assets/img/logo_color.svg" alt="Home" />
+          <img
+            src="https://www.developer.tech.gov.sg/assets/img/logo_color.svg"
+            alt="Home"
+          />
         </Navbar.Brand>
         <Navbar.Toggle aria-controls="landingNav" />
         <Navbar.Collapse id="landingNav">
@@ -1141,88 +1212,79 @@ export const DetailSideNavExtendedTemplate = () => {
       <Row className="m-8">
         <Col lg="3" className="d-none d-lg-block">
           <SideNav activeKey={sideActive} activeNavLinkKey={sideActiveLink}>
-            <SideNav.Item
-              eventKey="1"
-              onClick={() => clickSideNavItem("1")}
-            >
+            <SideNav.Item eventKey="1" onClick={() => clickSideNavItem('1')}>
               <SideNav.Button>Sub menu</SideNav.Button>
               <SideNav.Collapse>
                 <SideNav.Link
                   eventKey="1.1"
                   href=""
-                  onClick={() => clickSideNavLink("1.1")}
+                  onClick={() => clickSideNavLink('1.1')}
                 >
                   Sub menu item
                 </SideNav.Link>
                 <SideNav.Link
                   eventKey="1.2"
                   href=""
-                  onClick={() => clickSideNavLink("1.2")}
+                  onClick={() => clickSideNavLink('1.2')}
                 >
                   Sub menu item
                 </SideNav.Link>
                 <SideNav.Link
                   eventKey="1.3"
                   href=""
-                  onClick={() => clickSideNavLink("1.3")}
+                  onClick={() => clickSideNavLink('1.3')}
                 >
                   Sub menu item
                 </SideNav.Link>
               </SideNav.Collapse>
             </SideNav.Item>
-            <SideNav.Item
-              eventKey="2"
-              onClick={() => clickSideNavItem("2")}
-            >
+            <SideNav.Item eventKey="2" onClick={() => clickSideNavItem('2')}>
               <SideNav.Button>Sub menu</SideNav.Button>
               <SideNav.Collapse>
                 <SideNav.Link
                   eventKey="2.1"
                   href=""
-                  onClick={() => clickSideNavLink("2.1")}
+                  onClick={() => clickSideNavLink('2.1')}
                 >
                   Sub menu item
                 </SideNav.Link>
                 <SideNav.Link
                   eventKey="2.2"
                   href=""
-                  onClick={() => clickSideNavLink("2.2")}
+                  onClick={() => clickSideNavLink('2.2')}
                 >
                   Sub menu item
                 </SideNav.Link>
                 <SideNav.Link
                   eventKey="2.3"
                   href=""
-                  onClick={() => clickSideNavLink("2.3")}
+                  onClick={() => clickSideNavLink('2.3')}
                 >
                   Sub menu item
                 </SideNav.Link>
               </SideNav.Collapse>
             </SideNav.Item>
-            <SideNav.Item
-              eventKey="3"
-              onClick={() => clickSideNavItem("3")}
-            >
+            <SideNav.Item eventKey="3" onClick={() => clickSideNavItem('3')}>
               <SideNav.Button>Sub menu</SideNav.Button>
               <SideNav.Collapse>
                 <SideNav.Link
                   eventKey="3.1"
                   href=""
-                  onClick={() => clickSideNavLink("3.1")}
+                  onClick={() => clickSideNavLink('3.1')}
                 >
                   Sub menu item
                 </SideNav.Link>
                 <SideNav.Link
                   eventKey="3.2"
                   href=""
-                  onClick={() => clickSideNavLink("3.2")}
+                  onClick={() => clickSideNavLink('3.2')}
                 >
                   Sub menu item
                 </SideNav.Link>
                 <SideNav.Link
                   eventKey="3.3"
                   href=""
-                  onClick={() => clickSideNavLink("3.3")}
+                  onClick={() => clickSideNavLink('3.3')}
                 >
                   Sub menu item
                 </SideNav.Link>
@@ -1232,50 +1294,64 @@ export const DetailSideNavExtendedTemplate = () => {
         </Col>
         <Col lg="7">
           <Breadcrumb className="mb-8">
-            <Breadcrumb.Item href="">
-              Home
-            </Breadcrumb.Item>
-            <Breadcrumb.Item href="">
-              Library
-            </Breadcrumb.Item>
-            <Breadcrumb.Item active>
-              Data
-            </Breadcrumb.Item>
+            <Breadcrumb.Item href="">Home</Breadcrumb.Item>
+            <Breadcrumb.Item href="">Library</Breadcrumb.Item>
+            <Breadcrumb.Item active>Data</Breadcrumb.Item>
           </Breadcrumb>
-            <h2>Page heading</h2>
-            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>
-            <h4>Overview</h4>
-            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.</p>
+          <h2>Page heading</h2>
+          <p>
+            Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
+            eiusmod tempor incididunt ut labore et dolore magna aliqua.
+          </p>
+          <h4>Overview</h4>
+          <p>
+            Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
+            eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim
+            ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut
+            aliquip ex ea commodo consequat. Duis aute irure dolor in
+            reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla
+            pariatur.
+          </p>
         </Col>
         <Col lg="2" className="d-none d-lg-block">
-            <h4>On this page</h4>
-            <ul style={{listStyle: "none"}}>
+          <h4>On this page</h4>
+          <ul style={{ listStyle: 'none' }}>
+            <li>
+              <a href="" className="text-decoration-none">
+                Page heading
+              </a>
+            </li>
+            <ul style={{ listStyle: 'none' }}>
               <li>
-                <a href="" className="text-decoration-none">Page heading</a>
+                <a href="" className="text-decoration-none">
+                  Overview
+                </a>
               </li>
-              <ul style={{listStyle: "none"}}>
-                <li>
-                  <a href="" className="text-decoration-none">Overview</a>
-                </li>
-              </ul>
             </ul>
+          </ul>
         </Col>
       </Row>
       <Footer>
         <Footer.Top>
           <Footer.Top.ContactLinks>
-            <a href="" target="_blank">Contact</a>
-            <a href="" target="_blank">Feedback</a>
+            <a href="" target="_blank">
+              Contact
+            </a>
+            <a href="" target="_blank">
+              Feedback
+            </a>
           </Footer.Top.ContactLinks>
         </Footer.Top>
         <Footer.Bottom>
           <Footer.Bottom.Links>
-            <a href="" target="_blank">Report Vulnerability</a>
-            <a href="">Privacy</a>
+            <a href="" target="_blank">
+              Report Vulnerability
+            </a>
+            <a href="">Privacy Statement</a>
             <a href="">Terms of use</a>
           </Footer.Bottom.Links>
-          <Footer.Bottom.Copyrights>
-            © 2022 Government of Singapore. Last Updated 08 Feb 2022
+          <Footer.Bottom.Copyrights className="text-end">
+            © 2022 Government of Singapore <br /> Last Updated 08 Feb 2022
           </Footer.Bottom.Copyrights>
         </Footer.Bottom>
       </Footer>
