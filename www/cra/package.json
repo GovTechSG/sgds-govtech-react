@@ -4,9 +4,9 @@
   "private": true,
   "homepage": "https://govtechsg.github.io/sgds-govtech-react/",
   "dependencies": {
-    "@govtechsg/sgds": "^2.0.0",
     "@govtechsg/sgds-masthead": "^0.0.14",
     "@govtechsg/sgds-masthead-react": "^0.0.8",
+    "@govtechsg/sgds-react": "^2.0.0",
     "@testing-library/jest-dom": "^5.16.4",
     "@testing-library/react": "^13.2.0",
     "@testing-library/user-event": "^13.5.0",
@@ -45,6 +45,8 @@
   },
   "devDependencies": {
     "@svgr/webpack": "^6.2.1",
-    "react-app-rewired": "^2.2.1"
+    "react-app-rewired": "^2.2.1",
+    "react-scripts": "^5.0.1",
+    "sass": "^1.54.4"
   }
 }
