@@ -120,13 +120,13 @@ export const FileUpload: React.FC<FileUploadProps> = ({
         {React.cloneElement(checkedIcon, {
           className: classNames(checkedIcon.props.className, 'me-2'),
         })}
-        <span id={item.split(' ').join('')} className="filename">
+        <span id={item?.split(' ').join('')} className="filename">
           {item}
         </span>
         <button
           onClick={() => removeFileHandler(index)}
           aria-label="remove file"
-          aria-describedby={item.split(' ').join('')}
+          aria-describedby={item?.split(' ').join('')}
           className="bg-transparent border-0 ms-2"
         >
           {React.cloneElement(cancelIcon, {
