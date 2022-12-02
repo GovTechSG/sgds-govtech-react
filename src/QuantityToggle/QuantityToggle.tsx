@@ -7,7 +7,7 @@ import { ButtonVariant } from '../utils/types';
 import PropTypes from 'prop-types';
 import { FormLabel } from '../Form';
 
-export interface QuantityToggleProps { 
+export interface QuantityToggleProps {
   /** Controls the incremental / decremental value */
   step?: number;
   /** Controls the size of the QuantityToggle */
