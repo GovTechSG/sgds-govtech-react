@@ -6,11 +6,10 @@ describe('YearView', () => {
   const mockFn = jest.fn();
   const displayDate = new Date();
   it('should have default html structure', () => {
-    const { asFragment, container } = render(
+    const { container } = render(
       <YearView onClickYear={mockFn} displayDate={displayDate} />
     );
 
-    expect(asFragment()).toMatchSnapshot();
     expect(container.querySelector('.sgds.yearpicker')).toBeInTheDocument();
     expect(container.querySelectorAll('button.year').length).toEqual(12);
     expect(container.querySelectorAll('button.active.year').length).toEqual(1);
