@@ -6,7 +6,6 @@ exports[`<FileUpload> Should output a child button element 1`] = `
     <input
       class="d-none form-control"
       id="test123"
-      multiple=""
       type="file"
     />
     <button
@@ -28,7 +27,6 @@ exports[`<FileUpload> Should output a child input element 1`] = `
     <input
       class="d-none form-control"
       id="test123"
-      multiple=""
       type="file"
     />
     <button
@@ -50,7 +48,6 @@ exports[`<FileUpload> check if cancelIcon and checkedIcon changes default icon 1
     <input
       class="d-none form-control"
       id="test123"
-      multiple=""
       type="file"
     />
     <button
@@ -157,7 +154,6 @@ exports[`<FileUpload> should have li named 'test.txt' and not 'hello.txt', upon 
     <input
       class="d-none form-control"
       id="test123"
-      multiple=""
       type="file"
     />
     <button
@@ -264,7 +260,6 @@ exports[`<FileUpload> should render a ul with list items, upon uploading 1`] = `
     <input
       class="d-none form-control"
       id="test123"
-      multiple=""
       type="file"
     />
     <button

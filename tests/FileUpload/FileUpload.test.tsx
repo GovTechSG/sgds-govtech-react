@@ -66,7 +66,7 @@ describe('<FileUpload>', () => {
     expect($fileUpload?.children[0].tagName).toEqual('INPUT');
 
     const $input = $fileUpload?.children[0];
-    expect($input).toHaveAttribute('multiple');
+    expect($input).not.toHaveAttribute('multiple');
     expect($input).toHaveAttribute('type', 'file');
     expect($input).toHaveAttribute('id', 'test123');
     expect($input?.classList).toContain('form-control');

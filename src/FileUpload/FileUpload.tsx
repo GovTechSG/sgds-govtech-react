@@ -24,6 +24,8 @@ export interface FileUploadProps extends FileUpload {
   checkedIcon?: JSX.Element;
   /** Customize the cancel icon */
   cancelIcon?: JSX.Element;
+  /** When true, the user is allowed to enter more than one value in the input element */
+  multiple?: boolean;
 }
 
 const propTypes = {
@@ -60,6 +62,7 @@ const propTypes = {
   selectedFile: PropTypes.oneOfType([PropTypes.object]).isRequired,
   checkedIcon: PropTypes.element,
   cancelIcon: PropTypes.element,
+  multiple: PropTypes.bool
 };
 
 const CHECKED_ICON = <i className="bi bi-check-lg check-icon" />;
@@ -69,6 +72,7 @@ const defaultProps = {
   disabled: false,
   checkedIcon: CHECKED_ICON,
   cancelIcon: CANCEL_ICON,
+  multiple: false
 };
 
 export const FileUpload: React.FC<FileUploadProps> = ({
@@ -81,6 +85,7 @@ export const FileUpload: React.FC<FileUploadProps> = ({
   children,
   checkedIcon = CHECKED_ICON,
   cancelIcon = CANCEL_ICON,
+  multiple
 }) => {
   const inputRef = useRef<HTMLInputElement>(null);
   const fileNames = Object.entries(selectedFile).map((e) => e[1].name);
@@ -144,7 +149,7 @@ export const FileUpload: React.FC<FileUploadProps> = ({
           onChange={inputOnChangeHandler}
           ref={inputRef}
           type="file"
-          multiple
+          multiple={multiple}
           className="d-none"
         />
         <Button
