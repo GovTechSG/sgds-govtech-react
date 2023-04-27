@@ -1,270 +1,270 @@
-<!-- // import { ArgsTable, Meta, Story, Canvas } from '@storybook/addon-docs';
-// import { Dropdown, Row, Col } from '../../src/index';
-// import { HIDDEN_COMMON_PROPS } from '../helpers';
-// import { useState } from 'react';
+import { ArgsTable, Meta, Story, Canvas } from '@storybook/addon-docs';
+import { Dropdown, Row, Col } from '../../src/index';
+import { HIDDEN_COMMON_PROPS } from '../helpers';
+import { useState } from 'react';
 
-// <Meta
-//   title="Components/Dropdown"
-//   component={Dropdown}
-//   subcomponents={{
-//     'Dropdown.Toggle': Dropdown.Toggle,
-//     'Dropdown.Menu': Dropdown.Menu,
-//     'Dropdown.Item': Dropdown.Item,
-//     'Dropdown.ItemText': Dropdown.ItemText,
-//     'Dropdown.Divider': Dropdown.Divider,
-//     'Dropdown.Header': Dropdown.Header,
-//   }}
-//   argTypes={{
-//     ...HIDDEN_COMMON_PROPS,
-//     navbar: { table: { disable: true } },
-//     autoClose: {
-//       control: { type: 'select' },
-//       options: [true, false, 'outside', 'inside'],
-//     },
-//     onSelect: { control: { disable: true } },
-//     onToggle: { control: { disable: true } },
-//   }}
-// />
+<Meta
+  title="Components/Dropdown"
+  component={Dropdown}
+  subcomponents={{
+    'Dropdown.Toggle': Dropdown.Toggle,
+    'Dropdown.Menu': Dropdown.Menu,
+    'Dropdown.Item': Dropdown.Item,
+    'Dropdown.ItemText': Dropdown.ItemText,
+    'Dropdown.Divider': Dropdown.Divider,
+    'Dropdown.Header': Dropdown.Header,
+  }}
+  argTypes={{
+    ...HIDDEN_COMMON_PROPS,
+    navbar: { table: { disable: true } },
+    autoClose: {
+      control: { type: 'select' },
+      options: [true, false, 'outside', 'inside'],
+    },
+    onSelect: { control: { disable: true } },
+    onToggle: { control: { disable: true } },
+  }}
+/>
 
-// # Dropdowns
+# Dropdowns
 
-// Toggle contextual overlays for displaying lists of links.
+Toggle contextual overlays for displaying lists of links.
 
-// As our components are built on top of `React-Bootstrap` library, do check out the detailed `Dropdown` API references <a href="https://react-bootstrap.github.io/components/dropdowns/" target="_blank">here</a>.
+As our components are built on top of `React-Bootstrap` library, do check out the detailed `Dropdown` API references <a href="https:react-bootstrap.github.io/components/dropdowns/" target="_blank">here</a>.
 
-// export const Template = (args) => (
-//   <Dropdown {...args}>
-//     <Dropdown.Toggle>
-//       Dropdown Button<i className="bi bi-chevron-down"></i>
-//     </Dropdown.Toggle>
-//     <Dropdown.Menu>
-//       <Dropdown.Item href="#" eventKey="abc">
-//         Action
-//       </Dropdown.Item>
-//       <Dropdown.Item href="#">Another action</Dropdown.Item>
-//       <Dropdown.Item onClick={() => console.log('Clicked')}>
-//         Something else
-//       </Dropdown.Item>
-//     </Dropdown.Menu>
-//   </Dropdown>
-// );
+export const Template = (args) => (
+  <Dropdown {...args}>
+    <Dropdown.Toggle>
+      Dropdown Button<i className="bi bi-chevron-down"></i>
+    </Dropdown.Toggle>
+    <Dropdown.Menu>
+      <Dropdown.Item href="#" eventKey="abc">
+        Action
+      </Dropdown.Item>
+      <Dropdown.Item href="#">Another action</Dropdown.Item>
+      <Dropdown.Item onClick={() => console.log('Clicked')}>
+        Something else
+      </Dropdown.Item>
+    </Dropdown.Menu>
+  </Dropdown>
+);
 
-// ## Single button dropdowns
+## Single button dropdowns
 
-// The basic Dropdown is composed of a wrapping `Dropdown` and
-// inner `<Dropdown.Menu>`, and `<Dropdown.Toggle>`. By
-// default the `<Dropdown.Toggle>` will render a
-// `Button` component and accepts all the same props.
+The basic Dropdown is composed of a wrapping `Dropdown` and
+inner `<Dropdown.Menu>`, and `<Dropdown.Toggle>`. By
+default the `<Dropdown.Toggle>` will render a
+`Button` component and accepts all the same props.
 
-// <Story name="Basic">{Template.bind({})}</Story>
+<Story name="Basic">{Template.bind({})}</Story>
 
-// ## API
+## API
 
-// ```jsx
-// import { Dropdown } from '@govtechsg/sgds-react/Dropdown';
-// ```
+```jsx
+import { Dropdown } from '@govtechsg/sgds-react/Dropdown';
+```
 
-// <ArgsTable story="Basic" />
+<ArgsTable story="Basic" />
 
-// ```jsx
-// export const Dropdown = () => {
-//   return (
-//     <Dropdown>
-//       <Dropdown.Toggle>
-//         Dropdown Button<i className="bi bi-chevron-down"></i>
-//       </Dropdown.Toggle>
-//       <Dropdown.Menu popperConfig={popperConfig}>
-//         <Dropdown.Item href="#">Action</Dropdown.Item>
-//         <Dropdown.Item href="#">Another action</Dropdown.Item>
-//         <Dropdown.Item onClick={() => console.log('Clicked')}>
-//           Something else
-//         </Dropdown.Item>
-//       </Dropdown.Menu>
-//     </Dropdown>
-//   );
-// };
-// ```
+```jsx
+export const Dropdown = () => {
+  return (
+    <Dropdown>
+      <Dropdown.Toggle>
+        Dropdown Button<i className="bi bi-chevron-down"></i>
+      </Dropdown.Toggle>
+      <Dropdown.Menu popperConfig={popperConfig}>
+        <Dropdown.Item href="#">Action</Dropdown.Item>
+        <Dropdown.Item href="#">Another action</Dropdown.Item>
+        <Dropdown.Item onClick={() => console.log('Clicked')}>
+          Something else
+        </Dropdown.Item>
+      </Dropdown.Menu>
+    </Dropdown>
+  );
+};
+```
 
-// ## AutoClose
+## AutoClose
 
-// By default, the dropdown menu is closed when selecting a menu item or clicking outside of the dropdown menu. This behaviour can be changed by using the `autoClose` property.
+By default, the dropdown menu is closed when selecting a menu item or clicking outside of the dropdown menu. This behaviour can be changed by using the `autoClose` property.
 
-// By default, `autoClose` is set to the **default value true** and behaves like expected. By choosing **false**, the dropdown menu can only be toggled by clicking on the dropdown button. inside makes the dropdown disappear only by choosing a menu item and outside closes the dropdown menu only by clicking outside.
+By default, `autoClose` is set to the **default value true** and behaves like expected. By choosing **false**, the dropdown menu can only be toggled by clicking on the dropdown button. inside makes the dropdown disappear only by choosing a menu item and outside closes the dropdown menu only by clicking outside.
 
-// Notice how the dropdown is toggled in each scenario by clicking on the button.
+Notice how the dropdown is toggled in each scenario by clicking on the button.
 
-// <Story name="AutoClose">
-//   <Dropdown className="mb-3">
-//     <Dropdown.Toggle id="dropdown-autoclose-true">
-//       Default Dropdown
-//       <i className="bi bi-chevron-down"></i>
-//     </Dropdown.Toggle>
-//     <Dropdown.Menu>
-//       <Dropdown.Item href="#">Menu Item</Dropdown.Item>
-//       <Dropdown.Item href="#">Menu Item</Dropdown.Item>
-//       <Dropdown.Item href="#">Menu Item</Dropdown.Item>
-//     </Dropdown.Menu>
-//   </Dropdown>
-//   <Dropdown autoClose="inside" className="mb-3">
-//     <Dropdown.Toggle id="dropdown-autoclose-inside">
-//       Click Inside To Close
-//       <i className="bi bi-chevron-down"></i>
-//     </Dropdown.Toggle>
-//     <Dropdown.Menu>
-//       <Dropdown.Item href="#">Menu Item</Dropdown.Item>
-//       <Dropdown.Item href="#">Menu Item</Dropdown.Item>
-//       <Dropdown.Item href="#">Menu Item</Dropdown.Item>
-//     </Dropdown.Menu>
-//   </Dropdown>
-//   <Dropdown autoClose="outside" className="mb-3">
-//     <Dropdown.Toggle id="dropdown-autoclose-outside">
-//       Clickable Outside To Close
-//       <i className="bi bi-chevron-down"></i>
-//     </Dropdown.Toggle>
-//     <Dropdown.Menu>
-//       <Dropdown.Item href="#">Menu Item</Dropdown.Item>
-//       <Dropdown.Item href="#">Menu Item</Dropdown.Item>
-//       <Dropdown.Item href="#">Menu Item</Dropdown.Item>
-//     </Dropdown.Menu>
-//   </Dropdown>
-//   <Dropdown autoClose={false} className="mb-3">
-//     <Dropdown.Toggle id="dropdown-autoclose-false">
-//       Click Button to Close
-//       <i className="bi bi-chevron-down"></i>
-//     </Dropdown.Toggle>
-//     <Dropdown.Menu>
-//       <Dropdown.Item href="#">Menu Item</Dropdown.Item>
-//       <Dropdown.Item href="#">Menu Item</Dropdown.Item>
-//       <Dropdown.Item href="#">Menu Item</Dropdown.Item>
-//     </Dropdown.Menu>
-//   </Dropdown>
-// </Story>
+<Story name="AutoClose">
+  <Dropdown className="mb-3">
+    <Dropdown.Toggle id="dropdown-autoclose-true">
+      Default Dropdown
+      <i className="bi bi-chevron-down"></i>
+    </Dropdown.Toggle>
+    <Dropdown.Menu>
+      <Dropdown.Item href="#">Menu Item</Dropdown.Item>
+      <Dropdown.Item href="#">Menu Item</Dropdown.Item>
+      <Dropdown.Item href="#">Menu Item</Dropdown.Item>
+    </Dropdown.Menu>
+  </Dropdown>
+  <Dropdown autoClose="inside" className="mb-3">
+    <Dropdown.Toggle id="dropdown-autoclose-inside">
+      Click Inside To Close
+      <i className="bi bi-chevron-down"></i>
+    </Dropdown.Toggle>
+    <Dropdown.Menu>
+      <Dropdown.Item href="#">Menu Item</Dropdown.Item>
+      <Dropdown.Item href="#">Menu Item</Dropdown.Item>
+      <Dropdown.Item href="#">Menu Item</Dropdown.Item>
+    </Dropdown.Menu>
+  </Dropdown>
+  <Dropdown autoClose="outside" className="mb-3">
+    <Dropdown.Toggle id="dropdown-autoclose-outside">
+      Clickable Outside To Close
+      <i className="bi bi-chevron-down"></i>
+    </Dropdown.Toggle>
+    <Dropdown.Menu>
+      <Dropdown.Item href="#">Menu Item</Dropdown.Item>
+      <Dropdown.Item href="#">Menu Item</Dropdown.Item>
+      <Dropdown.Item href="#">Menu Item</Dropdown.Item>
+    </Dropdown.Menu>
+  </Dropdown>
+  <Dropdown autoClose={false} className="mb-3">
+    <Dropdown.Toggle id="dropdown-autoclose-false">
+      Click Button to Close
+      <i className="bi bi-chevron-down"></i>
+    </Dropdown.Toggle>
+    <Dropdown.Menu>
+      <Dropdown.Item href="#">Menu Item</Dropdown.Item>
+      <Dropdown.Item href="#">Menu Item</Dropdown.Item>
+      <Dropdown.Item href="#">Menu Item</Dropdown.Item>
+    </Dropdown.Menu>
+  </Dropdown>
+</Story>
 
-// ```jsx
+```jsx
 
-// // autoClose : true (default)
-//   <Dropdown>
-//     <Dropdown.Toggle>
-//       Clickable Inside
-//       <i className="bi bi-chevron-down"></i>
-//     </Dropdown.Toggle>
-//     <Dropdown.Menu popperConfig={popperConfig}>
-//       <Dropdown.Item href="#">Menu Item</Dropdown.Item>
-//       <Dropdown.Item href="#">Menu Item</Dropdown.Item>
-//       <Dropdown.Item href="#">Menu Item</Dropdown.Item>
-//     </Dropdown.Menu>
-//   </Dropdown>
+//  autoClose : true (default)
+  <Dropdown>
+    <Dropdown.Toggle>
+      Clickable Inside
+      <i className="bi bi-chevron-down"></i>
+    </Dropdown.Toggle>
+    <Dropdown.Menu popperConfig={popperConfig}>
+      <Dropdown.Item href="#">Menu Item</Dropdown.Item>
+      <Dropdown.Item href="#">Menu Item</Dropdown.Item>
+      <Dropdown.Item href="#">Menu Item</Dropdown.Item>
+    </Dropdown.Menu>
+  </Dropdown>
 
-// // autoClose : inside
-//   <Dropdown autoClose="inside">
-//     <Dropdown.Toggle>
-//       Clickable Inside
-//       <i className="bi bi-chevron-down"></i>
-//     </Dropdown.Toggle>
-//     <Dropdown.Menu popperConfig={popperConfig}>
-//       <Dropdown.Item href="#">Menu Item</Dropdown.Item>
-//       <Dropdown.Item href="#">Menu Item</Dropdown.Item>
-//       <Dropdown.Item href="#">Menu Item</Dropdown.Item>
-//     </Dropdown.Menu>
-//   </Dropdown>
+//  autoClose : inside
+  <Dropdown autoClose="inside">
+    <Dropdown.Toggle>
+      Clickable Inside
+      <i className="bi bi-chevron-down"></i>
+    </Dropdown.Toggle>
+    <Dropdown.Menu popperConfig={popperConfig}>
+      <Dropdown.Item href="#">Menu Item</Dropdown.Item>
+      <Dropdown.Item href="#">Menu Item</Dropdown.Item>
+      <Dropdown.Item href="#">Menu Item</Dropdown.Item>
+    </Dropdown.Menu>
+  </Dropdown>
 
-// // autoClose : outside
-//   <Dropdown autoClose="outside">
-//     <Dropdown.Toggle>
-//       Clickable Inside
-//       <i className="bi bi-chevron-down"></i>
-//     </Dropdown.Toggle>
-//     <Dropdown.Menu popperConfig={popperConfig}>
-//       <Dropdown.Item href="#">Menu Item</Dropdown.Item>
-//       <Dropdown.Item href="#">Menu Item</Dropdown.Item>
-//       <Dropdown.Item href="#">Menu Item</Dropdown.Item>
-//     </Dropdown.Menu>
-//   </Dropdown>
+//  autoClose : outside
+  <Dropdown autoClose="outside">
+    <Dropdown.Toggle>
+      Clickable Inside
+      <i className="bi bi-chevron-down"></i>
+    </Dropdown.Toggle>
+    <Dropdown.Menu popperConfig={popperConfig}>
+      <Dropdown.Item href="#">Menu Item</Dropdown.Item>
+      <Dropdown.Item href="#">Menu Item</Dropdown.Item>
+      <Dropdown.Item href="#">Menu Item</Dropdown.Item>
+    </Dropdown.Menu>
+  </Dropdown>
 
-// // autoClose : false
-//   <Dropdown autoClose={false}>
-//     <Dropdown.Toggle>
-//       Manual Close
-//       <i className="bi bi-chevron-down"></i>
-//     </Dropdown.Toggle>
-//     <Dropdown.Menu popperConfig={popperConfig}>
-//       <Dropdown.Item href="#">Menu Item</Dropdown.Item>
-//       <Dropdown.Item href="#">Menu Item</Dropdown.Item>
-//       <Dropdown.Item href="#">Menu Item</Dropdown.Item>
-//     </Dropdown.Menu>
-//   </Dropdown>
-// ```
+//  autoClose : false
+  <Dropdown autoClose={false}>
+    <Dropdown.Toggle>
+      Manual Close
+      <i className="bi bi-chevron-down"></i>
+    </Dropdown.Toggle>
+    <Dropdown.Menu popperConfig={popperConfig}>
+      <Dropdown.Item href="#">Menu Item</Dropdown.Item>
+      <Dropdown.Item href="#">Menu Item</Dropdown.Item>
+      <Dropdown.Item href="#">Menu Item</Dropdown.Item>
+    </Dropdown.Menu>
+  </Dropdown>
+```
 
-// ## Event Handlers
+## Event Handlers
 
-// ### onSelect
+### onSelect
 
-// A callback fired when a menu item is selected
+A callback fired when a menu item is selected
 
-// `(eventKey: string | null, event: React.SyntheticEvent<any>) => any` .
+`(eventKey: string | null, event: React.SyntheticEvent<any>) => any` .
 
-// ### onToggle
+### onToggle
 
-// Controls show. callback fired when the Dropdown wishes to change visibility. Called with the requested show value, the DOM event, and the source that fired it: `click`,`keydown`,`rootClose`.
+Controls show. callback fired when the Dropdown wishes to change visibility. Called with the requested show value, the DOM event, and the source that fired it: `click`,`keydown`,`rootClose`.
 
-// `(nextShow: boolean, meta: ToggleMetadata, ): void`
+`(nextShow: boolean, meta: ToggleMetadata, ): void`
 
-// export const onSelectToggleTemplate = () => {
-//   //onSelect
-//   const [value, setValue] = useState('');
-//   const [evtTime, setEvtTime] = useState('');
-//   const handleSelect = (key, evt) => {
-//     setValue(key);
-//     setEvtTime(new Date(evt.timeStamp).toString());
-//   };
-//   // onToggle
-//   const [show, setShow] = useState(false);
-//   const [source, setSource] = useState('');
-//   const handleToggle = (isOpen, evt) => {
-//     setShow(isOpen);
-//     setSource(evt.source);
-//   };
-//   return (
-//     <div>
-//       <Dropdown onSelect={handleSelect} onToggle={handleToggle}>
-//         <Dropdown.Toggle>
-//           Default Dropdown<i className="bi bi-chevron-down"></i>
-//         </Dropdown.Toggle>
-//         <Dropdown.Menu>
-//           <Dropdown.Item eventKey="apple">Apple</Dropdown.Item>
-//           <Dropdown.Item eventKey="orange">Orange</Dropdown.Item>
-//           <Dropdown.Item eventKey="melon">Melon</Dropdown.Item>
-//         </Dropdown.Menu>
-//       </Dropdown>
-//       <br />
-//       <br />
-//       <h4>
-//         {value} has been selected on {evtTime}
-//       </h4>
-//       <br />
-//       <br />
-//       <h4>
-//         Dropdown is toggled: {`${show}`} by {source}
-//       </h4>
-//     </div>
-//   );
-// };
+export const onSelectToggleTemplate = () => {
+//   onSelect;
+  const [value, setValue] = useState('');
+  const [evtTime, setEvtTime] = useState('');
+  const handleSelect = (key, evt) => {
+    setValue(key);
+    setEvtTime(new Date(evt.timeStamp).toString());
+  };
+//   onToggle;
+  const [show, setShow] = useState(false);
+  const [source, setSource] = useState('');
+  const handleToggle = (isOpen, evt) => {
+    setShow(isOpen);
+    setSource(evt.source);
+  };
+  return (
+    <div>
+      <Dropdown onSelect={handleSelect} onToggle={handleToggle}>
+        <Dropdown.Toggle>
+          Default Dropdown<i className="bi bi-chevron-down"></i>
+        </Dropdown.Toggle>
+        <Dropdown.Menu>
+          <Dropdown.Item eventKey="apple">Apple</Dropdown.Item>
+          <Dropdown.Item eventKey="orange">Orange</Dropdown.Item>
+          <Dropdown.Item eventKey="melon">Melon</Dropdown.Item>
+        </Dropdown.Menu>
+      </Dropdown>
+      <br />
+      <br />
+      <h4>
+        {value} has been selected on {evtTime}
+      </h4>
+      <br />
+      <br />
+      <h4>
+        Dropdown is toggled: {`${show}`} by {source}
+      </h4>
+    </div>
+  );
+};
 
-// <Canvas>
-//   <Story height="200px" name="Event Handlers">
-//     {onSelectToggleTemplate.bind({})}
-//   </Story>
-// </Canvas>
+<Canvas>
+  <Story height="200px" name="Event Handlers">
+    {onSelectToggleTemplate.bind({})}
+  </Story>
+</Canvas>
 
-// ### Server-side rendering
+### Server-side rendering
 
-// For SSR, specify `id` prop for `<Dropdown.Toggle/>` so that the `id` attribute matches for both Server Side and Client Side.
+For SSR, specify `id` prop for `<Dropdown.Toggle/>` so that the `id` attribute matches for both Server Side and Client Side.
 
-// ```jsx
-// <Dropdown>
-//   <Dropdown.Toggle id="dropdown-id-1234">
-//     Dropdown Button<i className="bi bi-chevron-down"></i>
-//   </Dropdown.Toggle>
-//   <Dropdown.Menu>...</Dropdown.Menu>
-// </Dropdown>
-// ``` -->
+```jsx
+<Dropdown>
+  <Dropdown.Toggle id="dropdown-id-1234">
+    Dropdown Button<i className="bi bi-chevron-down"></i>
+  </Dropdown.Toggle>
+  <Dropdown.Menu>...</Dropdown.Menu>
+</Dropdown>
+```

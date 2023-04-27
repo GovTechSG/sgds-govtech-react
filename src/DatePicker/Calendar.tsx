@@ -58,8 +58,8 @@ export const Calendar = React.forwardRef<HTMLTableElement, CalendarProps>(
     const firstDay = new Date(year, month, 1);
     const startingDay = firstDay.getDay();
     let monthLength = daysInMonth[month];
-    if (month == 1) {
-      if ((year % 4 == 0 && year % 100 != 0) || year % 400 == 0) {
+    if (month === 1) {
+      if ((year % 4 === 0 && year % 100 !== 0) || year % 400 === 0) {
         monthLength = 29;
       }
     }

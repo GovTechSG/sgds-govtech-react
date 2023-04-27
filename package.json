@@ -116,5 +116,8 @@
     "commitizen": {
       "path": "./node_modules/cz-conventional-changelog"
     }
+  },
+  "overrides": {
+    "nwsapi": "2.2.2"
   }
 }
