@@ -1,4 +1,4 @@
-import { render, fireEvent } from '@testing-library/react';
+import { render } from '@testing-library/react';
 import * as React from 'react';
 
 import { FileUpload } from '../../src';
