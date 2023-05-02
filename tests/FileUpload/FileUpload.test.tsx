@@ -66,7 +66,7 @@ describe('<FileUpload>', () => {
     expect($fileUpload?.children[0].tagName).toEqual('INPUT');
 
     const $input = $fileUpload?.children[0];
-    expect($input).toHaveAttribute('multiple');
+    expect($input).not.toHaveAttribute('multiple');
     expect($input).toHaveAttribute('type', 'file');
     expect($input).toHaveAttribute('id', 'test123');
     expect($input?.classList).toContain('form-control');
@@ -96,6 +96,8 @@ describe('<FileUpload>', () => {
     expect($button?.classList).toContain('sgds');
     expect($button).toHaveAttribute('type', 'button');
   });
+
+  //this
   it('should render a ul with list items, upon uploading', () => {
     const fileList = createMockFileList([
       {
@@ -123,10 +125,27 @@ describe('<FileUpload>', () => {
     expect(asFragment()).toMatchSnapshot();
     const $listItems = container.querySelector('ul');
     expect($listItems).toBeDefined();
+    expect($listItems?.firstElementChild?.children[1]).toHaveAttribute(
+      'id',
+      'test.txt'
+    );
+    expect($listItems?.children[1].children[1]).toHaveAttribute(
+      'id',
+      'hello.txt'
+    );
+    expect($listItems?.firstElementChild?.children[2]).toHaveAttribute(
+      'aria-describedby',
+      'test.txt'
+    );
+    expect($listItems?.firstElementChild?.children[2]).toHaveAttribute(
+      'aria-label',
+      'remove file'
+    );
     expect($listItems?.firstChild).toHaveTextContent('test.txt');
     expect($listItems?.children[1]).toHaveTextContent('hello.txt');
   });
 
+  //this
   it("should have li named 'test.txt' and not 'hello.txt', upon removeFile", async () => {
     const fileList = createMockFileList([
       {
@@ -157,16 +176,19 @@ describe('<FileUpload>', () => {
     const firstItem = $lists[0];
     expect(firstItem.textContent).toBe('test.txt');
     expect(firstItem.querySelector('i.bi-x-circle')).toBeInTheDocument();
-    //TODO:
-    // fireEvent.click(firstItem.querySelector('i.bi-x-circle') as Element)
+    // TODO:
+    // fireEvent.click(firstItem.children[2]);
+
     // await waitFor(() => {
-    //   expect(firstItem.textContent).not.toBe('test.txt')
-    // })
+    //   expect(firstItem.textContent).toBe('hello.txt');
+    // });
+
     // const $listItems = getAllByRole('listitem');
     // fireEvent.click($listItems[0].children[2], fileList);
   });
 
-  it('cancelIcon and checkedIcon changes default icon', () => {
+  //this
+  it('check if cancelIcon and checkedIcon changes default icon', () => {
     const fileList = createMockFileList([
       {
         body: 'test',
@@ -179,14 +201,14 @@ describe('<FileUpload>', () => {
         name: 'hello.txt',
       },
     ]);
-    const { container } = render(
+    const { asFragment, container } = render(
       <FileUpload
         data-testid="test"
         controlId="test123"
         onChangeFile={mockFn}
         selectedFile={fileList}
-        cancelIcon={<i className="bi bi-check2-circle"></i>}
-        checkedIcon={<i className="bi bi-x-octagon"></i>}
+        cancelIcon={<i className="bi bi-x-octagon"></i>}
+        checkedIcon={<i className="bi bi-check2-circle"></i>}
       >
         FileUpload
       </FileUpload>
@@ -194,19 +216,21 @@ describe('<FileUpload>', () => {
     const defaultCancelIcons = container.querySelectorAll(
       '.bi.bi-x-circle.x-circle-icon'
     );
-    const $cancelIcons = container.querySelectorAll('.bi-check2-circle');
+    expect(asFragment()).toMatchSnapshot();
+    const $cancelIcons = container.querySelectorAll('.bi.bi-x-octagon');
     expect($cancelIcons).toBeDefined();
     expect(defaultCancelIcons.length).toBe(0);
-    expect($cancelIcons[0].classList).toContain('ms-2');
-    expect($cancelIcons[1].classList).toContain('ms-2');
 
     const defaultCheckedIcons = container.querySelectorAll(
       '.bi-check-lg.check-icon'
     );
-    const $checkedIcons = container.querySelectorAll('.bi.bi-x-octagon');
+    const $checkedIcons = container.querySelectorAll('.bi-check2-circle');
     expect($checkedIcons).toBeDefined();
     expect(defaultCheckedIcons.length).toBe(0);
-    expect($checkedIcons[0].classList).toContain('me-2');
-    expect($checkedIcons[1].classList).toContain('me-2');
   });
 });
+
+// wrap cancelIcon with a button element as cancelIcon is supposed to be a button
+// add id on span element that displays filename
+// add aria-describedby on the button element wrapping cancelIcon which points to the span element filename
+// add aria-label on the button element to tell users that the button is cancelled

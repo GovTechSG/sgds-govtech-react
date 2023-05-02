@@ -6,7 +6,6 @@ exports[`<FileUpload> Should output a child button element 1`] = `
     <input
       class="d-none form-control"
       id="test123"
-      multiple=""
       type="file"
     />
     <button
@@ -28,7 +27,6 @@ exports[`<FileUpload> Should output a child input element 1`] = `
     <input
       class="d-none form-control"
       id="test123"
-      multiple=""
       type="file"
     />
     <button
@@ -44,13 +42,118 @@ exports[`<FileUpload> Should output a child input element 1`] = `
 </DocumentFragment>
 `;
 
+exports[`<FileUpload> check if cancelIcon and checkedIcon changes default icon 1`] = `
+<DocumentFragment>
+  <div>
+    <input
+      class="d-none form-control"
+      id="test123"
+      type="file"
+    />
+    <button
+      class="btn btn-primary sgds"
+      type="button"
+    >
+      FileUpload
+    </button>
+  </div>
+  <ul
+    class="fileupload-list sgds"
+  >
+    <li
+      class="fileupload-list-item"
+    >
+      <i
+        class="bi bi-check2-circle me-2"
+      />
+      <span
+        class="filename"
+        id="test.txt"
+      >
+        test.txt
+      </span>
+      <button
+        aria-describedby="test.txt"
+        aria-label="remove file"
+        class="bg-transparent border-0 ms-2"
+      >
+        <i
+          class="bi bi-x-octagon"
+        />
+      </button>
+    </li>
+    <li
+      class="fileupload-list-item"
+    >
+      <i
+        class="bi bi-check2-circle me-2"
+      />
+      <span
+        class="filename"
+        id="hello.txt"
+      >
+        hello.txt
+      </span>
+      <button
+        aria-describedby="hello.txt"
+        aria-label="remove file"
+        class="bg-transparent border-0 ms-2"
+      >
+        <i
+          class="bi bi-x-octagon"
+        />
+      </button>
+    </li>
+    <li
+      class="fileupload-list-item"
+    >
+      <i
+        class="bi bi-check2-circle me-2"
+      />
+      <span
+        class="filename"
+      />
+      <button
+        aria-label="remove file"
+        class="bg-transparent border-0 ms-2"
+      >
+        <i
+          class="bi bi-x-octagon"
+        />
+      </button>
+    </li>
+    <li
+      class="fileupload-list-item"
+    >
+      <i
+        class="bi bi-check2-circle me-2"
+      />
+      <span
+        class="filename"
+        id="item"
+      >
+        item
+      </span>
+      <button
+        aria-describedby="item"
+        aria-label="remove file"
+        class="bg-transparent border-0 ms-2"
+      >
+        <i
+          class="bi bi-x-octagon"
+        />
+      </button>
+    </li>
+  </ul>
+</DocumentFragment>
+`;
+
 exports[`<FileUpload> should have li named 'test.txt' and not 'hello.txt', upon removeFile 1`] = `
 <DocumentFragment>
   <div>
     <input
       class="d-none form-control"
       id="test123"
-      multiple=""
       type="file"
     />
     <button
@@ -71,12 +174,19 @@ exports[`<FileUpload> should have li named 'test.txt' and not 'hello.txt', upon 
       />
       <span
         class="filename"
+        id="test.txt"
       >
         test.txt
       </span>
-      <i
-        class="bi bi-x-circle x-circle-icon ms-2"
-      />
+      <button
+        aria-describedby="test.txt"
+        aria-label="remove file"
+        class="bg-transparent border-0 ms-2"
+      >
+        <i
+          class="bi bi-x-circle x-circle-icon"
+        />
+      </button>
     </li>
     <li
       class="fileupload-list-item"
@@ -86,12 +196,19 @@ exports[`<FileUpload> should have li named 'test.txt' and not 'hello.txt', upon 
       />
       <span
         class="filename"
+        id="hello.txt"
       >
         hello.txt
       </span>
-      <i
-        class="bi bi-x-circle x-circle-icon ms-2"
-      />
+      <button
+        aria-describedby="hello.txt"
+        aria-label="remove file"
+        class="bg-transparent border-0 ms-2"
+      >
+        <i
+          class="bi bi-x-circle x-circle-icon"
+        />
+      </button>
     </li>
     <li
       class="fileupload-list-item"
@@ -102,9 +219,14 @@ exports[`<FileUpload> should have li named 'test.txt' and not 'hello.txt', upon 
       <span
         class="filename"
       />
-      <i
-        class="bi bi-x-circle x-circle-icon ms-2"
-      />
+      <button
+        aria-label="remove file"
+        class="bg-transparent border-0 ms-2"
+      >
+        <i
+          class="bi bi-x-circle x-circle-icon"
+        />
+      </button>
     </li>
     <li
       class="fileupload-list-item"
@@ -114,12 +236,19 @@ exports[`<FileUpload> should have li named 'test.txt' and not 'hello.txt', upon 
       />
       <span
         class="filename"
+        id="item"
       >
         item
       </span>
-      <i
-        class="bi bi-x-circle x-circle-icon ms-2"
-      />
+      <button
+        aria-describedby="item"
+        aria-label="remove file"
+        class="bg-transparent border-0 ms-2"
+      >
+        <i
+          class="bi bi-x-circle x-circle-icon"
+        />
+      </button>
     </li>
   </ul>
 </DocumentFragment>
@@ -131,7 +260,6 @@ exports[`<FileUpload> should render a ul with list items, upon uploading 1`] = `
     <input
       class="d-none form-control"
       id="test123"
-      multiple=""
       type="file"
     />
     <button
@@ -152,12 +280,19 @@ exports[`<FileUpload> should render a ul with list items, upon uploading 1`] = `
       />
       <span
         class="filename"
+        id="test.txt"
       >
         test.txt
       </span>
-      <i
-        class="bi bi-x-circle x-circle-icon ms-2"
-      />
+      <button
+        aria-describedby="test.txt"
+        aria-label="remove file"
+        class="bg-transparent border-0 ms-2"
+      >
+        <i
+          class="bi bi-x-circle x-circle-icon"
+        />
+      </button>
     </li>
     <li
       class="fileupload-list-item"
@@ -167,12 +302,19 @@ exports[`<FileUpload> should render a ul with list items, upon uploading 1`] = `
       />
       <span
         class="filename"
+        id="hello.txt"
       >
         hello.txt
       </span>
-      <i
-        class="bi bi-x-circle x-circle-icon ms-2"
-      />
+      <button
+        aria-describedby="hello.txt"
+        aria-label="remove file"
+        class="bg-transparent border-0 ms-2"
+      >
+        <i
+          class="bi bi-x-circle x-circle-icon"
+        />
+      </button>
     </li>
     <li
       class="fileupload-list-item"
@@ -183,9 +325,14 @@ exports[`<FileUpload> should render a ul with list items, upon uploading 1`] = `
       <span
         class="filename"
       />
-      <i
-        class="bi bi-x-circle x-circle-icon ms-2"
-      />
+      <button
+        aria-label="remove file"
+        class="bg-transparent border-0 ms-2"
+      >
+        <i
+          class="bi bi-x-circle x-circle-icon"
+        />
+      </button>
     </li>
     <li
       class="fileupload-list-item"
@@ -195,12 +342,19 @@ exports[`<FileUpload> should render a ul with list items, upon uploading 1`] = `
       />
       <span
         class="filename"
+        id="item"
       >
         item
       </span>
-      <i
-        class="bi bi-x-circle x-circle-icon ms-2"
-      />
+      <button
+        aria-describedby="item"
+        aria-label="remove file"
+        class="bg-transparent border-0 ms-2"
+      >
+        <i
+          class="bi bi-x-circle x-circle-icon"
+        />
+      </button>
     </li>
   </ul>
 </DocumentFragment>

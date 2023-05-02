@@ -24,6 +24,8 @@ export interface FileUploadProps extends FileUpload {
   checkedIcon?: JSX.Element;
   /** Customize the cancel icon */
   cancelIcon?: JSX.Element;
+  /** When true, the user is allowed to enter more than one value in the input element */
+  multiple?: boolean;
 }
 
 const propTypes = {
@@ -60,15 +62,17 @@ const propTypes = {
   selectedFile: PropTypes.oneOfType([PropTypes.object]).isRequired,
   checkedIcon: PropTypes.element,
   cancelIcon: PropTypes.element,
+  multiple: PropTypes.bool
 };
 
-const CHECKED_ICON = <i className="bi bi-check-lg check-icon"/>;
-const CANCEL_ICON = <i className="bi bi-x-circle x-circle-icon"/>;
+const CHECKED_ICON = <i className="bi bi-check-lg check-icon" />;
+const CANCEL_ICON = <i className="bi bi-x-circle x-circle-icon" />;
 const defaultProps = {
   variant: 'primary',
   disabled: false,
   checkedIcon: CHECKED_ICON,
-  cancelIcon: CANCEL_ICON
+  cancelIcon: CANCEL_ICON,
+  multiple: false
 };
 
 export const FileUpload: React.FC<FileUploadProps> = ({
@@ -80,7 +84,8 @@ export const FileUpload: React.FC<FileUploadProps> = ({
   size,
   children,
   checkedIcon = CHECKED_ICON,
-  cancelIcon = CANCEL_ICON
+  cancelIcon = CANCEL_ICON,
+  multiple
 }) => {
   const inputRef = useRef<HTMLInputElement>(null);
   const fileNames = Object.entries(selectedFile).map((e) => e[1].name);
@@ -118,13 +123,21 @@ export const FileUpload: React.FC<FileUploadProps> = ({
     return (
       <li key={index} className="fileupload-list-item">
         {React.cloneElement(checkedIcon, {
-          className: classNames(checkedIcon.props.className, 'me-2')
+          className: classNames(checkedIcon.props.className, 'me-2'),
         })}
-        <span className="filename">{item}</span>
-        {React.cloneElement(cancelIcon, {
-          onClick: () => removeFileHandler(index),
-          className: classNames(cancelIcon.props.className, 'ms-2')
-        })}
+        <span id={item?.split(' ').join('')} className="filename">
+          {item}
+        </span>
+        <button
+          onClick={() => removeFileHandler(index)}
+          aria-label="remove file"
+          aria-describedby={item?.split(' ').join('')}
+          className="bg-transparent border-0 ms-2"
+        >
+          {React.cloneElement(cancelIcon, {
+            className: classNames(cancelIcon.props.className),
+          })}
+        </button>
       </li>
     );
   });
@@ -136,7 +149,7 @@ export const FileUpload: React.FC<FileUploadProps> = ({
           onChange={inputOnChangeHandler}
           ref={inputRef}
           type="file"
-          multiple
+          multiple={multiple}
           className="d-none"
         />
         <Button

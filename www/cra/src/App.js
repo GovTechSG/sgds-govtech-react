@@ -1,5 +1,6 @@
 import 'bootstrap-icons/font/bootstrap-icons.css';
-import '@govtechsg/sgds/css/sgds.css';
+import '@govtechsg/sgds/sass/sgds.scss';
+import './App.scss';
 import '@govtechsg/sgds-masthead/dist/sgds-masthead/sgds-masthead.css';
 
 import {
