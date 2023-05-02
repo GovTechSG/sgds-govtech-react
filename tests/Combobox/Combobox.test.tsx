@@ -209,6 +209,42 @@ const menuList = [
   'Zimbabwe',
 ];
 
+describe('<Combobox> a11y', () => {
+  it('form control has role="combobox" on input element', async () => {
+    const { container } = render(<Combobox menuList={menuList} />);
+    expect(container.querySelector('input.form-control')).toHaveAttribute(
+      'role',
+      'combobox'
+    );
+  });
+  it('form control has aria-autocomplete="list" on input element', async () => {
+    const { container } = render(<Combobox menuList={menuList} />);
+    expect(container.querySelector('input.form-control')).toHaveAttribute(
+      'aria-autocomplete',
+      'list'
+    );
+  });
+  it('dropdown menu has role="listbox" on ul element', async () => {
+    const { container } = render(<Combobox menuList={menuList} />);
+    fireEvent.click(container
+      .querySelector('input.form-control')!)
+    expect(container.querySelector('ul.dropdown-menu')).toHaveAttribute(
+      'role',
+      'listbox'
+    );
+  });
+  it('form control input aria-controls id points to ul id', async () => {
+    const { container } = render(<Combobox menuList={menuList} />);
+    fireEvent.click(container
+      .querySelector('input.form-control')!)
+    const menuUlId = container.querySelector('ul')?.getAttribute('id');
+    const inputAriaControlValue = container
+      .querySelector('input.form-control')
+      ?.getAttribute('aria-controls');
+
+      expect(inputAriaControlValue).toEqual(menuUlId);
+  });
+});
 describe('<Combobox>', () => {
   it('renders default HTML of dropdown', async () => {
     const { container, getByText } = render(<Combobox menuList={menuList} />);
@@ -246,7 +282,7 @@ describe('<Combobox>', () => {
     });
   });
 
-  it('when initialValue matches one of menuList, onClick should show menu', async () => {
+  it('when initialValue=Afghanistan matches one of menuList, onClick should show menu', async () => {
     const { container, getByText } = render(
       <Combobox menuList={menuList} initialValue="Afghanistan" />
     );
@@ -260,7 +296,7 @@ describe('<Combobox>', () => {
       expect(getByText('Afghanistan')).toBeInTheDocument();
     });
   });
-  it('when initialValue matches one of menuList, onClick should show menu', async () => {
+  it('when initialValue=afghanistan matches one of menuList, onClick should show menu', async () => {
     const { container, getByText } = render(
       <Combobox menuList={menuList} initialValue="afghanistan" />
     );
@@ -274,7 +310,7 @@ describe('<Combobox>', () => {
       expect(getByText('Afghanistan')).toBeInTheDocument();
     });
   });
-  it('when initialValue matches one of menuList, onClick should show menu', async () => {
+  it('when initialValue=a matches one of menuList, onClick should show menu', async () => {
     const { container, getByText, queryByText } = render(
       <Combobox menuList={menuList} initialValue="a" />
     );
@@ -420,13 +456,20 @@ describe('<Combobox>', () => {
   });
 
   it('when icon not defined, there is no icon ', () => {
-    const { container } = render(<Combobox menuList={menuList}/>)
-    expect(container.querySelector('.dropdown.combobox> i.form-control-icon')).not.toBeInTheDocument()
-
-  })
+    const { container } = render(<Combobox menuList={menuList} />);
+    expect(
+      container.querySelector('.dropdown.combobox> i.form-control-icon')
+    ).not.toBeInTheDocument();
+  });
   it('when icon defined, icon in container', () => {
-    const { container } = render(<Combobox menuList={menuList} icon={<i className="bi bi-search"></i>}/>)
+    const { container } = render(
+      <Combobox menuList={menuList} icon={<i className="bi bi-search"></i>} />
+    );
 
-    expect(container.querySelector('.dropdown.combobox> i.form-control-icon.bi.bi-search')).toBeInTheDocument()
-  })
+    expect(
+      container.querySelector(
+        '.dropdown.combobox> i.form-control-icon.bi.bi-search'
+      )
+    ).toBeInTheDocument();
+  });
 });

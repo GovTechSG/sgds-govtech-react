@@ -10,6 +10,7 @@ import DropdownItem from '../Dropdown/DropdownItem';
 import Dropdown from '../Dropdown/Dropdown';
 import FormControlToggle from '../Form/FormControlToggle';
 import classNames from 'classnames';
+import generateId from '../utils/generateId';
 
 export type MenuPlacement = 'up' | 'down';
 
@@ -126,7 +127,7 @@ export const Combobox: BsPrefixRefForwardingComponent<
         value: event.currentTarget.textContent as string,
       });
     };
-
+    const dropdownMenuId = generateId('combobox', 'ul')
     return (
       <>
         {label && <FormLabel htmlFor={props.id}>{label}</FormLabel>}
@@ -135,13 +136,13 @@ export const Combobox: BsPrefixRefForwardingComponent<
           focusFirstItemOnShow={false}
           drop={menuPlacement}
         >
-          <FormControlToggle {...controlProps} setIsMenuOpen={setIsMenuOpen} />
+          <FormControlToggle {...controlProps} setIsMenuOpen={setIsMenuOpen} role="combobox" aria-autocomplete="list" aria-controls={dropdownMenuId}/>
           {icon &&
             React.cloneElement(icon, {
               className: classNames(icon.props.className, 'form-control-icon'),
             })}
           {state.menuList.length > 0 && (
-            <DropdownMenu>
+            <DropdownMenu id={dropdownMenuId} role="listbox">
               {state.menuList.map((menuItem) => (
                 <DropdownItem
                   href="#"
