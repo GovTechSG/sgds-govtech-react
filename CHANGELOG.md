@@ -1,11 +1,15 @@
+## v2.1.1 (2023-05-02)
+
+### Fix
+
+- **fileupload**: preventdefault on click of cancelicon
+
 ## v2.1.0 (2023-05-02)
 
 ### Feat
 
 - **combobox**: added a11y attributes
 - **fileupload**: add multiple props to allow single or multiple selection of files
-- **datepicker**: release and added to storybook
-- **dropdown**: release and added to storybook
 
 ### Fix
 
