@@ -4,6 +4,8 @@
 
 - **combobox**: added a11y attributes
 - **fileupload**: add multiple props to allow single or multiple selection of files
+- **datepicker**: release and added to storybook
+- **dropdown**: release and added to storybook
 
 ### Fix
 
