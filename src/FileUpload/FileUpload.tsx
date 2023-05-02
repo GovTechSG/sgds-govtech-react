@@ -103,7 +103,8 @@ export const FileUpload: React.FC<FileUploadProps> = ({
     inputRef?.current?.click();
   };
 
-  const removeFileHandler = (index: number) => {
+  const removeFileHandler = (index: number, e: React.MouseEvent) => {
+    e.preventDefault()
     const attachments = (document.getElementById(
       controlId!
     ) as HTMLInputElement)!.files as FileList; // <-- reference your file input here
@@ -129,7 +130,7 @@ export const FileUpload: React.FC<FileUploadProps> = ({
           {item}
         </span>
         <button
-          onClick={() => removeFileHandler(index)}
+          onClick={(e) => removeFileHandler(index, e)}
           aria-label="remove file"
           aria-describedby={item?.split(' ').join('')}
           className="bg-transparent border-0 ms-2"
