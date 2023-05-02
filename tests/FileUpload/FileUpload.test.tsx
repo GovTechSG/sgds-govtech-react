@@ -1,4 +1,4 @@
-import { render } from '@testing-library/react';
+import { render, fireEvent } from '@testing-library/react';
 import * as React from 'react';
 
 import { FileUpload } from '../../src';
@@ -228,6 +228,23 @@ describe('<FileUpload>', () => {
     expect($checkedIcons).toBeDefined();
     expect(defaultCheckedIcons.length).toBe(0);
   });
+
+  it('when multiple prop is true input element should have multiple attribute', () => {
+
+    const { container } = render(
+      <FileUpload
+        data-testid="test"
+        controlId="test123"
+        onChangeFile={mockFn}
+        selectedFile={{}}
+        multiple
+      >
+        FileUpload
+      </FileUpload>
+    );
+
+    expect(container.querySelector('input')).toHaveAttribute("multiple")
+  })
 });
 
 // wrap cancelIcon with a button element as cancelIcon is supposed to be a button
