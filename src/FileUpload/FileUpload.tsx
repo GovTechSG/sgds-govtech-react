@@ -26,6 +26,10 @@ export interface FileUploadProps extends FileUpload {
   cancelIcon?: JSX.Element;
   /** When true, the user is allowed to enter more than one value in the input element */
   multiple?: boolean;
+  /** Similar to the native accept attribute of input[type=file]. It takes as its value a comma-separated list of one or more file types, or unique file type specifiers, describing which file types to allow. */
+  accept?: string;
+  /** Forwarded to the className attribute of Button component in FileUpload. */
+  buttonClassName?: string;
 }
 
 const propTypes = {
@@ -62,7 +66,9 @@ const propTypes = {
   selectedFile: PropTypes.oneOfType([PropTypes.object]).isRequired,
   checkedIcon: PropTypes.element,
   cancelIcon: PropTypes.element,
-  multiple: PropTypes.bool
+  multiple: PropTypes.bool,
+  accept: PropTypes.string,
+  buttonClassName: PropTypes.string,
 };
 
 const CHECKED_ICON = <i className="bi bi-check-lg check-icon" />;
@@ -72,7 +78,7 @@ const defaultProps = {
   disabled: false,
   checkedIcon: CHECKED_ICON,
   cancelIcon: CANCEL_ICON,
-  multiple: false
+  multiple: false,
 };
 
 export const FileUpload: React.FC<FileUploadProps> = ({
@@ -85,7 +91,9 @@ export const FileUpload: React.FC<FileUploadProps> = ({
   children,
   checkedIcon = CHECKED_ICON,
   cancelIcon = CANCEL_ICON,
-  multiple
+  multiple,
+  accept,
+  buttonClassName
 }) => {
   const inputRef = useRef<HTMLInputElement>(null);
   const fileNames = Object.entries(selectedFile).map((e) => e[1].name);
@@ -104,7 +112,7 @@ export const FileUpload: React.FC<FileUploadProps> = ({
   };
 
   const removeFileHandler = (index: number, e: React.MouseEvent) => {
-    e.preventDefault()
+    e.preventDefault();
     const attachments = (document.getElementById(
       controlId!
     ) as HTMLInputElement)!.files as FileList; // <-- reference your file input here
@@ -152,12 +160,14 @@ export const FileUpload: React.FC<FileUploadProps> = ({
           type="file"
           multiple={multiple}
           className="d-none"
+          accept={accept}
         />
         <Button
           onClick={handleUpload}
           size={size}
           variant={variant}
           disabled={disabled}
+          className={buttonClassName}
         >
           {children}
         </Button>
