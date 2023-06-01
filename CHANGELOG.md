@@ -1,7 +1,14 @@
+## v2.2.0 (2023-06-01)
+
+### Feat
+
+- **fileupload**: add props to support button styling and input file accept attribute
+
 ## v2.1.1 (2023-05-02)
 
 ### Fix
 
+- **test**: remove unused variable causing failing actions
 - **fileupload**: preventdefault on click of cancelicon
 
 ## v2.1.0 (2023-05-02)
