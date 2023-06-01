@@ -1,4 +1,4 @@
-import { render, fireEvent } from '@testing-library/react';
+import { render } from '@testing-library/react';
 import * as React from 'react';
 
 import { FileUpload } from '../../src';
@@ -244,6 +244,36 @@ describe('<FileUpload>', () => {
     );
 
     expect(container.querySelector('input')).toHaveAttribute("multiple")
+  })
+
+  it("accept prop when defined is forwarded to input element", async() => {
+    const { container } = render(
+      <FileUpload
+        data-testid="test"
+        controlId="test123"
+        onChangeFile={mockFn}
+        selectedFile={{}}
+        accept=".png"
+      >
+        FileUpload
+      </FileUpload>
+    );
+    expect(container.querySelector('input')).toHaveAttribute("accept", ".png")
+  })
+  
+  it("buttonClassName prop is forwarded to the Button component of Fileupload", () => {
+    const { container } = render(
+      <FileUpload
+        data-testid="test"
+        controlId="test123"
+        onChangeFile={mockFn}
+        selectedFile={{}}
+        buttonClassName="test-css-selector"
+      >
+        FileUpload
+      </FileUpload>
+    );
+    expect(container.querySelector("button.sgds")).toHaveClass("test-css-selector")
   })
 });
 
