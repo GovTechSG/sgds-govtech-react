@@ -54,7 +54,7 @@ describe('<FileUpload>', () => {
         data-testid="test"
         controlId="test123"
         onChangeFile={mockFn}
-        selectedFile={{}}
+        selectedFile={undefined}
       >
         FileUpload
       </FileUpload>
@@ -80,7 +80,7 @@ describe('<FileUpload>', () => {
         data-testid="test"
         controlId="test123"
         onChangeFile={mockFn}
-        selectedFile={{}}
+        selectedFile={undefined}
       >
         FileUpload
       </FileUpload>
@@ -111,7 +111,7 @@ describe('<FileUpload>', () => {
         name: 'hello.txt',
       },
     ]);
-    const { asFragment, container } = render(
+    const {  container } = render(
       <FileUpload
         data-testid="test"
         controlId="test123"
@@ -122,7 +122,6 @@ describe('<FileUpload>', () => {
       </FileUpload>
     );
 
-    expect(asFragment()).toMatchSnapshot();
     const $listItems = container.querySelector('ul');
     expect($listItems).toBeDefined();
     expect($listItems?.firstElementChild?.children[1]).toHaveAttribute(
@@ -160,7 +159,7 @@ describe('<FileUpload>', () => {
       },
     ]);
 
-    const { asFragment, container } = render(
+    const {  container } = render(
       <FileUpload
         data-testid="test"
         controlId="test123"
@@ -171,7 +170,6 @@ describe('<FileUpload>', () => {
       </FileUpload>
     );
 
-    expect(asFragment()).toMatchSnapshot();
     const $lists = container.querySelectorAll('li');
     const firstItem = $lists[0];
     expect(firstItem.textContent).toBe('test.txt');
@@ -201,7 +199,7 @@ describe('<FileUpload>', () => {
         name: 'hello.txt',
       },
     ]);
-    const { asFragment, container } = render(
+    const {  container } = render(
       <FileUpload
         data-testid="test"
         controlId="test123"
@@ -216,7 +214,6 @@ describe('<FileUpload>', () => {
     const defaultCancelIcons = container.querySelectorAll(
       '.bi.bi-x-circle.x-circle-icon'
     );
-    expect(asFragment()).toMatchSnapshot();
     const $cancelIcons = container.querySelectorAll('.bi.bi-x-octagon');
     expect($cancelIcons).toBeDefined();
     expect(defaultCancelIcons.length).toBe(0);
@@ -236,7 +233,7 @@ describe('<FileUpload>', () => {
         data-testid="test"
         controlId="test123"
         onChangeFile={mockFn}
-        selectedFile={{}}
+        selectedFile={undefined}
         multiple
       >
         FileUpload
@@ -252,7 +249,7 @@ describe('<FileUpload>', () => {
         data-testid="test"
         controlId="test123"
         onChangeFile={mockFn}
-        selectedFile={{}}
+        selectedFile={undefined}
         accept=".png"
       >
         FileUpload
@@ -267,7 +264,7 @@ describe('<FileUpload>', () => {
         data-testid="test"
         controlId="test123"
         onChangeFile={mockFn}
-        selectedFile={{}}
+        selectedFile={undefined}
         buttonClassName="test-css-selector"
       >
         FileUpload

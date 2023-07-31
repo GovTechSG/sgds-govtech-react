@@ -9,7 +9,10 @@ import PropTypes from 'prop-types';
 import classNames from 'classnames';
 
 type FileUpload = ButtonProps & FormGroupProps;
-type SelectedFileType = FileList | {};
+/** @deprecated use undefined instead. To be removed in v3  **/
+const object = {}
+type SelectedFileType = FileList | undefined | typeof object 
+
 export interface FileUploadProps extends FileUpload {
   variant?: ButtonVariant;
   size?: ButtonSize;
@@ -63,7 +66,7 @@ const propTypes = {
 
   onChangeFile: PropTypes.func.isRequired,
 
-  selectedFile: PropTypes.oneOfType([PropTypes.object]).isRequired,
+  selectedFile: PropTypes.oneOfType([PropTypes.instanceOf(FileList), PropTypes.object]),
   checkedIcon: PropTypes.element,
   cancelIcon: PropTypes.element,
   multiple: PropTypes.bool,
@@ -96,7 +99,7 @@ export const FileUpload: React.FC<FileUploadProps> = ({
   buttonClassName
 }) => {
   const inputRef = useRef<HTMLInputElement>(null);
-  const fileNames = Object.entries(selectedFile).map((e) => e[1].name);
+  const fileNames = selectedFile ? Object.entries(selectedFile).map((e) => e[1].name) : [];
 
   const inputOnChangeHandler = (e: React.ChangeEvent<HTMLInputElement>) => {
     let fileList = e.target.files as FileList;
