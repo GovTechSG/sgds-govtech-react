@@ -1,3 +1,9 @@
+## v2.2.1 (2023-08-01)
+
+### Refactor
+
+- **FileUpload**: deprecate empty object type for selectedFile. Introduce `undefined` as a type of selectedFile 
+
 ## v2.2.0 (2023-06-01)
 
 ### Feat
