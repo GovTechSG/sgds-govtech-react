@@ -89,6 +89,7 @@ export const DropdownToggle: DropdownToggleComponent = React.forwardRef(
         variant="outline-secondary"
         {...toggleProps}
         {...props}
+        aria-haspopup="menu"
       />
     );
   },
