@@ -8,6 +8,7 @@ exports[`Stepper Stepper interactions with onClick methods 1`] = `
     <div
       class="stepper-item is-active"
       data-testid="sgds-step"
+      tabindex="0"
     >
       <div
         class="stepper-marker"
@@ -27,6 +28,7 @@ exports[`Stepper Stepper interactions with onClick methods 1`] = `
     <div
       class="stepper-item "
       data-testid="sgds-step"
+      tabindex="0"
     >
       <div
         class="stepper-marker"
@@ -46,6 +48,7 @@ exports[`Stepper Stepper interactions with onClick methods 1`] = `
     <div
       class="stepper-item "
       data-testid="sgds-step"
+      tabindex="0"
     >
       <div
         class="stepper-marker"
@@ -101,6 +104,7 @@ exports[`Stepper Stepper interactions with onClick methods 2`] = `
     <div
       class="stepper-item is-completed is-clickable"
       data-testid="sgds-step"
+      tabindex="0"
     >
       <div
         class="stepper-marker"
@@ -120,6 +124,7 @@ exports[`Stepper Stepper interactions with onClick methods 2`] = `
     <div
       class="stepper-item is-active"
       data-testid="sgds-step"
+      tabindex="0"
     >
       <div
         class="stepper-marker"
@@ -139,6 +144,7 @@ exports[`Stepper Stepper interactions with onClick methods 2`] = `
     <div
       class="stepper-item "
       data-testid="sgds-step"
+      tabindex="0"
     >
       <div
         class="stepper-marker"
@@ -200,6 +206,7 @@ exports[`Stepper Stepper interactions with onClick methods 3`] = `
     <div
       class="stepper-item is-completed is-clickable"
       data-testid="sgds-step"
+      tabindex="0"
     >
       <div
         class="stepper-marker"
@@ -219,6 +226,7 @@ exports[`Stepper Stepper interactions with onClick methods 3`] = `
     <div
       class="stepper-item is-completed is-clickable"
       data-testid="sgds-step"
+      tabindex="0"
     >
       <div
         class="stepper-marker"
@@ -238,6 +246,7 @@ exports[`Stepper Stepper interactions with onClick methods 3`] = `
     <div
       class="stepper-item is-active"
       data-testid="sgds-step"
+      tabindex="0"
     >
       <div
         class="stepper-marker"
@@ -304,6 +313,7 @@ exports[`Stepper Stepper interactions with onClick methods 4`] = `
     <div
       class="stepper-item is-completed is-clickable"
       data-testid="sgds-step"
+      tabindex="0"
     >
       <div
         class="stepper-marker"
@@ -323,6 +333,7 @@ exports[`Stepper Stepper interactions with onClick methods 4`] = `
     <div
       class="stepper-item is-active"
       data-testid="sgds-step"
+      tabindex="0"
     >
       <div
         class="stepper-marker"
@@ -342,6 +353,7 @@ exports[`Stepper Stepper interactions with onClick methods 4`] = `
     <div
       class="stepper-item "
       data-testid="sgds-step"
+      tabindex="0"
     >
       <div
         class="stepper-marker"
@@ -403,6 +415,7 @@ exports[`Stepper Stepper interactions with onClick methods 5`] = `
     <div
       class="stepper-item is-active"
       data-testid="sgds-step"
+      tabindex="0"
     >
       <div
         class="stepper-marker"
@@ -422,6 +435,7 @@ exports[`Stepper Stepper interactions with onClick methods 5`] = `
     <div
       class="stepper-item "
       data-testid="sgds-step"
+      tabindex="0"
     >
       <div
         class="stepper-marker"
@@ -441,6 +455,7 @@ exports[`Stepper Stepper interactions with onClick methods 5`] = `
     <div
       class="stepper-item "
       data-testid="sgds-step"
+      tabindex="0"
     >
       <div
         class="stepper-marker"
@@ -496,6 +511,7 @@ exports[`Stepper Stepper interactions with onClick methods 6`] = `
     <div
       class="stepper-item is-active"
       data-testid="sgds-step"
+      tabindex="0"
     >
       <div
         class="stepper-marker"
@@ -515,6 +531,7 @@ exports[`Stepper Stepper interactions with onClick methods 6`] = `
     <div
       class="stepper-item "
       data-testid="sgds-step"
+      tabindex="0"
     >
       <div
         class="stepper-marker"
@@ -534,6 +551,7 @@ exports[`Stepper Stepper interactions with onClick methods 6`] = `
     <div
       class="stepper-item "
       data-testid="sgds-step"
+      tabindex="0"
     >
       <div
         class="stepper-marker"
@@ -589,6 +607,7 @@ exports[`Stepper Stepper interactions with onClick methods 7`] = `
     <div
       class="stepper-item is-active"
       data-testid="sgds-step"
+      tabindex="0"
     >
       <div
         class="stepper-marker"
@@ -608,6 +627,7 @@ exports[`Stepper Stepper interactions with onClick methods 7`] = `
     <div
       class="stepper-item "
       data-testid="sgds-step"
+      tabindex="0"
     >
       <div
         class="stepper-marker"
@@ -627,6 +647,7 @@ exports[`Stepper Stepper interactions with onClick methods 7`] = `
     <div
       class="stepper-item "
       data-testid="sgds-step"
+      tabindex="0"
     >
       <div
         class="stepper-marker"
@@ -682,6 +703,7 @@ exports[`Stepper Stepper interactions with onClick methods 8`] = `
     <div
       class="stepper-item is-completed is-clickable"
       data-testid="sgds-step"
+      tabindex="0"
     >
       <div
         class="stepper-marker"
@@ -701,6 +723,7 @@ exports[`Stepper Stepper interactions with onClick methods 8`] = `
     <div
       class="stepper-item is-active"
       data-testid="sgds-step"
+      tabindex="0"
     >
       <div
         class="stepper-marker"
@@ -720,6 +743,7 @@ exports[`Stepper Stepper interactions with onClick methods 8`] = `
     <div
       class="stepper-item "
       data-testid="sgds-step"
+      tabindex="0"
     >
       <div
         class="stepper-marker"
@@ -781,6 +805,7 @@ exports[`Stepper default html structure, with minimal required stepMethods 1`] =
     <div
       class="stepper-item is-active"
       data-testid="sgds-step"
+      tabindex="0"
     >
       <div
         class="stepper-marker"
@@ -800,6 +825,7 @@ exports[`Stepper default html structure, with minimal required stepMethods 1`] =
     <div
       class="stepper-item "
       data-testid="sgds-step"
+      tabindex="0"
     >
       <div
         class="stepper-marker"
@@ -819,6 +845,7 @@ exports[`Stepper default html structure, with minimal required stepMethods 1`] =
     <div
       class="stepper-item "
       data-testid="sgds-step"
+      tabindex="0"
     >
       <div
         class="stepper-marker"
