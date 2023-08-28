@@ -52,6 +52,7 @@ const Stepper: React.FC<StepperProps> = ({ methods }) => {
           className={`stepper-item ${getClass(stepMetadata)}`}
           onClick={back(stepMetadata)}
           key={stepMetadata.step}
+          tabIndex={0}
         >
           <div className="stepper-marker">{stepMetadata.step}</div>
           <div className="stepper-detail">
