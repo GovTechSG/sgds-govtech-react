@@ -53,6 +53,7 @@ const Stepper: React.FC<StepperProps> = ({ methods }) => {
           onClick={back(stepMetadata)}
           key={stepMetadata.step}
           tabIndex={0}
+          aria-current={stepMetadata.step === state.currentStep ? "step" : "false"}
         >
           <div className="stepper-marker">{stepMetadata.step}</div>
           <div className="stepper-detail">
