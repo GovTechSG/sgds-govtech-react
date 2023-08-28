@@ -6,6 +6,7 @@ exports[`Stepper Stepper interactions with onClick methods 1`] = `
     class="stepper sgds"
   >
     <div
+      aria-current="step"
       class="stepper-item is-active"
       data-testid="sgds-step"
       tabindex="0"
@@ -26,6 +27,7 @@ exports[`Stepper Stepper interactions with onClick methods 1`] = `
       </div>
     </div>
     <div
+      aria-current="false"
       class="stepper-item "
       data-testid="sgds-step"
       tabindex="0"
@@ -46,6 +48,7 @@ exports[`Stepper Stepper interactions with onClick methods 1`] = `
       </div>
     </div>
     <div
+      aria-current="false"
       class="stepper-item "
       data-testid="sgds-step"
       tabindex="0"
@@ -102,6 +105,7 @@ exports[`Stepper Stepper interactions with onClick methods 2`] = `
     class="stepper sgds"
   >
     <div
+      aria-current="false"
       class="stepper-item is-completed is-clickable"
       data-testid="sgds-step"
       tabindex="0"
@@ -122,6 +126,7 @@ exports[`Stepper Stepper interactions with onClick methods 2`] = `
       </div>
     </div>
     <div
+      aria-current="step"
       class="stepper-item is-active"
       data-testid="sgds-step"
       tabindex="0"
@@ -142,6 +147,7 @@ exports[`Stepper Stepper interactions with onClick methods 2`] = `
       </div>
     </div>
     <div
+      aria-current="false"
       class="stepper-item "
       data-testid="sgds-step"
       tabindex="0"
@@ -204,6 +210,7 @@ exports[`Stepper Stepper interactions with onClick methods 3`] = `
     class="stepper sgds"
   >
     <div
+      aria-current="false"
       class="stepper-item is-completed is-clickable"
       data-testid="sgds-step"
       tabindex="0"
@@ -224,6 +231,7 @@ exports[`Stepper Stepper interactions with onClick methods 3`] = `
       </div>
     </div>
     <div
+      aria-current="false"
       class="stepper-item is-completed is-clickable"
       data-testid="sgds-step"
       tabindex="0"
@@ -244,6 +252,7 @@ exports[`Stepper Stepper interactions with onClick methods 3`] = `
       </div>
     </div>
     <div
+      aria-current="step"
       class="stepper-item is-active"
       data-testid="sgds-step"
       tabindex="0"
@@ -311,6 +320,7 @@ exports[`Stepper Stepper interactions with onClick methods 4`] = `
     class="stepper sgds"
   >
     <div
+      aria-current="false"
       class="stepper-item is-completed is-clickable"
       data-testid="sgds-step"
       tabindex="0"
@@ -331,6 +341,7 @@ exports[`Stepper Stepper interactions with onClick methods 4`] = `
       </div>
     </div>
     <div
+      aria-current="step"
       class="stepper-item is-active"
       data-testid="sgds-step"
       tabindex="0"
@@ -351,6 +362,7 @@ exports[`Stepper Stepper interactions with onClick methods 4`] = `
       </div>
     </div>
     <div
+      aria-current="false"
       class="stepper-item "
       data-testid="sgds-step"
       tabindex="0"
@@ -413,6 +425,7 @@ exports[`Stepper Stepper interactions with onClick methods 5`] = `
     class="stepper sgds"
   >
     <div
+      aria-current="step"
       class="stepper-item is-active"
       data-testid="sgds-step"
       tabindex="0"
@@ -433,6 +446,7 @@ exports[`Stepper Stepper interactions with onClick methods 5`] = `
       </div>
     </div>
     <div
+      aria-current="false"
       class="stepper-item "
       data-testid="sgds-step"
       tabindex="0"
@@ -453,6 +467,7 @@ exports[`Stepper Stepper interactions with onClick methods 5`] = `
       </div>
     </div>
     <div
+      aria-current="false"
       class="stepper-item "
       data-testid="sgds-step"
       tabindex="0"
@@ -509,6 +524,7 @@ exports[`Stepper Stepper interactions with onClick methods 6`] = `
     class="stepper sgds"
   >
     <div
+      aria-current="step"
       class="stepper-item is-active"
       data-testid="sgds-step"
       tabindex="0"
@@ -529,6 +545,7 @@ exports[`Stepper Stepper interactions with onClick methods 6`] = `
       </div>
     </div>
     <div
+      aria-current="false"
       class="stepper-item "
       data-testid="sgds-step"
       tabindex="0"
@@ -549,6 +566,7 @@ exports[`Stepper Stepper interactions with onClick methods 6`] = `
       </div>
     </div>
     <div
+      aria-current="false"
       class="stepper-item "
       data-testid="sgds-step"
       tabindex="0"
@@ -605,6 +623,7 @@ exports[`Stepper Stepper interactions with onClick methods 7`] = `
     class="stepper sgds"
   >
     <div
+      aria-current="step"
       class="stepper-item is-active"
       data-testid="sgds-step"
       tabindex="0"
@@ -625,6 +644,7 @@ exports[`Stepper Stepper interactions with onClick methods 7`] = `
       </div>
     </div>
     <div
+      aria-current="false"
       class="stepper-item "
       data-testid="sgds-step"
       tabindex="0"
@@ -645,6 +665,7 @@ exports[`Stepper Stepper interactions with onClick methods 7`] = `
       </div>
     </div>
     <div
+      aria-current="false"
       class="stepper-item "
       data-testid="sgds-step"
       tabindex="0"
@@ -701,6 +722,7 @@ exports[`Stepper Stepper interactions with onClick methods 8`] = `
     class="stepper sgds"
   >
     <div
+      aria-current="false"
       class="stepper-item is-completed is-clickable"
       data-testid="sgds-step"
       tabindex="0"
@@ -721,6 +743,7 @@ exports[`Stepper Stepper interactions with onClick methods 8`] = `
       </div>
     </div>
     <div
+      aria-current="step"
       class="stepper-item is-active"
       data-testid="sgds-step"
       tabindex="0"
@@ -741,6 +764,7 @@ exports[`Stepper Stepper interactions with onClick methods 8`] = `
       </div>
     </div>
     <div
+      aria-current="false"
       class="stepper-item "
       data-testid="sgds-step"
       tabindex="0"
@@ -803,6 +827,7 @@ exports[`Stepper default html structure, with minimal required stepMethods 1`] =
     class="stepper sgds"
   >
     <div
+      aria-current="step"
       class="stepper-item is-active"
       data-testid="sgds-step"
       tabindex="0"
@@ -823,6 +848,7 @@ exports[`Stepper default html structure, with minimal required stepMethods 1`] =
       </div>
     </div>
     <div
+      aria-current="false"
       class="stepper-item "
       data-testid="sgds-step"
       tabindex="0"
@@ -843,6 +869,7 @@ exports[`Stepper default html structure, with minimal required stepMethods 1`] =
       </div>
     </div>
     <div
+      aria-current="false"
       class="stepper-item "
       data-testid="sgds-step"
       tabindex="0"
