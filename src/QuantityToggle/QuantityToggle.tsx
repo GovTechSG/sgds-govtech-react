@@ -73,7 +73,7 @@ export const QuantityToggle: BsPrefixRefForwardingComponent<
       <>
         <FormLabel className="visually-hidden">quantity-toggle</FormLabel>
         <InputGroup size={size} variant="quantity-toggle">
-          <Button onClick={onMinus} {...buttonProps} aria-label="minus-btn">
+          <Button onClick={onMinus} {...buttonProps} aria-label="decrement-button">
             <i className="bi bi-dash"></i>
           </Button>
           <FormControl
@@ -89,7 +89,7 @@ export const QuantityToggle: BsPrefixRefForwardingComponent<
             }}
             min={0}
           />
-          <Button onClick={onPlus} {...buttonProps} aria-label="plus-btn">
+          <Button onClick={onPlus} {...buttonProps} aria-label="increment-button">
             <i className="bi bi-plus"></i>
           </Button>
         </InputGroup>

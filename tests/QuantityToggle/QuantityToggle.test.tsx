@@ -14,10 +14,10 @@ describe('<QuantityToggle />', () => {
         expect($InputGroup).toHaveAttribute('variant', 'quantity-toggle')
         expect($InputGroup?.children.length).toEqual(3)
         expect($InputGroup?.children[0].tagName).toEqual('BUTTON')
-        expect($InputGroup?.children[0]).toHaveAttribute('aria-label', 'minus-btn')
+        expect($InputGroup?.children[0]).toHaveAttribute('aria-label', 'decrement-button')
         expect($InputGroup?.children[1].tagName).toEqual('INPUT')
         expect($InputGroup?.children[2].tagName).toEqual('BUTTON')
-        expect($InputGroup?.children[2]).toHaveAttribute('aria-label', 'plus-btn')
+        expect($InputGroup?.children[2]).toHaveAttribute('aria-label', 'increment-button')
 
 
         const $input = $InputGroup?.children[1]
