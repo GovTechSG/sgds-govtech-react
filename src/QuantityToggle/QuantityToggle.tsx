@@ -89,6 +89,13 @@ export const QuantityToggle: BsPrefixRefForwardingComponent<
             }}
             min={0}
           />
+          <div
+            id="quantitytoggle-announcer"
+            role="region"
+            aria-live="assertive"
+            className="visually-hidden">
+            {count}
+          </div>
           <Button onClick={onPlus} {...buttonProps} aria-label="increment-button">
             <i className="bi bi-plus"></i>
           </Button>

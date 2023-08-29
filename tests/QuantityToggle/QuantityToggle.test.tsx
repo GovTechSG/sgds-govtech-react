@@ -12,12 +12,15 @@ describe('<QuantityToggle />', () => {
         const $InputGroup = container.querySelector('div')
         expect($InputGroup?.classList).toContain('input-group')
         expect($InputGroup).toHaveAttribute('variant', 'quantity-toggle')
-        expect($InputGroup?.children.length).toEqual(3)
+        expect($InputGroup?.children.length).toEqual(4)
         expect($InputGroup?.children[0].tagName).toEqual('BUTTON')
         expect($InputGroup?.children[0]).toHaveAttribute('aria-label', 'decrement-button')
         expect($InputGroup?.children[1].tagName).toEqual('INPUT')
-        expect($InputGroup?.children[2].tagName).toEqual('BUTTON')
-        expect($InputGroup?.children[2]).toHaveAttribute('aria-label', 'increment-button')
+        expect($InputGroup?.children[2].tagName).toEqual('DIV')
+        expect($InputGroup?.children[2]).toHaveAttribute('aria-live', 'assertive')
+        expect($InputGroup?.children[2]).toHaveClass('visually-hidden')
+        expect($InputGroup?.children[3].tagName).toEqual('BUTTON')
+        expect($InputGroup?.children[3]).toHaveAttribute('aria-label', 'increment-button')
 
 
         const $input = $InputGroup?.children[1]
