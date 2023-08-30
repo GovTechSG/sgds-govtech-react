@@ -113,3 +113,10 @@ The Tooltip can also be closed by clicking on the target element as well. Clicka
     </Tooltip>
   </Story>
 </Canvas>
+
+
+## Accessibility
+
+For tooltips to be accessible to keyboard and assistive technology users, you should only add tooltips to HTML elements that are keyboard-focusable and interactive (such as `<button>`, `<a>`). 
+
+Although non-semantic HTML elements (such as `<div>`, `<span>`) can be made focusable by adding the `tabindex="0"` attribute, this will add potentially annoying and confusing tab stops on non-interactive elements for keyboard users. In addition, most assistive technologies currently do not announce the tooltip in this situation.
