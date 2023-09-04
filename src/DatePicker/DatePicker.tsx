@@ -13,6 +13,7 @@ import warning from 'warning';
 import FormControlToggle from '../Form/FormControlToggle';
 import { Dropdown } from '../Dropdown';
 import { ButtonVariant } from '../utils/types';
+import generateId from '../utils/generateId';
 
 export type CalendarPlacement = 'up' | 'down';
 export type DateFormat = 'MM/DD/YYYY' | 'DD/MM/YYYY' | 'YYYY/MM/DD';
@@ -375,17 +376,18 @@ export const DatePicker: BsPrefixRefForwardingComponent<
           );
       }
     }
+    const dropdownMenuId = generateId('combobox', 'ul');
     return (
       <DatePickerContext.Provider value={contextValue}>
         <Dropdown drop={calendarPlacement} className="form-control-group input-group">
-              <FormControlToggle {...controlProps} ref={formControlRef} />
+            <FormControlToggle {...controlProps} ref={formControlRef} role="combobox" aria-haspopup="dialog" aria-controls={dropdownMenuId} />
             <Button onClick={clear} disabled={props.disabled} variant={clearBtnVariant}>
               <i className="bi bi-x"></i>
               <span className="visually-hidden">clear</span>
             </Button>
             <i className="bi bi-calendar form-control-icon"></i>
 
-          <Dropdown.Menu className="sgds datepicker">
+          <Dropdown.Menu id={dropdownMenuId} className="sgds datepicker" role="dialog" aria-modal="true">
             <Dropdown.Header className="datepicker-header">
               {calendarHeader}
             </Dropdown.Header>
