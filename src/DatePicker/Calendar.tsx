@@ -9,7 +9,7 @@ interface CalendarProps extends React.HTMLAttributes<HTMLTableElement> {
   mode: 'single' | 'range';
 }
 
-export const DAY_LABELS = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'];
+export const DAY_LABELS = ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'];
 export const daysInMonth = [31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31];
 
 export const setTimeToNoon = (date: Date) => {
