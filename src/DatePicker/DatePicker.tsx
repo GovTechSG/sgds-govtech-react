@@ -192,6 +192,7 @@ export const DatePicker: BsPrefixRefForwardingComponent<
     const clear = () => {
       setState({
         ...initialState,
+        selectedDate: isRange ? { start: undefined, end: undefined } : undefined,
         displayDate: new Date(),
       });
       props.onClear?.();

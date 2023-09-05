@@ -60,8 +60,16 @@ export const Calendar = React.forwardRef<HTMLTableElement, CalendarProps>(
         return Date.parse(date.toISOString()) === Date.parse(selectedDate.toISOString());
       }
 
-      const { start, end } = selectedDate;
+      let { start, end } = selectedDate;
+
       if (start && end) {
+        // if selected end date is before selected start date --> swap
+        if (new Date(start).getTime() > new Date(end).getTime()) {
+          const temp = start;
+          start = end;
+          end = temp;
+        }
+
         return Date.parse(date.toISOString()) >= Date.parse(start.toISOString()) 
           && Date.parse(date.toISOString()) <= Date.parse(end.toISOString());
       } else if (start) {
