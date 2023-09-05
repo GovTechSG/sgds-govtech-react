@@ -79,7 +79,7 @@ describe('Single mode Calendar', () => {
   const mode = 'single';
   it('should have the default html structure', () => {
     const displayDate = new Date(2022, 2, 21);
-    const selectedDate = [new Date(2022, 2, 18)];
+    const selectedDate = new Date(2022, 2, 18);
     const mockChangeDate = jest.fn();
     const { container, getByText } = render(
       <Calendar
@@ -104,7 +104,7 @@ describe('Single mode Calendar', () => {
   it('day should have class text-primary when its current date', () => {
     jest.useFakeTimers().setSystemTime(new Date('2020-01-01'));
     const displayDate = new Date('2020-01-23');
-    const selectedDate = [new Date('2020-01-23')];
+    const selectedDate = new Date('2020-01-23');
     const mockChangeDate = jest.fn();
     const { getByText, container } = render(
       <Calendar
@@ -143,7 +143,7 @@ describe('Single mode Calendar', () => {
           changeDate={mockChangeDate}
           mode={mode}
           displayDate={date}
-          selectedDate={[date]}
+          selectedDate={date}
         />
       );
       const expectedLastDatePerMonth = daysInMonth[idx];
@@ -161,7 +161,7 @@ describe('Single mode Calendar', () => {
           changeDate={mockChangeDate}
           mode={mode}
           displayDate={feb}
-          selectedDate={[feb]}
+          selectedDate={feb}
         />
       );
       expect(getByText('29')).toBeInTheDocument();
@@ -178,7 +178,7 @@ describe('Single mode Calendar', () => {
           changeDate={mockChangeDate}
           mode={mode}
           displayDate={feb}
-          selectedDate={[feb]}
+          selectedDate={feb}
         />
       );
       expect(queryByText('29')).not.toBeInTheDocument();
@@ -193,7 +193,7 @@ describe('Single mode Calendar', () => {
         changeDate={mockChangeDate}
         mode={mode}
         displayDate={date}
-        selectedDate={[date]}
+        selectedDate={date}
       />
     );
     expect(getByText('20').classList).toContain('bg-primary-100');
@@ -202,7 +202,7 @@ describe('Single mode Calendar', () => {
         changeDate={mockChangeDate}
         mode={mode}
         displayDate={date}
-        selectedDate={[new Date(2022, 2, 1)]}
+        selectedDate={new Date(2022, 2, 1)}
       />
     );
 
@@ -217,7 +217,7 @@ describe('Single mode Calendar', () => {
         changeDate={mockChangeDate}
         mode={mode}
         displayDate={date}
-        selectedDate={[date]}
+        selectedDate={date}
       />
     );
     fireEvent.click(getByText('21'));
@@ -239,7 +239,7 @@ describe('Single mode Calendar', () => {
         changeDate={mockChangeDate}
         mode={mode}
         displayDate={date}
-        selectedDate={[date]}
+        selectedDate={date}
         minDate={minDate}
         maxDate={maxDate}
       />
@@ -282,7 +282,7 @@ describe('Range Calendar', () => {
   const mode = 'range';
   it('when two diff date selected, it reflects bg-primary-100 on the ranges', () => {
     const displayDate = new Date(2022, 2, 21);
-    const selectedDate = [new Date(2022, 2, 18), new Date(2022, 2, 20)];
+    const selectedDate = { start: new Date(2022, 2, 18), end: new Date(2022, 2, 20) };
     const mockChangeDate = jest.fn();
     const { container, getByText } = render(
       <Calendar
@@ -302,7 +302,7 @@ describe('Range Calendar', () => {
   });
   it('the sequence of selectedDates should not matter', () => {
     const displayDate = new Date(2022, 2, 21);
-    const selectedDate = [new Date(2022, 2, 20), new Date(2022, 2, 18)];
+    const selectedDate = { start: new Date(2022, 2, 20), end: new Date(2022, 2, 18) };
     const mockChangeDate = jest.fn();
     const { container, getByText } = render(
       <Calendar
