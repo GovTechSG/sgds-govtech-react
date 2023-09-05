@@ -380,15 +380,15 @@ export const DatePicker: BsPrefixRefForwardingComponent<
     return (
       <DatePickerContext.Provider value={contextValue}>
         <Dropdown drop={calendarPlacement} className="form-control-group input-group">
-            <FormControlToggle {...controlProps} ref={formControlRef} role="combobox" aria-haspopup="dialog" aria-controls={dropdownMenuId} />
+            <FormControlToggle {...controlProps} ref={formControlRef} role="combobox" aria-haspopup="dialog" aria-controls={dropdownMenuId} aria-label="Choose Date" />
             <Button onClick={clear} disabled={props.disabled} variant={clearBtnVariant}>
               <i className="bi bi-x"></i>
               <span className="visually-hidden">clear</span>
             </Button>
             <i className="bi bi-calendar form-control-icon"></i>
 
-          <Dropdown.Menu id={dropdownMenuId} className="sgds datepicker" role="dialog" aria-modal="true">
-            <Dropdown.Header className="datepicker-header">
+          <Dropdown.Menu id={dropdownMenuId} className="sgds datepicker" as='div' role="dialog" aria-modal="true" aria-label="Choose Date">
+            <Dropdown.Header className="datepicker-header" role="none">
               {calendarHeader}
             </Dropdown.Header>
             <div className="datepicker-body">{BodyContent()}</div>
