@@ -8,7 +8,7 @@ interface CalendarProps extends React.HTMLAttributes<HTMLTableElement> {
   mode: 'single' | 'range';
 }
 
-export const DAYS_LABEL = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'];
+export const DAY_LABELS = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'];
 export const daysInMonth = [31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31];
 
 export const setTimeToNoon = (date: Date) => {
@@ -133,7 +133,7 @@ export const Calendar = React.forwardRef<HTMLTableElement, CalendarProps>(
       <table className="text-center" role="grid" ref={ref}>
         <thead>
           <tr>
-            {DAYS_LABEL.map((label: string, index: number) => {
+            {DAY_LABELS.map((label: string, index: number) => {
               return (
                 <th
                   key={index}

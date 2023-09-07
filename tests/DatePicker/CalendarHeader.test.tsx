@@ -23,11 +23,11 @@ describe('CalendarHeader', () => {
       container.querySelector('div.d-flex.text-center.justify-content-between')
     ).toBeInTheDocument();
     expect(
-      container.querySelector('div>i.bi.bi-chevron-left')
+      container.querySelector('div>button>i.bi.bi-chevron-left')
     ).toBeInTheDocument();
-    expect(container.querySelectorAll('button').length).toEqual(1);
+    expect(container.querySelectorAll('button').length).toEqual(3);
     expect(
-      container.querySelector('div>i.bi.bi-chevron-right')
+      container.querySelector('div>button>i.bi.bi-chevron-right')
     ).toBeInTheDocument();
 
     expect(getByText(`${displayMonth} ${displayYear}`)).toBeInTheDocument();
@@ -43,11 +43,11 @@ describe('CalendarHeader', () => {
         <CalendarHeader onChange={mockFn} displayDate={displayDate} />
       </DatePickerContext.Provider>
     );
-    const headerButton = container.querySelector('button');
+    const headerButton = container.querySelectorAll('button')[1];
     expect(headerButton?.textContent).toEqual(`${displayMonth} ${displayYear}`);
-    expect(container.querySelector('button')).not.toHaveAttribute('disabled');
+    expect(headerButton).not.toHaveAttribute('disabled');
 
-    fireEvent.click(container.querySelector('button')!);
+    fireEvent.click(headerButton!);
 
     await waitFor(() => {
       expect(contextValue.setView).toHaveBeenCalled();
@@ -63,14 +63,14 @@ describe('CalendarHeader', () => {
         <CalendarHeader onChange={mockFn} displayDate={displayDate} />
       </DatePickerContext.Provider>
     );
-    const headerButton = container.querySelector('button');
+    const headerButton = container.querySelectorAll('button')[1];
     expect(headerButton?.textContent).not.toEqual(
       `${displayMonth} ${displayYear}`
     );
     expect(headerButton?.textContent).toEqual(`${displayYear}`);
-    expect(container.querySelector('button')).not.toHaveAttribute('disabled');
+    expect(headerButton).not.toHaveAttribute('disabled');
 
-    fireEvent.click(container.querySelector('button')!);
+    fireEvent.click(headerButton!);
 
     await waitFor(() => {
       expect(contextValue.setView).toHaveBeenCalled();
@@ -86,7 +86,7 @@ describe('CalendarHeader', () => {
         <CalendarHeader onChange={mockFn} displayDate={displayDate} />
       </DatePickerContext.Provider>
     );
-    const headerButton = container.querySelector('button');
+    const headerButton = container.querySelectorAll('button')[1];
     expect(headerButton?.textContent).not.toEqual(
       `${displayMonth} ${displayYear}`
     );
@@ -94,9 +94,9 @@ describe('CalendarHeader', () => {
     expect(headerButton?.textContent).toEqual(
       `${displayDate.getFullYear() - 5} - ${displayDate.getFullYear() + 6}`
     );
-    expect(container.querySelector('button')).toHaveAttribute('disabled');
+    expect(headerButton).toHaveAttribute('disabled');
 
-    fireEvent.click(container.querySelector('button')!);
+    fireEvent.click(headerButton!);
 
     await waitFor(() => {
       expect(contextValue.setView).not.toHaveBeenCalled();
