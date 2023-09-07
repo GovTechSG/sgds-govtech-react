@@ -381,7 +381,7 @@ export const DatePicker: BsPrefixRefForwardingComponent<
       <DatePickerContext.Provider value={contextValue}>
         <Dropdown drop={calendarPlacement} className="form-control-group input-group">
             <FormControlToggle {...controlProps} ref={formControlRef} role="combobox" aria-haspopup="dialog" aria-controls={dropdownMenuId} aria-label="Choose Date" />
-            <Button onClick={clear} disabled={props.disabled} variant={clearBtnVariant}>
+            <Button onClick={clear} disabled={props.disabled} variant={clearBtnVariant} aria-label="Clear Selection">
               <i className="bi bi-x"></i>
               <span className="visually-hidden">clear</span>
             </Button>
