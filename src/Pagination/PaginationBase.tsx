@@ -10,7 +10,7 @@ type PaginationBaseSize = 'sm' | 'md' | 'lg';
 
 export interface PaginationBaseProps
   extends BsPrefixProps,
-    React.HTMLAttributes<HTMLUListElement> {
+  React.HTMLAttributes<HTMLUListElement> {
   size?: 'sm' | 'md' | 'lg';
 }
 
@@ -40,16 +40,17 @@ const PaginationBase = React.forwardRef<HTMLUListElement, PaginationBaseProps>(
   ({ bsPrefix, className, size, ...props }, ref) => {
     const decoratedBsPrefix = useBootstrapPrefix(bsPrefix, 'pagination');
     return (
-      <SGDSWrapper
-        as="ul"
-        ref={ref}
-        {...props}
-        className={classNames(
-          className,
-          decoratedBsPrefix,
-          size && `${decoratedBsPrefix}-${size}`
-        )}
-      />
+      <SGDSWrapper as='nav' aria-label='Page Navigation'>
+        <ul
+          ref={ref}
+          {...props}
+          className={classNames(
+            className,
+            decoratedBsPrefix,
+            size && `${decoratedBsPrefix}-${size}`
+          )}>
+        </ul>
+      </SGDSWrapper>
     );
   }
 );
