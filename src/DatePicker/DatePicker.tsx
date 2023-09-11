@@ -228,8 +228,6 @@ export const DatePicker: BsPrefixRefForwardingComponent<
         } else {
           end = newSelectedDate;
         }
-      } else {
-        // shouldn't reach here
       }
 
       const newSelectedDates = { start: start, end: end }
