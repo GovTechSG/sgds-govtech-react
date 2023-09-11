@@ -91,7 +91,7 @@ describe('Single mode Calendar', () => {
     );
     expect(container.querySelector('table.text-center')).toBeInTheDocument();
     DAY_LABELS.forEach((day) => {
-      expect(getByText(day)).toBeInTheDocument();
+      expect(getByText(day.slice(0, 3))).toBeInTheDocument();
     });
 
     const totalDaysInDisplayDate = daysInMonth[displayDate.getMonth()];

@@ -5,15 +5,25 @@ exports[`CalendarHeader should have default html structure 1`] = `
   <div
     class="text-center d-flex justify-content-between"
   >
-    <i
-      class="bi bi-chevron-left"
-    />
-    <button>
+    <button
+      aria-label="previous day"
+    >
+      <i
+        class="bi bi-chevron-left"
+      />
+    </button>
+    <button
+      aria-live="polite"
+    >
       March 2022
     </button>
-    <i
-      class="bi bi-chevron-right"
-    />
+    <button
+      aria-label="next day"
+    >
+      <i
+        class="bi bi-chevron-right"
+      />
+    </button>
   </div>
 </DocumentFragment>
 `;
