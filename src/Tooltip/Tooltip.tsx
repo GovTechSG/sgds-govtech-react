@@ -6,6 +6,7 @@ import OverlayTrigger from '../Overlay/OverlayTrigger';
 import TooltipBox from './TooltipBox';
 import CloseButton from '../CloseButton/CloseButton';
 import PropTypes from 'prop-types';
+import generateId from '../utils/generateId';
 
 export interface TooltipProps {
   /** The placement of the Tooltip in relation to its target */
@@ -35,15 +36,17 @@ const defaultProps: TooltipProps = {
   content: '',
 };
 
-export const Tooltip: React.FC<TooltipProps> = ((props = defaultProps)=> {
+export const Tooltip: React.FC<TooltipProps> = ((props = defaultProps) => {
   const { type, placement, content, children } = props;
   const [show, setShow] = useState(false);
   const target = useRef(null);
+  const toolTipId = generateId('tooltip', 'div');
   const clickToolTip = () => (
     <>
       {React.cloneElement(children as React.ReactElement, {
         onClick: () => setShow(!show),
         ref: target,
+        'aria-describedby': toolTipId,
       })}
       <Overlay target={target.current} show={show} placement={placement}>
         {(props) => (
@@ -52,6 +55,7 @@ export const Tooltip: React.FC<TooltipProps> = ((props = defaultProps)=> {
             closeBtn={
               <CloseButton variant="white" onClick={() => setShow(!show)} />
             }
+            id={toolTipId}
           >
             {content}
           </TooltipBox>
@@ -59,14 +63,16 @@ export const Tooltip: React.FC<TooltipProps> = ((props = defaultProps)=> {
       </Overlay>
     </>
   );
+  // console.log((children as React.ReactElement).props);
   const hoverTooltip = () => (
     <OverlayTrigger
       placement={placement}
-      overlay={<TooltipBox {...props}>{content}</TooltipBox>}
+      overlay={<TooltipBox id={toolTipId} {...props}>{content}</TooltipBox>}
     >
       {React.cloneElement(children as React.ReactElement, {
         onClick: () => setShow(!show),
         ref: target,
+        'aria-describedby': toolTipId,
       })}
     </OverlayTrigger>
   );
