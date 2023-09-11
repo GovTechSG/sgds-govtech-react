@@ -88,6 +88,7 @@ export const NavLink: BsPrefixRefForwardingComponent<'a', NavLinkProps> =
             props.disabled && 'disabled',
             meta.isActive && 'active'
           )}
+          aria-current={meta.isActive ? "page" : "false"}
         />
       );
     }

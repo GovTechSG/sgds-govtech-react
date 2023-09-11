@@ -76,6 +76,7 @@ export const NavbarToggle: BsPrefixRefForwardingComponent<
         onClick={handleClick}
         aria-label={label}
         className={classNames(className, bsPrefix, !expanded && 'collapsed')}
+        aria-expanded={expanded}
       >
         {children || <span className={`${bsPrefix}-icon`} />}
       </Component>

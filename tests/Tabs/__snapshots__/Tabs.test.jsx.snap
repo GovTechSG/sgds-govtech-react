@@ -13,6 +13,7 @@ exports[`<Tabs> Should render TabPane with role="tab" 1`] = `
     >
       <button
         aria-controls="test-tabpane-1"
+        aria-current="page"
         aria-selected="true"
         class="nav-link active"
         data-rr-ui-event-key="1"
