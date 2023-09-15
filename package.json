@@ -16,8 +16,8 @@
   ],
   "version": "2.2.1",
   "license": "MIT",
-  "main": "dist/cjs/index.js",
-  "module": "dist/index.js",
+  "main": "dist/index.cjs.js",
+  "module": "dist/index.esm.js",
   "typings": "dist/index.d.ts",
   "engines": {
     "node": ">=12.20.0"
