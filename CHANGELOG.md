@@ -1,8 +1,38 @@
+## v2.2.2 (2023-09-19)
+
+### Feat
+
+- **stepper**: add keyboard interactions and aria-disabled to markers
+- **stepper**: add aria-current attribute to indicate current step
+- **stepper**: add tabindex to stepper button
+- **quantitytoggle**: update aria-label to include number of steps
+- **quantitytoggle**: add announcer to announce increment/decrement
+- **datepicker**: add aria-label to 'clear' button
+- **datepicker**: add aria attributes
+- **datepicker**: add role, aria-haspopup, aria-controls, aria-modal
+- **tooltip**: add aria-describedby attribute
+- **paginationbase**: add <nav> as outer container
+- **navbartoggle**: add aria-expanded attribute
+- **navlink**: add aria-current attribute to active link
+- **sidenavbutton**: add aria-haspopup attribute
+- **DropdownToggle**: add aria-haspopup attribute
+
+### Fix
+
+- **fileupload**: remove proptype filelist triggering typescript error
+- **quantitytoggle**: change aria-label to proper english words
+- **sidenavlink**: set 'active' attribute of navlink in sidenavlink
+
+### Refactor
+
+- **datepicker**: remove unused else block
+- **datepicker, calendar**: remove redundant states, change prop `selectedDate` type
+
 ## v2.2.1 (2023-08-01)
 
 ### Refactor
 
-- **FileUpload**: deprecate empty object type for selectedFile. Introduce `undefined` as a type of selectedFile 
+- **FileUpload**: deprecate empty object type for selectedFile
 
 ## v2.2.0 (2023-06-01)
 
@@ -27,8 +57,6 @@
 ### Fix
 
 - **safeFindDomNode**: typescript errors affecting build
-- fix/change undefined value for split method issue with unit test
-- handler to remove list file
 
 ### Refactor
 
