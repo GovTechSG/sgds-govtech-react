@@ -12,7 +12,7 @@ exports[`<QuantityToggle /> has default structure 1`] = `
     variant="quantity-toggle"
   >
     <button
-      aria-label="minus-btn"
+      aria-label="decrease by 1"
       class="btn btn-primary sgds"
       type="button"
     >
@@ -27,8 +27,16 @@ exports[`<QuantityToggle /> has default structure 1`] = `
       type="number"
       value="0"
     />
+    <div
+      aria-live="assertive"
+      class="visually-hidden"
+      id="quantitytoggle-announcer"
+      role="region"
+    >
+      0
+    </div>
     <button
-      aria-label="plus-btn"
+      aria-label="increase by 1"
       class="btn btn-primary sgds"
       type="button"
     >
