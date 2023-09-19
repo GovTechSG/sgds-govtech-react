@@ -66,7 +66,7 @@ const propTypes = {
 
   onChangeFile: PropTypes.func.isRequired,
 
-  selectedFile: PropTypes.oneOfType([PropTypes.instanceOf(FileList), PropTypes.object]),
+  selectedFile: PropTypes.oneOfType([PropTypes.object]),
   checkedIcon: PropTypes.element,
   cancelIcon: PropTypes.element,
   multiple: PropTypes.bool,
