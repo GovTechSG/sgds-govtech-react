@@ -1,78 +1,94 @@
-import peerDepsExternal from 'rollup-plugin-peer-deps-external';
 import resolve from '@rollup/plugin-node-resolve';
 import commonjs from '@rollup/plugin-commonjs';
 import typescript from 'rollup-plugin-typescript2';
 import replace from '@rollup/plugin-replace';
-import { terser } from 'rollup-plugin-terser';
-const packageJson = require('./package.json');
-import { getFolders } from './scripts/buildUtils';
+import { getComponentsFolders, getFiles } from './scripts/buildUtils';
 import generatePackageJson from 'rollup-plugin-generate-package-json';
 
-const plugins = [
-  peerDepsExternal(),
-  resolve(),
+const packageJson = require('./package.json');
+
+const commonPlugins = [
   replace({
+	preventAssignment: true,
     __IS_DEV__: process.env.NODE_ENV === 'development',
   }),
+  resolve(),
   commonjs(),
   typescript({
     tsconfig: './tsconfig.json',
     useTsconfigDeclarationDir: true,
   }),
-  terser(),
 ];
-const subfolderPlugins = (folderName) => [
-  ...plugins,
-  generatePackageJson({
-    baseContents: {
-      name: `${packageJson.name}/${folderName}`,
-      private: true,
-      main: '../cjs/index.js',
-      module: './index.js',
-      types: './index.d.ts',
-    },
-  }),
-];
-const folderBuilds = getFolders('./src').map((folder) => {
+
+// Returns rollup configuration for a given component
+function component(commonPlugins, folder) {
   return {
     input: `src/${folder}/index.ts`,
-    output: {
-      file: `dist/${folder}/index.js`,
-      sourcemap: true,
-      exports: 'named',
-      format: 'esm',
-    },
-    plugins: subfolderPlugins(folder),
-    external: ['react', 'react-dom'],
+    output: [
+      {
+        file: `dist/${folder}/index.esm.js`,
+        exports: 'named',
+        format: 'esm',
+      },
+      {
+        file: `dist/${folder}/index.cjs.js`,
+        exports: 'named',
+        format: 'cjs',
+      }
+    ],
+    plugins: [
+      ...commonPlugins,
+      generatePackageJson({
+        baseContents: {
+          name: `${packageJson.name}/${folder}`,
+          private: true,
+          main: './index.cjs.js',
+          module: './index.esm.js',
+          types: './index.d.ts',
+          peerDependencies: packageJson.peerDependencies,
+        },
+        outputFolder: `dist/${folder}/`
+      }),
+    ],
+    // Don't bundle node_modules and ../utils
+    //
+    // We should also exclude relative imports of other components, but a trivial exclude of /\.\./ does not work
+    // It may require changes to the way the components are exported
+    external: [/node_modules/, /\.\.\/utils/],
   };
-});
+}
 
 export default [
+  // Build ./src/utils
   {
-    input: ['src/index.ts'],
-    output: [
-      {
-        file: packageJson.module,
-        format: 'esm',
-        sourcemap: true,
-        exports: 'named',
-      },
-    ],
-    plugins,
-    external: ['react', 'react-dom'],
+    input: getFiles('src/utils', ['js', 'ts', 'tsx']),
+    output: {
+      dir: 'dist/utils/',
+      format: 'esm',
+    },
+    plugins: commonPlugins,
+    external: [/node_modules/],
   },
-  ...folderBuilds,
+
+  // Build all components in ./src/*
+  ...getComponentsFolders('./src').map((folder) => component(commonPlugins, folder)),
+
+  // Build the main file that includes all components and utils
   {
-    input: ['src/index.ts'],
+    input: 'src/index.ts',
     output: [
       {
-        file: packageJson.main,
-        format: 'cjs',
-        sourcemap: true,
+        file: 'dist/index.esm.js',
         exports: 'named',
+        format: 'esm',
       },
+      {
+        file: 'dist/index.cjs.js',
+        exports: 'named',
+        format: 'cjs',
+      }
     ],
-    plugins,
-    external: ['react', 'react-dom'],
+    plugins: commonPlugins,
+    external: [/node_modules/],
   },
 ];

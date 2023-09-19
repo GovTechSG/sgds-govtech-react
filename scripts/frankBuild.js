@@ -18,8 +18,8 @@ async function createPackageFile() {
     ...packageOthers,
     private: false,
     typings: './index.d.ts',
-    main: './cjs/index.js',
-    module: './index.js',
+    main: './index.cjs.js',
+    module: './index.esm.js',
   };
 
   const targetPath = resolve(distPath, './package.json');
