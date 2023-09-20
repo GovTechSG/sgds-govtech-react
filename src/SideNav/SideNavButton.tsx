@@ -108,6 +108,7 @@ export const SideNavButton: BsPrefixRefForwardingComponent<
         onClick={sideNavOnClick}
         {...props}
         aria-expanded={eventKey === activeEventKey}
+        aria-haspopup="menu"
         className={classNames(
           className,
           setCollapseCSS(activeEventKey, eventKey)

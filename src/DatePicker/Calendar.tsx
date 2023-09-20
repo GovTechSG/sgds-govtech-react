@@ -1,6 +1,7 @@
 import * as React from 'react';
+import { RangeSelectionValue } from './DatePicker';
 interface CalendarProps extends React.HTMLAttributes<HTMLTableElement> {
-  selectedDate: Date[];
+  selectedDate: Date | RangeSelectionValue | undefined;
   displayDate: Date;
   minDate?: string;
   maxDate?: string;
@@ -8,7 +9,7 @@ interface CalendarProps extends React.HTMLAttributes<HTMLTableElement> {
   mode: 'single' | 'range';
 }
 
-export const DAY_LABELS = ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'];
+export const DAY_LABELS = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'];
 export const daysInMonth = [31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31];
 
 export const setTimeToNoon = (date: Date) => {
@@ -19,19 +20,7 @@ export const setTimeToNoon = (date: Date) => {
   newDate.setMilliseconds(0);
   return newDate;
 };
-export const generateIncrementDays = (start: Date, end: Date) => {
-  let arr = [];
-  if (start.getTime() < end.getTime()){
-    for (let dt = start; dt <= end; dt.setDate(dt.getDate() + 1)) {
-      arr.push(new Date(dt));
-    }
-  } else {
-    for (let dt = end; dt <= start; dt.setDate(dt.getDate() + 1)) {
-      arr.push(new Date(dt));
-    }
-  }
-  return arr;
-};
+
 export const Calendar = React.forwardRef<HTMLTableElement, CalendarProps>(
   (props, ref) => {
     const handleClick = (e: React.MouseEvent<HTMLTableCellElement>) => {
@@ -41,12 +30,61 @@ export const Calendar = React.forwardRef<HTMLTableElement, CalendarProps>(
       newSelectedDate.setDate(parseInt(day));
       props.changeDate(newSelectedDate);
     };
+
+    /**
+     * Change the time of all dates in selectedDate to noon.
+     * @returns The processed selectedDate.
+     */
+    const getProcessedSelectedDate = (): Date | RangeSelectionValue | undefined => {
+      if (props.selectedDate instanceof Date) {
+        return setTimeToNoon(props.selectedDate);
+      } else if (props.selectedDate) {
+        // selectedDate is of type RangeSelectionValue
+        const { start, end } = props.selectedDate as RangeSelectionValue;
+        const processedStart = start ? setTimeToNoon(start) : undefined;
+        const processedEnd = end ? setTimeToNoon(end) : undefined;
+        return { start: processedStart, end: processedEnd };
+      } else {
+        return undefined;
+      }
+    }
+
+    /**
+     * Checks if a given date is selected.
+     * @param date The given date.
+     * @param selectedDate The selected date or date range.
+     * @returns true if the given date is selected, false if otherwise.
+     */
+    const isSelectedDate = (date: Date, selectedDate: Date | RangeSelectionValue) => {
+      if (selectedDate instanceof Date) {
+        return Date.parse(date.toISOString()) === Date.parse(selectedDate.toISOString());
+      }
+
+      let { start, end } = selectedDate;
+
+      if (start && end) {
+        // if selected end date is before selected start date --> swap
+        if (new Date(start).getTime() > new Date(end).getTime()) {
+          const temp = start;
+          start = end;
+          end = temp;
+        }
+
+        return Date.parse(date.toISOString()) >= Date.parse(start.toISOString()) 
+          && Date.parse(date.toISOString()) <= Date.parse(end.toISOString());
+      } else if (start) {
+        return Date.parse(date.toISOString()) === Date.parse(start.toISOString());
+      } else if (end) {
+        Date.parse(date.toISOString()) === Date.parse(end.toISOString());
+      } else {
+        return false;
+      }
+      
+      return false;
+    }
+
     const currentDate = setTimeToNoon(new Date());
-    const selectedDates = props.selectedDate.map((d) => setTimeToNoon(d));
-    const rangeSelectedDates = generateIncrementDays(
-      new Date(selectedDates[0]),
-      new Date(selectedDates[1])
-    );
+    const processedSelectedDate = getProcessedSelectedDate();
     const minimumDate = props.minDate
       ? setTimeToNoon(new Date(props.minDate))
       : null;
@@ -71,21 +109,22 @@ export const Calendar = React.forwardRef<HTMLTableElement, CalendarProps>(
       for (let j = 0; j <= 6; j++) {
         if (day <= monthLength && (i > 0 || j >= startingDay)) {
           let className = undefined;
-          const date = new Date(year, month, day, 12, 0, 0, 0).toISOString();
+          const date = new Date(year, month, day, 12, 0, 0, 0);
+          const dateString = date.toISOString();
           const beforeMinDate =
             minimumDate &&
-            Date.parse(date) < Date.parse(minimumDate.toISOString());
+            Date.parse(dateString) < Date.parse(minimumDate.toISOString());
           const afterMinDate =
             maximumDate &&
-            Date.parse(date) > Date.parse(maximumDate.toISOString());
+            Date.parse(dateString) > Date.parse(maximumDate.toISOString());
 
           let clickHandler: React.MouseEventHandler | undefined = handleClick;
           const style = {
             cursor: 'pointer',
             borderRadius: 0,
           };
-          if (Date.parse(date) === Date.parse(currentDate.toISOString())) {
-            //if selected Date is not current Date
+          if (Date.parse(dateString) === Date.parse(currentDate.toISOString())) {
+            // if date is the current Date
             className = 'text-primary';
           }
           if (beforeMinDate || afterMinDate) {
@@ -93,17 +132,8 @@ export const Calendar = React.forwardRef<HTMLTableElement, CalendarProps>(
             clickHandler = undefined;
             style.cursor = 'default';
           }
-          if (selectedDates.length > 0) {
-            rangeSelectedDates.forEach((d) => {
-              if (Date.parse(date) === Date.parse(d.toISOString())) {
-                className = 'bg-primary-100';
-              }
-            });
-            if (
-              Date.parse(date) === Date.parse(selectedDates[0]!.toISOString())
-            ) {
-              className = 'bg-primary-100';
-            }
+          if (processedSelectedDate && isSelectedDate(date, processedSelectedDate)) {
+            className = 'bg-primary-100';
           }
 
           week.push(
@@ -130,16 +160,18 @@ export const Calendar = React.forwardRef<HTMLTableElement, CalendarProps>(
     }
 
     return (
-      <table className="text-center" ref={ref}>
+      <table className="text-center" role="grid" ref={ref}>
         <thead>
           <tr>
             {DAY_LABELS.map((label: string, index: number) => {
               return (
-                <td
+                <th
                   key={index}
+                  abbr={label}
+                  scope="col"
                 >
-                  <small>{label}</small>
-                </td>
+                  <small>{label.slice(0, 3)}</small>
+                </th>
               );
             })}
           </tr>

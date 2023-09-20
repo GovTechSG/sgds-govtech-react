@@ -1,16 +1,17 @@
 const fs = require('fs');
-export const getFolders = (entry) => {
+
+export const getComponentsFolders = (entry) => {
    const dirs = fs.readdirSync(entry)
-   const dirsWithoutIndex = dirs.filter(name => name !== 'index.ts').filter(name => name !== 'utils')
+   const dirsWithoutIndex = dirs.filter(name => name !== 'index.ts' && name !== 'utils')
    return dirsWithoutIndex
-}
+};
 
 export const getFiles = (entry, extensions = [], excludeExtensions = []) => {
   let fileNames = [];
   const dirs = fs.readdirSync(entry);
   dirs.forEach((dir) => {
     const path = `${entry}/${dir}`;
-   
+
     if (fs.lstatSync(path).isDirectory()) {
       fileNames = [
         ...fileNames,

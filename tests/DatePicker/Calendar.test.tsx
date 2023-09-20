@@ -4,7 +4,6 @@ import Calendar, {
   DAY_LABELS,
   daysInMonth,
   setTimeToNoon,
-  generateIncrementDays,
 } from '../../src/DatePicker/Calendar';
 
 describe('setTimeToNoon function', () => {
@@ -30,56 +29,11 @@ describe('setTimeToNoon function', () => {
   });
 });
 
-describe('generateIncrementDays fn', () => {
-  it('given start Date and end Date set to noon, returns array of the consecutively incrementing date from start till end', () => {
-    const start = new Date(2020, 0, 1, 12, 0, 0, 0);
-    const end = new Date(2020, 0, 10, 12, 0, 0, 0);
-    const result = generateIncrementDays(start, end);
-
-    expect(result.length).toEqual(10);
-    expect(result[0]).toEqual(new Date(2020, 0, 1, 12, 0, 0, 0));
-    expect(result[result.length - 1]).toEqual(
-      new Date(2020, 0, 10, 12, 0, 0, 0)
-    );
-  });
-  it('given start Date and end Date set to noon as same value, returns array of the consecutively incrementing date from start till end', () => {
-    const start = new Date(2020, 0, 1, 12, 0, 0, 0);
-    const end = new Date(2020, 0, 1, 12, 0, 0, 0);
-    const result = generateIncrementDays(start, end);
-
-    expect(result.length).toEqual(1);
-    expect(result[0]).toEqual(new Date(2020, 0, 1, 12, 0, 0, 0));
-    expect(result[result.length - 1]).toEqual(
-      new Date(2020, 0, 1, 12, 0, 0, 0)
-    );
-  });
-  it('given start Date and end Date in diff months, returns correct array of dates', () => {
-    const start = new Date(2019, 11, 31, 12, 0, 0, 0);
-    const end = new Date(2020, 0, 2, 12, 0, 0, 0);
-    const result = generateIncrementDays(start, end);
-
-    expect(result.length).toEqual(3);
-    expect(result[0]).toEqual(new Date(2019, 11, 31, 12, 0, 0, 0));
-    expect(result[1]).toEqual(new Date(2020, 0, 1, 12, 0, 0, 0));
-    expect(result[2]).toEqual(new Date(2020, 0, 2, 12, 0, 0, 0));
-  });
-  it('given start Date later than end Date, fn should rearrange to return array in ascending order', () => {
-    const end = new Date(2019, 11, 31, 12, 0, 0, 0);
-    const start = new Date(2020, 0, 2, 12, 0, 0, 0);
-    const result = generateIncrementDays(start, end);
-
-    expect(result.length).toEqual(3);
-    expect(result[0]).toEqual(new Date(2019, 11, 31, 12, 0, 0, 0));
-    expect(result[1]).toEqual(new Date(2020, 0, 1, 12, 0, 0, 0));
-    expect(result[2]).toEqual(new Date(2020, 0, 2, 12, 0, 0, 0));
-  });
-});
-
 describe('Single mode Calendar', () => {
   const mode = 'single';
   it('should have the default html structure', () => {
     const displayDate = new Date(2022, 2, 21);
-    const selectedDate = [new Date(2022, 2, 18)];
+    const selectedDate = new Date(2022, 2, 18);
     const mockChangeDate = jest.fn();
     const { container, getByText } = render(
       <Calendar
@@ -91,12 +45,12 @@ describe('Single mode Calendar', () => {
     );
     expect(container.querySelector('table.text-center')).toBeInTheDocument();
     DAY_LABELS.forEach((day) => {
-      expect(getByText(day)).toBeInTheDocument();
+      expect(getByText(day.slice(0, 3))).toBeInTheDocument();
     });
 
     const totalDaysInDisplayDate = daysInMonth[displayDate.getMonth()];
     expect(getByText(totalDaysInDisplayDate)).toBeInTheDocument();
-    expect(getByText(selectedDate[0].getDate()).classList).toContain(
+    expect(getByText(selectedDate.getDate()).classList).toContain(
       'bg-primary-100'
     );
     expect(container.querySelectorAll('.bg-primary-100').length).toEqual(1);
@@ -104,7 +58,7 @@ describe('Single mode Calendar', () => {
   it('day should have class text-primary when its current date', () => {
     jest.useFakeTimers().setSystemTime(new Date('2020-01-01'));
     const displayDate = new Date('2020-01-23');
-    const selectedDate = [new Date('2020-01-23')];
+    const selectedDate = new Date('2020-01-23');
     const mockChangeDate = jest.fn();
     const { getByText, container } = render(
       <Calendar
@@ -143,7 +97,7 @@ describe('Single mode Calendar', () => {
           changeDate={mockChangeDate}
           mode={mode}
           displayDate={date}
-          selectedDate={[date]}
+          selectedDate={date}
         />
       );
       const expectedLastDatePerMonth = daysInMonth[idx];
@@ -161,7 +115,7 @@ describe('Single mode Calendar', () => {
           changeDate={mockChangeDate}
           mode={mode}
           displayDate={feb}
-          selectedDate={[feb]}
+          selectedDate={feb}
         />
       );
       expect(getByText('29')).toBeInTheDocument();
@@ -178,7 +132,7 @@ describe('Single mode Calendar', () => {
           changeDate={mockChangeDate}
           mode={mode}
           displayDate={feb}
-          selectedDate={[feb]}
+          selectedDate={feb}
         />
       );
       expect(queryByText('29')).not.toBeInTheDocument();
@@ -193,7 +147,7 @@ describe('Single mode Calendar', () => {
         changeDate={mockChangeDate}
         mode={mode}
         displayDate={date}
-        selectedDate={[date]}
+        selectedDate={date}
       />
     );
     expect(getByText('20').classList).toContain('bg-primary-100');
@@ -202,7 +156,7 @@ describe('Single mode Calendar', () => {
         changeDate={mockChangeDate}
         mode={mode}
         displayDate={date}
-        selectedDate={[new Date(2022, 2, 1)]}
+        selectedDate={new Date(2022, 2, 1)}
       />
     );
 
@@ -217,7 +171,7 @@ describe('Single mode Calendar', () => {
         changeDate={mockChangeDate}
         mode={mode}
         displayDate={date}
-        selectedDate={[date]}
+        selectedDate={date}
       />
     );
     fireEvent.click(getByText('21'));
@@ -239,7 +193,7 @@ describe('Single mode Calendar', () => {
         changeDate={mockChangeDate}
         mode={mode}
         displayDate={date}
-        selectedDate={[date]}
+        selectedDate={date}
         minDate={minDate}
         maxDate={maxDate}
       />
@@ -282,7 +236,7 @@ describe('Range Calendar', () => {
   const mode = 'range';
   it('when two diff date selected, it reflects bg-primary-100 on the ranges', () => {
     const displayDate = new Date(2022, 2, 21);
-    const selectedDate = [new Date(2022, 2, 18), new Date(2022, 2, 20)];
+    const selectedDate = { start: new Date(2022, 2, 18), end: new Date(2022, 2, 20) };
     const mockChangeDate = jest.fn();
     const { container, getByText } = render(
       <Calendar
@@ -302,7 +256,7 @@ describe('Range Calendar', () => {
   });
   it('the sequence of selectedDates should not matter', () => {
     const displayDate = new Date(2022, 2, 21);
-    const selectedDate = [new Date(2022, 2, 20), new Date(2022, 2, 18)];
+    const selectedDate = { start: new Date(2022, 2, 20), end: new Date(2022, 2, 18) };
     const mockChangeDate = jest.fn();
     const { container, getByText } = render(
       <Calendar

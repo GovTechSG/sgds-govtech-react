@@ -80,13 +80,18 @@ const CalendarHeader: React.FC<CalendarHeaderProps> = ({ ...props }) => {
   };
   return (
     <div className="text-center d-flex justify-content-between">
-      <i className="bi bi-chevron-left" onClick={handleClickPrevious}></i>
+      <button onClick={handleClickPrevious} aria-label={`previous ${view}`}>
+        <i className="bi bi-chevron-left"></i>
+      </button>
+      
 
-      <button onClick={changeView} disabled={view === 'year'}>
+      <button onClick={changeView} disabled={view === 'year'} aria-live='polite'>
         {renderHeader()}
       </button>
 
-      <i className="bi bi-chevron-right" onClick={handleClickNext}></i>
+      <button onClick={handleClickNext} aria-label={`next ${view}`}>
+        <i className="bi bi-chevron-right"></i>
+      </button>
     </div>
   );
 };

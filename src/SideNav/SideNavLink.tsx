@@ -3,7 +3,6 @@ import * as React from 'react';
 import { BsPrefixRefForwardingComponent } from '../utils/helpers';
 import SideNavContext from './SideNavContext';
 import PropTypes from 'prop-types';
-import classNames from 'classnames';
 
 export interface SideNavLinkProps extends Omit<NavLinkProps, 'eventKey'> {
   /** A unique key for SideNavLink */
@@ -22,7 +21,7 @@ export const SideNavLink: BsPrefixRefForwardingComponent<'a', SideNavLinkProps> 
           {...props}
           ref={ref}
           eventKey={eventKey}
-          className={classNames( activeLinkKey === eventKey && 'active' )}
+          active={activeLinkKey === eventKey}
         />
       );
     }

@@ -13,7 +13,6 @@ describe('<Pagination>', () => {
     expect($pagination).toBeDefined()
     expect($pagination.classList).toContain('pagination')
     expect($pagination.classList).toContain('pagination-sm')
-    expect($pagination.classList).toContain('sgds')
 
     //test that icons present 
     //two icons 

@@ -603,3 +603,7 @@ it will decrement/increment to the end of the pages respectively.
     {PaginationTpl.bind({})}
   </Story>
 </Canvas>
+
+## Accessibility
+
+The aria-label attribute has been added to the `<nav>` element of Pagination. This is because sgds's Nav and SideNav also use the `<nav>` element. Where there are multiple `<nav>` elements on a single page, all must be given a unique accessible name via `aria-label`.
