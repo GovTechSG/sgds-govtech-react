@@ -262,7 +262,7 @@ describe('<Combobox>', () => {
     await waitFor(() => {
       expect(container.querySelector('ul.dropdown-menu')).toBeInTheDocument();
       expect(getByText('Afghanistan')).toBeInTheDocument();
-      expect(getByText('Afghanistan').tagName).toEqual('A');
+      expect(getByText('Afghanistan').tagName).toEqual('BUTTON');
     });
   });
 
@@ -398,14 +398,14 @@ describe('<Combobox>', () => {
     await waitFor(() => {
       expect(container.querySelector('input')?.value).toEqual('Afghanistan');
     });
-    fireEvent.keyDown(container.querySelectorAll('li>a.dropdown-item')[0], {
+    fireEvent.keyDown(container.querySelectorAll('li>button.dropdown-item')[0], {
       key: 'ArrowDown',
       code: 'ArrowDown',
     });
     await waitFor(() => {
       expect(container.querySelector('input')?.value).toEqual('Albania');
     });
-    fireEvent.keyDown(container.querySelectorAll('li>a.dropdown-item')[1], {
+    fireEvent.keyDown(container.querySelectorAll('li>button.dropdown-item')[1], {
       key: 'ArrowDown',
       code: 'ArrowDown',
     });
