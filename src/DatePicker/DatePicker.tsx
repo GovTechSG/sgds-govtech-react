@@ -308,20 +308,7 @@ export const DatePicker: BsPrefixRefForwardingComponent<
         return (
           <YearView displayDate={state.displayDate} onClickYear={onClickYear} />
         );
-      // const computeSelectedDate = () => {
-      //   let selectedDate: Date[] = [];
-      //   if (isRange) {
-      //     const { start, end } = state.selectedDate as RangeSelectionValue;
-      //     if (start) selectedDate.push(start);
-      //     if (end) selectedDate.push(end);
 
-      //     return selectedDate;
-      //   } else {
-      //     if (state.value) selectedDate.push(state.value as Date);
-
-      //     return selectedDate;
-      //   }
-      // };
       return (
         <Calendar
           selectedDate={state.selectedDate}
@@ -364,18 +351,22 @@ export const DatePicker: BsPrefixRefForwardingComponent<
           );
       }
     }
-    const dropdownMenuId = generateId('combobox', 'ul');
+    // Generation of unique id soley on client side 
+    const [datepickerMenuId, setDatepickerMenuId] = useState("")
+    React.useEffect(() => {
+      setDatepickerMenuId(generateId('datepicker', 'ul'));
+    }, [])
+
     return (
       <DatePickerContext.Provider value={contextValue}>
         <Dropdown drop={calendarPlacement} className="form-control-group input-group">
-            <FormControlToggle {...controlProps} ref={formControlRef} role="combobox" aria-haspopup="dialog" aria-controls={dropdownMenuId} aria-label="Choose Date" />
+            <FormControlToggle {...controlProps} ref={formControlRef} role="combobox" aria-haspopup="dialog" aria-controls={datepickerMenuId} aria-label="Choose Date" />
             <Button onClick={clear} disabled={props.disabled} variant={clearBtnVariant} aria-label="Clear Selection">
               <i className="bi bi-x"></i>
               <span className="visually-hidden">clear</span>
             </Button>
             <i className="bi bi-calendar form-control-icon"></i>
-
-          <Dropdown.Menu id={dropdownMenuId} className="sgds datepicker" as='div' role="dialog" aria-modal="true" aria-label="Choose Date">
+          <Dropdown.Menu id={datepickerMenuId} className="sgds datepicker" as='div' role="dialog" aria-modal="true" aria-label="Choose Date">
             <Dropdown.Header className="datepicker-header" role="none">
               {calendarHeader}
             </Dropdown.Header>
