@@ -145,7 +145,7 @@ export const Combobox: BsPrefixRefForwardingComponent<
             <DropdownMenu id={dropdownMenuId} role="listbox">
               {state.menuList.map((menuItem) => (
                 <DropdownItem
-                  href="#"
+                  as="button"
                   key={menuItem}
                   onClick={handleClickItem}
                   onFocus={focusDropdownItem}
