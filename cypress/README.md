@@ -26,4 +26,4 @@ To start testing a particular app, do the following:
     - `npm install file:../../../dist` to install the local sgds-react library
 1. Create a `scripts/run_*.sh` file for the app. You can refer to the other `run_*.sh` files for more details on create the script to run your app. **Important: Ensure that the port your app is running on is not being used by other apps.**
 1. Update `scripts/run_all.js` to add the script for running your app.
-1. Update `e2e/apps.spec.cy.ts` to add test for visiting your app's server.
+1. Add `e2e/<your-app-name>.spec.cy.ts` to add test for visiting your app's server.
