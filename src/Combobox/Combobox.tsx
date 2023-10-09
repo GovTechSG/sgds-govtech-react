@@ -127,7 +127,11 @@ export const Combobox: BsPrefixRefForwardingComponent<
         value: event.currentTarget.textContent as string,
       });
     };
-    const dropdownMenuId = generateId('combobox', 'ul')
+    const [comboboxMenuId, setComboboxMenuId] = useState("")
+    React.useEffect(() => {
+      setComboboxMenuId(generateId('combobox', 'ul'));
+    }, [])
+
     return (
       <>
         {label && <FormLabel htmlFor={props.id}>{label}</FormLabel>}
@@ -136,13 +140,13 @@ export const Combobox: BsPrefixRefForwardingComponent<
           focusFirstItemOnShow={false}
           drop={menuPlacement}
         >
-          <FormControlToggle {...controlProps} setIsMenuOpen={setIsMenuOpen} role="combobox" aria-autocomplete="list" aria-controls={dropdownMenuId}/>
+          <FormControlToggle {...controlProps} setIsMenuOpen={setIsMenuOpen} role="combobox" aria-autocomplete="list" aria-controls={comboboxMenuId}/>
           {icon &&
             React.cloneElement(icon, {
               className: classNames(icon.props.className, 'form-control-icon'),
             })}
           {state.menuList.length > 0 && (
-            <DropdownMenu id={dropdownMenuId} role="listbox">
+            <DropdownMenu id={comboboxMenuId} role="listbox">
               {state.menuList.map((menuItem) => (
                 <DropdownItem
                   as="button"
