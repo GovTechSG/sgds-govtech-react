@@ -52,6 +52,10 @@ export interface TableProps
    * Sorting on a column is enabled by adding the sort property. The sorting algorithm is based on javascript array.sort() method. In ascending order from bottom, alphabets come first, followed by numbers, and then symbols. Similarly, in descending order from bottom, symbols come first, followed by numbers, and then alphabets.
    */
   sort?: boolean;
+  /**
+   * When removableSort is present, the third click removes the sorting from the column.
+   */
+  removableSort?: boolean;
 }
 
 const propTypes = {
@@ -117,7 +121,12 @@ const propTypes = {
   /**
    * Sorting on a column is enabled by adding the sort property. The sorting algorithm is based on javascript array.sort() method. In ascending order from bottom, alphabets come first, followed by numbers, and then symbols. Similarly, in descending order from bottom, symbols come first, followed by numbers, and then alphabets.
    */
-  sort: PropTypes.bool
+  sort: PropTypes.bool,
+
+  /**
+   * When removableSort is present, the third click removes the sorting from the column.
+   */
+  removableSort: PropTypes.bool
 };
 
 interface TableState {
@@ -140,13 +149,13 @@ const Table = React.forwardRef<HTMLTableElement, TableProps>(
       variant,
       responsive,
       sort = false,
+      removableSort = false,
       ...props
     },
     ref
   ) => {
-    const [state, setState] = React.useState<TableState>({
-      activeColumn: null, isSortAsc: null
-    });
+    const initialState: TableState = { activeColumn: null, isSortAsc: null };
+    const [state, setState] = React.useState<TableState>(initialState);
     const decoratedBsPrefix = useBootstrapPrefix(bsPrefix, 'table');
     const classes = classNames(
       className,
@@ -163,6 +172,10 @@ const Table = React.forwardRef<HTMLTableElement, TableProps>(
       if (!sort) return;
 
       if (state.activeColumn === column) {
+        if (removableSort && !state.isSortAsc) {
+          setState(initialState);
+          return;
+        }
         setState({ ...state, isSortAsc: !state.isSortAsc });
       } else {
         setState({ activeColumn: column, isSortAsc: true });
