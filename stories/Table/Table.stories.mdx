@@ -45,6 +45,31 @@ import { Table } from '@govtechsg/sgds-react/Table';
 
 <ArgsTable story="Default" />
 
+## Sorting
+
+Sorting on a column is enabled by adding the `sort` property. The sorting algorithm is based on javascript array.sort() method.
+
+<Canvas>
+  <Story
+    name="Sorting"
+    args={{
+      sort: "true"
+    }}
+  >
+    {Basic.bind({})}
+  </Story>
+</Canvas>
+
+## Removable Sort
+ 
+When `removableSort` is present, the third click removes the sorting from the column.
+
+<Canvas>
+  <Story name="removableSort" args={{ sort: true, removableSort: true }}>
+    {Basic.bind({})}
+  </Story>
+</Canvas>
+
 ## Small Table
 
 Use `size="sm"` to make tables compact by cutting cell padding in half.
