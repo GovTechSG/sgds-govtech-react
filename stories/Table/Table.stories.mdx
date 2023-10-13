@@ -17,35 +17,15 @@ export const templateCodeBreakpointSpec = `
 
 export const Basic = (args) => {
   return (
-    <Table {...args}>
-      <thead>
-        <tr>
-          <th>#</th>
-          <th>First Name</th>
-          <th>Last Name</th>
-          <th>Username</th>
-        </tr>
-      </thead>
-      <tbody>
-        <tr>
-          <td>1</td>
-          <td>Mark</td>
-          <td>Otto</td>
-          <td>@mdo</td>
-        </tr>
-        <tr>
-          <td>2</td>
-          <td>Jacob</td>
-          <td>Thornton</td>
-          <td>@fat</td>
-        </tr>
-        <tr>
-          <td>3</td>
-          <td colSpan={2}>Larry the Bird</td>
-          <td>@twitter</td>
-        </tr>
-      </tbody>
-    </Table>
+    <Table 
+      {...args} 
+      tableHeaders={["#", "First Names", "Last Name", "Username"]} 
+      tableData={[
+        ["1", "John", "Doe", "@johndoe"],
+        ["2", "Jane", "Doe", "@janedoe"],
+        ["3", "Bob", "Smith", "@bobsmith"]
+      ]}
+    />
   );
 };
 
@@ -134,41 +114,22 @@ Responsive tables allow tables to be scrolled horizontally with ease.
 Across every breakpoint, use `responsive` for horizontally scrolling tables. Responsive tables are wrapped automatically in a `div`.
 The following example has 12 columns that are scrollable horizontally.
 
-export const TableContents = (repeat) => {
-  const generateTh = Array.from({ length: repeat }).map((_, index) => (
-    <th key={index}>Table heading</th>
-  ));
-  const generateTd = Array.from({ length: repeat }).map((_, index) => (
-    <td key={index}>Table cell {index}</td>
-  ));
-  return (
-    <>
-      <thead>
-        <tr>
-          <th>#</th>
-          {generateTh}
-        </tr>
-      </thead>
-      <tbody>
-        <tr>
-          <td>1</td>
-          {generateTd}
-        </tr>
-        <tr>
-          <td>2</td>
-          {generateTd}
-        </tr>
-        <tr>
-          <td>3</td>
-          {generateTd}
-        </tr>
-      </tbody>
-    </>
-  );
+export const responsiveTableHeaders = (repeat) => {
+  return Array.from({ length: repeat }).map((_, index) => 'Table heading')
 };
 
+export const responsiveTableRow = (repeat) => {
+  return Array.from({ length: repeat }).map((_, index) => `Table cell ${index}`)
+}
+export const responsiveTableData = (repeat) => {
+  return [responsiveTableRow(repeat), responsiveTableRow(repeat), responsiveTableRow(repeat)]
+}
+
 export const AlwaysResponsive = (args) => {
-  return <Table {...args}>{TableContents(12)}</Table>;
+  return <Table 
+          {...args} 
+          tableHeaders={responsiveTableHeaders(12)} 
+          tableData={responsiveTableData(12)} />;
 };
 
 <Canvas>
@@ -196,10 +157,22 @@ From that breakpoint and up, the table will behave normally and not scroll horiz
 export const BpResponsive = () => {
   return (
     <div>
-      <Table responsive="sm">{TableContents(6)}</Table>
-      <Table responsive="md">{TableContents(6)}</Table>
-      <Table responsive="lg">{TableContents(6)}</Table>
-      <Table responsive="xl">{TableContents(6)}</Table>
+      <Table 
+        responsive="sm" 
+        tableHeaders={responsiveTableHeaders(6)} 
+        tableData={responsiveTableData(6)} />
+      <Table 
+        responsive="md"
+        tableHeaders={responsiveTableHeaders(6)} 
+        tableData={responsiveTableData(6)} />
+      <Table 
+        responsive="lg"
+        tableHeaders={responsiveTableHeaders(6)} 
+        tableData={responsiveTableData(6)} />
+      <Table 
+        responsive="xl"
+        tableHeaders={responsiveTableHeaders(6)} 
+        tableData={responsiveTableData(6)} />
     </div>
   );
 };

@@ -10,7 +10,15 @@ import { BsPrefixOnlyProps } from '../utils/helpers';
 
 export interface TableProps
   extends BsPrefixOnlyProps,
-    React.TableHTMLAttributes<HTMLTableElement> {
+  React.TableHTMLAttributes<HTMLTableElement> {
+  /**
+   * Populates header cells using Arrays.
+   */
+  tableHeaders?: string[];
+  /**
+   * Populates data cells using Arrays.
+   */
+  tableData?: (string | number)[][];
   /**
    * Adds zebra-striping to any table row within the `<tbody>`.
    */
@@ -40,6 +48,10 @@ export interface TableProps
   /** Allow tables to be scrolled horizontally with ease. Across every breakpoint, use responsive for horizontally scrolling tables. Responsive tables are wrapped automatically in a div. Use `responsive="sm"`, `responsive="md"`, `responsive="lg"`, or `responsive="xl"` as needed to create responsive tables up to a particular breakpoint. From that breakpoint and up, the table will behave normally and not scroll horizontally. \n\n Alternatively, set boolean to `true` instead to make it always responsive throughout breakpoints.\n',
    */
   responsive?: boolean | string;
+  /**
+   * Sorting on a column is enabled by adding the sort property. The sorting algorithm is based on javascript array.sort() method. In ascending order from bottom, alphabets come first, followed by numbers, and then symbols. Similarly, in descending order from bottom, symbols come first, followed by numbers, and then alphabets.
+   */
+  sort?: boolean;
 }
 
 const propTypes = {
@@ -49,8 +61,19 @@ const propTypes = {
   bsPrefix: PropTypes.string,
 
   /**
-   * Adds zebra-striping to any table row within the `<tbody>`.
+   * Populates header cells using Arrays.
    */
+  tableHeaders: PropTypes.arrayOf(PropTypes.string),
+
+  /**
+   * Populates data cells using Arrays.
+   */
+  tableData: PropTypes.arrayOf(PropTypes.arrayOf(
+    PropTypes.oneOfType([PropTypes.string, PropTypes.number]))),
+
+  /**
+ * Adds zebra-striping to any table row within the `<tbody>`.
+ */
   striped: PropTypes.bool,
 
   /**
@@ -90,11 +113,18 @@ const propTypes = {
    * behave normally and not scroll horizontally.
    */
   responsive: PropTypes.oneOfType([PropTypes.bool, PropTypes.string]),
+
+  /**
+   * Sorting on a column is enabled by adding the sort property. The sorting algorithm is based on javascript array.sort() method. In ascending order from bottom, alphabets come first, followed by numbers, and then symbols. Similarly, in descending order from bottom, symbols come first, followed by numbers, and then alphabets.
+   */
+  sort: PropTypes.bool
 };
 
 const Table = React.forwardRef<HTMLTableElement, TableProps>(
   (
     {
+      tableHeaders = [],
+      tableData = [],
       bsPrefix,
       className,
       striped,
@@ -104,6 +134,7 @@ const Table = React.forwardRef<HTMLTableElement, TableProps>(
       size,
       variant,
       responsive,
+      sort,
       ...props
     },
     ref
@@ -120,9 +151,51 @@ const Table = React.forwardRef<HTMLTableElement, TableProps>(
       hover && `${decoratedBsPrefix}-hover`
     );
 
-    const table = (
-      <SGDSWrapper as="table" {...props} className={classes} ref={ref} />
+    const tableHead = (
+      <thead>
+        <tr>
+          {tableHeaders.map(
+            (header: string, index: number) => {
+              return (
+                <th
+                  key={index}
+                  className={classNames(
+                    sort && 'sortable-header',
+                  )}
+                >
+                  {header}
+                </th>
+              )
+            }
+          )}
+        </tr>
+      </thead>
     );
+
+    const tableBody = (
+      <tbody>
+        {tableData.map(
+          (row, index: number) => {
+            return (
+              <tr key={index}>
+                {row.map(
+                  (cell: string | number, index: number) => {
+                    return <td key={index}>{cell}</td>
+                  })}
+              </tr>
+            )
+          }
+        )}
+      </tbody>
+    )
+
+    const table = (
+      <SGDSWrapper as="table" {...props} className={classes} ref={ref}>
+        {tableHead}
+        {tableBody}
+      </SGDSWrapper>
+    )
+
     if (responsive) {
       let responsiveClass = `${decoratedBsPrefix}-responsive`;
       if (typeof responsive === 'string') {
