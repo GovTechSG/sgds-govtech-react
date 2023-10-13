@@ -168,7 +168,7 @@ const Table = React.forwardRef<HTMLTableElement, TableProps>(
       hover && `${decoratedBsPrefix}-hover`
     );
 
-    const handleHeaderClick = (column: number) => (e: React.MouseEvent<HTMLTableCellElement>) => {
+    const handleHeaderClick = (column: number) => () => {
       if (!sort) return;
 
       if (state.activeColumn === column) {
