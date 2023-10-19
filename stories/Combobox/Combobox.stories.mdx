@@ -215,6 +215,7 @@ export const ComboboxTemplate = (args) => {
   return (
     <Combobox
       {...args}
+      label='Select a country'
       menuList={menuList}
       id="typeaheadExample"
       icon={<i className="bi bi-search"></i>}
@@ -227,13 +228,11 @@ export const ComboboxTemplate = (args) => {
 `Combobox` is a built using `Dropdown`, `Dropdown.Menu`, `Dropdown.Item` and `FormControl` that doubles up as a toggle.
 `ComboboxProps` extends `FormControlProps`.
 
-<Story
-  name="Default"
-  args={{ label: 'Select a country' }}
-  parameters={{ docs: { source: { type: 'code' } } }}
->
-  {ComboboxTemplate.bind({})}
-</Story>
+<Canvas>
+  <Story name="Default">
+    {ComboboxTemplate.bind({})}
+  </Story>
+</Canvas>
 
 <br />
 
@@ -245,22 +244,6 @@ import { Combobox } from '@govtechsg/sgds-react/Combobox';
 
 <ArgsTable story="Default" />
 
-### Code Sample
-
-```jsx
-import { Combobox, ComboboxProps } from '@govtechsg/sgds-react/Combobox';
-
-export const ComboboxComponent = () => {
-  const menuList = ['apple', 'orange', 'banana'];
-  return (
-    <Combobox
-      menuList={menuList}
-      id="typeaheadExample"
-      icon={<i className="bi bi-search"></i>}
-    />
-  );
-};
-```
 
 ## Single-select Combobox
 By default (mode='single'), only a maximum of one item can be selected at any time.
@@ -269,6 +252,7 @@ export const SingleSelectCombobox = () => {
   const menuList = ['apple', 'orange', 'banana'];
   return (
     <Combobox
+      label="Select a fruit"
       menuList={menuList}
       id="typeaheadExample"
       icon={<i className="bi bi-search"></i>}
@@ -276,7 +260,11 @@ export const SingleSelectCombobox = () => {
   );
 };
 
-<Story name="Single-select">{SingleSelectCombobox.bind({})}</Story>
+<Canvas>
+  <Story name="Single-select">
+    {SingleSelectCombobox.bind({})}
+  </Story>
+</Canvas>
 
 
 ## Multi-select Combobox
@@ -286,6 +274,7 @@ export const MultiSelectCombobox = () => {
   const menuList = ['apple', 'orange', 'banana'];
   return (
     <Combobox
+      label="Select some fruits"
       mode="multi"
       menuList={menuList}
       id="typeaheadExample"
@@ -294,7 +283,12 @@ export const MultiSelectCombobox = () => {
   );
 };
 
-<Story name="Multi-select">{MultiSelectCombobox.bind({})}</Story>
+<Canvas>
+  <Story name="Multi-select">
+    {MultiSelectCombobox.bind({})}
+  </Story>
+</Canvas>
+
 
 ## onChangeInput
 
@@ -324,7 +318,12 @@ export const ComboboxOnChangeInputTemplate = () => {
   );
 };
 
-<Story name="onChangeInput">{ComboboxOnChangeInputTemplate.bind({})}</Story>
+<Canvas>
+  <Story name="onChangeInput">
+    {ComboboxOnChangeInputTemplate.bind({})}
+  </Story>
+</Canvas>
+
 
 ## onChangeSelect
 
@@ -360,30 +359,8 @@ export const ComboboxOnChangeSelectTemplate = () => {
   );
 };
 
-<Story name="onChangeSelect">{ComboboxOnChangeSelectTemplate.bind({})}</Story>
-
-### Code Sample
-
-```jsx
-import { Combobox } from '@govtechsg/sgds-react/Combobox';
-
-export const ComboboxComponent = () => {
-  const menuList = ['apple', 'orange', 'banana'];
-  const [fruits, setFruits] = useState('');
-  const handleChange = (val, e) => {
-    setFruits(val);
-  };
-  return (
-    <>
-      <Combobox
-        menuList={menuList}
-        onChangeInput={handleChange}
-        label="Select a fruit"
-        id="typeaheadExample"
-        icon={<i className="bi bi-search"></i>}
-      />
-      <div>Selected fruits : {fruits}</div>
-    </>
-  );
-};
-```
+<Canvas>
+  <Story name="onChangeSelect">
+    {ComboboxOnChangeSelectTemplate.bind({})}
+  </Story>
+</Canvas>
