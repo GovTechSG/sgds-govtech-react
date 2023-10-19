@@ -27,6 +27,7 @@ const SelectedItem = ({ ...props }: SelectedItemProps) => {
       </span>
       <Button
         onClick={props.onRemove}
+        aria-label={`Remove ${props.label}`}
         style={{ padding: "0" }}>
         <i className="bi bi-x"></i>
       </Button>
