@@ -262,13 +262,49 @@ export const ComboboxComponent = () => {
 };
 ```
 
+## Single-select Combobox
+By default (mode='single'), only a maximum of one item can be selected at any time.
+
+export const SingleSelectCombobox = () => {
+  const menuList = ['apple', 'orange', 'banana'];
+  return (
+    <Combobox
+      menuList={menuList}
+      id="typeaheadExample"
+      icon={<i className="bi bi-search"></i>}
+    />
+  );
+};
+
+<Story name="Single-select">{SingleSelectCombobox.bind({})}</Story>
+
+
+## Multi-select Combobox
+When mode='multi', multiple items can be selected.
+
+export const MultiSelectCombobox = () => {
+  const menuList = ['apple', 'orange', 'banana'];
+  return (
+    <Combobox
+      mode="multi"
+      menuList={menuList}
+      id="typeaheadExample"
+      icon={<i className="bi bi-search"></i>}
+    />
+  );
+};
+
+<Story name="Multi-select">{MultiSelectCombobox.bind({})}</Story>
+
 ## onChangeInput
 
 `onChangeInput` is fired whenever the value of input changes whether due to typing directly in the input or from selection from menu.
-The first argument of `onChangeInput` returns the string value of the input.
-The second argument returns either the ChangeEvent or MouseEvent depending on the type of user interaction with `<Combobox/>`
 
-export const ComboboxOnChangeTemplate = () => {
+The first argument of `onChangeInput` returns the string value of the input.
+
+The second argument returns either the ChangeEvent or MouseEvent depending on the type of user interaction with `<Combobox/>`.
+
+export const ComboboxOnChangeInputTemplate = () => {
   const [fruits, setFruits] = useState('');
   const handleChange = (val, e) => {
     setFruits(val);
@@ -288,7 +324,43 @@ export const ComboboxOnChangeTemplate = () => {
   );
 };
 
-<Story name="onChangeInput">{ComboboxOnChangeTemplate.bind({})}</Story>
+<Story name="onChangeInput">{ComboboxOnChangeInputTemplate.bind({})}</Story>
+
+## onChangeSelect
+
+`onChangeSelect` is fired whenever a menu item is selected, or when an item gets removed from selection (in the case of 'multi-select' combobox).
+
+The first argument of `onChangeSelect` returns the string value of the item that is selected or unselected.
+
+The second argument returns the string array of the updated list of selected items. For the case of 'single-select' combobox, only a maximum one item can be selected. Hence the maximum length of the array is 1.
+
+The third argument returns either the MouseEvent or KeyboardEvent depending on the type of user interaction with `<Combobox/>`.
+
+export const ComboboxOnChangeSelectTemplate = () => {
+  const [fruit, setFruit] = useState('')
+  const [fruits, setFruits] = useState([]);
+  const handleSelect = (item, items, e) => {
+    setFruit(item);
+    setFruits(items);
+  };
+  const menuList = ['apple', 'orange', 'banana'];
+  return (
+    <>
+      <Combobox
+        menuList={menuList}
+        onChangeSelect={handleSelect}
+        mode='multi'
+        label="Select a fruit"
+        id="typeaheadExample"
+        icon={<i className="bi bi-search"></i>}
+      />
+      <div>Previous selected/unselected fruit : {fruit}</div>
+      <div>Selected fruits : {fruits.join(', ')}</div>
+    </>
+  );
+};
+
+<Story name="onChangeSelect">{ComboboxOnChangeSelectTemplate.bind({})}</Story>
 
 ### Code Sample
 
