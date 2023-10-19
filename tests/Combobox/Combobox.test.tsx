@@ -468,7 +468,7 @@ describe('<Combobox>', () => {
 
     expect(
       container.querySelector(
-        '.dropdown.combobox> i.form-control-icon.bi.bi-search'
+        'i.form-control-icon.bi.bi-search'
       )
     ).toBeInTheDocument();
   });

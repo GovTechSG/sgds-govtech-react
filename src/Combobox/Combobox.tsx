@@ -1,6 +1,6 @@
 import DropdownMenu from '../Dropdown/DropdownMenu';
 import * as React from 'react';
-import { FormControlProps } from '../Form/FormControl';
+import FormControl, { FormControlProps } from '../Form/FormControl';
 import FormLabel from '../Form/FormLabel';
 import { useState, useRef } from 'react';
 import PropTypes from 'prop-types';
@@ -8,10 +8,10 @@ import { BsPrefixRefForwardingComponent } from '../utils/helpers';
 import useMergedRefs from '@restart/hooks/useMergedRefs';
 import DropdownItem from '../Dropdown/DropdownItem';
 import Dropdown from '../Dropdown/Dropdown';
-import FormControlToggle from '../Form/FormControlToggle';
 import classNames from 'classnames';
 import generateId from '../utils/generateId';
 import SelectedItem from './SelectedItem';
+import ComboboxToggle from './ComboboxToggle';
 
 export type MenuPlacement = 'up' | 'down';
 export type ComboboxMode = 'single' | 'multi';
@@ -33,7 +33,7 @@ export interface ComboboxProps extends Omit<FormControlProps, 'type'> {
   onChangeSelect?: (
     item: string,
     items: string[],
-    e?: React.MouseEvent<HTMLButtonElement>
+    e?: React.MouseEvent<HTMLButtonElement> | React.KeyboardEvent<HTMLInputElement>
   ) => void;
   /** Adds a FormLabel to `<Combobox />` */
   label?: string;
@@ -75,7 +75,7 @@ const removeDuplicates = (arr: any[]) => {
 export const Combobox: BsPrefixRefForwardingComponent<
   'input',
   ComboboxProps
-> = React.forwardRef<HTMLInputElement, ComboboxProps>(
+> = React.forwardRef<HTMLDivElement, ComboboxProps>(
   (
     {
       menuPlacement = 'down',
@@ -90,12 +90,16 @@ export const Combobox: BsPrefixRefForwardingComponent<
     },
     ref
   ) => {
-    const formControlRef = useRef<HTMLInputElement>(null);
-    const inputRef = useMergedRefs(
-      ref as React.MutableRefObject<HTMLInputElement>,
-      formControlRef
+    const comboboxControlRef = useRef<HTMLDivElement>(null);
+    const comboboxRef = useMergedRefs(
+      ref as React.MutableRefObject<HTMLDivElement>,
+      comboboxControlRef
     );
+
+    const dropdownMenuRef = useRef<HTMLUListElement>(null);
+
     const [menuOpen, setIsMenuOpen] = useState(undefined);
+
     const initialState: ComboboxState = {
       value: initialValue,
       invalid: false,
@@ -108,10 +112,14 @@ export const Combobox: BsPrefixRefForwardingComponent<
     };
     const [state, setState] = useState(initialState);
 
+    const [comboboxMenuId, setComboboxMenuId] = useState("")
+    React.useEffect(() => {
+      setComboboxMenuId(generateId('combobox', 'ul'));
+    }, [])
+
     const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-      if (!menuOpen) {
-        formControlRef.current?.click();
-      }
+      if (!menuOpen) comboboxControlRef.current?.click()
+
       const newInput = e.currentTarget.value;
 
       const newSelectedItems =
@@ -130,22 +138,29 @@ export const Combobox: BsPrefixRefForwardingComponent<
         menuList: newMenuList,
         selectedItems: newSelectedItems
       });
+
       if (onChangeInput) onChangeInput(newInput, e);
     };
 
-    const controlProps = {
-      onChange: handleChange,
-      value: state.value,
-      ref: inputRef,
-      isInvalid: state.invalid,
-      ...props,
-    };
+    const handleKeyDown = (e: React.KeyboardEvent<HTMLInputElement>) => {
+      if (mode === 'single') return;
+      
+      const prevInput = e.currentTarget.value;
+
+      if (e.key === 'Backspace' && prevInput.length === 0 && state.selectedItems.length > 0) {
+        const prevSelectedItem = state.selectedItems.slice(-1)[0];
+        removeSelectedItem(prevSelectedItem)(e)
+        if (!menuOpen) comboboxControlRef.current?.click()
+      }
+    }
 
     const filterMenuList = (menuList: string[], input: string) => {
       return menuList.filter(item => item.toLowerCase().startsWith(input.toLowerCase()))
     }
 
     const handleClickItem = (e: React.MouseEvent<HTMLButtonElement>) => {
+      if (mode === 'multi') e.stopPropagation();
+
       const selectedItem = e.currentTarget.textContent!
 
       const newInput = mode === 'single' ? selectedItem : ''
@@ -172,20 +187,23 @@ export const Combobox: BsPrefixRefForwardingComponent<
       });
     };
 
-    const removeSelectedItem = (itemToRemove: string) => (e: React.MouseEvent<HTMLButtonElement>) => {
-      const newSelectedItems = state.selectedItems.filter(item => item !== itemToRemove)
+    const removeSelectedItem = (itemToRemove: string) =>
+      (e: React.MouseEvent<HTMLButtonElement> | React.KeyboardEvent<HTMLInputElement>) => {
+        e.stopPropagation();
 
-      const newMenuList = filterMenuList(removeDuplicates(menuList), state.value)
-        .filter(item => !newSelectedItems.includes(item))
+        const newSelectedItems = state.selectedItems.filter(item => item !== itemToRemove)
 
-      if (onChangeSelect) onChangeSelect(itemToRemove, newSelectedItems, e)
+        const newMenuList = filterMenuList(removeDuplicates(menuList), state.value)
+          .filter(item => !newSelectedItems.includes(item))
 
-      setState({
-        ...state,
-        menuList: newMenuList,
-        selectedItems: newSelectedItems
-      })
-    }
+        if (onChangeSelect) onChangeSelect(itemToRemove, newSelectedItems, e)
+
+        setState({
+          ...state,
+          menuList: newMenuList,
+          selectedItems: newSelectedItems
+        })
+      }
 
     const focusDropdownItem = (event: React.FocusEvent<HTMLAnchorElement>) => {
       setState({
@@ -193,10 +211,14 @@ export const Combobox: BsPrefixRefForwardingComponent<
         value: event.currentTarget.textContent as string,
       });
     };
-    const [comboboxMenuId, setComboboxMenuId] = useState("")
-    React.useEffect(() => {
-      setComboboxMenuId(generateId('combobox', 'ul'));
-    }, [])
+
+    const controlProps = {
+      onChange: handleChange,
+      onKeyDown: handleKeyDown,
+      value: state.value,
+      isInvalid: state.invalid,
+      ...props,
+    };
 
     return (
       <>
@@ -206,14 +228,11 @@ export const Combobox: BsPrefixRefForwardingComponent<
           focusFirstItemOnShow={false}
           drop={menuPlacement}
         >
-          <div
-            style={{
-              display: "flex",
-              alignItems: "center",
-              paddingLeft: "0",
-              paddingRight: "0"
-            }}
-            className='form-control'>
+          <ComboboxToggle
+            ref={comboboxRef}
+            setIsMenuOpen={setIsMenuOpen}
+            role="combobox"
+            aria-controls={comboboxMenuId}>
             <div
               style={{
                 display: "flex",
@@ -232,18 +251,15 @@ export const Combobox: BsPrefixRefForwardingComponent<
                     onRemove={removeSelectedItem(item)} />
                 })}
 
-              <FormControlToggle
+              <FormControl
                 style={{
                   border: "none",
                   boxShadow: "none",
                   width: "auto",
                   flex: "1 1 auto"
-                }} 
-                {...controlProps} 
-                setIsMenuOpen={setIsMenuOpen} 
-                role="combobox" 
-                aria-autocomplete="list" 
-                aria-controls={comboboxMenuId} />
+                }}
+                {...controlProps}
+                aria-autocomplete="list" />
             </div>
 
             {icon &&
@@ -251,11 +267,10 @@ export const Combobox: BsPrefixRefForwardingComponent<
                 className: classNames(icon.props.className, 'form-control-icon'),
                 style: { position: "static", float: "right" }
               })}
-          </div>
-
+          </ComboboxToggle>
 
           {state.menuList.length > 0 && (
-            <DropdownMenu id={comboboxMenuId} role="listbox">
+            <DropdownMenu ref={dropdownMenuRef} id={comboboxMenuId} role="listbox" menuItems={state.menuList}>
               {state.menuList.map((menuItem) => (
                 <DropdownItem
                   as="button"

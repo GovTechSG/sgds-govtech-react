@@ -3,7 +3,6 @@ import PropTypes from 'prop-types';
 import * as React from 'react';
 import { useContext } from 'react';
 import { useDropdownToggle } from '@restart/ui/DropdownToggle';
-import DropdownContext from '@restart/ui/DropdownContext';
 import useMergedRefs from '@restart/hooks/useMergedRefs';
 import InputGroupContext from '../InputGroup/InputGroupContext';
 import useWrappedRefWithWarning from '../utils/useWrappedRefWithWarning';
@@ -13,7 +12,6 @@ import FormControl, { FormControlProps } from './FormControl';
 export interface FormControlToggleProps extends Omit<FormControlProps, 'type'> {
   as?: React.ElementType;
   childBsPrefix?: string;
-  setIsMenuOpen?: Function;
 }
 
 type FormControlToggleComponent = BsPrefixRefForwardingComponent<
@@ -51,7 +49,6 @@ const FormControlToggle: FormControlToggleComponent = React.forwardRef(
       bsPrefix,
       className,
       childBsPrefix,
-      setIsMenuOpen,
       // Need to define the default "as" during prop destructuring to be compatible with styled-components github.com/react-bootstrap/react-bootstrap/issues/3595
       as: Component = FormControl,
       ...props
@@ -59,7 +56,6 @@ const FormControlToggle: FormControlToggleComponent = React.forwardRef(
     ref
   ) => {
     const prefix = 'dropdown-toggle';
-    const dropdownContext = useContext(DropdownContext);
     const isInputGroup = useContext(InputGroupContext);
     if (childBsPrefix !== undefined) {
       (props as any).bsPrefix = childBsPrefix;
@@ -71,11 +67,6 @@ const FormControlToggle: FormControlToggleComponent = React.forwardRef(
     );
     const {"aria-expanded": ariaExpanded, id, ...newToggleProps} = toggleProps
 
-    if (setIsMenuOpen) {
-      React.useEffect(() => {
-        setIsMenuOpen(dropdownContext?.show);
-      }, [dropdownContext?.show]);
-    }
     // This intentionally forwards size and variant (if set) to the
     // underlying component, to allow it to render size and style variants.
     return (
@@ -83,7 +74,7 @@ const FormControlToggle: FormControlToggleComponent = React.forwardRef(
         className={classNames(
           className,
           prefix,
-          !!isInputGroup && dropdownContext?.show && 'show'
+          !!isInputGroup
         )}
         {...newToggleProps}
         {...props}

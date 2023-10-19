@@ -72,6 +72,11 @@ export interface DropdownMenuProps
 
   /** `@private` Provides context when used in NavDropdown component  */
   isNav?: boolean;
+
+  /**
+   * `@private` The list of items in the menu
+   */
+  menuItems?: string[];
 }
 
 const propTypes = {
@@ -134,6 +139,11 @@ const propTypes = {
 
   /** @private Provides context when used in NavDropdown component  */
   isNav: PropTypes.bool,
+
+  /**
+   * `@private` The list of items in the menu.
+   */
+  menuItems: PropTypes.arrayOf(PropTypes.string),
 };
 
 const defaultProps: Partial<DropdownMenuProps> = {
@@ -181,6 +191,7 @@ export const DropdownMenu: BsPrefixRefForwardingComponent<
       popperConfig,
       variant,
       isNav,
+      menuItems,
       ...props
     },
     ref
@@ -238,6 +249,10 @@ export const DropdownMenu: BsPrefixRefForwardingComponent<
       // renderOnMount=true. Need to call update() to correct it.
       if (show) popper?.update();
     }, [show]);
+
+    useIsomorphicEffect(() => {
+      popper?.update();
+    }, [menuItems]);
 
     if (!hasShown && !renderOnMount && !isInputGroup) return null;
 
