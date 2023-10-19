@@ -150,7 +150,6 @@ export const Combobox: BsPrefixRefForwardingComponent<
       if (e.key === 'Backspace' && prevInput.length === 0 && state.selectedItems.length > 0) {
         const prevSelectedItem = state.selectedItems.slice(-1)[0];
         removeSelectedItem(prevSelectedItem)(e)
-        if (!menuOpen) comboboxControlRef.current?.click()
       }
     }
 
@@ -187,9 +186,15 @@ export const Combobox: BsPrefixRefForwardingComponent<
       });
     };
 
+    /**
+     * To remove selected item. Only applicable for multi-select combobox.
+     */
     const removeSelectedItem = (itemToRemove: string) =>
       (e: React.MouseEvent<HTMLButtonElement> | React.KeyboardEvent<HTMLInputElement>) => {
+        // To make sure dropdown menu does not get toggled
         e.stopPropagation();
+
+        if (!menuOpen) comboboxControlRef.current?.click()
 
         const newSelectedItems = state.selectedItems.filter(item => item !== itemToRemove)
 
