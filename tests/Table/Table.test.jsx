@@ -1,17 +1,14 @@
 import * as React from 'react';
 import { Table } from '../../src/Table';
-
-import { render, within } from '@testing-library/react';
+import { fireEvent, render, waitFor } from '@testing-library/react';
 
 describe('Table', () => {
-  it('outer wrapper is a table element', () => {
+  it('outer wrapper is a <table> element', () => {
     const { getByTestId, container } = render(<Table data-testid="table-test" />);
     expect(getByTestId('table-test').tagName).toEqual('TABLE');
     expect(getByTestId('table-test').classList).toContain('table');
     expect(getByTestId('table-test').classList).toContain('sgds');
-
     expect(container.querySelector('div.table-responsive>.table.sgds')).not.toBeInTheDocument()
-
   });
 
   it('Should have correct class when striped', () => {
@@ -54,90 +51,63 @@ describe('Table', () => {
     const { container } = render(<Table responsive="sm" data-testid="table-test" />);
     expect(container.querySelector('div.table-responsive-sm>.table.sgds')).toBeInTheDocument();
   });
-
-  it("should be able to sort the table data when a header is clicked", () => {
-    // Set up the table data and headers
-    const tableHeaders = ["Name", "Age", "City"];
-    const tableData = [
-      ["John", "30", "New York"],
-      ["Alice", "25", "San Francisco"],
-      ["Bob", "40", "Chicago"]
-    ];
-
-    // Create the table element
-    const { container } = render(<Table tableHeaders={tableHeaders} tableData={tableData} sort={true} />);
-
-    // Click the header for the first column to sort by name
-    const nameHeader = container.querySelector("thead th:first-child");
-    nameHeader.click();
-
-    // Check that the table data is sorted by name in ascending order
-    let data = [...container.querySelectorAll('td')].map((el, _) => el.innerHTML)
-    expect(data)
-      .toEqual(['Alice', '25', 'San Francisco', 'Bob', '40', 'Chicago', 'John', '30', 'New York']);
-
-    // Click the header for the first column again to sort by name in descending order
-    nameHeader.click();
-
-    // Check that the table data is sorted by name in descending order
-    data = [...container.querySelectorAll('td')].map((el, _) => el.innerHTML)
-    expect(data)
-      .toEqual(['John', '30', 'New York', 'Bob', '40', 'Chicago', 'Alice', '25', 'San Francisco']);
-
-    // Click the header for the second column to sort by age
-    const ageHeader = container.querySelector("thead th:nth-child(2)");
-    ageHeader.click();
-
-    // Check that the table data is sorted by age in ascending order
-    data = [...container.querySelectorAll('td')].map((el, _) => el.innerHTML)
-    expect(data)
-      .toEqual(['Alice', '25', 'San Francisco', 'John', '30', 'New York', 'Bob', '40', 'Chicago']);
-
-
-    // Click the header for the second column again to sort by age in descending order
-    ageHeader.click();
-
-    // Check that the table data is sorted by age in descending order
-    data = [...container.querySelectorAll('td')].map((el, _) => el.innerHTML)
-    expect(data)
-      .toEqual(['Bob', '40', 'Chicago', 'John', '30', 'New York', 'Alice', '25', 'San Francisco']);
-  });
-
-  it("should be able to sort the table data when a header is clicked and return to default sort on third click when removableSort is set to true", () => {
-    // Set up the table data and headers
-    const tableHeaders = ["Name", "Age", "City"];
-    const tableData = [
-      ["John", "30", "New York"],
-      ["Alice", "25", "San Francisco"],
-      ["Bob", "40", "Chicago"]
-    ];
-
-    // Create the table element
-    const { container } = render(<Table tableHeaders={tableHeaders} tableData={tableData} sort={true} removableSort={true} />);
-
-    // Click the header for the first column to sort by name
-    const nameHeader = container.querySelector("thead th:first-child");
-    nameHeader.click();
-
-    // Check that the table data is sorted by name in ascending order
-    let data = [...container.querySelectorAll('td')].map((el, _) => el.innerHTML)
-    expect(data)
-      .toEqual(['Alice', '25', 'San Francisco', 'Bob', '40', 'Chicago', 'John', '30', 'New York']);
-
-    // Click the header for the first column again to sort by name in descending order
-    nameHeader.click();
-
-    // Check that the table data is sorted by name in descending order
-    data = [...container.querySelectorAll('td')].map((el, _) => el.innerHTML)
-    expect(data)
-      .toEqual(['John', '30', 'New York', 'Bob', '40', 'Chicago', 'Alice', '25', 'San Francisco']);
-
-    // Click the header for the first column a third time to return to default sort
-    nameHeader.click();
-
-    // Check that the table data is sorted by the original order
-    data = [...container.querySelectorAll('td')].map((el, _) => el.innerHTML)
-    expect(data)
-      .toEqual(['John', '30', 'New York', 'Alice', '25', 'San Francisco', 'Bob', '40', 'Chicago']);
-  });
 });
+
+describe('TableRow', () => {
+  it('outer wrapper is a <tr> element', () => {
+    const { getByTestId } = render(<Table.Row data-testid="table-row-test" />);
+    expect(getByTestId('table-row-test').tagName).toEqual('TR');
+  });
+})
+
+describe('TableHeader', () => {
+  it('outer wrapper is a <thead> element', () => {
+    const { getByTestId } = render(<Table.Header data-testid="table-header-test" />);
+    expect(getByTestId('table-header-test').tagName).toEqual('THEAD');
+  });
+})
+
+describe('TableHeaderCell', () => {
+  it('outer wrapper is a <th> element', () => {
+    const { getByTestId } = render(<Table.HeaderCell data-testid="table-header-cell-test" />);
+    expect(getByTestId('table-header-cell-test').tagName).toEqual('TH');
+  });
+})
+
+describe('TableBody', () => {
+  it('outer wrapper is a <tbody> element', () => {
+    const { getByTestId } = render(<Table.Body data-testid="table-body-test" />);
+    expect(getByTestId('table-body-test').tagName).toEqual('TBODY');
+  });
+})
+
+describe('TableDataCell', () => {
+  it('outer wrapper is a <td> element', () => {
+    const { getByTestId } = render(<Table.DataCell data-testid="table-data-cell-test" />);
+    expect(getByTestId('table-data-cell-test').tagName).toEqual('TD');
+  });
+})
+
+describe('TableSortLabel', () => {
+  it('outer wrapper is a <span> element', () => {
+    const { getByTestId } = render(<Table.SortLabel data-testid="table-sort-label-test" />);
+    expect(getByTestId('table-sort-label-test').tagName).toEqual('SPAN');
+  });
+
+  it('renders sort icon correctly depending on value of "active" and "direction" prop', () => {
+    const { container: containerInactive } = render(<Table.SortLabel />);
+    const { container: containerActiveAsc } = render(<Table.SortLabel active />);
+    const { container: containerActiveDesc } = render(<Table.SortLabel active direction='desc' />);
+    expect(containerInactive.querySelector('svg').classList).toContain('bi-arrow-down-up');
+    expect(containerActiveAsc.querySelector('svg').classList).toContain('bi-sort-up-alt');
+    expect(containerActiveDesc.querySelector('svg').classList).toContain('bi-sort-down');
+  });
+
+  it('calls onClick handler', async () => {
+    const mockFn = jest.fn();
+    const { getByTestId }
+      = render(<Table.SortLabel data-testid="table-sort-label-test" onClick={mockFn} />);
+    fireEvent.click(getByTestId('table-sort-label-test'));
+    await waitFor(() => expect(mockFn).toBeCalledTimes(1));
+  });
+})
