@@ -65,7 +65,7 @@ export const Template = (args) => {
 };
 
 <Canvas>
-  <Story name="Badge">{Template.bind({})}</Story>
+  <Story name="Basic">{Template.bind({})}</Story>
 </Canvas>
 
 ## API
@@ -146,13 +146,13 @@ Badge can also be used on other components as a dot indicator or text indicator 
 
 <Canvas>
   <Story
-    name="Components Badge - dotIndicator"
+    name="dot indicator"
     args={{ dotIndicator: true, bg: 'danger' }}
   >
     {ComponentBadgeTemplate.bind({})}
   </Story>
   <Story
-    name="Components Badge - textIndicator"
+    name="text indicator"
     args={{ textIndicator: true, bg: 'danger', children: '99+' }}
   >
     {ComponentBadgeTemplate.bind({})}

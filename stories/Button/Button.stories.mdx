@@ -12,7 +12,7 @@ Custom button styles for actions in forms, dialogs, and more with support for mu
 export const defaultTemplate = (args) => <Button {...args}>Default</Button>;
 
 <Canvas>
-  <Story name="Default">{defaultTemplate.bind({})}</Story>
+  <Story name="Basic">{defaultTemplate.bind({})}</Story>
 </Canvas>
 
 ## API
@@ -21,7 +21,7 @@ export const defaultTemplate = (args) => <Button {...args}>Default</Button>;
 import { Button } from '@govtechsg/sgds-react/Button';
 ```
 
-<ArgsTable story="Default" />
+<ArgsTable story="Basic" />
 
 ## Variants
 
@@ -66,13 +66,13 @@ For a lighter touch, Buttons also come in `outline-*` variants with no backgroun
   </Story>
 </Canvas>
 
-## Button tags
+## Link button
 
 Normally `<Button>` components will render a HTML `<button>` element. However you can render whatever you'd like, adding a href prop will automatically render an `<a/>` element.
 You can use the as prop to render whatever your heart desires. @govtechsg/sgds-react will take care of the proper ARIA roles for you.
 
 <Canvas>
-  <Story name="Button tags">
+  <Story name="Link button">
     <>
       <Button href="#">Link</Button> <Button type="submit">Button</Button>{' '}
       <Button as="input" type="button" value="Input" />{' '}
@@ -87,7 +87,7 @@ You can use the as prop to render whatever your heart desires. @govtechsg/sgds-r
 Fancy larger or smaller buttons? Add `size="lg"`, `size="sm"` for additional sizes.
 
 <Canvas>
-  <Story name="Button sizes">
+  <Story name="Sizes">
     <>
       <div className="mb-2">
         <Button variant="primary" size="lg">
@@ -109,7 +109,7 @@ Fancy larger or smaller buttons? Add `size="lg"`, `size="sm"` for additional siz
   </Story>
 </Canvas>
 
-## Block buttons
+## Block / Full-width button
 
 Create responsive stacks of full-width, “block buttons” with a mix of our display and gap utilities.
 
@@ -167,7 +167,7 @@ Watch out! `<a>` elements don't naturally support a disabled attribute. In brows
 
 @govtechsg/sgds-react will prevent any `onClick` handlers from firing regardless of the rendered element.
 
-## Button loading state
+## Loading state
 
 When activating an asynchronous action from a button it is a good UX pattern to give the user feedback as to the loading state, this can easily be done by updating your `<Button />`s props from a state change like below.
 
@@ -201,7 +201,7 @@ export const Template = (args) => {
 };
 
 <Canvas>
-  <Story name="Button loading state" parameters={{ docs: { source: { type: 'code' } } }}>{Template.bind({})}</Story>
+  <Story name="Loading state" parameters={{ docs: { source: { type: 'code' } } }}>{Template.bind({})}</Story>
 </Canvas>
 
 
@@ -220,5 +220,5 @@ export const iconTemplate = (args) => (
 );
 
 <Canvas>
-  <Story name="Button with icon">{iconTemplate.bind({})}</Story>
+  <Story name="With icon">{iconTemplate.bind({})}</Story>
 </Canvas>
