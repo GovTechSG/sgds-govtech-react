@@ -1,17 +1,12 @@
+"use client"
 import type { NextPage } from "next";
-import Head from "next/head";
-import Image from "next/image";
 import styles from "../styles/Home.module.css";
 
 import { Button, Row, Col, Container, Badge } from "@govtechsg/sgds-react"; 
 import { Nav, NavDropdown, Navbar } from '@govtechsg/sgds-react/Nav'
-// import { Navbar } from '@govtechsg/sgds-react/Navbar'
-
 import { Tabs, Tab} from '@govtechsg/sgds-react/Tabs'
 import { CloseButton } from "@govtechsg/sgds-react/CloseButton";
 import { Alert } from "@govtechsg/sgds-react/Alert";
-// import { TooltipBox } from "@govtechsg/sgds-react/esm/Tooltip";
-// import {Tooltip} from "./tooltip";
 import { TooltipBox, Tooltip } from "@govtechsg/sgds-react/Tooltip";
 import { Toast } from "@govtechsg/sgds-react/Toast";
 import { Accordion } from "@govtechsg/sgds-react";
@@ -21,13 +16,7 @@ import { Overlay } from "@govtechsg/sgds-react/Overlay";
 import { FileUpload } from "@govtechsg/sgds-react/FileUpload";
 import { Form } from '@govtechsg/sgds-react/Form'
 import {  Combobox } from "@govtechsg/sgds-react/Combobox";
-// import { SgdsMasthead } from "@govtechsg/sgds-masthead-react";
-// import { Dropdown } from "@govtechsg/sgds-react";
-// import { Button } from '@govtechsg/sgds-react'
-// const {Button} = require('@govtechsg/sgds-react')
 import { useState, useRef } from "react";
-// import { Dropdown } from "react-bootstrap";
-import dynamic from 'next/dynamic'
 import { DatePicker } from "@govtechsg/sgds-react/DatePicker";
 
 const {Dropdown} = require('@govtechsg/sgds-react/Dropdown')

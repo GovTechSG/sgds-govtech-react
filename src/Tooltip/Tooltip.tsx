@@ -40,13 +40,18 @@ export const Tooltip: React.FC<TooltipProps> = ((props = defaultProps) => {
   const { type, placement, content, children } = props;
   const [show, setShow] = useState(false);
   const target = useRef(null);
-  const toolTipId = generateId('tooltip', 'div');
+  
+  const [tooltipId, setTooltipId] = useState("")
+  React.useEffect(() => {
+    setTooltipId(generateId('tooltip', 'div'));
+  }, [])
+
   const clickToolTip = () => (
     <>
       {React.cloneElement(children as React.ReactElement, {
         onClick: () => setShow(!show),
         ref: target,
-        'aria-describedby': toolTipId,
+        'aria-describedby': tooltipId,
       })}
       <Overlay target={target.current} show={show} placement={placement}>
         {(props) => (
@@ -55,7 +60,7 @@ export const Tooltip: React.FC<TooltipProps> = ((props = defaultProps) => {
             closeBtn={
               <CloseButton variant="white" onClick={() => setShow(!show)} />
             }
-            id={toolTipId}
+            id={tooltipId}
           >
             {content}
           </TooltipBox>
@@ -67,12 +72,12 @@ export const Tooltip: React.FC<TooltipProps> = ((props = defaultProps) => {
   const hoverTooltip = () => (
     <OverlayTrigger
       placement={placement}
-      overlay={<TooltipBox id={toolTipId} {...props}>{content}</TooltipBox>}
+      overlay={<TooltipBox id={tooltipId} {...props}>{content}</TooltipBox>}
     >
       {React.cloneElement(children as React.ReactElement, {
         onClick: () => setShow(!show),
         ref: target,
-        'aria-describedby': toolTipId,
+        'aria-describedby': tooltipId,
       })}
     </OverlayTrigger>
   );

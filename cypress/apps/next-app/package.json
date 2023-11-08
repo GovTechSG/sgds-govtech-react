@@ -1,0 +1,26 @@
+{
+  "name": "next-app",
+  "version": "0.1.0",
+  "private": true,
+  "scripts": {
+    "dev": "next dev",
+    "build": "next build",
+    "start": "BROWSER=none next start",
+    "lint": "next lint"
+  },
+  "dependencies": {
+    "@govtechsg/sgds": "^2.1.1",
+    "@govtechsg/sgds-react": "file:../../../dist",
+    "next": "latest",
+    "react": "latest",
+    "react-dom": "latest"
+  },
+  "devDependencies": {
+    "@types/node": "latest",
+    "@types/react": "18.0.1",
+    "@types/react-dom": "latest",
+    "eslint": "latest",
+    "eslint-config-next": "latest",
+    "typescript": "latest"
+  }
+}

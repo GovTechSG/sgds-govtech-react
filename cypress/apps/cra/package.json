@@ -1,12 +1,13 @@
 {
-  "name": "www",
+  "name": "create-react-app",
   "version": "0.1.0",
   "private": true,
   "homepage": "https://govtechsg.github.io/sgds-govtech-react/",
   "dependencies": {
+    "@govtechsg/sgds": "^2.1.1",
     "@govtechsg/sgds-masthead": "^0.0.14",
     "@govtechsg/sgds-masthead-react": "^0.0.8",
-    "@govtechsg/sgds-react": "^2.0.0",
+    "@govtechsg/sgds-react": "file:../../../dist",
     "@testing-library/jest-dom": "^5.16.4",
     "@testing-library/react": "^13.2.0",
     "@testing-library/user-event": "^13.5.0",
@@ -19,7 +20,7 @@
     "web-vitals": "^2.1.4"
   },
   "scripts": {
-    "start": "react-app-rewired start",
+    "start": "BROWSER=none react-app-rewired start",
     "build": "react-app-rewired build",
     "test": "react-app-rewired test",
     "eject": "react-app-rewired eject",
