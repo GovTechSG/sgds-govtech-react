@@ -9,7 +9,7 @@ export interface TableDataCellProps
   React.TableHTMLAttributes<HTMLTableCellElement> {
 }
 
-const TableDataCell: BsPrefixRefForwardingComponent<'td', TableDataCellProps> =
+export const TableDataCell: BsPrefixRefForwardingComponent<'td', TableDataCellProps> =
   React.forwardRef<HTMLTableCellElement, TableDataCellProps>(
     (
       {

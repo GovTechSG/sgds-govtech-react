@@ -25,6 +25,20 @@ This helps to ensure rollup exports of individual components are properly config
 
 1) Unit test should be written in `tests` folder at root 
 
+### Storybook documentation 
+
+#### ArgsTable 
+
+To show props for components and subcomponents in Storybook's ArgsTable, it requires that the component be exported via named exports. 
+Its displayName must be the reflect the same name as the named exports as well 
+
+For example, in src code 
+
+```jsx
+export const TableHeader = ... 
+
+TableHeader.displayName = "TableHeader"
+```
 ## Commit standard 
 This is a commitizen friendly repo. Adhere to the commit conventions of cz. 
 

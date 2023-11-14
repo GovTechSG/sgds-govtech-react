@@ -6,25 +6,14 @@ import {
 
 export interface TableBodyProps
   extends BsPrefixProps,
-  React.TableHTMLAttributes<HTMLTableSectionElement> {
-}
+    React.TableHTMLAttributes<HTMLTableSectionElement> {}
 
-const TableBody: BsPrefixRefForwardingComponent<'tbody', TableBodyProps> =
+export const TableBody: BsPrefixRefForwardingComponent<'tbody', TableBodyProps> =
   React.forwardRef<HTMLTableSectionElement, TableBodyProps>(
-    (
-      {
-        as: Component = 'tbody',
-        ...props
-      },
-      ref
-    ) => {
-      return (
-        <Component {...props} ref={ref} />
-      )
+    ({ as: Component = 'tbody', ...props }, ref) => {
+      return <Component {...props} ref={ref} />;
     }
-  )
+  );
 
-  TableBody.displayName = 'TableBody';
-
-
+TableBody.displayName = 'TableBody';
 export default TableBody;

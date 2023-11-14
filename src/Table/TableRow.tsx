@@ -9,7 +9,7 @@ export interface TableRowProps
   React.TableHTMLAttributes<HTMLTableRowElement> {
 }
 
-const TableRow: BsPrefixRefForwardingComponent<'tr', TableRowProps> = 
+export const TableRow: BsPrefixRefForwardingComponent<'tr', TableRowProps> = 
 React.forwardRef<HTMLTableRowElement, TableRowProps>(
   (
     {

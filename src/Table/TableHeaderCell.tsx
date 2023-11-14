@@ -8,7 +8,7 @@ export interface TableHeaderCellProps
   extends BsPrefixProps, React.TableHTMLAttributes<HTMLTableCellElement> {
 }
 
-const TableHeaderCell: BsPrefixRefForwardingComponent<'th', TableHeaderCellProps> =
+export const TableHeaderCell: BsPrefixRefForwardingComponent<'th', TableHeaderCellProps> =
   React.forwardRef<HTMLTableCellElement, TableHeaderCellProps>(
     (
       {

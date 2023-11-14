@@ -9,7 +9,7 @@ export interface TableHeaderProps
   React.TableHTMLAttributes<HTMLTableSectionElement> {
 }
 
-const TableHeader: BsPrefixRefForwardingComponent<'thead', TableHeaderProps> =
+export const TableHeader: BsPrefixRefForwardingComponent<'thead', TableHeaderProps> =
   React.forwardRef<HTMLTableSectionElement, TableHeaderProps>(
     (
       {
