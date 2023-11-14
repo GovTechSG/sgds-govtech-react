@@ -106,4 +106,4 @@ With certain SGDS React components, you may want to modify the component or HTML
 
 If you want to keep all the styling of a particular component but switch the component that is finally rendered (whether it's a different SGDS React component, a different custom component, or a different HTML tag), you can use the "as" Prop to do so.
 
-See [example](https://react-bootstrap.github.io/getting-started/introduction#as-prop-api)
+See [example](https://react-bootstrap.github.io/docs/getting-started/introduction#as-prop-api)

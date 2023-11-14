@@ -38,7 +38,7 @@ The default `Tooltip` is hoverable, with top placement. Pass in the Tooltip text
 The `Tooltip` component works as a wrapper around its target children element.
 
 <Canvas>
-  <Story name="Default" args={{ content: 'This is a sample Tooltip' }}>
+  <Story name="Basic" args={{ content: 'This is a sample Tooltip' }}>
     {defaultTooltip.bind({})}
   </Story>
 </Canvas>
@@ -49,12 +49,12 @@ The `Tooltip` component works as a wrapper around its target children element.
 import { Tooltip } from '@govtechsg/sgds-react/Tooltip'; 
 ```
 
-<ArgsTable story="Default" />
+<ArgsTable story="Basic" />
 
 SGDS `Tooltip` component is built on top of React-bootstrap. Hoverable `Tooltip` uses `OverlayTrigger` component and clickable `Tooltip` uses `Overlay` component.
 The underlying third-party library is Popper.js.
 
-Please refer to https://react-bootstrap.github.io/components/overlays/#api for more detailed API documentation
+Please refer to https://react-bootstrap.github.io/docs/components/overlays#api for more detailed API documentation
 
 ## Target Element / Component
 

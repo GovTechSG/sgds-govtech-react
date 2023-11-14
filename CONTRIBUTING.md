@@ -3,6 +3,18 @@
 
 Thank you so much for contributing to @govtechsg/sgds-react. Please read this guideline before starting your development works. 
 
+## Contributing workflow 
+
+To contribute, please start off at the Issue section of our github repository. 
+
+1) Checkout our Issue section to search for similar bugs/issues/feature request that you encounter. Someone else might have already raised a similar issue.
+2) If your issue is not found, open an issue !
+3) Follow the instructions of the issue request form and answer them 
+4) Describe your bug / new feature request as detailed as possible. For new feature request, let us know your motivation behind your proposal and how you intend to build the feature. For bug fixes, let us know how you intend to fix the bug. 
+5) An SGDS admin will pick up on the discussion and notify you if the proposal is accepted 
+6) Once accepted, you can fork the repository and start working away !
+7) Raise a PR, tagging the issue number, and request a review from one of our admins. 
+
 ## Writing 
 
 ### Setup
@@ -13,7 +25,7 @@ Thank you so much for contributing to @govtechsg/sgds-react. Please read this gu
 
 ### File Structure
 
-1) When generating new Components, generate a new folder with Component name and include `index.ts` file as entry point.
+1) When generating new Components, create a new folder with Component name and include `index.ts` file as entry point.
 This helps to ensure rollup exports of individual components are properly configured with the appropriate name and file
 
     e.g. > Accordion 
@@ -24,6 +36,7 @@ This helps to ensure rollup exports of individual components are properly config
 ### Test
 
 1) Unit test should be written in `tests` folder at root 
+2) It is compulsory to write unit test for changes made or new components build 
 
 ### Storybook documentation 
 
