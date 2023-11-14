@@ -24,7 +24,7 @@ export const Template = (args) => {
 
 <Canvas>
   <Story
-    name="Default - checkbox"
+    name="Checkbox"
     args={{ label: 'Option Name' }}
   >
     {Template.bind({})}
@@ -40,7 +40,7 @@ import { Form } from '@govtechsg/sgds-react/Form'
 //use <Form.Check />
 ```
 
-<ArgsTable story="Default - checkbox" />
+<ArgsTable story="Checkbox" />
 
 ## Radio
 
@@ -48,7 +48,7 @@ Remember to apply HTMLInput type attribute `name` for radio buttons so that user
 
 <Canvas>
   <Story
-    name="Default - radio"
+    name="Radio"
     args={{ label: 'Option Name', type: 'radio', name: 'radio_checks' }}
   >
     {Template.bind({})}
@@ -58,7 +58,7 @@ Remember to apply HTMLInput type attribute `name` for radio buttons so that user
 ## Switch
 
 <Canvas>
-  <Story name="Default - switch" args={{ label: 'Option Name', type: 'switch' }}>
+  <Story name="Switch" args={{ label: 'Option Name', type: 'switch' }}>
     {Template.bind({})}
   </Story>
 </Canvas>

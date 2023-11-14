@@ -49,7 +49,7 @@ export const Template = (args) => {
 Provide contextual feedback messages for typical user actions with the handful of available and flexible alert messages.
 
 <Canvas>
-  <Story name="Default">{Template.bind({})}</Story>
+  <Story name="Basic">{Template.bind({})}</Story>
 </Canvas>
 
 ## API
@@ -58,7 +58,7 @@ Provide contextual feedback messages for typical user actions with the handful o
 import { Alert } from '@govtechsg/sgds-react/Alert';
 ```
 
-<ArgsTable story="Default" />
+<ArgsTable story="Basic" />
 
 ## Basic with Icon
 
@@ -66,7 +66,7 @@ Alerts are available for any length of text, as well as an optional dismiss butt
 You may also choose to slot in your icons from any libraries to make your information clearer and user-friendly.
 
 <Canvas>
-  <Story name="Basic with Icon">
+  <Story name="With icon">
     {[
       'primary',
       'secondary',
