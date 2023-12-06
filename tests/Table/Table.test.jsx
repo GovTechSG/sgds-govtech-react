@@ -98,9 +98,9 @@ describe('TableSortLabel', () => {
     const { container: containerInactive } = render(<Table.SortLabel />);
     const { container: containerActiveAsc } = render(<Table.SortLabel active />);
     const { container: containerActiveDesc } = render(<Table.SortLabel active direction='desc' />);
-    expect(containerInactive.querySelector('svg').classList).toContain('bi-arrow-down-up');
-    expect(containerActiveAsc.querySelector('svg').classList).toContain('bi-sort-up-alt');
-    expect(containerActiveDesc.querySelector('svg').classList).toContain('bi-sort-down');
+    expect(containerInactive.querySelector('i').classList).toContain('bi-arrow-down-up');
+    expect(containerActiveAsc.querySelector('i').classList).toContain('bi-sort-up-alt');
+    expect(containerActiveDesc.querySelector('i').classList).toContain('bi-sort-down');
   });
 
   it('calls onClick handler', async () => {
