@@ -7,10 +7,16 @@ import {
 } from '../ThemeProvider/ThemeProvider';
 
 import { BsPrefixOnlyProps } from '../utils/helpers';
+import TableRow from './TableRow';
+import TableHeader from './TableHeader';
+import TableHeaderCell from './TableHeaderCell';
+import TableSortLabel from './TableSortLabel';
+import TableBody from './TableBody';
+import TableDataCell from './TableDataCell';
 
 export interface TableProps
   extends BsPrefixOnlyProps,
-    React.TableHTMLAttributes<HTMLTableElement> {
+  React.TableHTMLAttributes<HTMLTableElement> {
   /**
    * Adds zebra-striping to any table row within the `<tbody>`.
    */
@@ -37,7 +43,8 @@ export interface TableProps
    * by setting variant as `dark`.
    */
   variant?: string;
-  /** Allow tables to be scrolled horizontally with ease. Across every breakpoint, use responsive for horizontally scrolling tables. Responsive tables are wrapped automatically in a div. Use `responsive="sm"`, `responsive="md"`, `responsive="lg"`, or `responsive="xl"` as needed to create responsive tables up to a particular breakpoint. From that breakpoint and up, the table will behave normally and not scroll horizontally. \n\n Alternatively, set boolean to `true` instead to make it always responsive throughout breakpoints.\n',
+  /** 
+   * Allow tables to be scrolled horizontally with ease. Across every breakpoint, use responsive for horizontally scrolling tables. Responsive tables are wrapped automatically in a div. Use `responsive="sm"`, `responsive="md"`, `responsive="lg"`, or `responsive="xl"` as needed to create responsive tables up to a particular breakpoint. From that breakpoint and up, the table will behave normally and not scroll horizontally. \n\n Alternatively, set boolean to `true` instead to make it always responsive throughout breakpoints.\n',
    */
   responsive?: boolean | string;
 }
@@ -49,8 +56,8 @@ const propTypes = {
   bsPrefix: PropTypes.string,
 
   /**
-   * Adds zebra-striping to any table row within the `<tbody>`.
-   */
+ * Adds zebra-striping to any table row within the `<tbody>`.
+ */
   striped: PropTypes.bool,
 
   /**
@@ -92,7 +99,7 @@ const propTypes = {
   responsive: PropTypes.oneOfType([PropTypes.bool, PropTypes.string]),
 };
 
-const Table = React.forwardRef<HTMLTableElement, TableProps>(
+export const Table = React.forwardRef<HTMLTableElement, TableProps>(
   (
     {
       bsPrefix,
@@ -122,7 +129,8 @@ const Table = React.forwardRef<HTMLTableElement, TableProps>(
 
     const table = (
       <SGDSWrapper as="table" {...props} className={classes} ref={ref} />
-    );
+    )
+
     if (responsive) {
       let responsiveClass = `${decoratedBsPrefix}-responsive`;
       if (typeof responsive === 'string') {
@@ -143,4 +151,12 @@ const Table = React.forwardRef<HTMLTableElement, TableProps>(
 Table.displayName = 'Table';
 Table.propTypes = propTypes;
 
-export default Table;
+export default Object.assign(Table, {
+  Row: TableRow,
+  Header: TableHeader,
+  HeaderCell: TableHeaderCell,
+  SortLabel: TableSortLabel,
+  Body: TableBody,
+  DataCell: TableDataCell,
+});
+
