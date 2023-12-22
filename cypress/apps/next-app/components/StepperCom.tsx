@@ -1,3 +1,4 @@
+"use client"
 import { Stepper, useStep } from "@govtechsg/sgds-react";
 
 const StepperCom = () => {

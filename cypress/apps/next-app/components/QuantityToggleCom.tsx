@@ -1,3 +1,4 @@
+'use client'
 import { QuantityToggle } from "@govtechsg/sgds-react";
 import { useState } from "react";
 

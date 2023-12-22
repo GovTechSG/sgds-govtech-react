@@ -24,3 +24,6 @@ export type { FormSelectProps } from './FormSelect';
 
 export { default as Feedback } from './Feedback'
 export type { FeedbackProps } from './Feedback';
+
+export { default as FormSwitch } from './Switch';
+export type { SwitchProps } from './Switch'

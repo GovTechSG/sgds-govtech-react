@@ -1,3 +1,4 @@
+"use client"
 import { Button, Form } from "@govtechsg/sgds-react";
 import { FormEvent } from "react";
 

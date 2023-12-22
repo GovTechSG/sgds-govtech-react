@@ -83,11 +83,13 @@ export default [
         file: 'dist/index.esm.js',
         exports: 'named',
         format: 'esm',
+        banner: `'use client';`,
       },
       {
         file: 'dist/index.cjs.js',
         exports: 'named',
         format: 'cjs',
+        banner: `'use client';`,
       }
     ],
     plugins: commonPlugins,
