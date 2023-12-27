@@ -10,6 +10,12 @@ export type { FormControlGroupProps } from './FormControlGroup';
 export { default as FormCheck } from './FormCheck';
 export type { FormCheckProps } from './FormCheck';
 
+export { default as FormCheckInput } from './FormCheckInput';
+export type { FormCheckInputProps } from './FormCheckInput';
+
+export { default as FormCheckLabel } from './FormCheckLabel';
+export type { FormCheckLabelProps } from './FormCheckLabel';
+
 export { default as FormGroup } from './FormGroup';
 export type { FormGroupProps } from './FormGroup';
 

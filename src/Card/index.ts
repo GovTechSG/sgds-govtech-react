@@ -20,3 +20,4 @@ export { default as SelectableCard } from './SelectableCard';
 export type { SelectableCardProps } from './SelectableCard';
 
 export { default as CardGroup } from './CardGroup';
+export { default as CardHeader } from './CardHeader';
