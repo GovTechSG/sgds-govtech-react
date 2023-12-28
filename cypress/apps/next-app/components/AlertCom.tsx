@@ -1,4 +1,4 @@
-import { Alert } from "@govtechsg/sgds-react"
+import { Alert, AlertLink } from "@govtechsg/sgds-react"
 
 const AlertCom = () => {
     return (
@@ -10,7 +10,7 @@ const AlertCom = () => {
                             <i className="bi bi-exclamation-circle me-4"></i>
                             <div>
                                 This is a {variant} alert with{' '}
-                                <Alert.Link href="#">an example link</Alert.Link>.
+                                <AlertLink href="#">an example link</AlertLink>.
                                 Give it a click if you like.
                             </div>
                         </Alert>)

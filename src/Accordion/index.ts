@@ -10,3 +10,10 @@ export {
   useAccordionButton,
 } from './AccordionButton';
 export type { AccordionButtonProps } from './AccordionButton';
+
+export { default as AccordionItem } from './AccordionItem';
+export type { AccordionItemProps } from './AccordionItem';
+export { default as AccordionHeader } from './AccordionHeader';
+export type { AccordionHeaderProps } from './AccordionHeader';
+export { default as AccordionBody } from './AccordionBody';
+export type { AccordionBodyProps } from './AccordionBody';

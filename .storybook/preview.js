@@ -11,7 +11,7 @@ export const parameters = {
   // },
   options: {
     storySort: {
-      order: ['Install', 'Components'],
+      order: ['Install', 'Usage', 'Components'],
     },
   },
 };

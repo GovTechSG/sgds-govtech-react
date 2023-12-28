@@ -1,3 +1,4 @@
+'use client'
 import { Navbar, Nav, Container, Row, Col } from '@govtechsg/sgds-react';
 import { useState } from 'react';
 

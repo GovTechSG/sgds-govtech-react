@@ -29,11 +29,13 @@ function component(commonPlugins, folder) {
         file: `dist/${folder}/index.esm.js`,
         exports: 'named',
         format: 'esm',
+        banner: `'use client';`,
       },
       {
         file: `dist/${folder}/index.cjs.js`,
         exports: 'named',
         format: 'cjs',
+        banner: `'use client';`,
       }
     ],
     plugins: [
@@ -81,11 +83,13 @@ export default [
         file: 'dist/index.esm.js',
         exports: 'named',
         format: 'esm',
+        banner: `'use client';`,
       },
       {
         file: 'dist/index.cjs.js',
         exports: 'named',
         format: 'cjs',
+        banner: `'use client';`,
       }
     ],
     plugins: commonPlugins,

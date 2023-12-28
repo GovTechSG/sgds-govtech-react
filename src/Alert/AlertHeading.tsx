@@ -8,3 +8,4 @@ const DivStyledAsH4 = divWithClassName('h4');
   Component: DivStyledAsH4,
 });
 
+export default AlertHeading;

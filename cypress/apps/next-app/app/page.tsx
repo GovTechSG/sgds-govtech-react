@@ -1,6 +1,5 @@
-"use client"
-import type { NextPage } from "next";
-import styles from "../styles/Home.module.css";
+import type { NextPage } from 'next';
+import styles from '../styles/Home.module.css';
 import {
   AccordionCom,
   AlertCom,
@@ -24,11 +23,10 @@ import {
   TableCom,
   TabsCom,
   ToastCom,
-  TooltipCom
-} from "@/components";
+  TooltipCom,
+} from '@/components';
 
 const Home: NextPage = () => {
-
   return (
     <div className={styles.container}>
       <NavCom />

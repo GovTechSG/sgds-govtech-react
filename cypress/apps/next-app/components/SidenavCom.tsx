@@ -1,38 +1,38 @@
-import { SideNav } from "@govtechsg/sgds-react"
+import { SideNav, SideNavItem, SideNavButton, SideNavCollapse, SideNavLink } from "@govtechsg/sgds-react"
 
 const SideNavCom = () => {
     return (
         <SideNav>
-            <SideNav.Item eventKey="0">
-                <SideNav.Button>SideNav Item #1</SideNav.Button>
-                <SideNav.Collapse>
+            <SideNavItem eventKey="0">
+                <SideNavButton>SideNav Item #1</SideNavButton>
+                <SideNavCollapse>
                     <>
-                        <SideNav.Link eventKey="nl-1" href="#">
+                        <SideNavLink eventKey="nl-1" href="#">
                             number one
-                        </SideNav.Link>
-                        <SideNav.Link eventKey="nl-2" href="#">
+                        </SideNavLink>
+                        <SideNavLink eventKey="nl-2" href="#">
                             number one
-                        </SideNav.Link>
-                        <SideNav.Link eventKey="nl-3" href="#">
+                        </SideNavLink>
+                        <SideNavLink eventKey="nl-3" href="#">
                             number one
-                        </SideNav.Link>
+                        </SideNavLink>
                     </>
-                </SideNav.Collapse>
-            </SideNav.Item>
-            <SideNav.Item eventKey="1">
-                <SideNav.Button>SideNav Item #2</SideNav.Button>
-                <SideNav.Collapse>
+                </SideNavCollapse>
+            </SideNavItem>
+            <SideNavItem eventKey="1">
+                <SideNavButton>SideNav Item #2</SideNavButton>
+                <SideNavCollapse>
                     <>
-                        <SideNav.Link eventKey="nl-4">number two</SideNav.Link>
-                        <SideNav.Link eventKey="nl-6">number two</SideNav.Link>
-                        <SideNav.Link eventKey="nl-7">number two</SideNav.Link>
-                        <SideNav.Link eventKey="nl-8">number two</SideNav.Link>
+                        <SideNavLink eventKey="nl-4">number two</SideNavLink>
+                        <SideNavLink eventKey="nl-6">number two</SideNavLink>
+                        <SideNavLink eventKey="nl-7">number two</SideNavLink>
+                        <SideNavLink eventKey="nl-8">number two</SideNavLink>
                     </>
-                </SideNav.Collapse>
-            </SideNav.Item>
-            <SideNav.Item eventKey="2">
-                <SideNav.Button href="#">SideNav Item #3</SideNav.Button>
-            </SideNav.Item>
+                </SideNavCollapse>
+            </SideNavItem>
+            <SideNavItem eventKey="2">
+                <SideNavButton href="#">SideNav Item #3</SideNavButton>
+            </SideNavItem>
         </SideNav>
     )
 }

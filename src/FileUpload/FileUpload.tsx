@@ -76,25 +76,25 @@ const propTypes = {
 
 const CHECKED_ICON = <i className="bi bi-check-lg check-icon" />;
 const CANCEL_ICON = <i className="bi bi-x-circle x-circle-icon" />;
-const defaultProps = {
-  variant: 'primary',
-  disabled: false,
-  checkedIcon: CHECKED_ICON,
-  cancelIcon: CANCEL_ICON,
-  multiple: false,
-};
+// const defaultProps = {
+//   variant: 'primary',
+//   disabled: false,
+//   checkedIcon: CHECKED_ICON,
+//   cancelIcon: CANCEL_ICON,
+//   multiple: false,
+// };
 
 export const FileUpload: React.FC<FileUploadProps> = ({
   controlId,
-  variant,
+  variant = "primary",
   onChangeFile,
   selectedFile,
-  disabled,
+  disabled = false,
   size,
   children,
   checkedIcon = CHECKED_ICON,
   cancelIcon = CANCEL_ICON,
-  multiple,
+  multiple = false,
   accept,
   buttonClassName
 }) => {
@@ -184,4 +184,4 @@ export const FileUpload: React.FC<FileUploadProps> = ({
 
 FileUpload.displayName = 'FileUpload';
 FileUpload.propTypes = propTypes;
-FileUpload.defaultProps = defaultProps;
+// FileUpload.defaultProps = defaultProps;

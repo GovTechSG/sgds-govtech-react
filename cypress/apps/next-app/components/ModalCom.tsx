@@ -1,3 +1,4 @@
+'use client'
 import { Button, Modal } from "@govtechsg/sgds-react";
 import { useState } from "react";
 

@@ -1,3 +1,4 @@
+'use client'
 import { FileUpload } from "@govtechsg/sgds-react"
 import { useState } from "react";
 
