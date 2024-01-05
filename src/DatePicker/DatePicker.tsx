@@ -1,25 +1,42 @@
-import * as React from 'react';
+import React, {
+  useState,
+  useEffect,
+  useRef,
+  useMemo,
+  ChangeEvent,
+} from 'react';
+import dayjs from 'dayjs';
+import warning from 'warning';
+import PropTypes from 'prop-types';
+import InputMask from 'react-input-mask';
+import { createPopper } from '@popperjs/core';
+import customParseFormat from 'dayjs/plugin/customParseFormat';
+import useMergedRefs from '@restart/hooks/useMergedRefs';
 import Calendar from './Calendar';
 import CalendarHeader from './CalendarHeader';
-import { useState, useRef, useMemo } from 'react';
 import DatePickerContext, { CalendarView } from './DatePickerContext';
 import { Button } from '../Button';
-import MonthView from './MonthView';
 import YearView from './YearView';
-import PropTypes from 'prop-types';
-import { BsPrefixRefForwardingComponent } from '../utils/helpers';
-import useMergedRefs from '@restart/hooks/useMergedRefs';
-import warning from 'warning';
-import FormControlToggle from '../Form/FormControlToggle';
+import MonthView from './MonthView';
+import { FormControl } from '../Form';
 import { Dropdown } from '../Dropdown';
 import { ButtonVariant } from '../utils/types';
 import generateId from '../utils/generateId';
+import { BsPrefixRefForwardingComponent } from '../utils/helpers';
+
+dayjs.extend(customParseFormat);
 
 export type CalendarPlacement = 'up' | 'down';
 export type DateFormat = 'MM/DD/YYYY' | 'DD/MM/YYYY' | 'YYYY/MM/DD';
 export interface RangeSelectionValue {
   start: Date | undefined;
   end: Date | undefined;
+}
+interface DatePickerState {
+  displayDate: Date;
+  inputDate: string;
+  selectedDate: Date | RangeSelectionValue | undefined;
+  invalid: boolean;
 }
 export interface DatePickerProps {
   /** Changes DatePicker to single date selection or range date selection */
@@ -28,7 +45,7 @@ export interface DatePickerProps {
   displayDate?: Date;
   /** The initial value of DatePicker on first load. When used, ensure that the type is consistent with the `mode` used */
   initialValue?: Date | RangeSelectionValue;
-  /**When true, adds  required attribute to Form Control input element */
+  /**When true, adds required attribute to Form Control input element */
   required?: boolean;
   /** Class name passed to the FormControl input element */
   className?: string;
@@ -42,6 +59,8 @@ export interface DatePickerProps {
   onChangeDate?: (value: Date | RangeSelectionValue | undefined) => void;
   /** Clear callback function */
   onClear?: Function;
+  /** The onError handler for DatePicker */
+  onError?: Function;
   /** Disables the Form Control and Button of Datepicker */
   disabled?: boolean;
   /** Overlay placement for the popover calendar */
@@ -53,7 +72,7 @@ export interface DatePickerProps {
   /** When true, flips Calendar Overlay when placement does not fit */
   flip?: boolean;
   /** Customize clear button variant colour */
-  clearBtnVariant?: ButtonVariant
+  clearBtnVariant?: ButtonVariant;
 }
 
 const propTypes = {
@@ -72,6 +91,7 @@ const propTypes = {
   placeholder: PropTypes.string,
   onChangeDate: PropTypes.func,
   onClear: PropTypes.func,
+  onError: PropTypes.func,
   onBlur: PropTypes.func,
   onFocus: PropTypes.func,
   autoFocus: PropTypes.bool,
@@ -91,13 +111,9 @@ const propTypes = {
    */
   mode: PropTypes.string,
   flip: PropTypes.bool,
-  clearBtnVariant: PropTypes.string
+  clearBtnVariant: PropTypes.string,
 };
-interface DatePickerState {
-  displayDate: Date;
-  selectedDate: Date | RangeSelectionValue | undefined;
-  invalid: boolean;
-}
+
 const SEPARATOR = '/';
 export const makeInputValueString = (
   date: Date | undefined,
@@ -136,6 +152,49 @@ export const makeInputValueString = (
   }
 };
 
+export const getMaskedDateFormat = (
+  isRange: boolean,
+  dateFormat: DateFormat
+) => {
+  const maskedDateFormat =
+    dateFormat === 'YYYY/MM/DD' ? '9999/99/99' : '99/99/9999';
+  if (isRange) {
+    return `${maskedDateFormat} - ${maskedDateFormat}`;
+  }
+
+  return maskedDateFormat;
+};
+
+export const isValidDate = (date: string, dateFormat: DateFormat) => {
+  return dayjs(date, dateFormat, true).isValid();
+};
+
+export const arrangeDateRange = (
+  date1: Date,
+  date2: Date,
+  dateFormat: DateFormat
+) => {
+  if (date1.getTime() > date2.getTime()) {
+    return {
+      start: date2,
+      end: date1,
+      inputDate: `${makeInputValueString(
+        date2,
+        dateFormat
+      )} - ${makeInputValueString(date1, dateFormat)}`,
+    };
+  }
+
+  return {
+    start: date1,
+    end: date2,
+    inputDate: `${makeInputValueString(
+      date1,
+      dateFormat
+    )} - ${makeInputValueString(date2, dateFormat)}`,
+  };
+};
+
 const defaultProps: Partial<DatePickerProps> = {
   dateFormat: 'DD/MM/YYYY',
   calendarPlacement: 'down',
@@ -155,28 +214,63 @@ export const DatePicker: BsPrefixRefForwardingComponent<
       mode = 'single',
       displayDate = new Date(),
       flip = true,
-      clearBtnVariant = "primary", 
+      clearBtnVariant = 'primary',
       ...props
     },
     ref
   ) => {
     const isRange = mode === 'range';
+    const maskedDateFormat = getMaskedDateFormat(isRange, dateFormat);
     const formControlRef = useRef<HTMLInputElement>(null);
+    const dropdownMenuRef = useRef<HTMLDivElement>(null);
+    const dropdownToggleRef = useRef<HTMLButtonElement>(null);
 
     const inputRef = useMergedRefs(
       ref as React.MutableRefObject<HTMLInputElement>,
       formControlRef
     );
 
+    const getinitialInputDate = () => {
+      if (!props.initialValue) {
+        if (isRange) {
+          return `${dateFormat.toLowerCase()} - ${dateFormat.toLowerCase()}`;
+        }
+        return dateFormat.toLowerCase();
+      }
+
+      if (isRange) {
+        const { start, end } = props.initialValue as RangeSelectionValue;
+        if (start && end) {
+          return `${makeInputValueString(
+            start,
+            dateFormat
+          )} - ${makeInputValueString(end, dateFormat)}`;
+        }
+        return dateFormat.toLowerCase();
+      }
+
+      if (!isRange && props.initialValue instanceof Date) {
+        return dayjs(props.initialValue).format(dateFormat);
+      }
+
+      return dateFormat.toLowerCase();
+    };
+
     const initialState: DatePickerState = {
       displayDate: displayDate,
-      selectedDate: 
-        props.initialValue && ((isRange && !(props.initialValue instanceof Date)) 
-            || (!isRange && props.initialValue instanceof Date))
+      inputDate: getinitialInputDate(),
+      selectedDate:
+        props.initialValue &&
+        ((isRange && !(props.initialValue instanceof Date)) ||
+          (!isRange && props.initialValue instanceof Date))
           ? props.initialValue
-          : (isRange ? { start: undefined, end: undefined } : undefined),
+          : isRange
+          ? { start: undefined, end: undefined }
+          : undefined,
       invalid: false,
     };
+    // Generation of unique id soley on client side
+    const [datepickerMenuId, setDatepickerMenuId] = useState('');
     const [state, setState] = useState(initialState);
     const [view, setView] = useState<CalendarView>('day');
     const contextValue = useMemo(
@@ -187,13 +281,15 @@ export const DatePicker: BsPrefixRefForwardingComponent<
       [view]
     );
     const onChangeMonth = (newDisplayDate: Date) => {
-      setState({ ...state, displayDate: newDisplayDate });
+      setState((prevState) => ({ ...prevState, displayDate: newDisplayDate }));
     };
 
     const clear = () => {
       setState({
         ...initialState,
-        selectedDate: isRange ? { start: undefined, end: undefined } : undefined,
+        selectedDate: isRange
+          ? { start: undefined, end: undefined }
+          : undefined,
         displayDate: new Date(),
       });
       props.onClear?.();
@@ -203,43 +299,57 @@ export const DatePicker: BsPrefixRefForwardingComponent<
     //triggered only when clicking dates
 
     const onChangeDateSingle = (newSelectedDate: Date) => {
-      setState({
-        ...state,
+      setState((prevState) => ({
+        ...prevState,
+        inputDate: dayjs(newSelectedDate).format(dateFormat),
         selectedDate: newSelectedDate,
         displayDate: newSelectedDate,
-      });
-      formControlRef?.current?.click();
+      }));
+      dropdownToggleRef?.current?.click();
       props.onChangeDate?.(newSelectedDate);
     };
 
     const onChangeDateRange = (newSelectedDate: Date) => {
-      let { start, end } = state.selectedDate as RangeSelectionValue;
-      
-      if ((!start && !end) || (start && end)) {
-        // Selecting start date
-        start = newSelectedDate;
-        end = undefined;
-      } else if (start && !end) {
-        // Selecting end date
+      const { start, end } = state.selectedDate as RangeSelectionValue;
 
-        // if selected end date is before selected start date --> swap
-        if (new Date(start).getTime() > newSelectedDate.getTime()) {
-          end = start;
-          start = newSelectedDate;
-        } else {
-          end = newSelectedDate;
+      const dateRangeHandler = () => {
+        if ((!start && !end) || (start && end)) {
+          // Selecting start date
+          return {
+            start: newSelectedDate,
+            end: undefined,
+          };
         }
-      }
 
-      const newSelectedDates = { start: start, end: end }
-      setState({
-        ...state,
+        if (start && !end) {
+          // Selecting end date
+          // if selected end date is before selected start date --> swap
+          const { start: dateStart, end: dateEnd } = arrangeDateRange(
+            new Date(start),
+            newSelectedDate,
+            dateFormat
+          );
+          return {
+            start: dateStart,
+            end: dateEnd,
+          };
+        }
+
+        return { start, end };
+      };
+
+      const newSelectedDates = dateRangeHandler();
+      setState((prevState) => ({
+        ...prevState,
+        inputDate: `${makeInputValueString(
+          newSelectedDates.start,
+          dateFormat
+        )} - ${makeInputValueString(newSelectedDates.end, dateFormat)}`,
         selectedDate: newSelectedDates,
         displayDate: newSelectedDate,
-      });
+      }));
       if (newSelectedDates.end) {
-
-        formControlRef?.current?.click();
+        dropdownToggleRef?.current?.click();
       }
       props.onChangeDate?.(newSelectedDates);
     };
@@ -251,28 +361,15 @@ export const DatePicker: BsPrefixRefForwardingComponent<
       />
     );
 
-    const computeInputValue = () => {
-      if (isRange && state.selectedDate) {
-        const { start, end } = state.selectedDate as RangeSelectionValue;
-        const separator = start ? ' - ' : '';
-        return (
-          makeInputValueString(start, dateFormat) +
-          separator +
-          makeInputValueString(end, dateFormat)
-        );
-      }
-      return makeInputValueString(state.selectedDate as Date, dateFormat);
-    };
     const defaultPlaceHolder = isRange
       ? `${dateFormat.toLowerCase()} - ${dateFormat.toLowerCase()}`
       : `${dateFormat.toLowerCase()}`;
+
     const controlProps = {
-      value: computeInputValue(),
+      value: state.inputDate,
       required: props.required,
       placeholder: props.placeholder || defaultPlaceHolder,
-      ref: inputRef,
       disabled: props.disabled,
-      readOnly: true,
       className: props.className,
       isInvalid: state.invalid,
       id: props.id,
@@ -283,19 +380,19 @@ export const DatePicker: BsPrefixRefForwardingComponent<
         const newDisplayDate = new Date(state.displayDate);
         newDisplayDate.setMonth(month);
         setView('day');
-        setState({
-          ...state,
+        setState((prevState) => ({
+          ...prevState,
           displayDate: newDisplayDate,
-        });
+        }));
       };
       const onClickYear = (year: number) => {
         const newDisplayDate = new Date(state.displayDate);
         newDisplayDate.setFullYear(year);
         setView('month');
-        setState({
-          ...state,
+        setState((prevState) => ({
+          ...prevState,
           displayDate: newDisplayDate,
-        });
+        }));
       };
       if (view === 'month')
         return (
@@ -351,22 +448,183 @@ export const DatePicker: BsPrefixRefForwardingComponent<
           );
       }
     }
-    // Generation of unique id soley on client side 
-    const [datepickerMenuId, setDatepickerMenuId] = useState("")
-    React.useEffect(() => {
+
+    const enterDateSingle = (event: ChangeEvent<HTMLInputElement>) => {
+      const enteredDate = event.target.value;
+      const parsedDate = dayjs(enteredDate, dateFormat).toDate();
+      if (isValidDate(enteredDate, dateFormat)) {
+        setState((prevState) => ({
+          ...prevState,
+          inputDate: enteredDate,
+          displayDate: parsedDate,
+          selectedDate: parsedDate,
+        }));
+        return;
+      }
+
+      setState((prevState) => ({
+        ...prevState,
+        inputDate: enteredDate,
+      }));
+    };
+
+    const enterDateRange = (event: ChangeEvent<HTMLInputElement>) => {
+      const enteredDate = event.target.value;
+      const [start, end] = enteredDate.split(' - ');
+
+      if (isValidDate(start, dateFormat) && isValidDate(end, dateFormat)) {
+        const {
+          start: dateStart,
+          end: dateEnd,
+          inputDate,
+        } = arrangeDateRange(
+          dayjs(start, dateFormat).toDate(),
+          dayjs(end, dateFormat).toDate(),
+          dateFormat
+        );
+        setState((prevState) => ({
+          ...prevState,
+          inputDate: inputDate,
+          selectedDate: {
+            start: dateStart,
+            end: dateEnd,
+          },
+          displayDate: dayjs(end, dateFormat).toDate(),
+        }));
+        return;
+      }
+
+      setState((prevState) => ({
+        ...prevState,
+        inputDate: enteredDate,
+      }));
+    };
+
+    useEffect(() => {
+      const formControlElement = formControlRef.current;
+      const dropdownMenuElement = dropdownMenuRef.current;
+
+      if (formControlElement && dropdownMenuElement) {
+        // Set Popper.js to position the Dropdown.Menu under the InputMask
+        const popperInstance = createPopper(
+          formControlElement,
+          dropdownMenuElement,
+          {
+            placement: 'bottom-start', // Adjust placement as needed
+            modifiers: [
+              {
+                name: 'offset',
+                options: {
+                  offset: [0, 10], // Adjust the offset as needed (x, y)
+                },
+              },
+              // Add any other modifiers if required
+            ],
+          }
+        );
+
+        // Cleanup Popper.js instance on unmount or when no longer needed
+        return () => {
+          popperInstance.destroy();
+        };
+      }
+
+      return () => {};
+    }, []);
+
+    useEffect(() => {
       setDatepickerMenuId(generateId('datepicker', 'ul'));
-    }, [])
+    }, []);
+
+    useEffect(() => {
+      const dateRangeValidityHandler = () => {
+        const [start, end] = state.inputDate.split(' - ');
+        if (
+          start &&
+          start !== dateFormat.toLowerCase() &&
+          !isValidDate(start, dateFormat)
+        ) {
+          setState((prevState) => ({ ...prevState, invalid: true }));
+          props.onError?.();
+          return;
+        }
+        if (
+          end &&
+          end !== dateFormat.toLowerCase() &&
+          !isValidDate(end, dateFormat)
+        ) {
+          setState((prevState) => ({ ...prevState, invalid: true }));
+          props.onError?.();
+          return;
+        }
+
+        setState((prevState) => ({ ...prevState, invalid: false }));
+      };
+
+      const singleDateValidityHandler = () => {
+        if (
+          state.inputDate !== dateFormat.toLowerCase() &&
+          !isValidDate(state.inputDate, dateFormat)
+        ) {
+          setState((prevState) => ({ ...prevState, invalid: true }));
+          props.onError?.();
+          return;
+        }
+
+        setState((prevState) => ({ ...prevState, invalid: false }));
+      };
+
+      const timeout = setTimeout(() => {
+        if (isRange) {
+          dateRangeValidityHandler();
+        } else {
+          singleDateValidityHandler();
+        }
+      }, 500);
+
+      return () => clearTimeout(timeout);
+    }, [state.inputDate, isRange]);
 
     return (
       <DatePickerContext.Provider value={contextValue}>
-        <Dropdown drop={calendarPlacement} className="form-control-group input-group">
-            <FormControlToggle {...controlProps} ref={formControlRef} role="combobox" aria-haspopup="dialog" aria-controls={datepickerMenuId} aria-label="Choose Date" />
-            <Button onClick={clear} disabled={props.disabled} variant={clearBtnVariant} aria-label="Clear Selection">
-              <i className="bi bi-x"></i>
-              <span className="visually-hidden">clear</span>
-            </Button>
-            <i className="bi bi-calendar form-control-icon"></i>
-          <Dropdown.Menu id={datepickerMenuId} className="sgds datepicker" as='div' role="dialog" aria-modal="true" aria-label="Choose Date">
+        <Dropdown drop={calendarPlacement} className="input-group">
+          <InputMask
+            {...controlProps}
+            mask={maskedDateFormat}
+            alwaysShowMask={true}
+            maskPlaceholder={defaultPlaceHolder}
+            aria-label="Enter Date"
+            onChange={isRange ? enterDateRange : enterDateSingle}
+          >
+            <FormControl ref={inputRef} />
+          </InputMask>
+          <Dropdown.Toggle
+            aria-label="Open Datepicker"
+            variant="outline-dark"
+            className="rounded-0 border"
+            ref={dropdownToggleRef}
+          >
+            <i className="bi bi-calendar"></i>
+          </Dropdown.Toggle>
+          <Button
+            onClick={clear}
+            disabled={props.disabled}
+            variant={clearBtnVariant}
+            aria-label="Clear Selection"
+          >
+            <i className="bi bi-x"></i>
+            <span className="visually-hidden">clear</span>
+          </Button>
+          <Dropdown.Menu
+            id={datepickerMenuId}
+            className="sgds datepicker"
+            as="div"
+            role="dialog"
+            aria-modal="true"
+            aria-label="Choose Date"
+            ref={dropdownMenuRef}
+            renderOnMount={true}
+          >
             <Dropdown.Header className="datepicker-header" role="none">
               {calendarHeader}
             </Dropdown.Header>
