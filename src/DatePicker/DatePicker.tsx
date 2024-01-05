@@ -1,28 +1,26 @@
-import React, {
-  useState,
-  useEffect,
-  useRef,
-  useMemo,
-  ChangeEvent,
-} from 'react';
 import dayjs from 'dayjs';
-import warning from 'warning';
-import PropTypes from 'prop-types';
-import InputMask from 'react-input-mask';
-import { createPopper } from '@popperjs/core';
 import customParseFormat from 'dayjs/plugin/customParseFormat';
-import useMergedRefs from '@restart/hooks/useMergedRefs';
-import Calendar from './Calendar';
-import CalendarHeader from './CalendarHeader';
-import DatePickerContext, { CalendarView } from './DatePickerContext';
+import PropTypes from 'prop-types';
+import React, {
+  ChangeEvent,
+  useEffect,
+  useMemo,
+  useRef,
+  useState,
+} from 'react';
+import InputMask from 'react-input-mask';
+import warning from 'warning';
 import { Button } from '../Button';
-import YearView from './YearView';
-import MonthView from './MonthView';
-import { FormControl } from '../Form';
 import { Dropdown } from '../Dropdown';
-import { ButtonVariant } from '../utils/types';
 import generateId from '../utils/generateId';
 import { BsPrefixRefForwardingComponent } from '../utils/helpers';
+import { ButtonVariant } from '../utils/types';
+import Calendar from './Calendar';
+import CalendarHeader from './CalendarHeader';
+import DateInput from './DateInput';
+import DatePickerContext, { CalendarView } from './DatePickerContext';
+import MonthView from './MonthView';
+import YearView from './YearView';
 
 dayjs.extend(customParseFormat);
 
@@ -221,14 +219,15 @@ export const DatePicker: BsPrefixRefForwardingComponent<
   ) => {
     const isRange = mode === 'range';
     const maskedDateFormat = getMaskedDateFormat(isRange, dateFormat);
-    const formControlRef = useRef<HTMLInputElement>(null);
+    // TODO: can remove the line below 
+    // const formControlRef = useRef<HTMLInputElement>(null);
     const dropdownMenuRef = useRef<HTMLDivElement>(null);
     const dropdownToggleRef = useRef<HTMLButtonElement>(null);
-
-    const inputRef = useMergedRefs(
-      ref as React.MutableRefObject<HTMLInputElement>,
-      formControlRef
-    );
+    // TODO: can remove the line below 
+    // const inputRef = useMergedRefs(
+    //   ref as React.MutableRefObject<HTMLInputElement>,
+    //   formControlRef
+    // );
 
     const getinitialInputDate = () => {
       if (!props.initialValue) {
@@ -499,38 +498,38 @@ export const DatePicker: BsPrefixRefForwardingComponent<
         inputDate: enteredDate,
       }));
     };
+      // TODO: can be removed 
+    // useEffect(() => {
+    //   const formControlElement = formControlRef.current;
+    //   const dropdownMenuElement = dropdownMenuRef.current;
 
-    useEffect(() => {
-      const formControlElement = formControlRef.current;
-      const dropdownMenuElement = dropdownMenuRef.current;
+    //   if (formControlElement && dropdownMenuElement) {
+    //     // Set Popper.js to position the Dropdown.Menu under the InputMask
+    //     const popperInstance = createPopper(
+    //       formControlElement,
+    //       dropdownMenuElement,
+    //       {
+    //         placement: 'bottom-start', // Adjust placement as needed
+    //         modifiers: [
+    //           {
+    //             name: 'offset',
+    //             options: {
+    //               offset: [0, 10], // Adjust the offset as needed (x, y)
+    //             },
+    //           },
+    //           // Add any other modifiers if required
+    //         ],
+    //       }
+    //     );
 
-      if (formControlElement && dropdownMenuElement) {
-        // Set Popper.js to position the Dropdown.Menu under the InputMask
-        const popperInstance = createPopper(
-          formControlElement,
-          dropdownMenuElement,
-          {
-            placement: 'bottom-start', // Adjust placement as needed
-            modifiers: [
-              {
-                name: 'offset',
-                options: {
-                  offset: [0, 10], // Adjust the offset as needed (x, y)
-                },
-              },
-              // Add any other modifiers if required
-            ],
-          }
-        );
+    //     // Cleanup Popper.js instance on unmount or when no longer needed
+    //     return () => {
+    //       popperInstance.destroy();
+    //     };
+    //   }
 
-        // Cleanup Popper.js instance on unmount or when no longer needed
-        return () => {
-          popperInstance.destroy();
-        };
-      }
-
-      return () => {};
-    }, []);
+    //   return () => {};
+    // }, []);
 
     useEffect(() => {
       setDatepickerMenuId(generateId('datepicker', 'ul'));
@@ -596,13 +595,15 @@ export const DatePicker: BsPrefixRefForwardingComponent<
             aria-label="Enter Date"
             onChange={isRange ? enterDateRange : enterDateSingle}
           >
-            <FormControl ref={inputRef} />
+            <DateInput ref={ref} />
           </InputMask>
           <Dropdown.Toggle
             aria-label="Open Datepicker"
             variant="outline-dark"
             className="rounded-0 border"
             ref={dropdownToggleRef}
+            aria-haspopup="dialog"
+            aria-controls={datepickerMenuId}
           >
             <i className="bi bi-calendar"></i>
           </Dropdown.Toggle>
