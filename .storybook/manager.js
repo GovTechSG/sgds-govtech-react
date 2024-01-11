@@ -1,8 +1,10 @@
 // .storybook/manager.js
 
 import { addons } from '@storybook/addons';
+import sgdsTheme from './sgdsTheme';
 
 addons.setConfig({
+  theme: sgdsTheme,
   isFullscreen: false,
   showNav: true,
   showPanel: true,
