@@ -1,3 +1,11 @@
+
+> 👋🏻 Hey there!
+> 
+> We wanted to give you a heads up that our React and web component storybooks will be undergoing some maintenance on Friday, January 12th 2024 at 5 PM.
+>
+> Don't worry though, the installation of SGDS libraries won't be affected, so you can still keep working on your projects. 
+> Thanks for your understanding!
+
 # @govtechsg/sgds-react
 
 React components powered by [Singapore Government Design System](https://www.designsystem.gov.sg)
