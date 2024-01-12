@@ -1,61 +1,58 @@
 import 'bootstrap-icons/font/bootstrap-icons.css';
 import '@govtechsg/sgds/sass/sgds.scss';
-import '@govtechsg/sgds-masthead/dist/sgds-masthead/sgds-masthead.css';
 
 import {
-  FileUploadCom,
-  MastheadCom,
-  TooltipCom,
-  NavbarCom,
-  StepperCom,
   AccordionCom,
   AlertCom,
   BadgeCom,
   BreadcrumbCom,
+  ButtonCom,
   CardCom,
-  QtyToggleCom,
-  SelectableCardCom,
-  DropdownCom,
-  ValidationCom,
-  InputGroupCom,
-  TableCom,
-  ToastCom,
-  PaginationCom,
-  SideNavCom,
-  ProgressBarCom,
-  DatePickerCom,
   ComboboxCom,
+  DatepickerCom,
+  DropdownCom,
+  FileUploadCom,
+  FooterCom,
+  FormCom,
   ModalCom,
-  TabsCom
-} from './components';
+  NavCom,
+  PaginationCom,
+  ProgressBarCom,
+  QuantityToggleCom,
+  SideNavCom,
+  StepperCom,
+  TableCom,
+  TabsCom,
+  ToastCom,
+  TooltipCom
+} from "./components";
 
 function App() {
   return (
     <div className="container">
-      <MastheadCom />
-      <FileUploadCom />
-      <TooltipCom />
-      <NavbarCom />
-      <StepperCom />
+      <NavCom />
+      <SideNavCom />
       <AccordionCom />
       <AlertCom />
-      <BadgeCom/>
-      <BreadcrumbCom/>
-      <CardCom/>
-      <QtyToggleCom/>
-      <SelectableCardCom/>
-      <DropdownCom/>
-      <ValidationCom/>
-      <InputGroupCom/>
-      <TableCom/>
-      <ToastCom/> 
-      <PaginationCom/>
-      <SideNavCom/>
-      <ProgressBarCom/> 
-      <DatePickerCom/>
-      <ComboboxCom/>
-      <ModalCom/>
-      <TabsCom/>
+      <BadgeCom />
+      <BreadcrumbCom />
+      <ButtonCom />
+      <CardCom />
+      <ComboboxCom />
+      <DatepickerCom />
+      <DropdownCom />
+      <FileUploadCom />
+      <FormCom />
+      <ModalCom />
+      <PaginationCom />
+      <ProgressBarCom />
+      <QuantityToggleCom />
+      <StepperCom />
+      <TableCom />
+      <TabsCom />
+      <ToastCom />
+      <TooltipCom />
+      <FooterCom />
     </div>
   );
 }

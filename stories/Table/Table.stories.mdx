@@ -1,57 +1,96 @@
 import { ArgsTable, Canvas, Meta, Story } from '@storybook/addon-docs';
-
 import { Table } from '../../src/index';
 
-<Meta title="Components/Table" component={Table} />
-
-export const templateCodeAlwaysResponsive = `
-<Table responsive>...</Table>;`;
-
-export const templateCodeBreakpointSpec = `
-<div>
-  <Table responsive="sm">...</Table>
-  <Table responsive="md">...</Table>
-  <Table responsive="lg">...</Table>
-  <Table responsive="xl">...</Table>
-</div>;`;
-
-export const Basic = (args) => {
-  return (
-    <Table {...args}>
-      <thead>
-        <tr>
-          <th>#</th>
-          <th>First Name</th>
-          <th>Last Name</th>
-          <th>Username</th>
-        </tr>
-      </thead>
-      <tbody>
-        <tr>
-          <td>1</td>
-          <td>Mark</td>
-          <td>Otto</td>
-          <td>@mdo</td>
-        </tr>
-        <tr>
-          <td>2</td>
-          <td>Jacob</td>
-          <td>Thornton</td>
-          <td>@fat</td>
-        </tr>
-        <tr>
-          <td>3</td>
-          <td colSpan={2}>Larry the Bird</td>
-          <td>@twitter</td>
-        </tr>
-      </tbody>
-    </Table>
-  );
-};
+<Meta
+  title="Components/Table"
+  component={Table}
+  subcomponents={{
+    'Table.Row': Table.Row,
+    'Table.Header': Table.Header,
+    'Table.HeaderCell': Table.HeaderCell,
+    'Table.SortLabel': Table.SortLabel,
+    'Table.Body': Table.Body,
+    'Table.DataCell': Table.DataCell,
+  }}
+/>
 
 # Tables
 
-Use the `striped`, `bordered` and `hover` props to customise the table.
+We have exposed the various sub-components of Table to provide more flexibility for users to customise their own table. Refer to the `API` section and following examples for more details on how to construct a table for your use-case.
+
+export const templateBasic = `
+const headers = [
+  { key: 'id', label: '#'},
+  { key: 'firstname', label: 'First Name'},
+  { key: 'lastname', label: 'Last Name'},
+  { key: 'username', label: 'Username'},
+]\n
+const data = [
+  { id: 1, firstname: 'John', lastname: 'Doe', username: '@johndoe' },
+  { id: 2, firstname: 'Alice', lastname: 'Doe', username: '@alicedoe' },
+  { id: 3, firstname: 'Bob', lastname: 'Smith', username: '@bobsmith' },
+]\n
+return (
+  <Table>
+    <Table.Header>
+      <Table.Row>
+        {
+          headers.map((header, index) => (
+            <Table.HeaderCell>{header.label}</Table.HeaderCell>
+          ))
+        }
+      </Table.Row>
+    </Table.Header>
+    <Table.Body>
+      {
+        data.map((row, index) => (
+          <Table.Row key={index}>
+            <Table.DataCell>{row.id}</Table.DataCell>
+            <Table.DataCell>{row.firstname}</Table.DataCell>
+            <Table.DataCell>{row.lastname}</Table.DataCell>
+            <Table.DataCell>{row.username}</Table.DataCell>
+          </Table.Row>
+        ))
+      }
+    </Table.Body>
+  </Table>
+)
+`;
+
+export const Basic = (args) => {
+  const headers = [
+    { key: 'id', label: '#' },
+    { key: 'firstname', label: 'First Name' },
+    { key: 'lastname', label: 'Last Name' },
+    { key: 'username', label: 'Username' },
+  ];
+  const data = [
+    { id: 1, firstname: 'John', lastname: 'Doe', username: '@johndoe' },
+    { id: 2, firstname: 'Alice', lastname: 'Doe', username: '@alicedoe' },
+    { id: 3, firstname: 'Bob', lastname: 'Smith', username: '@bobsmith' },
+  ];
+  return (
+    <Table {...args}>
+      <Table.Header>
+        <Table.Row>
+          {headers.map((header, index) => (
+            <Table.HeaderCell key={index}>{header.label}</Table.HeaderCell>
+          ))}
+        </Table.Row>
+      </Table.Header>
+      <Table.Body>
+        {data.map((row, index) => (
+          <Table.Row key={index}>
+            <Table.DataCell>{row.id}</Table.DataCell>
+            <Table.DataCell>{row.firstname}</Table.DataCell>
+            <Table.DataCell>{row.lastname}</Table.DataCell>
+            <Table.DataCell>{row.username}</Table.DataCell>
+          </Table.Row>
+        ))}
+      </Table.Body>
+    </Table>
+  );
+};
 
 <Canvas>
   <Story name="Basic">{Basic.bind({})}</Story>
@@ -65,12 +104,330 @@ import { Table } from '@govtechsg/sgds-react/Table';
 
 <ArgsTable story="Basic" />
 
+## Sorting
+
+The following example implements table sorting using javascript `Array.sort` method. Users can also implement their own sorting function depending on their use-case.
+
+`<Table.SortLabel>` coordinates the click events with the UI changes of icons on the table header labels. It is use as the child of `<Table.HeaderCell>` .
+
+When `direction` prop is of either `desc` or `asc` value, it changes the icons to `bi-arrow-down` and `bi-arrow-up` respectively.
+
+The `active` prop helps to identify if the current column is being ordered. 
+
+The sorting algorithm, is determined by the user. Pass your sorting algorithm into the `onClick` handler of `<Table.SortLabel>` and control the change in `direction` and `active` prop depending on your sorting algorithm.
+
+See code snippet and example below for your reference in implementing a sorting table. 
+
+export const templateSorting = `
+const headers = [
+  { key: 'id', label: '#'},
+  { key: 'firstname', label: 'First Name'},
+  { key: 'lastname', label: 'Last Name'},
+  { key: 'username', label: 'Username'},
+]\n
+const data = [
+  { id: 1, firstname: 'John', lastname: 'Doe', username: '@johndoe' },
+  { id: 2, firstname: 'Alice', lastname: 'Doe', username: '@alicedoe' },
+  { id: 3, firstname: 'Bob', lastname: 'Smith', username: '@bobsmith' },
+]\n
+const [order, setOrder] = React.useState('asc')
+const [orderBy, setOrderBy] = React.useState(null)\n
+const sortHandler = (property) => (event) => {
+  const isAsc = orderBy === property && order === 'asc';
+  setOrder(isAsc ? 'desc' : 'asc');
+  setOrderBy(property);
+};\n
+const sortedData = React.useMemo(() => {
+    if (orderBy === null) return data;\n
+    return [...data].sort((a, b) => {
+      const aValue = a[orderBy].toString();
+      const bValue = b[orderBy].toString();
+      return order === 'asc' ? aValue.localeCompare(bValue) : bValue.localeCompare(aValue);
+    });
+  },
+  [order, orderBy]
+);\n
+return (
+   <Table {...args}>
+      <Table.Header>
+        <Table.Row>
+          {headers.map((header, index) => (
+            <Table.HeaderCell key={index}>
+              {header.key === 'username' ? (
+                header.label
+              ) : (
+                <Table.SortLabel
+                  onClick={sortHandler(header.key)}
+                  active={orderBy === header.key}
+                  direction={order}
+                >
+                  {header.label}
+                </Table.SortLabel>
+              )}
+            </Table.HeaderCell>
+          ))}
+        </Table.Row>
+      </Table.Header>
+      <Table.Body>
+        {sortedData.map((row, index) => (
+          <Table.Row key={index}>
+            <Table.DataCell>{row.id}</Table.DataCell>
+            <Table.DataCell>{row.firstname}</Table.DataCell>
+            <Table.DataCell>{row.lastname}</Table.DataCell>
+            <Table.DataCell>{row.username}</Table.DataCell>
+          </Table.Row>
+        ))}
+      </Table.Body>
+    </Table>
+);
+`;
+
+export const Sorting = (args) => {
+  const headers = [
+    { key: 'id', label: '#' },
+    { key: 'firstname', label: 'First Name' },
+    { key: 'lastname', label: 'Last Name' },
+    { key: 'username', label: 'Username' },
+  ];
+  const data = [
+    { id: 1, firstname: 'John', lastname: 'Doe', username: '@johndoe' },
+    { id: 2, firstname: 'Alice', lastname: 'Doe', username: '@alicedoe' },
+    { id: 3, firstname: 'Bob', lastname: 'Smith', username: '@bobsmith' },
+  ];
+  const [order, setOrder] = React.useState('asc');
+  const [orderBy, setOrderBy] = React.useState(null);
+  const sortHandler = (property) => (event) => {
+    const isAsc = orderBy === property && order === 'asc';
+    setOrder(isAsc ? 'desc' : 'asc');
+    setOrderBy(property);
+  };
+  const sortedData = React.useMemo(() => {
+    if (orderBy === null) return data;
+    return [...data].sort((a, b) => {
+      const aValue = a[orderBy].toString();
+      const bValue = b[orderBy].toString();
+      return order === 'asc'
+        ? aValue.localeCompare(bValue)
+        : bValue.localeCompare(aValue);
+    });
+  }, [order, orderBy]);
+  return (
+    <Table {...args}>
+      <Table.Header>
+        <Table.Row>
+          {headers.map((header, index) => (
+            <Table.HeaderCell key={index}>
+              {header.key === 'username' ? (
+                header.label
+              ) : (
+                <Table.SortLabel
+                  onClick={sortHandler(header.key)}
+                  active={orderBy === header.key}
+                  direction={order}
+                >
+                  {header.label}
+                </Table.SortLabel>
+              )}
+            </Table.HeaderCell>
+          ))}
+        </Table.Row>
+      </Table.Header>
+      <Table.Body>
+        {sortedData.map((row, index) => (
+          <Table.Row key={index}>
+            <Table.DataCell>{row.id}</Table.DataCell>
+            <Table.DataCell>{row.firstname}</Table.DataCell>
+            <Table.DataCell>{row.lastname}</Table.DataCell>
+            <Table.DataCell>{row.username}</Table.DataCell>
+          </Table.Row>
+        ))}
+      </Table.Body>
+    </Table>
+  );
+};
+
+<Canvas>
+  <Story
+    name="Sorting"
+    parameters={{
+      docs: {
+        source: {
+          code: templateSorting,
+        },
+        type: 'code',
+      },
+    }}
+  >
+    {Sorting.bind({})}
+  </Story>
+</Canvas>
+
+## Removable Sort
+
+Similar to the previous `Sorting` example, but with the third click removing sorting from the column.
+
+export const templateRemovableSort = `
+const headers = [
+  { key: 'id', label: '#'},
+  { key: 'firstname', label: 'First Name'},
+  { key: 'lastname', label: 'Last Name'},
+  { key: 'username', label: 'Username'},
+]\n
+const data = [
+  { id: 1, firstname: 'John', lastname: 'Doe', username: '@johndoe' },
+  { id: 2, firstname: 'Alice', lastname: 'Doe', username: '@alicedoe' },
+  { id: 3, firstname: 'Bob', lastname: 'Smith', username: '@bobsmith' },
+]\n
+const [order, setOrder] = React.useState('asc')
+const [orderBy, setOrderBy] = React.useState(null)\n
+const sortHandler = (property) => (event) => {
+  const isActive = orderBy === property
+  const isAsc = isActive && order === 'asc';
+  setOrder(isAsc ? 'desc' : 'asc');
+  setOrderBy(isActive && !isAsc ? null : property);
+};\n
+const sortedData = React.useMemo(() => {
+    if (orderBy === null) return data;\n
+    return [...data].sort((a, b) => {
+      const aValue = a[orderBy].toString();
+      const bValue = b[orderBy].toString();
+      return order === 'asc' ? aValue.localeCompare(bValue) : bValue.localeCompare(aValue);
+    });
+  },
+  [order, orderBy]
+);\n
+return (
+  <Table>
+    <Table.Header>
+      <Table.Row>
+        {
+          headers.map((header, index) => (
+            <Table.HeaderCell>
+                <Table.SortLabel
+                  onClick={sortHandler(header.key)}
+                  active={orderBy === header.key}
+                  direction={order}>
+                  {header.label}
+                </Table.SortLabel>
+              </Table.HeaderCell>
+          ))
+        }
+      </Table.Row>
+    </Table.Header>
+    <Table.Body>
+      {
+        sortedData.map((row, index) => (
+          <Table.Row key={index}>
+            <Table.DataCell>{row.id}</Table.DataCell>
+            <Table.DataCell>{row.firstname}</Table.DataCell>
+            <Table.DataCell>{row.lastname}</Table.DataCell>
+            <Table.DataCell>{row.username}</Table.DataCell>
+          </Table.Row>
+        ))
+      }
+    </Table.Body>
+  </Table>
+);
+`;
+
+export const RemovableSort = (args) => {
+  const headers = [
+    { key: 'id', label: '#' },
+    { key: 'firstname', label: 'First Name' },
+    { key: 'lastname', label: 'Last Name' },
+    { key: 'username', label: 'Username' },
+  ];
+  const data = [
+    { id: 1, firstname: 'John', lastname: 'Doe', username: '@johndoe' },
+    { id: 2, firstname: 'Alice', lastname: 'Doe', username: '@alicedoe' },
+    { id: 3, firstname: 'Bob', lastname: 'Smith', username: '@bobsmith' },
+  ];
+  const [order, setOrder] = React.useState('asc');
+  const [orderBy, setOrderBy] = React.useState(null);
+  const sortHandler = (property) => (event) => {
+    const isActive = orderBy === property;
+    const isAsc = isActive && order === 'asc';
+    setOrder(isAsc ? 'desc' : 'asc');
+    setOrderBy(isActive && !isAsc ? null : property);
+  };
+  const sortedData = React.useMemo(() => {
+    if (orderBy === null) return data;
+    return [...data].sort((a, b) => {
+      const aValue = a[orderBy].toString();
+      const bValue = b[orderBy].toString();
+      return order === 'asc'
+        ? aValue.localeCompare(bValue)
+        : bValue.localeCompare(aValue);
+    });
+  }, [order, orderBy]);
+  return (
+    <Table {...args}>
+      <Table.Header>
+        <Table.Row>
+          {headers.map((header, index) => (
+            <Table.HeaderCell key={index}>
+              <Table.SortLabel
+                onClick={sortHandler(header.key)}
+                active={orderBy === header.key}
+                direction={order}
+              >
+                {header.label}
+              </Table.SortLabel>
+            </Table.HeaderCell>
+          ))}
+        </Table.Row>
+      </Table.Header>
+      <Table.Body>
+        {sortedData.map((row, index) => (
+          <Table.Row key={index}>
+            <Table.DataCell>{row.id}</Table.DataCell>
+            <Table.DataCell>{row.firstname}</Table.DataCell>
+            <Table.DataCell>{row.lastname}</Table.DataCell>
+            <Table.DataCell>{row.username}</Table.DataCell>
+          </Table.Row>
+        ))}
+      </Table.Body>
+    </Table>
+  );
+};
+
+<Canvas>
+  <Story
+    name="Removable Sort"
+    parameters={{
+      docs: {
+        source: {
+          code: templateRemovableSort,
+        },
+        type: 'code',
+      },
+    }}
+  >
+    {RemovableSort.bind({})}
+  </Story>
+</Canvas>
+
 ## Small Table
 
 Use `size="sm"` to make tables compact by cutting cell padding in half.
 
+export const templateBasicSmall = `
+<Table size='sm'>...</Table>
+`;
+
 <Canvas>
-  <Story name="Small table" args={{ size: 'sm' }}>
+  <Story
+    name="Small table"
+    args={{ size: 'sm' }}
+    parameters={{
+      docs: {
+        source: {
+          code: templateBasicSmall,
+        },
+        type: 'code',
+      },
+    }}
+  >
     {Basic.bind({})}
   </Story>
 </Canvas>
@@ -79,8 +436,23 @@ Use `size="sm"` to make tables compact by cutting cell padding in half.
 
 Adds zebra-striping using `striped` to table row within the `<tbody>`.
 
+export const templateBasicStriped = `
+<Table striped>...</Table>
+`;
+
 <Canvas>
-  <Story name="Striped body" args={{ striped: true }}>
+  <Story
+    name="Striped body"
+    args={{ striped: true }}
+    parameters={{
+      docs: {
+        source: {
+          code: templateBasicStriped,
+        },
+        type: 'code',
+      },
+    }}
+  >
     {Basic.bind({})}
   </Story>
 </Canvas>
@@ -89,8 +461,23 @@ Adds zebra-striping using `striped` to table row within the `<tbody>`.
 
 Use `bordered` to add borders on all sides of the table and cells.
 
+export const templateBasicBordered = `
+<Table bordered>...</Table>
+`;
+
 <Canvas>
-  <Story name="Bordered body" args={{ bordered: true }}>
+  <Story
+    name="Bordered body"
+    args={{ bordered: true }}
+    parameters={{
+      docs: {
+        source: {
+          code: templateBasicBordered,
+        },
+        type: 'code',
+      },
+    }}
+  >
     {Basic.bind({})}
   </Story>
 </Canvas>
@@ -99,8 +486,23 @@ Use `bordered` to add borders on all sides of the table and cells.
 
 Add `borderless` to remove all borders on the table and cells, including table header.
 
+export const templateBasicBorderless = `
+<Table borderless>...</Table>
+`;
+
 <Canvas>
-  <Story name="Borderless body" args={{ borderless: true }}>
+  <Story
+    name="Borderless body"
+    args={{ borderless: true }}
+    parameters={{
+      docs: {
+        source: {
+          code: templateBasicBorderless,
+        },
+        type: 'code',
+      },
+    }}
+  >
     {Basic.bind({})}
   </Story>
 </Canvas>
@@ -109,8 +511,23 @@ Add `borderless` to remove all borders on the table and cells, including table h
 
 Use `hover` to enable a hover state on table rows within a `<tbody>`.
 
+export const templateBasicHovered = `
+<Table hover>...</Table>
+`;
+
 <Canvas>
-  <Story name="Hovered body" args={{ hover: true }}>
+  <Story
+    name="Hovered body"
+    args={{ hover: true }}
+    parameters={{
+      docs: {
+        source: {
+          code: templateBasicHovered,
+        },
+        type: 'code',
+      },
+    }}
+  >
     {Basic.bind({})}
   </Story>
 </Canvas>
@@ -119,8 +536,23 @@ Use `hover` to enable a hover state on table rows within a `<tbody>`.
 
 Use `variant="dark"` to invert the colors of the table and get light text on a dark background.
 
+export const templateBasicDark = `
+<Table variant='dark'>...</Table>
+`;
+
 <Canvas>
-  <Story name="Dark Mode" args={{ variant: 'dark' }}>
+  <Story
+    name="Dark Mode"
+    args={{ variant: 'dark' }}
+    parameters={{
+      docs: {
+        source: {
+          code: templateBasicDark,
+        },
+        type: 'code',
+      },
+    }}
+  >
     {Basic.bind({})}
   </Story>
 </Canvas>
@@ -133,6 +565,9 @@ Responsive tables allow tables to be scrolled horizontally with ease.
 
 Across every breakpoint, use `responsive` for horizontally scrolling tables. Responsive tables are wrapped automatically in a `div`.
 The following example has 12 columns that are scrollable horizontally.
+
+export const templateCodeAlwaysResponsive = `
+<Table responsive>...</Table>;`;
 
 export const TableContents = (repeat) => {
   const generateTh = Array.from({ length: repeat }).map((_, index) => (
@@ -192,6 +627,14 @@ export const AlwaysResponsive = (args) => {
 
 Use `responsive="sm"`, `responsive="md"` , `responsive="lg"`, or `responsive="xl"` as needed to create responsive tables up to a particular breakpoint.
 From that breakpoint and up, the table will behave normally and not scroll horizontally.
+
+export const templateCodeBreakpointSpec = `
+<div>
+  <Table responsive="sm">...</Table>
+  <Table responsive="md">...</Table>
+  <Table responsive="lg">...</Table>
+  <Table responsive="xl">...</Table>
+</div>;`;
 
 export const BpResponsive = () => {
   return (
