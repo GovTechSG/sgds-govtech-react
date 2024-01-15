@@ -8,7 +8,6 @@ import React, {
   useRef,
   useState,
 } from 'react';
-import InputMask from 'react-input-mask';
 import warning from 'warning';
 import { Button } from '../Button';
 import { Dropdown } from '../Dropdown';
@@ -150,19 +149,6 @@ export const makeInputValueString = (
   }
 };
 
-export const getMaskedDateFormat = (
-  isRange: boolean,
-  dateFormat: DateFormat
-) => {
-  const maskedDateFormat =
-    dateFormat === 'YYYY/MM/DD' ? '9999/99/99' : '99/99/9999';
-  if (isRange) {
-    return `${maskedDateFormat} - ${maskedDateFormat}`;
-  }
-
-  return maskedDateFormat;
-};
-
 export const isValidDate = (date: string, dateFormat: DateFormat) => {
   return dayjs(date, dateFormat, true).isValid();
 };
@@ -218,16 +204,7 @@ export const DatePicker: BsPrefixRefForwardingComponent<
     ref
   ) => {
     const isRange = mode === 'range';
-    const maskedDateFormat = getMaskedDateFormat(isRange, dateFormat);
-    // TODO: can remove the line below 
-    // const formControlRef = useRef<HTMLInputElement>(null);
-    const dropdownMenuRef = useRef<HTMLDivElement>(null);
     const dropdownToggleRef = useRef<HTMLButtonElement>(null);
-    // TODO: can remove the line below 
-    // const inputRef = useMergedRefs(
-    //   ref as React.MutableRefObject<HTMLInputElement>,
-    //   formControlRef
-    // );
 
     const getinitialInputDate = () => {
       if (!props.initialValue) {
@@ -286,10 +263,13 @@ export const DatePicker: BsPrefixRefForwardingComponent<
     const clear = () => {
       setState({
         ...initialState,
+        displayDate: new Date(),
+        inputDate: isRange
+          ? `${dateFormat.toLowerCase()} - ${dateFormat.toLowerCase()}`
+          : dateFormat.toLowerCase(),
         selectedDate: isRange
           ? { start: undefined, end: undefined }
           : undefined,
-        displayDate: new Date(),
       });
       props.onClear?.();
       props.onChangeDate?.(undefined);
@@ -359,20 +339,6 @@ export const DatePicker: BsPrefixRefForwardingComponent<
         onChange={onChangeMonth}
       />
     );
-
-    const defaultPlaceHolder = isRange
-      ? `${dateFormat.toLowerCase()} - ${dateFormat.toLowerCase()}`
-      : `${dateFormat.toLowerCase()}`;
-
-    const controlProps = {
-      value: state.inputDate,
-      required: props.required,
-      placeholder: props.placeholder || defaultPlaceHolder,
-      disabled: props.disabled,
-      className: props.className,
-      isInvalid: state.invalid,
-      id: props.id,
-    };
 
     const BodyContent = (): JSX.Element => {
       const onClickMonth = (month: number) => {
@@ -498,45 +464,13 @@ export const DatePicker: BsPrefixRefForwardingComponent<
         inputDate: enteredDate,
       }));
     };
-      // TODO: can be removed 
-    // useEffect(() => {
-    //   const formControlElement = formControlRef.current;
-    //   const dropdownMenuElement = dropdownMenuRef.current;
-
-    //   if (formControlElement && dropdownMenuElement) {
-    //     // Set Popper.js to position the Dropdown.Menu under the InputMask
-    //     const popperInstance = createPopper(
-    //       formControlElement,
-    //       dropdownMenuElement,
-    //       {
-    //         placement: 'bottom-start', // Adjust placement as needed
-    //         modifiers: [
-    //           {
-    //             name: 'offset',
-    //             options: {
-    //               offset: [0, 10], // Adjust the offset as needed (x, y)
-    //             },
-    //           },
-    //           // Add any other modifiers if required
-    //         ],
-    //       }
-    //     );
-
-    //     // Cleanup Popper.js instance on unmount or when no longer needed
-    //     return () => {
-    //       popperInstance.destroy();
-    //     };
-    //   }
-
-    //   return () => {};
-    // }, []);
 
     useEffect(() => {
       setDatepickerMenuId(generateId('datepicker', 'ul'));
     }, []);
 
     useEffect(() => {
-      const dateRangeValidityHandler = () => {
+      const dateRangeValidation = () => {
         const [start, end] = state.inputDate.split(' - ');
         if (
           start &&
@@ -560,7 +494,7 @@ export const DatePicker: BsPrefixRefForwardingComponent<
         setState((prevState) => ({ ...prevState, invalid: false }));
       };
 
-      const singleDateValidityHandler = () => {
+      const dateSingleValidation = () => {
         if (
           state.inputDate !== dateFormat.toLowerCase() &&
           !isValidDate(state.inputDate, dateFormat)
@@ -575,9 +509,9 @@ export const DatePicker: BsPrefixRefForwardingComponent<
 
       const timeout = setTimeout(() => {
         if (isRange) {
-          dateRangeValidityHandler();
+          dateRangeValidation();
         } else {
-          singleDateValidityHandler();
+          dateSingleValidation();
         }
       }, 500);
 
@@ -587,21 +521,26 @@ export const DatePicker: BsPrefixRefForwardingComponent<
     return (
       <DatePickerContext.Provider value={contextValue}>
         <Dropdown drop={calendarPlacement} className="input-group">
-          <InputMask
-            {...controlProps}
-            mask={maskedDateFormat}
-            alwaysShowMask={true}
-            maskPlaceholder={defaultPlaceHolder}
-            aria-label="Enter Date"
-            onChange={isRange ? enterDateRange : enterDateSingle}
-          >
-            <DateInput ref={ref} />
-          </InputMask>
+          <DateInput
+            ref={ref}
+            className={props.className}
+            required={props.required}
+            placeholder={props.placeholder}
+            disabled={props.disabled}
+            id={props.id}
+            isRange={isRange}
+            inputDate={state.inputDate}
+            isInvalid={state.invalid}
+            dateFormat={dateFormat}
+            enterDateRange={enterDateRange}
+            enterDateSingle={enterDateSingle}
+          />
           <Dropdown.Toggle
-            aria-label="Open Datepicker"
-            variant="outline-dark"
-            className="rounded-0 border"
             ref={dropdownToggleRef}
+            className="rounded-0 border"
+            variant="outline-dark"
+            disabled={props.disabled}
+            aria-label="Open Datepicker"
             aria-haspopup="dialog"
             aria-controls={datepickerMenuId}
           >
@@ -623,8 +562,6 @@ export const DatePicker: BsPrefixRefForwardingComponent<
             role="dialog"
             aria-modal="true"
             aria-label="Choose Date"
-            ref={dropdownMenuRef}
-            renderOnMount={true}
           >
             <Dropdown.Header className="datepicker-header" role="none">
               {calendarHeader}
