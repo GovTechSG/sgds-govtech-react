@@ -24,18 +24,22 @@ describe('DatePicker', () => {
   it('has the default html structure', async () => {
     const { container, getByText } = render(<DatePicker />);
     expect(container.querySelector('input')).toBeInTheDocument();
-    expect(container.querySelector('div.input-group.form-control-group.dropdown')).toBeInTheDocument();
+    expect(
+      container.querySelector('div.input-group.dropdown')
+    ).toBeInTheDocument();
     expect(container.querySelector('button.btn-primary')).toBeInTheDocument();
     expect(container.querySelector('i.bi-x')).toBeInTheDocument();
-    expect(container.querySelector('.btn >span.visually-hidden')).toBeInTheDocument()
     expect(
-      container.querySelector('i.form-control-icon.bi-calendar')
+      container.querySelector('.btn >span.visually-hidden')
+    ).toBeInTheDocument();
+    expect(
+      container.querySelector('button.dropdown-toggle i.bi-calendar')
     ).toBeInTheDocument();
     expect(
       container.querySelector('.dropdown-menu.show')
     ).not.toBeInTheDocument();
 
-    fireEvent.click(container.querySelector('input')!);
+    fireEvent.click(container.querySelector('button.dropdown-toggle')!);
     await waitFor(() => {
       expect(
         container.querySelector('.dropdown-menu.datepicker.sgds.show')
@@ -47,9 +51,9 @@ describe('DatePicker', () => {
     });
   });
   it('clearBtnVariant prop changes the Button variant', () => {
-    const { container } = render(<DatePicker clearBtnVariant='secondary' />);
-    expect(container.querySelector('button.btn-secondary')).toBeDefined()
-  })
+    const { container } = render(<DatePicker clearBtnVariant="secondary" />);
+    expect(container.querySelector('button.btn-secondary')).toBeDefined();
+  });
   it('initialValue passed in, should reflect on input and calendar', async () => {
     const initialValue = new Date();
     const day = initialValue.getDate();
@@ -59,7 +63,7 @@ describe('DatePicker', () => {
     );
     expect(container.querySelector('input')?.value).toEqual(initialValueStr);
 
-    fireEvent.click(container.querySelector('input')!);
+    fireEvent.click(container.querySelector('button.dropdown-toggle')!);
     await waitFor(() =>
       expect(getByText(day).classList).toContain('bg-primary-100')
     );
@@ -112,7 +116,7 @@ describe('DatePicker', () => {
       <DatePicker displayDate={new Date('2020-01-01')} />
     );
 
-    fireEvent.click(container.querySelector('input')!);
+    fireEvent.click(container.querySelector('button.dropdown-toggle')!);
 
     await waitFor(() => expect(getByText('January 2020')).toBeInTheDocument());
   });
@@ -164,7 +168,7 @@ describe('DatePicker', () => {
       <DatePicker dateFormat="MM/DD/YYYY" />
     );
 
-    fireEvent.click(container.querySelector('input')!);
+    fireEvent.click(container.querySelector('button.dropdown-toggle')!);
     await waitFor(() => {
       expect(
         container.querySelector('.dropdown-menu.show')
@@ -184,7 +188,7 @@ describe('DatePicker', () => {
     expect(container.querySelector('input')?.value).toEqual(expectedDate);
 
     rerender(<DatePicker dateFormat="YYYY/MM/DD" />);
-    fireEvent.click(container.querySelector('input')!);
+    fireEvent.click(container.querySelector('button.dropdown-toggle')!);
     await waitFor(() => {
       expect(
         container.querySelector('.dropdown-menu.show')
@@ -214,7 +218,7 @@ describe('DatePicker', () => {
     const { getByText, container } = render(
       <DatePicker onChangeDate={mockFn} />
     );
-    fireEvent.click(container.querySelector('input')!);
+    fireEvent.click(container.querySelector('button.dropdown-toggle')!);
     await waitFor(() =>
       expect(container.querySelector('.dropdown-menu.show')).toBeInTheDocument()
     );
@@ -236,18 +240,20 @@ describe('DatePicker', () => {
       makeInputValueString(new Date(), 'DD/MM/YYYY')
     );
 
-    fireEvent.click(container.querySelector('button')!);
+    fireEvent.click(
+      container.querySelector('button[aria-label="Clear Selection"]')!
+    );
 
     await waitFor(() => {
       expect(onChangeDate).toHaveBeenCalledTimes(1);
       expect(onClear).toHaveBeenCalledTimes(1);
-      expect(container.querySelector('input')?.value).toEqual('');
+      expect(container.querySelector('input')?.value).toEqual('dd/mm/yyyy');
     });
   });
   it('calendarPlacement forwards its value to the data-popper-placement attr', async () => {
     const { container, rerender } = render(<DatePicker />);
     //default should be bottom
-    fireEvent.click(container.querySelector('input')!);
+    fireEvent.click(container.querySelector('button.dropdown-toggle')!);
     await waitFor(() =>
       expect(container.querySelector('.dropdown-menu.show')).toBeInTheDocument()
     );
@@ -300,7 +306,7 @@ describe('Datepicker Range mode', () => {
     const { getByText, container } = render(
       <DatePicker mode="range" displayDate={displayDate} />
     );
-    fireEvent.click(container.querySelector('input')!);
+    fireEvent.click(container.querySelector('button.dropdown-toggle')!);
     await waitFor(() =>
       expect(container.querySelector('.dropdown-menu.show')).toBeInTheDocument()
     );
@@ -337,7 +343,7 @@ describe('Datepicker Range mode', () => {
     const { getByText, container } = render(
       <DatePicker mode="range" displayDate={displayDate} />
     );
-    fireEvent.click(container.querySelector('input')!);
+    fireEvent.click(container.querySelector('button.dropdown-toggle')!);
     await waitFor(() =>
       expect(container.querySelector('.dropdown-menu.show')).toBeInTheDocument()
     );
@@ -474,9 +480,9 @@ describe('Datepicker Range mode', () => {
 
   it('allows selection of second date that is ealrier than first selected date, input should fix accordingly', async () => {
     const { getByText, container } = render(
-      <DatePicker mode="range"  displayDate={new Date('2020-01-01')} />
+      <DatePicker mode="range" displayDate={new Date('2020-01-01')} />
     );
-    fireEvent.click(container.querySelector('input')!);
+    fireEvent.click(container.querySelector('button.dropdown-toggle')!);
     await waitFor(() =>
       expect(container.querySelector('.dropdown-menu.show')).toBeInTheDocument()
     );
@@ -484,7 +490,9 @@ describe('Datepicker Range mode', () => {
 
     await waitFor(() => {
       expect(getByText('20').classList).toContain('bg-primary-100');
-      expect(container.querySelector('input')?.value).toEqual(`20/01/2020 - `);
+      expect(container.querySelector('input')?.value).toEqual(
+        `20/01/2020 - dd/mm/yyyy`
+      );
     });
     fireEvent.click(getByText('15'));
     await waitFor(() => {
@@ -493,7 +501,7 @@ describe('Datepicker Range mode', () => {
       );
     });
     //new selection
-    fireEvent.click(container.querySelector('input')!);
+    fireEvent.click(container.querySelector('button.dropdown-toggle')!);
     await waitFor(() => {
       expect(
         container.querySelector('.dropdown-menu.show')
@@ -506,7 +514,9 @@ describe('Datepicker Range mode', () => {
 
     fireEvent.click(getByText('1'));
     await waitFor(() =>
-      expect(container.querySelector('input')?.value).toEqual('01/01/2020 - ')
+      expect(container.querySelector('input')?.value).toEqual(
+        '01/01/2020 - dd/mm/yyyy'
+      )
     );
     fireEvent.click(getByText('20'));
     await waitFor(() =>

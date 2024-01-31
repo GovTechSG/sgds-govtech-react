@@ -13,20 +13,20 @@ import { argTypes } from './argTypes';
 />
 
 export const DatePickerTemplate = (args) => {
-const [date, setDate] = useState(new Date('2020-01-01'));
-const ref = React.createRef();
-const handleChange = (value) => {
-setDate(value);
-};
-const minDate = new Date(2020, 10, 11, 12, 0, 0, 0).toISOString();
-const maxDate = new Date(2020, 10, 13, 12, 0, 0, 0).toISOString();
-return <DatePicker {...args} />;
+  const [date, setDate] = useState(new Date('2020-01-01'));
+  const ref = React.createRef();
+  const handleChange = (value) => {
+    setDate(value);
+  };
+  const minDate = new Date(2020, 10, 11, 12, 0, 0, 0).toISOString();
+  const maxDate = new Date(2020, 10, 13, 12, 0, 0, 0).toISOString();
+  return <DatePicker {...args} />;
 };
 
 # DatePicker
 
 The `DatePicker` Component is built using `Dropdown`, `FormControl` and `Button` components.
-By default, the Calendar points to current date and input has no value. The `FormControl` is a read-only input and users can only pick dates using the Calendar.
+By default, the Calendar points to current date and input has no value. Users can either enter the dates in the `FormControl` input or pick dates using the Calendar.
 
 <Canvas>
   <Story name="Basic" args={{}} height="500px">
@@ -134,9 +134,11 @@ import {
 
 ## Callback Functions
 
-### onClear, onChangeDate
+### onClear, onChangeDate, onError
 
-`onClear`, `onChangeDate` of the input, perform a callback.
+`onClear`, `onChangeDate`, `onError` of the input, perform a callback. To trigger `onError` function, enter an invalid date.
+
+### onClear
 
 <Story
   name="onClear"
@@ -145,6 +147,8 @@ import {
 >
   {DatePickerTemplate.bind({})}
 </Story>
+
+### onChangeDate
 
 <Story
   name="onChangeDate"
@@ -174,16 +178,31 @@ import {
   {DatePickerTemplate.bind({})}
 </Story>
 
+### onError
+
+<Story
+  name="onError"
+  args={{
+    onError: () => alert('invalid date!'),
+  }}
+  height="500px"
+>
+  {DatePickerTemplate.bind({})}
+</Story>
+
 ```jsx
-   onClear
+onClear
 <DatePicker onClear={() => alert('cleared!')} />
 
- onChangeDate single mode
+onChangeDate single mode
 <DatePicker onChangeDate={(date) => alert(`selected ${date ? date.toISOString(): ''}`)} />
 
- onChangeDate range mode
+onChangeDate range mode
 <DatePicker onChangeDate={({ start, end }) =>
       alert(
           `selected start: ${start ? start.toISOString(): ''}, end: ${end ? end.toISOString(): ''}`
         )} />
+
+onError
+<DatePicker onError={() => alert('invalid date!')} />
 ```

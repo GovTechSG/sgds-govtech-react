@@ -1,8 +1,6 @@
-import { fireEvent, render, waitFor } from '@testing-library/react';
+import { render } from '@testing-library/react';
 import * as React from 'react';
 import FormControlToggle from '../../src/Form/FormControlToggle';
-import InputGroupContext from '../../src/InputGroup/InputGroupContext';
-import DropdownContext from '../../src/Dropdown/DropdownContext';
 
 describe('<FormControlToggle/>', () => {
   it('should have the default html', () => {
