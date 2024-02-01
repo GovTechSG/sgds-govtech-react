@@ -2,7 +2,6 @@ import useMergedRefs from '@restart/hooks/useMergedRefs';
 import { useDropdownToggle } from '@restart/ui/DropdownToggle';
 import classNames from 'classnames';
 import InputMask from 'react-input-mask';
-import PropTypes from 'prop-types';
 import * as React from 'react';
 import FormControl, { FormControlProps } from '../Form/FormControl';
 import { BsPrefixRefForwardingComponent } from '../utils/helpers';
@@ -25,16 +24,6 @@ type DateInputPropsComponent = BsPrefixRefForwardingComponent<
   DateInputProps
 >;
 
-const propTypes = {
-  /**
-   * An html id attribute, necessary for assistive technologies, such as screen readers.
-   * @type {string|number}
-   */
-  id: PropTypes.string,
-
-  as: PropTypes.elementType,
-};
-
 export const getMaskedDateFormat = (
   isRange: boolean,
   dateFormat: DateFormat
@@ -48,7 +37,7 @@ export const getMaskedDateFormat = (
   return maskedDateFormat;
 };
 
-const DateInput: DateInputPropsComponent = React.forwardRef(
+export const DateInput: DateInputPropsComponent = React.forwardRef(
   (
     {
       className,
@@ -112,8 +101,5 @@ const DateInput: DateInputPropsComponent = React.forwardRef(
     );
   }
 );
-
-DateInput.displayName = 'DateInput';
-DateInput.propTypes = propTypes;
 
 export default DateInput;

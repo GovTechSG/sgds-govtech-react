@@ -1,13 +1,7 @@
+import * as React from 'react';
 import dayjs from 'dayjs';
 import customParseFormat from 'dayjs/plugin/customParseFormat';
 import PropTypes from 'prop-types';
-import React, {
-  ChangeEvent,
-  useEffect,
-  useMemo,
-  useRef,
-  useState,
-} from 'react';
 import warning from 'warning';
 import { Button } from '../Button';
 import { Dropdown } from '../Dropdown';
@@ -149,6 +143,10 @@ export const makeInputValueString = (
   }
 };
 
+export const getTotalDaysInMonth = (date: Date) => {
+  return new Date(date.getFullYear(), date.getMonth() + 1, 0).getDate();
+};
+
 export const isValidDate = (date: string, dateFormat: DateFormat) => {
   return dayjs(date, dateFormat, true).isValid();
 };
@@ -204,7 +202,11 @@ export const DatePicker: BsPrefixRefForwardingComponent<
     ref
   ) => {
     const isRange = mode === 'range';
-    const dropdownToggleRef = useRef<HTMLButtonElement>(null);
+    const dropdownToggleRef = React.useRef<HTMLButtonElement>(null);
+    const calendarHeaderRef = React.useRef<HTMLDivElement>(null);
+    const dayRefs = React.useRef<Array<HTMLTableCellElement | null>>([]);
+    const monthRefs = React.useRef<Array<HTMLButtonElement | null>>([]);
+    const yearRefs = React.useRef<Array<HTMLButtonElement | null>>([]);
 
     const getinitialInputDate = () => {
       if (!props.initialValue) {
@@ -246,16 +248,42 @@ export const DatePicker: BsPrefixRefForwardingComponent<
       invalid: false,
     };
     // Generation of unique id soley on client side
-    const [datepickerMenuId, setDatepickerMenuId] = useState('');
-    const [state, setState] = useState(initialState);
-    const [view, setView] = useState<CalendarView>('day');
-    const contextValue = useMemo(
+    const [datepickerMenuId, setDatepickerMenuId] = React.useState('');
+    const [state, setState] = React.useState(initialState);
+    const [view, setView] = React.useState<CalendarView>('day');
+    const [focusedDateIndex, setFocusedDateIndex] = React.useState(0);
+    const [focusedMonthIndex, setFocusedMonthIndex] = React.useState(0);
+    const [focusedYearIndex, setFocusedYearIndex] = React.useState(0);
+    const [yearPositionIndex, setYearPositionIndex] = React.useState(0);
+    const [showCalendar, setShowCalendar] = React.useState(false);
+    const contextValue = React.useMemo(
       () => ({
         view,
         setView,
+        focusedDateIndex,
+        setFocusedDateIndex,
+        focusedMonthIndex,
+        setFocusedMonthIndex,
+        focusedYearIndex,
+        setFocusedYearIndex,
+        yearPositionIndex,
+        setYearPositionIndex,
       }),
-      [view]
+      [
+        view,
+        focusedDateIndex,
+        focusedMonthIndex,
+        focusedYearIndex,
+        yearPositionIndex,
+      ]
     );
+
+    const updateFocusedDate = React.useCallback((focusedDate: Date) => {
+      onChangeMonth(focusedDate);
+      setFocusedDateIndex(focusedDate.getDate());
+      setFocusedMonthIndex(focusedDate.getMonth());
+    }, []);
+
     const onChangeMonth = (newDisplayDate: Date) => {
       setState((prevState) => ({ ...prevState, displayDate: newDisplayDate }));
     };
@@ -271,6 +299,8 @@ export const DatePicker: BsPrefixRefForwardingComponent<
           ? { start: undefined, end: undefined }
           : undefined,
       });
+      const resetFocusedDate = new Date();
+      updateFocusedDate(resetFocusedDate);
       props.onClear?.();
       props.onChangeDate?.(undefined);
     };
@@ -323,7 +353,11 @@ export const DatePicker: BsPrefixRefForwardingComponent<
         inputDate: `${makeInputValueString(
           newSelectedDates.start,
           dateFormat
-        )} - ${makeInputValueString(newSelectedDates.end, dateFormat)}`,
+        )} - ${
+          newSelectedDates.end
+            ? makeInputValueString(newSelectedDates.end, dateFormat)
+            : dateFormat.toLowerCase()
+        }`,
         selectedDate: newSelectedDates,
         displayDate: newSelectedDate,
       }));
@@ -333,10 +367,86 @@ export const DatePicker: BsPrefixRefForwardingComponent<
       props.onChangeDate?.(newSelectedDates);
     };
 
+    const handleTabPressPreviousButton = (
+      event: React.KeyboardEvent<HTMLElement>
+    ) => {
+      event.preventDefault();
+      const headerTitle = calendarHeaderRef.current?.children[1];
+      const focusedDate = dayRefs.current[focusedDateIndex];
+      const focusedMonth = monthRefs.current[focusedMonthIndex];
+      const focusedYear = yearRefs.current[focusedYearIndex];
+      if (event.shiftKey) {
+        if (view === 'month') {
+          (focusedMonth as HTMLElement).focus();
+          return;
+        }
+        if (view === 'year') {
+          (focusedYear as HTMLElement).focus();
+          return;
+        }
+        (focusedDate as HTMLElement).focus();
+      } else {
+        (headerTitle as HTMLElement).focus();
+      }
+    };
+
+    const handleTabPressHeaderTitle = (
+      event: React.KeyboardEvent<HTMLElement>
+    ) => {
+      event.preventDefault();
+      const previousButton = calendarHeaderRef.current?.children[0];
+      const nextButton = calendarHeaderRef.current?.children[2];
+      if (event.shiftKey) {
+        (previousButton as HTMLElement).focus();
+      } else {
+        (nextButton as HTMLElement).focus();
+      }
+    };
+
+    const handleTabPressNextButton = (
+      event: React.KeyboardEvent<HTMLElement>
+    ) => {
+      event.preventDefault();
+      const headerTitle = calendarHeaderRef.current?.children[1];
+      const focusedDate = dayRefs.current[focusedDateIndex];
+      const focusedMonth = monthRefs.current[focusedMonthIndex];
+      const focusedYear = yearRefs.current[focusedYearIndex];
+      if (event.shiftKey) {
+        (headerTitle as HTMLElement).focus();
+      } else {
+        if (view === 'month') {
+          (focusedMonth as HTMLElement).focus();
+          return;
+        }
+        if (view === 'year') {
+          (focusedYear as HTMLElement).focus();
+          return;
+        }
+        (focusedDate as HTMLElement).focus();
+      }
+    };
+
+    const handleTabPressCalendarBody = (
+      event: React.KeyboardEvent<HTMLElement>
+    ) => {
+      event.preventDefault();
+      const previousButton = calendarHeaderRef.current?.children[0];
+      const nextButton = calendarHeaderRef.current?.children[2];
+      if (event.shiftKey) {
+        (nextButton as HTMLElement).focus();
+      } else {
+        (previousButton as HTMLElement).focus();
+      }
+    };
+
     const calendarHeader = (
       <CalendarHeader
         displayDate={state.displayDate as Date}
         onChange={onChangeMonth}
+        ref={calendarHeaderRef}
+        handleTabPressPreviousButton={handleTabPressPreviousButton}
+        handleTabPressHeaderTitle={handleTabPressHeaderTitle}
+        handleTabPressNextButton={handleTabPressNextButton}
       />
     );
 
@@ -362,13 +472,26 @@ export const DatePicker: BsPrefixRefForwardingComponent<
       if (view === 'month')
         return (
           <MonthView
-            onClickMonth={onClickMonth}
+            selectedDate={state.selectedDate}
             displayDate={state.displayDate}
+            onClickMonth={onClickMonth}
+            show={showCalendar}
+            monthRefs={monthRefs}
+            onChangeMonth={onChangeMonth}
+            handleTabPressCalendarBody={handleTabPressCalendarBody}
           />
         );
       if (view === 'year')
         return (
-          <YearView displayDate={state.displayDate} onClickYear={onClickYear} />
+          <YearView
+            selectedDate={state.selectedDate}
+            displayDate={state.displayDate}
+            onClickYear={onClickYear}
+            show={showCalendar}
+            yearRefs={yearRefs}
+            onChangeMonth={onChangeMonth}
+            handleTabPressCalendarBody={handleTabPressCalendarBody}
+          />
         );
 
       return (
@@ -379,6 +502,10 @@ export const DatePicker: BsPrefixRefForwardingComponent<
           minDate={props.minDate}
           maxDate={props.maxDate}
           mode={mode}
+          show={showCalendar}
+          dayRefs={dayRefs}
+          onChangeMonth={onChangeMonth}
+          handleTabPressCalendarBody={handleTabPressCalendarBody}
         />
       );
     };
@@ -414,7 +541,7 @@ export const DatePicker: BsPrefixRefForwardingComponent<
       }
     }
 
-    const enterDateSingle = (event: ChangeEvent<HTMLInputElement>) => {
+    const enterDateSingle = (event: React.ChangeEvent<HTMLInputElement>) => {
       const enteredDate = event.target.value;
       const parsedDate = dayjs(enteredDate, dateFormat).toDate();
       if (isValidDate(enteredDate, dateFormat)) {
@@ -424,6 +551,7 @@ export const DatePicker: BsPrefixRefForwardingComponent<
           displayDate: parsedDate,
           selectedDate: parsedDate,
         }));
+        updateFocusedDate(parsedDate);
         return;
       }
 
@@ -433,7 +561,7 @@ export const DatePicker: BsPrefixRefForwardingComponent<
       }));
     };
 
-    const enterDateRange = (event: ChangeEvent<HTMLInputElement>) => {
+    const enterDateRange = (event: React.ChangeEvent<HTMLInputElement>) => {
       const enteredDate = event.target.value;
       const [start, end] = enteredDate.split(' - ');
 
@@ -454,8 +582,24 @@ export const DatePicker: BsPrefixRefForwardingComponent<
             start: dateStart,
             end: dateEnd,
           },
-          displayDate: dayjs(end, dateFormat).toDate(),
+          displayDate: dateEnd,
         }));
+        updateFocusedDate(dateEnd);
+        return;
+      }
+
+      if (isValidDate(start, dateFormat)) {
+        const dateStart = dayjs(start, dateFormat).toDate();
+        setState((prevState) => ({
+          ...prevState,
+          inputDate: enteredDate,
+          selectedDate: {
+            start: dateStart,
+            end: undefined,
+          },
+          displayDate: dateStart,
+        }));
+        updateFocusedDate(dateStart);
         return;
       }
 
@@ -465,11 +609,20 @@ export const DatePicker: BsPrefixRefForwardingComponent<
       }));
     };
 
-    useEffect(() => {
+    const toggleDatepickerHandler = (nextShow: boolean) => {
+      if (nextShow) {
+        setShowCalendar(true);
+      } else {
+        dropdownToggleRef?.current?.focus();
+        setShowCalendar(false);
+      }
+    };
+
+    React.useEffect(() => {
       setDatepickerMenuId(generateId('datepicker', 'ul'));
     }, []);
 
-    useEffect(() => {
+    React.useEffect(() => {
       const dateRangeValidation = () => {
         const [start, end] = state.inputDate.split(' - ');
         if (
@@ -518,9 +671,39 @@ export const DatePicker: BsPrefixRefForwardingComponent<
       return () => clearTimeout(timeout);
     }, [state.inputDate, isRange]);
 
+    React.useEffect(() => {
+      if (!showCalendar) {
+        // reset calendar state, focus back to selected date if presents, otherwise set the focus back to today's date
+        const getFocusedDate = () => {
+          if (state.selectedDate) {
+            if (state.selectedDate instanceof Date) {
+              return state.selectedDate;
+            } else {
+              const { start, end } = state.selectedDate;
+              if (end) {
+                return end;
+              }
+
+              if (start && !end) {
+                return start;
+              }
+            }
+          }
+
+          return new Date();
+        };
+        const resetFocusedDate = getFocusedDate();
+        updateFocusedDate(resetFocusedDate);
+      }
+    }, [showCalendar]);
+
     return (
       <DatePickerContext.Provider value={contextValue}>
-        <Dropdown drop={calendarPlacement} className="input-group">
+        <Dropdown
+          drop={calendarPlacement}
+          className="input-group"
+          onToggle={toggleDatepickerHandler}
+        >
           <DateInput
             ref={ref}
             className={props.className}

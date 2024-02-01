@@ -1,3 +1,20 @@
+## v2.3.0 (2024-01-10)
+
+### Feat
+
+- **table**: expose Table sub-components
+- **table**: define default table structures
+
+### Fix
+
+- *****: add exports of subcomponents
+- **combobox**: dropdown item as a button
+- **feature_request**: fix typo:
+
+### Refactor
+
+- *****: move unique generation of id to useEffect hook
+
 ## v2.2.2 (2023-09-19)
 
 ### Feat

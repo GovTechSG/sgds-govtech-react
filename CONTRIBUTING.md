@@ -77,3 +77,8 @@ Library publication is performed in workflow by github actions. When ready for p
 ** this triggers gh action workflow to publish the library to npm 
 ##### Create a release
 6) Manually create a release on github 
+
+## Skipping a build on aws code build
+
+For case when a feature is not released but built, skip the amplify build to prevent documentation update. 
+Add  [skip-cd] to commit message to prevent amplify from building 
