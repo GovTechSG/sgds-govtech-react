@@ -50,19 +50,17 @@ const propTypes = {
   border: PropTypes.string,
 
   /** Category title of the Card */
-  categoryTitle: PropTypes.node
+  categoryTitle: PropTypes.node,
 };
 
-const defaultProps: Partial<SelectableCardProps> = {
-  disabled: false,
-  type: 'checkbox',
-};
 const SelectableCard: React.FC<SelectableCardProps> = ({
   children,
   bg,
   text,
   border,
   categoryTitle,
+  disabled = false,
+  type = 'checkbox',
   ...props
 }) => {
   const formCheckRef = React.useRef<HTMLInputElement>(null);
@@ -78,23 +76,19 @@ const SelectableCard: React.FC<SelectableCardProps> = ({
       onClick={handleSelect}
       tabIndex={0}
       variant="card-action"
-      className={
-        props.checked && !props.disabled
-          ? 'is-active'
-          : undefined
-      }
+      className={props.checked && !disabled ? 'is-active' : undefined}
       {...cardProps}
     >
       <Card.Body>
-      <Card.Subtitle as="h6" className="text-muted">
-        <div>{categoryTitle}</div>
-        <div className="card-input">
-        <FormCheck
-            ref={formCheckRef}
-            {...formCheckProps}
-            onClick={handleSelect}
-          ></FormCheck>
-        </div>
+        <Card.Subtitle as="h6" className="text-muted">
+          <div>{categoryTitle}</div>
+          <div className="card-input">
+            <FormCheck
+              ref={formCheckRef}
+              {...formCheckProps}
+              onClick={handleSelect}
+            ></FormCheck>
+          </div>
         </Card.Subtitle>
         {children}
       </Card.Body>
@@ -103,6 +97,5 @@ const SelectableCard: React.FC<SelectableCardProps> = ({
 };
 
 SelectableCard.displayName = 'SelectableCard';
-SelectableCard.defaultProps = defaultProps;
 SelectableCard.propTypes = propTypes as any;
 export default SelectableCard;
