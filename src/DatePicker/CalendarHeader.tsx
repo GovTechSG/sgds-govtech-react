@@ -1,6 +1,5 @@
 import * as React from 'react';
 import DatePickerContext from './DatePickerContext';
-import { getTotalDaysInMonth } from './DatePicker';
 import { calculateYearRange } from './YearView';
 
 interface CalendarHeaderProps {
