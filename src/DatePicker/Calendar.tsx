@@ -300,33 +300,6 @@ export const Calendar = React.forwardRef<HTMLTableElement, CalendarProps>(
       }
     };
 
-    // React.useEffect(() => {
-    //   if (props.show) {
-    //     if (focusedDateIndex) {
-    //       return;
-    //     }
-
-    //     // to determine which day(in number) of the date to be focused. Either the selected date (if presents) or the display date
-    //     const getFocusedDateIndex = () => {
-    //       if (props.selectedDate) {
-    //         if (props.selectedDate instanceof Date) {
-    //           return props.selectedDate.getDate();
-    //         } else {
-    //           const { end } = props.selectedDate;
-    //           if (end) {
-    //             return end.getDate();
-    //           }
-    //         }
-    //       }
-
-    //       return props.displayDate.getDate();
-    //     };
-
-    //     const focusedDate = getFocusedDateIndex();
-    //     setFocusedDateIndex(focusedDate);
-    //   }
-    // }, [props.selectedDate, props.displayDate, props.show]);
-
     React.useEffect(() => {
       if (props.show) {
         const focusedElement = props.dayRefs.current[focusedDateIndex];
