@@ -30,8 +30,7 @@ export const MONTH_LABELS = [
 
 const CalendarHeader = React.forwardRef<HTMLDivElement, CalendarHeaderProps>(
   (props, ref) => {
-    const { view, setView, focusedDateIndex, setFocusedDateIndex } =
-      React.useContext(DatePickerContext);
+    const { view, setView } = React.useContext(DatePickerContext);
 
     const handleClickPrevious = () => {
       const newDisplayDate = new Date(props.displayDate);
@@ -44,10 +43,6 @@ const CalendarHeader = React.forwardRef<HTMLDivElement, CalendarHeaderProps>(
         return props.onChange(newDisplayDate);
       } else {
         newDisplayDate.setMonth(newDisplayDate.getMonth() - 1);
-        const totalDaysInMonth = getTotalDaysInMonth(newDisplayDate);
-        if (focusedDateIndex > totalDaysInMonth) {
-          setFocusedDateIndex(totalDaysInMonth);
-        }
         return props.onChange(newDisplayDate);
       }
     };
@@ -80,10 +75,6 @@ const CalendarHeader = React.forwardRef<HTMLDivElement, CalendarHeaderProps>(
         return props.onChange(newDisplayDate);
       } else {
         newDisplayDate.setMonth(newDisplayDate.getMonth() + 1);
-        const totalDaysInMonth = getTotalDaysInMonth(newDisplayDate);
-        if (focusedDateIndex > totalDaysInMonth) {
-          setFocusedDateIndex(totalDaysInMonth);
-        }
         return props.onChange(newDisplayDate);
       }
     };
