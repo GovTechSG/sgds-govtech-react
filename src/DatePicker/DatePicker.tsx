@@ -757,7 +757,7 @@ export const DatePicker: BsPrefixRefForwardingComponent<
   }
 );
 
-DatePicker.displayName = 'DatePicker';
+// DatePicker.displayName = 'DatePicker';
 DatePicker.propTypes = propTypes as any;
 DatePicker.defaultProps = defaultProps;
 export default DatePicker;
