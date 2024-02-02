@@ -15,7 +15,7 @@ export interface TooltipProps {
   type?: 'hover' | 'click';
   /** The content to be displayed in the tooltip */
   content: string;
-  children?: React.ReactNode
+  children?: React.ReactNode;
 }
 const propTypes = {
   placement: PropTypes.oneOf<TooltipPlacement>([
@@ -30,21 +30,21 @@ const propTypes = {
   content: PropTypes.oneOfType([PropTypes.string]),
   children: PropTypes.element,
 };
-const defaultProps: TooltipProps = {
-  placement: 'top',
-  type: 'hover',
-  content: '',
-};
 
-export const Tooltip: React.FC<TooltipProps> = ((props = defaultProps) => {
-  const { type, placement, content, children } = props;
+export const Tooltip: React.FC<TooltipProps> = ({
+  placement = 'top',
+  type = 'hover',
+  content = '',
+  children,
+  ...props
+}) => {
   const [show, setShow] = useState(false);
   const target = useRef(null);
-  
-  const [tooltipId, setTooltipId] = useState("")
+
+  const [tooltipId, setTooltipId] = useState('');
   React.useEffect(() => {
     setTooltipId(generateId('tooltip', 'div'));
-  }, [])
+  }, []);
 
   const clickToolTip = () => (
     <>
@@ -72,7 +72,11 @@ export const Tooltip: React.FC<TooltipProps> = ((props = defaultProps) => {
   const hoverTooltip = () => (
     <OverlayTrigger
       placement={placement}
-      overlay={<TooltipBox id={tooltipId} {...props}>{content}</TooltipBox>}
+      overlay={
+        <TooltipBox id={tooltipId} {...props}>
+          {content}
+        </TooltipBox>
+      }
     >
       {React.cloneElement(children as React.ReactElement, {
         onClick: () => setShow(!show),
@@ -82,8 +86,7 @@ export const Tooltip: React.FC<TooltipProps> = ((props = defaultProps) => {
     </OverlayTrigger>
   );
   return type === 'hover' ? hoverTooltip() : clickToolTip();
-})
+};
 
-Tooltip.defaultProps = defaultProps;
 Tooltip.propTypes = propTypes as any;
 export default Tooltip;
