@@ -384,6 +384,14 @@ export const DatePicker: BsPrefixRefForwardingComponent<
           (focusedYear as HTMLElement).focus();
           return;
         }
+
+        const totalDaysInMonth = getTotalDaysInMonth(state.displayDate);
+        if (focusedDateIndex > totalDaysInMonth) {
+          setFocusedDateIndex(totalDaysInMonth);
+          const newFocusedDate = dayRefs.current[totalDaysInMonth];
+          (newFocusedDate as HTMLElement).focus();
+          return;
+        }
         (focusedDate as HTMLElement).focus();
       } else {
         (headerTitle as HTMLElement).focus();
@@ -420,6 +428,14 @@ export const DatePicker: BsPrefixRefForwardingComponent<
         }
         if (view === 'year') {
           (focusedYear as HTMLElement).focus();
+          return;
+        }
+
+        const totalDaysInMonth = getTotalDaysInMonth(state.displayDate);
+        if (focusedDateIndex > totalDaysInMonth) {
+          setFocusedDateIndex(totalDaysInMonth);
+          const newFocusedDate = dayRefs.current[totalDaysInMonth];
+          (newFocusedDate as HTMLElement).focus();
           return;
         }
         (focusedDate as HTMLElement).focus();
