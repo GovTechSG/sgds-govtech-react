@@ -41,5 +41,17 @@ module.exports = {
       test: /\.mdx?$/,
       use: ['babel-loader', '@mdx-js/loader']
     }
-  ]
+  ],
+  refs: {
+    // sgdsreact: {
+    //   title: 'React',
+    //   url: 'https://localhost:6007',
+    //   expanded: false, // Optional, true by default
+    // },
+    '@govtechsg/sgds-web-component': {
+      title: 'Web Component',
+      url: 'https://master.d1yxrtldqtp3a0.amplifyapp.com/',
+      expanded: false, // Optional, true by default
+    },
+  },
 };
