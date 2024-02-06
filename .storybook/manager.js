@@ -1,26 +1,10 @@
 // .storybook/manager.js
 
 import { addons } from '@storybook/addons';
+import sgdsTheme from './sgdsTheme';
 
 addons.setConfig({
-  isFullscreen: false,
-  showNav: true,
-  showPanel: true,
+  theme: sgdsTheme,
   panelPosition: 'right',
   enableShortcuts: true,
-  isToolshown: true,
-  theme: undefined,
-  selectedPanel: undefined,
-  initialActive: 'sidebar',
-  sidebar: {
-    showRoots: false,
-    collapsedRoots: ['other'],
-  },
-  toolbar: {
-    title: { hidden: false, },
-    zoom: { hidden: false, },
-    eject: { hidden: false, },
-    copy: { hidden: false, },
-    fullscreen: { hidden: false, },
-  },
 });
