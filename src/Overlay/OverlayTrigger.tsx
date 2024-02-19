@@ -9,7 +9,6 @@ import useMergedRefs from '@restart/hooks/useMergedRefs';
 import Overlay, { OverlayChildren, OverlayProps } from './Overlay';
 import safeFindDOMNode from '../utils/safeFindDOMNode';
 
-
 export type OverlayTriggerType = 'hover' | 'click' | 'focus';
 
 export type OverlayDelay = number | { show: number; hide: number };
@@ -60,7 +59,9 @@ interface INativeEvent extends MouseEvent {
 // moving from one child element to another.
 function handleMouseOverOut(
   // eslint-disable-next-line @typescript-eslint/no-shadow
-  handler: (...args: [React.MouseEvent<Element, INativeEvent>, ...any[]]) => any,
+  handler: (
+    ...args: [React.MouseEvent<Element, INativeEvent>, ...any[]]
+  ) => any,
   args: [React.MouseEvent<Element, INativeEvent>, ...any[]],
   relatedNative: RelatedNative
 ) {
@@ -168,13 +169,8 @@ const propTypes = {
   ]),
 };
 
-const defaultProps = {
-  defaultShow: false,
-  trigger: ['hover', 'focus'],
-};
-
 function OverlayTrigger({
-  trigger,
+  trigger = ['hover', 'focus'],
   overlay,
   children,
   popperConfig = {},
@@ -318,7 +314,6 @@ function OverlayTrigger({
   );
 }
 
-OverlayTrigger.defaultProps = defaultProps;
 OverlayTrigger.propTypes = propTypes;
 
 export default OverlayTrigger;
