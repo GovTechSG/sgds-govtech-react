@@ -20,6 +20,10 @@ export interface PaginationProps extends PaginationBaseProps {
   ellipsisOn: boolean;
   /** When ellipsisOn is true, length of decrementing/incrementing of pages can be set with a number value*/
   ellipsisJump: number;
+  /** Enables rendering of the first-page button on the pagination, allowing users to jump to the initial page. By default, it will be false */
+  showFirstPage?: boolean;
+  /** Enables rendering of the last-page button on the pagination, allowing users to jump to the last page. By default, it will be false */
+  showLastPage?: boolean;
 }
 
 export const Pagination: React.FC<PaginationProps> = ({
@@ -32,6 +36,8 @@ export const Pagination: React.FC<PaginationProps> = ({
   size = 'sm',
   ellipsisOn = false,
   ellipsisJump = 3,
+  showFirstPage = false,
+  showLastPage = false,
 }) => {
   // set the id of page item clicked to currentPage
   const handlePageClick = (event: React.MouseEvent<HTMLLIElement>) => {
@@ -98,6 +104,26 @@ export const Pagination: React.FC<PaginationProps> = ({
     if (currentPage - ellipsisJump < 1) setCurrentPage(1);
   };
 
+  const renderFirstPage = () => {
+    const sanitizeStartPage = currentPage - Math.floor(sanitizeLimit / 2);
+
+    if (sanitizeStartPage > 1) {
+      return (
+        <>
+          <PaginationBase.Item key={1} id="1" onClick={handlePageClick}>
+            {1}
+          </PaginationBase.Item>
+          <PaginationBase.Ellipsis
+            onClick={handlePrevEllipsisButton}
+            disabled={!ellipsisOn}
+          />
+        </>
+      );
+    }
+
+    return null;
+  };
+
   const renderLastEllipsis = () => {
     const isEvenLimit = sanitizeLimit % 2 === 0;
     const differentialLimitCondition = isEvenLimit
@@ -111,7 +137,26 @@ export const Pagination: React.FC<PaginationProps> = ({
           disabled={!ellipsisOn}
         />
       );
-    else return null;
+    return null;
+  };
+
+  const renderLastPage = () => {
+    const isEvenLimit = sanitizeLimit % 2 === 0;
+    const differentialLimitCondition = isEvenLimit
+      ? currentPage + Math.floor(sanitizeLimit / 2) <= pages.length
+      : currentPage + Math.floor(sanitizeLimit / 2) < pages.length;
+
+    if (pages.length !== sanitizeLimit && differentialLimitCondition)
+      return (
+        <PaginationBase.Item
+          key={pages.length}
+          id={pages.length.toString()}
+          onClick={handlePageClick}
+        >
+          {pages.length}
+        </PaginationBase.Item>
+      );
+    return null;
   };
 
   const renderFirstEllipsis = () => {
@@ -148,9 +193,11 @@ export const Pagination: React.FC<PaginationProps> = ({
       >
         {directionBtnContent('Previous', 'bi bi-chevron-left')}
       </PaginationBase.Prev>
-      {ellipsisOn ? renderFirstEllipsis() : null}
+      {showFirstPage && renderFirstPage()}
+      {!showFirstPage && ellipsisOn ? renderFirstEllipsis() : null}
       {renderPgNumbers()}
       {renderLastEllipsis()}
+      {showLastPage && renderLastPage()}
 
       <PaginationBase.Next
         onClick={handleNextButton}
