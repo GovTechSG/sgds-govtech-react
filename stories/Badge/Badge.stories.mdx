@@ -71,10 +71,10 @@ export const Template = (args) => {
 ## API
 
 ```jsx
-import { Badge } from '@govtechsg/sgds-react/Badge'; 
+import { Badge } from '@govtechsg/sgds-react/Badge';
 ```
 
-<ArgsTable story="Badge" />
+<ArgsTable story="Basic" />
 
 ## Contextual variations
 
@@ -145,10 +145,7 @@ export const ComponentBadgeTemplate = (args) => (
 Badge can also be used on other components as a dot indicator or text indicator for notification or alerts.
 
 <Canvas>
-  <Story
-    name="dot indicator"
-    args={{ dotIndicator: true, bg: 'danger' }}
-  >
+  <Story name="dot indicator" args={{ dotIndicator: true, bg: 'danger' }}>
     {ComponentBadgeTemplate.bind({})}
   </Story>
   <Story
