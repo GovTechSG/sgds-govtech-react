@@ -8,18 +8,20 @@ export interface YearViewProps extends React.HTMLAttributes<HTMLElement> {
   displayDate: Date;
   onClickYear: Function;
   show: boolean;
-  yearRefs: React.MutableRefObject<(HTMLButtonElement | null)[]>;
+  yearRefs: React.RefObject<(HTMLButtonElement | null)[]>;
   onChangeMonth: (date: Date) => void;
   handleTabPressCalendarBody: (event: React.KeyboardEvent<HTMLElement>) => void;
 }
 
 export const findIndexByYear = (
   year: string,
-  yearRefs: React.MutableRefObject<(HTMLButtonElement | null)[]>
+  yearRefs: React.RefObject<(HTMLButtonElement | null)[]>
 ) => {
-  for (let i = 0; i < yearRefs.current.length; i++) {
-    if (yearRefs.current[i]?.innerText === year) {
-      return i;
+  if (yearRefs.current) {
+    for (let i = 0; i < yearRefs.current.length; i++) {
+      if (yearRefs.current[i]?.innerText === year) {
+        return i;
+      }
     }
   }
   return -1; // Return -1 if not found
@@ -112,8 +114,10 @@ export const YearView = React.forwardRef<HTMLDivElement, YearViewProps>(
           break;
         case 'Enter':
         case ' ':
-          const year = yearRefs.current[focusedYearIndex]?.innerText;
-          onClickYear(year);
+          if (yearRefs.current) {
+            const year = yearRefs.current[focusedYearIndex]?.innerText;
+            onClickYear(year);
+          }
           break;
         default:
           break;
@@ -129,7 +133,7 @@ export const YearView = React.forwardRef<HTMLDivElement, YearViewProps>(
     }, []);
 
     React.useEffect(() => {
-      if (show) {
+      if (show && yearRefs.current) {
         const focusedElement = yearRefs.current[focusedYearIndex];
         if (focusedElement) {
           focusedElement.focus();
@@ -188,7 +192,9 @@ export const YearView = React.forwardRef<HTMLDivElement, YearViewProps>(
               key={year}
               onClick={() => onClickYear(year)}
               onKeyDown={handleKeyDown}
-              ref={(el) => (yearRefs.current[index] = el)}
+              ref={(el) =>
+                yearRefs.current ? (yearRefs.current[index] = el) : undefined
+              }
             >
               {year}
             </button>

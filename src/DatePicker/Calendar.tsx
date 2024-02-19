@@ -10,7 +10,7 @@ interface CalendarProps extends React.HTMLAttributes<HTMLTableElement> {
   changeDate: (date: Date) => void;
   mode: 'single' | 'range';
   show: boolean;
-  dayRefs: React.MutableRefObject<(HTMLTableCellElement | null)[]>;
+  dayRefs: React.RefObject<(HTMLTableCellElement | null)[]>;
   onChangeMonth: (date: Date) => void;
   handleTabPressCalendarBody: (event: React.KeyboardEvent<HTMLElement>) => void;
 }
@@ -207,7 +207,11 @@ export const Calendar = React.forwardRef<HTMLTableElement, CalendarProps>(
               style={style}
               className={className}
               tabIndex={-1}
-              ref={(el) => (props.dayRefs.current[dayIndex] = el)}
+              ref={(el) =>
+                props.dayRefs.current
+                  ? (props.dayRefs.current[dayIndex] = el)
+                  : undefined
+              }
             >
               {day}
             </td>
@@ -301,7 +305,7 @@ export const Calendar = React.forwardRef<HTMLTableElement, CalendarProps>(
     };
 
     React.useEffect(() => {
-      if (props.show) {
+      if (props.show && props.dayRefs.current) {
         const focusedElement = props.dayRefs.current[focusedDateIndex];
 
         if (focusedElement) {

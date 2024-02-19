@@ -8,7 +8,7 @@ export interface MonthViewProps extends React.HTMLAttributes<HTMLElement> {
   displayDate: Date;
   onClickMonth: Function;
   show: boolean;
-  monthRefs: React.MutableRefObject<(HTMLButtonElement | null)[]>;
+  monthRefs: React.RefObject<(HTMLButtonElement | null)[]>;
   onChangeMonth: (date: Date) => void;
   handleTabPressCalendarBody: (event: React.KeyboardEvent<HTMLElement>) => void;
 }
@@ -127,7 +127,7 @@ export const MonthView = React.forwardRef<HTMLDivElement, MonthViewProps>(
     }, []);
 
     React.useEffect(() => {
-      if (show) {
+      if (show && monthRefs.current) {
         const focusedElement = monthRefs.current[focusedMonthIndex];
         if (focusedElement) {
           focusedElement.focus();
@@ -233,7 +233,9 @@ export const MonthView = React.forwardRef<HTMLDivElement, MonthViewProps>(
               key={month}
               onClick={() => onClickMonth(index)}
               onKeyDown={handleKeyDown}
-              ref={(el) => (monthRefs.current[index] = el)}
+              ref={(el) =>
+                monthRefs.current ? (monthRefs.current[index] = el) : undefined
+              }
             >
               {month}
             </button>
