@@ -526,37 +526,6 @@ export const DatePicker: BsPrefixRefForwardingComponent<
       );
     };
 
-    const warningCondition = () => {
-      const displayDateStr = makeInputValueString(displayDate, dateFormat);
-      if (isRange) {
-        const { start, end } = props.initialValue as RangeSelectionValue;
-        return (
-          makeInputValueString(start, dateFormat) === displayDateStr ||
-          makeInputValueString(end, dateFormat) === displayDateStr
-        );
-      } else {
-        const initialValue = props.initialValue as Date;
-        return (
-          makeInputValueString(initialValue, dateFormat) === displayDateStr
-        );
-      }
-    };
-    if (props.initialValue) {
-      warning(
-        warningCondition(),
-        'In DatePicker `single` mode, `initialValue` is `Date` type and `displayDate` prop must be of same value. In range mode, `initialValue` should be of object {start: Date, end: Date} and `displayDate` prop must be of same value as either `start` or `end`'
-      );
-      if (isRange) {
-        const { start, end } = props.initialValue as RangeSelectionValue;
-        start &&
-          end &&
-          warning(
-            start.getTime() <= end.getTime(),
-            '`end` Date cannot be earlier than `start` Date'
-          );
-      }
-    }
-
     const enterDateSingle = (event: React.ChangeEvent<HTMLInputElement>) => {
       const enteredDate = event.target.value;
       const parsedDate = dayjs(enteredDate, dateFormat).toDate();
@@ -635,6 +604,39 @@ export const DatePicker: BsPrefixRefForwardingComponent<
     };
 
     React.useEffect(() => {
+      const warningCondition = () => {
+        const displayDateStr = makeInputValueString(displayDate, dateFormat);
+        if (isRange) {
+          const { start, end } = props.initialValue as RangeSelectionValue;
+          return (
+            makeInputValueString(start, dateFormat) === displayDateStr ||
+            makeInputValueString(end, dateFormat) === displayDateStr
+          );
+        } else {
+          const initialValue = props.initialValue as Date;
+          return (
+            makeInputValueString(initialValue, dateFormat) === displayDateStr
+          );
+        }
+      };
+      if (props.initialValue) {
+        warning(
+          warningCondition(),
+          'In DatePicker `single` mode, `initialValue` is `Date` type and `displayDate` prop must be of same value. In range mode, `initialValue` should be of object {start: Date, end: Date} and `displayDate` prop must be of same value as either `start` or `end`'
+        );
+        if (isRange) {
+          const { start, end } = props.initialValue as RangeSelectionValue;
+          start &&
+            end &&
+            warning(
+              start.getTime() <= end.getTime(),
+              '`end` Date cannot be earlier than `start` Date'
+            );
+        }
+      }
+    }, [props.initialValue, isRange, displayDate, dateFormat]);
+
+    React.useEffect(() => {
       setDatepickerMenuId(generateId('datepicker', 'ul'));
     }, []);
 
@@ -706,12 +708,12 @@ export const DatePicker: BsPrefixRefForwardingComponent<
             }
           }
 
-          return new Date();
+          return displayDate;
         };
         const resetFocusedDate = getFocusedDate();
         updateFocusedDate(resetFocusedDate);
       }
-    }, [showCalendar]);
+    }, [showCalendar, displayDate]);
 
     return (
       <DatePickerContext.Provider value={contextValue}>
