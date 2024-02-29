@@ -13,10 +13,11 @@ export interface DateInputProps extends Omit<FormControlProps, 'type'> {
   required?: boolean | undefined;
   isRange: boolean;
   inputDate?: string;
-  isInvalid?: boolean;
+  isInvalid: boolean;
   dateFormat: DateFormat;
-  enterDateRange?: (event: React.ChangeEvent<HTMLInputElement>) => void;
-  enterDateSingle?: (event: React.ChangeEvent<HTMLInputElement>) => void;
+  validateDateInput: () => void;
+  enterDateRange: (event: React.ChangeEvent<HTMLInputElement>) => void;
+  enterDateSingle: (event: React.ChangeEvent<HTMLInputElement>) => void;
 }
 
 type DateInputPropsComponent = BsPrefixRefForwardingComponent<
@@ -51,6 +52,7 @@ export const DateInput: DateInputPropsComponent = React.forwardRef(
       inputDate,
       isInvalid,
       dateFormat,
+      validateDateInput,
       enterDateRange,
       enterDateSingle,
       ...props
@@ -91,6 +93,7 @@ export const DateInput: DateInputPropsComponent = React.forwardRef(
         maskPlaceholder={defaultPlaceHolder}
         aria-label="Enter Date"
         onChange={isRange ? enterDateRange : enterDateSingle}
+        onBlurCapture={validateDateInput}
       >
         <Component
           className={classNames(className)}

@@ -4,11 +4,12 @@ import customParseFormat from 'dayjs/plugin/customParseFormat';
 import PropTypes from 'prop-types';
 import warning from 'warning';
 import { Button } from '../Button';
+import FormControl from '../Form/FormControl';
 import { Dropdown } from '../Dropdown';
 import generateId from '../utils/generateId';
 import { BsPrefixRefForwardingComponent } from '../utils/helpers';
 import { ButtonVariant } from '../utils/types';
-import Calendar from './Calendar';
+import Calendar, { setTimeToNoon } from './Calendar';
 import CalendarHeader from './CalendarHeader';
 import DateInput from './DateInput';
 import DatePickerContext, { CalendarView } from './DatePickerContext';
@@ -52,6 +53,11 @@ export interface DatePickerProps {
   onClear?: Function;
   /** The onError handler for DatePicker */
   onError?: Function;
+  /**
+   * Optional error message to display when the entered date is invalid.
+   * This message can provide feedback to users when they input an invalid date format or value.
+   */
+  errorMessage?: string;
   /** Disables the Form Control and Button of Datepicker */
   disabled?: boolean;
   /** Overlay placement for the popover calendar */
@@ -86,6 +92,7 @@ const propTypes = {
   onBlur: PropTypes.func,
   onFocus: PropTypes.func,
   autoFocus: PropTypes.bool,
+  errorMessage: PropTypes.string,
   disabled: PropTypes.bool,
   calendarPlacement: PropTypes.oneOf(['up', 'down']),
   /**
@@ -288,6 +295,11 @@ export const DatePicker: BsPrefixRefForwardingComponent<
       setState((prevState) => ({ ...prevState, displayDate: newDisplayDate }));
     };
 
+    const resetFocusOnHeader = () => {
+      const headerTitle = calendarHeaderRef.current?.children[1];
+      (headerTitle as HTMLElement).focus();
+    };
+
     const clear = () => {
       setState({
         ...initialState,
@@ -367,91 +379,88 @@ export const DatePicker: BsPrefixRefForwardingComponent<
       props.onChangeDate?.(newSelectedDates);
     };
 
-    const handleTabPressPreviousButton = (
+    const focusOnDateCalendar = () => {
+      const focusedDate = dayRefs.current[focusedDateIndex];
+      const focusedMonth = monthRefs.current[focusedMonthIndex];
+      const focusedYear = yearRefs.current[focusedYearIndex];
+
+      if (view === 'month') {
+        (focusedMonth as HTMLElement).focus();
+        return;
+      }
+      if (view === 'year') {
+        (focusedYear as HTMLElement).focus();
+        return;
+      }
+
+      const totalDaysInMonth = getTotalDaysInMonth(state.displayDate);
+      if (focusedDateIndex > totalDaysInMonth) {
+        setFocusedDateIndex(totalDaysInMonth);
+        const newFocusedDate = dayRefs.current[totalDaysInMonth];
+        (newFocusedDate as HTMLElement).focus();
+        return;
+      }
+      (focusedDate as HTMLElement).focus();
+    };
+
+    const handleTabPressOnPreviousButton = (
       event: React.KeyboardEvent<HTMLElement>
     ) => {
       event.preventDefault();
       const headerTitle = calendarHeaderRef.current?.children[1];
-      const focusedDate = dayRefs.current[focusedDateIndex];
-      const focusedMonth = monthRefs.current[focusedMonthIndex];
-      const focusedYear = yearRefs.current[focusedYearIndex];
       if (event.shiftKey) {
-        if (view === 'month') {
-          (focusedMonth as HTMLElement).focus();
-          return;
-        }
-        if (view === 'year') {
-          (focusedYear as HTMLElement).focus();
-          return;
-        }
-
-        const totalDaysInMonth = getTotalDaysInMonth(state.displayDate);
-        if (focusedDateIndex > totalDaysInMonth) {
-          setFocusedDateIndex(totalDaysInMonth);
-          const newFocusedDate = dayRefs.current[totalDaysInMonth];
-          (newFocusedDate as HTMLElement).focus();
-          return;
-        }
-        (focusedDate as HTMLElement).focus();
+        focusOnDateCalendar();
       } else {
         (headerTitle as HTMLElement).focus();
       }
     };
 
-    const handleTabPressHeaderTitle = (
+    const handleTabPressOnHeaderTitle = (
       event: React.KeyboardEvent<HTMLElement>
     ) => {
       event.preventDefault();
       const previousButton = calendarHeaderRef.current?.children[0];
       const nextButton = calendarHeaderRef.current?.children[2];
+
       if (event.shiftKey) {
-        (previousButton as HTMLElement).focus();
+        if (previousButton instanceof HTMLButtonElement) {
+          (previousButton as HTMLElement).focus();
+        } else {
+          focusOnDateCalendar();
+        }
       } else {
         (nextButton as HTMLElement).focus();
       }
     };
 
-    const handleTabPressNextButton = (
+    const handleTabPressOnNextButton = (
       event: React.KeyboardEvent<HTMLElement>
     ) => {
       event.preventDefault();
       const headerTitle = calendarHeaderRef.current?.children[1];
-      const focusedDate = dayRefs.current[focusedDateIndex];
-      const focusedMonth = monthRefs.current[focusedMonthIndex];
-      const focusedYear = yearRefs.current[focusedYearIndex];
       if (event.shiftKey) {
         (headerTitle as HTMLElement).focus();
       } else {
-        if (view === 'month') {
-          (focusedMonth as HTMLElement).focus();
-          return;
-        }
-        if (view === 'year') {
-          (focusedYear as HTMLElement).focus();
-          return;
-        }
-
-        const totalDaysInMonth = getTotalDaysInMonth(state.displayDate);
-        if (focusedDateIndex > totalDaysInMonth) {
-          setFocusedDateIndex(totalDaysInMonth);
-          const newFocusedDate = dayRefs.current[totalDaysInMonth];
-          (newFocusedDate as HTMLElement).focus();
-          return;
-        }
-        (focusedDate as HTMLElement).focus();
+        focusOnDateCalendar();
       }
     };
 
-    const handleTabPressCalendarBody = (
+    const handleTabPressOnCalendarBody = (
       event: React.KeyboardEvent<HTMLElement>
     ) => {
       event.preventDefault();
       const previousButton = calendarHeaderRef.current?.children[0];
+      const headerTitle = calendarHeaderRef.current?.children[1];
       const nextButton = calendarHeaderRef.current?.children[2];
+
       if (event.shiftKey) {
         (nextButton as HTMLElement).focus();
       } else {
-        (previousButton as HTMLElement).focus();
+        if (previousButton instanceof HTMLButtonElement) {
+          (previousButton as HTMLElement).focus();
+        } else {
+          (headerTitle as HTMLElement).focus();
+        }
       }
     };
 
@@ -459,10 +468,11 @@ export const DatePicker: BsPrefixRefForwardingComponent<
       <CalendarHeader
         displayDate={state.displayDate as Date}
         onChange={onChangeMonth}
+        resetFocusOnHeader={resetFocusOnHeader}
         ref={calendarHeaderRef}
-        handleTabPressPreviousButton={handleTabPressPreviousButton}
-        handleTabPressHeaderTitle={handleTabPressHeaderTitle}
-        handleTabPressNextButton={handleTabPressNextButton}
+        handleTabPressOnPreviousButton={handleTabPressOnPreviousButton}
+        handleTabPressOnHeaderTitle={handleTabPressOnHeaderTitle}
+        handleTabPressOnNextButton={handleTabPressOnNextButton}
       />
     );
 
@@ -494,7 +504,7 @@ export const DatePicker: BsPrefixRefForwardingComponent<
             show={showCalendar}
             monthRefs={monthRefs}
             onChangeMonth={onChangeMonth}
-            handleTabPressCalendarBody={handleTabPressCalendarBody}
+            handleTabPressOnCalendarBody={handleTabPressOnCalendarBody}
           />
         );
       if (view === 'year')
@@ -506,7 +516,7 @@ export const DatePicker: BsPrefixRefForwardingComponent<
             show={showCalendar}
             yearRefs={yearRefs}
             onChangeMonth={onChangeMonth}
-            handleTabPressCalendarBody={handleTabPressCalendarBody}
+            handleTabPressOnCalendarBody={handleTabPressOnCalendarBody}
           />
         );
 
@@ -521,7 +531,7 @@ export const DatePicker: BsPrefixRefForwardingComponent<
           show={showCalendar}
           dayRefs={dayRefs}
           onChangeMonth={onChangeMonth}
-          handleTabPressCalendarBody={handleTabPressCalendarBody}
+          handleTabPressOnCalendarBody={handleTabPressOnCalendarBody}
         />
       );
     };
@@ -529,12 +539,24 @@ export const DatePicker: BsPrefixRefForwardingComponent<
     const enterDateSingle = (event: React.ChangeEvent<HTMLInputElement>) => {
       const enteredDate = event.target.value;
       const parsedDate = dayjs(enteredDate, dateFormat).toDate();
-      if (isValidDate(enteredDate, dateFormat)) {
+      const afterMinDate =
+        props.minDate &&
+        setTimeToNoon(parsedDate) >= setTimeToNoon(new Date(props.minDate));
+      const beforeMaxDate =
+        props.maxDate &&
+        setTimeToNoon(parsedDate) <= setTimeToNoon(new Date(props.maxDate));
+      if (
+        isValidDate(enteredDate, dateFormat) &&
+        parsedDate.getFullYear() >= 1900 &&
+        afterMinDate &&
+        beforeMaxDate
+      ) {
         setState((prevState) => ({
           ...prevState,
           inputDate: enteredDate,
           displayDate: parsedDate,
           selectedDate: parsedDate,
+          invalid: false,
         }));
         updateFocusedDate(parsedDate);
         return;
@@ -544,13 +566,35 @@ export const DatePicker: BsPrefixRefForwardingComponent<
         ...prevState,
         inputDate: enteredDate,
       }));
+      updateFocusedDate(displayDate);
     };
 
     const enterDateRange = (event: React.ChangeEvent<HTMLInputElement>) => {
       const enteredDate = event.target.value;
       const [start, end] = enteredDate.split(' - ');
+      const dateStart = dayjs(start, dateFormat).toDate();
+      const dateEnd = dayjs(end, dateFormat).toDate();
+      const dateStartAfterMinDate = props.minDate
+        ? setTimeToNoon(dateStart) >= setTimeToNoon(new Date(props.minDate))
+        : true;
+      const dateStartBeforeMaxDate = props.maxDate
+        ? setTimeToNoon(dateStart) <= setTimeToNoon(new Date(props.maxDate))
+        : true;
+      const dateEndAfterMinDate = props.minDate
+        ? setTimeToNoon(dateEnd) >= setTimeToNoon(new Date(props.minDate))
+        : true;
+      const dateEndBeforeMaxDate = props.maxDate
+        ? setTimeToNoon(dateEnd) <= setTimeToNoon(new Date(props.maxDate))
+        : true;
 
-      if (isValidDate(start, dateFormat) && isValidDate(end, dateFormat)) {
+      if (
+        isValidDate(start, dateFormat) &&
+        isValidDate(end, dateFormat) &&
+        dateStartAfterMinDate &&
+        dateStartBeforeMaxDate &&
+        dateEndAfterMinDate &&
+        dateEndBeforeMaxDate
+      ) {
         const {
           start: dateStart,
           end: dateEnd,
@@ -568,13 +612,17 @@ export const DatePicker: BsPrefixRefForwardingComponent<
             end: dateEnd,
           },
           displayDate: dateEnd,
+          invalid: false,
         }));
         updateFocusedDate(dateEnd);
         return;
       }
 
-      if (isValidDate(start, dateFormat)) {
-        const dateStart = dayjs(start, dateFormat).toDate();
+      if (
+        isValidDate(start, dateFormat) &&
+        dateStartAfterMinDate &&
+        dateStartBeforeMaxDate
+      ) {
         setState((prevState) => ({
           ...prevState,
           inputDate: enteredDate,
@@ -592,6 +640,7 @@ export const DatePicker: BsPrefixRefForwardingComponent<
         ...prevState,
         inputDate: enteredDate,
       }));
+      updateFocusedDate(displayDate);
     };
 
     const toggleDatepickerHandler = (nextShow: boolean) => {
@@ -600,6 +649,111 @@ export const DatePicker: BsPrefixRefForwardingComponent<
       } else {
         dropdownToggleRef?.current?.focus();
         setShowCalendar(false);
+      }
+    };
+
+    const validateDateInput = () => {
+      const showError = () => {
+        setState((prevState) => ({
+          ...prevState,
+          displayDate: displayDate,
+          invalid: true,
+          selectedDate: undefined,
+        }));
+        props.onError?.();
+      };
+
+      const dateRangeValidation = () => {
+        const [start, end] = state.inputDate.split(' - ');
+        const dateStart = dayjs(start, dateFormat).toDate();
+        const dateEnd = dayjs(end, dateFormat).toDate();
+        const dateStartBeforeMinDate = props.minDate
+          ? setTimeToNoon(dateStart) < setTimeToNoon(new Date(props.minDate))
+          : false;
+        const dateStartAfterMaxDate = props.maxDate
+          ? setTimeToNoon(dateStart) > setTimeToNoon(new Date(props.maxDate))
+          : false;
+        const dateEndBeforeMinDate = props.minDate
+          ? setTimeToNoon(dateEnd) < setTimeToNoon(new Date(props.minDate))
+          : false;
+        const dateEndAfterMaxDate = props.maxDate
+          ? setTimeToNoon(dateEnd) > setTimeToNoon(new Date(props.maxDate))
+          : false;
+
+        if (
+          start !== dateFormat.toLowerCase() &&
+          (!isValidDate(start, dateFormat) || !isValidDate(end, dateFormat))
+        ) {
+          showError();
+          return;
+        }
+
+        if (isValidDate(start, dateFormat) && dateStartBeforeMinDate) {
+          showError();
+          return;
+        }
+
+        if (isValidDate(start, dateFormat) && dateStartAfterMaxDate) {
+          showError();
+          return;
+        }
+
+        if (isValidDate(start, dateFormat) && dateEndBeforeMinDate) {
+          showError();
+          return;
+        }
+
+        if (isValidDate(start, dateFormat) && dateEndAfterMaxDate) {
+          showError();
+          return;
+        }
+
+        setState((prevState) => ({ ...prevState, invalid: false }));
+      };
+
+      const dateSingleValidation = () => {
+        const beforeMinDate = props.minDate
+          ? setTimeToNoon(dayjs(state.inputDate, dateFormat).toDate()) <
+            setTimeToNoon(new Date(props.minDate))
+          : false;
+        const afterMaxDate = props.maxDate
+          ? setTimeToNoon(dayjs(state.inputDate, dateFormat).toDate()) >
+            setTimeToNoon(new Date(props.maxDate))
+          : false;
+
+        if (
+          state.inputDate !== dateFormat.toLowerCase() &&
+          !isValidDate(state.inputDate, dateFormat)
+        ) {
+          showError();
+          return;
+        }
+
+        if (
+          isValidDate(state.inputDate, dateFormat) &&
+          dayjs(state.inputDate, dateFormat).toDate().getFullYear() < 1900
+        ) {
+          showError();
+          return;
+        }
+
+        if (isValidDate(state.inputDate, dateFormat) && beforeMinDate) {
+          showError();
+          return;
+        }
+
+        if (isValidDate(state.inputDate, dateFormat) && afterMaxDate) {
+          showError();
+          return;
+        }
+
+        setState((prevState) => ({ ...prevState, invalid: false }));
+      };
+
+      if (isRange) {
+        dateRangeValidation();
+      } else {
+        dateSingleValidation();
       }
     };
 
@@ -639,55 +793,6 @@ export const DatePicker: BsPrefixRefForwardingComponent<
     React.useEffect(() => {
       setDatepickerMenuId(generateId('datepicker', 'ul'));
     }, []);
-
-    React.useEffect(() => {
-      const dateRangeValidation = () => {
-        const [start, end] = state.inputDate.split(' - ');
-        if (
-          start &&
-          start !== dateFormat.toLowerCase() &&
-          !isValidDate(start, dateFormat)
-        ) {
-          setState((prevState) => ({ ...prevState, invalid: true }));
-          props.onError?.();
-          return;
-        }
-        if (
-          end &&
-          end !== dateFormat.toLowerCase() &&
-          !isValidDate(end, dateFormat)
-        ) {
-          setState((prevState) => ({ ...prevState, invalid: true }));
-          props.onError?.();
-          return;
-        }
-
-        setState((prevState) => ({ ...prevState, invalid: false }));
-      };
-
-      const dateSingleValidation = () => {
-        if (
-          state.inputDate !== dateFormat.toLowerCase() &&
-          !isValidDate(state.inputDate, dateFormat)
-        ) {
-          setState((prevState) => ({ ...prevState, invalid: true }));
-          props.onError?.();
-          return;
-        }
-
-        setState((prevState) => ({ ...prevState, invalid: false }));
-      };
-
-      const timeout = setTimeout(() => {
-        if (isRange) {
-          dateRangeValidation();
-        } else {
-          dateSingleValidation();
-        }
-      }, 500);
-
-      return () => clearTimeout(timeout);
-    }, [state.inputDate, isRange]);
 
     React.useEffect(() => {
       if (!showCalendar) {
@@ -733,6 +838,7 @@ export const DatePicker: BsPrefixRefForwardingComponent<
             inputDate={state.inputDate}
             isInvalid={state.invalid}
             dateFormat={dateFormat}
+            validateDateInput={validateDateInput}
             enterDateRange={enterDateRange}
             enterDateSingle={enterDateSingle}
           />
@@ -756,6 +862,11 @@ export const DatePicker: BsPrefixRefForwardingComponent<
             <i className="bi bi-x"></i>
             <span className="visually-hidden">clear</span>
           </Button>
+          <FormControl.Feedback type="invalid">
+            {props.errorMessage
+              ? props.errorMessage
+              : 'Please enter a valid date'}
+          </FormControl.Feedback>
           <Dropdown.Menu
             id={datepickerMenuId}
             className="sgds datepicker"
