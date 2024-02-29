@@ -5,11 +5,14 @@ import { calculateYearRange } from './YearView';
 interface CalendarHeaderProps {
   displayDate: Date;
   onChange: (date: Date) => void;
-  handleTabPressPreviousButton: (
+  resetFocusOnHeader: () => void;
+  handleTabPressOnPreviousButton: (
     event: React.KeyboardEvent<HTMLElement>
   ) => void;
-  handleTabPressHeaderTitle: (event: React.KeyboardEvent<HTMLElement>) => void;
-  handleTabPressNextButton: (event: React.KeyboardEvent<HTMLElement>) => void;
+  handleTabPressOnHeaderTitle: (
+    event: React.KeyboardEvent<HTMLElement>
+  ) => void;
+  handleTabPressOnNextButton: (event: React.KeyboardEvent<HTMLElement>) => void;
 }
 
 export const MONTH_LABELS = [
@@ -36,12 +39,24 @@ const CalendarHeader = React.forwardRef<HTMLDivElement, CalendarHeaderProps>(
       newDisplayDate.setDate(1);
       if (view === 'month') {
         newDisplayDate.setFullYear(newDisplayDate.getFullYear() - 1);
+        if (newDisplayDate.getFullYear() === 1900) {
+          props.resetFocusOnHeader();
+        }
         return props.onChange(newDisplayDate);
       } else if (view === 'year') {
         newDisplayDate.setFullYear(newDisplayDate.getFullYear() - 12);
+        if (newDisplayDate.getFullYear() <= 1900) {
+          props.resetFocusOnHeader();
+        }
         return props.onChange(newDisplayDate);
       } else {
         newDisplayDate.setMonth(newDisplayDate.getMonth() - 1);
+        if (
+          newDisplayDate.getMonth() === 0 &&
+          newDisplayDate.getFullYear() === 1900
+        ) {
+          props.resetFocusOnHeader();
+        }
         return props.onChange(newDisplayDate);
       }
     };
@@ -51,7 +66,7 @@ const CalendarHeader = React.forwardRef<HTMLDivElement, CalendarHeaderProps>(
 
       switch (event.key) {
         case 'Tab':
-          props.handleTabPressPreviousButton(event);
+          props.handleTabPressOnPreviousButton(event);
           break;
         case 'Enter':
         case ' ':
@@ -83,7 +98,7 @@ const CalendarHeader = React.forwardRef<HTMLDivElement, CalendarHeaderProps>(
 
       switch (event.key) {
         case 'Tab':
-          props.handleTabPressNextButton(event);
+          props.handleTabPressOnNextButton(event);
           break;
         case 'Enter':
         case ' ':
@@ -114,7 +129,7 @@ const CalendarHeader = React.forwardRef<HTMLDivElement, CalendarHeaderProps>(
 
       switch (event.key) {
         case 'Tab':
-          props.handleTabPressHeaderTitle(event);
+          props.handleTabPressOnHeaderTitle(event);
           break;
         case 'Enter':
         case ' ':
@@ -122,6 +137,48 @@ const CalendarHeader = React.forwardRef<HTMLDivElement, CalendarHeaderProps>(
           break;
         default:
           break;
+      }
+    };
+
+    const renderPreviousButton = () => {
+      const previousButton = (
+        <button
+          onClick={handleClickPrevious}
+          onKeyDown={handlePressPrevious}
+          aria-label={`previous ${view}`}
+        >
+          <i className="bi bi-chevron-left"></i>
+        </button>
+      );
+
+      const startLimitDate = new Date('1900-01-01');
+      switch (view) {
+        case 'day':
+          if (
+            props.displayDate.getDate() === startLimitDate.getDate() &&
+            props.displayDate.getMonth() === startLimitDate.getMonth() &&
+            props.displayDate.getFullYear() === startLimitDate.getFullYear()
+          ) {
+            return <div style={{ width: 32 }}></div>;
+          }
+
+          return previousButton;
+        case 'month':
+          if (
+            props.displayDate.getFullYear() === startLimitDate.getFullYear()
+          ) {
+            return <div style={{ width: 32 }}></div>;
+          }
+
+          return previousButton;
+        case 'year':
+          if (props.displayDate.getFullYear() <= startLimitDate.getFullYear()) {
+            return <div style={{ width: 32 }}></div>;
+          }
+
+          return previousButton;
+        default:
+          return previousButton;
       }
     };
 
@@ -141,13 +198,7 @@ const CalendarHeader = React.forwardRef<HTMLDivElement, CalendarHeaderProps>(
 
     return (
       <div className="text-center d-flex justify-content-between" ref={ref}>
-        <button
-          onClick={handleClickPrevious}
-          onKeyDown={handlePressPrevious}
-          aria-label={`previous ${view}`}
-        >
-          <i className="bi bi-chevron-left"></i>
-        </button>
+        {renderPreviousButton()}
 
         <button
           id="id-grid-label"

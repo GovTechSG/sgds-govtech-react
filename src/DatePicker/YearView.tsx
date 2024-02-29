@@ -10,7 +10,9 @@ export interface YearViewProps extends React.HTMLAttributes<HTMLElement> {
   show: boolean;
   yearRefs: React.RefObject<(HTMLButtonElement | null)[]>;
   onChangeMonth: (date: Date) => void;
-  handleTabPressCalendarBody: (event: React.KeyboardEvent<HTMLElement>) => void;
+  handleTabPressOnCalendarBody: (
+    event: React.KeyboardEvent<HTMLElement>
+  ) => void;
 }
 
 export const findIndexByYear = (
@@ -49,7 +51,7 @@ export const YearView = React.forwardRef<HTMLDivElement, YearViewProps>(
       show,
       yearRefs,
       onChangeMonth,
-      handleTabPressCalendarBody,
+      handleTabPressOnCalendarBody,
       ...props
     },
     ref
@@ -92,7 +94,17 @@ export const YearView = React.forwardRef<HTMLDivElement, YearViewProps>(
             return prevState - decrementedYear + 12;
           }
 
-          return prevState - decrementedYear;
+          if (yearRefs.current) {
+            const year = yearRefs.current[focusedYearIndex]?.innerText;
+            if (
+              year !== undefined &&
+              parseInt(year) - decrementedYear >= 1900
+            ) {
+              return prevState - decrementedYear;
+            }
+          }
+
+          return prevState;
         });
       };
 
@@ -110,7 +122,7 @@ export const YearView = React.forwardRef<HTMLDivElement, YearViewProps>(
           handleYearIncrement(1); // add 1 year
           break;
         case 'Tab':
-          handleTabPressCalendarBody(event);
+          handleTabPressOnCalendarBody(event);
           break;
         case 'Enter':
         case ' ':
@@ -195,6 +207,7 @@ export const YearView = React.forwardRef<HTMLDivElement, YearViewProps>(
               ref={(el) =>
                 yearRefs.current ? (yearRefs.current[index] = el) : undefined
               }
+              disabled={year < 1900 ? true : false}
             >
               {year}
             </button>

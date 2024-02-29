@@ -10,7 +10,9 @@ export interface MonthViewProps extends React.HTMLAttributes<HTMLElement> {
   show: boolean;
   monthRefs: React.RefObject<(HTMLButtonElement | null)[]>;
   onChangeMonth: (date: Date) => void;
-  handleTabPressCalendarBody: (event: React.KeyboardEvent<HTMLElement>) => void;
+  handleTabPressOnCalendarBody: (
+    event: React.KeyboardEvent<HTMLElement>
+  ) => void;
 }
 
 export const MONTH_LABELS = [
@@ -39,7 +41,7 @@ export const MonthView = React.forwardRef<HTMLDivElement, MonthViewProps>(
       show,
       monthRefs,
       onChangeMonth,
-      handleTabPressCalendarBody,
+      handleTabPressOnCalendarBody,
       ...props
     },
     ref
@@ -53,6 +55,14 @@ export const MonthView = React.forwardRef<HTMLDivElement, MonthViewProps>(
       const handleMonthIncrement = (incrementedMonth: number) => {
         const totalMonthIndex = 11; // total 12 months and index starts from 0;
         setFocusedMonthIndex((prevState) => {
+          // get new focused month date
+          const focusedMonth = new Date(
+            displayDate.getFullYear(),
+            prevState,
+            1
+          );
+          focusedMonth.setMonth(focusedMonth.getMonth() + incrementedMonth);
+
           // switch calendar view to next year
           if (prevState + incrementedMonth > totalMonthIndex) {
             const newDisplayDate = new Date(displayDate);
@@ -61,35 +71,36 @@ export const MonthView = React.forwardRef<HTMLDivElement, MonthViewProps>(
             onChangeMonth(newDisplayDate);
           }
 
-          // get next year's month
-          const focusedMonth = new Date(
-            displayDate.getFullYear(),
-            prevState,
-            1
-          );
-          focusedMonth.setMonth(focusedMonth.getMonth() + incrementedMonth);
           return focusedMonth.getMonth();
         });
       };
 
       const handleMonthDecrement = (decrementedMonth: number) => {
         setFocusedMonthIndex((prevState) => {
-          // switch calendar view to previous year
-          if (prevState - decrementedMonth < 0) {
-            const newDisplayDate = new Date(displayDate);
-            newDisplayDate.setDate(1);
-            newDisplayDate.setFullYear(newDisplayDate.getFullYear() - 1);
-            onChangeMonth(newDisplayDate);
-          }
-
-          // get previous month date
+          // get new focused month date
           const focusedMonth = new Date(
             displayDate.getFullYear(),
             prevState,
             1
           );
           focusedMonth.setMonth(focusedMonth.getMonth() - decrementedMonth);
-          return focusedMonth.getMonth();
+
+          // switch calendar view to previous year
+          if (
+            prevState - decrementedMonth < 0 &&
+            focusedMonth.getFullYear() >= 1900
+          ) {
+            const newDisplayDate = new Date(displayDate);
+            newDisplayDate.setDate(1);
+            newDisplayDate.setFullYear(newDisplayDate.getFullYear() - 1);
+            onChangeMonth(newDisplayDate);
+          }
+
+          if (focusedMonth.getFullYear() >= 1900) {
+            return focusedMonth.getMonth();
+          } else {
+            return prevState;
+          }
         });
       };
 
@@ -107,7 +118,7 @@ export const MonthView = React.forwardRef<HTMLDivElement, MonthViewProps>(
           handleMonthIncrement(1); // add 1 month
           break;
         case 'Tab':
-          handleTabPressCalendarBody(event);
+          handleTabPressOnCalendarBody(event);
           break;
         case 'Enter':
         case ' ':
