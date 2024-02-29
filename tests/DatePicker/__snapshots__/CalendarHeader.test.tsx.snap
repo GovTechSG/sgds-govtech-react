@@ -14,6 +14,7 @@ exports[`CalendarHeader should have default html structure 1`] = `
     </button>
     <button
       aria-live="polite"
+      id="id-grid-label"
     >
       March 2022
     </button>

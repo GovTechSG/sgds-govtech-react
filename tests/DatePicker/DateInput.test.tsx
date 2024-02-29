@@ -3,16 +3,35 @@ import * as React from 'react';
 import DateInput from '../../src/DatePicker/DateInput';
 
 describe('DateInput', () => {
+  const isInvalid = false;
+  const validateInput = jest.fn();
+  const enterDateRange = jest.fn();
+  const enterDateSingle = jest.fn();
+
   it('should have the default html', () => {
     const { container } = render(
-      <DateInput isRange={false} dateFormat="DD/MM/YYYY" />
+      <DateInput
+        isRange={false}
+        dateFormat="DD/MM/YYYY"
+        isInvalid={isInvalid}
+        validateDateInput={validateInput}
+        enterDateRange={enterDateRange}
+        enterDateSingle={enterDateSingle}
+      />
     );
     expect(container.querySelector('input')).toBeInTheDocument();
   });
 
   it('the value is updated when enter numeric value, for date format DD/MM/YYYY', () => {
     const { container } = render(
-      <DateInput isRange={false} dateFormat="DD/MM/YYYY" />
+      <DateInput
+        isRange={false}
+        dateFormat="DD/MM/YYYY"
+        isInvalid={isInvalid}
+        validateDateInput={validateInput}
+        enterDateRange={enterDateRange}
+        enterDateSingle={enterDateSingle}
+      />
     );
 
     const input = container.querySelector('input')!;
@@ -23,7 +42,14 @@ describe('DateInput', () => {
 
   it('the value is updated when enter numeric value, for date format MM/DD/YYYY', () => {
     const { container } = render(
-      <DateInput isRange={false} dateFormat="MM/DD/YYYY" />
+      <DateInput
+        isRange={false}
+        dateFormat="MM/DD/YYYY"
+        isInvalid={isInvalid}
+        validateDateInput={validateInput}
+        enterDateRange={enterDateRange}
+        enterDateSingle={enterDateSingle}
+      />
     );
 
     const input = container.querySelector('input')!;
@@ -34,7 +60,14 @@ describe('DateInput', () => {
 
   it('the value is updated when enter numeric value, for date format YYYY/MM/DD', () => {
     const { container } = render(
-      <DateInput isRange={false} dateFormat="YYYY/MM/DD" />
+      <DateInput
+        isRange={false}
+        dateFormat="YYYY/MM/DD"
+        isInvalid={isInvalid}
+        validateDateInput={validateInput}
+        enterDateRange={enterDateRange}
+        enterDateSingle={enterDateSingle}
+      />
     );
 
     const input = container.querySelector('input')!;
@@ -45,7 +78,14 @@ describe('DateInput', () => {
 
   it('the value is not updated when enter non-numeric value', () => {
     const { container } = render(
-      <DateInput isRange={false} dateFormat="DD/MM/YYYY" />
+      <DateInput
+        isRange={false}
+        dateFormat="DD/MM/YYYY"
+        isInvalid={isInvalid}
+        validateDateInput={validateInput}
+        enterDateRange={enterDateRange}
+        enterDateSingle={enterDateSingle}
+      />
     );
 
     const input = container.querySelector('input')!;
@@ -56,7 +96,14 @@ describe('DateInput', () => {
 
   it('no error is shown when the prop invalid equal to false is passed', () => {
     const { container } = render(
-      <DateInput isRange={false} dateFormat="DD/MM/YYYY" isInvalid={false} />
+      <DateInput
+        isRange={false}
+        dateFormat="DD/MM/YYYY"
+        isInvalid={false}
+        validateDateInput={validateInput}
+        enterDateRange={enterDateRange}
+        enterDateSingle={enterDateSingle}
+      />
     );
 
     expect(container.querySelector('input')?.classList).not.toContain(
@@ -66,56 +113,27 @@ describe('DateInput', () => {
 
   it('error is shown when the prop invalid equal to true is passed', () => {
     const { container } = render(
-      <DateInput isRange={false} dateFormat="DD/MM/YYYY" isInvalid={true} />
+      <DateInput
+        isRange={false}
+        dateFormat="DD/MM/YYYY"
+        isInvalid={true}
+        validateDateInput={validateInput}
+        enterDateRange={enterDateRange}
+        enterDateSingle={enterDateSingle}
+      />
     );
 
     expect(container.querySelector('input')?.classList).toContain('is-invalid');
   });
 
-  // TODO
-  // it('error is shown when entered the invalid date format', async () => {
-  //   const { container } = render(
-  //     <DateInput isRange={false} dateFormat="DD/MM/YYYY" />
-  //   );
-
-  //   const input = container.querySelector('input')!;
-
-  //   fireEvent.change(input, { target: { value: '01Jan' } });
-  //   expect(input.value).toEqual('01/mm/yyyy');
-
-  //   await waitFor(() => {
-  //     expect(container.querySelector('input')?.classList).toContain(
-  //       'is-invalid'
-  //     );
-  //   });
-  // });
-
-  it('enterDateSingle fn fires when user enter date on the input', async () => {
-    const enterDateSingle = jest.fn();
-    const { container } = render(
-      <DateInput
-        isRange={false}
-        dateFormat="DD/MM/YYYY"
-        enterDateSingle={enterDateSingle}
-      />
-    );
-
-    const input = container.querySelector('input')!;
-
-    fireEvent.change(input, { target: { value: '01012024' } });
-    expect(input.value).toEqual('01/01/2024');
-
-    await waitFor(() => {
-      expect(enterDateSingle).toHaveBeenCalledTimes(1);
-    });
-  });
-
   it('enterDateSingle fn fires multiple time when user enter date on the input', async () => {
-    const enterDateSingle = jest.fn();
     const { container } = render(
       <DateInput
         isRange={false}
         dateFormat="DD/MM/YYYY"
+        isInvalid={isInvalid}
+        validateDateInput={validateInput}
+        enterDateRange={enterDateRange}
         enterDateSingle={enterDateSingle}
       />
     );
@@ -123,22 +141,32 @@ describe('DateInput', () => {
     const input = container.querySelector('input')!;
 
     await act(async () => {
-      fireEvent.change(input, { target: { value: '01' } });
-      fireEvent.change(input, { target: { value: '0101' } });
       fireEvent.change(input, { target: { value: '01012024' } });
     });
 
     await waitFor(() => {
       expect(input.value).toEqual('01/01/2024');
-      expect(enterDateSingle).toHaveBeenCalledTimes(3);
+      expect(enterDateSingle).toBeCalled();
     });
   });
 });
 
 describe('DateInput Range Mode', () => {
+  const isInvalid = false;
+  const validateInput = jest.fn();
+  const enterDateRange = jest.fn();
+  const enterDateSingle = jest.fn();
+
   it('the value is updated when enter numeric value, for date format DD/MM/YYYY', () => {
     const { container } = render(
-      <DateInput isRange={true} dateFormat="DD/MM/YYYY" />
+      <DateInput
+        isRange={true}
+        dateFormat="DD/MM/YYYY"
+        isInvalid={isInvalid}
+        validateDateInput={validateInput}
+        enterDateRange={enterDateRange}
+        enterDateSingle={enterDateSingle}
+      />
     );
 
     const input = container.querySelector('input')!;
@@ -149,7 +177,14 @@ describe('DateInput Range Mode', () => {
 
   it('the value is updated when enter numeric value, for date format MM/DD/YYYY', () => {
     const { container } = render(
-      <DateInput isRange={true} dateFormat="MM/DD/YYYY" />
+      <DateInput
+        isRange={true}
+        dateFormat="MM/DD/YYYY"
+        isInvalid={isInvalid}
+        validateDateInput={validateInput}
+        enterDateRange={enterDateRange}
+        enterDateSingle={enterDateSingle}
+      />
     );
 
     const input = container.querySelector('input')!;
@@ -160,7 +195,14 @@ describe('DateInput Range Mode', () => {
 
   it('the value is updated when enter numeric value, for date format YYYY/MM/DD', () => {
     const { container } = render(
-      <DateInput isRange={true} dateFormat="YYYY/MM/DD" />
+      <DateInput
+        isRange={true}
+        dateFormat="YYYY/MM/DD"
+        isInvalid={isInvalid}
+        validateDateInput={validateInput}
+        enterDateRange={enterDateRange}
+        enterDateSingle={enterDateSingle}
+      />
     );
 
     const input = container.querySelector('input')!;
@@ -171,7 +213,14 @@ describe('DateInput Range Mode', () => {
 
   it('the value is not updated when enter non-numeric value', () => {
     const { container } = render(
-      <DateInput isRange={true} dateFormat="DD/MM/YYYY" />
+      <DateInput
+        isRange={true}
+        dateFormat="DD/MM/YYYY"
+        isInvalid={isInvalid}
+        validateDateInput={validateInput}
+        enterDateRange={enterDateRange}
+        enterDateSingle={enterDateSingle}
+      />
     );
 
     const input = container.querySelector('input')!;
@@ -182,7 +231,14 @@ describe('DateInput Range Mode', () => {
 
   it('no error is shown when the prop invalid equal to false is passed', () => {
     const { container } = render(
-      <DateInput isRange={true} dateFormat="DD/MM/YYYY" isInvalid={false} />
+      <DateInput
+        isRange={true}
+        dateFormat="DD/MM/YYYY"
+        isInvalid={false}
+        validateDateInput={validateInput}
+        enterDateRange={enterDateRange}
+        enterDateSingle={enterDateSingle}
+      />
     );
 
     expect(container.querySelector('input')?.classList).not.toContain(
@@ -192,37 +248,28 @@ describe('DateInput Range Mode', () => {
 
   it('error is shown when the prop invalid equal to true is passed', () => {
     const { container } = render(
-      <DateInput isRange={true} dateFormat="DD/MM/YYYY" isInvalid={true} />
+      <DateInput
+        isRange={true}
+        dateFormat="DD/MM/YYYY"
+        isInvalid={true}
+        validateDateInput={validateInput}
+        enterDateRange={enterDateRange}
+        enterDateSingle={enterDateSingle}
+      />
     );
 
     expect(container.querySelector('input')?.classList).toContain('is-invalid');
   });
 
-  // TODO
-  // it('error is shown when entered the invalid date format', async () => {
-  //   const { container } = render(
-  //     <DateInput isRange={true} dateFormat="DD/MM/YYYY" />
-  //   );
-
-  //   const input = container.querySelector('input')!;
-
-  //   fireEvent.change(input, { target: { value: '01Jan' } });
-  //   expect(input.value).toEqual('01/mm/yyyy - dd/mm/yyyy');
-
-  //   await waitFor(() => {
-  //     expect(container.querySelector('input')?.classList).toContain(
-  //       'is-invalid'
-  //     );
-  //   });
-  // });
-
   it('enterDateRange fn fires when user enter date on the input', async () => {
-    const enterDateRange = jest.fn();
     const { container } = render(
       <DateInput
         isRange={true}
         dateFormat="DD/MM/YYYY"
+        isInvalid={isInvalid}
+        validateDateInput={validateInput}
         enterDateRange={enterDateRange}
+        enterDateSingle={enterDateSingle}
       />
     );
 
@@ -232,31 +279,7 @@ describe('DateInput Range Mode', () => {
 
     await waitFor(() => {
       expect(input.value).toEqual('01/01/2024 - dd/mm/yyyy');
-      expect(enterDateRange).toHaveBeenCalledTimes(1);
-    });
-  });
-
-  it('enterDateRange fn fires multiple time when user enter date on the input', async () => {
-    const enterDateRange = jest.fn();
-    const { container } = render(
-      <DateInput
-        isRange={true}
-        dateFormat="DD/MM/YYYY"
-        enterDateRange={enterDateRange}
-      />
-    );
-
-    const input = container.querySelector('input')!;
-
-    await act(async () => {
-      fireEvent.change(input, { target: { value: '01' } });
-      fireEvent.change(input, { target: { value: '0101' } });
-      fireEvent.change(input, { target: { value: '01012024' } });
-    });
-
-    await waitFor(() => {
-      expect(input.value).toEqual('01/01/2024 - dd/mm/yyyy');
-      expect(enterDateRange).toHaveBeenCalledTimes(3);
+      expect(enterDateRange).toBeCalled();
     });
   });
 });

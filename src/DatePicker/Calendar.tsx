@@ -10,9 +10,11 @@ interface CalendarProps extends React.HTMLAttributes<HTMLTableElement> {
   changeDate: (date: Date) => void;
   mode: 'single' | 'range';
   show: boolean;
-  dayRefs: React.MutableRefObject<(HTMLTableCellElement | null)[]>;
+  dayRefs: React.RefObject<(HTMLTableCellElement | null)[]>;
   onChangeMonth: (date: Date) => void;
-  handleTabPressCalendarBody: (event: React.KeyboardEvent<HTMLElement>) => void;
+  handleTabPressOnCalendarBody: (
+    event: React.KeyboardEvent<HTMLElement>
+  ) => void;
 }
 
 export const DAY_LABELS = [
@@ -149,7 +151,7 @@ export const Calendar = React.forwardRef<HTMLTableElement, CalendarProps>(
           const beforeMinDate =
             minimumDate &&
             Date.parse(dateString) < Date.parse(minimumDate.toISOString());
-          const afterMinDate =
+          const afterMaxDate =
             maximumDate &&
             Date.parse(dateString) > Date.parse(maximumDate.toISOString());
 
@@ -164,7 +166,7 @@ export const Calendar = React.forwardRef<HTMLTableElement, CalendarProps>(
             // if date is the current Date
             className = 'text-primary';
           }
-          if (beforeMinDate || afterMinDate) {
+          if (beforeMinDate || afterMaxDate) {
             className = 'text-muted';
             clickHandler = undefined;
             style.cursor = 'default';
@@ -207,7 +209,11 @@ export const Calendar = React.forwardRef<HTMLTableElement, CalendarProps>(
               style={style}
               className={className}
               tabIndex={-1}
-              ref={(el) => (props.dayRefs.current[dayIndex] = el)}
+              ref={(el) =>
+                props.dayRefs.current
+                  ? (props.dayRefs.current[dayIndex] = el)
+                  : undefined
+              }
             >
               {day}
             </td>
@@ -230,6 +236,14 @@ export const Calendar = React.forwardRef<HTMLTableElement, CalendarProps>(
       const handleDateIncrement = (incrementedDay: number) => {
         const totalDaysInMonth = getTotalDaysInMonth(props.displayDate);
         setFocusedDateIndex((prevState) => {
+          // get new focused date
+          const focusedDate = new Date(
+            props.displayDate.getFullYear(),
+            props.displayDate.getMonth(),
+            prevState
+          );
+          focusedDate.setDate(focusedDate.getDate() + incrementedDay);
+
           // switch calendar view to next month
           if (prevState + incrementedDay > totalDaysInMonth) {
             const newDisplayDate = new Date(props.displayDate);
@@ -238,35 +252,36 @@ export const Calendar = React.forwardRef<HTMLTableElement, CalendarProps>(
             props.onChangeMonth(newDisplayDate);
           }
 
-          // get next month date
-          const focusedDate = new Date(
-            props.displayDate.getFullYear(),
-            props.displayDate.getMonth(),
-            prevState
-          );
-          focusedDate.setDate(focusedDate.getDate() + incrementedDay);
           return focusedDate.getDate();
         });
       };
 
       const handleDateDecrement = (decrementedDay: number) => {
         setFocusedDateIndex((prevState) => {
-          // switch calendar view to previous month
-          if (prevState - decrementedDay <= 0) {
-            const newDisplayDate = new Date(props.displayDate);
-            newDisplayDate.setDate(1);
-            newDisplayDate.setMonth(newDisplayDate.getMonth() - 1);
-            props.onChangeMonth(newDisplayDate);
-          }
-
-          // get previous month date
+          // get new focused date
           const focusedDate = new Date(
             props.displayDate.getFullYear(),
             props.displayDate.getMonth(),
             prevState
           );
           focusedDate.setDate(focusedDate.getDate() - decrementedDay);
-          return focusedDate.getDate();
+
+          // switch calendar view to previous month
+          if (
+            prevState - decrementedDay <= 0 &&
+            focusedDate.getFullYear() >= 1900
+          ) {
+            const newDisplayDate = new Date(props.displayDate);
+            newDisplayDate.setDate(1);
+            newDisplayDate.setMonth(newDisplayDate.getMonth() - 1);
+            props.onChangeMonth(newDisplayDate);
+          }
+
+          if (focusedDate.getFullYear() >= 1900) {
+            return focusedDate.getDate();
+          } else {
+            return prevState;
+          }
         });
       };
 
@@ -284,7 +299,7 @@ export const Calendar = React.forwardRef<HTMLTableElement, CalendarProps>(
           handleDateIncrement(1); // add 1 day
           break;
         case 'Tab':
-          props.handleTabPressCalendarBody(event);
+          props.handleTabPressOnCalendarBody(event);
           break;
         case 'Enter':
         case ' ':
@@ -292,6 +307,11 @@ export const Calendar = React.forwardRef<HTMLTableElement, CalendarProps>(
           const displayDateClone = new Date(props.displayDate);
           const newSelectedDate = setTimeToNoon(displayDateClone);
           newSelectedDate.setDate(parseInt(day));
+          const beforeMinDate = minimumDate && newSelectedDate < minimumDate;
+          const afterMaxDate = maximumDate && newSelectedDate > maximumDate;
+          if (beforeMinDate || afterMaxDate) {
+            return;
+          }
           props.changeDate(newSelectedDate); // update the new selected date
           setYearPositionIndex(focusedYearIndex);
           break;
@@ -301,7 +321,7 @@ export const Calendar = React.forwardRef<HTMLTableElement, CalendarProps>(
     };
 
     React.useEffect(() => {
-      if (props.show) {
+      if (props.show && props.dayRefs.current) {
         const focusedElement = props.dayRefs.current[focusedDateIndex];
 
         if (focusedElement) {
