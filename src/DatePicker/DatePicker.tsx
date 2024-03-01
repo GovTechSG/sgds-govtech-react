@@ -53,11 +53,8 @@ export interface DatePickerProps {
   onClear?: Function;
   /** The onError handler for DatePicker */
   onError?: Function;
-  /**
-   * Optional error message to display when the entered date is invalid.
-   * This message can provide feedback to users when they input an invalid date format or value.
-   */
-  errorMessage?: string;
+  /** Feedback text for error state when date input is invalid */
+  invalidFeedback?: string;
   /** Disables the Form Control and Button of Datepicker */
   disabled?: boolean;
   /** Overlay placement for the popover calendar */
@@ -92,7 +89,7 @@ const propTypes = {
   onBlur: PropTypes.func,
   onFocus: PropTypes.func,
   autoFocus: PropTypes.bool,
-  errorMessage: PropTypes.string,
+  invalidFeedback: PropTypes.string,
   disabled: PropTypes.bool,
   calendarPlacement: PropTypes.oneOf(['up', 'down']),
   /**
@@ -190,6 +187,7 @@ const defaultProps: Partial<DatePickerProps> = {
   mode: 'single',
   displayDate: new Date(),
   flip: true,
+  invalidFeedback: 'Please enter a valid date',
 };
 
 export const DatePicker: BsPrefixRefForwardingComponent<
@@ -590,6 +588,8 @@ export const DatePicker: BsPrefixRefForwardingComponent<
       if (
         isValidDate(start, dateFormat) &&
         isValidDate(end, dateFormat) &&
+        dateStart.getFullYear() >= 1900 &&
+        dateEnd.getFullYear() >= 1900 &&
         dateStartAfterMinDate &&
         dateStartBeforeMaxDate &&
         dateEndAfterMinDate &&
@@ -620,6 +620,7 @@ export const DatePicker: BsPrefixRefForwardingComponent<
 
       if (
         isValidDate(start, dateFormat) &&
+        dateStart.getFullYear() >= 1900 &&
         dateStartAfterMinDate &&
         dateStartBeforeMaxDate
       ) {
@@ -688,6 +689,22 @@ export const DatePicker: BsPrefixRefForwardingComponent<
           return;
         }
 
+        if (
+          isValidDate(start, dateFormat) &&
+          dayjs(start, dateFormat).toDate().getFullYear() < 1900
+        ) {
+          showError();
+          return;
+        }
+
+        if (
+          isValidDate(end, dateFormat) &&
+          dayjs(end, dateFormat).toDate().getFullYear() < 1900
+        ) {
+          showError();
+          return;
+        }
+
         if (isValidDate(start, dateFormat) && dateStartBeforeMinDate) {
           showError();
           return;
@@ -698,12 +715,12 @@ export const DatePicker: BsPrefixRefForwardingComponent<
           return;
         }
 
-        if (isValidDate(start, dateFormat) && dateEndBeforeMinDate) {
+        if (isValidDate(end, dateFormat) && dateEndBeforeMinDate) {
           showError();
           return;
         }
 
-        if (isValidDate(start, dateFormat) && dateEndAfterMaxDate) {
+        if (isValidDate(end, dateFormat) && dateEndAfterMaxDate) {
           showError();
           return;
         }
@@ -863,9 +880,7 @@ export const DatePicker: BsPrefixRefForwardingComponent<
             <span className="visually-hidden">clear</span>
           </Button>
           <FormControl.Feedback type="invalid">
-            {props.errorMessage
-              ? props.errorMessage
-              : 'Please enter a valid date'}
+            {props.invalidFeedback}
           </FormControl.Feedback>
           <Dropdown.Menu
             id={datepickerMenuId}
