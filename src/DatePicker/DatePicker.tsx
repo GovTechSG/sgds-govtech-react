@@ -620,6 +620,7 @@ export const DatePicker: BsPrefixRefForwardingComponent<
 
       if (
         isValidDate(start, dateFormat) &&
+        dateStart.getFullYear() >= 1900 &&
         dateStartAfterMinDate &&
         dateStartBeforeMaxDate
       ) {
@@ -714,12 +715,12 @@ export const DatePicker: BsPrefixRefForwardingComponent<
           return;
         }
 
-        if (isValidDate(start, dateFormat) && dateEndBeforeMinDate) {
+        if (isValidDate(end, dateFormat) && dateEndBeforeMinDate) {
           showError();
           return;
         }
 
-        if (isValidDate(start, dateFormat) && dateEndAfterMaxDate) {
+        if (isValidDate(end, dateFormat) && dateEndAfterMaxDate) {
           showError();
           return;
         }
