@@ -588,6 +588,8 @@ export const DatePicker: BsPrefixRefForwardingComponent<
       if (
         isValidDate(start, dateFormat) &&
         isValidDate(end, dateFormat) &&
+        dateStart.getFullYear() >= 1900 &&
+        dateEnd.getFullYear() >= 1900 &&
         dateStartAfterMinDate &&
         dateStartBeforeMaxDate &&
         dateEndAfterMinDate &&
@@ -681,6 +683,22 @@ export const DatePicker: BsPrefixRefForwardingComponent<
         if (
           start !== dateFormat.toLowerCase() &&
           (!isValidDate(start, dateFormat) || !isValidDate(end, dateFormat))
+        ) {
+          showError();
+          return;
+        }
+
+        if (
+          isValidDate(start, dateFormat) &&
+          dayjs(start, dateFormat).toDate().getFullYear() < 1900
+        ) {
+          showError();
+          return;
+        }
+
+        if (
+          isValidDate(end, dateFormat) &&
+          dayjs(end, dateFormat).toDate().getFullYear() < 1900
         ) {
           showError();
           return;
