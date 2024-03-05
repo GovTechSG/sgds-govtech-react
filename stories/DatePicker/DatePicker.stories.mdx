@@ -1,5 +1,5 @@
 import { ArgsTable, Canvas, Meta, Story } from '@storybook/addon-docs';
-import { DatePicker, Row, Col } from '../../src/index';
+import { DatePicker, Form, Row, Col } from '../../src/index';
 import { useState, useRef } from 'react';
 import { argTypes } from './argTypes';
 
@@ -21,6 +21,24 @@ export const DatePickerTemplate = (args) => {
   const minDate = new Date(2020, 10, 11, 12, 0, 0, 0).toISOString();
   const maxDate = new Date(2020, 10, 13, 12, 0, 0, 0).toISOString();
   return <DatePicker {...args} />;
+};
+
+export const DatePickerTemplateWithText = (args) => {
+  const [date, setDate] = useState(new Date('2020-01-01'));
+  const ref = React.createRef();
+  const handleChange = (value) => {
+    setDate(value);
+  };
+  const minDate = new Date('2024-01-01').toISOString();
+  const maxDate = new Date('2024-01-31').toISOString();
+  return (
+    <>
+      <Form.Text className="text-muted" id="minAndMaxDate">
+        The minimum date is 1 January 2024 and maximum date is 31 January 2024
+      </Form.Text>
+      <DatePicker {...args} />
+    </>
+  );
 };
 
 # DatePicker
@@ -130,6 +148,45 @@ import {
   height="500px"
 >
   {DatePickerTemplate.bind({})}
+</Story>
+
+## Min and max date
+
+When `minDate` is set, users can only select the specified date and dates beyond it. When `maxDate` is set. users can only select the specified date and dates before it. To pass in as ISOString format. eg. `minDate="2024-01-01T12:00:00.000Z" maxDate="2024-01-31T12:00:00.000Z"`
+It is recommended to set the calendar's display to be within the boundaries of `minDate` and `maxDate`. Use `displayDate` prop to control the calendar's display
+
+For better accesibility, include a hint text to let your users know what is the range of dates that they can choose from
+
+```jsx
+import { DatePicker } from '@govtechsg/sgds-react/DatePicker';
+import { Form } from '@govtechsg/sgds-react/Form';
+
+minDate: string;
+maxDate: string;
+displayDate: Date;
+
+<>
+  <Form.Text className="text-muted" id="minAndMaxDate">
+    The minimum date is 1 January 2024 and maximum date is 31 January 2024
+  </Form.Text>
+  <DatePicker
+    minDate={new Date('2024-01-01').toISOString()}
+    maxDate={new Date('2024-01-31').toISOString()}
+    displayDate={new Date('2024-01-01')}
+  />
+</>;
+```
+
+<Story
+  name="Min and Max Date"
+  args={{
+    minDate: new Date('2024-01-01').toISOString(),
+    maxDate: new Date('2024-01-31').toISOString(),
+    displayDate: new Date('2024-01-01'),
+  }}
+  height="500px"
+>
+  {DatePickerTemplateWithText.bind({})}
 </Story>
 
 ## Callback Functions

@@ -2,7 +2,6 @@ import useMergedRefs from '@restart/hooks/useMergedRefs';
 import { useDropdownToggle } from '@restart/ui/DropdownToggle';
 import classNames from 'classnames';
 import InputMask from 'react-input-mask';
-import PropTypes from 'prop-types';
 import * as React from 'react';
 import FormControl, { FormControlProps } from '../Form/FormControl';
 import { BsPrefixRefForwardingComponent } from '../utils/helpers';
@@ -14,26 +13,17 @@ export interface DateInputProps extends Omit<FormControlProps, 'type'> {
   required?: boolean | undefined;
   isRange: boolean;
   inputDate?: string;
-  isInvalid?: boolean;
+  isInvalid: boolean;
   dateFormat: DateFormat;
-  enterDateRange?: (event: React.ChangeEvent<HTMLInputElement>) => void;
-  enterDateSingle?: (event: React.ChangeEvent<HTMLInputElement>) => void;
+  validateDateInput: () => void;
+  enterDateRange: (event: React.ChangeEvent<HTMLInputElement>) => void;
+  enterDateSingle: (event: React.ChangeEvent<HTMLInputElement>) => void;
 }
 
 type DateInputPropsComponent = BsPrefixRefForwardingComponent<
   'input',
   DateInputProps
 >;
-
-const propTypes = {
-  /**
-   * An html id attribute, necessary for assistive technologies, such as screen readers.
-   * @type {string|number}
-   */
-  id: PropTypes.string,
-
-  as: PropTypes.elementType,
-};
 
 export const getMaskedDateFormat = (
   isRange: boolean,
@@ -48,7 +38,7 @@ export const getMaskedDateFormat = (
   return maskedDateFormat;
 };
 
-const DateInput: DateInputPropsComponent = React.forwardRef(
+export const DateInput: DateInputPropsComponent = React.forwardRef(
   (
     {
       className,
@@ -62,6 +52,7 @@ const DateInput: DateInputPropsComponent = React.forwardRef(
       inputDate,
       isInvalid,
       dateFormat,
+      validateDateInput,
       enterDateRange,
       enterDateSingle,
       ...props
@@ -102,6 +93,7 @@ const DateInput: DateInputPropsComponent = React.forwardRef(
         maskPlaceholder={defaultPlaceHolder}
         aria-label="Enter Date"
         onChange={isRange ? enterDateRange : enterDateSingle}
+        onBlurCapture={validateDateInput}
       >
         <Component
           className={classNames(className)}
@@ -112,8 +104,5 @@ const DateInput: DateInputPropsComponent = React.forwardRef(
     );
   }
 );
-
-DateInput.displayName = 'DateInput';
-DateInput.propTypes = propTypes;
 
 export default DateInput;

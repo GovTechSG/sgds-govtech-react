@@ -2,6 +2,7 @@ import * as React from 'react';
 import { fireEvent, render, waitFor } from '@testing-library/react';
 import {
   DatePicker,
+  getTotalDaysInMonth,
   makeInputValueString,
 } from '../../src/DatePicker/DatePicker';
 import { MONTH_LABELS } from '../../src/DatePicker/CalendarHeader';
@@ -65,14 +66,14 @@ describe('DatePicker', () => {
 
     fireEvent.click(container.querySelector('button.dropdown-toggle')!);
     await waitFor(() =>
-      expect(getByText(day).classList).toContain('bg-primary-100')
+      expect(getByText(day).classList).toContain('bg-primary-600')
     );
 
     //click on 1st in calendar
     fireEvent.click(getByText('1'));
     const newDate = new Date(initialValue.setDate(1));
     await waitFor(() => {
-      expect(getByText(1).classList).toContain('bg-primary-100');
+      expect(getByText(1).classList).toContain('bg-primary-600');
       expect(container.querySelector('input')?.value).toEqual(
         makeInputValueString(newDate, 'DD/MM/YYYY')
       );
@@ -135,7 +136,7 @@ describe('DatePicker', () => {
     rerender(<DatePicker className="foo" />);
     expect(container.querySelector('input')?.classList).toContain('foo');
   });
-  it('when placeholder pass, should forward the placeholder attr  to input', () => {
+  it('when placeholder pass, should forward the placeholder attr to input', () => {
     const { container, rerender } = render(<DatePicker />);
 
     expect(container.querySelector('input')).toHaveAttribute(
@@ -279,6 +280,1604 @@ describe('DatePicker', () => {
       );
     });
   });
+
+  it('presses ArrowDown key to go to the next 7 days', async () => {
+    const displayDate = new Date();
+    const { container, getByText } = render(<DatePicker />);
+
+    fireEvent.click(container.querySelector('button.dropdown-toggle')!);
+    await waitFor(() =>
+      expect(container.querySelector('.dropdown-menu.show')).toBeInTheDocument()
+    );
+
+    fireEvent.keyDown(container.querySelector('td.text-primary')!, {
+      key: 'ArrowDown',
+      code: 'ArrowDown',
+      keyCode: 40,
+    });
+    await waitFor(() => {
+      const nextWeekDate = new Date(displayDate);
+      nextWeekDate.setDate(nextWeekDate.getDate() + 7);
+      expect(getByText(nextWeekDate.getDate())).toHaveFocus();
+    });
+  });
+
+  it('presses ArrowUp key to go to the previous 7 days', async () => {
+    const displayDate = new Date();
+    const { container, getByText } = render(<DatePicker />);
+
+    fireEvent.click(container.querySelector('button.dropdown-toggle')!);
+    await waitFor(() =>
+      expect(container.querySelector('.dropdown-menu.show')).toBeInTheDocument()
+    );
+
+    fireEvent.keyDown(container.querySelector('td.text-primary')!, {
+      key: 'ArrowUp',
+      code: 'ArrowUp',
+      keyCode: 38,
+    });
+    await waitFor(() => {
+      const previousWeekDate = new Date(displayDate);
+      previousWeekDate.setDate(previousWeekDate.getDate() - 7);
+      expect(getByText(previousWeekDate.getDate())).toHaveFocus();
+    });
+  });
+
+  it('presses ArrowLeft key to go to the previous day', async () => {
+    const displayDate = new Date();
+    const { container, getByText } = render(<DatePicker />);
+
+    fireEvent.click(container.querySelector('button.dropdown-toggle')!);
+    await waitFor(() =>
+      expect(container.querySelector('.dropdown-menu.show')).toBeInTheDocument()
+    );
+
+    fireEvent.keyDown(container.querySelector('td.text-primary')!, {
+      key: 'ArrowLeft',
+      code: 'ArrowLeft',
+      keyCode: 37,
+    });
+    await waitFor(() => {
+      const previousDayDate = new Date(displayDate);
+      previousDayDate.setDate(previousDayDate.getDate() - 1);
+      expect(getByText(previousDayDate.getDate())).toHaveFocus();
+    });
+  });
+
+  it('presses ArrowRight key to go to the next day', async () => {
+    const displayDate = new Date();
+    const { container, getByText } = render(<DatePicker />);
+
+    fireEvent.click(container.querySelector('button.dropdown-toggle')!);
+    await waitFor(() =>
+      expect(container.querySelector('.dropdown-menu.show')).toBeInTheDocument()
+    );
+
+    fireEvent.keyDown(container.querySelector('td.text-primary')!, {
+      key: 'ArrowRight',
+      code: 'ArrowRight',
+      keyCode: 39,
+    });
+    await waitFor(() => {
+      const nextDayDate = new Date(displayDate);
+      nextDayDate.setDate(nextDayDate.getDate() + 1);
+      expect(getByText(nextDayDate.getDate())).toHaveFocus();
+    });
+  });
+
+  it('presses ArrowLeft key on the first day of the month to go to the last day of the previous month', async () => {
+    const displayDate = new Date('2024-01-01');
+    const newDate = new Date('2024-01-31');
+    newDate.setMonth(newDate.getMonth() - 1);
+    const newDisplayMonth = newDate.toLocaleString('default', {
+      month: 'long',
+    });
+    const newDisplayYear = newDate.getFullYear();
+    const { container, getByText } = render(
+      <DatePicker displayDate={displayDate} />
+    );
+
+    fireEvent.click(container.querySelector('button.dropdown-toggle')!);
+    await waitFor(() =>
+      expect(container.querySelector('.dropdown-menu.show')).toBeInTheDocument()
+    );
+
+    fireEvent.keyDown(getByText(displayDate.getDate()), {
+      key: 'ArrowLeft',
+      code: 'ArrowLeft',
+      keyCode: 37,
+    });
+    await waitFor(() => {
+      const previousDayDate = new Date(displayDate);
+      previousDayDate.setDate(previousDayDate.getDate() - 1);
+      expect(getByText(previousDayDate.getDate())).toHaveFocus();
+      expect(
+        getByText(`${newDisplayMonth} ${newDisplayYear}`)
+      ).toBeInTheDocument();
+    });
+  });
+
+  it('presses ArrowRight key on the last day of the month to go to the first day of the next month', async () => {
+    const displayDate = new Date('2024-01-31');
+    const newDate = new Date('2024-01-31');
+    newDate.setDate(newDate.getDate() + 1);
+    const newDisplayMonth = newDate.toLocaleString('default', {
+      month: 'long',
+    });
+    const newDisplayYear = newDate.getFullYear();
+    const { container, getByText } = render(
+      <DatePicker displayDate={displayDate} />
+    );
+
+    fireEvent.click(container.querySelector('button.dropdown-toggle')!);
+    await waitFor(() =>
+      expect(container.querySelector('.dropdown-menu.show')).toBeInTheDocument()
+    );
+
+    fireEvent.keyDown(getByText(displayDate.getDate()), {
+      key: 'ArrowRight',
+      code: 'ArrowRight',
+      keyCode: 39,
+    });
+    await waitFor(() => {
+      const nextDayDate = new Date(displayDate);
+      nextDayDate.setDate(nextDayDate.getDate() + 1);
+      expect(getByText(nextDayDate.getDate())).toHaveFocus();
+      expect(
+        getByText(`${newDisplayMonth} ${newDisplayYear}`)
+      ).toBeInTheDocument();
+    });
+  });
+
+  it('presses Enter key to select the current date', async () => {
+    const displayDate = new Date('2024-01-01');
+    const { container, getByText } = render(
+      <DatePicker displayDate={displayDate} />
+    );
+
+    fireEvent.click(container.querySelector('button.dropdown-toggle')!);
+    await waitFor(() =>
+      expect(container.querySelector('.dropdown-menu.show')).toBeInTheDocument()
+    );
+
+    fireEvent.keyDown(getByText(displayDate.getDate()), {
+      key: 'Enter',
+      code: 'Enter',
+      keyCode: 13,
+    });
+    await waitFor(() => {
+      expect(container.querySelector('input')?.value).toEqual('01/01/2024');
+      expect(
+        container.querySelector('.dropdown-menu.show')
+      ).not.toBeInTheDocument();
+    });
+  });
+
+  it('presses Space key to select the current date', async () => {
+    const displayDate = new Date('2024-01-01');
+    const { container, getByText } = render(
+      <DatePicker displayDate={displayDate} />
+    );
+
+    fireEvent.click(container.querySelector('button.dropdown-toggle')!);
+    await waitFor(() =>
+      expect(container.querySelector('.dropdown-menu.show')).toBeInTheDocument()
+    );
+
+    fireEvent.keyDown(getByText(displayDate.getDate()), {
+      key: ' ',
+      code: 'Space',
+      keyCode: 32,
+    });
+    await waitFor(() => {
+      expect(container.querySelector('input')?.value).toEqual('01/01/2024');
+      expect(
+        container.querySelector('.dropdown-menu.show')
+      ).not.toBeInTheDocument();
+    });
+  });
+
+  it('presses Enter key to select the current date, then reselect the next day with ArrowRight and Enter key', async () => {
+    const displayDate = new Date('2024-01-01');
+    const { container, getByText } = render(
+      <DatePicker displayDate={displayDate} />
+    );
+
+    fireEvent.click(container.querySelector('button.dropdown-toggle')!);
+    await waitFor(() =>
+      expect(container.querySelector('.dropdown-menu.show')).toBeInTheDocument()
+    );
+
+    fireEvent.keyDown(getByText(displayDate.getDate()), {
+      key: 'Enter',
+      code: 'Enter',
+      keyCode: 13,
+    });
+    await waitFor(() => {
+      expect(container.querySelector('input')?.value).toEqual('01/01/2024');
+      expect(
+        container.querySelector('.dropdown-menu.show')
+      ).not.toBeInTheDocument();
+    });
+
+    fireEvent.click(container.querySelector('button.dropdown-toggle')!);
+    await waitFor(() =>
+      expect(container.querySelector('.dropdown-menu.show')).toBeInTheDocument()
+    );
+
+    fireEvent.keyDown(getByText(displayDate.getDate()), {
+      key: 'ArrowRight',
+      code: 'ArrowRight',
+      keyCode: 39,
+    });
+    await waitFor(() => {
+      const nextDayDate = new Date(displayDate);
+      nextDayDate.setDate(nextDayDate.getDate() + 1);
+      expect(getByText(nextDayDate.getDate())).toHaveFocus();
+    });
+
+    fireEvent.keyDown(getByText(displayDate.getDate()), {
+      key: 'Enter',
+      code: 'Enter',
+      keyCode: 13,
+    });
+    await waitFor(() => {
+      expect(container.querySelector('input')?.value).toEqual('02/01/2024');
+      expect(
+        container.querySelector('.dropdown-menu.show')
+      ).not.toBeInTheDocument();
+    });
+  });
+
+  it('presses Space key to select the current date, then reselect the next day with ArrowRight and Space key', async () => {
+    const displayDate = new Date('2024-01-01');
+    const { container, getByText } = render(
+      <DatePicker displayDate={displayDate} />
+    );
+
+    fireEvent.click(container.querySelector('button.dropdown-toggle')!);
+    await waitFor(() =>
+      expect(container.querySelector('.dropdown-menu.show')).toBeInTheDocument()
+    );
+
+    fireEvent.keyDown(getByText(displayDate.getDate()), {
+      key: ' ',
+      code: 'Space',
+      keyCode: 32,
+    });
+    await waitFor(() => {
+      expect(container.querySelector('input')?.value).toEqual('01/01/2024');
+      expect(
+        container.querySelector('.dropdown-menu.show')
+      ).not.toBeInTheDocument();
+    });
+
+    fireEvent.click(container.querySelector('button.dropdown-toggle')!);
+    await waitFor(() =>
+      expect(container.querySelector('.dropdown-menu.show')).toBeInTheDocument()
+    );
+
+    fireEvent.keyDown(getByText(displayDate.getDate()), {
+      key: 'ArrowRight',
+      code: 'ArrowRight',
+      keyCode: 39,
+    });
+    await waitFor(() => {
+      const nextDayDate = new Date(displayDate);
+      nextDayDate.setDate(nextDayDate.getDate() + 1);
+      expect(getByText(nextDayDate.getDate())).toHaveFocus();
+    });
+
+    fireEvent.keyDown(getByText(displayDate.getDate()), {
+      key: ' ',
+      code: 'Space',
+      keyCode: 32,
+    });
+    await waitFor(() => {
+      expect(container.querySelector('input')?.value).toEqual('02/01/2024');
+      expect(
+        container.querySelector('.dropdown-menu.show')
+      ).not.toBeInTheDocument();
+    });
+  });
+
+  it('presses Tab key to set focus element from display calendar date to previous calendar view button', async () => {
+    const displayDate = new Date();
+    const { container, getByLabelText, getByText } = render(<DatePicker />);
+
+    fireEvent.click(container.querySelector('button.dropdown-toggle')!);
+    await waitFor(() =>
+      expect(container.querySelector('.dropdown-menu.show')).toBeInTheDocument()
+    );
+
+    fireEvent.keyDown(getByText(displayDate.getDate()), {
+      key: 'Tab',
+      code: 'Tab',
+      keyCode: 9,
+    });
+    await waitFor(() => {
+      expect(getByLabelText('previous day')).toHaveFocus();
+    });
+  });
+
+  it('presses Tab key to set focus element from previous calendar view button to centre header button', async () => {
+    const displayDate = new Date('2024-01-01');
+    const displayMonth = displayDate.toLocaleString('default', {
+      month: 'long',
+    });
+    const displayYear = displayDate.getFullYear();
+    const { container, getByLabelText, getByText } = render(
+      <DatePicker displayDate={displayDate} />
+    );
+
+    fireEvent.click(container.querySelector('button.dropdown-toggle')!);
+    await waitFor(() =>
+      expect(container.querySelector('.dropdown-menu.show')).toBeInTheDocument()
+    );
+
+    fireEvent.keyDown(getByLabelText('previous day'), {
+      key: 'Tab',
+      code: 'Tab',
+      keyCode: 9,
+    });
+    await waitFor(() => {
+      expect(getByText(`${displayMonth} ${displayYear}`)).toHaveFocus();
+    });
+  });
+
+  it('presses Tab key to set focus element from previous centre header button to next calendar view button', async () => {
+    const displayDate = new Date('2024-01-01');
+    const displayMonth = displayDate.toLocaleString('default', {
+      month: 'long',
+    });
+    const displayYear = displayDate.getFullYear();
+    const { container, getByLabelText, getByText } = render(
+      <DatePicker displayDate={displayDate} />
+    );
+
+    fireEvent.click(container.querySelector('button.dropdown-toggle')!);
+    await waitFor(() =>
+      expect(container.querySelector('.dropdown-menu.show')).toBeInTheDocument()
+    );
+
+    fireEvent.keyDown(getByText(`${displayMonth} ${displayYear}`), {
+      key: 'Tab',
+      code: 'Tab',
+      keyCode: 9,
+    });
+    await waitFor(() => {
+      expect(getByLabelText('next day')).toHaveFocus();
+    });
+  });
+
+  it('presses Tab key to set focus element from next calendar view button to display calendar date', async () => {
+    const displayDate = new Date('2024-01-01');
+    const { container, getByLabelText, getByText } = render(
+      <DatePicker displayDate={displayDate} />
+    );
+
+    fireEvent.click(container.querySelector('button.dropdown-toggle')!);
+    await waitFor(() =>
+      expect(container.querySelector('.dropdown-menu.show')).toBeInTheDocument()
+    );
+
+    fireEvent.keyDown(getByLabelText('next day'), {
+      key: 'Tab',
+      code: 'Tab',
+      keyCode: 9,
+    });
+    await waitFor(() => {
+      expect(getByText(displayDate.getDate())).toHaveFocus();
+    });
+  });
+
+  it('presses Shift + Tab key to set focus element from display calendar date to next calendar view button', async () => {
+    const displayDate = new Date();
+    const { container, getByLabelText, getByText } = render(<DatePicker />);
+
+    fireEvent.click(container.querySelector('button.dropdown-toggle')!);
+    await waitFor(() =>
+      expect(container.querySelector('.dropdown-menu.show')).toBeInTheDocument()
+    );
+
+    fireEvent.keyDown(getByText(displayDate.getDate()), {
+      key: 'Tab',
+      code: 'Tab',
+      keyCode: 9,
+      shiftKey: true,
+    });
+    await waitFor(() => {
+      expect(getByLabelText('next day')).toHaveFocus();
+    });
+  });
+
+  it('presses Shift + Tab key to set focus element from next calendar view button to centre header button', async () => {
+    const displayDate = new Date('2024-01-01');
+    const displayMonth = displayDate.toLocaleString('default', {
+      month: 'long',
+    });
+    const displayYear = displayDate.getFullYear();
+    const { container, getByLabelText, getByText } = render(
+      <DatePicker displayDate={displayDate} />
+    );
+
+    fireEvent.click(container.querySelector('button.dropdown-toggle')!);
+    await waitFor(() =>
+      expect(container.querySelector('.dropdown-menu.show')).toBeInTheDocument()
+    );
+
+    fireEvent.keyDown(getByLabelText('next day'), {
+      key: 'Tab',
+      code: 'Tab',
+      keyCode: 9,
+      shiftKey: true,
+    });
+    await waitFor(() => {
+      expect(getByText(`${displayMonth} ${displayYear}`)).toHaveFocus();
+    });
+  });
+
+  it('presses Shift + Tab key to set focus element from previous centre header button to previous calendar view button', async () => {
+    const displayDate = new Date('2024-01-01');
+    const displayMonth = displayDate.toLocaleString('default', {
+      month: 'long',
+    });
+    const displayYear = displayDate.getFullYear();
+    const { container, getByLabelText, getByText } = render(
+      <DatePicker displayDate={displayDate} />
+    );
+
+    fireEvent.click(container.querySelector('button.dropdown-toggle')!);
+    await waitFor(() =>
+      expect(container.querySelector('.dropdown-menu.show')).toBeInTheDocument()
+    );
+
+    fireEvent.keyDown(getByText(`${displayMonth} ${displayYear}`), {
+      key: 'Tab',
+      code: 'Tab',
+      keyCode: 9,
+      shiftKey: true,
+    });
+    await waitFor(() => {
+      expect(getByLabelText('previous day')).toHaveFocus();
+    });
+  });
+
+  it('presses Shift + Tab key to set focus element from previous calendar view button to display calendar date', async () => {
+    const displayDate = new Date('2024-01-01');
+    const { container, getByLabelText, getByText } = render(
+      <DatePicker displayDate={displayDate} />
+    );
+
+    fireEvent.click(container.querySelector('button.dropdown-toggle')!);
+    await waitFor(() =>
+      expect(container.querySelector('.dropdown-menu.show')).toBeInTheDocument()
+    );
+
+    fireEvent.keyDown(getByLabelText('previous day'), {
+      key: 'Tab',
+      code: 'Tab',
+      keyCode: 9,
+      shiftKey: true,
+    });
+    await waitFor(() => {
+      expect(getByText(displayDate.getDate())).toHaveFocus();
+    });
+  });
+
+  it('presses Enter key on previous calendar view button to view previous month calendar', async () => {
+    const displayDate = new Date('2024-01-01');
+    const newDate = new Date('2024-01-01');
+    newDate.setMonth(newDate.getMonth() - 1);
+    const newMonth = newDate.toLocaleString('default', {
+      month: 'long',
+    });
+    const newYear = newDate.getFullYear();
+    const { container, getByLabelText, getByText } = render(
+      <DatePicker displayDate={displayDate} />
+    );
+
+    fireEvent.click(container.querySelector('button.dropdown-toggle')!);
+    await waitFor(() =>
+      expect(container.querySelector('.dropdown-menu.show')).toBeInTheDocument()
+    );
+
+    fireEvent.keyDown(getByText(displayDate.getDate()), {
+      key: 'Tab',
+      code: 'Tab',
+      keyCode: 9,
+    });
+    await waitFor(() => {
+      expect(getByLabelText('previous day')).toHaveFocus();
+    });
+
+    fireEvent.keyDown(getByLabelText('previous day'), {
+      key: 'Enter',
+      code: 'Enter',
+      keyCode: 13,
+    });
+    await waitFor(() => {
+      expect(
+        container.querySelector('.dropdown-menu.show')
+      ).toBeInTheDocument();
+      expect(getByText(`${newMonth} ${newYear}`)).toBeInTheDocument();
+    });
+  });
+
+  it('display calendar date should focus on the same day after switching to previous calendar view', async () => {
+    const displayDate = new Date('2024-01-01');
+    const newDate = new Date('2024-01-01');
+    newDate.setMonth(newDate.getMonth() - 1);
+    const newMonth = newDate.toLocaleString('default', {
+      month: 'long',
+    });
+    const newYear = newDate.getFullYear();
+    const { container, getByLabelText, getByText } = render(
+      <DatePicker displayDate={displayDate} />
+    );
+
+    fireEvent.click(container.querySelector('button.dropdown-toggle')!);
+    await waitFor(() =>
+      expect(container.querySelector('.dropdown-menu.show')).toBeInTheDocument()
+    );
+
+    fireEvent.keyDown(getByText(displayDate.getDate()), {
+      key: 'Tab',
+      code: 'Tab',
+      keyCode: 9,
+    });
+    await waitFor(() => {
+      expect(getByLabelText('previous day')).toHaveFocus();
+    });
+
+    fireEvent.keyDown(getByLabelText('previous day'), {
+      key: 'Enter',
+      code: 'Enter',
+      keyCode: 13,
+    });
+    await waitFor(() => {
+      expect(
+        container.querySelector('.dropdown-menu.show')
+      ).toBeInTheDocument();
+      expect(getByText(`${newMonth} ${newYear}`)).toBeInTheDocument();
+    });
+
+    fireEvent.keyDown(getByLabelText('previous day'), {
+      key: 'Tab',
+      code: 'Tab',
+      keyCode: 9,
+    });
+    fireEvent.keyDown(getByText(`${newMonth} ${newYear}`), {
+      key: 'Tab',
+      code: 'Tab',
+      keyCode: 9,
+    });
+    fireEvent.keyDown(getByLabelText('next day'), {
+      key: 'Tab',
+      code: 'Tab',
+      keyCode: 9,
+    });
+    await waitFor(() => {
+      expect(getByText(newDate.getDate())).toHaveFocus();
+    });
+  });
+
+  it('presses Enter key on next calendar view button to view next month calendar', async () => {
+    const displayDate = new Date('2024-01-01');
+    const newDate = new Date('2024-01-01');
+    newDate.setMonth(newDate.getMonth() + 1);
+    const newMonth = newDate.toLocaleString('default', {
+      month: 'long',
+    });
+    const newYear = newDate.getFullYear();
+    const { container, getByLabelText, getByText } = render(
+      <DatePicker displayDate={displayDate} />
+    );
+
+    fireEvent.click(container.querySelector('button.dropdown-toggle')!);
+    await waitFor(() =>
+      expect(container.querySelector('.dropdown-menu.show')).toBeInTheDocument()
+    );
+
+    fireEvent.keyDown(getByText(displayDate.getDate()), {
+      key: 'Tab',
+      code: 'Tab',
+      keyCode: 9,
+      shiftKey: true,
+    });
+    await waitFor(() => {
+      expect(getByLabelText('next day')).toHaveFocus();
+    });
+
+    fireEvent.keyDown(getByLabelText('next day'), {
+      key: 'Enter',
+      code: 'Enter',
+      keyCode: 13,
+    });
+    await waitFor(() => {
+      expect(
+        container.querySelector('.dropdown-menu.show')
+      ).toBeInTheDocument();
+      expect(getByText(`${newMonth} ${newYear}`)).toBeInTheDocument();
+    });
+  });
+
+  it('display calendar date should focus on the same day after switching to next calendar view', async () => {
+    const displayDate = new Date('2024-01-31');
+    const newDate = new Date('2024-01-01');
+    newDate.setMonth(newDate.getMonth() + 1);
+    const totalDaysInMonth = getTotalDaysInMonth(newDate);
+    newDate.setDate(totalDaysInMonth);
+    const newMonth = newDate.toLocaleString('default', {
+      month: 'long',
+    });
+    const newYear = newDate.getFullYear();
+    const { container, getByLabelText, getByText } = render(
+      <DatePicker displayDate={displayDate} />
+    );
+
+    fireEvent.click(container.querySelector('button.dropdown-toggle')!);
+    await waitFor(() =>
+      expect(container.querySelector('.dropdown-menu.show')).toBeInTheDocument()
+    );
+
+    fireEvent.keyDown(getByText(displayDate.getDate()), {
+      key: 'Tab',
+      code: 'Tab',
+      keyCode: 9,
+      shiftKey: true,
+    });
+    await waitFor(() => {
+      expect(getByLabelText('next day')).toHaveFocus();
+    });
+
+    fireEvent.keyDown(getByLabelText('next day'), {
+      key: 'Enter',
+      code: 'Enter',
+      keyCode: 13,
+    });
+    await waitFor(() => {
+      expect(
+        container.querySelector('.dropdown-menu.show')
+      ).toBeInTheDocument();
+      expect(getByText(`${newMonth} ${newYear}`)).toBeInTheDocument();
+    });
+
+    fireEvent.keyDown(getByLabelText('next day'), {
+      key: 'Tab',
+      code: 'Tab',
+      keyCode: 9,
+    });
+    await waitFor(() => {
+      expect(getByText(newDate.getDate())).toHaveFocus();
+    });
+  });
+
+  it('changes from calendar view to month view when press Enter key on centre header button', async () => {
+    const displayDate = new Date();
+    const displayMonth = displayDate.toLocaleString('default', {
+      month: 'long',
+    });
+    const displayMonthShort = displayDate.toLocaleString('default', {
+      month: 'short',
+    });
+    const displayYear = displayDate.getFullYear();
+    const { container, getByLabelText, getByText } = render(
+      <DatePicker displayDate={displayDate} />
+    );
+
+    fireEvent.click(container.querySelector('button.dropdown-toggle')!);
+    await waitFor(() =>
+      expect(container.querySelector('.dropdown-menu.show')).toBeInTheDocument()
+    );
+
+    fireEvent.keyDown(getByText(displayDate.getDate()), {
+      key: 'Tab',
+      code: 'Tab',
+      keyCode: 9,
+    });
+    fireEvent.keyDown(getByLabelText('previous day'), {
+      key: 'Tab',
+      code: 'Tab',
+      keyCode: 9,
+    });
+    await waitFor(() => {
+      expect(getByText(`${displayMonth} ${displayYear}`)).toHaveFocus();
+    });
+
+    fireEvent.keyDown(getByText(`${displayMonth} ${displayYear}`), {
+      key: 'Enter',
+      code: 'Enter',
+      keyCode: 13,
+    });
+    await waitFor(() => {
+      expect(
+        container.querySelector('.dropdown-menu.show')
+      ).toBeInTheDocument();
+      expect(getByText(`${displayYear}`)).toBeInTheDocument();
+      expect(getByText(`${displayMonthShort}`)).toHaveFocus();
+      expect(
+        container.querySelector('button.text-primary')?.textContent
+      ).toEqual(`${displayMonthShort}`);
+    });
+  });
+
+  it('presses ArrowDown key to set focus to next 3 month', async () => {
+    const displayDate = new Date();
+    const displayMonth = displayDate.toLocaleString('default', {
+      month: 'long',
+    });
+    const displayMonthShort = displayDate.toLocaleString('default', {
+      month: 'short',
+    });
+    const displayYear = displayDate.getFullYear();
+    const { container, getByText } = render(
+      <DatePicker displayDate={displayDate} />
+    );
+
+    fireEvent.click(container.querySelector('button.dropdown-toggle')!);
+    await waitFor(() =>
+      expect(container.querySelector('.dropdown-menu.show')).toBeInTheDocument()
+    );
+
+    fireEvent.keyDown(getByText(`${displayMonth} ${displayYear}`), {
+      key: 'Enter',
+      code: 'Enter',
+      keyCode: 13,
+    });
+    await waitFor(() => {
+      expect(
+        container.querySelector('.dropdown-menu.show')
+      ).toBeInTheDocument();
+      expect(getByText(`${displayYear}`)).toBeInTheDocument();
+      expect(getByText(`${displayMonthShort}`)).toHaveFocus();
+      expect(
+        container.querySelector('button.text-primary')?.textContent
+      ).toEqual(`${displayMonthShort}`);
+    });
+
+    fireEvent.keyDown(getByText(`${displayMonthShort}`), {
+      key: 'ArrowDown',
+      code: 'ArrowDown',
+      keyCode: 40,
+    });
+    await waitFor(() => {
+      const newDate = new Date(displayDate);
+      newDate.setMonth(newDate.getMonth() + 3);
+      const newMonthShort = newDate.toLocaleString('default', {
+        month: 'short',
+      });
+      const newYear = newDate.getFullYear();
+      expect(getByText(`${newYear}`)).toBeInTheDocument();
+      expect(getByText(`${newMonthShort}`)).toHaveFocus();
+    });
+  });
+
+  it('presses ArrowUp key to set focus to next 3 month', async () => {
+    const displayDate = new Date();
+    const displayMonth = displayDate.toLocaleString('default', {
+      month: 'long',
+    });
+    const displayMonthShort = displayDate.toLocaleString('default', {
+      month: 'short',
+    });
+    const displayYear = displayDate.getFullYear();
+    const { container, getByText } = render(
+      <DatePicker displayDate={displayDate} />
+    );
+
+    fireEvent.click(container.querySelector('button.dropdown-toggle')!);
+    await waitFor(() =>
+      expect(container.querySelector('.dropdown-menu.show')).toBeInTheDocument()
+    );
+
+    fireEvent.keyDown(getByText(`${displayMonth} ${displayYear}`), {
+      key: 'Enter',
+      code: 'Enter',
+      keyCode: 13,
+    });
+    await waitFor(() => {
+      expect(
+        container.querySelector('.dropdown-menu.show')
+      ).toBeInTheDocument();
+      expect(getByText(`${displayYear}`)).toBeInTheDocument();
+      expect(getByText(`${displayMonthShort}`)).toHaveFocus();
+      expect(
+        container.querySelector('button.text-primary')?.textContent
+      ).toEqual(`${displayMonthShort}`);
+    });
+
+    fireEvent.keyDown(getByText(`${displayMonthShort}`), {
+      key: 'ArrowUp',
+      code: 'ArrowUp',
+      keyCode: 38,
+    });
+    await waitFor(() => {
+      const newDate = new Date(displayDate);
+      newDate.setMonth(newDate.getMonth() - 3);
+      const newMonthShort = newDate.toLocaleString('default', {
+        month: 'short',
+      });
+      const newYear = newDate.getFullYear();
+      expect(getByText(`${newYear}`)).toBeInTheDocument();
+      expect(getByText(`${newMonthShort}`)).toHaveFocus();
+    });
+  });
+
+  it('presses ArrowLeft key to set focus to previous month', async () => {
+    const displayDate = new Date();
+    const displayMonth = displayDate.toLocaleString('default', {
+      month: 'long',
+    });
+    const displayMonthShort = displayDate.toLocaleString('default', {
+      month: 'short',
+    });
+    const displayYear = displayDate.getFullYear();
+    const { container, getByText } = render(
+      <DatePicker displayDate={displayDate} />
+    );
+
+    fireEvent.click(container.querySelector('button.dropdown-toggle')!);
+    await waitFor(() =>
+      expect(container.querySelector('.dropdown-menu.show')).toBeInTheDocument()
+    );
+
+    fireEvent.keyDown(getByText(`${displayMonth} ${displayYear}`), {
+      key: 'Enter',
+      code: 'Enter',
+      keyCode: 13,
+    });
+    await waitFor(() => {
+      expect(
+        container.querySelector('.dropdown-menu.show')
+      ).toBeInTheDocument();
+      expect(getByText(`${displayYear}`)).toBeInTheDocument();
+      expect(getByText(`${displayMonthShort}`)).toHaveFocus();
+      expect(
+        container.querySelector('button.text-primary')?.textContent
+      ).toEqual(`${displayMonthShort}`);
+    });
+
+    fireEvent.keyDown(getByText(`${displayMonthShort}`), {
+      key: 'ArrowLeft',
+      code: 'ArrowLeft',
+      keyCode: 37,
+    });
+    await waitFor(() => {
+      const newDate = new Date(displayDate);
+      newDate.setMonth(newDate.getMonth() - 1);
+      const newMonthShort = newDate.toLocaleString('default', {
+        month: 'short',
+      });
+      const newYear = newDate.getFullYear();
+      expect(getByText(`${newYear}`)).toBeInTheDocument();
+      expect(getByText(`${newMonthShort}`)).toHaveFocus();
+    });
+  });
+
+  it('presses ArrowRight key to set focus to next month', async () => {
+    const displayDate = new Date();
+    const displayMonth = displayDate.toLocaleString('default', {
+      month: 'long',
+    });
+    const displayMonthShort = displayDate.toLocaleString('default', {
+      month: 'short',
+    });
+    const displayYear = displayDate.getFullYear();
+    const { container, getByText } = render(
+      <DatePicker displayDate={displayDate} />
+    );
+
+    fireEvent.click(container.querySelector('button.dropdown-toggle')!);
+    await waitFor(() =>
+      expect(container.querySelector('.dropdown-menu.show')).toBeInTheDocument()
+    );
+
+    fireEvent.keyDown(getByText(`${displayMonth} ${displayYear}`), {
+      key: 'Enter',
+      code: 'Enter',
+      keyCode: 13,
+    });
+    await waitFor(() => {
+      expect(
+        container.querySelector('.dropdown-menu.show')
+      ).toBeInTheDocument();
+      expect(getByText(`${displayYear}`)).toBeInTheDocument();
+      expect(getByText(`${displayMonthShort}`)).toHaveFocus();
+      expect(
+        container.querySelector('button.text-primary')?.textContent
+      ).toEqual(`${displayMonthShort}`);
+    });
+
+    fireEvent.keyDown(getByText(`${displayMonthShort}`), {
+      key: 'ArrowRight',
+      code: 'ArrowRight',
+      keyCode: 39,
+    });
+    await waitFor(() => {
+      const newDate = new Date(displayDate);
+      newDate.setMonth(newDate.getMonth() + 1);
+      const newMonthShort = newDate.toLocaleString('default', {
+        month: 'short',
+      });
+      const newYear = newDate.getFullYear();
+      expect(getByText(`${newYear}`)).toBeInTheDocument();
+      expect(getByText(`${newMonthShort}`)).toHaveFocus();
+    });
+  });
+
+  it('presses Tab key to set focus element from display month to previous month range view button', async () => {
+    const displayDate = new Date();
+    const displayMonth = displayDate.toLocaleString('default', {
+      month: 'long',
+    });
+    const displayMonthShort = displayDate.toLocaleString('default', {
+      month: 'short',
+    });
+    const displayYear = displayDate.getFullYear();
+    const { container, getByLabelText, getByText } = render(
+      <DatePicker displayDate={displayDate} />
+    );
+
+    fireEvent.click(container.querySelector('button.dropdown-toggle')!);
+    await waitFor(() =>
+      expect(container.querySelector('.dropdown-menu.show')).toBeInTheDocument()
+    );
+
+    fireEvent.keyDown(getByText(`${displayMonth} ${displayYear}`), {
+      key: 'Enter',
+      code: 'Enter',
+      keyCode: 13,
+    });
+    await waitFor(() => {
+      expect(
+        container.querySelector('.dropdown-menu.show')
+      ).toBeInTheDocument();
+      expect(getByText(`${displayYear}`)).toBeInTheDocument();
+      expect(getByText(`${displayMonthShort}`)).toHaveFocus();
+      expect(
+        container.querySelector('button.text-primary')?.textContent
+      ).toEqual(`${displayMonthShort}`);
+    });
+
+    fireEvent.keyDown(getByText(`${displayMonthShort}`), {
+      key: 'Tab',
+      code: 'Tab',
+      keyCode: 9,
+    });
+    await waitFor(() => {
+      expect(getByLabelText('previous month')).toHaveFocus();
+    });
+  });
+
+  it('presses Tab key to set focus element from previous month range view button to centre header button', async () => {
+    const displayDate = new Date();
+    const displayMonth = displayDate.toLocaleString('default', {
+      month: 'long',
+    });
+    const displayMonthShort = displayDate.toLocaleString('default', {
+      month: 'short',
+    });
+    const displayYear = displayDate.getFullYear();
+    const { container, getByLabelText, getByText } = render(
+      <DatePicker displayDate={displayDate} />
+    );
+
+    fireEvent.click(container.querySelector('button.dropdown-toggle')!);
+    await waitFor(() =>
+      expect(container.querySelector('.dropdown-menu.show')).toBeInTheDocument()
+    );
+
+    fireEvent.keyDown(getByText(`${displayMonth} ${displayYear}`), {
+      key: 'Enter',
+      code: 'Enter',
+      keyCode: 13,
+    });
+    await waitFor(() => {
+      expect(
+        container.querySelector('.dropdown-menu.show')
+      ).toBeInTheDocument();
+      expect(getByText(`${displayYear}`)).toBeInTheDocument();
+      expect(getByText(`${displayMonthShort}`)).toHaveFocus();
+      expect(
+        container.querySelector('button.text-primary')?.textContent
+      ).toEqual(`${displayMonthShort}`);
+    });
+
+    fireEvent.keyDown(getByLabelText('previous month'), {
+      key: 'Tab',
+      code: 'Tab',
+      keyCode: 9,
+    });
+    await waitFor(() => {
+      expect(getByText(`${displayYear}`)).toHaveFocus();
+    });
+  });
+
+  it('presses Tab key to set focus element from centre header button to next month range view button', async () => {
+    const displayDate = new Date();
+    const displayMonth = displayDate.toLocaleString('default', {
+      month: 'long',
+    });
+    const displayMonthShort = displayDate.toLocaleString('default', {
+      month: 'short',
+    });
+    const displayYear = displayDate.getFullYear();
+    const { container, getByLabelText, getByText } = render(
+      <DatePicker displayDate={displayDate} />
+    );
+
+    fireEvent.click(container.querySelector('button.dropdown-toggle')!);
+    await waitFor(() =>
+      expect(container.querySelector('.dropdown-menu.show')).toBeInTheDocument()
+    );
+
+    fireEvent.keyDown(getByText(`${displayMonth} ${displayYear}`), {
+      key: 'Enter',
+      code: 'Enter',
+      keyCode: 13,
+    });
+    await waitFor(() => {
+      expect(
+        container.querySelector('.dropdown-menu.show')
+      ).toBeInTheDocument();
+      expect(getByText(`${displayYear}`)).toBeInTheDocument();
+      expect(getByText(`${displayMonthShort}`)).toHaveFocus();
+      expect(
+        container.querySelector('button.text-primary')?.textContent
+      ).toEqual(`${displayMonthShort}`);
+    });
+
+    fireEvent.keyDown(getByText(`${displayYear}`), {
+      key: 'Tab',
+      code: 'Tab',
+      keyCode: 9,
+    });
+    await waitFor(() => {
+      expect(getByLabelText('next month')).toHaveFocus();
+    });
+  });
+
+  it('presses Tab key to set focus element from next month range view button to display month', async () => {
+    const displayDate = new Date();
+    const displayMonth = displayDate.toLocaleString('default', {
+      month: 'long',
+    });
+    const displayMonthShort = displayDate.toLocaleString('default', {
+      month: 'short',
+    });
+    const displayYear = displayDate.getFullYear();
+    const { container, getByLabelText, getByText } = render(
+      <DatePicker displayDate={displayDate} />
+    );
+
+    fireEvent.click(container.querySelector('button.dropdown-toggle')!);
+    await waitFor(() =>
+      expect(container.querySelector('.dropdown-menu.show')).toBeInTheDocument()
+    );
+
+    fireEvent.keyDown(getByText(`${displayMonth} ${displayYear}`), {
+      key: 'Enter',
+      code: 'Enter',
+      keyCode: 13,
+    });
+    await waitFor(() => {
+      expect(
+        container.querySelector('.dropdown-menu.show')
+      ).toBeInTheDocument();
+      expect(getByText(`${displayYear}`)).toBeInTheDocument();
+      expect(getByText(`${displayMonthShort}`)).toHaveFocus();
+      expect(
+        container.querySelector('button.text-primary')?.textContent
+      ).toEqual(`${displayMonthShort}`);
+    });
+
+    fireEvent.keyDown(getByLabelText('next month'), {
+      key: 'Tab',
+      code: 'Tab',
+      keyCode: 9,
+    });
+    await waitFor(() => {
+      expect(getByText(`${displayMonthShort}`)).toHaveFocus();
+    });
+  });
+
+  it('selects the next month with ArrowRight and Enter keys on month range view', async () => {
+    const displayDate = new Date();
+    const displayMonth = displayDate.toLocaleString('default', {
+      month: 'long',
+    });
+    const displayMonthShort = displayDate.toLocaleString('default', {
+      month: 'short',
+    });
+    const displayYear = displayDate.getFullYear();
+    const newDate = new Date(displayDate);
+    newDate.setMonth(newDate.getMonth() + 1);
+    const newMonth = newDate.toLocaleString('default', {
+      month: 'long',
+    });
+    const newMonthShort = newDate.toLocaleString('default', {
+      month: 'short',
+    });
+    const newYear = newDate.getFullYear();
+    const { container, getByText } = render(
+      <DatePicker displayDate={displayDate} />
+    );
+
+    fireEvent.click(container.querySelector('button.dropdown-toggle')!);
+    await waitFor(() =>
+      expect(container.querySelector('.dropdown-menu.show')).toBeInTheDocument()
+    );
+
+    fireEvent.keyDown(getByText(`${displayMonth} ${displayYear}`), {
+      key: 'Enter',
+      code: 'Enter',
+      keyCode: 13,
+    });
+    await waitFor(() => {
+      expect(
+        container.querySelector('.dropdown-menu.show')
+      ).toBeInTheDocument();
+      expect(getByText(`${displayYear}`)).toBeInTheDocument();
+      expect(getByText(`${displayMonthShort}`)).toHaveFocus();
+      expect(
+        container.querySelector('button.text-primary')?.textContent
+      ).toEqual(`${displayMonthShort}`);
+    });
+
+    fireEvent.keyDown(getByText(`${displayMonthShort}`), {
+      key: 'ArrowRight',
+      code: 'ArrowRight',
+      keyCode: 39,
+    });
+    await waitFor(() => {
+      expect(getByText(`${newYear}`)).toBeInTheDocument();
+      expect(getByText(`${newMonthShort}`)).toHaveFocus();
+    });
+
+    fireEvent.keyDown(getByText(`${newMonthShort}`), {
+      key: 'Enter',
+      code: 'Enter',
+      keyCode: 13,
+    });
+    await waitFor(() => {
+      expect(getByText(`${newMonth} ${newYear}`)).toBeInTheDocument();
+      expect(getByText(newDate.getDate())).toHaveFocus();
+    });
+  });
+
+  it('resets to focus on current month when navigate to another month in month view without selecting the month and close the calendar', async () => {
+    const displayDate = new Date();
+    const displayMonth = displayDate.toLocaleString('default', {
+      month: 'long',
+    });
+    const displayMonthShort = displayDate.toLocaleString('default', {
+      month: 'short',
+    });
+    const displayYear = displayDate.getFullYear();
+    const newDate = new Date(displayDate);
+    newDate.setMonth(newDate.getMonth() + 1);
+    const newMonthShort = newDate.toLocaleString('default', {
+      month: 'short',
+    });
+    const newYear = newDate.getFullYear();
+    const { container, getByText } = render(
+      <DatePicker displayDate={displayDate} />
+    );
+
+    fireEvent.click(container.querySelector('button.dropdown-toggle')!);
+    await waitFor(() =>
+      expect(container.querySelector('.dropdown-menu.show')).toBeInTheDocument()
+    );
+
+    fireEvent.keyDown(getByText(`${displayMonth} ${displayYear}`), {
+      key: 'Enter',
+      code: 'Enter',
+      keyCode: 13,
+    });
+    await waitFor(() => {
+      expect(
+        container.querySelector('.dropdown-menu.show')
+      ).toBeInTheDocument();
+      expect(getByText(`${displayYear}`)).toBeInTheDocument();
+      expect(getByText(`${displayMonthShort}`)).toHaveFocus();
+      expect(
+        container.querySelector('button.text-primary')?.textContent
+      ).toEqual(`${displayMonthShort}`);
+    });
+
+    fireEvent.keyDown(getByText(`${displayMonthShort}`), {
+      key: 'ArrowRight',
+      code: 'ArrowRight',
+      keyCode: 39,
+    });
+    await waitFor(() => {
+      expect(getByText(`${newYear}`)).toBeInTheDocument();
+      expect(getByText(`${newMonthShort}`)).toHaveFocus();
+    });
+
+    fireEvent.click(container.querySelector('button.dropdown-toggle')!);
+    await waitFor(() => {
+      expect(
+        container.querySelector('.dropdown-menu.show')
+      ).not.toBeInTheDocument();
+    });
+
+    fireEvent.click(container.querySelector('button.dropdown-toggle')!);
+    await waitFor(() => {
+      expect(
+        container.querySelector('.dropdown-menu.show')
+      ).toBeInTheDocument();
+      expect(getByText(`${displayYear}`)).toBeInTheDocument();
+      expect(getByText(`${displayMonthShort}`)).toHaveFocus();
+    });
+  });
+
+  it('resets to focus on current date when navigate to and selected another month in month view and close the calendar', async () => {
+    const displayDate = new Date();
+    const displayMonth = displayDate.toLocaleString('default', {
+      month: 'long',
+    });
+    const displayMonthShort = displayDate.toLocaleString('default', {
+      month: 'short',
+    });
+    const displayYear = displayDate.getFullYear();
+    const newDate = new Date(displayDate);
+    newDate.setMonth(newDate.getMonth() + 1);
+    const newMonth = newDate.toLocaleString('default', {
+      month: 'long',
+    });
+    const newMonthShort = newDate.toLocaleString('default', {
+      month: 'short',
+    });
+    const newYear = newDate.getFullYear();
+    const { container, getByText } = render(
+      <DatePicker displayDate={displayDate} />
+    );
+
+    fireEvent.click(container.querySelector('button.dropdown-toggle')!);
+    await waitFor(() =>
+      expect(container.querySelector('.dropdown-menu.show')).toBeInTheDocument()
+    );
+
+    fireEvent.keyDown(getByText(`${displayMonth} ${displayYear}`), {
+      key: 'Enter',
+      code: 'Enter',
+      keyCode: 13,
+    });
+    await waitFor(() => {
+      expect(
+        container.querySelector('.dropdown-menu.show')
+      ).toBeInTheDocument();
+      expect(getByText(`${displayYear}`)).toBeInTheDocument();
+      expect(getByText(`${displayMonthShort}`)).toHaveFocus();
+      expect(
+        container.querySelector('button.text-primary')?.textContent
+      ).toEqual(`${displayMonthShort}`);
+    });
+
+    fireEvent.keyDown(getByText(`${displayMonthShort}`), {
+      key: 'ArrowRight',
+      code: 'ArrowRight',
+      keyCode: 39,
+    });
+    fireEvent.keyDown(getByText(`${newMonthShort}`), {
+      key: 'Enter',
+      code: 'Enter',
+      keyCode: 13,
+    });
+    await waitFor(() => {
+      expect(getByText(`${newMonth} ${newYear}`)).toBeInTheDocument();
+      expect(getByText(`${newDate.getDate()}`)).toHaveFocus();
+    });
+
+    fireEvent.click(container.querySelector('button.dropdown-toggle')!);
+    await waitFor(() => {
+      expect(
+        container.querySelector('.dropdown-menu.show')
+      ).not.toBeInTheDocument();
+    });
+
+    fireEvent.click(container.querySelector('button.dropdown-toggle')!);
+    await waitFor(() => {
+      expect(
+        container.querySelector('.dropdown-menu.show')
+      ).toBeInTheDocument();
+      expect(getByText(`${displayMonth} ${displayYear}`)).toBeInTheDocument();
+      expect(getByText(`${displayDate.getDate()}`)).toHaveFocus();
+    });
+  });
+
+  it('changes from month view to year view when press Enter key on centre header button', async () => {
+    const displayDate = new Date();
+    const displayMonth = displayDate.toLocaleString('default', {
+      month: 'long',
+    });
+    const displayMonthShort = displayDate.toLocaleString('default', {
+      month: 'short',
+    });
+    const displayYear = displayDate.getFullYear();
+    const { container, getByLabelText, getByText } = render(
+      <DatePicker displayDate={displayDate} />
+    );
+
+    fireEvent.click(container.querySelector('button.dropdown-toggle')!);
+    await waitFor(() =>
+      expect(container.querySelector('.dropdown-menu.show')).toBeInTheDocument()
+    );
+
+    fireEvent.keyDown(getByText(displayDate.getDate()), {
+      key: 'Tab',
+      code: 'Tab',
+      keyCode: 9,
+    });
+    fireEvent.keyDown(getByLabelText('previous day'), {
+      key: 'Tab',
+      code: 'Tab',
+      keyCode: 9,
+    });
+    await waitFor(() => {
+      expect(getByText(`${displayMonth} ${displayYear}`)).toHaveFocus();
+    });
+
+    fireEvent.keyDown(getByText(`${displayMonth} ${displayYear}`), {
+      key: 'Enter',
+      code: 'Enter',
+      keyCode: 13,
+    });
+    await waitFor(() => {
+      expect(
+        container.querySelector('.dropdown-menu.show')
+      ).toBeInTheDocument();
+      expect(getByText(`${displayYear}`)).toBeInTheDocument();
+      expect(getByText(`${displayMonthShort}`)).toHaveFocus();
+      expect(
+        container.querySelector('button.text-primary')?.textContent
+      ).toEqual(`${displayMonthShort}`);
+    });
+
+    fireEvent.keyDown(getByText(`${displayMonthShort}`), {
+      key: 'Tab',
+      code: 'Tab',
+      keyCode: 9,
+    });
+    fireEvent.keyDown(getByLabelText('previous month'), {
+      key: 'Tab',
+      code: 'Tab',
+      keyCode: 9,
+    });
+    await waitFor(() => {
+      expect(getByText(`${displayYear}`)).toHaveFocus();
+    });
+
+    fireEvent.keyDown(getByText(`${displayYear}`), {
+      key: 'Enter',
+      code: 'Enter',
+      keyCode: 13,
+    });
+    await waitFor(() => {
+      expect(
+        container.querySelector('.dropdown-menu.show')
+      ).toBeInTheDocument();
+      expect(
+        getByText(`${displayYear} - ${displayYear + 11}`)
+      ).toBeInTheDocument();
+      expect(getByText(`${displayYear}`)).toHaveFocus();
+      expect(
+        container.querySelector('button.text-primary')?.textContent
+      ).toEqual(`${displayYear}`);
+    });
+  });
+
+  it('presses Tab key to set focus element from display year to previous year range button', async () => {
+    const displayDate = new Date();
+    const displayMonth = displayDate.toLocaleString('default', {
+      month: 'long',
+    });
+    const displayYear = displayDate.getFullYear();
+    const { container, getByLabelText, getByText } = render(
+      <DatePicker displayDate={displayDate} />
+    );
+
+    fireEvent.click(container.querySelector('button.dropdown-toggle')!);
+    await waitFor(() =>
+      expect(container.querySelector('.dropdown-menu.show')).toBeInTheDocument()
+    );
+
+    fireEvent.keyDown(getByText(`${displayMonth} ${displayYear}`), {
+      key: 'Enter',
+      code: 'Enter',
+      keyCode: 13,
+    });
+    fireEvent.keyDown(getByText(`${displayYear}`), {
+      key: 'Enter',
+      code: 'Enter',
+      keyCode: 13,
+    });
+    await waitFor(() => {
+      expect(
+        container.querySelector('.dropdown-menu.show')
+      ).toBeInTheDocument();
+      expect(
+        getByText(`${displayYear} - ${displayYear + 11}`)
+      ).toBeInTheDocument();
+      expect(getByText(`${displayYear}`)).toHaveFocus();
+      expect(
+        container.querySelector('button.text-primary')?.textContent
+      ).toEqual(`${displayYear}`);
+    });
+
+    fireEvent.keyDown(getByText(`${displayYear}`), {
+      key: 'Tab',
+      code: 'Tab',
+      keyCode: 9,
+    });
+    await waitFor(() => {
+      expect(getByLabelText('previous year')).toHaveFocus();
+    });
+  });
+
+  it('presses Tab key to set focus element from previous year range button to centre header button', async () => {
+    const displayDate = new Date();
+    const displayMonth = displayDate.toLocaleString('default', {
+      month: 'long',
+    });
+    const displayYear = displayDate.getFullYear();
+    const { container, getByLabelText, getByText } = render(
+      <DatePicker displayDate={displayDate} />
+    );
+
+    fireEvent.click(container.querySelector('button.dropdown-toggle')!);
+    await waitFor(() =>
+      expect(container.querySelector('.dropdown-menu.show')).toBeInTheDocument()
+    );
+
+    fireEvent.keyDown(getByText(`${displayMonth} ${displayYear}`), {
+      key: 'Enter',
+      code: 'Enter',
+      keyCode: 13,
+    });
+    fireEvent.keyDown(getByText(`${displayYear}`), {
+      key: 'Enter',
+      code: 'Enter',
+      keyCode: 13,
+    });
+    await waitFor(() => {
+      expect(
+        container.querySelector('.dropdown-menu.show')
+      ).toBeInTheDocument();
+      expect(
+        getByText(`${displayYear} - ${displayYear + 11}`)
+      ).toBeInTheDocument();
+      expect(getByText(`${displayYear}`)).toHaveFocus();
+      expect(
+        container.querySelector('button.text-primary')?.textContent
+      ).toEqual(`${displayYear}`);
+    });
+
+    fireEvent.keyDown(getByLabelText('previous year'), {
+      key: 'Tab',
+      code: 'Tab',
+      keyCode: 9,
+    });
+    await waitFor(() => {
+      expect(getByText(`${displayYear} - ${displayYear + 11}`)).toHaveFocus();
+    });
+  });
+
+  it('presses Tab key to set focus element from centre header button to next year range button', async () => {
+    const displayDate = new Date();
+    const displayMonth = displayDate.toLocaleString('default', {
+      month: 'long',
+    });
+    const displayYear = displayDate.getFullYear();
+    const { container, getByLabelText, getByText } = render(
+      <DatePicker displayDate={displayDate} />
+    );
+
+    fireEvent.click(container.querySelector('button.dropdown-toggle')!);
+    await waitFor(() =>
+      expect(container.querySelector('.dropdown-menu.show')).toBeInTheDocument()
+    );
+
+    fireEvent.keyDown(getByText(`${displayMonth} ${displayYear}`), {
+      key: 'Enter',
+      code: 'Enter',
+      keyCode: 13,
+    });
+    fireEvent.keyDown(getByText(`${displayYear}`), {
+      key: 'Enter',
+      code: 'Enter',
+      keyCode: 13,
+    });
+    await waitFor(() => {
+      expect(
+        container.querySelector('.dropdown-menu.show')
+      ).toBeInTheDocument();
+      expect(
+        getByText(`${displayYear} - ${displayYear + 11}`)
+      ).toBeInTheDocument();
+      expect(getByText(`${displayYear}`)).toHaveFocus();
+      expect(
+        container.querySelector('button.text-primary')?.textContent
+      ).toEqual(`${displayYear}`);
+    });
+
+    fireEvent.keyDown(getByText(`${displayYear} - ${displayYear + 11}`), {
+      key: 'Tab',
+      code: 'Tab',
+      keyCode: 9,
+    });
+    await waitFor(() => {
+      expect(getByLabelText('next year')).toHaveFocus();
+    });
+  });
+
+  it('invalid feedback is shown when entered invalid date', async () => {
+    const { container, getByText } = render(<DatePicker />);
+
+    const input = container.querySelector('input')!;
+    fireEvent.change(input, { target: { value: '01132024' } });
+    fireEvent.blur(input);
+
+    await waitFor(() => {
+      expect(getByText('Please enter a valid date')).toBeInTheDocument();
+    });
+  });
+
+  it('invalid feedback is shown when entered date before year 1900', async () => {
+    const { container, getByText } = render(<DatePicker />);
+
+    const input = container.querySelector('input')!;
+    fireEvent.change(input, { target: { value: '31121989' } });
+    fireEvent.blur(input);
+
+    await waitFor(() => {
+      expect(getByText('Please enter a valid date')).toBeInTheDocument();
+    });
+  });
+
+  it('invalid feedback with customisable message is shown when entered invalid date', async () => {
+    const { container, getByText } = render(
+      <DatePicker errorMessage="You have entered an invalid date" />
+    );
+
+    const input = container.querySelector('input')!;
+    fireEvent.change(input, { target: { value: '01132024' } });
+    fireEvent.blur(input);
+
+    await waitFor(() => {
+      expect(getByText('You have entered an invalid date')).toBeInTheDocument();
+    });
+  });
+
+  it('invalid feedback is shown when entered date before minDate', async () => {
+    const { container, getByText } = render(
+      <DatePicker minDate={new Date(2024, 1, 1).toISOString()} />
+    );
+
+    const input = container.querySelector('input')!;
+    fireEvent.change(input, { target: { value: '31122023' } });
+    fireEvent.blur(input);
+
+    await waitFor(() => {
+      expect(getByText('Please enter a valid date')).toBeInTheDocument();
+    });
+  });
+
+  it('invalid feedback is shown when entered date after maxDate', async () => {
+    const { container, getByText } = render(
+      <DatePicker maxDate={new Date(2024, 1, 31).toISOString()} />
+    );
+
+    const input = container.querySelector('input')!;
+    fireEvent.change(input, { target: { value: '01022024' } });
+    fireEvent.blur(input);
+
+    await waitFor(() => {
+      expect(getByText('Please enter a valid date')).toBeInTheDocument();
+    });
+  });
 });
 
 describe('Datepicker Range mode', () => {
@@ -316,7 +1915,7 @@ describe('Datepicker Range mode', () => {
       expect(
         container.querySelector('.dropdown-menu.show')
       ).toBeInTheDocument();
-      expect(getByText('1').classList).toContain('bg-primary-100');
+      expect(getByText('1').classList).toContain('bg-primary-600');
     });
 
     fireEvent.click(getByText('20'));
@@ -328,13 +1927,17 @@ describe('Datepicker Range mode', () => {
         `01/01/2020 - 20/01/2020`
       );
     });
-    fireEvent.focus(container.querySelector('input')!);
+    fireEvent.click(container.querySelector('button.dropdown-toggle')!);
     const oneToTwenty = Array.from({ length: 20 }, (_, i) => i + 1);
     await waitFor(() => {
       oneToTwenty.forEach((day) => {
-        expect(getByText(day).classList).toContain('bg-primary-100');
+        if (day === 1 || day === 20) {
+          expect(getByText(day).classList).toContain('bg-primary-600');
+        } else {
+          expect(getByText(day).classList).toContain('bg-primary-100');
+        }
       });
-      expect(getByText('21').classList).not.toContain('bg-primary-100');
+      expect(getByText('21').classList).not.toContain('bg-primary-600');
     });
   });
 
@@ -352,7 +1955,7 @@ describe('Datepicker Range mode', () => {
       expect(
         container.querySelector('.dropdown-menu.show')
       ).toBeInTheDocument();
-      expect(getByText('28').classList).toContain('bg-primary-100');
+      expect(getByText('28').classList).toContain('bg-primary-600');
     });
 
     fireEvent.click(container.querySelector('i.bi-chevron-right')!);
@@ -368,18 +1971,21 @@ describe('Datepicker Range mode', () => {
         `28/01/2020 - 02/02/2020`
       );
     });
-    fireEvent.focus(container.querySelector('input')!);
+    fireEvent.click(container.querySelector('button.dropdown-toggle')!);
     await waitFor(() => {
-      [1, 2].forEach((day) => {
-        expect(getByText(day).classList).toContain('bg-primary-100');
-      });
-      expect(getByText('3').classList).not.toContain('bg-primary-100');
+      expect(getByText('1').classList).toContain('bg-primary-100');
+      expect(getByText('2').classList).toContain('bg-primary-600');
+      expect(getByText('3').classList).not.toContain('bg-primary-600');
     });
     fireEvent.click(container.querySelector('i.bi-chevron-left')!);
     await waitFor(() => {
       expect(getByText('January 2020')).toBeInTheDocument();
       [28, 29, 30, 31].forEach((day) => {
-        expect(getByText(day).classList).toContain('bg-primary-100');
+        if (day === 28) {
+          expect(getByText(day).classList).toContain('bg-primary-600');
+        } else {
+          expect(getByText(day).classList).toContain('bg-primary-100');
+        }
       });
       expect(getByText('27').classList).not.toContain('bg-primary-100');
     });
@@ -489,7 +2095,7 @@ describe('Datepicker Range mode', () => {
     fireEvent.click(getByText('20'));
 
     await waitFor(() => {
-      expect(getByText('20').classList).toContain('bg-primary-100');
+      expect(getByText('20').classList).toContain('bg-primary-600');
       expect(container.querySelector('input')?.value).toEqual(
         `20/01/2020 - dd/mm/yyyy`
       );
@@ -507,9 +2113,13 @@ describe('Datepicker Range mode', () => {
         container.querySelector('.dropdown-menu.show')
       ).toBeInTheDocument();
       const selecteDates = [15, 16, 17, 18, 19, 20];
-      selecteDates.forEach((day) =>
-        expect(getByText(day).classList).toContain('bg-primary-100')
-      );
+      selecteDates.forEach((day) => {
+        if (day === 15 || day === 20) {
+          expect(getByText(day).classList).toContain('bg-primary-600');
+        } else {
+          expect(getByText(day).classList).toContain('bg-primary-100');
+        }
+      });
     });
 
     fireEvent.click(getByText('1'));

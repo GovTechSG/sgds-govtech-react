@@ -9,13 +9,39 @@ import DatePickerContext, {
 
 describe('CalendarHeader', () => {
   const mockFn = jest.fn();
-  const displayDate = new Date(2022, 2, 20);
-
+  const resetFocusOnHeader = jest.fn();
+  const handleTabPressOnPreviousButton = jest.fn();
+  const handleTabPressOnHeaderTitle = jest.fn();
+  const handleTabPressOnNextButton = jest.fn();
+  const displayDate = new Date();
   const displayMonth = MONTH_LABELS[displayDate.getMonth()];
   const displayYear = displayDate.getFullYear();
+  const contextValue = {
+    view: 'day' as CalendarView,
+    setView: jest.fn(),
+    focusedDateIndex: 0,
+    setFocusedDateIndex: jest.fn(),
+    focusedMonthIndex: 0,
+    setFocusedMonthIndex: jest.fn(),
+    focusedYearIndex: 0,
+    setFocusedYearIndex: jest.fn(),
+    yearPositionIndex: 0,
+    setYearPositionIndex: jest.fn(),
+  };
+
   it('should have default html structure', () => {
+    const displayDate = new Date(2022, 2, 20);
+    const displayMonth = MONTH_LABELS[displayDate.getMonth()];
+    const displayYear = displayDate.getFullYear();
     const { asFragment, container, getByText } = render(
-      <CalendarHeader onChange={mockFn} displayDate={displayDate} />
+      <CalendarHeader
+        onChange={mockFn}
+        displayDate={displayDate}
+        resetFocusOnHeader={resetFocusOnHeader}
+        handleTabPressOnPreviousButton={handleTabPressOnPreviousButton}
+        handleTabPressOnHeaderTitle={handleTabPressOnHeaderTitle}
+        handleTabPressOnNextButton={handleTabPressOnNextButton}
+      />
     );
 
     expect(asFragment()).toMatchSnapshot();
@@ -34,18 +60,20 @@ describe('CalendarHeader', () => {
   });
 
   it('click calendarHeader should trigger setView call;', async () => {
-    const contextValue = {
-      view: 'day' as CalendarView,
-      setView: jest.fn(),
-    };
     const { container } = render(
       <DatePickerContext.Provider value={contextValue}>
-        <CalendarHeader onChange={mockFn} displayDate={displayDate} />
+        <CalendarHeader
+          onChange={mockFn}
+          displayDate={displayDate}
+          resetFocusOnHeader={resetFocusOnHeader}
+          handleTabPressOnPreviousButton={handleTabPressOnPreviousButton}
+          handleTabPressOnHeaderTitle={handleTabPressOnHeaderTitle}
+          handleTabPressOnNextButton={handleTabPressOnNextButton}
+        />
       </DatePickerContext.Provider>
     );
     const headerButton = container.querySelectorAll('button')[1];
     expect(headerButton?.textContent).toEqual(`${displayMonth} ${displayYear}`);
-    expect(headerButton).not.toHaveAttribute('disabled');
 
     fireEvent.click(headerButton!);
 
@@ -57,10 +85,26 @@ describe('CalendarHeader', () => {
     const contextValue = {
       view: 'month' as CalendarView,
       setView: jest.fn(),
+      focusedDateIndex: 0,
+      setFocusedDateIndex: jest.fn(),
+      focusedMonthIndex: 0,
+      setFocusedMonthIndex: jest.fn(),
+      focusedYearIndex: 0,
+      setFocusedYearIndex: jest.fn(),
+      yearPositionIndex: 0,
+      setYearPositionIndex: jest.fn(),
     };
+
     const { container } = render(
       <DatePickerContext.Provider value={contextValue}>
-        <CalendarHeader onChange={mockFn} displayDate={displayDate} />
+        <CalendarHeader
+          onChange={mockFn}
+          displayDate={displayDate}
+          resetFocusOnHeader={resetFocusOnHeader}
+          handleTabPressOnPreviousButton={handleTabPressOnPreviousButton}
+          handleTabPressOnHeaderTitle={handleTabPressOnHeaderTitle}
+          handleTabPressOnNextButton={handleTabPressOnNextButton}
+        />
       </DatePickerContext.Provider>
     );
     const headerButton = container.querySelectorAll('button')[1];
@@ -68,7 +112,6 @@ describe('CalendarHeader', () => {
       `${displayMonth} ${displayYear}`
     );
     expect(headerButton?.textContent).toEqual(`${displayYear}`);
-    expect(headerButton).not.toHaveAttribute('disabled');
 
     fireEvent.click(headerButton!);
 
@@ -80,10 +123,26 @@ describe('CalendarHeader', () => {
     const contextValue = {
       view: 'year' as CalendarView,
       setView: jest.fn(),
+      focusedDateIndex: 0,
+      setFocusedDateIndex: jest.fn(),
+      focusedMonthIndex: 0,
+      setFocusedMonthIndex: jest.fn(),
+      focusedYearIndex: 0,
+      setFocusedYearIndex: jest.fn(),
+      yearPositionIndex: 0,
+      setYearPositionIndex: jest.fn(),
     };
+
     const { container } = render(
       <DatePickerContext.Provider value={contextValue}>
-        <CalendarHeader onChange={mockFn} displayDate={displayDate} />
+        <CalendarHeader
+          onChange={mockFn}
+          displayDate={displayDate}
+          resetFocusOnHeader={resetFocusOnHeader}
+          handleTabPressOnPreviousButton={handleTabPressOnPreviousButton}
+          handleTabPressOnHeaderTitle={handleTabPressOnHeaderTitle}
+          handleTabPressOnNextButton={handleTabPressOnNextButton}
+        />
       </DatePickerContext.Provider>
     );
     const headerButton = container.querySelectorAll('button')[1];
@@ -92,9 +151,8 @@ describe('CalendarHeader', () => {
     );
     expect(headerButton?.textContent).not.toEqual(`${displayYear}`);
     expect(headerButton?.textContent).toEqual(
-      `${displayDate.getFullYear() - 5} - ${displayDate.getFullYear() + 6}`
+      `${displayDate.getFullYear()} - ${displayDate.getFullYear() + 11}`
     );
-    expect(headerButton).toHaveAttribute('disabled');
 
     fireEvent.click(headerButton!);
 
@@ -105,7 +163,14 @@ describe('CalendarHeader', () => {
 
   it('onclick bi-chevron-left should trigger mockFn ', async () => {
     const { container } = render(
-      <CalendarHeader onChange={mockFn} displayDate={displayDate} />
+      <CalendarHeader
+        onChange={mockFn}
+        displayDate={displayDate}
+        resetFocusOnHeader={resetFocusOnHeader}
+        handleTabPressOnPreviousButton={handleTabPressOnPreviousButton}
+        handleTabPressOnHeaderTitle={handleTabPressOnHeaderTitle}
+        handleTabPressOnNextButton={handleTabPressOnNextButton}
+      />
     );
     const previousIcon = container.querySelector('i.bi-chevron-left');
 
@@ -118,7 +183,14 @@ describe('CalendarHeader', () => {
   });
   it('onclick bi-chevron-right should trigger mockFn', async () => {
     const { container } = render(
-      <CalendarHeader onChange={mockFn} displayDate={displayDate} />
+      <CalendarHeader
+        onChange={mockFn}
+        displayDate={displayDate}
+        resetFocusOnHeader={resetFocusOnHeader}
+        handleTabPressOnPreviousButton={handleTabPressOnPreviousButton}
+        handleTabPressOnHeaderTitle={handleTabPressOnHeaderTitle}
+        handleTabPressOnNextButton={handleTabPressOnNextButton}
+      />
     );
     const nextIcon = container.querySelector('i.bi-chevron-right');
 
@@ -137,7 +209,21 @@ describe('CalendarHeaderComponent day view in usage', () => {
     const onChangeMonth = (newDisplayDate: Date) => {
       setDate(newDisplayDate);
     };
-    return <CalendarHeader displayDate={date} onChange={onChangeMonth} />;
+    const resetFocusOnHeader = jest.fn();
+    const handleTabPressOnPreviousButton = jest.fn();
+    const handleTabPressOnHeaderTitle = jest.fn();
+    const handleTabPressOnNextButton = jest.fn();
+
+    return (
+      <CalendarHeader
+        displayDate={date}
+        onChange={onChangeMonth}
+        resetFocusOnHeader={resetFocusOnHeader}
+        handleTabPressOnPreviousButton={handleTabPressOnPreviousButton}
+        handleTabPressOnHeaderTitle={handleTabPressOnHeaderTitle}
+        handleTabPressOnNextButton={handleTabPressOnNextButton}
+      />
+    );
   };
 
   it('should change month when click previous', async () => {
@@ -165,7 +251,7 @@ describe('CalendarHeaderComponent day view in usage', () => {
 
     fireEvent.click(container.querySelector('i.bi-chevron-right')!);
 
-    await waitFor(() => expect(getByText('April 2022')).toBeInTheDocument()); 
+    await waitFor(() => expect(getByText('April 2022')).toBeInTheDocument());
   });
 });
 describe('CalendarHeaderComponent month view in usage', () => {
@@ -174,16 +260,35 @@ describe('CalendarHeaderComponent month view in usage', () => {
     const onChangeMonth = (newDisplayDate: Date) => {
       setDate(newDisplayDate);
     };
+    const resetFocusOnHeader = jest.fn();
+    const handleTabPressOnPreviousButton = jest.fn();
+    const handleTabPressOnHeaderTitle = jest.fn();
+    const handleTabPressOnNextButton = jest.fn();
     const contextValue = {
-        view: 'month' as CalendarView,
-        setView: jest.fn(),
-      };
+      view: 'month' as CalendarView,
+      setView: jest.fn(),
+      focusedDateIndex: 0,
+      setFocusedDateIndex: jest.fn(),
+      focusedMonthIndex: 0,
+      setFocusedMonthIndex: jest.fn(),
+      focusedYearIndex: 0,
+      setFocusedYearIndex: jest.fn(),
+      yearPositionIndex: 0,
+      setYearPositionIndex: jest.fn(),
+    };
     return (
-        <DatePickerContext.Provider value={contextValue}>
-    <CalendarHeader displayDate={date} onChange={onChangeMonth} />;
-        </DatePickerContext.Provider>
-    )
-    
+      <DatePickerContext.Provider value={contextValue}>
+        <CalendarHeader
+          displayDate={date}
+          onChange={onChangeMonth}
+          resetFocusOnHeader={resetFocusOnHeader}
+          handleTabPressOnPreviousButton={handleTabPressOnPreviousButton}
+          handleTabPressOnHeaderTitle={handleTabPressOnHeaderTitle}
+          handleTabPressOnNextButton={handleTabPressOnNextButton}
+        />
+        ;
+      </DatePickerContext.Provider>
+    );
   };
 
   it('should change month when click previous', async () => {
@@ -211,54 +316,103 @@ describe('CalendarHeaderComponent month view in usage', () => {
 
     fireEvent.click(container.querySelector('i.bi-chevron-right')!);
 
-    await waitFor(() => expect(getByText('2023')).toBeInTheDocument()); 
+    await waitFor(() => expect(getByText('2023')).toBeInTheDocument());
   });
 });
 describe('CalendarHeaderComponent year view in usage', () => {
+  const displayDate = new Date();
   const CalendarHeaderComponent = () => {
-    const [date, setDate] = React.useState(new Date(2022, 2, 20));
+    const [date, setDate] = React.useState(displayDate);
     const onChangeMonth = (newDisplayDate: Date) => {
       setDate(newDisplayDate);
     };
+    const resetFocusOnHeader = jest.fn();
+    const handleTabPressOnPreviousButton = jest.fn();
+    const handleTabPressOnHeaderTitle = jest.fn();
+    const handleTabPressOnNextButton = jest.fn();
     const contextValue = {
-        view: 'year' as CalendarView,
-        setView: jest.fn(),
-      };
+      view: 'year' as CalendarView,
+      setView: jest.fn(),
+      focusedDateIndex: 0,
+      setFocusedDateIndex: jest.fn(),
+      focusedMonthIndex: 0,
+      setFocusedMonthIndex: jest.fn(),
+      focusedYearIndex: 0,
+      setFocusedYearIndex: jest.fn(),
+      yearPositionIndex: 0,
+      setYearPositionIndex: jest.fn(),
+    };
     return (
-        <DatePickerContext.Provider value={contextValue}>
-    <CalendarHeader displayDate={date} onChange={onChangeMonth} />;
-        </DatePickerContext.Provider>
-    )
+      <DatePickerContext.Provider value={contextValue}>
+        <CalendarHeader
+          displayDate={date}
+          onChange={onChangeMonth}
+          resetFocusOnHeader={resetFocusOnHeader}
+          handleTabPressOnPreviousButton={handleTabPressOnPreviousButton}
+          handleTabPressOnHeaderTitle={handleTabPressOnHeaderTitle}
+          handleTabPressOnNextButton={handleTabPressOnNextButton}
+        />
+        ;
+      </DatePickerContext.Provider>
+    );
   };
 
   it('should change century years when click previous', async () => {
     const { getByText, container } = render(<CalendarHeaderComponent />);
 
     expect(container.querySelector('i.bi-chevron-left')).toBeInTheDocument();
-    expect(getByText(`${2022 -5} - ${2022 + 6}`)).toBeInTheDocument();
+    expect(
+      getByText(
+        `${displayDate.getFullYear()} - ${displayDate.getFullYear() + 11}`
+      )
+    ).toBeInTheDocument();
 
     fireEvent.click(container.querySelector('i.bi-chevron-left')!);
-    const newLowerYear = 2022 - 10
-    await waitFor(() => expect(getByText(`${newLowerYear -5} - ${newLowerYear + 6}`)).toBeInTheDocument());
+    const newLowerYear = displayDate.getFullYear() - 12;
+    await waitFor(() =>
+      expect(
+        getByText(`${newLowerYear} - ${newLowerYear + 11}`)
+      ).toBeInTheDocument()
+    );
     fireEvent.click(container.querySelector('i.bi-chevron-left')!);
-    const newerLowerYear = newLowerYear - 10 
-    await waitFor(() => expect(getByText(`${newerLowerYear -5} - ${newerLowerYear + 6}`)).toBeInTheDocument());
+    const newerLowerYear = newLowerYear - 12;
+    await waitFor(() =>
+      expect(
+        getByText(`${newerLowerYear} - ${newerLowerYear + 11}`)
+      ).toBeInTheDocument()
+    );
 
     fireEvent.click(container.querySelector('i.bi-chevron-left')!);
-    const newestLowerYear = newerLowerYear - 10 
+    const newestLowerYear = newerLowerYear - 12;
 
-    await waitFor(() => expect(getByText(`${newestLowerYear -5} - ${newestLowerYear + 6}`)).toBeInTheDocument());
+    await waitFor(() =>
+      expect(
+        getByText(`${newestLowerYear} - ${newestLowerYear + 11}`)
+      ).toBeInTheDocument()
+    );
     fireEvent.click(container.querySelector('i.bi-chevron-right')!);
-    await waitFor(() => expect(getByText(`${newerLowerYear -5} - ${newerLowerYear + 6}`)).toBeInTheDocument());
+    await waitFor(() =>
+      expect(
+        getByText(`${newerLowerYear} - ${newerLowerYear + 11}`)
+      ).toBeInTheDocument()
+    );
   });
   it('should change century years when click next', async () => {
     const { getByText, container } = render(<CalendarHeaderComponent />);
 
     expect(container.querySelector('i.bi-chevron-right')).toBeInTheDocument();
-    expect(getByText(`${2022 -5} - ${2022 + 6}`)).toBeInTheDocument();
-    const newUpperYear = 2022 + 10
+    expect(
+      getByText(
+        `${displayDate.getFullYear()} - ${displayDate.getFullYear() + 11}`
+      )
+    ).toBeInTheDocument();
+    const newUpperYear = displayDate.getFullYear() + 12;
     fireEvent.click(container.querySelector('i.bi-chevron-right')!);
 
-    await waitFor(() => expect(getByText(`${newUpperYear -5} - ${newUpperYear + 6}`)).toBeInTheDocument()); 
+    await waitFor(() =>
+      expect(
+        getByText(`${newUpperYear} - ${newUpperYear + 11}`)
+      ).toBeInTheDocument()
+    );
   });
 });

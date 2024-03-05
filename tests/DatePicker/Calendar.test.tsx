@@ -31,16 +31,24 @@ describe('setTimeToNoon function', () => {
 
 describe('Single mode Calendar', () => {
   const mode = 'single';
+  const mockChangeDate = jest.fn();
+  const mockOnChangeMonth = jest.fn();
+  const mockhandleTabPressOnCalendarBody = jest.fn();
+  const dayRefs = React.createRef<Array<HTMLTableCellElement | null>>();
+
   it('should have the default html structure', () => {
     const displayDate = new Date(2022, 2, 21);
     const selectedDate = new Date(2022, 2, 18);
-    const mockChangeDate = jest.fn();
     const { container, getByText } = render(
       <Calendar
+        selectedDate={selectedDate}
+        displayDate={displayDate}
         changeDate={mockChangeDate}
         mode={mode}
-        displayDate={displayDate}
-        selectedDate={selectedDate}
+        show={true}
+        dayRefs={dayRefs}
+        onChangeMonth={mockOnChangeMonth}
+        handleTabPressOnCalendarBody={mockhandleTabPressOnCalendarBody}
       />
     );
     expect(container.querySelector('table.text-center')).toBeInTheDocument();
@@ -51,21 +59,25 @@ describe('Single mode Calendar', () => {
     const totalDaysInDisplayDate = daysInMonth[displayDate.getMonth()];
     expect(getByText(totalDaysInDisplayDate)).toBeInTheDocument();
     expect(getByText(selectedDate.getDate()).classList).toContain(
-      'bg-primary-100'
+      'bg-primary-600'
     );
-    expect(container.querySelectorAll('.bg-primary-100').length).toEqual(1);
+    expect(container.querySelectorAll('.bg-primary-600').length).toEqual(1);
   });
+
   it('day should have class text-primary when its current date', () => {
     jest.useFakeTimers().setSystemTime(new Date('2020-01-01'));
     const displayDate = new Date('2020-01-23');
     const selectedDate = new Date('2020-01-23');
-    const mockChangeDate = jest.fn();
     const { getByText, container } = render(
       <Calendar
+        selectedDate={selectedDate}
+        displayDate={displayDate}
         changeDate={mockChangeDate}
         mode={mode}
-        displayDate={displayDate}
-        selectedDate={selectedDate}
+        show={true}
+        dayRefs={dayRefs}
+        onChangeMonth={mockOnChangeMonth}
+        handleTabPressOnCalendarBody={mockhandleTabPressOnCalendarBody}
       />
     );
 
@@ -74,6 +86,7 @@ describe('Single mode Calendar', () => {
     expect(container.querySelectorAll('.text-primary').length).toEqual(1);
     jest.clearAllTimers();
   });
+
   it('should show appropriate days depending on month', () => {
     const arrayOfDates = [
       new Date(2022, 0, 20),
@@ -89,15 +102,18 @@ describe('Single mode Calendar', () => {
       new Date(2022, 10, 20),
       new Date(2022, 11, 20),
     ];
-    const mockChangeDate = jest.fn();
 
     arrayOfDates.forEach((date, idx) => {
       const { getByText } = render(
         <Calendar
+          selectedDate={date}
+          displayDate={date}
           changeDate={mockChangeDate}
           mode={mode}
-          displayDate={date}
-          selectedDate={date}
+          show={true}
+          dayRefs={dayRefs}
+          onChangeMonth={mockOnChangeMonth}
+          handleTabPressOnCalendarBody={mockhandleTabPressOnCalendarBody}
         />
       );
       const expectedLastDatePerMonth = daysInMonth[idx];
@@ -105,73 +121,93 @@ describe('Single mode Calendar', () => {
       cleanup();
     });
   });
+
   it('account for leap year in feb months', () => {
-    const mockChangeDate = jest.fn();
     const leapYear = [2000, 2020, 2024, 2028];
     leapYear.forEach((y) => {
       const feb = new Date(y, 1, 20);
       const { getByText } = render(
         <Calendar
+          selectedDate={feb}
+          displayDate={feb}
           changeDate={mockChangeDate}
           mode={mode}
-          displayDate={feb}
-          selectedDate={feb}
+          show={true}
+          dayRefs={dayRefs}
+          onChangeMonth={mockOnChangeMonth}
+          handleTabPressOnCalendarBody={mockhandleTabPressOnCalendarBody}
         />
       );
       expect(getByText('29')).toBeInTheDocument();
       cleanup();
     });
   });
+
   it('end of century years but not leap year', () => {
-    const mockChangeDate = jest.fn();
     const notLeapYear = [1700, 1800, 1900, 2100];
     notLeapYear.forEach((y) => {
       const feb = new Date(y, 1, 20);
       const { queryByText } = render(
         <Calendar
+          selectedDate={feb}
+          displayDate={feb}
           changeDate={mockChangeDate}
           mode={mode}
-          displayDate={feb}
-          selectedDate={feb}
+          show={true}
+          dayRefs={dayRefs}
+          onChangeMonth={mockOnChangeMonth}
+          handleTabPressOnCalendarBody={mockhandleTabPressOnCalendarBody}
         />
       );
       expect(queryByText('29')).not.toBeInTheDocument();
       cleanup();
     });
   });
+
   it('bg-primary-100 changes with selectedDate ', () => {
-    const mockChangeDate = jest.fn();
     const date = new Date(2022, 2, 20);
     const { getByText, rerender } = render(
       <Calendar
+        selectedDate={date}
+        displayDate={date}
         changeDate={mockChangeDate}
         mode={mode}
-        displayDate={date}
-        selectedDate={date}
+        show={true}
+        dayRefs={dayRefs}
+        onChangeMonth={mockOnChangeMonth}
+        handleTabPressOnCalendarBody={mockhandleTabPressOnCalendarBody}
       />
     );
-    expect(getByText('20').classList).toContain('bg-primary-100');
+    expect(getByText('20').classList).toContain('bg-primary-600');
     rerender(
       <Calendar
+        selectedDate={new Date(2022, 2, 1)}
+        displayDate={date}
         changeDate={mockChangeDate}
         mode={mode}
-        displayDate={date}
-        selectedDate={new Date(2022, 2, 1)}
+        show={true}
+        dayRefs={dayRefs}
+        onChangeMonth={mockOnChangeMonth}
+        handleTabPressOnCalendarBody={mockhandleTabPressOnCalendarBody}
       />
     );
 
-    expect(getByText('20').classList).not.toContain('bg-primary-100');
-    expect(getByText('1').classList).toContain('bg-primary-100');
+    expect(getByText('20').classList).not.toContain('bg-primary-600');
+    expect(getByText('1').classList).toContain('bg-primary-600');
   });
+
   it('clickhandler is fired when click of dates', async () => {
-    const mockChangeDate = jest.fn();
     const date = new Date(2022, 2, 20);
     const { getByText } = render(
       <Calendar
+        selectedDate={date}
+        displayDate={date}
         changeDate={mockChangeDate}
         mode={mode}
-        displayDate={date}
-        selectedDate={date}
+        show={true}
+        dayRefs={dayRefs}
+        onChangeMonth={mockOnChangeMonth}
+        handleTabPressOnCalendarBody={mockhandleTabPressOnCalendarBody}
       />
     );
     fireEvent.click(getByText('21'));
@@ -183,19 +219,23 @@ describe('Single mode Calendar', () => {
       expect(mockChangeDate).toHaveBeenCalled();
     });
   });
+
   it('clickhandler not fired when click of dates out of min and max range', async () => {
-    const mockChangeDate = jest.fn();
     const date = new Date(2022, 2, 20);
     const minDate = new Date(2022, 2, 15).toISOString();
     const maxDate = new Date(2022, 2, 21).toISOString();
     const { getByText } = render(
       <Calendar
-        changeDate={mockChangeDate}
-        mode={mode}
-        displayDate={date}
         selectedDate={date}
+        displayDate={date}
         minDate={minDate}
         maxDate={maxDate}
+        changeDate={mockChangeDate}
+        mode={mode}
+        show={true}
+        dayRefs={dayRefs}
+        onChangeMonth={mockOnChangeMonth}
+        handleTabPressOnCalendarBody={mockhandleTabPressOnCalendarBody}
       />
     );
     const activeRange = [15, 16, 17, 18, 19, 20, 21];
@@ -230,48 +270,114 @@ describe('Single mode Calendar', () => {
       mockChangeDate.mockReset();
     });
   });
+
+  it('focus on current date when calendar is opened and there is no selected date', () => {
+    const displayDate = new Date();
+    const { getByText } = render(
+      <Calendar
+        selectedDate={undefined}
+        displayDate={displayDate}
+        changeDate={mockChangeDate}
+        mode={mode}
+        show={true}
+        dayRefs={dayRefs}
+        onChangeMonth={mockOnChangeMonth}
+        handleTabPressOnCalendarBody={mockhandleTabPressOnCalendarBody}
+      />
+    );
+
+    expect(getByText(displayDate.getDate()).classList).toContain(
+      'text-primary'
+    );
+  });
+
+  // it('press ArrowDown key to go to the next 7 days', async () => {
+  //   const displayDate = new Date();
+  //   const { container, getByText } = render(
+  //     <Calendar
+  //       selectedDate={undefined}
+  //       displayDate={displayDate}
+  //       changeDate={mockChangeDate}
+  //       mode={mode}
+  //       show={true}
+  //       dayRefs={dayRefs}
+  //       onChangeMonth={mockOnChangeMonth}
+  //       handleTabPressOnCalendarBody={mockhandleTabPressOnCalendarBody}
+  //     />
+  //   );
+
+  //   fireEvent.keyPress(container.querySelector('td.text-primary')!, {
+  //     key: 'ArrowDown',
+  //     code: 'ArrowDown',
+  //   });
+  //   await waitFor(() => {
+  //     const nextWeekDate = new Date(displayDate);
+  //     nextWeekDate.setDate(nextWeekDate.getDate() + 7);
+  //     expect(getByText(nextWeekDate.getDate())).toHaveFocus();
+  //   });
+  // });
 });
 
 describe('Range Calendar', () => {
   const mode = 'range';
-  it('when two diff date selected, it reflects bg-primary-100 on the ranges', () => {
+  const mockChangeDate = jest.fn();
+  const mockOnChangeMonth = jest.fn();
+  const mockhandleTabPressOnCalendarBody = jest.fn();
+  const dayRefs = React.createRef<Array<HTMLTableCellElement | null>>();
+
+  it('when two diff date selected, it reflects bg-primary-100 on the range in between start and end date, bg-primary-600 on the start and end date', () => {
     const displayDate = new Date(2022, 2, 21);
-    const selectedDate = { start: new Date(2022, 2, 18), end: new Date(2022, 2, 20) };
-    const mockChangeDate = jest.fn();
+    const selectedDate = {
+      start: new Date(2022, 2, 18),
+      end: new Date(2022, 2, 20),
+    };
     const { container, getByText } = render(
       <Calendar
+        selectedDate={selectedDate}
+        displayDate={displayDate}
         changeDate={mockChangeDate}
         mode={mode}
-        displayDate={displayDate}
-        selectedDate={selectedDate}
+        show={true}
+        dayRefs={dayRefs}
+        onChangeMonth={mockOnChangeMonth}
+        handleTabPressOnCalendarBody={mockhandleTabPressOnCalendarBody}
       />
     );
-    expect(container.querySelectorAll('.bg-primary-100').length).toEqual(3);
-    [18, 19, 20].forEach((day) => {
-      expect(getByText(day).classList).toContain('bg-primary-100');
+    expect(container.querySelectorAll('.bg-primary-100').length).toEqual(1);
+    [18, 20].forEach((day) => {
+      expect(getByText(day).classList).toContain('bg-primary-600');
     });
-    [1,5,6,21,24,27].forEach((day) => {
-        expect(getByText(day).classList).not.toContain('bg-primary-100')
-    })
+    expect(getByText('19').classList).toContain('bg-primary-100');
+    [1, 5, 6, 21, 24, 27].forEach((day) => {
+      expect(getByText(day).classList).not.toContain('bg-primary-100');
+    });
   });
+
   it('the sequence of selectedDates should not matter', () => {
     const displayDate = new Date(2022, 2, 21);
-    const selectedDate = { start: new Date(2022, 2, 20), end: new Date(2022, 2, 18) };
-    const mockChangeDate = jest.fn();
+    const selectedDate = {
+      start: new Date(2022, 2, 20),
+      end: new Date(2022, 2, 18),
+    };
     const { container, getByText } = render(
       <Calendar
+        selectedDate={selectedDate}
+        displayDate={displayDate}
         changeDate={mockChangeDate}
         mode={mode}
-        displayDate={displayDate}
-        selectedDate={selectedDate}
+        show={true}
+        dayRefs={dayRefs}
+        onChangeMonth={mockOnChangeMonth}
+        handleTabPressOnCalendarBody={mockhandleTabPressOnCalendarBody}
       />
     );
-    expect(container.querySelectorAll('.bg-primary-100').length).toEqual(3);
-    [18, 19, 20].forEach((day) => {
-      expect(getByText(day).classList).toContain('bg-primary-100');
+    expect(container.querySelectorAll('.bg-primary-100').length).toEqual(1);
+    [18, 20].forEach((day) => {
+      expect(getByText(day).classList).toContain('bg-primary-600');
     });
-    [1,5,6,21,24,27].forEach((day) => {
-        expect(getByText(day).classList).not.toContain('bg-primary-100')
-    })
+    expect(getByText('19').classList).toContain('bg-primary-100');
+    [1, 5, 6, 21, 24, 27].forEach((day) => {
+      expect(getByText(day).classList).not.toContain('bg-primary-100');
+    });
   });
 });
