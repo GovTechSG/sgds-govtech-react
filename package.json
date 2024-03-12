@@ -106,6 +106,7 @@
   "dependencies": {
     "@restart/hooks": "^0.4.6",
     "@restart/ui": "^1.2.0",
+    "@storybook/addon-postcss": "^2.0.0",
     "@types/invariant": "^2.2.35",
     "@types/react-transition-group": "^4.4.4",
     "classnames": "^2.3.1",
@@ -114,7 +115,6 @@
     "invariant": "^2.2.4",
     "prop-types": "^15.8.1",
     "prop-types-extra": "^1.1.1",
-    "react-bootstrap": "^2.7.2",
     "react-input-mask": "^3.0.0-alpha.2",
     "react-transition-group": "^4.4.2",
     "warning": "^4.0.3"

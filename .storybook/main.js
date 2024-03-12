@@ -17,6 +17,7 @@ module.exports = {
     '@storybook/addon-essentials',
     '@storybook/addon-a11y',
     '@storybook/addon-storysource',
+    '@storybook/addon-postcss',
   ],
   // https://storybook.js.org/docs/react/configure/typescript#mainjs-configuration
   typescript: {
@@ -26,20 +27,22 @@ module.exports = {
       shouldExtractLiteralValuesFromEnum: true,
       propFilter: (prop) => {
         return prop.parent
-            ?  prop.parent.name !== 'DOMAttributes' && !prop.parent.name.includes('HTMLAttributes')  && prop.parent.name !== 'AriaAttributes'
-            : true;
+          ? prop.parent.name !== 'DOMAttributes' &&
+              !prop.parent.name.includes('HTMLAttributes') &&
+              prop.parent.name !== 'AriaAttributes'
+          : true;
       },
       compilerOptions: {
         allowSyntheticDefaultImports: false,
         esModuleInterop: false,
       },
-    }
+    },
   },
   rules: [
     // ...
     {
       test: /\.mdx?$/,
-      use: ['babel-loader', '@mdx-js/loader']
-    }
-  ]
+      use: ['babel-loader', '@mdx-js/loader'],
+    },
+  ],
 };
