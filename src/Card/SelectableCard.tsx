@@ -65,7 +65,7 @@ const SelectableCard: React.FC<SelectableCardProps> = ({
 }) => {
   const formCheckRef = React.useRef<HTMLInputElement>(null);
   const cardRef = React.useRef<HTMLDivElement>(null);
-  const formCheckProps = props;
+  const formCheckProps = {...props, type};
   const cardProps = { bg, text, border };
   const handleSelect = () => {
     formCheckRef?.current?.click();

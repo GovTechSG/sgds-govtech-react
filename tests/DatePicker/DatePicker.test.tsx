@@ -1839,7 +1839,7 @@ describe('DatePicker', () => {
 
   it('invalid feedback with customisable message is shown when entered invalid date', async () => {
     const { container, getByText } = render(
-      <DatePicker errorMessage="You have entered an invalid date" />
+      <DatePicker invalidFeedback="You have entered an invalid date" />
     );
 
     const input = container.querySelector('input')!;
