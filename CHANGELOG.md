@@ -1,9 +1,41 @@
+## v2.4.0 (2024-03-22)
+
+### Feat
+
+- **pagination**: add prop to show first/last page on the pagination [skip-cd] (#216)
+- **pagination**: add prop to show first/last page on the pagination
+- **datepicker**: enhance datepicker accessibility [skip-cd] (#212)
+- **datepicker**: sync up prop name as invalidFeedback with web component
+- **datepicker**: validate date input onblur and onchange, add error message
+- **datepicker**: handle min & max date and no date before 1900 is allowed
+- **datepicker**: enhance datepicker accessibility
+- **datepicker**: datepicker manual entry [skip-cd] (#211)
+- **datepicker**: target menu to input
+- **datepicker**: add manual entry functionality and validation to datepicker
+
+### Fix
+
+- **datepicker**: date range validation
+- **datepicker**: date range validation for year before 1900
+- **datepicker**: fix focused element switch to calendar date when pressing previous/next button
+- *****: remove default props [skip-cd] (#214)
+- *****: remove default props for Tabs and OverlayTrigger
+- *****: remove default props
+- **badge**: storybook args table name [skip-cd] (#215)
+- **badge**: storybook args table name
+
 ## v2.3.0 (2024-01-10)
+
+- previously, users construct their own <thead> and <td> to fill the table.
+Now, we define the table structure within the <Table> component.
+Users can now fill in the table through props `tableHeaders` and `tableData`.
 
 ### Feat
 
 - **table**: expose Table sub-components
-- **table**: define default table structures
+- **table**: add removableSort prop
+- **table**: add ability to sort table
+- **table**: define default table structure
 
 ### Fix
 
