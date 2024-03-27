@@ -42,6 +42,8 @@ export interface SideNavProps
   onSelect?: SideNavSelectCallback;
   /** Allow accordion items to stay open when another item is opened */
   alwaysOpen?: boolean;
+  /** Apply position sticky to the sidenav with a default top and max-height so that sidenav sticks during scrolling */
+  sticky?: boolean;
 }
 
 const propTypes = {
@@ -60,6 +62,7 @@ const propTypes = {
   alwaysOpen: PropTypes.bool,
   /** The current active NavLink that corresponds to the currently expanded card */
   activeNavLinkKey: PropTypes.string,
+  sticky: PropTypes.bool,
 };
 
 const SideNav: BsPrefixRefForwardingComponent<'ul', SideNavProps> =
@@ -73,6 +76,7 @@ const SideNav: BsPrefixRefForwardingComponent<'ul', SideNavProps> =
       onSelect,
       alwaysOpen,
       activeNavLinkKey = '',
+      sticky = false,
       ...controlledProps
     } = useUncontrolled(props, {
       activeKey: 'onSelect',
@@ -93,7 +97,12 @@ const SideNav: BsPrefixRefForwardingComponent<'ul', SideNavProps> =
           as={Component}
           ref={ref}
           {...controlledProps}
-          className={classNames(className, prefix, 'list-unstyled')}
+          className={classNames(
+            className,
+            prefix,
+            'list-unstyled',
+            sticky && 'sticky'
+          )}
         />
       </SideNavContext.Provider>
     );

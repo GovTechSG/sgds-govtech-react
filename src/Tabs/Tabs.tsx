@@ -99,12 +99,6 @@ const propTypes = {
   unmountOnExit: PropTypes.bool,
 };
 
-const defaultProps = {
-  // variant: 'tabs',
-  mountOnEnter: false,
-  unmountOnExit: false,
-};
-
 function getDefaultActiveKey(children: React.ReactChildren) {
   let defaultActiveKey: undefined;
   forEach(children, (child) => {
@@ -166,14 +160,16 @@ function renderTab(variant?: TabsVariant) {
   };
 }
 
-const Tabs = (props: TabsProps) => {
+const Tabs = ({
+  mountOnEnter = false,
+  unmountOnExit = false,
+  ...props
+}: TabsProps) => {
   const {
     id,
     variant,
     onSelect,
     transition,
-    mountOnEnter,
-    unmountOnExit,
     children,
     activeKey = getDefaultActiveKey(children as React.ReactChildren),
     ...controlledProps
@@ -210,7 +206,6 @@ const Tabs = (props: TabsProps) => {
 };
 
 Tabs.propTypes = propTypes;
-Tabs.defaultProps = defaultProps;
 Tabs.displayName = 'Tabs';
 
 export default Tabs;
