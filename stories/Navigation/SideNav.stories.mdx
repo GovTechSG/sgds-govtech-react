@@ -1,7 +1,11 @@
-import { ArgsTable, Canvas, Meta, Story } from '@storybook/addon-docs';
+import { ArgsTable, Canvas, Meta, Story, Source } from '@storybook/addon-docs';
 import { HIDDEN_COMMON_PROPS } from '../helpers';
 import { SideNav, NavLink } from '../../src/index';
 import { useState } from 'react';
+import { Default as NavbarComponent } from './Navbar.stories.mdx';
+import { defaultTemplate as FooterComponent } from '../Footer/Footer.stories.mdx';
+import SidenavCss from '!raw-loader!./sidenav-sticky.css';
+import './sidenav-sticky.css';
 
 <Meta
   title="Components/Navigation/SideNav"
@@ -460,4 +464,75 @@ export const WithIcon = () => (
 
 <Canvas>
   <Story name="Add Icons">{WithIcon.bind({})}</Story>
+</Canvas>
+
+## Sticky Sidenav
+
+Set `sticky` to true to stick your sidenav to top when scrolling the page.
+
+To customise the css `top` property, change the value of the following css custom variable like so:
+
+<Source type="code" language="css" code={SidenavCss} />
+
+View the example in Canvas fullscreen mode for better visualization of the sticky property
+
+export const StickySideNav = () => (
+  <div>
+    <sgds-masthead></sgds-masthead>
+    <NavbarComponent />
+    <sgds-template-grid class="with-sidenav">
+      <sgds-aside-area>
+        <SideNav sticky>
+          {Array.from(Array(10).keys()).map((_, i) => (
+            <SideNav.Item eventKey="2" key={i}>
+              <SideNav.Button href="#">SideNav Item #{i + 1}</SideNav.Button>
+            </SideNav.Item>
+          ))}
+        </SideNav>
+      </sgds-aside-area>
+      <sgds-content-area>
+        <p>
+          Lorem ipsum dolor sit amet. Hic impedit optio aut molestiae soluta non
+          voluptatem nobis et voluptatem atque vel delectus itaque aut sequi
+          sint et voluptatem labore. Sit accusamus dignissimos eum cumque
+          aperiam et corporis porro aut recusandae saepe sit totam eveniet ut
+          sunt beatae. At ipsum animi eum voluptas natus nam natus expedita et
+          unde dolores ut labore quia non doloremque sint ut voluptatem
+          voluptate! Aut consequatur consequatur et rerum reprehenderit est enim
+          accusantium qui ipsa tempore qui natus optio.{' '}
+        </p>
+        <p>
+          Lorem ipsum dolor sit amet. Hic impedit optio aut molestiae soluta non
+          voluptatem nobis et voluptatem atque vel delectus itaque aut sequi
+          sint et voluptatem labore. Sit accusamus dignissimos eum cumque
+          aperiam et corporis porro aut recusandae saepe sit totam eveniet ut
+          sunt beatae. At ipsum animi eum voluptas natus nam natus expedita et
+          unde dolores ut labore quia non doloremque sint ut voluptatem
+          voluptate! Aut consequatur consequatur et rerum reprehenderit est enim
+          accusantium qui ipsa tempore qui natus optio.{' '}
+        </p>
+        <p>
+          Sed facere ullam ut mollitia aliquid aut unde consequatur hic quas
+          voluptas non obcaecati perspiciatis! Vel doloribus eaque et velit sunt
+          At odio tempore in esse quidem quo fugiat harum et nemo eligendi eum
+          pariatur autem. Vel quaerat voluptas ut dicta maxime est sint error
+          eum Quis omnis eos quisquam dolorum aut dolorem dolores aut commodi
+          omnis.{' '}
+        </p>
+        <p>
+          Ea molestiae vitae aut omnis quibusdam et vero galisum et quia soluta
+          et mollitia incidunt id ducimus earum. In laudantium corrupti qui fuga
+          consequatur sed minus omnis sed sapiente expedita eos amet molestiae.
+          Aut omnis vero sed autem quia et officiis sequi nam enim eius non
+          atque dicta. Et molestiae rerum ad mollitia beatae et doloribus saepe
+          et cupiditate ratione a officiis dolorem vel temporibus dolorem.{' '}
+        </p>
+      </sgds-content-area>
+    </sgds-template-grid>
+    <FooterComponent />
+  </div>
+);
+
+<Canvas>
+  <Story name="Sticky Sidenav">{StickySideNav.bind({})}</Story>
 </Canvas>

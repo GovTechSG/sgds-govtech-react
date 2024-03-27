@@ -1,6 +1,6 @@
 import * as React from 'react';
 import { fireEvent, render, waitFor } from '@testing-library/react';
-import  { SideNav } from '../../src/SideNav';
+import { SideNav } from '../../src/SideNav';
 import { NavLink } from '../../src/Nav';
 import { useState } from 'react';
 describe('<SideNav>', () => {
@@ -16,7 +16,12 @@ describe('<SideNav>', () => {
     const { getByText } = render(<SideNav as="div">SideNav</SideNav>);
     expect(getByText('SideNav').tagName).toEqual('DIV');
   });
-
+  it('sticky prop should be forwarded to .sgds.sidenav', () => {
+    const { container } = render(<SideNav sticky>SideNav</SideNav>);
+    expect(container.querySelector('.sgds.sidenav')?.classList).toContain(
+      'sticky'
+    );
+  });
   it('by default, both items are closed', () => {
     const { container } = render(
       <SideNav>
@@ -251,10 +256,10 @@ const Component = () => {
   const clickButton = (key: string) => {
     activeKey === key ? setActiveKey('') : setActiveKey(key);
   };
-  const clickButtonLink = (key:string) => {
-    setActiveLinkKey("")
-    clickButton(key)
-  }
+  const clickButtonLink = (key: string) => {
+    setActiveLinkKey('');
+    clickButton(key);
+  };
   return (
     <SideNav activeNavLinkKey={activeLinkKey} activeKey={activeKey}>
       <SideNav.Item eventKey="0">
@@ -306,8 +311,7 @@ const Component = () => {
         </SideNav.Collapse>
       </SideNav.Item>
       <SideNav.Item eventKey="2">
-        <SideNav.Button onClick={() => clickButtonLink("2")}
-          href="#">
+        <SideNav.Button onClick={() => clickButtonLink('2')} href="#">
           SideNav Item #3
         </SideNav.Button>
       </SideNav.Item>
@@ -321,28 +325,28 @@ describe('SideNav behaviour when there are active SideNavLink', () => {
     // second nav item is open and first nav item is closed
     expect(container.querySelectorAll('.show').length).toEqual(1);
     expect(container.querySelectorAll('.btn')[1].classList).not.toContain(
-      'collapsed' 
+      'collapsed'
     );
     expect(container.querySelectorAll('.btn')[0].classList).toContain(
       'collapsed'
     );
-    expect(getByText('number two').classList).toContain('active'); 
+    expect(getByText('number two').classList).toContain('active');
 
     //when clicked on button number4 navlink is no longer active
 
     fireEvent.click(getByText('SideNav Item #3'));
-    await waitFor(() => 
-      expect(getByText('number two').classList).not.toContain('active') 
+    await waitFor(() =>
+      expect(getByText('number two').classList).not.toContain('active')
     );
 
     // click on first navitem
     fireEvent.click(getByText('SideNav Item #1'));
-    await waitFor(() => { 
+    await waitFor(() => {
       expect(container.querySelectorAll('.btn')[0].classList).not.toContain(
         'collapsed'
       );
       expect(getByText('number1').classList).not.toContain('active');
-    }); 
+    });
     //click on navlink number 1
     fireEvent.click(getByText('number1'));
     //navlink 1 should be active
