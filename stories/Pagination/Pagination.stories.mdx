@@ -216,6 +216,14 @@ ellipsisJump={8}
 />
 `;
 
+export const templateCodeFirstLastPage = `
+<Pagination
+showFirstPage={true}
+showLastPage={true}
+...
+/>
+`;
+
 export const PaginationTpl = (args) => {
   const renderData = (data) => {
     return (
@@ -597,6 +605,27 @@ it will decrement/increment to the end of the pages respectively.
         source: {
           code: '',
         },
+      },
+    }}
+  >
+    {PaginationTpl.bind({})}
+  </Story>
+</Canvas>
+
+## Show first and last page of pagination
+
+`showFirstPage` and `showLastPage` controls the appearance of first and last page of the component respectively.
+
+<Canvas>
+  <Story
+    name="Show First and Last Page"
+    args={{ showFirstPage: true, showLastPage: true }}
+    parameters={{
+      docs: {
+        source: {
+          code: templateCodeFirstLastPage,
+        },
+        type: 'code',
       },
     }}
   >
