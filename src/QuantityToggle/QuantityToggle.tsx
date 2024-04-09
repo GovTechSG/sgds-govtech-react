@@ -1,7 +1,7 @@
 import * as React from 'react';
 import Button from '../Button/Button';
 import InputGroup from '../InputGroup/InputGroup';
-import FormControl from '../Form/FormControl';
+import FormControl, { FormControlElement } from '../Form/FormControl';
 import { BsPrefixRefForwardingComponent } from '../utils/helpers';
 import { ButtonVariant } from '../utils/types';
 import PropTypes from 'prop-types';
@@ -60,20 +60,41 @@ export const QuantityToggle: BsPrefixRefForwardingComponent<
   ({ size, step = 1, disabled, variant, count, setCount, ...props }, ref) => {
     const buttonProps = { disabled, variant };
     const onPlus = () => {
-      setCount(count + step);
+      setCount((prevCount) => prevCount + step);
     };
     const onMinus = () => {
       if (count < 1) setCount(0);
-      else setCount(count - step);
+      else setCount((prevCount) => prevCount - step);
     };
-    React.useEffect(() => {
-      if (count < 0) setCount(0);
-    }, []);
+    const onChangeInput = (e: React.ChangeEvent<FormControlElement>) => {
+      const inputValue = e.target.value === '' ? 0 : parseInt(e.target.value);
+      setCount(inputValue);
+    };
+    const handleKeyDown = (event: React.KeyboardEvent<FormControlElement>) => {
+      const allowedKeys = [
+        'Backspace',
+        'ArrowUp',
+        'ArrowDown',
+        'ArrowLeft',
+        'ArrowRight',
+        ...Array.from(Array(10).keys()).map((key) => key.toString()),
+      ];
+
+      // Allow keydown event only if the pressed key is in the allowedKeys array
+      if (!allowedKeys.includes(event.key)) {
+        event.preventDefault();
+      }
+    };
+
     return (
       <>
         <FormLabel className="visually-hidden">quantity-toggle</FormLabel>
         <InputGroup size={size} variant="quantity-toggle">
-          <Button onClick={onMinus} {...buttonProps} aria-label={`decrease by ${step}`}>
+          <Button
+            onClick={onMinus}
+            {...buttonProps}
+            aria-label={`decrease by ${step}`}
+          >
             <i className="bi bi-dash"></i>
           </Button>
           <FormControl
@@ -82,21 +103,25 @@ export const QuantityToggle: BsPrefixRefForwardingComponent<
             ref={ref}
             type="number"
             className="text-center"
-            value={count}
+            value={count.toString()}
             name="quantity"
-            onChange={(e) => {
-              setCount(parseInt(e.target.value));
-            }}
+            onKeyDown={handleKeyDown}
+            onChange={onChangeInput}
             min={0}
           />
           <div
             id="quantitytoggle-announcer"
             role="region"
             aria-live="assertive"
-            className="visually-hidden">
+            className="visually-hidden"
+          >
             {count}
           </div>
-          <Button onClick={onPlus} {...buttonProps} aria-label={`increase by ${step}`}>
+          <Button
+            onClick={onPlus}
+            {...buttonProps}
+            aria-label={`increase by ${step}`}
+          >
             <i className="bi bi-plus"></i>
           </Button>
         </InputGroup>
