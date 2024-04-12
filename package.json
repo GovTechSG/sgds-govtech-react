@@ -33,8 +33,9 @@
     "lint": "tsdx lint",
     "size": "size-limit",
     "analyze": "size-limit --why",
-    "storybook": "start-storybook -p 6006 --no-manager-cache",
-    "build-storybook": "build-storybook",
+    "storybook": "STORYBOOK_STYLE_URL=https://v2dev.designsystem.tech.gov.sg/css/sgds.css start-storybook -p 6006 --no-manager-cache",
+    "dev:build-storybook": "STORYBOOK_STYLE_URL=https://v2dev.designsystem.tech.gov.sg/css/sgds.css build-storybook",
+    "prod:build-storybook": "STORYBOOK_STYLE_URL=https://cdn.jsdelivr.net/npm/@govtechsg/sgds/css/sgds.css build-storybook",
     "prepare": "husky install"
   },
   "peerDependencies": {
