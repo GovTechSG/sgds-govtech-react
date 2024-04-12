@@ -240,8 +240,7 @@ describe('Single mode Calendar', () => {
     );
     const activeRange = [15, 16, 17, 18, 19, 20, 21];
     activeRange.forEach((day) => {
-      expect(getByText(day).classList).not.toContain('text-muted');
-      expect(getByText(day).style.cursor).toEqual('pointer');
+      expect(getByText(day).classList).not.toContain('disabled');
     });
 
     fireEvent.click(getByText('21'));
@@ -256,15 +255,13 @@ describe('Single mode Calendar', () => {
       mockChangeDate.mockReset();
     });
     fireEvent.click(getByText('14'));
-    expect(getByText('14').classList).toContain('text-muted');
-    expect(getByText('14').style.cursor).toEqual('default');
+    expect(getByText('14').classList).toContain('disabled');
     await waitFor(() => {
       expect(mockChangeDate).not.toHaveBeenCalled();
       mockChangeDate.mockReset();
     });
     fireEvent.click(getByText('22'));
-    expect(getByText('22').classList).toContain('text-muted');
-    expect(getByText('22').style.cursor).toEqual('default');
+    expect(getByText('22').classList).toContain('disabled');
     await waitFor(() => {
       expect(mockChangeDate).not.toHaveBeenCalled();
       mockChangeDate.mockReset();
@@ -379,5 +376,96 @@ describe('Range Calendar', () => {
     [1, 5, 6, 21, 24, 27].forEach((day) => {
       expect(getByText(day).classList).not.toContain('bg-primary-100');
     });
+  });
+});
+
+import dayjs from 'dayjs';
+import localizedFormat from 'dayjs/plugin/localizedFormat';
+
+dayjs.extend(localizedFormat);
+
+describe('Calendar a11y', () => {
+  const mode = 'single';
+  const mockChangeDate = jest.fn();
+  const mockOnChangeMonth = jest.fn();
+  const mockhandleTabPressOnCalendarBody = jest.fn();
+  const dayRefs = React.createRef<Array<HTMLTableCellElement | null>>();
+  it('date in calendar is aria-labelled', () => {
+    const displayDate = new Date(2022, 2, 21);
+    const selectedDate = new Date(2022, 2, 18);
+    const { getByText } = render(
+      <Calendar
+        selectedDate={selectedDate}
+        displayDate={displayDate}
+        changeDate={mockChangeDate}
+        mode={mode}
+        show={true}
+        dayRefs={dayRefs}
+        onChangeMonth={mockOnChangeMonth}
+        handleTabPressOnCalendarBody={mockhandleTabPressOnCalendarBody}
+      />
+    );
+    const expected = dayjs(new Date(2022, 2, 1)).format('dddd, MMMM D, YYYY');
+    expect(getByText('1').getAttribute('aria-label')).toEqual(expected);
+  });
+
+  it('aria-selected=true on selectedDate, single mode', () => {
+    const displayDate = new Date(2022, 2, 21);
+    const selectedDate = new Date(2022, 2, 18);
+    const { getByText } = render(
+      <Calendar
+        selectedDate={selectedDate}
+        displayDate={displayDate}
+        changeDate={mockChangeDate}
+        mode={mode}
+        show={true}
+        dayRefs={dayRefs}
+        onChangeMonth={mockOnChangeMonth}
+        handleTabPressOnCalendarBody={mockhandleTabPressOnCalendarBody}
+      />
+    );
+    expect(getByText('18').getAttribute('aria-selected')).toEqual('true');
+    expect(getByText('21').getAttribute('aria-selected')).toBeNull();
+  });
+  it('aria-selected=true on selectedDate, range mode', () => {
+    const displayDate = new Date(2022, 2, 21);
+    const selectedDate = {
+      start: new Date(2022, 2, 18),
+      end: new Date(2022, 2, 23),
+    };
+    const { getByText } = render(
+      <Calendar
+        selectedDate={selectedDate}
+        displayDate={displayDate}
+        changeDate={mockChangeDate}
+        mode="range"
+        show={true}
+        dayRefs={dayRefs}
+        onChangeMonth={mockOnChangeMonth}
+        handleTabPressOnCalendarBody={mockhandleTabPressOnCalendarBody}
+      />
+    );
+    for (let i = 18; i < 24; i++) {
+      expect(getByText(`${i}`).getAttribute('aria-selected')).toEqual('true');
+    }
+    expect(getByText('24').getAttribute('aria-selected')).toBeNull();
+  });
+
+  it("aria-current=date for today's date", () => {
+    const displayDate = new Date();
+    const { getByText } = render(
+      <Calendar
+        selectedDate={undefined}
+        displayDate={displayDate}
+        changeDate={mockChangeDate}
+        mode="range"
+        show={true}
+        dayRefs={dayRefs}
+        onChangeMonth={mockOnChangeMonth}
+        handleTabPressOnCalendarBody={mockhandleTabPressOnCalendarBody}
+      />
+    );
+    const day = new Date().getDate();
+    expect(getByText(`${day}`).getAttribute('aria-current')).toEqual('date');
   });
 });

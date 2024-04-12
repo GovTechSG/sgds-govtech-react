@@ -194,10 +194,13 @@ export const YearView = React.forwardRef<HTMLDivElement, YearViewProps>(
       <div className="sgds yearpicker" ref={ref} {...props}>
         {yearArray.map((year, index) => {
           const activeYearClass = getActiveYearClass(year);
+          const isCurrentYear =  CURRENT_YEAR === year
           return (
             <button
+              aria-selected={activeYearClass ? 'true' : 'false'}
+              aria-label={isCurrentYear ? `Current year, ${year}` : undefined}
               className={classNames(
-                CURRENT_YEAR === year && 'text-primary',
+                isCurrentYear && 'text-primary',
                 activeYearClass,
                 'year'
               )}

@@ -13,24 +13,10 @@ import { argTypes } from './argTypes';
 />
 
 export const DatePickerTemplate = (args) => {
-  const [date, setDate] = useState(new Date('2020-01-01'));
-  const ref = React.createRef();
-  const handleChange = (value) => {
-    setDate(value);
-  };
-  const minDate = new Date(2020, 10, 11, 12, 0, 0, 0).toISOString();
-  const maxDate = new Date(2020, 10, 13, 12, 0, 0, 0).toISOString();
   return <DatePicker {...args} />;
 };
 
-export const DatePickerTemplateWithText = (args) => {
-  const [date, setDate] = useState(new Date('2020-01-01'));
-  const ref = React.createRef();
-  const handleChange = (value) => {
-    setDate(value);
-  };
-  const minDate = new Date('2024-01-01').toISOString();
-  const maxDate = new Date('2024-01-31').toISOString();
+export const DatePickerMinMaxDates = (args) => {
   return (
     <>
       <Form.Text className="text-muted" id="minAndMaxDate">
@@ -47,7 +33,7 @@ The `DatePicker` Component is built using `Dropdown`, `FormControl` and `Button`
 By default, the Calendar points to current date and input has no value. Users can either enter the dates in the `FormControl` input or pick dates using the Calendar.
 
 <Canvas>
-  <Story name="Basic" args={{}} height="500px">
+  <Story name="Basic" height="500px">
     {DatePickerTemplate.bind({})}
   </Story>
 </Canvas>
@@ -186,7 +172,7 @@ displayDate: Date;
   }}
   height="500px"
 >
-  {DatePickerTemplateWithText.bind({})}
+  {DatePickerMinMaxDates.bind({})}
 </Story>
 
 ## Callback Functions

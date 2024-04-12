@@ -16,18 +16,18 @@ export interface MonthViewProps extends React.HTMLAttributes<HTMLElement> {
 }
 
 export const MONTH_LABELS = [
-  'Jan',
-  'Feb',
-  'Mar',
-  'Apr',
+  'January',
+  'February',
+  'March',
+  'April',
   'May',
-  'Jun',
-  'Jul',
-  'Aug',
-  'Sep',
-  'Oct',
-  'Nov',
-  'Dec',
+  'June',
+  'July',
+  'August',
+  'September',
+  'October',
+  'November',
+  'December',
 ];
 
 const CURRENT_DATE = new Date();
@@ -226,18 +226,23 @@ export const MonthView = React.forwardRef<HTMLDivElement, MonthViewProps>(
 
       return undefined;
     };
-
     return (
       <div className="sgds monthpicker" ref={ref} {...props}>
         {MONTH_LABELS.map((month, index) => {
           const activeMonthClass = getActiveMonthClass(month);
-
+          const isCurrentMonthAndYear =
+            MONTH_LABELS[CURRENT_DATE.getMonth()] === month &&
+            displayDate.getFullYear() === CURRENT_DATE.getFullYear();
+          const defaultAriaLabel = `${month} ${displayDate.getFullYear()}`;
+          const currentMonthAriaLabel = `Current month, ${defaultAriaLabel}`;
           return (
             <button
+              aria-label={
+                isCurrentMonthAndYear ? currentMonthAriaLabel : defaultAriaLabel
+              }
+              aria-selected={activeMonthClass ? 'true' : 'false'}
               className={classNames(
-                MONTH_LABELS[CURRENT_DATE.getMonth()] === month &&
-                  displayDate.getFullYear() === CURRENT_DATE.getFullYear() &&
-                  'text-primary',
+                isCurrentMonthAndYear && 'text-primary',
                 activeMonthClass,
                 'month'
               )}
@@ -248,7 +253,7 @@ export const MonthView = React.forwardRef<HTMLDivElement, MonthViewProps>(
                 monthRefs.current ? (monthRefs.current[index] = el) : undefined
               }
             >
-              {month}
+              {month.slice(0, 3)}
             </button>
           );
         })}

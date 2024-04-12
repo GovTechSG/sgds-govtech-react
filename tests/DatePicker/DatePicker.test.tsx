@@ -596,7 +596,7 @@ describe('DatePicker', () => {
       keyCode: 9,
     });
     await waitFor(() => {
-      expect(getByLabelText('previous day')).toHaveFocus();
+      expect(getByLabelText('Show previous month')).toHaveFocus();
     });
   });
 
@@ -615,7 +615,7 @@ describe('DatePicker', () => {
       expect(container.querySelector('.dropdown-menu.show')).toBeInTheDocument()
     );
 
-    fireEvent.keyDown(getByLabelText('previous day'), {
+    fireEvent.keyDown(getByLabelText('Show previous month'), {
       key: 'Tab',
       code: 'Tab',
       keyCode: 9,
@@ -646,7 +646,7 @@ describe('DatePicker', () => {
       keyCode: 9,
     });
     await waitFor(() => {
-      expect(getByLabelText('next day')).toHaveFocus();
+      expect(getByLabelText('Show next month')).toHaveFocus();
     });
   });
 
@@ -661,7 +661,7 @@ describe('DatePicker', () => {
       expect(container.querySelector('.dropdown-menu.show')).toBeInTheDocument()
     );
 
-    fireEvent.keyDown(getByLabelText('next day'), {
+    fireEvent.keyDown(getByLabelText('Show next month'), {
       key: 'Tab',
       code: 'Tab',
       keyCode: 9,
@@ -687,7 +687,7 @@ describe('DatePicker', () => {
       shiftKey: true,
     });
     await waitFor(() => {
-      expect(getByLabelText('next day')).toHaveFocus();
+      expect(getByLabelText('Show next month')).toHaveFocus();
     });
   });
 
@@ -706,7 +706,7 @@ describe('DatePicker', () => {
       expect(container.querySelector('.dropdown-menu.show')).toBeInTheDocument()
     );
 
-    fireEvent.keyDown(getByLabelText('next day'), {
+    fireEvent.keyDown(getByLabelText('Show next month'), {
       key: 'Tab',
       code: 'Tab',
       keyCode: 9,
@@ -739,7 +739,7 @@ describe('DatePicker', () => {
       shiftKey: true,
     });
     await waitFor(() => {
-      expect(getByLabelText('previous day')).toHaveFocus();
+      expect(getByLabelText('Show previous month')).toHaveFocus();
     });
   });
 
@@ -754,7 +754,7 @@ describe('DatePicker', () => {
       expect(container.querySelector('.dropdown-menu.show')).toBeInTheDocument()
     );
 
-    fireEvent.keyDown(getByLabelText('previous day'), {
+    fireEvent.keyDown(getByLabelText('Show previous month'), {
       key: 'Tab',
       code: 'Tab',
       keyCode: 9,
@@ -788,10 +788,10 @@ describe('DatePicker', () => {
       keyCode: 9,
     });
     await waitFor(() => {
-      expect(getByLabelText('previous day')).toHaveFocus();
+      expect(getByLabelText('Show previous month')).toHaveFocus();
     });
 
-    fireEvent.keyDown(getByLabelText('previous day'), {
+    fireEvent.keyDown(getByLabelText('Show previous month'), {
       key: 'Enter',
       code: 'Enter',
       keyCode: 13,
@@ -827,10 +827,10 @@ describe('DatePicker', () => {
       keyCode: 9,
     });
     await waitFor(() => {
-      expect(getByLabelText('previous day')).toHaveFocus();
+      expect(getByLabelText('Show previous month')).toHaveFocus();
     });
 
-    fireEvent.keyDown(getByLabelText('previous day'), {
+    fireEvent.keyDown(getByLabelText('Show previous month'), {
       key: 'Enter',
       code: 'Enter',
       keyCode: 13,
@@ -842,7 +842,7 @@ describe('DatePicker', () => {
       expect(getByText(`${newMonth} ${newYear}`)).toBeInTheDocument();
     });
 
-    fireEvent.keyDown(getByLabelText('previous day'), {
+    fireEvent.keyDown(getByLabelText('Show previous month'), {
       key: 'Tab',
       code: 'Tab',
       keyCode: 9,
@@ -852,7 +852,7 @@ describe('DatePicker', () => {
       code: 'Tab',
       keyCode: 9,
     });
-    fireEvent.keyDown(getByLabelText('next day'), {
+    fireEvent.keyDown(getByLabelText('Show next month'), {
       key: 'Tab',
       code: 'Tab',
       keyCode: 9,
@@ -886,10 +886,10 @@ describe('DatePicker', () => {
       shiftKey: true,
     });
     await waitFor(() => {
-      expect(getByLabelText('next day')).toHaveFocus();
+      expect(getByLabelText('Show next month')).toHaveFocus();
     });
 
-    fireEvent.keyDown(getByLabelText('next day'), {
+    fireEvent.keyDown(getByLabelText('Show next month'), {
       key: 'Enter',
       code: 'Enter',
       keyCode: 13,
@@ -928,10 +928,10 @@ describe('DatePicker', () => {
       shiftKey: true,
     });
     await waitFor(() => {
-      expect(getByLabelText('next day')).toHaveFocus();
+      expect(getByLabelText('Show next month')).toHaveFocus();
     });
 
-    fireEvent.keyDown(getByLabelText('next day'), {
+    fireEvent.keyDown(getByLabelText('Show next month'), {
       key: 'Enter',
       code: 'Enter',
       keyCode: 13,
@@ -943,7 +943,7 @@ describe('DatePicker', () => {
       expect(getByText(`${newMonth} ${newYear}`)).toBeInTheDocument();
     });
 
-    fireEvent.keyDown(getByLabelText('next day'), {
+    fireEvent.keyDown(getByLabelText('Show next month'), {
       key: 'Tab',
       code: 'Tab',
       keyCode: 9,
@@ -976,7 +976,7 @@ describe('DatePicker', () => {
       code: 'Tab',
       keyCode: 9,
     });
-    fireEvent.keyDown(getByLabelText('previous day'), {
+    fireEvent.keyDown(getByLabelText('Show previous month'), {
       key: 'Tab',
       code: 'Tab',
       keyCode: 9,
@@ -1246,7 +1246,7 @@ describe('DatePicker', () => {
       keyCode: 9,
     });
     await waitFor(() => {
-      expect(getByLabelText('previous month')).toHaveFocus();
+      expect(getByLabelText('Show previous year')).toHaveFocus();
     });
   });
 
@@ -1284,7 +1284,7 @@ describe('DatePicker', () => {
       ).toEqual(`${displayMonthShort}`);
     });
 
-    fireEvent.keyDown(getByLabelText('previous month'), {
+    fireEvent.keyDown(getByLabelText('Show previous year'), {
       key: 'Tab',
       code: 'Tab',
       keyCode: 9,
@@ -1334,7 +1334,7 @@ describe('DatePicker', () => {
       keyCode: 9,
     });
     await waitFor(() => {
-      expect(getByLabelText('next month')).toHaveFocus();
+      expect(getByLabelText('Show next year')).toHaveFocus();
     });
   });
 
@@ -1372,7 +1372,7 @@ describe('DatePicker', () => {
       ).toEqual(`${displayMonthShort}`);
     });
 
-    fireEvent.keyDown(getByLabelText('next month'), {
+    fireEvent.keyDown(getByLabelText('Show next year'), {
       key: 'Tab',
       code: 'Tab',
       keyCode: 9,
@@ -1611,7 +1611,7 @@ describe('DatePicker', () => {
       code: 'Tab',
       keyCode: 9,
     });
-    fireEvent.keyDown(getByLabelText('previous day'), {
+    fireEvent.keyDown(getByLabelText('Show previous month'), {
       key: 'Tab',
       code: 'Tab',
       keyCode: 9,
@@ -1641,7 +1641,7 @@ describe('DatePicker', () => {
       code: 'Tab',
       keyCode: 9,
     });
-    fireEvent.keyDown(getByLabelText('previous month'), {
+    fireEvent.keyDown(getByLabelText('Show previous year'), {
       key: 'Tab',
       code: 'Tab',
       keyCode: 9,
@@ -1713,7 +1713,7 @@ describe('DatePicker', () => {
       keyCode: 9,
     });
     await waitFor(() => {
-      expect(getByLabelText('previous year')).toHaveFocus();
+      expect(getByLabelText('Show previous 12 years')).toHaveFocus();
     });
   });
 
@@ -1755,7 +1755,7 @@ describe('DatePicker', () => {
       ).toEqual(`${displayYear}`);
     });
 
-    fireEvent.keyDown(getByLabelText('previous year'), {
+    fireEvent.keyDown(getByLabelText('Show previous 12 years'), {
       key: 'Tab',
       code: 'Tab',
       keyCode: 9,
@@ -1809,7 +1809,7 @@ describe('DatePicker', () => {
       keyCode: 9,
     });
     await waitFor(() => {
-      expect(getByLabelText('next year')).toHaveFocus();
+      expect(getByLabelText('Show next 12 years')).toHaveFocus();
     });
   });
 
@@ -1877,6 +1877,20 @@ describe('DatePicker', () => {
     await waitFor(() => {
       expect(getByText('Please enter a valid date')).toBeInTheDocument();
     });
+  });
+  it('when a date is typed into input, it updates the calendar view', async () => {
+    const displayDate = new Date(2024, 3, 12);
+    const { container, getByText } = render(
+      <DatePicker displayDate={displayDate} />
+    );
+    const input = container.querySelector('input')!;
+    const toggleButton = container.querySelector('.dropdown-toggle')!;
+    fireEvent.click(toggleButton);
+    await waitFor(() => expect(getByText('April 2024')).toBeInTheDocument());
+
+    fireEvent.change(input, { target: { value: '01012020' } });
+    fireEvent.click(toggleButton);
+    await waitFor(() => expect(getByText('January 2020')).toBeInTheDocument());
   });
 });
 
@@ -2134,5 +2148,54 @@ describe('Datepicker Range mode', () => {
         '01/01/2020 - 20/01/2020'
       )
     );
+  });
+});
+
+describe('Datepicker a11y', () => {
+  it("dialog's aria-label changes by view", async () => {
+    const { getByText, container } = render(
+      <DatePicker mode="range" displayDate={new Date('2020-01-01')} />
+    );
+    fireEvent.click(container.querySelector('button.dropdown-toggle')!);
+    await waitFor(() =>
+      expect(container.querySelector('.dropdown-menu.show')).toBeInTheDocument()
+    );
+
+    expect(
+      container.querySelector('div[role="dialog"]')?.getAttribute('aria-label')
+    ).toEqual('Choose date');
+    fireEvent.click(getByText('January 2020'));
+    await waitFor(() => {
+      expect(getByText('2020')).toBeInTheDocument();
+    });
+    expect(
+      container.querySelector('div[role="dialog"]')?.getAttribute('aria-label')
+    ).toEqual('Choose month');
+    fireEvent.click(getByText('2020'));
+    await waitFor(() => {
+      expect(
+        container.querySelector('button[aria-label="Show previous 12 years"]')
+      ).toBeInTheDocument();
+    });
+    expect(
+      container.querySelector('div[role="dialog"]')?.getAttribute('aria-label')
+    ).toEqual('Choose year');
+  });
+
+  it('datepicker focuses on input element when it calendar closes', async () => {
+    const { container, getByText } = render(
+      <DatePicker displayDate={new Date('2020-01-01')} />
+    );
+    fireEvent.click(container.querySelector('button.dropdown-toggle')!);
+    await waitFor(() =>
+      expect(container.querySelector('.dropdown-menu.show')).toBeInTheDocument()
+    );
+    fireEvent.click(getByText('2'));
+    await waitFor(() => {
+      expect(
+        container.querySelector('.dropdown-menu.show')
+      ).not.toBeInTheDocument();
+    });
+    expect(container.querySelector('input')).toHaveFocus();
   });
 });

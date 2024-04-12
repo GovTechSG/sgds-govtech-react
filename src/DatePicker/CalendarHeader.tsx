@@ -2,7 +2,7 @@ import * as React from 'react';
 import DatePickerContext from './DatePickerContext';
 import { calculateYearRange } from './YearView';
 
-interface CalendarHeaderProps {
+interface CalendarHeaderProps{
   displayDate: Date;
   onChange: (date: Date) => void;
   resetFocusOnHeader: () => void;
@@ -141,11 +141,16 @@ const CalendarHeader = React.forwardRef<HTMLDivElement, CalendarHeaderProps>(
     };
 
     const renderPreviousButton = () => {
+      const ariaLabels = {
+        day: "Show previous month", 
+        month: "Show previous year",
+        year: "Show previous 12 years"
+      }
       const previousButton = (
         <button
           onClick={handleClickPrevious}
           onKeyDown={handlePressPrevious}
-          aria-label={`previous ${view}`}
+          aria-label={ariaLabels[view]}
         >
           <i className="bi bi-chevron-left"></i>
         </button>
@@ -181,42 +186,58 @@ const CalendarHeader = React.forwardRef<HTMLDivElement, CalendarHeaderProps>(
           return previousButton;
       }
     };
-
+    const renderNextButton = () => {
+      const ariaLabels = {
+        day: "Show next month", 
+        month: "Show next year",
+        year: "Show next 12 years"
+      }
+      return (
+        <button
+        onClick={handleClickNext}
+        onKeyDown={handlePressNext}
+        aria-label={ariaLabels[view]}
+      >
+        <i className="bi bi-chevron-right"></i>
+      </button>
+      )
+    }
     const renderHeader = () => {
+      let header: string = ""
+      let ariaLabel: string = ""
+      const [displayMonth, displayYear] = [props.displayDate.getMonth(),props.displayDate.getFullYear() ]
+      const { startLimit, endLimit } = calculateYearRange(props.displayDate);
+      if (view === 'day'){
+        header = `${
+          MONTH_LABELS[displayMonth]
+        } ${displayYear}`
+      }
       if (view === 'month') {
-        return `${props.displayDate.getFullYear()}`;
+        header = `${displayYear}`;
       }
       if (view === 'year') {
-        const { startLimit, endLimit } = calculateYearRange(props.displayDate);
-        return `${startLimit} - ${endLimit}`;
+        header = `${startLimit} - ${endLimit}`;
       }
 
-      return `${
-        MONTH_LABELS[props.displayDate.getMonth()]
-      } ${props.displayDate.getFullYear()}`;
+      return (
+        <button
+        onClick={changeView}
+        onKeyDown={handlePressChangeView}
+        aria-disabled={view === 'year'}
+        className={view === 'year' ? "disabled" : undefined}
+        aria-live="polite"
+        aria-label={ariaLabel}
+      >
+        {header}
+      </button>
+      )
     };
 
     return (
       <div className="text-center d-flex justify-content-between" ref={ref}>
         {renderPreviousButton()}
-
-        <button
-          id="id-grid-label"
-          onClick={changeView}
-          onKeyDown={handlePressChangeView}
-          // disabled={view === 'year'}
-          aria-live="polite"
-        >
-          {renderHeader()}
-        </button>
-
-        <button
-          onClick={handleClickNext}
-          onKeyDown={handlePressNext}
-          aria-label={`next ${view}`}
-        >
-          <i className="bi bi-chevron-right"></i>
-        </button>
+      {renderHeader()}
+        {renderNextButton()}
       </div>
     );
   }

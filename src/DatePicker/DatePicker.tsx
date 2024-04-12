@@ -212,7 +212,6 @@ export const DatePicker: BsPrefixRefForwardingComponent<
     const dayRefs = React.useRef<Array<HTMLTableCellElement | null>>([]);
     const monthRefs = React.useRef<Array<HTMLButtonElement | null>>([]);
     const yearRefs = React.useRef<Array<HTMLButtonElement | null>>([]);
-
     const getinitialInputDate = () => {
       if (!props.initialValue) {
         if (isRange) {
@@ -537,12 +536,12 @@ export const DatePicker: BsPrefixRefForwardingComponent<
     const enterDateSingle = (event: React.ChangeEvent<HTMLInputElement>) => {
       const enteredDate = event.target.value;
       const parsedDate = dayjs(enteredDate, dateFormat).toDate();
-      const afterMinDate =
-        props.minDate &&
-        setTimeToNoon(parsedDate) >= setTimeToNoon(new Date(props.minDate));
-      const beforeMaxDate =
-        props.maxDate &&
-        setTimeToNoon(parsedDate) <= setTimeToNoon(new Date(props.maxDate));
+      const afterMinDate = props.minDate
+        ? setTimeToNoon(parsedDate) >= setTimeToNoon(new Date(props.minDate))
+        : true;
+      const beforeMaxDate = props.maxDate
+        ? setTimeToNoon(parsedDate) <= setTimeToNoon(new Date(props.maxDate))
+        : true;
       if (
         isValidDate(enteredDate, dateFormat) &&
         parsedDate.getFullYear() >= 1900 &&
@@ -648,7 +647,6 @@ export const DatePicker: BsPrefixRefForwardingComponent<
       if (nextShow) {
         setShowCalendar(true);
       } else {
-        dropdownToggleRef?.current?.focus();
         setShowCalendar(false);
       }
     };
@@ -837,6 +835,11 @@ export const DatePicker: BsPrefixRefForwardingComponent<
       }
     }, [showCalendar, displayDate]);
 
+    const ariaLabelsForMenu = {
+      day: 'Choose date',
+      month: 'Choose month',
+      year: 'Choose year',
+    };
     return (
       <DatePickerContext.Provider value={contextValue}>
         <Dropdown
@@ -888,7 +891,7 @@ export const DatePicker: BsPrefixRefForwardingComponent<
             as="div"
             role="dialog"
             aria-modal="true"
-            aria-label="Choose Date"
+            aria-label={ariaLabelsForMenu[view]}
           >
             <Dropdown.Header className="datepicker-header" role="none">
               {calendarHeader}

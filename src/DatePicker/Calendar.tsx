@@ -1,7 +1,11 @@
 import * as React from 'react';
 import DatePickerContext from './DatePickerContext';
 import { RangeSelectionValue, getTotalDaysInMonth } from './DatePicker';
+import dayjs from 'dayjs';
+import localizedFormat from 'dayjs/plugin/localizedFormat';
+import classNames from 'classnames';
 
+dayjs.extend(localizedFormat);
 interface CalendarProps extends React.HTMLAttributes<HTMLTableElement> {
   selectedDate: Date | RangeSelectionValue | undefined;
   displayDate: Date;
@@ -144,9 +148,10 @@ export const Calendar = React.forwardRef<HTMLTableElement, CalendarProps>(
       const week = [];
       for (let j = 0; j <= 6; j++) {
         if (day <= monthLength && (i > 0 || j >= startingDay)) {
-          let className = undefined;
           const dayIndex = day;
           const date = new Date(year, month, day, 12, 0, 0, 0);
+          const localizedDate = dayjs(date).format('dddd, MMMM D, YYYY');
+
           const dateString = date.toISOString();
           const beforeMinDate =
             minimumDate &&
@@ -154,60 +159,48 @@ export const Calendar = React.forwardRef<HTMLTableElement, CalendarProps>(
           const afterMaxDate =
             maximumDate &&
             Date.parse(dateString) > Date.parse(maximumDate.toISOString());
-
-          let clickHandler: React.MouseEventHandler | undefined = handleClick;
-          const style = {
-            cursor: 'pointer',
-            borderRadius: 0,
-          };
-          if (
-            Date.parse(dateString) === Date.parse(currentDate.toISOString())
-          ) {
-            // if date is the current Date
-            className = 'text-primary';
-          }
-          if (beforeMinDate || afterMaxDate) {
-            className = 'text-muted';
-            clickHandler = undefined;
-            style.cursor = 'default';
-          }
-          if (
+          const isCurrentDate =
+            Date.parse(dateString) === Date.parse(currentDate.toISOString());
+          const isOutOfMinMaxRange = beforeMinDate || afterMaxDate;
+          const hasSelectedDate =
             processedSelectedDate &&
-            isSelectedDate(date, processedSelectedDate)
-          ) {
-            if (processedSelectedDate instanceof Date) {
-              className = 'bg-primary-600 text-white';
-            } else {
-              const { start, end } = processedSelectedDate;
-              className = 'bg-primary-100';
+            isSelectedDate(date, processedSelectedDate);
+          const hasSelectedDateInModeSingle =
+            hasSelectedDate && processedSelectedDate instanceof Date;
+          const hasSelectedDateInModeRange =
+            hasSelectedDate && !(processedSelectedDate instanceof Date);
+          const { start, end } = hasSelectedDateInModeRange
+            ? processedSelectedDate
+            : { start: undefined, end: undefined };
+          const areSelectedEnds =
+            (start &&
+              start.getDate() === day &&
+              start.getMonth() === month &&
+              start.getFullYear() === year) ||
+            (end &&
+              end.getDate() === day &&
+              end.getMonth() === month &&
+              end.getFullYear() === year);
 
-              if (
-                start &&
-                start.getDate() === day &&
-                start.getMonth() === month &&
-                start.getFullYear() === year
-              ) {
-                className = 'bg-primary-600 text-white';
-              }
-
-              if (
-                end &&
-                end.getDate() === day &&
-                end.getMonth() === month &&
-                end.getFullYear() === year
-              ) {
-                className = 'bg-primary-600 text-white';
-              }
-            }
-          }
+          const notSelectedEnds =
+            hasSelectedDateInModeRange && !areSelectedEnds;
 
           week.push(
             <td
               key={j}
+              role="button"
+              aria-label={localizedDate}
+              aria-selected={hasSelectedDate ?  "true": undefined}
+              aria-current={isCurrentDate ? 'date' : undefined}
               data-day={day}
-              onClick={clickHandler}
-              style={style}
-              className={className}
+              onClick={isOutOfMinMaxRange ? undefined : handleClick}
+              className={classNames(
+                isCurrentDate && 'text-primary',
+                isOutOfMinMaxRange && 'disabled',
+                hasSelectedDateInModeSingle && 'text-white bg-primary-600',
+                areSelectedEnds && 'bg-primary-600 text-white',
+                notSelectedEnds && 'bg-primary-100'
+              )}
               tabIndex={-1}
               ref={(el) =>
                 props.dayRefs.current
@@ -343,7 +336,6 @@ export const Calendar = React.forwardRef<HTMLTableElement, CalendarProps>(
         className="text-center"
         role="grid"
         ref={ref}
-        aria-labelledby="id-grid-label"
         onKeyDown={handleKeyDown} // Attach the keydown event listener to the table
       >
         <thead>
