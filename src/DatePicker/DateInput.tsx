@@ -77,7 +77,7 @@ export const DateInput: DateInputPropsComponent = React.forwardRef(
       placeholder: placeholder || defaultPlaceHolder,
       disabled: disabled,
       isInvalid: isInvalid,
-      id: id,
+      id: id
     };
 
     // Assign the ref element of dropdown toggle to HTMLInputElement (FormControl)

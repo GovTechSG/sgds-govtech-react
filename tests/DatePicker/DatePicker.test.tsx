@@ -2198,4 +2198,23 @@ describe('Datepicker a11y', () => {
     });
     expect(container.querySelector('input')).toHaveFocus();
   });
+  it('when state is invalid, input aria-invalid=true, aria-describedby points to Feedback', async () => {
+    const { container, getByText } = render(<DatePicker />);
+
+    const input = container.querySelector('input')!;
+    expect(input.getAttribute('aria-describedby')).toEqual('');
+    expect(input.getAttribute('aria-invalid')).toEqual('false');
+    fireEvent.change(input, { target: { value: '01132024' } });
+    fireEvent.blur(input);
+    // Triggering invalid state
+    await waitFor(() => {
+      expect(getByText('Please enter a valid date')).toBeInTheDocument();
+    });
+    const feedbackId = getByText('Please enter a valid date').getAttribute(
+      'id'
+    );
+
+    expect(input.getAttribute('aria-invalid')).toEqual('true');
+    expect(input.getAttribute('aria-describedby')).toEqual(feedbackId);
+  });
 });

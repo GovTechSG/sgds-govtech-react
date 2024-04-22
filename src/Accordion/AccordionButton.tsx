@@ -2,9 +2,15 @@ import * as React from 'react';
 import { useContext } from 'react';
 import classNames from 'classnames';
 import PropTypes from 'prop-types';
-import AccordionContext, {  AccordionEventKey } from './AccordionContext';
+import AccordionContext, {
+  AccordionEventKey,
+  isAccordionItemSelected,
+} from './AccordionContext';
 import AccordionItemContext from './AccordionItemContext';
-import { BsPrefixProps, BsPrefixRefForwardingComponent } from '../utils/helpers';
+import {
+  BsPrefixProps,
+  BsPrefixRefForwardingComponent,
+} from '../utils/helpers';
 import { useBootstrapPrefix } from '../ThemeProvider/ThemeProvider';
 
 type EventHandler = React.EventHandler<React.SyntheticEvent>;
@@ -26,29 +32,49 @@ const propTypes = {
 
 export function useAccordionButton(
   eventKey: string,
-  onClick?: EventHandler,
+  onClick?: EventHandler
 ): EventHandler {
   const { activeEventKey, onSelect, alwaysOpen } = useContext(AccordionContext);
+
+  const handleMultipleActiveKey = (activeEventKey: AccordionEventKey) => {
+    if (Array.isArray(activeEventKey)) {
+      return activeEventKey.includes(eventKey)
+        ? activeEventKey.filter((k) => k !== eventKey)
+        : [...activeEventKey, eventKey];
+    }
+
+    if (activeEventKey) {
+      return eventKey === activeEventKey ? null : [activeEventKey, eventKey];
+    }
+
+    return [eventKey];
+  };
+
+  const handleSingleActiveKey = (activeEventKey: AccordionEventKey) => {
+    // for the case when `alwaysOpen` prop set to false from true, the activeEventKey is still an array of keys
+    if (Array.isArray(activeEventKey)) {
+      if (activeEventKey.includes(eventKey)) {
+        // when the current event key is one of the active keys, collapse the current and the rest of the active keys except for the first one
+        const eventKeys = activeEventKey.filter((k) => k !== eventKey);
+        const eventKeysInNumber = eventKeys.map(Number);
+        return Math.min(...eventKeysInNumber).toString();
+      } else {
+        // when the current event key is not one of the active keys, set it to expand and collapse all of the active keys
+        return eventKey;
+      }
+    }
+
+    return eventKey === activeEventKey ? null : eventKey;
+  };
 
   return (e) => {
     /*
       Compare the event key in context with the given event key.
       If they are the same, then collapse the component.
     */
-    let eventKeyPassed: AccordionEventKey =
-      eventKey === activeEventKey ? null : eventKey;
-    if (alwaysOpen) {
-      if (Array.isArray(activeEventKey)) {
-        if (activeEventKey.includes(eventKey)) {
-          eventKeyPassed = activeEventKey.filter((k) => k !== eventKey);
-        } else {
-          eventKeyPassed = [...activeEventKey, eventKey];
-        }
-      } else {
-        // activeEventKey is undefined.
-        eventKeyPassed = [eventKey];
-      }
-    }
+    const eventKeyPassed: AccordionEventKey = alwaysOpen
+      ? handleMultipleActiveKey(activeEventKey)
+      : handleSingleActiveKey(activeEventKey);
 
     onSelect?.(eventKeyPassed, e);
     onClick?.(e);
@@ -68,7 +94,7 @@ export const AccordionButton: BsPrefixRefForwardingComponent<
       onClick,
       ...props
     },
-    ref,
+    ref
   ) => {
     bsPrefix = useBootstrapPrefix(bsPrefix, 'accordion-button');
     const { eventKey } = useContext(AccordionItemContext);
@@ -84,15 +110,15 @@ export const AccordionButton: BsPrefixRefForwardingComponent<
         ref={ref}
         onClick={accordionOnClick}
         {...props}
-        aria-expanded={eventKey === activeEventKey}
+        aria-expanded={isAccordionItemSelected(activeEventKey, eventKey)}
         className={classNames(
           className,
           bsPrefix,
-          eventKey !== activeEventKey && 'collapsed',
+          !isAccordionItemSelected(activeEventKey, eventKey) && 'collapsed'
         )}
       />
     );
-  },
+  }
 );
 
 AccordionButton.propTypes = propTypes;

@@ -840,6 +840,7 @@ export const DatePicker: BsPrefixRefForwardingComponent<
       month: 'Choose month',
       year: 'Choose year',
     };
+    const feedbackId = "id-6163-sgds-feedback-div"
     return (
       <DatePickerContext.Provider value={contextValue}>
         <Dropdown
@@ -861,6 +862,8 @@ export const DatePicker: BsPrefixRefForwardingComponent<
             validateDateInput={validateDateInput}
             enterDateRange={enterDateRange}
             enterDateSingle={enterDateSingle}
+            aria-invalid={state.invalid}
+            aria-describedby={state.invalid ? feedbackId : ""}
           />
           <Dropdown.Toggle
             ref={dropdownToggleRef}
@@ -882,7 +885,7 @@ export const DatePicker: BsPrefixRefForwardingComponent<
             <i className="bi bi-x"></i>
             <span className="visually-hidden">clear</span>
           </Button>
-          <FormControl.Feedback type="invalid">
+          <FormControl.Feedback type="invalid" id={feedbackId}>
             {props.invalidFeedback}
           </FormControl.Feedback>
           <Dropdown.Menu
