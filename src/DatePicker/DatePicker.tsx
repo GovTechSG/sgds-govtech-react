@@ -308,6 +308,7 @@ export const DatePicker: BsPrefixRefForwardingComponent<
           ? { start: undefined, end: undefined }
           : undefined,
       });
+      setView("day");
       const resetFocusedDate = new Date();
       updateFocusedDate(resetFocusedDate);
       props.onClear?.();
@@ -880,7 +881,7 @@ export const DatePicker: BsPrefixRefForwardingComponent<
             onClick={clear}
             disabled={props.disabled}
             variant={clearBtnVariant}
-            aria-label="Clear Selection"
+            aria-label="Reset Datepicker"
           >
             <i className="bi bi-x"></i>
             <span className="visually-hidden">clear</span>

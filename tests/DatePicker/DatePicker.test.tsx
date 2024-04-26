@@ -242,7 +242,7 @@ describe('DatePicker', () => {
     );
 
     fireEvent.click(
-      container.querySelector('button[aria-label="Clear Selection"]')!
+      container.querySelector('button[aria-label="Reset Datepicker"]')!
     );
 
     await waitFor(() => {
@@ -2216,5 +2216,51 @@ describe('Datepicker a11y', () => {
 
     expect(input.getAttribute('aria-invalid')).toEqual('true');
     expect(input.getAttribute('aria-describedby')).toEqual(feedbackId);
+  });
+});
+
+describe('Datepicker reset button', () => {
+  it('resets calendar to day view and input when clear button is clicked', async () => {
+    const { container } = render(<DatePicker />);
+    const thisMonth = MONTH_LABELS[new Date().getMonth()];
+    const thisYear = new Date().getFullYear();
+    const calendarBtn = container.querySelector(
+      'button.dropdown-toggle'
+    ) as HTMLButtonElement;
+    const resetBtn = container.querySelector(
+      'button[aria-label="Reset Datepicker"]'
+    ) as HTMLButtonElement;
+    //Open calendar
+    fireEvent.click(calendarBtn);
+    await waitFor(() => {
+      expect(
+        container.querySelector('.dropdown-menu.datepicker.sgds.show')
+      ).toBeInTheDocument();
+    });
+    //navigate to month view
+    const headerBtn = container.querySelector(
+      'button[aria-live="polite"]'
+    ) as HTMLButtonElement;
+    expect(headerBtn.textContent).toEqual(`${thisMonth} ${thisYear}`);
+    fireEvent.click(headerBtn);
+    await waitFor(() =>
+      expect(headerBtn?.textContent).toEqual(thisYear.toString())
+    );
+    // clicking reset button
+    fireEvent.click(resetBtn);
+    await waitFor(() =>
+      expect(headerBtn?.textContent).toEqual(`${thisMonth} ${thisYear}`)
+    );
+  });
+  it('resets input to dd/mm/yyyy when button is clicked ', async () => {
+    const initialValue = new Date(2024, 3, 26);
+    const { container } = render(<DatePicker initialValue={initialValue} />);
+    const input = container.querySelector('input');
+    expect(input?.value).toEqual('26/04/2024');
+    const resetBtn = container.querySelector(
+      'button[aria-label="Reset Datepicker"]'
+    ) as HTMLButtonElement;
+    fireEvent.click(resetBtn);
+    expect(input?.value).toEqual('dd/mm/yyyy');
   });
 });
