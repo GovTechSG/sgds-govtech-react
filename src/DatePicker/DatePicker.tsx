@@ -54,7 +54,7 @@ export interface DatePickerProps {
   /** Disables the Form Control and Button of Datepicker */
   disabled?: boolean;
   /** Overlay placement for the popover calendar */
-  calendarPlacement?: 'up' | 'down';
+  calendarPlacement?: CalendarPlacement;
   /** Date format reflected on input */
   dateFormat?: DateFormat;
   /** Forwards the id to InputGroup of DatePicker */

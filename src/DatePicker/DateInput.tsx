@@ -6,7 +6,7 @@ import * as React from 'react';
 import FormControl, { FormControlProps } from '../Form/FormControl';
 import { BsPrefixRefForwardingComponent } from '../utils/helpers';
 import useWrappedRefWithWarning from '../utils/useWrappedRefWithWarning';
-import { DateFormat } from './DatePicker';
+import { DateFormat } from './types';
 
 export interface DateInputProps extends Omit<FormControlProps, 'type'> {
   as?: React.ElementType;
