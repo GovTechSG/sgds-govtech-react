@@ -1,4 +1,4 @@
-import { Accordion } from '@govtechsg/sgds-react/Accordion'
+import { Accordion } from '@govtechsg/sgds-react'
 
 const AccordionCom = () => (
   <Accordion defaultActiveKey="0">
