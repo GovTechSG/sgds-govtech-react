@@ -1,6 +1,6 @@
 import * as React from 'react';
 import classNames from 'classnames';
-import { RangeSelectionValue } from './DatePicker';
+import { RangeSelectionValue } from './types';
 import DatePickerContext from './DatePickerContext';
 
 export interface MonthViewProps extends React.HTMLAttributes<HTMLElement> {
