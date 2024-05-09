@@ -14,7 +14,7 @@
       "url": "https://github.com/haphizi"
     }
   ],
-  "version": "2.4.0",
+  "version": "2.5.0",
   "license": "MIT",
   "main": "dist/index.cjs.js",
   "module": "dist/index.esm.js",
@@ -35,7 +35,7 @@
     "analyze": "size-limit --why",
     "storybook": "STORYBOOK_STYLE_URL=https://v2dev.designsystem.tech.gov.sg/css/sgds.css start-storybook -p 6006 --no-manager-cache",
     "dev:build-storybook": "STORYBOOK_STYLE_URL=https://v2dev.designsystem.tech.gov.sg/css/sgds.css build-storybook",
-    "prod:build-storybook": "STORYBOOK_STYLE_URL=https://cdn.jsdelivr.net/npm/@govtechsg/sgds/css/sgds.css build-storybook",
+    "prod:build-storybook": "STORYBOOK_STYLE_URL=https://cdn.jsdelivr.net/npm/@govtechsg/sgds@2.3.0/css/sgds.css build-storybook",
     "prepare": "husky install"
   },
   "peerDependencies": {
@@ -103,6 +103,7 @@
     "yup": "^0.32.11"
   },
   "dependencies": {
+    "@mona-health/react-input-mask": "^3.0.3",
     "@restart/hooks": "^0.4.6",
     "@restart/ui": "^1.2.0",
     "@types/invariant": "^2.2.35",
@@ -114,7 +115,6 @@
     "prop-types": "^15.8.1",
     "prop-types-extra": "^1.1.1",
     "react-bootstrap": "^2.7.2",
-    "react-input-mask": "^3.0.0-alpha.2",
     "react-transition-group": "^4.4.2",
     "warning": "^4.0.3"
   },

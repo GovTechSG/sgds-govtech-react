@@ -1,2 +1,7 @@
 export { default as DatePicker } from './DatePicker';
-export type { DatePickerProps, RangeSelectionValue, CalendarPlacement, DateFormat } from './DatePicker';
+export type { DatePickerProps } from './DatePicker';
+export type {
+  RangeSelectionValue,
+  CalendarPlacement,
+  DateFormat,
+} from './types';

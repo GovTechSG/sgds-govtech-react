@@ -1,9 +1,10 @@
 import * as React from 'react';
 import DatePickerContext from './DatePickerContext';
-import { RangeSelectionValue, getTotalDaysInMonth } from './DatePicker';
+import { RangeSelectionValue } from "./types"
 import dayjs from 'dayjs';
 import localizedFormat from 'dayjs/plugin/localizedFormat';
 import classNames from 'classnames';
+import { getTotalDaysInMonth } from '../utils/getTotalDaysInMonth';
 
 dayjs.extend(localizedFormat);
 interface CalendarProps extends React.HTMLAttributes<HTMLTableElement> {
@@ -190,7 +191,7 @@ export const Calendar = React.forwardRef<HTMLTableElement, CalendarProps>(
               key={j}
               role="button"
               aria-label={localizedDate}
-              aria-selected={hasSelectedDate ?  "true": undefined}
+              aria-selected={hasSelectedDate ? 'true' : undefined}
               aria-current={isCurrentDate ? 'date' : undefined}
               data-day={day}
               onClick={isOutOfMinMaxRange ? undefined : handleClick}

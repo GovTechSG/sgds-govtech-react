@@ -1,3 +1,32 @@
+## v2.5.0 (2024-04-30)
+
+### Feat
+
+- **datepicker**: add aria-describedby and aria-invalids when input is invalid
+- **quantity toggle**: disable button when number reach 0
+- **datepicker**: add aria-current for dates months and years
+- **datepicker**: a11y labels
+- **sidenav**: new sticky sidenav [skip-cd] (#221)
+- **sidenav**: new sticky sidenav
+
+### Fix
+
+- **datepicker**: reset button also reset calendar view to day (#233)
+- **datepicker**: reset button also reset calendar view to day
+- **accordion**: fix accordion behavior when toggling `alwaysOpen` prop on Storybook
+- **accordion**: fix button aria-expanded value when `alwaysOpen` prop is set to true
+- **accordion**: fix button styling when `alwaysOpen` prop is set to true
+- **quantity toggle**: reset value to 0 when input is empty
+- **quantity toggle**: remove leading zero
+- **quantity toggle**: prevent from entering special characters
+- **datepicker**: single mode calendar view to update when input selection changes
+- **datepicker**: give focus to input when calendar close so that screenreader annouces date in input
+
+### Refactor
+
+- **calendar**: logic to add css selector
+- **datepicker**: convert style to classNames
+
 ## v2.4.0 (2024-03-22)
 
 ### Feat
@@ -15,6 +44,7 @@
 
 ### Fix
 
+- *****: failing test cases
 - **datepicker**: date range validation
 - **datepicker**: date range validation for year before 1900
 - **datepicker**: fix focused element switch to calendar date when pressing previous/next button
@@ -25,10 +55,6 @@
 - **badge**: storybook args table name
 
 ## v2.3.0 (2024-01-10)
-
-- previously, users construct their own <thead> and <td> to fill the table.
-Now, we define the table structure within the <Table> component.
-Users can now fill in the table through props `tableHeaders` and `tableData`.
 
 ### Feat
 
