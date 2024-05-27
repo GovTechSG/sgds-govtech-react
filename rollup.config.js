@@ -90,6 +90,13 @@ export default [
         exports: 'named',
         format: 'cjs',
         banner: `'use client';`,
+      },
+      {
+        file: 'dist/index.umd.js',
+        exports: 'named',
+        format: 'umd',
+        banner: `'use client';`,
+        name: "umdBundle"
       }
     ],
     plugins: commonPlugins,
