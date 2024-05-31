@@ -15,15 +15,11 @@ import DateInput from './DateInput';
 import DatePickerContext, { CalendarView } from './DatePickerContext';
 import MonthView from './MonthView';
 import YearView from './YearView';
+import { getTotalDaysInMonth } from '../utils/getTotalDaysInMonth';
+import { RangeSelectionValue, CalendarPlacement, DateFormat } from './types';
 
 dayjs.extend(customParseFormat);
 
-export type CalendarPlacement = 'up' | 'down';
-export type DateFormat = 'MM/DD/YYYY' | 'DD/MM/YYYY' | 'YYYY/MM/DD';
-export interface RangeSelectionValue {
-  start: Date | undefined;
-  end: Date | undefined;
-}
 interface DatePickerState {
   displayDate: Date;
   inputDate: string;
@@ -58,7 +54,7 @@ export interface DatePickerProps {
   /** Disables the Form Control and Button of Datepicker */
   disabled?: boolean;
   /** Overlay placement for the popover calendar */
-  calendarPlacement?: 'up' | 'down';
+  calendarPlacement?: CalendarPlacement;
   /** Date format reflected on input */
   dateFormat?: DateFormat;
   /** Forwards the id to InputGroup of DatePicker */
@@ -145,10 +141,6 @@ export const makeInputValueString = (
       (day > 9 ? day : `0${day}`)
     );
   }
-};
-
-export const getTotalDaysInMonth = (date: Date) => {
-  return new Date(date.getFullYear(), date.getMonth() + 1, 0).getDate();
 };
 
 export const isValidDate = (date: string, dateFormat: DateFormat) => {
@@ -308,7 +300,7 @@ export const DatePicker: BsPrefixRefForwardingComponent<
           ? { start: undefined, end: undefined }
           : undefined,
       });
-      setView("day");
+      setView('day');
       const resetFocusedDate = new Date();
       updateFocusedDate(resetFocusedDate);
       props.onClear?.();
@@ -841,7 +833,7 @@ export const DatePicker: BsPrefixRefForwardingComponent<
       month: 'Choose month',
       year: 'Choose year',
     };
-    const feedbackId = "id-6163-sgds-feedback-div"
+    const feedbackId = 'id-6163-sgds-feedback-div';
     return (
       <DatePickerContext.Provider value={contextValue}>
         <Dropdown
@@ -864,7 +856,7 @@ export const DatePicker: BsPrefixRefForwardingComponent<
             enterDateRange={enterDateRange}
             enterDateSingle={enterDateSingle}
             aria-invalid={state.invalid}
-            aria-describedby={state.invalid ? feedbackId : ""}
+            aria-describedby={state.invalid ? feedbackId : ''}
           />
           <Dropdown.Toggle
             ref={dropdownToggleRef}

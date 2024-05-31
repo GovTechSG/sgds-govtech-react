@@ -1,12 +1,12 @@
 import useMergedRefs from '@restart/hooks/useMergedRefs';
 import { useDropdownToggle } from '@restart/ui/DropdownToggle';
 import classNames from 'classnames';
-import InputMask from 'react-input-mask';
+import InputMask from '@mona-health/react-input-mask';
 import * as React from 'react';
 import FormControl, { FormControlProps } from '../Form/FormControl';
 import { BsPrefixRefForwardingComponent } from '../utils/helpers';
 import useWrappedRefWithWarning from '../utils/useWrappedRefWithWarning';
-import { DateFormat } from './DatePicker';
+import { DateFormat } from './types';
 
 export interface DateInputProps extends Omit<FormControlProps, 'type'> {
   as?: React.ElementType;
@@ -77,7 +77,7 @@ export const DateInput: DateInputPropsComponent = React.forwardRef(
       placeholder: placeholder || defaultPlaceHolder,
       disabled: disabled,
       isInvalid: isInvalid,
-      id: id
+      id: id,
     };
 
     // Assign the ref element of dropdown toggle to HTMLInputElement (FormControl)
@@ -94,6 +94,7 @@ export const DateInput: DateInputPropsComponent = React.forwardRef(
         aria-label="Enter Date"
         onChange={isRange ? enterDateRange : enterDateSingle}
         onBlurCapture={validateDateInput}
+        ref={inputRef}
       >
         <Component
           className={classNames(className)}

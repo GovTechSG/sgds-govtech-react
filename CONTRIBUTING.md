@@ -67,8 +67,8 @@ Library publication is performed in workflow by github actions. When ready for p
 2) ```git push ``` the changes
 
 ##### Generate Changelog 
-3) run ```cz changelog``` to update CHANGELOG.md file (ensure that you have set up [cz-cli](https://github.com/commitizen/cz-cli) globally)
-**`cz changelog` updates based on your local git tags
+3) run ```npm run changelog``` to update CHANGELOG.md file (ensure that you have set up [cz-cli](https://github.com/commitizen/cz-cli) globally)
+**`cz changelog --incremental` updates based on your local git tags, but do not overwrite existing file
 4) Push the changes 
     
 ##### Push git tag

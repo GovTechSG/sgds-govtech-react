@@ -30,7 +30,6 @@ export * from './SplitButton';
 export * from './Stepper';
 export * from './Table';
 export * from './Tabs';
-export * from './Tabs/Tab';
 export * from './ThemeProvider';
 export * from './Toast';
 export * from './Tooltip';

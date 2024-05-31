@@ -2,9 +2,9 @@ import * as React from 'react';
 import { fireEvent, render, waitFor } from '@testing-library/react';
 import {
   DatePicker,
-  getTotalDaysInMonth,
   makeInputValueString,
 } from '../../src/DatePicker/DatePicker';
+import { getTotalDaysInMonth } from '../../src/utils/getTotalDaysInMonth';
 import { MONTH_LABELS } from '../../src/DatePicker/CalendarHeader';
 
 describe('makeInputValueString', () => {
