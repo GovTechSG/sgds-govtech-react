@@ -10,11 +10,6 @@
     "preview": "vite preview"
   },
   "dependencies": {
-    "@govtechsg/sgds": "^2.3.1",
-    "@govtechsg/sgds-react": "^2.5.1",
-    "@govtechsg/sgds-web-component": "^1.2.2",
-    "@webcomponents/scoped-custom-element-registry": "^0.0.9",
-    "bootstrap-icons": "^1.11.3",
     "react": "^18.2.0",
     "react-dom": "^18.2.0"
   },
