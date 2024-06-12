@@ -1,3 +1,10 @@
+## v2.5.1 (2024-05-10)
+
+### Fix
+
+- **datepicker**: circular dependency for internal functions and types
+- **datepicker**: replaced react-input-mask library to fix deprecated findDomNode console warning
+
 ## v2.5.0 (2024-04-30)
 
 ### Feat
@@ -44,17 +51,23 @@
 
 ### Fix
 
-- *****: failing test cases
+- **\***: failing test cases
 - **datepicker**: date range validation
 - **datepicker**: date range validation for year before 1900
 - **datepicker**: fix focused element switch to calendar date when pressing previous/next button
-- *****: remove default props [skip-cd] (#214)
-- *****: remove default props for Tabs and OverlayTrigger
-- *****: remove default props
+- **\***: remove default props [skip-cd] (#214)
+- **\***: remove default props for Tabs and OverlayTrigger
+- **\***: remove default props
 - **badge**: storybook args table name [skip-cd] (#215)
 - **badge**: storybook args table name
 
 ## v2.3.0 (2024-01-10)
+
+### BREAKING CHANGE
+
+- previously, users construct their own <thead> and <td> to fill the table.
+  Now, we define the table structure within the <Table> component.
+  Users can now fill in the table through props `tableHeaders` and `tableData`.
 
 ### Feat
 
@@ -65,13 +78,13 @@
 
 ### Fix
 
-- *****: add exports of subcomponents
+- **\***: add exports of subcomponents
 - **combobox**: dropdown item as a button
 - **feature_request**: fix typo:
 
 ### Refactor
 
-- *****: move unique generation of id to useEffect hook
+- **\***: move unique generation of id to useEffect hook
 
 ## v2.2.2 (2023-09-19)
 
@@ -170,7 +183,7 @@
 - **navbar**: navbar looking like tabs in CRA app. Soln needs to be exported together with nav to obtain current context
 - remove extra comma
 - vulnerable react-scripts by overriding its dep https://github.com/facebook/create-react-app/issues/12132
-- handle dropdown in navbar when expand is  boolean type
+- handle dropdown in navbar when expand is boolean type
 
 ### Refactor
 
