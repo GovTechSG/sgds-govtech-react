@@ -1,0 +1,121 @@
+import { ArgsTable, Canvas, Meta, Story } from '@storybook/addon-docs';
+import { HIDDEN_COMMON_PROPS } from '../../helpers';
+import { FormControl, Form, FormControlGroup } from '../../../src/index';
+
+<Meta title="Components/Form/FormControl" component={FormControl} />
+
+export const Template = (args) => {
+  return (
+    <Form>
+      <Form.Group className="mb-3" controlId="exampleForm.ControlInput1">
+        <Form.Label>Name</Form.Label>
+        <Form.Control {...args} />
+      </Form.Group>
+    </Form>
+  );
+};
+
+# FormControl
+
+Use FormControl for textual form controls like input and textarea. The default FormControl is an input element.
+FormControl extends the HTMLInputElement and HTMlTextAreaElement and their attributes are applicable to FormControl as props.
+
+<Story name="Basic">{Template.bind({})}</Story>
+
+<br />
+
+## API
+
+```jsx
+import { FormControl } from '@govtechsg/sgds-react/Form';
+// or
+import { Form } from '@govtechsg/sgds-react/Form';
+// and use <Form.Control />
+```
+
+<ArgsTable story="Basic" />
+
+### Code Sample
+
+```jsx
+<Form>
+  <Form.Group className="mb-3" controlId="exampleForm.ControlInput1">
+    <Form.Label>Name</Form.Label>
+    <Form.Control />
+  </Form.Group>
+</Form>
+```
+
+## FormControl input with icon
+
+Icons embedded in FormControl input provide users the visual cue on the input content.
+
+Wrap `<FormControl/>` with `<FormControlGroup/>`. Only applicable for default `FormControl` using HTMl `<input/>`
+
+Does not apply to textarea.
+
+export const FormControlIcon = () => {
+  return (
+    <Form>
+      <Form.Group className="mb-3" controlId="formControlWithIcon">
+        <Form.Label>Search</Form.Label>
+        <FormControlGroup icon={<i className="bi bi-search"></i>}>
+          <FormControl />
+        </FormControlGroup>
+      </Form.Group>
+    </Form>
+  );
+};
+
+<Story name="Form Control with Icon">{FormControlIcon.bind({})}</Story>
+
+<br />
+
+### Code Sample
+
+```jsx
+<Form>
+  <Form.Group className="mb-3" controlId="formControlWithIcon">
+    <Form.Label>Search</Form.Label>
+    <FormControlGroup icon={<i className="bi bi-search"></i>}>
+      <FormControl />
+    </FormControlGroup>
+  </Form.Group>
+</Form>
+```
+
+## textarea
+
+Use `as` prop to change FormControl HTML tag from input to textarea
+
+<Story
+  name="Text area"
+  args={{ as: 'textarea', placeholder: 'write something' }}
+>
+  {Template.bind({})}
+</Story>
+
+<br />
+
+### Code Sample
+
+```jsx
+<Form.Control as="textarea" placeholder="write something" />
+```
+
+## Plain Text
+
+<Story
+  name="Plain text"
+  args={{ plaintext: true, value: 'this is plaintext', readOnly: true }}
+>
+  {Template.bind({})}
+</Story>
+
+<br />
+
+### Code Sample
+
+```jsx
+<Form.Control plaintext value="this is plaintext" readOnly />
+```

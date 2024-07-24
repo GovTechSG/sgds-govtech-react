@@ -1,0 +1,57 @@
+import { ArgsTable, Canvas, Meta, Story } from '@storybook/addon-docs';
+import { useState, useEffect } from 'react';
+import { QuantityToggle, Col, Form } from '../../../src/index';
+import { HIDDEN_COMMON_PROPS, VARIANT } from '../../helpers';
+
+<Meta
+  title="Components/QuantityToggle"
+  component={QuantityToggle}
+  argTypes={{
+    count: {
+      control: { disable: true },
+    },
+    setCount: {
+      control: { disable: true },
+    },
+    variant: {
+      control: { type: 'select' },
+      options: VARIANT,
+    },
+  }}
+  parameters={{
+    docs: {
+      source: {
+        type: 'code',
+      },
+    },
+  }}
+/>
+
+# Quantity Toggle
+
+`<QuantityToggle />` allow increments and decrement of value reflected on an `input`.
+
+It is a custom component built from `InputGroup`, `Button`, `FormControl`
+
+The default `QuantityToggle` requires `count` and `setCount` to be passed in as props.
+The default step value is 1 which controls the increment / decrement value on every button click.
+The `input` is of number type.
+
+The minimum value for count is 0, if count < 0 is passed in, `QuantityToggle` will setCount back to 0
+
+<Canvas>
+  <Story name="Basic">
+    {(args) => {
+      const [count, setCount] = useState(0);
+      return (
+        <Form.Group controlId="qtyToggle">
+          <QuantityToggle {...args} count={count} setCount={setCount} />
+        </Form.Group>
+      );
+    }}
+  </Story>
+</Canvas>
+
+## API
+
+<ArgsTable story="Basic" />

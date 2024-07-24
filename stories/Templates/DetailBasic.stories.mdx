@@ -1,0 +1,156 @@
+import { ArgsTable, Canvas, Meta, Story } from '@storybook/addon-docs';
+import SgdsMasthead from '@govtechsg/sgds-web-component/react/masthead/index.js';
+
+import {
+  Form,
+  Button,
+  Col,
+  Row,
+  InputGroup,
+  DatePicker,
+  useStep,
+  Stepper,
+  Accordion,
+  Footer,
+  Breadcrumb,
+  Nav,
+  Navbar,
+  NavDropdown,
+  SideNav,
+} from '../../src/index';
+
+import { useState } from 'react';
+
+<Meta title="Templates/Detail Page Basic" component={Form} />
+
+# Detail Page Basic
+
+Detail page basic may consist of any relevant information related to a certain product or service.
+
+export const DetailBasicTemplate = () => {
+  const [active, setActive] = useState('about');
+  const clickNavbarItem = (eventKey) => {
+    setActive(eventKey);
+  };
+  return (
+    <div>
+      <SgdsMasthead />
+      <Navbar className="mt-4" expand="sm">
+        <Navbar.Brand href="">
+          <img
+            src="https://www.developer.tech.gov.sg/assets/img/logo_color.svg"
+            alt="Home"
+          />
+        </Navbar.Brand>
+        <Navbar.Toggle aria-controls="landingNav" />
+        <Navbar.Collapse id="landingNav">
+          <Nav className="me-auto" navbarScroll activeKey={active}>
+            <Nav.Item>
+              <Nav.Link
+                href=""
+                eventKey="about"
+                onClick={() => clickNavbarItem('about')}
+              >
+                About
+              </Nav.Link>
+            </Nav.Item>
+            <Nav.Item>
+              <Nav.Link
+                href=""
+                eventKey="item1"
+                onClick={() => clickNavbarItem('item1')}
+              >
+                Item 1
+              </Nav.Link>
+            </Nav.Item>
+            <NavDropdown
+              title="Item 2"
+              id="item-2"
+              eventKey="item2"
+              onClick={() => clickNavbarItem('item2')}
+            >
+              <NavDropdown.Item
+                href=""
+                onClick={() => clickNavbarItem('item2')}
+              >
+                Option 1
+              </NavDropdown.Item>
+              <NavDropdown.Item
+                href=""
+                onClick={() => clickNavbarItem('item2')}
+              >
+                Option 2
+              </NavDropdown.Item>
+              <NavDropdown.Item
+                href=""
+                onClick={() => clickNavbarItem('item2')}
+              >
+                Option 3
+              </NavDropdown.Item>
+              <NavDropdown.Item
+                href=""
+                onClick={() => clickNavbarItem('item2')}
+              >
+                Option 4
+              </NavDropdown.Item>
+            </NavDropdown>
+          </Nav>
+        </Navbar.Collapse>
+      </Navbar>
+      <sgds-template-grid>
+        <sgds-content-area>
+          <Breadcrumb>
+            <Breadcrumb.Item href="">Home</Breadcrumb.Item>
+            <Breadcrumb.Item href="">Library</Breadcrumb.Item>
+            <Breadcrumb.Item active>Data</Breadcrumb.Item>
+          </Breadcrumb>
+          <section>
+            <h2>Page heading</h2>
+            <p>
+              Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
+              eiusmod tempor incididunt ut labore et dolore magna aliqua.
+            </p>
+            <h4>Overview</h4>
+            <p>
+              Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
+              eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut
+              enim ad minim veniam, quis nostrud exercitation ullamco laboris
+              nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in
+              reprehenderit in voluptate velit esse cillum dolore eu fugiat
+              nulla pariatur.
+            </p>
+          </section>
+        </sgds-content-area>
+      </sgds-template-grid>
+      <Footer>
+        <Footer.Top>
+          <Footer.Top.ContactLinks>
+            <a href="" target="_blank">
+              Contact
+            </a>
+            <a href="" target="_blank">
+              Feedback
+            </a>
+          </Footer.Top.ContactLinks>
+        </Footer.Top>
+        <Footer.Bottom>
+          <Footer.Bottom.Links>
+            <a href="" target="_blank">
+              Report Vulnerability
+            </a>
+            <a href="">Privacy Statement</a>
+            <a href="">Terms of use</a>
+          </Footer.Bottom.Links>
+          <Footer.Bottom.Copyrights className="text-end">
+            © 2022 Government of Singapore
+            <br /> Last Updated 08 Feb 2022
+          </Footer.Bottom.Copyrights>
+        </Footer.Bottom>
+      </Footer>
+    </div>
+  );
+};
+
+<Canvas>
+  <Story name="Detail Page Basic">{DetailBasicTemplate.bind({})}</Story>
+</Canvas>

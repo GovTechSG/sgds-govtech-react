@@ -1,10 +1,3 @@
-> 👋🏻 Hey there!
-> 
-> We wanted to give you a heads up that our React and web component storybooks will be undergoing some maintenance on Friday, January 12th 2024 at 5 PM.
->
-> Don't worry though, the installation of SGDS libraries won't be affected, so you can still keep working on your projects. 
-> Thanks for your understanding!
-
 # @govtechsg/sgds-react
 
 React components powered by [Singapore Government Design System](https://www.designsystem.gov.sg)
@@ -71,41 +64,6 @@ import '@govtechsg/sgds/sass/sgds.scss';
 
 # Advanced Usage
 
-## Customisation with Sass
-
-If you want to modify SGDS's base styling, you can import the Sass source (your project needs to support Sass compilation) and [override SGDS's sass variables](https://www.designsystem.tech.gov.sg/get-started/customise-with-sass).
-
-```
-npm install @govtechsg/sgds
-```
-
-For example, importing sgds in your own sass file:
-
-```scss
-// styles/app.scss
-
-// Override SGDS defaults
-$primary: rgb(8, 11, 56);
-$secondary: #ff8c00;
-$warning: rgb(134, 37, 37);
-
-// Import all of sgds
-@import '@govtechsg/sgds/sass/sgds.scss';
-```
-
-Then, in your app:
-
-```js
-import React from 'react';
-
-import './styles/app.scss';
-
-export default function App() {
-  return <div>...</div>;
-}
-```
-
-For more information on customising with Sass, see the [SGDS documentation](https://www.designsystem.tech.gov.sg/get-started/customise-with-sass).
 
 ## "as" Prop API
 

@@ -1,4 +1,5 @@
 import 'bootstrap-icons/font/bootstrap-icons.css';
+import './static/global.css';
 import { themes } from '@storybook/theming';
 // https://storybook.js.org/docs/react/writing-stories/parameters#global-parameters
 export const parameters = {
@@ -12,7 +13,12 @@ export const parameters = {
   },
   options: {
     storySort: {
-      order: ['Install', 'Usage', 'Components'],
+      order: [
+        'Getting Started',
+        ['Introduction', 'Installation', 'Usage', 'Frameworks'],
+        'Troubleshooting',
+        'Components',
+      ],
     },
   },
 };

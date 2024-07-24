@@ -1,0 +1,42 @@
+import { ArgsTable, Canvas, Meta, Story } from '@storybook/addon-docs';
+import { useState, useRef } from 'react';
+import { Card, Col } from '../../src/index';
+
+<Meta title="Patterns/Error Summary" component={Card} />
+
+# Error Summary
+
+Use this pattern to showcase a summary of errors the user has made at the top of the page. Refer to the `Card` component for further details on usage.
+
+export const ErrorSummaryTemplate = () => {
+  return (
+    <Col xs={6}>
+      <Card border="danger" style={{ backgroundColor: '#FFF4F3' }}>
+        <Card.Body>
+          <Card.Title as="h3">
+            There is a problem with your submission
+          </Card.Title>
+          <Row>
+            <Card.Text as="a" className="text-danger" href="#">
+              The date format entered is wrong
+            </Card.Text>
+          </Row>
+          <Row>
+            <Card.Text as="a" className="text-danger" href="#">
+              Address must be filled in
+            </Card.Text>
+          </Row>
+          <Row>
+            <Card.Text as="a" className="text-danger" href="#">
+              Email address is not valid
+            </Card.Text>
+          </Row>
+        </Card.Body>
+      </Card>
+    </Col>
+  );
+};
+
+<Canvas>
+  <Story name="Error Summary">{ErrorSummaryTemplate.bind({})}</Story>
+</Canvas>

@@ -1,0 +1,251 @@
+import { ArgsTable, Canvas, Meta, Story } from '@storybook/addon-docs';
+import { DatePicker, Form, Row, Col } from '../../../src/index';
+import { useState, useRef } from 'react';
+import { argTypes } from './argTypes';
+
+<Meta
+  title="Components/DatePicker"
+  component={DatePicker}
+  argTypes={{
+    ...argTypes,
+  }}
+  parameters={{ docs: { source: { type: 'code' } } }}
+/>
+
+export const DatePickerTemplate = (args) => {
+  return <DatePicker {...args} />;
+};
+
+export const DatePickerMinMaxDates = (args) => {
+  return (
+    <>
+      <Form.Text className="text-muted" id="minAndMaxDate">
+        The minimum date is 1 January 2024 and maximum date is 31 January 2024
+      </Form.Text>
+      <DatePicker {...args} />
+    </>
+  );
+};
+
+# DatePicker
+
+The `DatePicker` Component is built using `Dropdown`, `FormControl` and `Button` components.
+By default, the Calendar points to current date and input has no value. Users can either enter the dates in the `FormControl` input or pick dates using the Calendar.
+
+<Canvas>
+  <Story name="Basic" height="500px">
+    {DatePickerTemplate.bind({})}
+  </Story>
+</Canvas>
+
+## API
+
+```jsx
+import { DatePicker } from '@govtechsg/sgds-react/DatePicker';
+```
+
+<ArgsTable story="Basic" />
+
+## Range-Selection DatePicker
+
+When `mode=range` , DatePicker allows a selection of two dates, start and end.
+
+<Story name="Range Selection" args={{ mode: 'range' }} height="500px">
+  {DatePickerTemplate.bind({})}
+</Story>
+
+## Flip
+
+By default, the Popover component of DatePicker flips top and bottom depending on the space at the current placement. Turn it off, by setting `flip=false`
+
+<Story name="Flip" args={{ mode: 'range' }}>
+  {DatePickerTemplate.bind({})}
+</Story>
+
+## Setting the initialValue on first load
+
+### single mode
+
+Use the `initialValue` prop to set the initial value of input on first load.
+When `initialValue` is defined, it has to be equal to the value of `displayDate`, else a console error will appear.
+By default, `displayDate` is the current date. If your `initialValue` does not equal to current Date, pass in `displayDate` with its value equals to `initialValue`
+
+```jsx
+import { DatePicker } from '@govtechsg/sgds-react/DatePicker';
+
+initialValue: Date;
+
+<DatePicker
+  initialValue={new Date('2020-01-01')}
+  displayDate={new Date('2020-01-01')}
+/>;
+```
+
+<Story
+  name="Initial Value for Single"
+  args={{
+    initialValue: new Date('2020-01-01'),
+    displayDate: new Date('2020-01-01'),
+  }}
+  height="500px"
+>
+  {DatePickerTemplate.bind({})}
+</Story>
+
+### range mode
+
+For DatePicker in `range` mode.
+
+1.  The initialValue prop is of type `RangeSelectionValue`.
+2.  `displayDate` should either be equals to `initialValue.start` or `initialValue.end`.
+3.  `initialValue.start` should be earlier in time than `initialValue.end`
+
+A console error will appear if either one of these conditions are not met.
+
+```jsx
+interface RangeSelectionValue {
+  start: Date | undefined;
+  end: Date | undefined;
+}
+initialValue: RangeSelectionValue;
+
+import {
+  DatePicker,
+  RangeSelectionValue,
+} from '@govtechsg/sgds-react/DatePicker';
+
+<DatePicker
+  initialValue={{ start: new Date('2020-01-01'), end: new Date('2020-01-04') }}
+  displayDate={new Date('2020-01-01')}
+  mode="range"
+/>;
+```
+
+<Story
+  name="Initial Value for Multi"
+  args={{
+    initialValue: {
+      start: new Date('2020-01-01'),
+      end: new Date('2020-01-04'),
+    },
+    displayDate: new Date('2020-01-01'),
+    mode: 'range',
+  }}
+  height="500px"
+>
+  {DatePickerTemplate.bind({})}
+</Story>
+
+## Min and max date
+
+When `minDate` is set, users can only select the specified date and dates beyond it. When `maxDate` is set. users can only select the specified date and dates before it. To pass in as ISOString format. eg. `minDate="2024-01-01T12:00:00.000Z" maxDate="2024-01-31T12:00:00.000Z"`
+It is recommended to set the calendar's display to be within the boundaries of `minDate` and `maxDate`. Use `displayDate` prop to control the calendar's display
+
+For better accesibility, include a hint text to let your users know what is the range of dates that they can choose from
+
+```jsx
+import { DatePicker } from '@govtechsg/sgds-react/DatePicker';
+import { Form } from '@govtechsg/sgds-react/Form';
+
+minDate: string;
+maxDate: string;
+displayDate: Date;
+
+<>
+  <Form.Text className="text-muted" id="minAndMaxDate">
+    The minimum date is 1 January 2024 and maximum date is 31 January 2024
+  </Form.Text>
+  <DatePicker
+    minDate={new Date('2024-01-01').toISOString()}
+    maxDate={new Date('2024-01-31').toISOString()}
+    displayDate={new Date('2024-01-01')}
+  />
+</>;
+```
+
+<Story
+  name="Min and Max Date"
+  args={{
+    minDate: new Date('2024-01-01').toISOString(),
+    maxDate: new Date('2024-01-31').toISOString(),
+    displayDate: new Date('2024-01-01'),
+  }}
+  height="500px"
+>
+  {DatePickerMinMaxDates.bind({})}
+</Story>
+
+## Callback Functions
+
+### onClear, onChangeDate, onError
+
+`onClear`, `onChangeDate`, `onError` of the input, perform a callback. To trigger `onError` function, enter an invalid date.
+
+### onClear
+
+<Story
+  name="onClear"
+  args={{ onClear: () => alert('cleared!'), placeholder: 'clear me' }}
+  height="500px"
+>
+  {DatePickerTemplate.bind({})}
+</Story>
+
+### onChangeDate
+
+<Story
+  name="onChangeDate"
+  args={{
+    onChangeDate: (date) => alert(`selected ${date ? date.toISOString() : ''}`),
+    placeholder: 'choose a date',
+  }}
+  height="500px"
+>
+  {DatePickerTemplate.bind({})}
+</Story>
+
+<Story
+  name="onChangeDate Range"
+  args={{
+    mode: 'range',
+    onChangeDate: ({ start, end }) =>
+      alert(
+        `selected start: ${start ? start.toISOString() : ''}, end: ${
+          end ? end.toISOString() : ''
+        }`
+      ),
+    placeholder: 'choose two dates',
+  }}
+  height="500px"
+>
+  {DatePickerTemplate.bind({})}
+</Story>
+
+### onError
+
+<Story
+  name="onError"
+  args={{
+    onError: () => alert('invalid date!'),
+  }}
+  height="500px"
+>
+  {DatePickerTemplate.bind({})}
+</Story>
+
+```jsx
+onClear
+<DatePicker onClear={() => alert('cleared!')} />
+
+onChangeDate single mode
+<DatePicker onChangeDate={(date) => alert(`selected ${date ? date.toISOString(): ''}`)} />
+
+onChangeDate range mode
+<DatePicker onChangeDate={({ start, end }) =>
+      alert(
+          `selected start: ${start ? start.toISOString(): ''}, end: ${end ? end.toISOString(): ''}`
+        )} />
+
+onError
+<DatePicker onError={() => alert('invalid date!')} />
+```

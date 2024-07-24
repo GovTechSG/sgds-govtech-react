@@ -1,0 +1,107 @@
+import { ArgsTable, Canvas, Meta, Story } from '@storybook/addon-docs';
+import { useState, useRef } from 'react';
+import {
+  Form,
+  Row,
+  Col,
+} from '../../src/index';
+
+<Meta title="Patterns/Date" component={Form} />
+
+# Date
+
+Use this pattern when you want to ask users for a specific date, e.g their date of birth or when something was issued to them.
+
+**Note**: If you need users to select from a few specific dates, we recommend using `FormCheck` component instead to allow them to choose easily. Alternatively, you may use the `DatePicker` component for users to select date / date range from a calendar view.
+
+See examples below
+
+## Single Date Input
+
+Base format when requiring users to type in dates for your services. Do state clearly how the data should be filled (e.g 01 01 2020 vs 1 1 2020) in `Form.Text` component.
+
+export const DatePatternSingleTemplate = () => {
+  return (
+    <Form>
+      <Form.Group as={Col} className="mb-3">
+        <Form.Label htmlFor="singleDate">Date of Birth</Form.Label>
+        <Form.Text className="text-muted" id="dobHint">
+          e.g 01 Jun 1979
+        </Form.Text>
+        <Form.Control
+          className="w-50"
+          type="text"
+          id="singleDate"
+          autoComplete="on"
+          aria-describedby="dobHint"
+          required
+        />
+      </Form.Group>
+    </Form>
+  );
+};
+
+<Canvas>
+  <Story name="Single Date">{DatePatternSingleTemplate.bind({})}</Story>
+</Canvas>
+
+## Isolated Date Input
+
+Request users to fill in memorable dates, with the aid of `autoComplete` attribute for these 3 fields, `bday-day`,`bday-month` and `bday-year` to bring convenience to users.
+
+export const DatePatternIsolatedTemplate = () => {
+  const onlyNumberKey = (evt) => {
+    // Only ASCII character in that range allowed
+    const ASCIICode = evt.which ? evt.which : evt.keyCode;
+    if (ASCIICode > 31 && (ASCIICode < 48 || ASCIICode > 57))
+      return evt.preventDefault();
+    return;
+  };
+  return (
+    <Form>
+      <Row xs={8} sm={7} md={6}>
+        <Form.Group as={Col} className="mb-3">
+          <Form.Label htmlFor="dobDay">DD</Form.Label>
+          <Form.Control
+            type="text"
+            id="dobDay"
+            autoComplete="bday-day"
+            pattern="\d*"
+            maxLength={2}
+            onKeyPress={(e) => onlyNumberKey(e)}
+            required
+          />
+        </Form.Group>
+        <Form.Group as={Col} className="mb-3">
+          <Form.Label htmlFor="dobMonth">MM</Form.Label>
+          <Form.Control
+            type="text"
+            id="dobMonth"
+            autoComplete="bday-month"
+            pattern="\d*"
+            maxLength={2}
+            onKeyPress={(e) => onlyNumberKey(e)}
+            required
+          />
+        </Form.Group>
+        <Form.Group as={Col} className="mb-3">
+          <Form.Label htmlFor="dobYear">YYYY</Form.Label>
+          <Form.Control
+            type="text"
+            id="dobYear"
+            autoComplete="bday-year"
+            pattern="\d*"
+            maxLength={4}
+            onKeyPress={(e) => onlyNumberKey(e)}
+            required
+          />
+        </Form.Group>
+      </Row>
+    </Form>
+  );
+};
+
+<Canvas>
+  <Story name="Isolated Date">{DatePatternIsolatedTemplate.bind({})}</Story>
+</Canvas>
+

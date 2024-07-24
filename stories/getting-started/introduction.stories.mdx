@@ -1,0 +1,65 @@
+import { Meta, Description } from '@storybook/addon-docs';
+import { Card, CardTitle, CardBody, CardText, CardLink } from '../../src/index';
+
+<Meta title="Getting Started/Introduction" />
+
+# Introduction to SGDS React
+
+<div class="intro-cards-container mt-5 mb-5">
+  <Card className="intro-cards">
+    <CardBody>
+      <CardTitle as="h4">SGDS v2+</CardTitle>
+      <CardText>
+        The react implementation for SGDS v2+ components
+      </CardText>
+      <CardLink href="https://designsystem.tech.gov.sg/" target="_blank">
+        Learn more
+      </CardLink>
+    </CardBody>
+  </Card>
+  <Card className="intro-cards">
+    <CardBody>
+      <CardTitle as="h4">Customise with SASS</CardTitle>
+      <CardText>
+        Modify SGDS’s base styling by importing the SASS source files
+      </CardText>
+      <CardLink
+        href="?path=/story/getting-started-usage-sass--page"
+        target="_self"
+      >
+        Learn more
+      </CardLink>
+    </CardBody>
+  </Card>
+  <Card className="intro-cards">
+    <CardBody>
+      <CardTitle as="h4">Open Source</CardTitle>
+      <CardText>
+        We are open source and welcome contributions from the community!
+      </CardText>
+      <CardLink
+        href="https://github.com/GovTechSG/sgds-govtech-react/blob/v2/CONTRIBUTING.md"
+        target="_blank"
+      >
+        Learn more
+      </CardLink>
+    </CardBody>
+  </Card>
+  <Card className="intro-cards">
+    <CardBody>
+      <CardTitle as="h4">Accessible</CardTitle>
+      <CardText>
+        The components have built in accessibility and we provide
+        recommendations on how to make your components accessible
+      </CardText>
+    </CardBody>
+  </Card>
+</div>
+
+## Version Compatibility
+
+See the below table on which version of `@govtechsg/sgds` you should be using in your project.
+
+| @govtechsg/sgds version | @govtechsg/sgds-react version |
+| ----------------------- | ----------------------------- |
+| v2.x                    | v2.x                          |

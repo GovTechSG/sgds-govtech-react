@@ -1,3 +1,10 @@
+## v2.5.2 (2024-07-15)
+
+### Fix
+
+- **Stepper**: export StepperProps #240 (#247)
+- **Stepper**: export StepperProps #240
+
 ## v2.5.1 (2024-05-10)
 
 ### Fix
