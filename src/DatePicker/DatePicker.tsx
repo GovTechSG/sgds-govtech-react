@@ -365,8 +365,9 @@ export const DatePicker: BsPrefixRefForwardingComponent<
       }));
       if (newSelectedDates.end) {
         dropdownToggleRef?.current?.click();
+        // onChangeDate calls only when both start and end dates are selected
+        props.onChangeDate?.(newSelectedDates);
       }
-      props.onChangeDate?.(newSelectedDates);
     };
 
     const focusOnDateCalendar = () => {
@@ -548,7 +549,8 @@ export const DatePicker: BsPrefixRefForwardingComponent<
           selectedDate: parsedDate,
           invalid: false,
         }));
-        updateFocusedDate(parsedDate);
+        updateFocusedDate(setTimeToNoon(parsedDate));
+        props.onChangeDate?.(setTimeToNoon(parsedDate));
         return;
       }
 
@@ -557,6 +559,7 @@ export const DatePicker: BsPrefixRefForwardingComponent<
         inputDate: enteredDate,
       }));
       updateFocusedDate(displayDate);
+      
     };
 
     const enterDateRange = (event: React.ChangeEvent<HTMLInputElement>) => {
@@ -600,13 +603,14 @@ export const DatePicker: BsPrefixRefForwardingComponent<
           ...prevState,
           inputDate: inputDate,
           selectedDate: {
-            start: dateStart,
-            end: dateEnd,
+            start: setTimeToNoon(dateStart),
+            end: setTimeToNoon(dateEnd),
           },
           displayDate: dateEnd,
           invalid: false,
         }));
         updateFocusedDate(dateEnd);
+        props.onChangeDate?.({start: setTimeToNoon(dateStart), end: setTimeToNoon(dateEnd) })
         return;
       }
 

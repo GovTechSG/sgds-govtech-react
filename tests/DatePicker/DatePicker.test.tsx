@@ -214,6 +214,42 @@ describe('DatePicker', () => {
     expect(container.querySelector('button')).toHaveAttribute('disabled');
   });
 
+  it('onChangeDate fn fires when a valid date is typed in the Datepicker Input', async () => {
+    const mockFn = jest.fn();
+    const { container } = render(<DatePicker onChangeDate={mockFn} />);
+    const input = container.querySelector('input') as HTMLInputElement;
+    input?.focus();
+    fireEvent.change(input, { target: { value: '24/05/2024' } });
+    expect(mockFn).toHaveBeenCalled();
+  });
+  it('onChangeDate fn does not fire when an invalid date is typed in the Datepicker Input', async () => {
+    const mockFn = jest.fn();
+    const { container } = render(<DatePicker onChangeDate={mockFn} />);
+    const input = container.querySelector('input') as HTMLInputElement;
+    input?.focus();
+    fireEvent.change(input, { target: { value: '24/05/1000' } });
+    expect(mockFn).not.toHaveBeenCalled();
+  });
+  it('when mode=range, onChangeDate fn only fires when an start and end valid dates are typed in the Datepicker Input', async () => {
+    const mockFn = jest.fn();
+    const { container } = render(
+      <DatePicker onChangeDate={mockFn} mode="range" />
+    );
+    const input = container.querySelector('input') as HTMLInputElement;
+    input?.focus();
+    // valid start date only
+    fireEvent.change(input, { target: { value: '24/05/2024' } });
+    expect(mockFn).not.toHaveBeenCalled();
+    // invalid end date
+    fireEvent.change(input, { target: { value: '24/05/2024 - 30/02/2024' } });
+    expect(mockFn).not.toHaveBeenCalled();
+    // clear input
+    fireEvent.change(input, { target: { value: '' } });
+    expect(mockFn).not.toHaveBeenCalled();
+    //valid start and end date
+    fireEvent.change(input, { target: { value: '24/05/2024 - 30/03/2024' } });
+    expect(mockFn).toHaveBeenCalled();
+  });
   it('onChangeDate fn fires when dates clicked', async () => {
     const mockFn = jest.fn();
     const { getByText, container } = render(
@@ -225,6 +261,20 @@ describe('DatePicker', () => {
     );
     fireEvent.click(getByText('1'));
     await waitFor(() => expect(mockFn).toHaveBeenCalled());
+  });
+  it('in mode=range, onChangeDate fn fires only after both dates clicked', async () => {
+    const mockFn = jest.fn();
+    const { getByText, container } = render(
+      <DatePicker onChangeDate={mockFn} mode="range" />
+    );
+    fireEvent.click(container.querySelector('button.dropdown-toggle')!);
+    await waitFor(() =>
+      expect(container.querySelector('.dropdown-menu.show')).toBeInTheDocument()
+    );
+    fireEvent.click(getByText('1'));
+    expect(mockFn).not.toHaveBeenCalled();
+    fireEvent.click(getByText('3'));
+    expect(mockFn).toHaveBeenCalled();
   });
 
   it('onChange and onClear fn fires when click on Clear button', async () => {

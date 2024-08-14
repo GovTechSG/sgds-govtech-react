@@ -1,3 +1,20 @@
+## v2.6.0 (2024-08-01)
+
+### Feat
+
+- **badge**: add outlined prop
+
+### Fix
+
+- **sidenav**: add active class when sidenav is open or clicked
+
+## v2.5.3 (2024-07-29)
+
+### Fix
+
+- **pagination**: duplicate first page button [skip-cd] (#248)
+- **pagination**: duplicate first page button
+
 ## v2.5.2 (2024-07-15)
 
 ### Fix
