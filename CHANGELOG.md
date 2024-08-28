@@ -1,3 +1,10 @@
+## v2.6.1 (2024-08-14)
+
+### Fix
+
+- **datepicker**: call onChangeDate when keyboard enter valid date(s) (#254)
+- **datepicker**: call onChangeDate when keyboard enter valid date(s)
+
 ## v2.6.0 (2024-08-01)
 
 ### Feat

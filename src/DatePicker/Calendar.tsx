@@ -52,18 +52,11 @@ export const Calendar = React.forwardRef<HTMLTableElement, CalendarProps>(
     } = React.useContext(DatePickerContext);
 
     const handleClick = (e: React.MouseEvent<HTMLTableCellElement>) => {
-      
-      
       const day = e.currentTarget.getAttribute('data-day')!;
       const displayDateClone = new Date(props.displayDate);
       const newSelectedDate = setTimeToNoon(displayDateClone);
       newSelectedDate.setDate(parseInt(day));
-
-      // if (props.mode === "range" && (props.selectedDate as RangeSelectionValue)?.start) {
-      //   props.changeDate({start: (props.selectedDate as RangeSelectionValue)?.start, end: newSelectedDate})
-      // }
       props.changeDate(newSelectedDate);
-
     };
 
     /**

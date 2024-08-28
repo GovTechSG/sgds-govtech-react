@@ -212,14 +212,7 @@ export const ComboboxTemplate = (args) => {
     'Zambia',
     'Zimbabwe',
   ];
-  return (
-    <Combobox
-      {...args}
-      menuList={menuList}
-      id="typeaheadExample"
-      icon={<i className="bi bi-search"></i>}
-    />
-  );
+  return <Combobox {...args} menuList={menuList} id="typeaheadExample" />;
 };
 
 # Combobox
@@ -312,6 +305,88 @@ export const ComboboxComponent = () => {
       />
       <div>Selected fruits : {fruits}</div>
     </>
+  );
+};
+```
+
+## Enable scrolling menu
+
+<Canvas>
+  <Story name="Scrollable menu" args={{ scrollable: true }} height="600px">
+    {ComboboxTemplate.bind({})}
+  </Story>
+</Canvas>
+
+## Filtering methods
+
+### Filtering with startsWith
+
+<Canvas>
+  <Story
+    name="startsWith Filter"
+    args={{ filterMethod: 'startsWith' }}
+    height="500px"
+  >
+    {ComboboxTemplate.bind({})}
+  </Story>
+</Canvas>
+
+### Filtering with includes
+
+<Canvas>
+  <Story
+    name="includes Filter"
+    args={{ filterMethod: 'includes' }}
+    height="500px"
+  >
+    {ComboboxTemplate.bind({})}
+  </Story>
+</Canvas>
+
+### Apply custom filter function
+
+export const ComboboxCustomFilterExample = () => {
+  const menuList = ['apple', 'orange', 'banana'];
+  const customFilter = (inputValue, menuItems) => {
+    const filtered = menuItems.filter((n) => {
+      const nLowerCase = n.toLowerCase();
+      const valueLower = inputValue.toLowerCase();
+      return nLowerCase.endsWith(valueLower);
+    });
+    return filtered;
+  };
+  return (
+    <Combobox
+      menuList={menuList}
+      label="Select a fruit"
+      id="typeaheadExample"
+      icon={<i className="bi bi-search"></i>}
+      filterMethod={customFilter}
+    />
+  );
+};
+
+<Story name="Custom Filter">{ComboboxCustomFilterExample.bind({})}</Story>
+
+```jsx
+export const ComboboxCustomFilterExample = () => {
+  const menuList = ['apple', 'orange', 'banana'];
+  const customFilter = (inputValue, menuItems) => {
+    const filtered = menuItems.filter((n) => {
+      const nLowerCase = n.toLowerCase();
+      const valueLower = inputValue.toLowerCase();
+      return nLowerCase.endsWith(valueLower);
+    });
+    return filtered;
+  };
+  return (
+    <Combobox
+      menuList={menuList}
+      label="Select a fruit"
+      id="typeaheadExample"
+      icon={<i className="bi bi-search"></i>}
+      filterMethod={customFilter}
+    />
   );
 };
 ```

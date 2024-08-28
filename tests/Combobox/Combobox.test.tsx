@@ -455,11 +455,11 @@ describe('<Combobox>', () => {
     expect(getByText('test')).toBeInTheDocument();
   });
 
-  it('when icon not defined, there is no icon ', () => {
+  it('icon has a default value ', () => {
     const { container } = render(<Combobox menuList={menuList} />);
     expect(
-      container.querySelector('.dropdown.combobox> i.form-control-icon')
-    ).not.toBeInTheDocument();
+      container.querySelector('.dropdown.combobox> i.form-control-icon.bi-chevron-down')
+    ).toBeInTheDocument();
   });
   it('when icon defined, icon in container', () => {
     const { container } = render(
@@ -471,5 +471,64 @@ describe('<Combobox>', () => {
         '.dropdown.combobox> i.form-control-icon.bi.bi-search'
       )
     ).toBeInTheDocument();
+  });
+  it('when scrollable=true, adds scrollable class to combobox', () => {
+    const { container } = render(
+      <Combobox menuList={menuList} scrollable icon={<i className="bi bi-search"></i>} />
+    );
+
+    expect(
+      container.querySelector(
+        '.dropdown.combobox.scrollable'
+      )
+    ).toBeInTheDocument();
+  });
+  it('For filterMethod=includes, when gh is typed matches one of menuList, country filtered menuList should show only strings including gh. Results in 2', async () => {
+    const { container } = render(
+      <Combobox menuList={menuList} filterMethod="includes" />
+    );
+
+    fireEvent.change(
+      container.querySelector('input.form-control.dropdown-toggle')!,
+      { target: { value: 'gh' } }
+    );
+    expect(container.querySelector('input')?.value).toEqual('gh');
+
+    fireEvent.click(
+      container.querySelector('input.form-control.dropdown-toggle')!
+    );
+    await waitFor(() => {
+      expect(container.querySelector('ul.dropdown-menu')).toBeInTheDocument();
+      const dropdownItem = container.querySelectorAll("li>button.dropdown-item")
+      expect(dropdownItem.length).toEqual(2);
+      expect(dropdownItem[0].textContent).toEqual('Afghanistan');
+      expect(dropdownItem[1].textContent).toEqual('Ghana');
+    });
+  });
+  it('For custom filterMethod, custom filter behaviour is applied instead', async () => {
+     const customFilter = (inputValue: string, menuItems: string[]) => {
+      const filtered = menuItems.filter((n) => {
+        const nLowerCase = n.toLowerCase();
+        const valueLower = inputValue.toLowerCase();
+        return nLowerCase.endsWith(valueLower);
+      });
+      return filtered;
+    };
+    const { container } = render(
+      <Combobox menuList={["apple", "orange", "banana"]} filterMethod={customFilter} />
+    );
+
+    fireEvent.change(
+      container.querySelector('input.form-control.dropdown-toggle')!,
+      { target: { value: 'e' } }
+    );
+    expect(container.querySelector('input')?.value).toEqual('e');
+    await waitFor(() => {
+      expect(container.querySelector('ul.dropdown-menu')).toBeInTheDocument();
+      const dropdownItem = container.querySelectorAll("li>button.dropdown-item")
+      expect(dropdownItem.length).toEqual(2);
+      expect(dropdownItem[0].textContent).toEqual('apple');
+      expect(dropdownItem[1].textContent).toEqual('orange');
+    });
   });
 });
