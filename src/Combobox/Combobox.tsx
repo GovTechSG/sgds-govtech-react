@@ -35,7 +35,9 @@ export interface ComboboxProps extends Omit<FormControlProps, 'type'> {
   icon?: React.ReactElement;
   /** Enable y-axis scrolling of a menu with a default max-height of 480px */
   scrollable?: boolean;
-  /** Filter method of the combobox. Defaults to 'startsWith'. Apply  */
+  /** Filter method of the combobox. Defaults to 'startsWith'. Applying custom filter function to apply your custom logic filter  
+   * `type CustomFilter = (inputValue: string, menuItems: string[]) => string[]`
+  */
   filterMethod?: 'startsWith' | 'includes' | CustomFilter;
 }
 
