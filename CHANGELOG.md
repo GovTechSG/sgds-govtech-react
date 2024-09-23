@@ -1,3 +1,9 @@
+## v2.7.0 (2024-08-30)
+
+### Feat
+
+- **combobox**: implement filterMethod prop
+
 ## v2.6.1 (2024-08-14)
 
 ### Fix

@@ -160,7 +160,7 @@ function wrapRefs(props: any, arrowProps : any) {
 
 const Overlay = React.forwardRef<HTMLElement, OverlayProps>(
   (
-    { children: overlay, transition, popperConfig = {}, ...outerProps },
+    { children: overlay, transition, popperConfig = {}, rootClose = false, ...outerProps },
     outerRef,
   ) => {
     const popperRef = useRef({});
@@ -173,6 +173,7 @@ const Overlay = React.forwardRef<HTMLElement, OverlayProps>(
     return (
       <BaseOverlay
         {...outerProps}
+        rootClose={rootClose}
         ref={mergedRef}
         popperConfig={{
           ...popperConfig,

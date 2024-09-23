@@ -10,6 +10,7 @@ export interface TooltipBoxProps
   extends React.HTMLAttributes<HTMLDivElement>,
     BsPrefixProps {
   placement?: Placement;
+  /** @deprecated since 2.8.0 */ 
   arrowProps?: Partial<OverlayArrowProps>;
   show?: boolean;
   popper?: any;
@@ -105,10 +106,8 @@ const TooltipBox = React.forwardRef<HTMLDivElement, TooltipBoxProps>(
         className={classNames(className, bsPrefix, `bs-tooltip-${bsDirection}`)}
         {...props}
       >
-        <div className="tooltip-arrow" {...arrowProps} />
         <div className={`${bsPrefix}-inner`}>
           {children}
-          {closeBtn}
         </div>
       </SGDSWrapper>
     );
