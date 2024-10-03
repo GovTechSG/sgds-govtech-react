@@ -529,6 +529,9 @@ export const DatePicker: BsPrefixRefForwardingComponent<
 
     const enterDateSingle = (event: React.ChangeEvent<HTMLInputElement>) => {
       const enteredDate = event.target.value;
+      if (enteredDate === dateFormat.toLowerCase()) {
+        return clear();
+      }
       const parsedDate = dayjs(enteredDate, dateFormat).toDate();
       const afterMinDate = props.minDate
         ? setTimeToNoon(parsedDate) >= setTimeToNoon(new Date(props.minDate))
@@ -559,11 +562,15 @@ export const DatePicker: BsPrefixRefForwardingComponent<
         inputDate: enteredDate,
       }));
       updateFocusedDate(displayDate);
-      
     };
 
     const enterDateRange = (event: React.ChangeEvent<HTMLInputElement>) => {
       const enteredDate = event.target.value;
+
+      if (enteredDate === `${dateFormat.toLowerCase()} - ${dateFormat.toLowerCase()}`) {
+        return clear();
+      }
+
       const [start, end] = enteredDate.split(' - ');
       const dateStart = dayjs(start, dateFormat).toDate();
       const dateEnd = dayjs(end, dateFormat).toDate();
@@ -579,7 +586,7 @@ export const DatePicker: BsPrefixRefForwardingComponent<
       const dateEndBeforeMaxDate = props.maxDate
         ? setTimeToNoon(dateEnd) <= setTimeToNoon(new Date(props.maxDate))
         : true;
-
+      
       if (
         isValidDate(start, dateFormat) &&
         isValidDate(end, dateFormat) &&
@@ -610,7 +617,10 @@ export const DatePicker: BsPrefixRefForwardingComponent<
           invalid: false,
         }));
         updateFocusedDate(dateEnd);
-        props.onChangeDate?.({start: setTimeToNoon(dateStart), end: setTimeToNoon(dateEnd) })
+        props.onChangeDate?.({
+          start: setTimeToNoon(dateStart),
+          end: setTimeToNoon(dateEnd),
+        });
         return;
       }
 

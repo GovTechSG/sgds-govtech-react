@@ -1,3 +1,9 @@
+## v2.7.1 (2024-09-24)
+
+### Feat
+
+- **tooltip**: update tooltip to new design (no arrow, no close button)
+
 ## v2.7.0 (2024-08-30)
 
 ### Feat

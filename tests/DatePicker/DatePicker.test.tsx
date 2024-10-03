@@ -230,7 +230,33 @@ describe('DatePicker', () => {
     fireEvent.change(input, { target: { value: '24/05/1000' } });
     expect(mockFn).not.toHaveBeenCalled();
   });
-  it('when mode=range, onChangeDate fn only fires when an start and end valid dates are typed in the Datepicker Input', async () => {
+  it('onChangeDate fn fires when input is made empty', async () => {
+    const onChangeDate = jest.fn();
+    const onClear = jest.fn()
+    const { container } = render(<DatePicker onChangeDate={onChangeDate} onClear={onClear} initialValue={new Date(2024, 9, 3)} />);
+    const input = container.querySelector('input') as HTMLInputElement;
+    input?.focus();
+    fireEvent.change(input, { target: { value: '' } });
+    await waitFor(() => {
+      expect(onChangeDate).toHaveBeenCalledTimes(1);
+      expect(onClear).toHaveBeenCalledTimes(1);
+      expect(container.querySelector('input')?.value).toEqual('dd/mm/yyyy');
+    });
+  });
+  it('when mode=range onChangeDate fn fires when input is made empty', async () => {
+    const onChangeDate = jest.fn();
+    const onClear = jest.fn()
+    const { container } = render(<DatePicker mode="range" onChangeDate={onChangeDate} onClear={onClear} initialValue={{start: new Date(2024, 9, 3), end: new Date(2024, 9, 4)}} />);
+    const input = container.querySelector('input') as HTMLInputElement;
+    input?.focus();
+    fireEvent.change(input, { target: { value: '' } });
+    await waitFor(() => {
+      expect(onChangeDate).toHaveBeenCalledTimes(1);
+      expect(onClear).toHaveBeenCalledTimes(1);
+      expect(container.querySelector('input')?.value).toEqual('dd/mm/yyyy - dd/mm/yyyy');
+    });
+  });
+  it('when mode=range, onChangeDate fn fires when an start and end valid dates are typed in the Datepicker Input', async () => {
     const mockFn = jest.fn();
     const { container } = render(
       <DatePicker onChangeDate={mockFn} mode="range" />
@@ -245,7 +271,7 @@ describe('DatePicker', () => {
     expect(mockFn).not.toHaveBeenCalled();
     // clear input
     fireEvent.change(input, { target: { value: '' } });
-    expect(mockFn).not.toHaveBeenCalled();
+    expect(mockFn).toHaveBeenCalled();
     //valid start and end date
     fireEvent.change(input, { target: { value: '24/05/2024 - 30/03/2024' } });
     expect(mockFn).toHaveBeenCalled();
