@@ -255,6 +255,7 @@ export const ComboboxComponent = () => {
 };
 ```
 
+
 ## onChangeInput
 
 `onChangeInput` is fired whenever the value of input changes whether due to typing directly in the input or from selection from menu.
@@ -390,3 +391,22 @@ export const ComboboxCustomFilterExample = () => {
   );
 };
 ```
+
+export const ComboboxFetchData = () => {
+  const [emails, setEmails] = useState([]);
+  useEffect(() => {
+          fetch(`https://jsonplaceholder.typicode.com/comments?postId=1`)
+        .then((response) => response.json())
+        .then((json) => {
+          const emails = json.map(j => j.email) 
+          setEmails(emails)
+        });
+  }, [])
+  return <Combobox menuList={emails} filterMethod="includes" initialValue="Eliseo@gardner.biz"/>;
+}
+
+## Demo with data fetching
+
+<Canvas>
+<Story name="Demo with data fetching" height='500px'>{ComboboxFetchData.bind({})}</Story>
+</Canvas>

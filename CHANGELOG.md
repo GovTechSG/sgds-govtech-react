@@ -1,3 +1,11 @@
+## v2.7.2 (2024-10-03)
+
+### Fix
+
+- **DatePicker**: set type of buttons in CalendarHeader to button (#268)
+- **DatePicker**: set type of buttons in CalendarHeader to button instead of default submit
+- **datepicker**: onChangeDate not called when input is made empty by keyboard backspace
+
 ## v2.7.1 (2024-09-24)
 
 ### Feat

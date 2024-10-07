@@ -148,6 +148,7 @@ const CalendarHeader = React.forwardRef<HTMLDivElement, CalendarHeaderProps>(
       }
       const previousButton = (
         <button
+          type="button"
           onClick={handleClickPrevious}
           onKeyDown={handlePressPrevious}
           aria-label={ariaLabels[view]}
@@ -194,6 +195,7 @@ const CalendarHeader = React.forwardRef<HTMLDivElement, CalendarHeaderProps>(
       }
       return (
         <button
+        type="button"
         onClick={handleClickNext}
         onKeyDown={handlePressNext}
         aria-label={ariaLabels[view]}
@@ -221,6 +223,7 @@ const CalendarHeader = React.forwardRef<HTMLDivElement, CalendarHeaderProps>(
 
       return (
         <button
+        type="button"
         onClick={changeView}
         onKeyDown={handlePressChangeView}
         aria-disabled={view === 'year'}

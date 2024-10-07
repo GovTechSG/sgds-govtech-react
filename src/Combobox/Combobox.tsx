@@ -84,6 +84,19 @@ const filterIncludes = (inputValue: string, menuList: string[]) => {
   return filtered;
 };
 
+const filteredMenuList = (initialValue: string, filterMethod: 'startsWith' | 'includes' | CustomFilter, menuList: Array<string>) => {
+  let filteredMenu = []
+  if(filterMethod === "startsWith"){
+    filteredMenu = filterStartsWith(initialValue, menuList)
+  } else if (filterMethod === "includes") {
+    filteredMenu = filterIncludes(initialValue, menuList)
+  } else {
+    filteredMenu = filterMethod(initialValue, menuList)
+  }
+
+  return filteredMenu
+}
+
 export const Combobox: BsPrefixRefForwardingComponent<'input', ComboboxProps> =
   React.forwardRef<HTMLInputElement, ComboboxProps>(
     (
@@ -95,7 +108,7 @@ export const Combobox: BsPrefixRefForwardingComponent<'input', ComboboxProps> =
         label = '',
         icon,
         scrollable,
-        filterMethod,
+        filterMethod = "startsWith",
         ...props
       },
       ref
@@ -110,9 +123,7 @@ export const Combobox: BsPrefixRefForwardingComponent<'input', ComboboxProps> =
         value: initialValue,
         invalid: false,
         menuList: initialValue
-          ? menuList.filter((n) =>
-              n.toLowerCase().startsWith(initialValue.toLowerCase())
-            )
+          ? filteredMenuList(initialValue, filterMethod, menuList)
           : menuList,
       };
       const [state, setState] = useState(initialState);
@@ -170,7 +181,11 @@ export const Combobox: BsPrefixRefForwardingComponent<'input', ComboboxProps> =
       React.useEffect(() => {
         setComboboxMenuId(generateId('combobox', 'ul'));
       }, []);
-
+      React.useEffect(() => {
+        setState({...state, menuList: initialValue
+          ? filteredMenuList(initialValue, filterMethod, menuList)
+          : menuList})
+      }, [menuList]);
       return (
         <>
           {label && <FormLabel htmlFor={props.id}>{label}</FormLabel>}
@@ -198,6 +213,7 @@ export const Combobox: BsPrefixRefForwardingComponent<'input', ComboboxProps> =
                 {state.menuList.map((menuItem) => (
                   <DropdownItem
                     as="button"
+                    type="button"
                     key={menuItem}
                     onClick={handleClickItem}
                     onFocus={focusDropdownItem}

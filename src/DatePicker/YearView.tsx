@@ -197,6 +197,7 @@ export const YearView = React.forwardRef<HTMLDivElement, YearViewProps>(
           const isCurrentYear =  CURRENT_YEAR === year
           return (
             <button
+              type="button"
               aria-selected={activeYearClass ? 'true' : 'false'}
               aria-label={isCurrentYear ? `Current year, ${year}` : undefined}
               className={classNames(

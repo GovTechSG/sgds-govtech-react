@@ -7,6 +7,7 @@ exports[`CalendarHeader should have default html structure 1`] = `
   >
     <button
       aria-label="Show previous month"
+      type="button"
     >
       <i
         class="bi bi-chevron-left"
@@ -16,11 +17,13 @@ exports[`CalendarHeader should have default html structure 1`] = `
       aria-disabled="false"
       aria-label=""
       aria-live="polite"
+      type="button"
     >
       March 2022
     </button>
     <button
       aria-label="Show next month"
+      type="button"
     >
       <i
         class="bi bi-chevron-right"

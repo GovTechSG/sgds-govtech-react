@@ -1,6 +1,7 @@
-import { fireEvent, render, waitFor } from '@testing-library/react';
+import {  render, fireEvent, waitFor } from '@testing-library/react';
 import * as React from 'react';
 import { Combobox } from '../../src';
+import { CustomFilter } from '../../src/Combobox/Combobox';
 const menuList = [
   'Afghanistan',
   'Albania',
@@ -226,23 +227,22 @@ describe('<Combobox> a11y', () => {
   });
   it('dropdown menu has role="listbox" on ul element', async () => {
     const { container } = render(<Combobox menuList={menuList} />);
-    fireEvent.click(container
-      .querySelector('input.form-control')!)
-    expect(container.querySelector('ul.dropdown-menu')).toHaveAttribute(
-      'role',
-      'listbox'
-    );
+    fireEvent.click(container.querySelector('input.form-control')!);
+    await waitFor(() => {
+      expect(container.querySelector('ul.dropdown-menu')).toHaveAttribute(
+        'role',
+        'listbox'
+      );
+    })
   });
   it('form control input aria-controls id points to ul id', async () => {
     const { container } = render(<Combobox menuList={menuList} />);
-    fireEvent.click(container
-      .querySelector('input.form-control')!)
+    fireEvent.click(container.querySelector('input.form-control')!);
     const menuUlId = container.querySelector('ul')?.getAttribute('id');
     const inputAriaControlValue = container
       .querySelector('input.form-control')
       ?.getAttribute('aria-controls');
-
-      expect(inputAriaControlValue).toEqual(menuUlId);
+    await waitFor(() => expect(inputAriaControlValue).toEqual(menuUlId));
   });
 });
 describe('<Combobox>', () => {
@@ -398,22 +398,100 @@ describe('<Combobox>', () => {
     await waitFor(() => {
       expect(container.querySelector('input')?.value).toEqual('Afghanistan');
     });
-    fireEvent.keyDown(container.querySelectorAll('li>button.dropdown-item')[0], {
-      key: 'ArrowDown',
-      code: 'ArrowDown',
-    });
+    fireEvent.keyDown(
+      container.querySelectorAll('li>button.dropdown-item')[0],
+      {
+        key: 'ArrowDown',
+        code: 'ArrowDown',
+      }
+    );
     await waitFor(() => {
       expect(container.querySelector('input')?.value).toEqual('Albania');
     });
-    fireEvent.keyDown(container.querySelectorAll('li>button.dropdown-item')[1], {
-      key: 'ArrowDown',
-      code: 'ArrowDown',
-    });
+    fireEvent.keyDown(
+      container.querySelectorAll('li>button.dropdown-item')[1],
+      {
+        key: 'ArrowDown',
+        code: 'ArrowDown',
+      }
+    );
     await waitFor(() => {
       expect(container.querySelector('input')?.value).toEqual('Algeria');
     });
   });
+  it('menuList is filtered with "ang" initialValue and includes filter method gives 3 items', async () => {
+    const { container } = render(
+      <Combobox
+        menuList={menuList}
+        initialValue="ang"
+        filterMethod="includes"
+      />
+    );
+    fireEvent.click(
+      container.querySelector('input.form-control.dropdown-toggle')!
+    );
 
+    await waitFor(() => {
+      expect(container.querySelector('ul.dropdown-menu')).toBeInTheDocument();
+    });
+    expect(container.querySelectorAll('li>button.dropdown-item').length).toEqual(3);
+  });
+  it('menuList is filtered with "ang" initialValue and includes filter method gives 2 items', async () => {
+    const { container } = render(
+      <Combobox
+        menuList={menuList}
+        initialValue="ang"
+        filterMethod="startsWith"
+      />
+    );
+    fireEvent.click(
+      container.querySelector('input.form-control.dropdown-toggle')!
+    );
+
+    await waitFor(() => {
+      expect(container.querySelector('ul.dropdown-menu')).toBeInTheDocument();
+    });
+    expect(container.querySelectorAll('li>button.dropdown-item').length).toEqual(2);
+  });
+  it('menuList is filtered with "ang" initialValue and endsWith custom filter method gives 0 items', async () => {
+    const customFilter: CustomFilter = (inputValue: string, menuItems: string[]) => {
+      const filtered = menuItems.filter((n) => {
+        const nLowerCase = n.toLowerCase();
+        const valueLower = inputValue.toLowerCase();
+        return nLowerCase.endsWith(valueLower);
+      });
+      return filtered;
+    };
+    const { container } = render(
+      <Combobox
+        menuList={menuList}
+        filterMethod={customFilter}
+        initialValue="ang"
+      />
+    );
+
+    fireEvent.click(
+      container.querySelector('input.form-control.dropdown-toggle')!
+    );
+
+    await waitFor(() => {
+      expect(container.querySelector('ul.dropdown-menu')).not.toBeInTheDocument();
+    });
+    expect(container.querySelectorAll('li>button.dropdown-item').length).toEqual(0);
+  });
+  it('items in menu are updated when menuList prop changes', async () => {
+    const { container, rerender } = render(<Combobox menuList={[]} />);
+    fireEvent.click(
+      container.querySelector('input.form-control.dropdown-toggle')!
+    );
+    expect(container.querySelector('ul.dropdown-menu')).not.toBeInTheDocument();
+    rerender(<Combobox menuList={menuList} />);
+    await waitFor(() => {
+      expect(container.querySelector('ul.dropdown-menu')).toBeInTheDocument();
+    });
+    const dropdownItems = container.querySelectorAll('li>button.dropdown-item');
+    expect(dropdownItems.length).toEqual(menuList.length);
+  });
   it('onChangeInput fires when input changes', async () => {
     const mockFn = jest.fn();
     const { container } = render(
@@ -458,7 +536,9 @@ describe('<Combobox>', () => {
   it('icon has a default value ', () => {
     const { container } = render(<Combobox menuList={menuList} />);
     expect(
-      container.querySelector('.dropdown.combobox> i.form-control-icon.bi-chevron-down')
+      container.querySelector(
+        '.dropdown.combobox> i.form-control-icon.bi-chevron-down'
+      )
     ).toBeInTheDocument();
   });
   it('when icon defined, icon in container', () => {
@@ -474,13 +554,15 @@ describe('<Combobox>', () => {
   });
   it('when scrollable=true, adds scrollable class to combobox', () => {
     const { container } = render(
-      <Combobox menuList={menuList} scrollable icon={<i className="bi bi-search"></i>} />
+      <Combobox
+        menuList={menuList}
+        scrollable
+        icon={<i className="bi bi-search"></i>}
+      />
     );
 
     expect(
-      container.querySelector(
-        '.dropdown.combobox.scrollable'
-      )
+      container.querySelector('.dropdown.combobox.scrollable')
     ).toBeInTheDocument();
   });
   it('For filterMethod=includes, when gh is typed matches one of menuList, country filtered menuList should show only strings including gh. Results in 2', async () => {
@@ -499,14 +581,16 @@ describe('<Combobox>', () => {
     );
     await waitFor(() => {
       expect(container.querySelector('ul.dropdown-menu')).toBeInTheDocument();
-      const dropdownItem = container.querySelectorAll("li>button.dropdown-item")
+      const dropdownItem = container.querySelectorAll(
+        'li>button.dropdown-item'
+      );
       expect(dropdownItem.length).toEqual(2);
       expect(dropdownItem[0].textContent).toEqual('Afghanistan');
       expect(dropdownItem[1].textContent).toEqual('Ghana');
     });
   });
   it('For custom filterMethod, custom filter behaviour is applied instead', async () => {
-     const customFilter = (inputValue: string, menuItems: string[]) => {
+    const customFilter = (inputValue: string, menuItems: string[]) => {
       const filtered = menuItems.filter((n) => {
         const nLowerCase = n.toLowerCase();
         const valueLower = inputValue.toLowerCase();
@@ -515,7 +599,10 @@ describe('<Combobox>', () => {
       return filtered;
     };
     const { container } = render(
-      <Combobox menuList={["apple", "orange", "banana"]} filterMethod={customFilter} />
+      <Combobox
+        menuList={['apple', 'orange', 'banana']}
+        filterMethod={customFilter as CustomFilter}
+      />
     );
 
     fireEvent.change(
@@ -525,7 +612,9 @@ describe('<Combobox>', () => {
     expect(container.querySelector('input')?.value).toEqual('e');
     await waitFor(() => {
       expect(container.querySelector('ul.dropdown-menu')).toBeInTheDocument();
-      const dropdownItem = container.querySelectorAll("li>button.dropdown-item")
+      const dropdownItem = container.querySelectorAll(
+        'li>button.dropdown-item'
+      );
       expect(dropdownItem.length).toEqual(2);
       expect(dropdownItem[0].textContent).toEqual('apple');
       expect(dropdownItem[1].textContent).toEqual('orange');

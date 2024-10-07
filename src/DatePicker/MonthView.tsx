@@ -237,6 +237,7 @@ export const MonthView = React.forwardRef<HTMLDivElement, MonthViewProps>(
           const currentMonthAriaLabel = `Current month, ${defaultAriaLabel}`;
           return (
             <button
+              type="button"
               aria-label={
                 isCurrentMonthAndYear ? currentMonthAriaLabel : defaultAriaLabel
               }

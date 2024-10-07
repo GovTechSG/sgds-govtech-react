@@ -208,10 +208,10 @@ displayDate: Date;
   name="onChangeDate Range"
   args={{
     mode: 'range',
-    onChangeDate: ({ start, end }) =>
+    onChangeDate: (date) =>
       alert(
-        `selected start: ${start ? start.toISOString() : ''}, end: ${
-          end ? end.toISOString() : ''
+        `selected start: ${date && date.start ? date.start.toISOString() : ''}, end: ${
+          date && date.end ? date.end.toISOString() : ''
         }`
       ),
     placeholder: 'choose two dates',
