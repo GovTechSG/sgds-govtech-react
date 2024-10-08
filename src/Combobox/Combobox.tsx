@@ -85,16 +85,13 @@ const filterIncludes = (inputValue: string, menuList: string[]) => {
 };
 
 const filteredMenuList = (initialValue: string, filterMethod: 'startsWith' | 'includes' | CustomFilter, menuList: Array<string>) => {
-  let filteredMenu = []
   if(filterMethod === "startsWith"){
-    filteredMenu = filterStartsWith(initialValue, menuList)
-  } else if (filterMethod === "includes") {
-    filteredMenu = filterIncludes(initialValue, menuList)
-  } else {
-    filteredMenu = filterMethod(initialValue, menuList)
-  }
-
-  return filteredMenu
+    return filterStartsWith(initialValue, menuList);
+ }
+ if (filterMethod === "includes") {
+    return filterIncludes(initialValue, menuList);
+ }
+ return filterMethod(initialValue, menuList);
 }
 
 export const Combobox: BsPrefixRefForwardingComponent<'input', ComboboxProps> =
