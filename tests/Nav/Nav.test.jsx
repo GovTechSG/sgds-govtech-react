@@ -22,6 +22,12 @@ describe('<Nav>', () => {
     expect(getByTestId('test').classList).not.toContain('sgds');
     expect(getByTestId('test').classList).toContain('navbar-nav');
   });
+  it('variant=bs-tabs , adds className nav-tabs ', () => {
+    const { getByTestId } = render(<Nav data-testid="test" variant='bs-tabs' />);
+    expect(getByTestId('test').classList).toContain('sgds');
+
+    expect(getByTestId('test').classList).toContain('nav-tabs');
+  });
 
   it('should set the correct item active', () => {
     const { getByTestId } = render(

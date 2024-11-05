@@ -19,9 +19,9 @@ import {
 
 export interface NavProps extends BsPrefixProps, BaseNavProps {
   /**
-   * The visual variant of the nav items.
+   * The visual variant of the nav items. Used in 'Tabs component. To enable bootstrap default nav tabs use 'bs-tabs' 
    */
-  variant?: 'tabs-basic-toggle' | 'tabs-info-toggle';
+  variant?: 'tabs-basic-toggle' | 'tabs-info-toggle' | 'bs-tabs';
   /**
    * Enable vertical scrolling within the toggleable contents of a collapsed Navbar.
    */
@@ -46,7 +46,7 @@ const propTypes = {
   /**
    * The visual variant of the nav items.
    *
-   * @type {('tabs-basic-toggle' | 'tabs-info-toggle')}
+   * @type {('tabs-basic-toggle' | 'tabs-info-toggle' | 'bs-tabs')}
    */
   variant: PropTypes.string,
 
@@ -134,7 +134,7 @@ const Nav: BsPrefixRefForwardingComponent<'ul', NavProps> = React.forwardRef<
           [`${navbarContext?.bsPrefix}-nav-scroll`]:
             navbarContext && navbarScroll,
           ['sgds']: !navbarContext,
-          ['nav-tabs']: !navbarContext,
+          ['nav-tabs']: props.variant === 'bs-tabs',
         })}
         {...props}
       />

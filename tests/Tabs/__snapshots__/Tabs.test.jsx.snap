@@ -3,7 +3,7 @@
 exports[`<Tabs> Should render TabPane with role="tab" 1`] = `
 <DocumentFragment>
   <ul
-    class="nav sgds nav-tabs"
+    class="nav sgds"
     data-testid="testid"
     role="tablist"
   >

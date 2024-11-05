@@ -4,7 +4,7 @@
   "private": true,
   "homepage": "https://govtechsg.github.io/sgds-govtech-react/",
   "dependencies": {
-    "@govtechsg/sgds": "^2.1.1",
+    "@govtechsg/sgds": "^2.3.5",
     "@govtechsg/sgds-react": "file:../../../dist",
     "@testing-library/jest-dom": "^5.16.4",
     "@testing-library/react": "^13.2.0",
