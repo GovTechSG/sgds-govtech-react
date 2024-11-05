@@ -25,11 +25,15 @@ import {
   ToastCom,
   TooltipCom,
 } from './components';
+import {  Nav } from '@govtechsg/sgds-react';
 
 function App() {
   return (
     <div className="container">
       <NavCom />
+      <Nav>
+      <Nav.Link href="#">test</Nav.Link>
+      </Nav>
       <SideNavCom />
       <AccordionCom />
       <AlertCom />
