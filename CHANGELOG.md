@@ -1,3 +1,14 @@
+## v2.7.3 (2024-10-08)
+
+### Fix
+
+- **combobox**: add type=button to dropdown items in combobox menu #269
+- **combobox**: trigger state update of menulist when prop menuList changes #271
+
+### Refactor
+
+- **combobox**: filteredMenuList
+
 ## v2.7.2 (2024-10-03)
 
 ### Fix

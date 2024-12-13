@@ -4,7 +4,6 @@ import classNames from 'classnames';
 import PropTypes from 'prop-types';
 import BaseOverlay, {
   OverlayProps as BaseOverlayProps,
-  OverlayArrowProps,
 } from '@restart/ui/Overlay';
 //@ts-ignore
 import { componentOrElement, elementType } from 'prop-types-extra';
@@ -19,9 +18,6 @@ export interface OverlayInjectedProps {
   ref: React.RefCallback<HTMLElement>;
   style: React.CSSProperties;
   'aria-labelledby'?: string;
-
-  arrowProps: Partial<OverlayArrowProps>;
-
   show: boolean;
   placement: Placement | undefined;
   popper: {
@@ -149,13 +145,10 @@ const defaultProps: Partial<OverlayProps> = {
   placement: 'top',
 };
 
-function wrapRefs(props: any, arrowProps : any) {
+function wrapRefs(props: any) {
   const { ref } = props;
-  const { ref: aRef } = arrowProps;
 
   props.ref = ref.__wrapped || (ref.__wrapped = (r:any) => ref(safeFindDOMNode(r)));
-  arrowProps.ref =
-    aRef.__wrapped || (aRef.__wrapped = (r:any) => aRef(safeFindDOMNode(r)));
 }
 
 const Overlay = React.forwardRef<HTMLElement, OverlayProps>(
@@ -182,8 +175,8 @@ const Overlay = React.forwardRef<HTMLElement, OverlayProps>(
         //@ts-ignore
         transition={actualTransition}
       >
-        {(overlayProps, { arrowProps, popper: popperObj, show }) => {
-          wrapRefs(overlayProps, arrowProps);
+        {(overlayProps, { popper: popperObj, show }) => {
+          wrapRefs(overlayProps);
           // Need to get placement from popper object, handling case when overlay is flipped using 'flip' prop
           const updatedPlacement = popperObj?.placement;
           const popper = Object.assign(popperRef.current, {
@@ -201,13 +194,11 @@ const Overlay = React.forwardRef<HTMLElement, OverlayProps>(
               show,
               ...(!transition && show && { className: 'show' }),
               popper,
-              arrowProps,
             });
 
           return React.cloneElement(overlay as React.ReactElement, {
             ...overlayProps,
             placement: updatedPlacement,
-            arrowProps,
             popper,
             className: classNames(
               (overlay as React.ReactElement).props.className,

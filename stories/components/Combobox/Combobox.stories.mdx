@@ -1,6 +1,6 @@
 import { ArgsTable, Canvas, Meta, Story } from '@storybook/addon-docs';
 import { Combobox, Form } from '../../../src/index';
-import { useState, useRef, useEffect } from 'react';
+import { useState, useRef, useEffect, useMemo } from 'react';
 
 <Meta title="Components/Combobox" component={Combobox} />
 
@@ -267,7 +267,7 @@ export const ComboboxOnChangeTemplate = () => {
   const handleChange = (val, e) => {
     setFruits(val);
   };
-  const menuList = ['apple', 'orange', 'banana'];
+  const menuList = useMemo(() => ['apple', 'orange', 'banana'],[]);
   return (
     <>
       <Combobox
@@ -290,11 +290,11 @@ export const ComboboxOnChangeTemplate = () => {
 import { Combobox } from '@govtechsg/sgds-react/Combobox';
 
 export const ComboboxComponent = () => {
-  const menuList = ['apple', 'orange', 'banana'];
   const [fruits, setFruits] = useState('');
   const handleChange = (val, e) => {
     setFruits(val);
   };
+  const menuList = useMemo(() => ['apple', 'orange', 'banana'],[]);
   return (
     <>
       <Combobox

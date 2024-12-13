@@ -1,6 +1,5 @@
 import classNames from 'classnames';
 import * as React from 'react';
-import { OverlayArrowProps } from '@restart/ui/Overlay';
 import { useBootstrapPrefix, useIsRTL } from '../ThemeProvider/ThemeProvider';
 import PopoverHeader from './PopoverHeader';
 import PopoverBody from './PopoverBody';
@@ -13,11 +12,9 @@ export interface PopoverProps
     BsPrefixProps {
   placement?: Placement;
   title?: string;
-  arrowProps?: Partial<OverlayArrowProps>;
   body?: boolean;
   popper?: any;
   show?: boolean;
-  hasArrow?: boolean;
 }
 
 const propTypes = {
@@ -55,17 +52,6 @@ const propTypes = {
     'left',
     'left-start',
   ]),
-
-  /**
-   * An Overlay injected set of props for positioning the popover arrow.
-   *
-   * > This is generally provided by the `Overlay` component positioning the popover
-   */
-  arrowProps: PropTypes.shape({
-    ref: PropTypes.any,
-    style: PropTypes.object,
-  }),
-
   /**
    * When this prop is set, it creates a Popover with a Popover.Body inside
    * passing the children directly to it
@@ -77,7 +63,6 @@ const propTypes = {
 
   /** @private */
   show: PropTypes.bool,
-  hasArrow: PropTypes.bool,
 };
 
 const defaultProps: Partial<PopoverProps> = {
@@ -93,8 +78,6 @@ const Popover = React.forwardRef<HTMLDivElement, PopoverProps>(
       style,
       children,
       body,
-      arrowProps,
-      hasArrow = false,
       popper: _,
       show: _1,
       ...props
@@ -119,7 +102,6 @@ const Popover = React.forwardRef<HTMLDivElement, PopoverProps>(
         )}
         {...props}
       >
-        {hasArrow && <div className="popover-arrow" {...arrowProps} />}
         <> {children}</>
       </div>
     );
