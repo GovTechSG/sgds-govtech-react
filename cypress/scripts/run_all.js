@@ -24,9 +24,11 @@ function runCommand(command, name) {
 // Run the commands and store the child processes
 const reactProcess = runCommand(`sh ${__dirname}/run_cra.sh`, "React");
 const nextProcess = runCommand(`sh ${__dirname}/run_next.sh`, "Next.js");
+const react19Process = runCommand(`sh ${__dirname}/run_react19.sh`, "React19");
 
 // Terminate all child processes when the main process exits
 process.on("exit", () => {
   reactProcess.kill();
   nextProcess.kill();
+  react19Process.kill();
 });

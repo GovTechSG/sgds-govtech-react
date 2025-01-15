@@ -14,6 +14,7 @@ import transitionEndListener from '../utils/transitionEndListener';
 import createChainedFunction from '../utils/createChainedFunction';
 import triggerBrowserReflow from '../utils/triggerBrowserReflow';
 import TransitionWrapper from '../utils/TransitionWrapper';
+import { getChildRef } from '@restart/ui/utils';
 
 type Dimension = 'height' | 'width';
 
@@ -239,7 +240,7 @@ const Collapse = React.forwardRef<Transition<any>, CollapseProps>(
         onEntered={handleEntered}
         onExit={handleExit}
         onExiting={handleExiting}
-        childRef={(children as any).ref}
+        childRef={getChildRef(children)}
       >
         {(state: TransitionStatus, innerProps: Record<string, unknown>) =>
           React.cloneElement(children, {

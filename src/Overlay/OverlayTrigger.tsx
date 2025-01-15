@@ -8,6 +8,7 @@ import { useUncontrolledProp } from 'uncontrollable';
 import useMergedRefs from '@restart/hooks/useMergedRefs';
 import Overlay, { OverlayChildren, OverlayProps } from './Overlay';
 import safeFindDOMNode from '../utils/safeFindDOMNode';
+import { getChildRef } from '@restart/ui/utils';
 
 export type OverlayTriggerType = 'hover' | 'click' | 'focus';
 
@@ -187,7 +188,7 @@ function OverlayTrigger({
   const triggerNodeRef = useRef(null);
   const mergedRef = useMergedRefs<unknown>(
     triggerNodeRef,
-    (children as any).ref
+    getChildRef(children),
   );
   const timeout = useTimeout();
   const hoverStateRef = useRef<string>('');

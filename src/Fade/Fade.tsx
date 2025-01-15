@@ -11,6 +11,7 @@ import { TransitionCallbacks } from '@restart/ui/types';
 import transitionEndListener from '../utils/transitionEndListener';
 import triggerBrowserReflow from '../utils/triggerBrowserReflow';
 import TransitionWrapper from '../utils/TransitionWrapper';
+import { getChildRef } from '@restart/ui/utils';
 
 export interface FadeProps extends TransitionCallbacks {
   className?: string;
@@ -118,7 +119,7 @@ const Fade = React.forwardRef<Transition<any>, FadeProps>(
         addEndListener={transitionEndListener}
         {...props}
         onEnter={handleEnter}
-        childRef={(children as any).ref}
+        childRef={getChildRef(children)}
       >
         {(status: TransitionStatus, innerProps: Record<string, unknown>) =>
           React.cloneElement(children, {

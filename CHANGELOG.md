@@ -1,3 +1,10 @@
+## v2.7.4 (2024-12-13)
+
+### Fix
+
+- **Tooltip**: warnings pop up due to arrowProps passed into TooltipBox (#282)
+- **Tooltip**: warnings pop up due to arrowProps passed into TooltipBox
+
 ## v2.7.3 (2024-10-08)
 
 ### Fix

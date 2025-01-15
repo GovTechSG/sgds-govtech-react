@@ -74,7 +74,7 @@ describe('MonthView a11y', () => {
       />
     );
     expect(getByText('Jan').getAttribute('aria-label')).toEqual(
-      `January ${selectedDate.getFullYear()}`
+      `Current month, January ${selectedDate.getFullYear()}`
     );
   });
   it('selected month should have aria-selected=true, mode=single', () => {
