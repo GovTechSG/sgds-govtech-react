@@ -2,7 +2,7 @@ import * as React from 'react';
 import { useContext } from 'react';
 import classNames from 'classnames';
 import PropTypes from 'prop-types';
-import SideNavContext, { SideNavEventKey } from './SideNavContext';
+import SideNavContext, { SideNavEventKey, isSideNavItemSelected } from './SideNavContext';
 import SideNavItemContext from './SideNavItemContext';
 import {
   BsPrefixProps,
@@ -15,7 +15,7 @@ type EventHandler = React.EventHandler<React.SyntheticEvent>;
 
 export interface SideNavButtonProps
   extends React.ButtonHTMLAttributes<HTMLButtonElement>,
-    BsPrefixProps {
+  BsPrefixProps {
   /** Providing a `href` will render an `<a>` element, _styled_ as a button. */
   href?: string;
 }
@@ -108,12 +108,12 @@ export const SideNavButton: BsPrefixRefForwardingComponent<
         onClick={sideNavOnClick}
         {...props}
         aria-expanded={eventKey === activeEventKey}
-        aria-haspopup="menu"
+        aria-haspopup='menu'
         className={classNames(
           className,
           setCollapseCSS(activeEventKey, eventKey),
           // add active class when sidenav item is open or when multiple side nav items are open during alwaysOpen
-          (eventKey === activeEventKey || activeEventKey?.includes(eventKey)) && "active"
+          isSideNavItemSelected(activeEventKey, eventKey) ? 'active' : ''
         )}
       >
         {children}

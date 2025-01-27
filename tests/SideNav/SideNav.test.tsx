@@ -323,6 +323,11 @@ const Component = ({alwaysOpen, initialActiveKey}: ComponentProps) => {
           SideNav Item #3
         </SideNav.Button>
       </SideNav.Item>
+      <SideNav.Item eventKey="00">
+        <SideNav.Button onClick={() => clickButtonLink('00')} href="#">
+          SideNav Item #11
+        </SideNav.Button>
+      </SideNav.Item>
     </SideNav>
   );
 };
@@ -377,6 +382,9 @@ describe('Active style added to Sidenav when ', () => {
     expect(container.querySelectorAll('.btn')[2].classList).not.toContain(
       'active'
     );
+    expect(container.querySelectorAll('.btn')[3].classList).not.toContain(
+      'active'
+    );
 
     fireEvent.click(getByText('SideNav Item #1'));
     await waitFor(() => {
@@ -387,6 +395,25 @@ describe('Active style added to Sidenav when ', () => {
         'active'
       );
       expect(container.querySelectorAll('.btn')[2].classList).not.toContain(
+        'active'
+      );
+      expect(container.querySelectorAll('.btn')[3].classList).not.toContain(
+        'active'
+      );
+    });
+
+    fireEvent.click(getByText('SideNav Item #11'));
+    await waitFor(() => {
+      expect(container.querySelectorAll('.btn')[0].classList).not.toContain(
+        'active'
+      );
+      expect(container.querySelectorAll('.btn')[1].classList).not.toContain(
+        'active'
+      );
+      expect(container.querySelectorAll('.btn')[2].classList).not.toContain(
+        'active'
+      );
+      expect(container.querySelectorAll('.btn')[3].classList).toContain(
         'active'
       );
     });
@@ -401,6 +428,9 @@ describe('Active style added to Sidenav when ', () => {
       'active'
     );
     expect(container.querySelectorAll('.btn')[2].classList).not.toContain(
+      'active'
+    );
+    expect(container.querySelectorAll('.btn')[3].classList).not.toContain(
       'active'
     );
 

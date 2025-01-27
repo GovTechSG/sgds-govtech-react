@@ -1,3 +1,9 @@
+## v2.7.5 (2025-01-16)
+
+### Fix
+
+- **modal**: console warning for react 19 element.ref is deprecated
+
 ## v2.7.4 (2024-12-13)
 
 ### Fix
