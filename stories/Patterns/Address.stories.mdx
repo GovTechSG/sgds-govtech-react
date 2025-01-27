@@ -1,0 +1,104 @@
+import { ArgsTable, Canvas, Meta, Story } from '@storybook/addon-docs';
+import { useState, useRef } from 'react';
+import {
+  Form,
+  Button,
+  Row,
+  Col,
+} from '../../src/index';
+
+<Meta title="Patterns/Address" component={Form} />
+
+# Address
+
+Use this base pattern when you require users to key in their Singapore-based address.
+
+Example below is an illustration of querying a postal code from [**OneMap API**](https://www.onemap.gov.sg/docs/) which maps back an address property value to the address input field.
+
+Pairing `<Form.Label>` with `<Form.Control>` can be done by including **htmlFor** and **id** attribute in each subcomponent respectively. Alternatively, you may wrap both subcomponents within `<Form.Group>` with the **controlId** attribute.
+
+**Note**: Give your users the option to either key in their postal code to look up their address, or enter their full address manually.
+
+export const AddressPatternTemplate = () => {
+  const [address, setAddress] = useState({});
+  const inputRef = useRef();
+  const handleSubmit = () => {
+    event.preventDefault();
+    event.stopPropagation();
+    fetch(
+      'https://developers.onemap.sg/commonapi/search?searchVal=' +
+        inputRef.current.value +
+        '&returnGeom=Y&getAddrDetails=Y'
+    )
+      .then((response) => response.json())
+      .then((json) => setAddress(json.results[0]));
+  };
+  const onlyNumberKey = (evt) => {
+    // Only ASCII character in that range allowed
+    const ASCIICode = evt.which ? evt.which : evt.keyCode;
+    if (ASCIICode > 31 && (ASCIICode < 48 || ASCIICode > 57))
+      return evt.preventDefault();
+    return;
+  };
+  return (
+    <Form onSubmit={handleSubmit}>
+      <Form.Group as={Row} className="mb-3" controlId="formBasicPostalCode">
+        <Col xs={4}>
+          <Form.Label>Postal Code</Form.Label>
+          <Form.Control
+            ref={inputRef}
+            type="text"
+            inputMode="numeric"
+            pattern="[0-9]*"
+            placeholder="e.g 730317"
+            autoComplete="postal-code"
+            maxLength={6}
+            onKeyPress={(e) => onlyNumberKey(e)}
+          />
+        </Col>
+        <Col xs={12} className="mt-3">
+          <Button type="submit">Find Address</Button>
+        </Col>
+      </Form.Group>
+      <Form.Group className="mb-3" controlId="formBasicStreet">
+        <Form.Label>Block/Street Name</Form.Label>
+        <Form.Control
+          defaultValue={address?.ADDRESS}
+          type="text"
+          placeholder="e.g 220 Pasir Ris Drive 50"
+          autoComplete="street-address"
+          className="w-50"
+        />
+      </Form.Group>
+      <Form.Group className="mb-3" controlId="formBasicBuilding">
+        <Form.Label>Building/House Number</Form.Label>
+        <Form.Text className="text-muted" id="buildingHint">
+          If applicable
+        </Form.Text>
+        <Form.Control
+          type="text"
+          placeholder=""
+          className="w-25"
+          autoComplete="on"
+          aria-describedby="buildingHint"
+        />
+      </Form.Group>
+      <Form.Group className="mb-3" controlId="formBasicUnitNumber">
+        <Form.Label>Unit Number</Form.Label>
+        <Form.Text className="text-muted" id="unitHint">
+          If applicable
+        </Form.Text>
+        <Form.Control
+          type="text"
+          className="w-50"
+          autoComplete="on"
+          aria-describedby="unitHint"
+        />
+      </Form.Group>
+    </Form>
+  );
+};
+
+<Canvas>
+  <Story name="Address">{AddressPatternTemplate.bind({})}</Story>
+</Canvas>

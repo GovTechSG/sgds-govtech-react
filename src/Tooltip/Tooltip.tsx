@@ -4,7 +4,6 @@ import { TooltipPlacement } from '../utils/types';
 import Overlay from '../Overlay/Overlay';
 import OverlayTrigger from '../Overlay/OverlayTrigger';
 import TooltipBox from './TooltipBox';
-import CloseButton from '../CloseButton/CloseButton';
 import PropTypes from 'prop-types';
 import generateId from '../utils/generateId';
 
@@ -53,13 +52,10 @@ export const Tooltip: React.FC<TooltipProps> = ({
         ref: target,
         'aria-describedby': tooltipId,
       })}
-      <Overlay target={target.current} show={show} placement={placement}>
+      <Overlay target={target.current} show={show} placement={placement} rootClose={true} onHide={() => setShow(false)}>
         {(props) => (
           <TooltipBox
             {...props}
-            closeBtn={
-              <CloseButton variant="white" onClick={() => setShow(!show)} />
-            }
             id={tooltipId}
           >
             {content}
@@ -68,7 +64,6 @@ export const Tooltip: React.FC<TooltipProps> = ({
       </Overlay>
     </>
   );
-  // console.log((children as React.ReactElement).props);
   const hoverTooltip = () => (
     <OverlayTrigger
       placement={placement}

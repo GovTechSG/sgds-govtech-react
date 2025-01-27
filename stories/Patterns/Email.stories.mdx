@@ -1,0 +1,39 @@
+import { ArgsTable, Canvas, Meta, Story } from '@storybook/addon-docs';
+import { useState, useRef } from 'react';
+import { Form } from '../../src/index';
+
+<Meta title="Patterns/Email" component={Form} />
+
+# Email
+
+Use this pattern when asking users for their email address.
+
+**Note**: State clearly what their email address will be used for.
+
+export const EmailPatternTemplate = () => {
+  return (
+    <Form>
+      <Form.Group className="mb-3">
+        <Form.Label htmlFor="email">Email Address</Form.Label>
+        <Form.Text className="text-muted" id="emailPurpose">
+          Your email will only be used for updates
+        </Form.Text>
+        <Form.Control
+          className="w-50"
+          id="email"
+          type="email"
+          aria-describedby="emailPurpose"
+          placeholder="Enter email"
+          maxLength={256}
+          required
+          autoComplete="email"
+          spellCheck={false}
+        />
+      </Form.Group>
+    </Form>
+  );
+};
+
+<Canvas>
+  <Story name="Email">{EmailPatternTemplate.bind({})}</Story>
+</Canvas>

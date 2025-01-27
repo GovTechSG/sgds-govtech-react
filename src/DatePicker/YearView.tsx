@@ -1,6 +1,6 @@
 import * as React from 'react';
 import classNames from 'classnames';
-import { RangeSelectionValue } from './DatePicker';
+import { RangeSelectionValue } from './types';
 import DatePickerContext from './DatePickerContext';
 
 export interface YearViewProps extends React.HTMLAttributes<HTMLElement> {
@@ -194,10 +194,14 @@ export const YearView = React.forwardRef<HTMLDivElement, YearViewProps>(
       <div className="sgds yearpicker" ref={ref} {...props}>
         {yearArray.map((year, index) => {
           const activeYearClass = getActiveYearClass(year);
+          const isCurrentYear =  CURRENT_YEAR === year
           return (
             <button
+              type="button"
+              aria-selected={activeYearClass ? 'true' : 'false'}
+              aria-label={isCurrentYear ? `Current year, ${year}` : undefined}
               className={classNames(
-                CURRENT_YEAR === year && 'text-primary',
+                isCurrentYear && 'text-primary',
                 activeYearClass,
                 'year'
               )}

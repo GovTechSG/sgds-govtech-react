@@ -54,17 +54,12 @@ describe('Tooltip', () => {
     fireEvent.mouseOver($button as HTMLButtonElement);
     await waitFor(() => {
       expect(screen.queryByText('default tooltip')).toBeNull();
-      expect(screen.queryByText('default tooltip')?.children).toBeUndefined();
     });
 
     // click should open tooltip
     fireEvent.click($button as HTMLButtonElement);
     await waitFor(() => {
       expect(screen.queryByText('default tooltip')).not.toBeNull();
-      expect(screen.queryByText('default tooltip')?.children.length).toEqual(1);
-      expect(
-        screen.queryByText('default tooltip')?.children[0].classList
-      ).toContain('btn-close');
     });
 
     // close tooltip by clicking on target element
@@ -78,17 +73,11 @@ describe('Tooltip', () => {
       expect(screen.queryByText('default tooltip')).not.toBeNull()
     );
 
-    // clicking document cannot close tooltip
+    // clicking can close tooltip
     fireEvent.click(document);
     await waitFor(() =>
-      expect(screen.queryByText('default tooltip')).not.toBeNull()
+      expect(screen.queryByText('default tooltip')).toBeNull()
     );
-    const $closeBtn = screen.queryByText('default tooltip')?.children[0];
-
-    // close tooltip by clicking on closeBtn
-    fireEvent.click($closeBtn as HTMLButtonElement);
-    await waitForElementToBeRemoved(screen.queryByText('default tooltip'));
-    expect(screen.queryByText('default tooltip')).toBeNull();
   });
 
   it('accepts a Component', () => {

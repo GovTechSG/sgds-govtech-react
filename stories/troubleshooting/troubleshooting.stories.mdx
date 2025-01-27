@@ -1,0 +1,79 @@
+import { Meta, Description } from '@storybook/addon-docs';
+import {
+  Accordion,
+  AccordionItem,
+  AccordionHeader,
+  AccordionBody,
+  Card,
+  CardBody,
+  CardTitle,
+  CardText,
+  CardLink,
+} from '../../src/index';
+
+<Meta title="Troubleshooting/FAQ" />
+
+# FAQ page
+
+<br />
+
+<sgds-faq-grid class="mt-2">
+<div>
+<h3> Components </h3>
+   <Accordion>
+  <AccordionItem eventKey="0-components">
+    <AccordionHeader>
+      Where can I find the Masthead component?
+    </AccordionHeader>
+    <AccordionBody>
+     <p>
+        The Masthead components sits in the <code>@govtechsg/sgds-web-component</code> library.
+        See <a href="https://github.com/GovTechSG/sgds-govtech-react/issues/249#issuecomment-2247209504" target="_blank">answer</a>
+     </p>
+    </AccordionBody>
+  </AccordionItem>
+</Accordion>
+<h3> Unit Test </h3>
+ <Accordion>
+  <AccordionItem eventKey="0-unittest">
+    <AccordionHeader>
+      Jest encounters an unexpected token, cannot use import statement outside of a module
+    </AccordionHeader>
+    <AccordionBody>
+     <p> As Jest's support for ES modules are still experimental, you need to include <code>@govtechsg/sgds-react</code> package into <code>transformIgnorePatterns</code> in jest configuration.</p>
+    <p>Depending on your application's setup, be careful of where your application is reading jest configuration from. For example, <a href="https://create-react-app.dev/docs/running-tests/#configuration" target="_blank">Create-React-App reads jest configuration from package.json by default </a>.
+      If your test scripts are not configured to point to a separate jest.config.js file, the default configuration for jest in package.json will take precedence.</p>
+     <p> For users compiling Jest with Babel, see solution <a target="_blank" href="https://github.com/GovTechSG/sgds-govtech-react/issues/202#issuecomment-1816602738">here</a></p>
+     <p> For NEXTJS users, using next/jest to configure jest, see solution <a target="_blank" href="https://github.com/GovTechSG/sgds-govtech-react/issues/202#issuecomment-1842564757">here</a></p>
+    </AccordionBody>
+
+  </AccordionItem>
+</Accordion>
+<h3> NextJS </h3>
+   <Accordion>
+  <AccordionItem eventKey="0-nextjs">
+    <AccordionHeader>
+      I would like to apply Next Link to SGDS anchor-tag components
+    </AccordionHeader>
+    <AccordionBody>
+     <p>
+     You can use Next Link with SGDS anchor-tag components by wrapping Next Link and assigning the href to Next Link instead of SGDS anchor-tag component. See NextJS documentation <a href="https://nextjs.org/docs/pages/api-reference/components/link#if-the-child-is-a-custom-component-that-wraps-an-a-tag" target="_blank">here</a>
+     </p>
+    </AccordionBody>
+  </AccordionItem>
+</Accordion>
+</div>
+<div>
+  <Card className="intro-cards">
+    <CardBody>
+      <CardTitle as="h4">Github Issues</CardTitle>
+      <CardText>
+        Head to GitHub to view or open a new issue
+      </CardText>
+      <CardLink href="https://github.com/GovTechSG/sgds-govtech-react/issues/" target="_blank">
+        Learn more
+      </CardLink>
+    </CardBody>
+  </Card>
+  </div>
+</sgds-faq-grid>

@@ -73,3 +73,65 @@ describe('YearView', () => {
     expect(mockFn).toHaveBeenCalled();
   });
 });
+
+describe('YearView a11y', () => {
+  const mockFn = jest.fn();
+  const mockhandleTabPressOnCalendarBody = jest.fn();
+  const mockOnChangeMonth = jest.fn();
+  const yearRefs = React.createRef<Array<HTMLButtonElement | null>>();
+  it('selected year should have aria-selected=true, mode=single', () => {
+    const { getByText } = render(
+      <YearView
+        onClickYear={mockFn}
+        selectedDate={new Date(2020, 3, 1)}
+        displayDate={new Date(2020, 3, 1)}
+        show={true}
+        onChangeMonth={mockOnChangeMonth}
+        handleTabPressOnCalendarBody={mockhandleTabPressOnCalendarBody}
+        yearRefs={yearRefs}
+      />
+    );
+    expect(getByText('2020').getAttribute('aria-selected')).toEqual('true');
+    expect(getByText('2021').getAttribute('aria-selected')).toEqual('false');
+    expect(getByText('2019').getAttribute('aria-selected')).toEqual('false');
+  });
+  it('selected year should have aria-selected=true, mode=range', () => {
+    const { getByText } = render(
+      <YearView
+        onClickYear={mockFn}
+        selectedDate={{
+          start: new Date(2020, 3, 1),
+          end: new Date(2022, 3, 1),
+        }}
+        displayDate={new Date(2020, 3, 1)}
+        show={true}
+        onChangeMonth={mockOnChangeMonth}
+        handleTabPressOnCalendarBody={mockhandleTabPressOnCalendarBody}
+        yearRefs={yearRefs}
+      />
+    );
+    for (let i = 2020; i < 2023; i++) {
+      expect(getByText(`${i}`).getAttribute('aria-selected')).toEqual('true');
+    }
+    expect(getByText('2019').getAttribute('aria-selected')).toEqual('false');
+  });
+
+  it('current year should be indicated in aria-label', () => {
+    const { getByText } = render(
+      <YearView
+        onClickYear={mockFn}
+        selectedDate={undefined}
+        displayDate={new Date()}
+        show={true}
+        onChangeMonth={mockOnChangeMonth}
+        handleTabPressOnCalendarBody={mockhandleTabPressOnCalendarBody}
+        yearRefs={yearRefs}
+      />
+    );
+    const currentYear = new Date().getFullYear()
+    expect(getByText(`${currentYear}`).getAttribute('aria-label')).toContain(
+      "Current year"
+    );
+  });
+
+});

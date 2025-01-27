@@ -111,7 +111,9 @@ export const SideNavButton: BsPrefixRefForwardingComponent<
         aria-haspopup="menu"
         className={classNames(
           className,
-          setCollapseCSS(activeEventKey, eventKey)
+          setCollapseCSS(activeEventKey, eventKey),
+          // add active class when sidenav item is open or when multiple side nav items are open during alwaysOpen
+          (eventKey === activeEventKey || activeEventKey?.includes(eventKey)) && "active"
         )}
       >
         {children}

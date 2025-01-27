@@ -15,15 +15,11 @@ import DateInput from './DateInput';
 import DatePickerContext, { CalendarView } from './DatePickerContext';
 import MonthView from './MonthView';
 import YearView from './YearView';
+import { getTotalDaysInMonth } from '../utils/getTotalDaysInMonth';
+import { RangeSelectionValue, CalendarPlacement, DateFormat } from './types';
 
 dayjs.extend(customParseFormat);
 
-export type CalendarPlacement = 'up' | 'down';
-export type DateFormat = 'MM/DD/YYYY' | 'DD/MM/YYYY' | 'YYYY/MM/DD';
-export interface RangeSelectionValue {
-  start: Date | undefined;
-  end: Date | undefined;
-}
 interface DatePickerState {
   displayDate: Date;
   inputDate: string;
@@ -58,7 +54,7 @@ export interface DatePickerProps {
   /** Disables the Form Control and Button of Datepicker */
   disabled?: boolean;
   /** Overlay placement for the popover calendar */
-  calendarPlacement?: 'up' | 'down';
+  calendarPlacement?: CalendarPlacement;
   /** Date format reflected on input */
   dateFormat?: DateFormat;
   /** Forwards the id to InputGroup of DatePicker */
@@ -147,10 +143,6 @@ export const makeInputValueString = (
   }
 };
 
-export const getTotalDaysInMonth = (date: Date) => {
-  return new Date(date.getFullYear(), date.getMonth() + 1, 0).getDate();
-};
-
 export const isValidDate = (date: string, dateFormat: DateFormat) => {
   return dayjs(date, dateFormat, true).isValid();
 };
@@ -212,7 +204,6 @@ export const DatePicker: BsPrefixRefForwardingComponent<
     const dayRefs = React.useRef<Array<HTMLTableCellElement | null>>([]);
     const monthRefs = React.useRef<Array<HTMLButtonElement | null>>([]);
     const yearRefs = React.useRef<Array<HTMLButtonElement | null>>([]);
-
     const getinitialInputDate = () => {
       if (!props.initialValue) {
         if (isRange) {
@@ -309,6 +300,7 @@ export const DatePicker: BsPrefixRefForwardingComponent<
           ? { start: undefined, end: undefined }
           : undefined,
       });
+      setView('day');
       const resetFocusedDate = new Date();
       updateFocusedDate(resetFocusedDate);
       props.onClear?.();
@@ -373,8 +365,9 @@ export const DatePicker: BsPrefixRefForwardingComponent<
       }));
       if (newSelectedDates.end) {
         dropdownToggleRef?.current?.click();
+        // onChangeDate calls only when both start and end dates are selected
+        props.onChangeDate?.(newSelectedDates);
       }
-      props.onChangeDate?.(newSelectedDates);
     };
 
     const focusOnDateCalendar = () => {
@@ -536,13 +529,16 @@ export const DatePicker: BsPrefixRefForwardingComponent<
 
     const enterDateSingle = (event: React.ChangeEvent<HTMLInputElement>) => {
       const enteredDate = event.target.value;
+      if (enteredDate === dateFormat.toLowerCase()) {
+        return clear();
+      }
       const parsedDate = dayjs(enteredDate, dateFormat).toDate();
-      const afterMinDate =
-        props.minDate &&
-        setTimeToNoon(parsedDate) >= setTimeToNoon(new Date(props.minDate));
-      const beforeMaxDate =
-        props.maxDate &&
-        setTimeToNoon(parsedDate) <= setTimeToNoon(new Date(props.maxDate));
+      const afterMinDate = props.minDate
+        ? setTimeToNoon(parsedDate) >= setTimeToNoon(new Date(props.minDate))
+        : true;
+      const beforeMaxDate = props.maxDate
+        ? setTimeToNoon(parsedDate) <= setTimeToNoon(new Date(props.maxDate))
+        : true;
       if (
         isValidDate(enteredDate, dateFormat) &&
         parsedDate.getFullYear() >= 1900 &&
@@ -556,7 +552,8 @@ export const DatePicker: BsPrefixRefForwardingComponent<
           selectedDate: parsedDate,
           invalid: false,
         }));
-        updateFocusedDate(parsedDate);
+        updateFocusedDate(setTimeToNoon(parsedDate));
+        props.onChangeDate?.(setTimeToNoon(parsedDate));
         return;
       }
 
@@ -569,6 +566,11 @@ export const DatePicker: BsPrefixRefForwardingComponent<
 
     const enterDateRange = (event: React.ChangeEvent<HTMLInputElement>) => {
       const enteredDate = event.target.value;
+
+      if (enteredDate === `${dateFormat.toLowerCase()} - ${dateFormat.toLowerCase()}`) {
+        return clear();
+      }
+
       const [start, end] = enteredDate.split(' - ');
       const dateStart = dayjs(start, dateFormat).toDate();
       const dateEnd = dayjs(end, dateFormat).toDate();
@@ -584,7 +586,7 @@ export const DatePicker: BsPrefixRefForwardingComponent<
       const dateEndBeforeMaxDate = props.maxDate
         ? setTimeToNoon(dateEnd) <= setTimeToNoon(new Date(props.maxDate))
         : true;
-
+      
       if (
         isValidDate(start, dateFormat) &&
         isValidDate(end, dateFormat) &&
@@ -608,13 +610,17 @@ export const DatePicker: BsPrefixRefForwardingComponent<
           ...prevState,
           inputDate: inputDate,
           selectedDate: {
-            start: dateStart,
-            end: dateEnd,
+            start: setTimeToNoon(dateStart),
+            end: setTimeToNoon(dateEnd),
           },
           displayDate: dateEnd,
           invalid: false,
         }));
         updateFocusedDate(dateEnd);
+        props.onChangeDate?.({
+          start: setTimeToNoon(dateStart),
+          end: setTimeToNoon(dateEnd),
+        });
         return;
       }
 
@@ -648,7 +654,6 @@ export const DatePicker: BsPrefixRefForwardingComponent<
       if (nextShow) {
         setShowCalendar(true);
       } else {
-        dropdownToggleRef?.current?.focus();
         setShowCalendar(false);
       }
     };
@@ -837,6 +842,12 @@ export const DatePicker: BsPrefixRefForwardingComponent<
       }
     }, [showCalendar, displayDate]);
 
+    const ariaLabelsForMenu = {
+      day: 'Choose date',
+      month: 'Choose month',
+      year: 'Choose year',
+    };
+    const feedbackId = 'id-6163-sgds-feedback-div';
     return (
       <DatePickerContext.Provider value={contextValue}>
         <Dropdown
@@ -858,6 +869,8 @@ export const DatePicker: BsPrefixRefForwardingComponent<
             validateDateInput={validateDateInput}
             enterDateRange={enterDateRange}
             enterDateSingle={enterDateSingle}
+            aria-invalid={state.invalid}
+            aria-describedby={state.invalid ? feedbackId : ''}
           />
           <Dropdown.Toggle
             ref={dropdownToggleRef}
@@ -874,12 +887,12 @@ export const DatePicker: BsPrefixRefForwardingComponent<
             onClick={clear}
             disabled={props.disabled}
             variant={clearBtnVariant}
-            aria-label="Clear Selection"
+            aria-label="Reset Datepicker"
           >
             <i className="bi bi-x"></i>
             <span className="visually-hidden">clear</span>
           </Button>
-          <FormControl.Feedback type="invalid">
+          <FormControl.Feedback type="invalid" id={feedbackId}>
             {props.invalidFeedback}
           </FormControl.Feedback>
           <Dropdown.Menu
@@ -888,7 +901,7 @@ export const DatePicker: BsPrefixRefForwardingComponent<
             as="div"
             role="dialog"
             aria-modal="true"
-            aria-label="Choose Date"
+            aria-label={ariaLabelsForMenu[view]}
           >
             <Dropdown.Header className="datepicker-header" role="none">
               {calendarHeader}

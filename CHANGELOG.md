@@ -1,3 +1,108 @@
+## v2.7.4 (2024-12-13)
+
+### Fix
+
+- **Tooltip**: warnings pop up due to arrowProps passed into TooltipBox (#282)
+- **Tooltip**: warnings pop up due to arrowProps passed into TooltipBox
+
+## v2.7.3 (2024-10-08)
+
+### Fix
+
+- **combobox**: add type=button to dropdown items in combobox menu #269
+- **combobox**: trigger state update of menulist when prop menuList changes #271
+
+### Refactor
+
+- **combobox**: filteredMenuList
+
+## v2.7.2 (2024-10-03)
+
+### Fix
+
+- **DatePicker**: set type of buttons in CalendarHeader to button (#268)
+- **DatePicker**: set type of buttons in CalendarHeader to button instead of default submit
+- **datepicker**: onChangeDate not called when input is made empty by keyboard backspace
+
+## v2.7.1 (2024-09-24)
+
+### Feat
+
+- **tooltip**: update tooltip to new design (no arrow, no close button)
+
+## v2.7.0 (2024-08-30)
+
+### Feat
+
+- **combobox**: implement filterMethod prop
+
+## v2.6.1 (2024-08-14)
+
+### Fix
+
+- **datepicker**: call onChangeDate when keyboard enter valid date(s) (#254)
+- **datepicker**: call onChangeDate when keyboard enter valid date(s)
+
+## v2.6.0 (2024-08-01)
+
+### Feat
+
+- **badge**: add outlined prop
+
+### Fix
+
+- **sidenav**: add active class when sidenav is open or clicked
+
+## v2.5.3 (2024-07-29)
+
+### Fix
+
+- **pagination**: duplicate first page button [skip-cd] (#248)
+- **pagination**: duplicate first page button
+
+## v2.5.2 (2024-07-15)
+
+### Fix
+
+- **Stepper**: export StepperProps #240 (#247)
+- **Stepper**: export StepperProps #240
+
+## v2.5.1 (2024-05-10)
+
+### Fix
+
+- **datepicker**: circular dependency for internal functions and types
+- **datepicker**: replaced react-input-mask library to fix deprecated findDomNode console warning
+
+## v2.5.0 (2024-04-30)
+
+### Feat
+
+- **datepicker**: add aria-describedby and aria-invalids when input is invalid
+- **quantity toggle**: disable button when number reach 0
+- **datepicker**: add aria-current for dates months and years
+- **datepicker**: a11y labels
+- **sidenav**: new sticky sidenav [skip-cd] (#221)
+- **sidenav**: new sticky sidenav
+
+### Fix
+
+- **datepicker**: reset button also reset calendar view to day (#233)
+- **datepicker**: reset button also reset calendar view to day
+- **accordion**: fix accordion behavior when toggling `alwaysOpen` prop on Storybook
+- **accordion**: fix button aria-expanded value when `alwaysOpen` prop is set to true
+- **accordion**: fix button styling when `alwaysOpen` prop is set to true
+- **quantity toggle**: reset value to 0 when input is empty
+- **quantity toggle**: remove leading zero
+- **quantity toggle**: prevent from entering special characters
+- **datepicker**: single mode calendar view to update when input selection changes
+- **datepicker**: give focus to input when calendar close so that screenreader annouces date in input
+
+### Refactor
+
+- **calendar**: logic to add css selector
+- **datepicker**: convert style to classNames
+
 ## v2.4.0 (2024-03-22)
 
 ### Feat
@@ -15,20 +120,23 @@
 
 ### Fix
 
+- **\***: failing test cases
 - **datepicker**: date range validation
 - **datepicker**: date range validation for year before 1900
 - **datepicker**: fix focused element switch to calendar date when pressing previous/next button
-- *****: remove default props [skip-cd] (#214)
-- *****: remove default props for Tabs and OverlayTrigger
-- *****: remove default props
+- **\***: remove default props [skip-cd] (#214)
+- **\***: remove default props for Tabs and OverlayTrigger
+- **\***: remove default props
 - **badge**: storybook args table name [skip-cd] (#215)
 - **badge**: storybook args table name
 
 ## v2.3.0 (2024-01-10)
 
+### BREAKING CHANGE
+
 - previously, users construct their own <thead> and <td> to fill the table.
-Now, we define the table structure within the <Table> component.
-Users can now fill in the table through props `tableHeaders` and `tableData`.
+  Now, we define the table structure within the <Table> component.
+  Users can now fill in the table through props `tableHeaders` and `tableData`.
 
 ### Feat
 
@@ -39,13 +147,13 @@ Users can now fill in the table through props `tableHeaders` and `tableData`.
 
 ### Fix
 
-- *****: add exports of subcomponents
+- **\***: add exports of subcomponents
 - **combobox**: dropdown item as a button
 - **feature_request**: fix typo:
 
 ### Refactor
 
-- *****: move unique generation of id to useEffect hook
+- **\***: move unique generation of id to useEffect hook
 
 ## v2.2.2 (2023-09-19)
 
@@ -144,7 +252,7 @@ Users can now fill in the table through props `tableHeaders` and `tableData`.
 - **navbar**: navbar looking like tabs in CRA app. Soln needs to be exported together with nav to obtain current context
 - remove extra comma
 - vulnerable react-scripts by overriding its dep https://github.com/facebook/create-react-app/issues/12132
-- handle dropdown in navbar when expand is  boolean type
+- handle dropdown in navbar when expand is boolean type
 
 ### Refactor
 

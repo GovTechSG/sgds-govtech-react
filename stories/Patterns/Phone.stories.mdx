@@ -1,0 +1,45 @@
+import { ArgsTable, Canvas, Meta, Story } from '@storybook/addon-docs';
+import { useState, useRef } from 'react';
+import { Form, InputGroup } from '../../src/index';
+
+<Meta title="Patterns/Phone Number" component={Form} />
+
+# Phone Number
+
+Use this pattern when asking users for their phone number
+
+**Note**: State clearly what their phone number will be used for.
+
+export const PhonePatternTemplate = () => {
+  const onlyNumberKey = (evt) => {
+    // Only ASCII character in that range allowed
+    const ASCIICode = evt.which ? evt.which : evt.keyCode;
+    if (ASCIICode > 31 && (ASCIICode < 48 || ASCIICode > 57))
+      return evt.preventDefault();
+    return;
+  };
+  return (
+    <>
+      <Form.Label htmlFor="phone">Phone Number</Form.Label>
+      <InputGroup className="mb-3 w-50">
+        <InputGroup.Text id="basic-addon1">+65</InputGroup.Text>
+        <Form.Control
+          id="phone"
+          type="text"
+          placeholder="12345678"
+          aria-label="Phone"
+          aria-describedby="basic-addon1"
+          pattern="\d*"
+          maxLength="8"
+          onKeyPress={(e) => onlyNumberKey(e)}
+          autoComplete="tel-local"
+          required
+        />
+      </InputGroup>
+    </>
+  );
+};
+
+<Canvas>
+  <Story name="Phone Number">{PhonePatternTemplate.bind({})}</Story>
+</Canvas>

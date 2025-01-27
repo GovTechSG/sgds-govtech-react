@@ -1,0 +1,262 @@
+import { ArgsTable, Canvas, Meta, Story } from '@storybook/addon-docs';
+import SgdsMasthead from '@govtechsg/sgds-web-component/react/masthead/index.js';
+
+import {
+  Form,
+  Button,
+  Col,
+  Row,
+  InputGroup,
+  DatePicker,
+  useStep,
+  Stepper,
+  Accordion,
+  Footer,
+  Breadcrumb,
+  Nav,
+  Navbar,
+  NavDropdown,
+  SideNav,
+} from '../../src/index';
+
+import { useState } from 'react';
+
+<Meta title="Templates/Detail Page Side Nav Extended" component={Form} />
+
+# Detail Page Side Nav with Table of Content (toc)
+
+Detail page with a side navigation menu and table of contents.
+
+export const DetailSideNavExtendedTemplate = () => {
+  const [active, setActive] = useState('about');
+  const clickNavbarItem = (eventKey) => {
+    setActive(eventKey);
+  };
+  const [sideActive, setSideActive] = useState('1');
+  const clickSideNavItem = (eventKey) => {
+    setSideActive(eventKey);
+  };
+  const [sideActiveLink, setSideActiveLink] = useState('1.1');
+  const clickSideNavLink = (eventKey) => {
+    setSideActiveLink(eventKey);
+  };
+  return (
+    <div>
+      <SgdsMasthead />
+      <Navbar className="mt-4" expand="sm">
+        <Navbar.Brand href="">
+          <img
+            src="https://www.developer.tech.gov.sg/assets/img/logo_color.svg"
+            alt="Home"
+          />
+        </Navbar.Brand>
+        <Navbar.Toggle aria-controls="landingNav" />
+        <Navbar.Collapse id="landingNav">
+          <Nav className="me-auto" navbarScroll activeKey={active}>
+            <Nav.Item>
+              <Nav.Link
+                href=""
+                eventKey="about"
+                onClick={() => clickNavbarItem('about')}
+              >
+                About
+              </Nav.Link>
+            </Nav.Item>
+            <Nav.Item>
+              <Nav.Link
+                href=""
+                eventKey="item1"
+                onClick={() => clickNavbarItem('item1')}
+              >
+                Item 1
+              </Nav.Link>
+            </Nav.Item>
+            <NavDropdown
+              title="Item 2"
+              id="item-2"
+              eventKey="item2"
+              onClick={() => clickNavbarItem('item2')}
+            >
+              <NavDropdown.Item
+                href=""
+                onClick={() => clickNavbarItem('item2')}
+              >
+                Option 1
+              </NavDropdown.Item>
+              <NavDropdown.Item
+                href=""
+                onClick={() => clickNavbarItem('item2')}
+              >
+                Option 2
+              </NavDropdown.Item>
+              <NavDropdown.Item
+                href=""
+                onClick={() => clickNavbarItem('item2')}
+              >
+                Option 3
+              </NavDropdown.Item>
+              <NavDropdown.Item
+                href=""
+                onClick={() => clickNavbarItem('item2')}
+              >
+                Option 4
+              </NavDropdown.Item>
+            </NavDropdown>
+          </Nav>
+        </Navbar.Collapse>
+      </Navbar>
+      <sgds-template-grid class="with-sidenav with-toc">
+        <sgds-aside-area>
+          <SideNav activeKey={sideActive} activeNavLinkKey={sideActiveLink}>
+            <SideNav.Item eventKey="1" onClick={() => clickSideNavItem('1')}>
+              <SideNav.Button>Sub menu</SideNav.Button>
+              <SideNav.Collapse>
+                <SideNav.Link
+                  eventKey="1.1"
+                  href=""
+                  onClick={() => clickSideNavLink('1.1')}
+                >
+                  Sub menu item
+                </SideNav.Link>
+                <SideNav.Link
+                  eventKey="1.2"
+                  href=""
+                  onClick={() => clickSideNavLink('1.2')}
+                >
+                  Sub menu item
+                </SideNav.Link>
+                <SideNav.Link
+                  eventKey="1.3"
+                  href=""
+                  onClick={() => clickSideNavLink('1.3')}
+                >
+                  Sub menu item
+                </SideNav.Link>
+              </SideNav.Collapse>
+            </SideNav.Item>
+            <SideNav.Item eventKey="2" onClick={() => clickSideNavItem('2')}>
+              <SideNav.Button>Sub menu</SideNav.Button>
+              <SideNav.Collapse>
+                <SideNav.Link
+                  eventKey="2.1"
+                  href=""
+                  onClick={() => clickSideNavLink('2.1')}
+                >
+                  Sub menu item
+                </SideNav.Link>
+                <SideNav.Link
+                  eventKey="2.2"
+                  href=""
+                  onClick={() => clickSideNavLink('2.2')}
+                >
+                  Sub menu item
+                </SideNav.Link>
+                <SideNav.Link
+                  eventKey="2.3"
+                  href=""
+                  onClick={() => clickSideNavLink('2.3')}
+                >
+                  Sub menu item
+                </SideNav.Link>
+              </SideNav.Collapse>
+            </SideNav.Item>
+            <SideNav.Item eventKey="3" onClick={() => clickSideNavItem('3')}>
+              <SideNav.Button>Sub menu</SideNav.Button>
+              <SideNav.Collapse>
+                <SideNav.Link
+                  eventKey="3.1"
+                  href=""
+                  onClick={() => clickSideNavLink('3.1')}
+                >
+                  Sub menu item
+                </SideNav.Link>
+                <SideNav.Link
+                  eventKey="3.2"
+                  href=""
+                  onClick={() => clickSideNavLink('3.2')}
+                >
+                  Sub menu item
+                </SideNav.Link>
+                <SideNav.Link
+                  eventKey="3.3"
+                  href=""
+                  onClick={() => clickSideNavLink('3.3')}
+                >
+                  Sub menu item
+                </SideNav.Link>
+              </SideNav.Collapse>
+            </SideNav.Item>
+          </SideNav>
+        </sgds-aside-area>
+        <sgds-content-area>
+          <Breadcrumb>
+            <Breadcrumb.Item href="">Home</Breadcrumb.Item>
+            <Breadcrumb.Item href="">Library</Breadcrumb.Item>
+            <Breadcrumb.Item active>Data</Breadcrumb.Item>
+          </Breadcrumb>
+          <h2>Page heading</h2>
+          <p>
+            Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
+            eiusmod tempor incididunt ut labore et dolore magna aliqua.
+          </p>
+          <h4>Overview</h4>
+          <p>
+            Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
+            eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim
+            ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut
+            aliquip ex ea commodo consequat. Duis aute irure dolor in
+            reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla
+            pariatur.
+          </p>
+        </sgds-content-area>
+        <sgds-toc-area>
+          <h4>On this page</h4>
+          <ul style={{ listStyle: 'none' }}>
+            <li>
+              <a href="" className="text-decoration-none">
+                Page heading
+              </a>
+            </li>
+            <ul style={{ listStyle: 'none' }}>
+              <li>
+                <a href="" className="text-decoration-none">
+                  Overview
+                </a>
+              </li>
+            </ul>
+          </ul>
+        </sgds-toc-area>
+      </sgds-template-grid>
+      <Footer>
+        <Footer.Top>
+          <Footer.Top.ContactLinks>
+            <a href="" target="_blank">
+              Contact
+            </a>
+            <a href="" target="_blank">
+              Feedback
+            </a>
+          </Footer.Top.ContactLinks>
+        </Footer.Top>
+        <Footer.Bottom>
+          <Footer.Bottom.Links>
+            <a href="" target="_blank">
+              Report Vulnerability
+            </a>
+            <a href="">Privacy Statement</a>
+            <a href="">Terms of use</a>
+          </Footer.Bottom.Links>
+          <Footer.Bottom.Copyrights className="text-end">
+            © 2022 Government of Singapore <br /> Last Updated 08 Feb 2022
+          </Footer.Bottom.Copyrights>
+        </Footer.Bottom>
+      </Footer>
+    </div>
+  );
+};
+
+<Canvas>
+  <Story name="Detail Page Side Nav Extended">
+    {DetailSideNavExtendedTemplate.bind({})}
+  </Story>
+</Canvas>

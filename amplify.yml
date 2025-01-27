@@ -3,10 +3,12 @@ frontend:
   phases:
     preBuild:
       commands:
+        - nvm install 16
+        - nvm use 16
         - rm -rf node_modules && npm ci
     build:
       commands:
-        - npm run build-storybook
+        - if [ "${AWS_BRANCH}" = "v2" ]; then npm run prod:build-storybook; else npm run dev:build-storybook; fi
   artifacts:
     baseDirectory: /storybook-static
     files:

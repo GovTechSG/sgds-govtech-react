@@ -58,6 +58,16 @@ describe('Badge', () => {
     const badge = getByTestId('test');
     expect(badge.querySelector('bg-primary')).toBeNull();
   });
+  it('.badge-light added when outlined is true', () => {
+    const { getByTestId } = render(
+      <Badge outlined data-testid="test">
+        Message
+      </Badge>,
+    );
+
+    const badge = getByTestId('test');
+    expect(badge.classList).toContain("badge-light");
+  });
 
   it('textIndicator prop', () => {
     const { getByTestId } = render(

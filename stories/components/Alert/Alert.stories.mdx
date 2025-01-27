@@ -1,0 +1,178 @@
+import { useState } from 'react';
+import { ArgsTable, Canvas, Meta, Story } from '@storybook/addon-docs';
+import { Alert, Button } from '../../../src';
+
+<Meta
+  title="Components/Alert"
+  component={Alert}
+  subcomponents={{ 'Alert.Heading': Alert.Heading, 'Alert.Link': Alert.Link }}
+  argTypes={{
+    variant: {
+      table: {
+        type: {
+          summary:
+            " 'primary' | 'secondary' | 'success' | 'danger' | 'warning' | 'info' | 'light' ",
+        },
+      },
+      options: [
+        'primary',
+        'secondary',
+        'success',
+        'danger',
+        'warning',
+        'info',
+        'light',
+      ],
+      control: {
+        type: 'select',
+      },
+    },
+  }}
+  parameters={{ docs: { source: { type: 'code' } } }}
+/>
+
+export const Template = (args) => {
+  const [show, setShow] = useState(true);
+  if (show) {
+    return (
+      <Alert {...args} onClose={() => setShow(false)}>
+        <i className="bi bi-info-circle flex-shrink-0 me-4"></i>
+        This is an Alert
+      </Alert>
+    );
+  }
+  return <Button onClick={() => setShow(true)}>Show Alert</Button>;
+};
+
+# Alerts
+
+Provide contextual feedback messages for typical user actions with the handful of available and flexible alert messages.
+
+<Canvas>
+  <Story name="Basic">{Template.bind({})}</Story>
+</Canvas>
+
+## API
+
+```jsx
+import { Alert } from '@govtechsg/sgds-react/Alert';
+```
+
+<ArgsTable story="Basic" />
+
+## Basic with Icon
+
+Alerts are available for any length of text, as well as an optional dismiss button. For proper styling, use one of the eight **variant** colors provided.
+You may also choose to slot in your icons from any libraries to make your information clearer and user-friendly.
+
+<Canvas>
+  <Story name="With icon">
+    {[
+      'primary',
+      'secondary',
+      'success',
+      'danger',
+      'warning',
+      'info',
+      'light',
+    ].map((variant, idx) => (
+      <Alert key={idx} variant={variant} className="d-flex align-items-center">
+        <div>
+          <i className="bi bi-exclamation-circle me-4"></i>This is a {variant} alert—check
+          it out!
+        </div>
+      </Alert>
+    ))}
+    ;
+  </Story>
+</Canvas>
+
+## 2. Links
+
+For links, use the `<Alert.Link>` component to provide matching colored links within any alert.
+
+<Canvas>
+  <Story name="Links">
+    {[
+      'primary',
+      'secondary',
+      'success',
+      'danger',
+      'warning',
+      'info',
+      'light',
+    ].map((variant, idx) => (
+      <Alert key={idx} variant={variant} className="d-flex align-items-center">
+        <i className="bi bi-exclamation-circle me-4"></i>
+        <div>
+          This is a {variant} alert with{' '}
+          <Alert.Link href="#">an example link</Alert.Link>. Give it a click if
+          you like.
+        </div>
+      </Alert>
+    ))}
+    ;
+  </Story>
+</Canvas>
+
+## 3. Additional content
+
+Alerts can contain whatever content you like. Headers, paragraphs, dividers etc.
+
+<Canvas>
+  <Story name="Additional Content">
+    <Alert variant="success" className="d-flex align-items-center">
+      <i className="bi bi-exclamation-circle me-4"></i>
+      <div>
+        <Alert.Heading>Hey, nice to see you</Alert.Heading>
+        <p>
+          Aww yeah, you successfully read this important alert message. This
+          example text is going to run a bit longer so that you can see how
+          spacing within an alert works with this kind of content.
+        </p>
+        <hr />
+        <p className="mb-0">
+          Whenever you need to, be sure to use margin utilities to keep things
+          nice and tidy.
+        </p>
+      </div>
+    </Alert>
+  </Story>
+</Canvas>
+
+## 4. Dismissible
+
+Add the `dismissible` prop to add a functioning dismiss button to the Alert.
+
+export const Dismissible = (args) => {
+  const [show, setShow] = useState(true);
+  if (show) {
+    return (
+      <Alert
+        {...args}
+        onClose={() => setShow(false)}
+        className="d-flex align-items-center"
+      >
+        <i className="bi bi-exclamation-circle me-4"></i>
+        <div>
+          <Alert.Heading>Oh snap! You got an error!</Alert.Heading>
+          <p>
+            Change this and that and try again. Duis mollis, est non commodo
+            luctus, nisi erat porttitor ligula, eget lacinia odio sem nec elit.
+            Cras mattis consectetur purus sit amet fermentum.
+          </p>
+        </div>
+      </Alert>
+    );
+  }
+  return <Button onClick={() => setShow(true)}>Show Alert</Button>;
+};
+
+<Canvas>
+  <Story
+    name="Dismissible"
+    args={{ variant: 'primary', dismissible: true, show: true }}
+  >
+    {Dismissible.bind({})}
+  </Story>
+</Canvas>

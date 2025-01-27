@@ -105,7 +105,11 @@ export const Pagination: React.FC<PaginationProps> = ({
   };
 
   const renderFirstPage = () => {
-    const sanitizeStartPage = currentPage - Math.floor(sanitizeLimit / 2);
+    let sanitizeStartPage = currentPage - Math.floor(sanitizeLimit / 2);
+
+    if (pages.length - sanitizeStartPage < limit) {
+      sanitizeStartPage = pages.length + 1 - limit;
+    }
 
     if (sanitizeStartPage > 1) {
       return (

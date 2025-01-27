@@ -1,0 +1,21 @@
+.intro-cards-container {
+  display: grid;
+  gap: 1rem;
+  grid-template-columns: repeat(3, 1fr);
+  align-items: stretch;
+}
+
+.intro-cards {
+    border: none;
+    background-color: #f6f7fb;
+    border-radius: 24px;
+}
+
+/* FAQ stylings */
+sgds-faq-grid{
+  display: grid;
+  grid-template-columns: 3fr 1fr;
+  row-gap: 1rem;
+  column-gap: 2rem;
+  width: 100%;
+}

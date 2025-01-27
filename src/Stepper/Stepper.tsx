@@ -8,7 +8,7 @@ import { useCallbackRef } from '@restart/hooks';
 import { SGDSWrapper } from '../ThemeProvider/ThemeProvider';
 import PropTypes from 'prop-types';
 
-interface StepperProps {
+export  interface StepperProps {
   methods: UseStepMethods;
 }
 

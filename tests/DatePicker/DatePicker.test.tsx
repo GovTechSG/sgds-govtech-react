@@ -2,9 +2,9 @@ import * as React from 'react';
 import { fireEvent, render, waitFor } from '@testing-library/react';
 import {
   DatePicker,
-  getTotalDaysInMonth,
   makeInputValueString,
 } from '../../src/DatePicker/DatePicker';
+import { getTotalDaysInMonth } from '../../src/utils/getTotalDaysInMonth';
 import { MONTH_LABELS } from '../../src/DatePicker/CalendarHeader';
 
 describe('makeInputValueString', () => {
@@ -214,6 +214,68 @@ describe('DatePicker', () => {
     expect(container.querySelector('button')).toHaveAttribute('disabled');
   });
 
+  it('onChangeDate fn fires when a valid date is typed in the Datepicker Input', async () => {
+    const mockFn = jest.fn();
+    const { container } = render(<DatePicker onChangeDate={mockFn} />);
+    const input = container.querySelector('input') as HTMLInputElement;
+    input?.focus();
+    fireEvent.change(input, { target: { value: '24/05/2024' } });
+    expect(mockFn).toHaveBeenCalled();
+  });
+  it('onChangeDate fn does not fire when an invalid date is typed in the Datepicker Input', async () => {
+    const mockFn = jest.fn();
+    const { container } = render(<DatePicker onChangeDate={mockFn} />);
+    const input = container.querySelector('input') as HTMLInputElement;
+    input?.focus();
+    fireEvent.change(input, { target: { value: '24/05/1000' } });
+    expect(mockFn).not.toHaveBeenCalled();
+  });
+  it('onChangeDate fn fires when input is made empty', async () => {
+    const onChangeDate = jest.fn();
+    const onClear = jest.fn()
+    const { container } = render(<DatePicker onChangeDate={onChangeDate} onClear={onClear} initialValue={new Date(2024, 9, 3)} />);
+    const input = container.querySelector('input') as HTMLInputElement;
+    input?.focus();
+    fireEvent.change(input, { target: { value: '' } });
+    await waitFor(() => {
+      expect(onChangeDate).toHaveBeenCalledTimes(1);
+      expect(onClear).toHaveBeenCalledTimes(1);
+      expect(container.querySelector('input')?.value).toEqual('dd/mm/yyyy');
+    });
+  });
+  it('when mode=range onChangeDate fn fires when input is made empty', async () => {
+    const onChangeDate = jest.fn();
+    const onClear = jest.fn()
+    const { container } = render(<DatePicker mode="range" onChangeDate={onChangeDate} onClear={onClear} initialValue={{start: new Date(2024, 9, 3), end: new Date(2024, 9, 4)}} />);
+    const input = container.querySelector('input') as HTMLInputElement;
+    input?.focus();
+    fireEvent.change(input, { target: { value: '' } });
+    await waitFor(() => {
+      expect(onChangeDate).toHaveBeenCalledTimes(1);
+      expect(onClear).toHaveBeenCalledTimes(1);
+      expect(container.querySelector('input')?.value).toEqual('dd/mm/yyyy - dd/mm/yyyy');
+    });
+  });
+  it('when mode=range, onChangeDate fn fires when an start and end valid dates are typed in the Datepicker Input', async () => {
+    const mockFn = jest.fn();
+    const { container } = render(
+      <DatePicker onChangeDate={mockFn} mode="range" />
+    );
+    const input = container.querySelector('input') as HTMLInputElement;
+    input?.focus();
+    // valid start date only
+    fireEvent.change(input, { target: { value: '24/05/2024' } });
+    expect(mockFn).not.toHaveBeenCalled();
+    // invalid end date
+    fireEvent.change(input, { target: { value: '24/05/2024 - 30/02/2024' } });
+    expect(mockFn).not.toHaveBeenCalled();
+    // clear input
+    fireEvent.change(input, { target: { value: '' } });
+    expect(mockFn).toHaveBeenCalled();
+    //valid start and end date
+    fireEvent.change(input, { target: { value: '24/05/2024 - 30/03/2024' } });
+    expect(mockFn).toHaveBeenCalled();
+  });
   it('onChangeDate fn fires when dates clicked', async () => {
     const mockFn = jest.fn();
     const { getByText, container } = render(
@@ -225,6 +287,20 @@ describe('DatePicker', () => {
     );
     fireEvent.click(getByText('1'));
     await waitFor(() => expect(mockFn).toHaveBeenCalled());
+  });
+  it('in mode=range, onChangeDate fn fires only after both dates clicked', async () => {
+    const mockFn = jest.fn();
+    const { getByText, container } = render(
+      <DatePicker onChangeDate={mockFn} mode="range" />
+    );
+    fireEvent.click(container.querySelector('button.dropdown-toggle')!);
+    await waitFor(() =>
+      expect(container.querySelector('.dropdown-menu.show')).toBeInTheDocument()
+    );
+    fireEvent.click(getByText('1'));
+    expect(mockFn).not.toHaveBeenCalled();
+    fireEvent.click(getByText('3'));
+    expect(mockFn).toHaveBeenCalled();
   });
 
   it('onChange and onClear fn fires when click on Clear button', async () => {
@@ -242,7 +318,7 @@ describe('DatePicker', () => {
     );
 
     fireEvent.click(
-      container.querySelector('button[aria-label="Clear Selection"]')!
+      container.querySelector('button[aria-label="Reset Datepicker"]')!
     );
 
     await waitFor(() => {
@@ -596,7 +672,7 @@ describe('DatePicker', () => {
       keyCode: 9,
     });
     await waitFor(() => {
-      expect(getByLabelText('previous day')).toHaveFocus();
+      expect(getByLabelText('Show previous month')).toHaveFocus();
     });
   });
 
@@ -615,7 +691,7 @@ describe('DatePicker', () => {
       expect(container.querySelector('.dropdown-menu.show')).toBeInTheDocument()
     );
 
-    fireEvent.keyDown(getByLabelText('previous day'), {
+    fireEvent.keyDown(getByLabelText('Show previous month'), {
       key: 'Tab',
       code: 'Tab',
       keyCode: 9,
@@ -646,7 +722,7 @@ describe('DatePicker', () => {
       keyCode: 9,
     });
     await waitFor(() => {
-      expect(getByLabelText('next day')).toHaveFocus();
+      expect(getByLabelText('Show next month')).toHaveFocus();
     });
   });
 
@@ -661,7 +737,7 @@ describe('DatePicker', () => {
       expect(container.querySelector('.dropdown-menu.show')).toBeInTheDocument()
     );
 
-    fireEvent.keyDown(getByLabelText('next day'), {
+    fireEvent.keyDown(getByLabelText('Show next month'), {
       key: 'Tab',
       code: 'Tab',
       keyCode: 9,
@@ -687,7 +763,7 @@ describe('DatePicker', () => {
       shiftKey: true,
     });
     await waitFor(() => {
-      expect(getByLabelText('next day')).toHaveFocus();
+      expect(getByLabelText('Show next month')).toHaveFocus();
     });
   });
 
@@ -706,7 +782,7 @@ describe('DatePicker', () => {
       expect(container.querySelector('.dropdown-menu.show')).toBeInTheDocument()
     );
 
-    fireEvent.keyDown(getByLabelText('next day'), {
+    fireEvent.keyDown(getByLabelText('Show next month'), {
       key: 'Tab',
       code: 'Tab',
       keyCode: 9,
@@ -739,7 +815,7 @@ describe('DatePicker', () => {
       shiftKey: true,
     });
     await waitFor(() => {
-      expect(getByLabelText('previous day')).toHaveFocus();
+      expect(getByLabelText('Show previous month')).toHaveFocus();
     });
   });
 
@@ -754,7 +830,7 @@ describe('DatePicker', () => {
       expect(container.querySelector('.dropdown-menu.show')).toBeInTheDocument()
     );
 
-    fireEvent.keyDown(getByLabelText('previous day'), {
+    fireEvent.keyDown(getByLabelText('Show previous month'), {
       key: 'Tab',
       code: 'Tab',
       keyCode: 9,
@@ -788,10 +864,10 @@ describe('DatePicker', () => {
       keyCode: 9,
     });
     await waitFor(() => {
-      expect(getByLabelText('previous day')).toHaveFocus();
+      expect(getByLabelText('Show previous month')).toHaveFocus();
     });
 
-    fireEvent.keyDown(getByLabelText('previous day'), {
+    fireEvent.keyDown(getByLabelText('Show previous month'), {
       key: 'Enter',
       code: 'Enter',
       keyCode: 13,
@@ -827,10 +903,10 @@ describe('DatePicker', () => {
       keyCode: 9,
     });
     await waitFor(() => {
-      expect(getByLabelText('previous day')).toHaveFocus();
+      expect(getByLabelText('Show previous month')).toHaveFocus();
     });
 
-    fireEvent.keyDown(getByLabelText('previous day'), {
+    fireEvent.keyDown(getByLabelText('Show previous month'), {
       key: 'Enter',
       code: 'Enter',
       keyCode: 13,
@@ -842,7 +918,7 @@ describe('DatePicker', () => {
       expect(getByText(`${newMonth} ${newYear}`)).toBeInTheDocument();
     });
 
-    fireEvent.keyDown(getByLabelText('previous day'), {
+    fireEvent.keyDown(getByLabelText('Show previous month'), {
       key: 'Tab',
       code: 'Tab',
       keyCode: 9,
@@ -852,7 +928,7 @@ describe('DatePicker', () => {
       code: 'Tab',
       keyCode: 9,
     });
-    fireEvent.keyDown(getByLabelText('next day'), {
+    fireEvent.keyDown(getByLabelText('Show next month'), {
       key: 'Tab',
       code: 'Tab',
       keyCode: 9,
@@ -886,10 +962,10 @@ describe('DatePicker', () => {
       shiftKey: true,
     });
     await waitFor(() => {
-      expect(getByLabelText('next day')).toHaveFocus();
+      expect(getByLabelText('Show next month')).toHaveFocus();
     });
 
-    fireEvent.keyDown(getByLabelText('next day'), {
+    fireEvent.keyDown(getByLabelText('Show next month'), {
       key: 'Enter',
       code: 'Enter',
       keyCode: 13,
@@ -928,10 +1004,10 @@ describe('DatePicker', () => {
       shiftKey: true,
     });
     await waitFor(() => {
-      expect(getByLabelText('next day')).toHaveFocus();
+      expect(getByLabelText('Show next month')).toHaveFocus();
     });
 
-    fireEvent.keyDown(getByLabelText('next day'), {
+    fireEvent.keyDown(getByLabelText('Show next month'), {
       key: 'Enter',
       code: 'Enter',
       keyCode: 13,
@@ -943,7 +1019,7 @@ describe('DatePicker', () => {
       expect(getByText(`${newMonth} ${newYear}`)).toBeInTheDocument();
     });
 
-    fireEvent.keyDown(getByLabelText('next day'), {
+    fireEvent.keyDown(getByLabelText('Show next month'), {
       key: 'Tab',
       code: 'Tab',
       keyCode: 9,
@@ -976,7 +1052,7 @@ describe('DatePicker', () => {
       code: 'Tab',
       keyCode: 9,
     });
-    fireEvent.keyDown(getByLabelText('previous day'), {
+    fireEvent.keyDown(getByLabelText('Show previous month'), {
       key: 'Tab',
       code: 'Tab',
       keyCode: 9,
@@ -1246,7 +1322,7 @@ describe('DatePicker', () => {
       keyCode: 9,
     });
     await waitFor(() => {
-      expect(getByLabelText('previous month')).toHaveFocus();
+      expect(getByLabelText('Show previous year')).toHaveFocus();
     });
   });
 
@@ -1284,7 +1360,7 @@ describe('DatePicker', () => {
       ).toEqual(`${displayMonthShort}`);
     });
 
-    fireEvent.keyDown(getByLabelText('previous month'), {
+    fireEvent.keyDown(getByLabelText('Show previous year'), {
       key: 'Tab',
       code: 'Tab',
       keyCode: 9,
@@ -1334,7 +1410,7 @@ describe('DatePicker', () => {
       keyCode: 9,
     });
     await waitFor(() => {
-      expect(getByLabelText('next month')).toHaveFocus();
+      expect(getByLabelText('Show next year')).toHaveFocus();
     });
   });
 
@@ -1372,7 +1448,7 @@ describe('DatePicker', () => {
       ).toEqual(`${displayMonthShort}`);
     });
 
-    fireEvent.keyDown(getByLabelText('next month'), {
+    fireEvent.keyDown(getByLabelText('Show next year'), {
       key: 'Tab',
       code: 'Tab',
       keyCode: 9,
@@ -1611,7 +1687,7 @@ describe('DatePicker', () => {
       code: 'Tab',
       keyCode: 9,
     });
-    fireEvent.keyDown(getByLabelText('previous day'), {
+    fireEvent.keyDown(getByLabelText('Show previous month'), {
       key: 'Tab',
       code: 'Tab',
       keyCode: 9,
@@ -1641,7 +1717,7 @@ describe('DatePicker', () => {
       code: 'Tab',
       keyCode: 9,
     });
-    fireEvent.keyDown(getByLabelText('previous month'), {
+    fireEvent.keyDown(getByLabelText('Show previous year'), {
       key: 'Tab',
       code: 'Tab',
       keyCode: 9,
@@ -1713,7 +1789,7 @@ describe('DatePicker', () => {
       keyCode: 9,
     });
     await waitFor(() => {
-      expect(getByLabelText('previous year')).toHaveFocus();
+      expect(getByLabelText('Show previous 12 years')).toHaveFocus();
     });
   });
 
@@ -1755,7 +1831,7 @@ describe('DatePicker', () => {
       ).toEqual(`${displayYear}`);
     });
 
-    fireEvent.keyDown(getByLabelText('previous year'), {
+    fireEvent.keyDown(getByLabelText('Show previous 12 years'), {
       key: 'Tab',
       code: 'Tab',
       keyCode: 9,
@@ -1809,7 +1885,7 @@ describe('DatePicker', () => {
       keyCode: 9,
     });
     await waitFor(() => {
-      expect(getByLabelText('next year')).toHaveFocus();
+      expect(getByLabelText('Show next 12 years')).toHaveFocus();
     });
   });
 
@@ -1877,6 +1953,20 @@ describe('DatePicker', () => {
     await waitFor(() => {
       expect(getByText('Please enter a valid date')).toBeInTheDocument();
     });
+  });
+  it('when a date is typed into input, it updates the calendar view', async () => {
+    const displayDate = new Date(2024, 3, 12);
+    const { container, getByText } = render(
+      <DatePicker displayDate={displayDate} />
+    );
+    const input = container.querySelector('input')!;
+    const toggleButton = container.querySelector('.dropdown-toggle')!;
+    fireEvent.click(toggleButton);
+    await waitFor(() => expect(getByText('April 2024')).toBeInTheDocument());
+
+    fireEvent.change(input, { target: { value: '01012020' } });
+    fireEvent.click(toggleButton);
+    await waitFor(() => expect(getByText('January 2020')).toBeInTheDocument());
   });
 });
 
@@ -2134,5 +2224,119 @@ describe('Datepicker Range mode', () => {
         '01/01/2020 - 20/01/2020'
       )
     );
+  });
+});
+
+describe('Datepicker a11y', () => {
+  it("dialog's aria-label changes by view", async () => {
+    const { getByText, container } = render(
+      <DatePicker mode="range" displayDate={new Date('2020-01-01')} />
+    );
+    fireEvent.click(container.querySelector('button.dropdown-toggle')!);
+    await waitFor(() =>
+      expect(container.querySelector('.dropdown-menu.show')).toBeInTheDocument()
+    );
+
+    expect(
+      container.querySelector('div[role="dialog"]')?.getAttribute('aria-label')
+    ).toEqual('Choose date');
+    fireEvent.click(getByText('January 2020'));
+    await waitFor(() => {
+      expect(getByText('2020')).toBeInTheDocument();
+    });
+    expect(
+      container.querySelector('div[role="dialog"]')?.getAttribute('aria-label')
+    ).toEqual('Choose month');
+    fireEvent.click(getByText('2020'));
+    await waitFor(() => {
+      expect(
+        container.querySelector('button[aria-label="Show previous 12 years"]')
+      ).toBeInTheDocument();
+    });
+    expect(
+      container.querySelector('div[role="dialog"]')?.getAttribute('aria-label')
+    ).toEqual('Choose year');
+  });
+
+  it('datepicker focuses on input element when it calendar closes', async () => {
+    const { container, getByText } = render(
+      <DatePicker displayDate={new Date('2020-01-01')} />
+    );
+    fireEvent.click(container.querySelector('button.dropdown-toggle')!);
+    await waitFor(() =>
+      expect(container.querySelector('.dropdown-menu.show')).toBeInTheDocument()
+    );
+    fireEvent.click(getByText('2'));
+    await waitFor(() => {
+      expect(
+        container.querySelector('.dropdown-menu.show')
+      ).not.toBeInTheDocument();
+    });
+    expect(container.querySelector('input')).toHaveFocus();
+  });
+  it('when state is invalid, input aria-invalid=true, aria-describedby points to Feedback', async () => {
+    const { container, getByText } = render(<DatePicker />);
+
+    const input = container.querySelector('input')!;
+    expect(input.getAttribute('aria-describedby')).toEqual('');
+    expect(input.getAttribute('aria-invalid')).toEqual('false');
+    fireEvent.change(input, { target: { value: '01132024' } });
+    fireEvent.blur(input);
+    // Triggering invalid state
+    await waitFor(() => {
+      expect(getByText('Please enter a valid date')).toBeInTheDocument();
+    });
+    const feedbackId = getByText('Please enter a valid date').getAttribute(
+      'id'
+    );
+
+    expect(input.getAttribute('aria-invalid')).toEqual('true');
+    expect(input.getAttribute('aria-describedby')).toEqual(feedbackId);
+  });
+});
+
+describe('Datepicker reset button', () => {
+  it('resets calendar to day view and input when clear button is clicked', async () => {
+    const { container } = render(<DatePicker />);
+    const thisMonth = MONTH_LABELS[new Date().getMonth()];
+    const thisYear = new Date().getFullYear();
+    const calendarBtn = container.querySelector(
+      'button.dropdown-toggle'
+    ) as HTMLButtonElement;
+    const resetBtn = container.querySelector(
+      'button[aria-label="Reset Datepicker"]'
+    ) as HTMLButtonElement;
+    //Open calendar
+    fireEvent.click(calendarBtn);
+    await waitFor(() => {
+      expect(
+        container.querySelector('.dropdown-menu.datepicker.sgds.show')
+      ).toBeInTheDocument();
+    });
+    //navigate to month view
+    const headerBtn = container.querySelector(
+      'button[aria-live="polite"]'
+    ) as HTMLButtonElement;
+    expect(headerBtn.textContent).toEqual(`${thisMonth} ${thisYear}`);
+    fireEvent.click(headerBtn);
+    await waitFor(() =>
+      expect(headerBtn?.textContent).toEqual(thisYear.toString())
+    );
+    // clicking reset button
+    fireEvent.click(resetBtn);
+    await waitFor(() =>
+      expect(headerBtn?.textContent).toEqual(`${thisMonth} ${thisYear}`)
+    );
+  });
+  it('resets input to dd/mm/yyyy when button is clicked ', async () => {
+    const initialValue = new Date(2024, 3, 26);
+    const { container } = render(<DatePicker initialValue={initialValue} />);
+    const input = container.querySelector('input');
+    expect(input?.value).toEqual('26/04/2024');
+    const resetBtn = container.querySelector(
+      'button[aria-label="Reset Datepicker"]'
+    ) as HTMLButtonElement;
+    fireEvent.click(resetBtn);
+    expect(input?.value).toEqual('dd/mm/yyyy');
   });
 });

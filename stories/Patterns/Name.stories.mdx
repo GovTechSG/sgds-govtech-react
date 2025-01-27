@@ -1,0 +1,69 @@
+import { ArgsTable, Canvas, Meta, Story } from '@storybook/addon-docs';
+import { useState, useRef } from 'react';
+import { Form, Col } from '../../src/index';
+
+<Meta title="Patterns/Name" component={Form} />
+
+# Name
+
+Use this pattern when you need to ask users for their names.
+
+## General name field
+
+Follow this pattern when asking for a user’s name. Ask for names if required it for a service.
+
+export const NamePatternTemplate = () => {
+  return (
+    <Form>
+      <Form.Group as={Col} xs={6} className="mb-3" controlId="fullName">
+        <Form.Label>Full name as per NRIC</Form.Label>
+        <Form.Control
+          type="text"
+          autoComplete="name"
+          name="name"
+          spellCheck={false}
+          required
+        />
+      </Form.Group>
+    </Form>
+  );
+};
+
+<Canvas>
+  <Story name="General name">{NamePatternTemplate.bind({})}</Story>
+</Canvas>
+
+## Multiline name field
+
+Follow this pattern for given-name and family-name convention.
+
+export const MultilineNamePatternTemplate = () => {
+  return (
+    <Form>
+      <Form.Group as={Col} xs={6} className="mb-3" controlId="givenName">
+        <Form.Label>Given Name</Form.Label>
+        <Form.Control
+          type="text"
+          autoComplete="given-name"
+          name="given-name"
+          spellCheck={false}
+          required
+        />
+      </Form.Group>
+      <Form.Group as={Col} xs={6} className="mb-3" controlId="familyName">
+        <Form.Label>Family Name</Form.Label>
+        <Form.Control
+          type="text"
+          autoComplete="family-name"
+          name="family-name"
+          spellCheck={false}
+          required
+        />
+      </Form.Group>
+    </Form>
+  );
+};
+
+<Canvas>
+  <Story name="Multiline name">{MultilineNamePatternTemplate.bind({})}</Story>
+</Canvas>

@@ -19,6 +19,8 @@ export interface BadgeProps
   textIndicator?: boolean;
   /**Controls badge position to the corner of a Component. Use with Component as a wrapper with `.position-relative `css */
   dotIndicator?: boolean;
+  /** Sets the badge to a outlined style badge */
+  outlined? : boolean;
 }
 
 const propTypes = {
@@ -49,19 +51,21 @@ const propTypes = {
   as: PropTypes.elementType,
   textIndicator: PropTypes.bool,
   dotIndicator: PropTypes.bool,
+  outlined: PropTypes.bool
 };
 
 const defaultProps = {
   bg: 'primary',
   pill: false,
   textIndicator: false,
-  dotIndicator: false
+  dotIndicator: false,
+  outlined: false
 };
 
 export const Badge: BsPrefixRefForwardingComponent<'span', BadgeProps> =
   React.forwardRef<HTMLElement, BadgeProps>(
     (
-      { bsPrefix, bg, pill, text, className, textIndicator, dotIndicator, as: Component = 'span', ...props },
+      { bsPrefix, bg, pill, text, className, textIndicator, dotIndicator, outlined, as: Component = 'span', ...props },
       ref,
     ) => {
       const prefix = useBootstrapPrefix(bsPrefix, 'badge');
@@ -77,7 +81,8 @@ export const Badge: BsPrefixRefForwardingComponent<'span', BadgeProps> =
             text && `text-${text}`,
             bg && `bg-${bg}`,
             (textIndicator || dotIndicator) && 'position-absolute top-0 start-100 translate-middle',
-            dotIndicator && 'p-2 border border-light rounded-circle'
+            dotIndicator && 'p-2 border border-light rounded-circle',
+            outlined && "badge-light"
           )}
         >
           {dotIndicator && <span className='visually-hidden'>New alerts</span> }

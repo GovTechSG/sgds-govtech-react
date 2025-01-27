@@ -247,21 +247,29 @@ describe('<SideNav>', () => {
   });
 });
 
-const Component = () => {
-  const [activeKey, setActiveKey] = useState('1');
+interface ComponentProps{
+  alwaysOpen: boolean;
+  initialActiveKey: string | string[]
+}
+const Component = ({alwaysOpen, initialActiveKey}: ComponentProps) => {
+  const [activeKey, setActiveKey] = useState(initialActiveKey);
   const [activeLinkKey, setActiveLinkKey] = useState('two-1');
   const clickLink = (key: string) => {
     setActiveLinkKey(key);
   };
   const clickButton = (key: string) => {
-    activeKey === key ? setActiveKey('') : setActiveKey(key);
+    if(Array.isArray(initialActiveKey)){
+      !initialActiveKey.includes(key) ? initialActiveKey.push(key) : null
+    } else {
+      activeKey === key ? setActiveKey('') : setActiveKey(key);
+    }
   };
   const clickButtonLink = (key: string) => {
     setActiveLinkKey('');
     clickButton(key);
   };
   return (
-    <SideNav activeNavLinkKey={activeLinkKey} activeKey={activeKey}>
+    <SideNav activeNavLinkKey={activeLinkKey} activeKey={activeKey} alwaysOpen={alwaysOpen} defaultActiveKey={initialActiveKey}>
       <SideNav.Item eventKey="0">
         <SideNav.Button onClick={() => clickButton('0')}>
           SideNav Item #1
@@ -321,7 +329,7 @@ const Component = () => {
 
 describe('SideNav behaviour when there are active SideNavLink', () => {
   it('on first load, second navitem should be expanded', async () => {
-    const { container, getByText } = render(<Component />);
+    const { container, getByText } = render(<Component  alwaysOpen={false}  initialActiveKey="1"/>);
     // second nav item is open and first nav item is closed
     expect(container.querySelectorAll('.show').length).toEqual(1);
     expect(container.querySelectorAll('.btn')[1].classList).not.toContain(
@@ -355,3 +363,59 @@ describe('SideNav behaviour when there are active SideNavLink', () => {
     );
   });
 });
+
+describe('Active style added to Sidenav when ', () => {
+  it("on click on sidenav button in normal mode", async() => {
+    const { container, getByText } = render(<Component alwaysOpen={false} initialActiveKey="1"/>);
+
+    expect(container.querySelectorAll('.btn')[1].classList).toContain(
+      'active'
+    );
+    expect(container.querySelectorAll('.btn')[0].classList).not.toContain(
+      'active'
+    );
+    expect(container.querySelectorAll('.btn')[2].classList).not.toContain(
+      'active'
+    );
+
+    fireEvent.click(getByText('SideNav Item #1'));
+    await waitFor(() => {
+      expect(container.querySelectorAll('.btn')[0].classList).toContain(
+        'active'
+      );
+      expect(container.querySelectorAll('.btn')[1].classList).not.toContain(
+        'active'
+      );
+      expect(container.querySelectorAll('.btn')[2].classList).not.toContain(
+        'active'
+      );
+    });
+  })
+  it("on click on sidenav button in alwaysOpen mode", async() => {
+    const { container } = render(<Component alwaysOpen={true} initialActiveKey={["0", "1"]}/>);
+
+    expect(container.querySelectorAll('.btn')[1].classList).toContain(
+      'active'
+    );
+    expect(container.querySelectorAll('.btn')[0].classList).toContain(
+      'active'
+    );
+    expect(container.querySelectorAll('.btn')[2].classList).not.toContain(
+      'active'
+    );
+
+    // fireEvent.click(getByText('SideNav Item #1'));
+    // await waitFor(() => {
+    //   expect(container.querySelectorAll('.btn')[0].classList).toContain(
+    //     'active'
+    //   );
+    //   expect(container.querySelectorAll('.btn')[1].classList).toContain(
+    //     'active'
+    //   );
+    //   expect(container.querySelectorAll('.btn')[2].classList).not.toContain(
+    //     'active'
+    //   );
+    // });
+  })
+
+})

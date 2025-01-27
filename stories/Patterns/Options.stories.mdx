@@ -1,0 +1,65 @@
+import { ArgsTable, Canvas, Meta, Story } from '@storybook/addon-docs';
+import { useState, useRef } from 'react';
+import {
+  Form,
+  FormCheck,
+} from '../../src/index';
+
+<Meta title="Patterns/Multiple Options" component={Form} />
+
+# Multiple Options
+
+You should follow this pattern by using `<fieldset>` and `<legend>`. This will ensure that assistive technologies — such as screen readers — will announce the related question when reading out the options.
+
+## Multiple checkboxes
+
+export const MultipleCheckboxesTemplate = (args) => {
+  return (
+    <Form>
+      <fieldset>
+        <Form.Label as="legend" className="h5 mb-2">
+          How do you know about us?
+        </Form.Label>
+        <FormCheck id="friends" label="Friends" />
+        <FormCheck id="newsletter" label="Newsletter" />
+      </fieldset>
+    </Form>
+  );
+};
+
+<Canvas>
+  <Story name="Multiple Checkboxes">
+    {MultipleCheckboxesTemplate.bind({})}
+  </Story>
+</Canvas>
+
+## Multiple Radio Buttons
+
+export const MultipleRadioTemplate = (args) => {
+  return (
+    <Form>
+      <fieldset>
+        <Form.Label as="legend" className="h5 mb-2">
+          How do you know about us?
+        </Form.Label>
+        <FormCheck
+          id="friends-radio"
+          name="survey"
+          label="Friends"
+          type="radio"
+        />
+        <FormCheck
+          id="newsletter-radio"
+          name="survey"
+          label="Newsletter"
+          type="radio"
+        />
+      </fieldset>
+    </Form>
+  );
+};
+
+<Canvas>
+  <Story name="Multiple Radio Buttons">{MultipleRadioTemplate.bind({})}</Story>
+</Canvas>
+

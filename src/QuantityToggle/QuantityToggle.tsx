@@ -63,8 +63,7 @@ export const QuantityToggle: BsPrefixRefForwardingComponent<
       setCount((prevCount) => prevCount + step);
     };
     const onMinus = () => {
-      if (count < 1) setCount(0);
-      else setCount((prevCount) => prevCount - step);
+      setCount((prevCount) => (prevCount - step < 1 ? 0 : prevCount - step));
     };
     const onChangeInput = (e: React.ChangeEvent<FormControlElement>) => {
       const inputValue = e.target.value === '' ? 0 : parseInt(e.target.value);
@@ -94,6 +93,7 @@ export const QuantityToggle: BsPrefixRefForwardingComponent<
             onClick={onMinus}
             {...buttonProps}
             aria-label={`decrease by ${step}`}
+            disabled={count < 1}
           >
             <i className="bi bi-dash"></i>
           </Button>
