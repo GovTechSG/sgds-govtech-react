@@ -567,7 +567,10 @@ export const DatePicker: BsPrefixRefForwardingComponent<
     const enterDateRange = (event: React.ChangeEvent<HTMLInputElement>) => {
       const enteredDate = event.target.value;
 
-      if (enteredDate === `${dateFormat.toLowerCase()} - ${dateFormat.toLowerCase()}`) {
+      if (
+        enteredDate ===
+        `${dateFormat.toLowerCase()} - ${dateFormat.toLowerCase()}`
+      ) {
         return clear();
       }
 
@@ -586,7 +589,7 @@ export const DatePicker: BsPrefixRefForwardingComponent<
       const dateEndBeforeMaxDate = props.maxDate
         ? setTimeToNoon(dateEnd) <= setTimeToNoon(new Date(props.maxDate))
         : true;
-      
+
       if (
         isValidDate(start, dateFormat) &&
         isValidDate(end, dateFormat) &&
@@ -810,7 +813,7 @@ export const DatePicker: BsPrefixRefForwardingComponent<
             );
         }
       }
-    }, [props.initialValue, isRange, displayDate, dateFormat]);
+    }, [props.initialValue, isRange, dateFormat]);
 
     React.useEffect(() => {
       setDatepickerMenuId(generateId('datepicker', 'ul'));
@@ -840,7 +843,7 @@ export const DatePicker: BsPrefixRefForwardingComponent<
         const resetFocusedDate = getFocusedDate();
         updateFocusedDate(resetFocusedDate);
       }
-    }, [showCalendar, displayDate]);
+    }, [showCalendar]);
 
     const ariaLabelsForMenu = {
       day: 'Choose date',

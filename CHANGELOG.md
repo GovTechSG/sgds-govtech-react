@@ -1,3 +1,10 @@
+## v2.7.6 (2025-01-27)
+
+### Fix
+
+- **SideNav**: update check to verify selected sidebar item (#291)
+- **SideNav**: update check to verify selected sidebar item
+
 ## v2.7.5 (2025-01-16)
 
 ### Fix
