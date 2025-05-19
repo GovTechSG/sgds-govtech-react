@@ -65,7 +65,7 @@ describe('MonthView a11y', () => {
     const { getByText } = render(
       <MonthView
         onClickMonth={mockFn}
-        selectedDate={new Date(2024, 3, 11)}
+        selectedDate={selectedDate}
         displayDate={displayDate}
         show={true}
         onChangeMonth={mockOnChangeMonth}
@@ -73,8 +73,14 @@ describe('MonthView a11y', () => {
         monthRefs={monthRefs}
       />
     );
-    expect(getByText('Jan').getAttribute('aria-label')).toEqual(
-      `Current month, January ${selectedDate.getFullYear()}`
+    expect(
+      getByText(
+        selectedDate.toLocaleString('default', { month: 'long' })
+      ).getAttribute('aria-label')
+    ).toEqual(
+      `Current month, ${selectedDate.toLocaleString('default', {
+        month: 'long',
+      })} ${selectedDate.getFullYear()}`
     );
   });
   it('selected month should have aria-selected=true, mode=single', () => {
@@ -119,7 +125,7 @@ describe('MonthView a11y', () => {
       );
     }
   });
-  it("current month should be indicated in aria-label" , () => {
+  it('current month should be indicated in aria-label', () => {
     const { getByText } = render(
       <MonthView
         onClickMonth={mockFn}
@@ -131,10 +137,10 @@ describe('MonthView a11y', () => {
         monthRefs={monthRefs}
       />
     );
-    const currentMonth = new Date().getMonth()
-    const currentMonthName = MONTH_LABELS[currentMonth].slice(0,3)
+    const currentMonth = new Date().getMonth();
+    const currentMonthName = MONTH_LABELS[currentMonth].slice(0, 3);
     expect(getByText(currentMonthName).getAttribute('aria-label')).toContain(
-      "Current month"
+      'Current month'
     );
-  })
+  });
 });

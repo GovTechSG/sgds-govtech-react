@@ -12,6 +12,7 @@
   "dependencies": {
     "@govtechsg/sgds": "^2.3.6",
     "@govtechsg/sgds-react": "file:../../../dist",
+    "bootstrap-icons": "^1.12.1",
     "react": "^19.0.0",
     "react-bootstrap": "^2.10.7",
     "react-dom": "^19.0.0"

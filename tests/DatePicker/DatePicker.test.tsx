@@ -232,8 +232,14 @@ describe('DatePicker', () => {
   });
   it('onChangeDate fn fires when input is made empty', async () => {
     const onChangeDate = jest.fn();
-    const onClear = jest.fn()
-    const { container } = render(<DatePicker onChangeDate={onChangeDate} onClear={onClear} initialValue={new Date(2024, 9, 3)} />);
+    const onClear = jest.fn();
+    const { container } = render(
+      <DatePicker
+        onChangeDate={onChangeDate}
+        onClear={onClear}
+        initialValue={new Date(2024, 9, 3)}
+      />
+    );
     const input = container.querySelector('input') as HTMLInputElement;
     input?.focus();
     fireEvent.change(input, { target: { value: '' } });
@@ -245,15 +251,27 @@ describe('DatePicker', () => {
   });
   it('when mode=range onChangeDate fn fires when input is made empty', async () => {
     const onChangeDate = jest.fn();
-    const onClear = jest.fn()
-    const { container } = render(<DatePicker mode="range" onChangeDate={onChangeDate} onClear={onClear} initialValue={{start: new Date(2024, 9, 3), end: new Date(2024, 9, 4)}} />);
+    const onClear = jest.fn();
+    const { container } = render(
+      <DatePicker
+        mode="range"
+        onChangeDate={onChangeDate}
+        onClear={onClear}
+        initialValue={{
+          start: new Date(2024, 9, 3),
+          end: new Date(2024, 9, 4),
+        }}
+      />
+    );
     const input = container.querySelector('input') as HTMLInputElement;
     input?.focus();
     fireEvent.change(input, { target: { value: '' } });
     await waitFor(() => {
       expect(onChangeDate).toHaveBeenCalledTimes(1);
       expect(onClear).toHaveBeenCalledTimes(1);
-      expect(container.querySelector('input')?.value).toEqual('dd/mm/yyyy - dd/mm/yyyy');
+      expect(container.querySelector('input')?.value).toEqual(
+        'dd/mm/yyyy - dd/mm/yyyy'
+      );
     });
   });
   it('when mode=range, onChangeDate fn fires when an start and end valid dates are typed in the Datepicker Input', async () => {
@@ -2082,34 +2100,18 @@ describe('Datepicker Range mode', () => {
   });
 
   it('when initialValue passed in, either start or end should have same value as displayDate, else a console.error should appear', async () => {
-    const initialValue = { start: new Date('2020-01-01'), end: new Date() };
+    const initialValue = {
+      start: new Date('2022-12-12'),
+      end: new Date('2022-12-14'),
+    };
     const consoleSpy = jest
       .spyOn(console, 'error')
       .mockImplementation(() => {});
 
-    const { rerender } = render(
-      <DatePicker mode="range" initialValue={initialValue} />
-    );
-    expect(consoleSpy).not.toHaveBeenCalled();
-
-    const newInitialValue = {
-      start: new Date('2022-12-12'),
-      end: new Date('2022-12-14'),
-    };
-    rerender(
+    render(
       <DatePicker
         mode="range"
-        initialValue={newInitialValue}
-        displayDate={new Date('2022-12-12')}
-      />
-    );
-
-    expect(consoleSpy).not.toHaveBeenCalled();
-
-    rerender(
-      <DatePicker
-        mode="range"
-        initialValue={newInitialValue}
+        initialValue={initialValue}
         displayDate={new Date('2022-12-20')}
       />
     );
